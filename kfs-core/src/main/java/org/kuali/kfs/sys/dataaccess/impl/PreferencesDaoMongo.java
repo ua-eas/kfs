@@ -1,3 +1,21 @@
+/*
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.kuali.kfs.sys.dataaccess.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,7 +29,6 @@ import org.springframework.data.mongodb.core.index.IndexInfo;
 import org.springframework.data.mongodb.core.query.BasicQuery;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -74,7 +91,7 @@ public class PreferencesDaoMongo implements PreferencesDao {
 
         institutionPreferences.put(PRINCIPAL_NAME_KEY, principalName);
         institutionPreferences.put(DATE_KEY, new Date());
-        institutionPreferences.put(CACHED_KEY,true);
+        institutionPreferences.put(CACHED_KEY, true);
         institutionPreferences.remove("_id");
 
         mongoTemplate.remove(getPrincipalNameQuery(principalName), INSTITUTION_PREFERENCES_CACHE);
@@ -96,14 +113,14 @@ public class PreferencesDaoMongo implements PreferencesDao {
         // Spring doesn't retrieve all index options so we need to save/get it using another way
         // rather than looking at the index itself.
         List<CacheLength> lengths = mongoTemplate.findAll(CacheLength.class, INSTITUTION_PREFERENCES_CACHE_LENGTH);
-        if ( lengths.size() > 0 ) {
+        if (lengths.size() > 0) {
             return lengths.get(0).expireSeconds;
         }
         return 0;
     }
 
     private void dropCacheLengthObject() {
-        mongoTemplate.remove(getCacheLengthQuery(),INSTITUTION_PREFERENCES_CACHE_LENGTH);
+        mongoTemplate.remove(getCacheLengthQuery(), INSTITUTION_PREFERENCES_CACHE_LENGTH);
     }
 
     private BasicQuery getCacheLengthQuery() {
@@ -112,13 +129,13 @@ public class PreferencesDaoMongo implements PreferencesDao {
 
     private void dropIndexIfExists(String indexName) {
         List<IndexInfo> indexes = mongoTemplate.indexOps(INSTITUTION_PREFERENCES_CACHE).getIndexInfo();
-        if ( indexes.stream().anyMatch(i -> i.getName().equals(indexName)) ) {
+        if (indexes.stream().anyMatch(i -> i.getName().equals(indexName))) {
             mongoTemplate.indexOps(INSTITUTION_PREFERENCES_CACHE).dropIndex(indexName);
         }
         dropCacheLengthObject();
     }
 
-    private void createExpireIndex(String indexName,int seconds) {
+    private void createExpireIndex(String indexName, int seconds) {
         IndexDefinition expireIndex = new IndexDefinition() {
             @Override
             public DBObject getIndexKeys() {
@@ -127,8 +144,8 @@ public class PreferencesDaoMongo implements PreferencesDao {
 
             @Override
             public DBObject getIndexOptions() {
-                BasicDBObject b = new BasicDBObject("expireAfterSeconds",seconds);
-                b.put("name",indexName);
+                BasicDBObject b = new BasicDBObject("expireAfterSeconds", seconds);
+                b.put("name", indexName);
                 return b;
             }
         };
@@ -139,7 +156,7 @@ public class PreferencesDaoMongo implements PreferencesDao {
         // rather than looking at the index itself.
         CacheLength cl = new CacheLength();
         cl.expireSeconds = seconds;
-        mongoTemplate.save(cl,INSTITUTION_PREFERENCES_CACHE_LENGTH);
+        mongoTemplate.save(cl, INSTITUTION_PREFERENCES_CACHE_LENGTH);
     }
 
     @Override
@@ -152,7 +169,7 @@ public class PreferencesDaoMongo implements PreferencesDao {
             Map<String, Object> doc = documents.get(0);
 
             // Pull out the preferences object from this and return it
-            return (Map<String, Object>)doc.get(PREFERENCES_KEY);
+            return (Map<String, Object>) doc.get(PREFERENCES_KEY);
         }
 
         return null;
@@ -166,7 +183,7 @@ public class PreferencesDaoMongo implements PreferencesDao {
             ObjectMapper mapper = new ObjectMapper();
             saveUserPreferences(principalName, (Map<String, Object>) mapper.readValue(preferences, Map.class));
         } catch (IOException e) {
-            LOG.error("saveUserPreferences() Error parsing json",e);
+            LOG.error("saveUserPreferences() Error parsing json", e);
             throw new RuntimeException("Error parsing json");
         }
 
@@ -177,7 +194,7 @@ public class PreferencesDaoMongo implements PreferencesDao {
         LOG.debug("saveUserPreferences(String, Map) started");
 
         Map<String, Object> doc = new ConcurrentHashMap<>();
-        doc.put(PRINCIPAL_NAME_KEY,principalName);
+        doc.put(PRINCIPAL_NAME_KEY, principalName);
         doc.put(PREFERENCES_KEY, preferences);
 
         // Delete existing document if any

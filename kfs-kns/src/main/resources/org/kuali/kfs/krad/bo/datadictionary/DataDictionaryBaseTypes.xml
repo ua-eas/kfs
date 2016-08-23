@@ -1,321 +1,335 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-	<bean id="WorkflowProperties" class="org.kuali.kfs.krad.datadictionary.WorkflowProperties"
-		abstract="true" />
+    <bean id="WorkflowProperties" class="org.kuali.kfs.krad.datadictionary.WorkflowProperties"
+          abstract="true"/>
 
-	<bean id="ReferenceDefinition" class="org.kuali.kfs.krad.datadictionary.ReferenceDefinition"
-		abstract="true" />
+    <bean id="ReferenceDefinition" class="org.kuali.kfs.krad.datadictionary.ReferenceDefinition"
+          abstract="true"/>
 
-	<bean id="HelpDefinition" class="org.kuali.kfs.krad.datadictionary.HelpDefinition"
-		abstract="true" />
+    <bean id="HelpDefinition" class="org.kuali.kfs.krad.datadictionary.HelpDefinition"
+          abstract="true"/>
 
-	<bean id="uifTransactionalDocumentEntry"
-		class="org.kuali.kfs.krad.datadictionary.TransactionalDocumentEntry"
-		abstract="true" />
+    <bean id="uifTransactionalDocumentEntry"
+          class="org.kuali.kfs.krad.datadictionary.TransactionalDocumentEntry"
+          abstract="true"/>
 
-	<bean id="SupportAttributeDefinition"
-		class="org.kuali.kfs.krad.datadictionary.SupportAttributeDefinition"
-		abstract="true" />
+    <bean id="SupportAttributeDefinition"
+          class="org.kuali.kfs.krad.datadictionary.SupportAttributeDefinition"
+          abstract="true"/>
 
-	<bean id="WorkflowProperty" class="org.kuali.kfs.krad.datadictionary.WorkflowProperty"
-		abstract="true" />
+    <bean id="WorkflowProperty" class="org.kuali.kfs.krad.datadictionary.WorkflowProperty"
+          abstract="true"/>
 
-	<bean id="AttributeDefinition" class="org.kuali.kfs.krad.datadictionary.AttributeDefinition"
-		abstract="true" />
+    <bean id="AttributeDefinition" class="org.kuali.kfs.krad.datadictionary.AttributeDefinition"
+          abstract="true"/>
 
-	<bean id="ComplexAttributeDefinition" class="org.kuali.kfs.krad.datadictionary.ComplexAttributeDefinition"
-		abstract="true" />
+    <bean id="ComplexAttributeDefinition" class="org.kuali.kfs.krad.datadictionary.ComplexAttributeDefinition"
+          abstract="true"/>
 
-	<bean id="WorkflowPropertyGroup" class="org.kuali.kfs.krad.datadictionary.WorkflowPropertyGroup"
-		abstract="true" />
+    <bean id="WorkflowPropertyGroup" class="org.kuali.kfs.krad.datadictionary.WorkflowPropertyGroup"
+          abstract="true"/>
 
-	<bean id="PrimitiveAttributeDefinition"
-		class="org.kuali.kfs.krad.datadictionary.PrimitiveAttributeDefinition"
-		abstract="true" />
+    <bean id="PrimitiveAttributeDefinition"
+          class="org.kuali.kfs.krad.datadictionary.PrimitiveAttributeDefinition"
+          abstract="true"/>
 
-	<bean id="MaskFormatterSubString"
-		class="org.kuali.kfs.krad.datadictionary.mask.MaskFormatterSubString"
-		abstract="true" />
+    <bean id="MaskFormatterSubString"
+          class="org.kuali.kfs.krad.datadictionary.mask.MaskFormatterSubString"
+          abstract="true"/>
 
-	<bean id="SortDefinition" class="org.kuali.kfs.krad.datadictionary.SortDefinition"
-		abstract="true" />
+    <bean id="SortDefinition" class="org.kuali.kfs.krad.datadictionary.SortDefinition"
+          abstract="true"/>
 
-	<bean id="RelationshipDefinition"
-		class="org.kuali.kfs.krad.datadictionary.RelationshipDefinition"
-		abstract="true" />
+    <bean id="RelationshipDefinition"
+          class="org.kuali.kfs.krad.datadictionary.RelationshipDefinition"
+          abstract="true"/>
 
-	<bean id="uifBusinessObjectEntry" class="org.kuali.kfs.krad.datadictionary.BusinessObjectEntry"
-		abstract="true" />
+    <bean id="uifBusinessObjectEntry" class="org.kuali.kfs.krad.datadictionary.BusinessObjectEntry"
+          abstract="true"/>
 
-	<bean id="DataObjectEntry" class="org.kuali.kfs.krad.datadictionary.DataObjectEntry"
-		abstract="true" />
+    <bean id="DataObjectEntry" class="org.kuali.kfs.krad.datadictionary.DataObjectEntry"
+          abstract="true"/>
 
-	<bean id="Mask" class="org.kuali.kfs.krad.datadictionary.mask.Mask"
-		abstract="true" />
+    <bean id="Mask" class="org.kuali.kfs.krad.datadictionary.mask.Mask"
+          abstract="true"/>
 
-	<bean id="MaskFormatterLiteral"
-		class="org.kuali.kfs.krad.datadictionary.mask.MaskFormatterLiteral"
-		abstract="true" />
+    <bean id="MaskFormatterLiteral"
+          class="org.kuali.kfs.krad.datadictionary.mask.MaskFormatterLiteral"
+          abstract="true"/>
 
-	<bean id="CollectionDefinition" class="org.kuali.kfs.krad.datadictionary.CollectionDefinition"
-		abstract="true" />
+    <bean id="CollectionDefinition" class="org.kuali.kfs.krad.datadictionary.CollectionDefinition"
+          abstract="true"/>
 
-	<bean id="uifMaintenanceDocumentEntry" class="org.kuali.kfs.krad.datadictionary.MaintenanceDocumentEntry"
-		abstract="true">
+    <bean id="uifMaintenanceDocumentEntry" class="org.kuali.kfs.krad.datadictionary.MaintenanceDocumentEntry"
+          abstract="true">
         <property name="maintainableClass" value="org.kuali.kfs.krad.maintenance.MaintainableImpl"/>
         <property name="dataObjectClass" value="org.kuali.kfs.krad.maintenance.MaintenanceDocumentBase"/>
         <property name="businessRulesClass" value="org.kuali.kfs.krad.rules.MaintenanceDocumentRuleBase"/>
     </bean>
 
-	<bean id="InactivationBlockingDefinition"
-		class="org.kuali.kfs.krad.datadictionary.InactivationBlockingDefinition"
-		abstract="true" />
+    <bean id="InactivationBlockingDefinition"
+          class="org.kuali.kfs.krad.datadictionary.InactivationBlockingDefinition"
+          abstract="true"/>
 
-	<bean id="ExternalizableAttributeDefinitionProxy"
-		class="org.kuali.kfs.krad.datadictionary.ExternalizableAttributeDefinitionProxy"
-		abstract="true" />
+    <bean id="ExternalizableAttributeDefinitionProxy"
+          class="org.kuali.kfs.krad.datadictionary.ExternalizableAttributeDefinitionProxy"
+          abstract="true"/>
 
-	<bean id="AttributeSecurity" class="org.kuali.kfs.krad.datadictionary.AttributeSecurity"
-		abstract="true" />
+    <bean id="AttributeSecurity" class="org.kuali.kfs.krad.datadictionary.AttributeSecurity"
+          abstract="true"/>
 
-	<bean id="WorkflowAttributes" class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes"
-		abstract="true" />
+    <bean id="WorkflowAttributes" class="org.kuali.kfs.krad.datadictionary.WorkflowAttributes"
+          abstract="true"/>
 
-	<bean id="SearchingAttribute" class="org.kuali.kfs.krad.datadictionary.SearchingAttribute"
-		abstract="true" />
+    <bean id="SearchingAttribute" class="org.kuali.kfs.krad.datadictionary.SearchingAttribute"
+          abstract="true"/>
 
-	<bean id="RoutingAttribute" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute"
-		abstract="true" />
+    <bean id="RoutingAttribute" class="org.kuali.kfs.krad.datadictionary.RoutingAttribute"
+          abstract="true"/>
 
-	<bean id="SearchingTypeDefinition"
-		class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition"
-		abstract="true" />
+    <bean id="SearchingTypeDefinition"
+          class="org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition"
+          abstract="true"/>
 
-	<bean id="RoutingTypeDefinition" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition"
-		abstract="true" />
+    <bean id="RoutingTypeDefinition" class="org.kuali.kfs.krad.datadictionary.RoutingTypeDefinition"
+          abstract="true"/>
 
-	<bean id="DocumentValuePathGroup"
-		class="org.kuali.kfs.krad.datadictionary.DocumentValuePathGroup"
-		abstract="true" />
+    <bean id="DocumentValuePathGroup"
+          class="org.kuali.kfs.krad.datadictionary.DocumentValuePathGroup"
+          abstract="true"/>
 
-	<bean id="DocumentCollectionPath"
-		class="org.kuali.kfs.krad.datadictionary.DocumentCollectionPath"
-		abstract="true" />
-	
-	<bean id="DataDictionaryBeanOverride" class="org.kuali.kfs.krad.datadictionary.impl.BeanOverrideImpl" abstract="true">
-	  	<property name="beanName" value="" />
-	  	<property name="fieldOverrides">
-	  		<list />
-	  	</property>
-	</bean>
-  		
-	<bean id="FieldOverrideForValueReplace" class="org.kuali.kfs.krad.datadictionary.impl.FieldOverrideForValueReplaceImpl" abstract="true">
-		<property name="propertyName" value="" />
-		<property name="value" value="" />
-	</bean>  		
+    <bean id="DocumentCollectionPath"
+          class="org.kuali.kfs.krad.datadictionary.DocumentCollectionPath"
+          abstract="true"/>
 
-	<bean id="FieldOverrideForListElementDelete" class="org.kuali.kfs.krad.datadictionary.impl.FieldOverrideForListElementDeleteImpl" abstract="true">
-		<property name="propertyNameForElementCompare" value="name" />
-		<property name="propertyName" value="" />
-		<property name="element" value="" />
-	</bean>  		
+    <bean id="DataDictionaryBeanOverride" class="org.kuali.kfs.krad.datadictionary.impl.BeanOverrideImpl" abstract="true">
+        <property name="beanName" value=""/>
+        <property name="fieldOverrides">
+            <list/>
+        </property>
+    </bean>
 
-	<bean id="FieldOverrideForListElementInsert" class="org.kuali.kfs.krad.datadictionary.impl.FieldOverrideForListElementInsertImpl" abstract="true">
-		<property name="propertyNameForElementCompare" value="name" />
-		<property name="propertyName"><null /></property>
-		<property name="element"><null /></property>
-		<property name="insertAfter"><null /></property>
-		<property name="insertBefore"><null /></property>
-	</bean>  		
+    <bean id="FieldOverrideForValueReplace" class="org.kuali.kfs.krad.datadictionary.impl.FieldOverrideForValueReplaceImpl" abstract="true">
+        <property name="propertyName" value=""/>
+        <property name="value" value=""/>
+    </bean>
 
-	<bean id="FieldOverrideForListElementReplace" class="org.kuali.kfs.krad.datadictionary.impl.FieldOverrideForListElementReplaceImpl" abstract="true">
-		<property name="propertyNameForElementCompare" value="name" />
-		<property name="propertyName"><null /></property>
-		<property name="element"><null /></property>
-		<property name="replaceWith"><null /></property>
-	</bean> 
-	
-	<!--Constraints-->
-	<bean id="ValidCharactersConstraint" 
-		abstract="true" 
-		class="org.kuali.kfs.krad.datadictionary.validation.constraint.ValidCharactersConstraint" />
+    <bean id="FieldOverrideForListElementDelete" class="org.kuali.kfs.krad.datadictionary.impl.FieldOverrideForListElementDeleteImpl" abstract="true">
+        <property name="propertyNameForElementCompare" value="name"/>
+        <property name="propertyName" value=""/>
+        <property name="element" value=""/>
+    </bean>
+
+    <bean id="FieldOverrideForListElementInsert" class="org.kuali.kfs.krad.datadictionary.impl.FieldOverrideForListElementInsertImpl" abstract="true">
+        <property name="propertyNameForElementCompare" value="name"/>
+        <property name="propertyName">
+            <null/>
+        </property>
+        <property name="element">
+            <null/>
+        </property>
+        <property name="insertAfter">
+            <null/>
+        </property>
+        <property name="insertBefore">
+            <null/>
+        </property>
+    </bean>
+
+    <bean id="FieldOverrideForListElementReplace" class="org.kuali.kfs.krad.datadictionary.impl.FieldOverrideForListElementReplaceImpl" abstract="true">
+        <property name="propertyNameForElementCompare" value="name"/>
+        <property name="propertyName">
+            <null/>
+        </property>
+        <property name="element">
+            <null/>
+        </property>
+        <property name="replaceWith">
+            <null/>
+        </property>
+    </bean>
+
+    <!--Constraints-->
+    <bean id="ValidCharactersConstraint"
+          abstract="true"
+          class="org.kuali.kfs.krad.datadictionary.validation.constraint.ValidCharactersConstraint"/>
 
     <!-- Begin Character Level Constraints -->
 
-	<bean id="AlphaNumericPatternConstraint" 
-		abstract="true" 
-		class="org.kuali.kfs.krad.datadictionary.validation.constraint.AlphaNumericPatternConstraint" />
+    <bean id="AlphaNumericPatternConstraint"
+          abstract="true"
+          class="org.kuali.kfs.krad.datadictionary.validation.constraint.AlphaNumericPatternConstraint"/>
 
-    <bean id="AlphaPatternConstraint" 
-        abstract="true" 
-        class="org.kuali.kfs.krad.datadictionary.validation.constraint.AlphaPatternConstraint" />
+    <bean id="AlphaPatternConstraint"
+          abstract="true"
+          class="org.kuali.kfs.krad.datadictionary.validation.constraint.AlphaPatternConstraint"/>
 
-    <bean id="AnyCharacterPatternConstraint" 
-        abstract="true" 
-        class="org.kuali.kfs.krad.datadictionary.validation.constraint.AnyCharacterPatternConstraint" />
-  <bean id="UTF8AnyCharacterPatternConstraint"
-        abstract="true"
-        class="org.kuali.kfs.krad.datadictionary.validation.constraint.UTF8AnyCharacterPatternConstraint" />
-    <bean id="CharsetPatternConstraint" 
-        abstract="true" 
-        class="org.kuali.kfs.krad.datadictionary.validation.constraint.CharsetPatternConstraint" />
+    <bean id="AnyCharacterPatternConstraint"
+          abstract="true"
+          class="org.kuali.kfs.krad.datadictionary.validation.constraint.AnyCharacterPatternConstraint"/>
+    <bean id="UTF8AnyCharacterPatternConstraint"
+          abstract="true"
+          class="org.kuali.kfs.krad.datadictionary.validation.constraint.UTF8AnyCharacterPatternConstraint"/>
+    <bean id="CharsetPatternConstraint"
+          abstract="true"
+          class="org.kuali.kfs.krad.datadictionary.validation.constraint.CharsetPatternConstraint"/>
 
-    <bean id="NumericPatternConstraint" 
-        abstract="true" 
-        class="org.kuali.kfs.krad.datadictionary.validation.constraint.NumericPatternConstraint" />
-        
+    <bean id="NumericPatternConstraint"
+          abstract="true"
+          class="org.kuali.kfs.krad.datadictionary.validation.constraint.NumericPatternConstraint"/>
+
     <bean id="AlphaNumericWithBasicPunc" parent="AlphaNumericPatternConstraint"
-    	abstract="true" p:allowWhitespace="true" p:allowQuestionMark="true" p:allowExclaimation="true"
-    	p:allowPeriod="true" p:allowParenthesis="true" p:allowDoubleQuote="true" p:allowApostrophe="true"
-    	p:allowForwardSlash="true" p:allowDash="true" p:allowColon="true" p:allowSemiColon="true"/>
-   	
-   	<bean id="AlphaWithBasicPunc" parent="AlphaPatternConstraint"
-    	abstract="true" p:allowWhitespace="true" p:allowQuestionMark="true" p:allowExclaimation="true"
-    	p:allowPeriod="true" p:allowParenthesis="true" p:allowDoubleQuote="true" p:allowApostrophe="true"
-    	p:allowForwardSlash="true" p:allowDash="true" p:allowColon="true" p:allowSemiColon="true"/>
-   	
-   	<bean id="NumericWithOperators" parent="NumericPatternConstraint"
-    	abstract="true" p:allowWhitespace="true" p:allowAsterisk="true" p:allowPlus="true"
-    	p:allowPeriod="true" p:allowParenthesis="true" p:allowForwardSlash="true" p:allowDash="true" 
-    	p:allowEquals="true"/>
+          abstract="true" p:allowWhitespace="true" p:allowQuestionMark="true" p:allowExclaimation="true"
+          p:allowPeriod="true" p:allowParenthesis="true" p:allowDoubleQuote="true" p:allowApostrophe="true"
+          p:allowForwardSlash="true" p:allowDash="true" p:allowColon="true" p:allowSemiColon="true"/>
+
+    <bean id="AlphaWithBasicPunc" parent="AlphaPatternConstraint"
+          abstract="true" p:allowWhitespace="true" p:allowQuestionMark="true" p:allowExclaimation="true"
+          p:allowPeriod="true" p:allowParenthesis="true" p:allowDoubleQuote="true" p:allowApostrophe="true"
+          p:allowForwardSlash="true" p:allowDash="true" p:allowColon="true" p:allowSemiColon="true"/>
+
+    <bean id="NumericWithOperators" parent="NumericPatternConstraint"
+          abstract="true" p:allowWhitespace="true" p:allowAsterisk="true" p:allowPlus="true"
+          p:allowPeriod="true" p:allowParenthesis="true" p:allowForwardSlash="true" p:allowDash="true"
+          p:allowEquals="true"/>
 
     <!-- End Character Level Constraints -->
     <!-- Begin Field Level Constraints -->
 
-    <bean id="FixedPointPatternConstraint" 
-        abstract="true" 
-        class="org.kuali.kfs.krad.datadictionary.validation.constraint.FixedPointPatternConstraint"
-        p:labelKey="validation.fixedPoint"/>
-        
-    <bean id="IntegerPatternConstraint" 
-        abstract="true" 
-        class="org.kuali.kfs.krad.datadictionary.validation.constraint.IntegerPatternConstraint"
-        p:labelKey="validation.integer"/>
-        
-    <bean id="DatePatternConstraint" 
-        abstract="true" 
-        class="org.kuali.kfs.krad.datadictionary.validation.constraint.DatePatternConstraint"
-        p:labelKey="validation.date"/>
-    
+    <bean id="FixedPointPatternConstraint"
+          abstract="true"
+          class="org.kuali.kfs.krad.datadictionary.validation.constraint.FixedPointPatternConstraint"
+          p:labelKey="validation.fixedPoint"/>
+
+    <bean id="IntegerPatternConstraint"
+          abstract="true"
+          class="org.kuali.kfs.krad.datadictionary.validation.constraint.IntegerPatternConstraint"
+          p:labelKey="validation.integer"/>
+
+    <bean id="DatePatternConstraint"
+          abstract="true"
+          class="org.kuali.kfs.krad.datadictionary.validation.constraint.DatePatternConstraint"
+          p:labelKey="validation.date"/>
+
     <bean id="BasicDatePatternConstraint" parent="DatePatternConstraint"
-        abstract="true">
+          abstract="true">
         <property name="allowedFormats">
-        	<list>
-        		<value>MM/dd/yy</value>
-        		<value>MM/dd/yyyy</value>
-        		<value>MM-dd-yy</value>
-        		<value>MM-dd-yyyy</value>
-        	</list>
+            <list>
+                <value>MM/dd/yy</value>
+                <value>MM/dd/yyyy</value>
+                <value>MM-dd-yy</value>
+                <value>MM-dd-yyyy</value>
+            </list>
         </property>
     </bean>
 
-    <bean id="FloatingPointPatternConstraint" 
-        abstract="true" 
-        class="org.kuali.kfs.krad.datadictionary.validation.constraint.FloatingPointPatternConstraint"
-        p:labelKey="validation.floatingPoint" p:patternTypeKey="validationPatternRegex.floatingPoint"/>
+    <bean id="FloatingPointPatternConstraint"
+          abstract="true"
+          class="org.kuali.kfs.krad.datadictionary.validation.constraint.FloatingPointPatternConstraint"
+          p:labelKey="validation.floatingPoint" p:patternTypeKey="validationPatternRegex.floatingPoint"/>
 
-    <bean id="PhoneNumberPatternConstraint" 
-        abstract="true" 
-        class="org.kuali.kfs.krad.datadictionary.validation.constraint.ConfigurationBasedRegexPatternConstraint"
-        p:labelKey="validation.phoneNumber" p:patternTypeKey="validationPatternRegex.phoneNumber"/>
+    <bean id="PhoneNumberPatternConstraint"
+          abstract="true"
+          class="org.kuali.kfs.krad.datadictionary.validation.constraint.ConfigurationBasedRegexPatternConstraint"
+          p:labelKey="validation.phoneNumber" p:patternTypeKey="validationPatternRegex.phoneNumber"/>
 
     <bean id="TimePatternConstraint"
-        abstract="true"
-        class="org.kuali.kfs.krad.datadictionary.validation.constraint.ConfigurationBasedRegexPatternConstraint"
-        p:labelKey="validation.time12" p:patternTypeKey="validationPatternRegex.time12"/>
+          abstract="true"
+          class="org.kuali.kfs.krad.datadictionary.validation.constraint.ConfigurationBasedRegexPatternConstraint"
+          p:labelKey="validation.time12" p:patternTypeKey="validationPatternRegex.time12"/>
 
     <bean id="Time24HPatternConstraint"
-        abstract="true"
-        class="org.kuali.kfs.krad.datadictionary.validation.constraint.ConfigurationBasedRegexPatternConstraint"
-        p:labelKey="validation.time24" p:patternTypeKey="validationPatternRegex.time24"/>
+          abstract="true"
+          class="org.kuali.kfs.krad.datadictionary.validation.constraint.ConfigurationBasedRegexPatternConstraint"
+          p:labelKey="validation.time24" p:patternTypeKey="validationPatternRegex.time24"/>
 
     <bean id="UrlPatternConstraint"
-        abstract="true"
-        class="org.kuali.kfs.krad.datadictionary.validation.constraint.ConfigurationBasedRegexPatternConstraint"
-        p:labelKey="validation.url" p:patternTypeKey="validationPatternRegex.url"/>
-        
-    <bean id="NoWhitespacePatternConstraint" 
-        abstract="true" 
-        class="org.kuali.kfs.krad.datadictionary.validation.constraint.ConfigurationBasedRegexPatternConstraint"
-        p:labelKey="validation.noWhitespace" p:patternTypeKey="validationPatternRegex.noWhitespace"/>
+          abstract="true"
+          class="org.kuali.kfs.krad.datadictionary.validation.constraint.ConfigurationBasedRegexPatternConstraint"
+          p:labelKey="validation.url" p:patternTypeKey="validationPatternRegex.url"/>
 
-    <bean id="JavaClassPatternConstraint" 
-        abstract="true" 
-        class="org.kuali.kfs.krad.datadictionary.validation.constraint.ConfigurationBasedRegexPatternConstraint"
-        p:labelKey="validation.javaClass" p:patternTypeKey="validationPatternRegex.javaClass"/>
+    <bean id="NoWhitespacePatternConstraint"
+          abstract="true"
+          class="org.kuali.kfs.krad.datadictionary.validation.constraint.ConfigurationBasedRegexPatternConstraint"
+          p:labelKey="validation.noWhitespace" p:patternTypeKey="validationPatternRegex.noWhitespace"/>
 
-    <bean id="EmailAddressPatternConstraint" 
-        abstract="true" 
-        class="org.kuali.kfs.krad.datadictionary.validation.constraint.ConfigurationBasedRegexPatternConstraint"
-        p:labelKey="validation.emailAddress" p:patternTypeKey="validationPatternRegex.emailAddress"/>
+    <bean id="JavaClassPatternConstraint"
+          abstract="true"
+          class="org.kuali.kfs.krad.datadictionary.validation.constraint.ConfigurationBasedRegexPatternConstraint"
+          p:labelKey="validation.javaClass" p:patternTypeKey="validationPatternRegex.javaClass"/>
 
-    <bean id="TimestampPatternConstraint" 
-        abstract="true" 
-        class="org.kuali.kfs.krad.datadictionary.validation.constraint.ConfigurationBasedRegexPatternConstraint"
-        p:labelKey="validation.timestamp" p:patternTypeKey="validationPatternRegex.timestamp"/>
+    <bean id="EmailAddressPatternConstraint"
+          abstract="true"
+          class="org.kuali.kfs.krad.datadictionary.validation.constraint.ConfigurationBasedRegexPatternConstraint"
+          p:labelKey="validation.emailAddress" p:patternTypeKey="validationPatternRegex.emailAddress"/>
 
-    <bean id="YearPatternConstraint" 
-        abstract="true" 
-        class="org.kuali.kfs.krad.datadictionary.validation.constraint.ConfigurationBasedRegexPatternConstraint"
-        p:labelKey="validation.year" p:patternTypeKey="validationPatternRegex.year"  />
+    <bean id="TimestampPatternConstraint"
+          abstract="true"
+          class="org.kuali.kfs.krad.datadictionary.validation.constraint.ConfigurationBasedRegexPatternConstraint"
+          p:labelKey="validation.timestamp" p:patternTypeKey="validationPatternRegex.timestamp"/>
 
-    <bean id="MonthPatternConstraint" 
-        abstract="true" 
-        class="org.kuali.kfs.krad.datadictionary.validation.constraint.ConfigurationBasedRegexPatternConstraint"
-        p:labelKey="validation.month" p:patternTypeKey="validationPatternRegex.month"/>
+    <bean id="YearPatternConstraint"
+          abstract="true"
+          class="org.kuali.kfs.krad.datadictionary.validation.constraint.ConfigurationBasedRegexPatternConstraint"
+          p:labelKey="validation.year" p:patternTypeKey="validationPatternRegex.year"/>
 
-    <bean id="ZipcodePatternConstraint" 
-        abstract="true" 
-        class="org.kuali.kfs.krad.datadictionary.validation.constraint.ConfigurationBasedRegexPatternConstraint"
-        p:labelKey="validation.zipcode" p:patternTypeKey="validationPatternRegex.zipcode"/>
+    <bean id="MonthPatternConstraint"
+          abstract="true"
+          class="org.kuali.kfs.krad.datadictionary.validation.constraint.ConfigurationBasedRegexPatternConstraint"
+          p:labelKey="validation.month" p:patternTypeKey="validationPatternRegex.month"/>
+
+    <bean id="ZipcodePatternConstraint"
+          abstract="true"
+          class="org.kuali.kfs.krad.datadictionary.validation.constraint.ConfigurationBasedRegexPatternConstraint"
+          p:labelKey="validation.zipcode" p:patternTypeKey="validationPatternRegex.zipcode"/>
 
     <!-- End Field Level Constraints -->
 
-	<bean id="MustOccurConstraint" 
-		abstract="true" 
-		class="org.kuali.kfs.krad.datadictionary.validation.constraint.MustOccurConstraint" />
+    <bean id="MustOccurConstraint"
+          abstract="true"
+          class="org.kuali.kfs.krad.datadictionary.validation.constraint.MustOccurConstraint"/>
 
-	<bean id="CaseConstraint" 
-		abstract="true" 
-		class="org.kuali.kfs.krad.datadictionary.validation.constraint.CaseConstraint" />
+    <bean id="CaseConstraint"
+          abstract="true"
+          class="org.kuali.kfs.krad.datadictionary.validation.constraint.CaseConstraint"/>
 
-	<bean id="WhenConstraint" 
-		abstract="true" 
-		class="org.kuali.kfs.krad.datadictionary.validation.constraint.WhenConstraint" />
+    <bean id="WhenConstraint"
+          abstract="true"
+          class="org.kuali.kfs.krad.datadictionary.validation.constraint.WhenConstraint"/>
 
-	<bean id="PrerequisiteConstraint" 
-		abstract="true" 
-		class="org.kuali.kfs.krad.datadictionary.validation.constraint.PrerequisiteConstraint" />
-		
-	<bean id="SimpleConstraint" 
-		abstract="true" 
-		class="org.kuali.kfs.krad.datadictionary.validation.constraint.SimpleConstraint" />
-	
-	<bean id="RequiredConstraint" 
-		abstract="true"
-		parent="SimpleConstraint"
-		p:required="true"/>	 
-	
+    <bean id="PrerequisiteConstraint"
+          abstract="true"
+          class="org.kuali.kfs.krad.datadictionary.validation.constraint.PrerequisiteConstraint"/>
+
+    <bean id="SimpleConstraint"
+          abstract="true"
+          class="org.kuali.kfs.krad.datadictionary.validation.constraint.SimpleConstraint"/>
+
+    <bean id="RequiredConstraint"
+          abstract="true"
+          parent="SimpleConstraint"
+          p:required="true"/>
+
 </beans>
 

@@ -1,32 +1,25 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.batch.service.impl;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.lang.reflect.ParameterizedType;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.batch.dataaccess.LedgerEntryBalanceCachingDao;
 import org.kuali.kfs.gl.batch.service.BalancingService;
 import org.kuali.kfs.gl.batch.service.PosterService;
@@ -38,6 +31,10 @@ import org.kuali.kfs.gl.dataaccess.LedgerBalanceHistoryBalancingDao;
 import org.kuali.kfs.gl.dataaccess.LedgerBalancingDao;
 import org.kuali.kfs.gl.dataaccess.LedgerEntryBalancingDao;
 import org.kuali.kfs.gl.dataaccess.LedgerEntryHistoryBalancingDao;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.PersistenceStructureService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.Message;
@@ -45,12 +42,15 @@ import org.kuali.kfs.sys.service.ReportWriterService;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.PersistenceStructureService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.lang.reflect.ParameterizedType;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Base service implementation for BalancingService. Useful for generic implementation of common code between la`bor and GL
@@ -180,7 +180,7 @@ public abstract class BalancingServiceBaseImpl<T extends Entry, S extends Balanc
         reportWriterService.writeStatisticLine(kualiConfigurationService.getPropertyValueAsString(KFSKeyConstants.Balancing.REPORT_BALANCE_ROW_COUNT_PRODUCTION), this.getShortTableLabel((Balance.class).getSimpleName()), ledgerBalanceBalancingDao.findCountGreaterOrEqualThan(startUniversityFiscalYear));
 
         if (ObjectUtils.isNotNull(countCustomComparisionFailures)) {
-            for (Iterator<String> names = countCustomComparisionFailures.keySet().iterator(); names.hasNext();) {
+            for (Iterator<String> names = countCustomComparisionFailures.keySet().iterator(); names.hasNext(); ) {
                 String name = names.next();
                 int count = countCustomComparisionFailures.get(name);
 
@@ -206,7 +206,7 @@ public abstract class BalancingServiceBaseImpl<T extends Entry, S extends Balanc
      * Deletes data for the given fiscal year of entries from persistentClass.
      *
      * @param universityFiscalYear the given university fiscal year
-     * @param persistentClass table for which to delete the history
+     * @param persistentClass      table for which to delete the history
      */
     protected void deleteHistory(Integer universityFiscalYear, Class<? extends PersistableBusinessObjectBase> persistentClass) {
         Map<String, Object> fieldValues = new HashMap<String, Object>();
@@ -218,7 +218,7 @@ public abstract class BalancingServiceBaseImpl<T extends Entry, S extends Balanc
     /**
      * Gets count for given fiscal year of entries from persistentClass.
      *
-     * @param fiscalYear parameter may be null which will get count for all years
+     * @param fiscalYear      parameter may be null which will get count for all years
      * @param persistentClass table for which to get the count
      * @return count
      */
@@ -263,8 +263,7 @@ public abstract class BalancingServiceBaseImpl<T extends Entry, S extends Balanc
                     if (currentInputLine.equals(currentErrorLine)) {
                         // Skip it, it's in error. Increment to next error line
                         currentErrorLine = posterErrorBufferedReader.readLine();
-                    }
-                    else {
+                    } else {
                         // Line is good, parse it via delegation
                         OriginEntryInformation originEntry = this.getOriginEntry(currentInputLine, lineNumber);
 
@@ -273,8 +272,7 @@ public abstract class BalancingServiceBaseImpl<T extends Entry, S extends Balanc
                             this.updateEntryHistory(postMode, originEntry);
                             this.updateBalanceHistory(postMode, originEntry);
                             this.updateCustomHistory(postMode, originEntry);
-                        }
-                        else {
+                        } else {
                             // Outside of trackable FY range. Log as being a failed line
                             ignoredRecordsFound++;
                             reportWriterService.writeError(originEntry, new Message(kualiConfigurationService.getPropertyValueAsString(KFSKeyConstants.Balancing.MESSAGE_BATCH_BALANCING_RECORD_BEFORE_FISCAL_YEAR), Message.TYPE_WARNING, startUniversityFiscalYear));
@@ -289,8 +287,7 @@ public abstract class BalancingServiceBaseImpl<T extends Entry, S extends Balanc
             posterInputBufferedReader.close();
             posterErrorFileReader.close();
             posterErrorBufferedReader.close();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.fatal(String.format(kualiConfigurationService.getPropertyValueAsString(KFSKeyConstants.Balancing.ERROR_BATCH_BALANCING_UNKNOWN_FAILURE), e.getMessage(), lineNumber), e);
             reportWriterService.writeFormattedMessageLine(String.format(kualiConfigurationService.getPropertyValueAsString(KFSKeyConstants.Balancing.ERROR_BATCH_BALANCING_UNKNOWN_FAILURE), e.getMessage(), lineNumber));
             throw new RuntimeException(String.format(kualiConfigurationService.getPropertyValueAsString(KFSKeyConstants.Balancing.ERROR_BATCH_BALANCING_UNKNOWN_FAILURE), e.getMessage(), lineNumber), e);
@@ -304,11 +301,10 @@ public abstract class BalancingServiceBaseImpl<T extends Entry, S extends Balanc
     abstract protected Integer compareEntryHistory();
 
     /**
-     *
      * @return
      */
-    protected int getFiscalYear(){
-        return universityDateService.getCurrentFiscalYear()-getPastFiscalYearsToConsider();
+    protected int getFiscalYear() {
+        return universityDateService.getCurrentFiscalYear() - getPastFiscalYearsToConsider();
     }
 
 

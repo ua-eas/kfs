@@ -1,33 +1,33 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.batch.dataaccess.impl;
 
+import org.apache.log4j.Logger;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.businessobject.SystemOptions;
+import org.kuali.kfs.sys.businessobject.UniversityDate;
+
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.GregorianCalendar;
-
-import org.apache.log4j.Logger;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.businessobject.SystemOptions;
-import org.kuali.kfs.sys.businessobject.UniversityDate;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 
 /**
  * Performs custom fiscal year process for University Date records
@@ -75,7 +75,7 @@ public class UniversityDateFiscalYearMakerImpl extends FiscalYearMakerImpl {
                 LOG.error("Hit period 13 while creating university date records");
                 throw new RuntimeException("Hit period 13 while creating university date records");
             }
-            
+
             // create the university date record
             UniversityDate universityDate = new UniversityDate();
             universityDate.setUniversityFiscalYear(nextFiscalYear);
@@ -99,7 +99,7 @@ public class UniversityDateFiscalYearMakerImpl extends FiscalYearMakerImpl {
 
     /**
      * Removes all UniversityDate records for the given fiscal year
-     * 
+     *
      * @param requestYear year to delete records for
      */
     protected void deleteNewYearRows(Integer requestYear) {
@@ -110,7 +110,7 @@ public class UniversityDateFiscalYearMakerImpl extends FiscalYearMakerImpl {
 
     /**
      * Retrieves the system options record for the base fiscal year to determine the fiscal year start month
-     * 
+     *
      * @param baseFiscalYear fiscal year to retrieve options record for
      * @return int fiscal year start month (0 being Jan)
      */
@@ -139,7 +139,7 @@ public class UniversityDateFiscalYearMakerImpl extends FiscalYearMakerImpl {
 
     /**
      * Gets the businessObjectService attribute.
-     * 
+     *
      * @return Returns the businessObjectService.
      */
     protected BusinessObjectService getBusinessObjectService() {
@@ -148,7 +148,7 @@ public class UniversityDateFiscalYearMakerImpl extends FiscalYearMakerImpl {
 
     /**
      * Sets the businessObjectService attribute value.
-     * 
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {

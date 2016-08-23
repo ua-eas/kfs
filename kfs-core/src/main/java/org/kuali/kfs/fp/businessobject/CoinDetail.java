@@ -1,30 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.fp.businessobject;
 
-import java.util.LinkedHashMap;
-
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 /**
  * This class contains the coin breakdown for coin inserted into a cash drawer
@@ -491,56 +491,49 @@ public class CoinDetail extends PersistableBusinessObjectBase {
         if (detail.financialDocumentHundredCentAmount != null) {
             if (this.financialDocumentHundredCentAmount == null) {
                 this.financialDocumentHundredCentAmount = KualiDecimal.ZERO.add(detail.financialDocumentHundredCentAmount);
-            }
-            else {
+            } else {
                 this.financialDocumentHundredCentAmount = this.financialDocumentHundredCentAmount.add(detail.financialDocumentHundredCentAmount);
             }
         }
         if (detail.financialDocumentFiftyCentAmount != null) {
             if (this.financialDocumentFiftyCentAmount == null) {
                 this.financialDocumentFiftyCentAmount = KualiDecimal.ZERO.add(detail.financialDocumentFiftyCentAmount);
-            }
-            else {
+            } else {
                 this.financialDocumentFiftyCentAmount = this.financialDocumentFiftyCentAmount.add(detail.financialDocumentFiftyCentAmount);
             }
         }
         if (detail.financialDocumentTwentyFiveCentAmount != null) {
             if (this.financialDocumentTwentyFiveCentAmount == null) {
                 this.financialDocumentTwentyFiveCentAmount = KualiDecimal.ZERO.add(detail.financialDocumentTwentyFiveCentAmount);
-            }
-            else {
+            } else {
                 this.financialDocumentTwentyFiveCentAmount = this.financialDocumentTwentyFiveCentAmount.add(detail.financialDocumentTwentyFiveCentAmount);
             }
         }
         if (detail.financialDocumentTenCentAmount != null) {
             if (this.financialDocumentTenCentAmount == null) {
                 this.financialDocumentTenCentAmount = KualiDecimal.ZERO.add(detail.financialDocumentTenCentAmount);
-            }
-            else {
+            } else {
                 this.financialDocumentTenCentAmount = this.financialDocumentTenCentAmount.add(detail.financialDocumentTenCentAmount);
             }
         }
         if (detail.financialDocumentFiveCentAmount != null) {
             if (this.financialDocumentFiveCentAmount == null) {
                 this.financialDocumentFiveCentAmount = KualiDecimal.ZERO.add(detail.financialDocumentFiveCentAmount);
-            }
-            else {
+            } else {
                 this.financialDocumentFiveCentAmount = this.financialDocumentFiveCentAmount.add(detail.financialDocumentFiveCentAmount);
             }
         }
         if (detail.financialDocumentOneCentAmount != null) {
             if (this.financialDocumentOneCentAmount == null) {
                 this.financialDocumentOneCentAmount = KualiDecimal.ZERO.add(detail.financialDocumentOneCentAmount);
-            }
-            else {
+            } else {
                 this.financialDocumentOneCentAmount = this.financialDocumentOneCentAmount.add(detail.financialDocumentOneCentAmount);
             }
         }
         if (detail.financialDocumentOtherCentAmount != null) {
             if (this.financialDocumentOtherCentAmount == null) {
                 this.financialDocumentOtherCentAmount = KualiDecimal.ZERO.add(detail.financialDocumentOtherCentAmount);
-            }
-            else {
+            } else {
                 this.financialDocumentOtherCentAmount = this.financialDocumentOtherCentAmount.add(detail.financialDocumentOtherCentAmount);
             }
         }
@@ -550,56 +543,49 @@ public class CoinDetail extends PersistableBusinessObjectBase {
         if (detail.financialDocumentHundredCentAmount != null) {
             if (this.financialDocumentHundredCentAmount == null) {
                 this.financialDocumentHundredCentAmount = KualiDecimal.ZERO.subtract(detail.financialDocumentHundredCentAmount);
-            }
-            else {
+            } else {
                 this.financialDocumentHundredCentAmount = this.financialDocumentHundredCentAmount.subtract(detail.financialDocumentHundredCentAmount);
             }
         }
         if (detail.financialDocumentFiftyCentAmount != null) {
             if (this.financialDocumentFiftyCentAmount == null) {
                 this.financialDocumentFiftyCentAmount = KualiDecimal.ZERO.subtract(detail.financialDocumentFiftyCentAmount);
-            }
-            else {
+            } else {
                 this.financialDocumentFiftyCentAmount = this.financialDocumentFiftyCentAmount.subtract(detail.financialDocumentFiftyCentAmount);
             }
         }
         if (detail.financialDocumentTwentyFiveCentAmount != null) {
             if (this.financialDocumentTwentyFiveCentAmount == null) {
                 this.financialDocumentTwentyFiveCentAmount = KualiDecimal.ZERO.subtract(detail.financialDocumentTwentyFiveCentAmount);
-            }
-            else {
+            } else {
                 this.financialDocumentTwentyFiveCentAmount = this.financialDocumentTwentyFiveCentAmount.subtract(detail.financialDocumentTwentyFiveCentAmount);
             }
         }
         if (detail.financialDocumentTenCentAmount != null) {
             if (this.financialDocumentTenCentAmount == null) {
                 this.financialDocumentTenCentAmount = KualiDecimal.ZERO.subtract(detail.financialDocumentTenCentAmount);
-            }
-            else {
+            } else {
                 this.financialDocumentTenCentAmount = this.financialDocumentTenCentAmount.subtract(detail.financialDocumentTenCentAmount);
             }
         }
         if (detail.financialDocumentFiveCentAmount != null) {
             if (this.financialDocumentFiveCentAmount == null) {
                 this.financialDocumentFiveCentAmount = KualiDecimal.ZERO.subtract(detail.financialDocumentFiveCentAmount);
-            }
-            else {
+            } else {
                 this.financialDocumentFiveCentAmount = this.financialDocumentFiveCentAmount.subtract(detail.financialDocumentFiveCentAmount);
             }
         }
         if (detail.financialDocumentOneCentAmount != null) {
             if (this.financialDocumentOneCentAmount == null) {
                 this.financialDocumentOneCentAmount = KualiDecimal.ZERO.subtract(detail.financialDocumentOneCentAmount);
-            }
-            else {
+            } else {
                 this.financialDocumentOneCentAmount = this.financialDocumentOneCentAmount.subtract(detail.financialDocumentOneCentAmount);
             }
         }
         if (detail.financialDocumentOtherCentAmount != null) {
             if (this.financialDocumentOtherCentAmount == null) {
                 this.financialDocumentOtherCentAmount = KualiDecimal.ZERO.subtract(detail.financialDocumentOtherCentAmount);
-            }
-            else {
+            } else {
                 this.financialDocumentOtherCentAmount = this.financialDocumentOtherCentAmount.subtract(detail.financialDocumentOtherCentAmount);
             }
         }
@@ -612,26 +598,27 @@ public class CoinDetail extends PersistableBusinessObjectBase {
      */
     public boolean isEmpty() {
         return ((this.financialDocumentHundredCentAmount == null || this.financialDocumentHundredCentAmount.equals(KualiDecimal.ZERO)) &&
-                (this.financialDocumentFiftyCentAmount == null || this.financialDocumentFiftyCentAmount.equals(KualiDecimal.ZERO)) &&
-                (this.financialDocumentTwentyFiveCentAmount == null || this.financialDocumentTwentyFiveCentAmount.equals(KualiDecimal.ZERO)) &&
-                (this.financialDocumentTenCentAmount == null || this.financialDocumentTenCentAmount.equals(KualiDecimal.ZERO)) &&
-                (this.financialDocumentFiveCentAmount == null || this.financialDocumentFiveCentAmount.equals(KualiDecimal.ZERO)) &&
-                (this.financialDocumentOneCentAmount == null || this.financialDocumentOneCentAmount.equals(KualiDecimal.ZERO)) &&
-                (this.financialDocumentOtherCentAmount == null || this.financialDocumentOtherCentAmount.equals(KualiDecimal.ZERO)));
+            (this.financialDocumentFiftyCentAmount == null || this.financialDocumentFiftyCentAmount.equals(KualiDecimal.ZERO)) &&
+            (this.financialDocumentTwentyFiveCentAmount == null || this.financialDocumentTwentyFiveCentAmount.equals(KualiDecimal.ZERO)) &&
+            (this.financialDocumentTenCentAmount == null || this.financialDocumentTenCentAmount.equals(KualiDecimal.ZERO)) &&
+            (this.financialDocumentFiveCentAmount == null || this.financialDocumentFiveCentAmount.equals(KualiDecimal.ZERO)) &&
+            (this.financialDocumentOneCentAmount == null || this.financialDocumentOneCentAmount.equals(KualiDecimal.ZERO)) &&
+            (this.financialDocumentOtherCentAmount == null || this.financialDocumentOtherCentAmount.equals(KualiDecimal.ZERO)));
     }
 
     /**
      * Checks if this CoinDetail contains any negative amount field.
+     *
      * @return true if any amount is negative
      */
     public boolean hasNegativeAmount() {
         return ((financialDocumentHundredCentAmount != null && financialDocumentHundredCentAmount.isNegative()) ||
-                (financialDocumentFiftyCentAmount != null && financialDocumentFiftyCentAmount.isNegative()) ||
-                (financialDocumentTwentyFiveCentAmount != null && financialDocumentTwentyFiveCentAmount.isNegative()) ||
-                (financialDocumentTenCentAmount != null && financialDocumentTenCentAmount.isNegative()) ||
-                (financialDocumentFiveCentAmount != null && financialDocumentFiveCentAmount.isNegative()) ||
-                (financialDocumentOneCentAmount != null && financialDocumentOneCentAmount.isNegative()) ||
-                (financialDocumentOtherCentAmount != null && financialDocumentOtherCentAmount.isNegative()));
+            (financialDocumentFiftyCentAmount != null && financialDocumentFiftyCentAmount.isNegative()) ||
+            (financialDocumentTwentyFiveCentAmount != null && financialDocumentTwentyFiveCentAmount.isNegative()) ||
+            (financialDocumentTenCentAmount != null && financialDocumentTenCentAmount.isNegative()) ||
+            (financialDocumentFiveCentAmount != null && financialDocumentFiveCentAmount.isNegative()) ||
+            (financialDocumentOneCentAmount != null && financialDocumentOneCentAmount.isNegative()) ||
+            (financialDocumentOtherCentAmount != null && financialDocumentOtherCentAmount.isNegative()));
     }
 
     /**

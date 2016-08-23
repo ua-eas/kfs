@@ -1,51 +1,49 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.krad.uif.service.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.core.api.exception.RiceRuntimeException;
 import org.kuali.kfs.krad.datadictionary.DataDictionary;
 import org.kuali.kfs.krad.inquiry.Inquirable;
 import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.kuali.kfs.krad.uif.UifConstants;
+import org.kuali.kfs.krad.uif.UifConstants.ViewType;
 import org.kuali.kfs.krad.uif.UifParameters;
+import org.kuali.kfs.krad.uif.service.ViewDictionaryService;
 import org.kuali.kfs.krad.uif.util.ViewModelUtils;
 import org.kuali.kfs.krad.uif.view.LookupView;
 import org.kuali.kfs.krad.uif.view.View;
-import org.kuali.kfs.krad.uif.service.ViewDictionaryService;
-import org.kuali.kfs.krad.uif.UifConstants.ViewType;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.rice.core.api.exception.RiceRuntimeException;
 import org.springframework.beans.PropertyValues;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Implementation of <code>ViewDictionaryService</code>
- *
+ * <p>
  * <p>
  * Pulls view entries from the data dictionary to implement the various query
  * methods
  * </p>
- *
- * 
  */
 public class ViewDictionaryServiceImpl implements ViewDictionaryService {
 
@@ -53,7 +51,7 @@ public class ViewDictionaryServiceImpl implements ViewDictionaryService {
 
     /**
      * @see ViewDictionaryService#getInquirable(java.lang.Class,
-     *      java.lang.String)
+     * java.lang.String)
      */
     public Inquirable getInquirable(Class<?> dataObjectClass, String viewName) {
         Inquirable inquirable = null;
@@ -70,13 +68,13 @@ public class ViewDictionaryServiceImpl implements ViewDictionaryService {
         PropertyValues propertyValues = getDataDictionary().getViewPropertiesByType(ViewType.INQUIRY, indexKey);
 
         String viewHelperServiceClassName = ViewModelUtils.getStringValFromPVs(propertyValues,
-                "viewHelperServiceClassName");
+            "viewHelperServiceClassName");
         if (StringUtils.isNotBlank(viewHelperServiceClassName)) {
             try {
                 inquirable = (Inquirable) ObjectUtils.newInstance(Class.forName(viewHelperServiceClassName));
             } catch (ClassNotFoundException e) {
                 throw new RiceRuntimeException(
-                        "Unable to find class for inquirable classname: " + viewHelperServiceClassName, e);
+                    "Unable to find class for inquirable classname: " + viewHelperServiceClassName, e);
             }
         }
 

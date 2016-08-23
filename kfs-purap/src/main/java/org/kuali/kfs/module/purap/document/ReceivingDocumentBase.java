@@ -1,30 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document;
 
-import java.sql.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.krad.util.NoteType;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.businessobject.Carrier;
 import org.kuali.kfs.module.purap.businessobject.DeliveryRequiredDateReason;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderView;
@@ -43,14 +41,16 @@ import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.action.ActionRequestType;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.service.ModuleService;
-import org.kuali.kfs.krad.util.NoteType;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.rice.location.api.LocationConstants;
 import org.kuali.rice.location.api.country.Country;
 import org.kuali.rice.location.api.country.CountryService;
 import org.kuali.rice.location.framework.country.CountryEbo;
+
+import java.sql.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public abstract class ReceivingDocumentBase extends FinancialSystemTransactionalDocumentBase implements ReceivingDocument {
 
@@ -107,7 +107,7 @@ public abstract class ReceivingDocumentBase extends FinancialSystemTransactional
 
     protected transient PurApRelatedViews relatedViews;
 
-    public ReceivingDocumentBase(){
+    public ReceivingDocumentBase() {
         super();
     }
 
@@ -123,6 +123,7 @@ public abstract class ReceivingDocumentBase extends FinancialSystemTransactional
     public String getCarrierCode() {
         return carrierCode;
     }
+
     @Override
     public void setCarrierCode(String carrierCode) {
         this.carrierCode = carrierCode;
@@ -360,7 +361,7 @@ public abstract class ReceivingDocumentBase extends FinancialSystemTransactional
 
     @Override
     public String getDeliveryCountryName() {
-        if ( StringUtils.isNotBlank(getDeliveryCountryCode()) ) {
+        if (StringUtils.isNotBlank(getDeliveryCountryCode())) {
             Country country = SpringContext.getBean(CountryService.class).getCountry(getDeliveryCountryCode());
             if (country != null) {
                 return country.getName();
@@ -475,17 +476,17 @@ public abstract class ReceivingDocumentBase extends FinancialSystemTransactional
      */
     @Override
     public CountryEbo getVendorCountry() {
-        if ( StringUtils.isBlank(vendorCountryCode) ) {
+        if (StringUtils.isBlank(vendorCountryCode)) {
             vendorCountry = null;
         } else {
-            if ( vendorCountry == null || !StringUtils.equals( vendorCountry.getCode(), vendorCountryCode) ) {
+            if (vendorCountry == null || !StringUtils.equals(vendorCountry.getCode(), vendorCountryCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(CountryEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(1);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(1);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, vendorCountryCode);
                     vendorCountry = moduleService.getExternalizableBusinessObject(CountryEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -518,11 +519,9 @@ public abstract class ReceivingDocumentBase extends FinancialSystemTransactional
     public String getVendorNumber() {
         if (StringUtils.isNotEmpty(vendorNumber)) {
             return vendorNumber;
-        }
-        else if (ObjectUtils.isNotNull(vendorDetail)) {
+        } else if (ObjectUtils.isNotNull(vendorDetail)) {
             return vendorDetail.getVendorNumber();
-        }
-        else {
+        } else {
             return "";
         }
     }
@@ -595,8 +594,8 @@ public abstract class ReceivingDocumentBase extends FinancialSystemTransactional
     @Override
     public void doRouteStatusChange(DocumentRouteStatusChange statusChangeEvent) {
         super.doRouteStatusChange(statusChangeEvent);
-        if(!(this instanceof BulkReceivingDocument)){
-            if(this.getFinancialSystemDocumentHeader().getWorkflowDocument().isProcessed()) {
+        if (!(this instanceof BulkReceivingDocument)) {
+            if (this.getFinancialSystemDocumentHeader().getWorkflowDocument().isProcessed()) {
                 //delete unentered items and update po totals and save po
                 SpringContext.getBean(ReceivingService.class).completeReceivingDocument(this);
             }
@@ -636,8 +635,7 @@ public abstract class ReceivingDocumentBase extends FinancialSystemTransactional
     public void setPurchaseOrderDocument(PurchaseOrderDocument purchaseOrderDocument) {
         if (ObjectUtils.isNull(purchaseOrderDocument)) {
             this.purchaseOrderDocument = null;
-        }
-        else {
+        } else {
             if (ObjectUtils.isNotNull(purchaseOrderDocument.getPurapDocumentIdentifier())) {
                 setPurchaseOrderIdentifier(purchaseOrderDocument.getPurapDocumentIdentifier());
             }
@@ -656,7 +654,7 @@ public abstract class ReceivingDocumentBase extends FinancialSystemTransactional
         this.relatedViews = relatedViews;
     }
 
-    public void initiateDocument(){
+    public void initiateDocument() {
         //initiate code
     }
 
@@ -665,9 +663,9 @@ public abstract class ReceivingDocumentBase extends FinancialSystemTransactional
      * Sends FYI workflow request to the given user on this document.
      *
      * @param workflowDocument the associated workflow document.
-     * @param userNetworkId the network ID of the user to be sent to.
-     * @param annotation the annotation notes contained in this document.
-     * @param responsibility the responsibility specified in the request.
+     * @param userNetworkId    the network ID of the user to be sent to.
+     * @param annotation       the annotation notes contained in this document.
+     * @param responsibility   the responsibility specified in the request.
      * @throws WorkflowException
      */
     @Override
@@ -676,9 +674,10 @@ public abstract class ReceivingDocumentBase extends FinancialSystemTransactional
             String annotationNote = (ObjectUtils.isNull(annotation)) ? "" : annotation;
             String responsibilityNote = (ObjectUtils.isNull(responsibility)) ? "" : responsibility;
             String currentNodeName = getCurrentRouteNodeName(workflowDocument);
-            workflowDocument.adHocToPrincipal( ActionRequestType.FYI, currentNodeName, annotationNote, routePrincipalId, responsibilityNote, true);
+            workflowDocument.adHocToPrincipal(ActionRequestType.FYI, currentNodeName, annotationNote, routePrincipalId, responsibilityNote, true);
         }
     }
+
     /**
      * FIXME: this is same as PurchaseOrderDoc please move somewhere appropriate
      * Returns the name of the current route node.
@@ -691,9 +690,8 @@ public abstract class ReceivingDocumentBase extends FinancialSystemTransactional
         Set<String> nodeNames = wd.getCurrentNodeNames();
         if ((nodeNames == null) || (nodeNames.size() == 0)) {
             return null;
-        }
-        else {
-            return (String)nodeNames.toArray()[0];
+        } else {
+            return (String) nodeNames.toArray()[0];
         }
     }
 
@@ -756,7 +754,7 @@ public abstract class ReceivingDocumentBase extends FinancialSystemTransactional
         return false;
     }
 
-    public String getWorkflowStatusForResult(){
+    public String getWorkflowStatusForResult() {
         return PurapSearchUtils.getWorkFlowStatusString(getDocumentHeader());
     }
 
@@ -764,13 +762,14 @@ public abstract class ReceivingDocumentBase extends FinancialSystemTransactional
         return new java.util.Date(this.getFinancialSystemDocumentHeader().getWorkflowDocument().getDateCreated().getMillis());
     }
 
-    public String getDocumentTitleForResult() throws WorkflowException{
-       return KewApiServiceLocator.getDocumentTypeService().getDocumentTypeByName(this.getFinancialSystemDocumentHeader().getWorkflowDocument().getDocumentTypeName()).getLabel();
+    public String getDocumentTitleForResult() throws WorkflowException {
+        return KewApiServiceLocator.getDocumentTypeService().getDocumentTypeByName(this.getFinancialSystemDocumentHeader().getWorkflowDocument().getDocumentTypeName()).getLabel();
     }
 
     /**
      * Checks whether the related purchase order views need a warning to be displayed,
      * i.e. if at least one of the purchase orders has never been opened.
+     *
      * @return true if at least one related purchase order needs a warning; false otherwise
      */
     public boolean getNeedWarningRelatedPOs() {

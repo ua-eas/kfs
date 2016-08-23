@@ -1,108 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:p="http://www.springframework.org/schema/p"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-	<bean id="VendorCreditMemo-initTabRequiredFieldsValidation-test"
-		parent="VendorCreditMemo-initTabRequiredFieldsValidation" scope="prototype" />
+    <bean id="VendorCreditMemo-initTabRequiredFieldsValidation-test"
+          parent="VendorCreditMemo-initTabRequiredFieldsValidation" scope="prototype"/>
 
-	<bean id="VendorCreditMemo-initTabReferenceNumberValidation-test"
-		parent="VendorCreditMemo-initTabReferenceNumberValidation" scope="prototype" />
+    <bean id="VendorCreditMemo-initTabReferenceNumberValidation-test"
+          parent="VendorCreditMemo-initTabReferenceNumberValidation" scope="prototype"/>
 
-	<bean id="VendorCreditMemo-purchaseOrderForInvoicedItemsValidation-test"
-		parent="VendorCreditMemo-purchaseOrderForInvoicedItemsValidation" scope="prototype" />
+    <bean id="VendorCreditMemo-purchaseOrderForInvoicedItemsValidation-test"
+          parent="VendorCreditMemo-purchaseOrderForInvoicedItemsValidation" scope="prototype"/>
 
-	<bean id="VendorCreditMemo-flagLineItemTotalsValidation-test"
-		parent="VendorCreditMemo-flagLineItemTotalsValidation" scope="prototype" />
+    <bean id="VendorCreditMemo-flagLineItemTotalsValidation-test"
+          parent="VendorCreditMemo-flagLineItemTotalsValidation" scope="prototype"/>
 
-	<bean id="VendorCreditMemo-totalMatchesVendorAmountValidation-test"
-		parent="VendorCreditMemo-totalMatchesVendorAmountValidation" scope="prototype" />
+    <bean id="VendorCreditMemo-totalMatchesVendorAmountValidation-test"
+          parent="VendorCreditMemo-totalMatchesVendorAmountValidation" scope="prototype"/>
 
-	<bean id="VendorCreditMemo-totalOverZeroValidation-test"
-		parent="VendorCreditMemo-totalOverZeroValidation" scope="prototype" />
+    <bean id="VendorCreditMemo-totalOverZeroValidation-test"
+          parent="VendorCreditMemo-totalOverZeroValidation" scope="prototype"/>
 
-	<bean id="VendorCreditMemo-objectCodeValidation-test"
-		parent="VendorCreditMemo-objectCodeValidation" scope="prototype" />
+    <bean id="VendorCreditMemo-objectCodeValidation-test"
+          parent="VendorCreditMemo-objectCodeValidation" scope="prototype"/>
 
-	<bean id="VendorCreditMemo-accountPercentBetween0And100Validation-test"
-		parent="VendorCreditMemo-accountPercentBetween0And100Validation" scope="prototype" />
+    <bean id="VendorCreditMemo-accountPercentBetween0And100Validation-test"
+          parent="VendorCreditMemo-accountPercentBetween0And100Validation" scope="prototype"/>
 
-	<bean id="PaymentRequest-invoiceValidation-test" parent="PaymentRequest-invoiceValidation"
-		scope="prototype" />
+    <bean id="PaymentRequest-invoiceValidation-test" parent="PaymentRequest-invoiceValidation"
+          scope="prototype"/>
 
-	<bean id="PaymentRequest-dateForContinueValidation-test"
-		parent="PaymentRequest-dateForContinueValidation" scope="prototype" />
+    <bean id="PaymentRequest-dateForContinueValidation-test"
+          parent="PaymentRequest-dateForContinueValidation" scope="prototype"/>
 
-	<bean id="PaymentRequest-payDateNotPastValidation-test"
-		parent="PaymentRequest-payDateNotPastValidation" scope="prototype" />
+    <bean id="PaymentRequest-payDateNotPastValidation-test"
+          parent="PaymentRequest-payDateNotPastValidation" scope="prototype"/>
 
-	<bean id="TestPaymentRequest-payDateNotPastValidation-test"
-		parent="TestPaymentRequest-payDateNotPastValidation-test-parentBean" scope="prototype" />
-	<bean id="TestPaymentRequest-payDateNotPastValidation-test-parentBean"
-		class="org.kuali.kfs.module.purap.util.TestPaymentRequestPayDateNotPastValidation"
-		abstract="true">
-		<property name="purapService" ref="purapService" />
-		<property name="persistenceService" ref="persistenceService" />
-		<property name="businessObjectService" ref="businessObjectService" />
-	</bean>
+    <bean id="TestPaymentRequest-payDateNotPastValidation-test"
+          parent="TestPaymentRequest-payDateNotPastValidation-test-parentBean" scope="prototype"/>
+    <bean id="TestPaymentRequest-payDateNotPastValidation-test-parentBean"
+          class="org.kuali.kfs.module.purap.util.TestPaymentRequestPayDateNotPastValidation"
+          abstract="true">
+        <property name="purapService" ref="purapService"/>
+        <property name="persistenceService" ref="persistenceService"/>
+        <property name="businessObjectService" ref="businessObjectService"/>
+    </bean>
 
-	<bean id="PaymentRequest-taxAreaValidation-test" parent="PaymentRequest-taxAreaValidation"
-		scope="prototype" />
+    <bean id="PaymentRequest-taxAreaValidation-test" parent="PaymentRequest-taxAreaValidation"
+          scope="prototype"/>
 
-	<bean id="PurchaseOrder-assignSensitiveDataValidation-test"
-		parent="PurchaseOrder-assignSensitiveDataValidation" scope="prototype" />
+    <bean id="PurchaseOrder-assignSensitiveDataValidation-test"
+          parent="PurchaseOrder-assignSensitiveDataValidation" scope="prototype"/>
 
-	<bean id="PurchasingAccountsPayable-checkNegativeAccountsValidation-test"
-		parent="PurchasingAccountsPayable-checkNegativeAccountsValidation" scope="prototype" />
+    <bean id="PurchasingAccountsPayable-checkNegativeAccountsValidation-test"
+          parent="PurchasingAccountsPayable-checkNegativeAccountsValidation" scope="prototype"/>
 
-	<bean id="Requisition-processAdditionalValidation-test"
-		parent="Requisition-processAdditionalValidation" scope="prototype" />
+    <bean id="Requisition-processAdditionalValidation-test"
+          parent="Requisition-processAdditionalValidation" scope="prototype"/>
 
-	<bean id="Purchasing-processVendorValidation-test" parent="Purchasing-processVendorValidation"
-		scope="prototype" />
+    <bean id="Purchasing-processVendorValidation-test" parent="Purchasing-processVendorValidation"
+          scope="prototype"/>
 
-	<bean id="Purchasing-paymentInfoValidation-test" parent="Purchasing-paymentInfoValidation"
-		scope="prototype" />
+    <bean id="Purchasing-paymentInfoValidation-test" parent="Purchasing-paymentInfoValidation"
+          scope="prototype"/>
 
-	<bean id="PurchaseOrder-processVendorStipulationValidation-test"
-		parent="PurchaseOrder-processVendorStipulationValidation" scope="prototype" />
+    <bean id="PurchaseOrder-processVendorStipulationValidation-test"
+          parent="PurchaseOrder-processVendorStipulationValidation" scope="prototype"/>
 
-	<bean id="PurchaseOrder-splitValidation-test" parent="PurchaseOrder-splitValidation"
-		scope="prototype" />
+    <bean id="PurchaseOrder-splitValidation-test" parent="PurchaseOrder-splitValidation"
+          scope="prototype"/>
 
-	<bean id="Purchasing-deliveryValidation-test" parent="Purchasing-deliveryValidation"
-		scope="prototype" />
+    <bean id="Purchasing-deliveryValidation-test" parent="Purchasing-deliveryValidation"
+          scope="prototype"/>
 
-	<bean id="Requisition-newProcessItemValidation"
-		parent="Requisition-newProcessItemValidation-parentBean" scope="prototype" />
+    <bean id="Requisition-newProcessItemValidation"
+          parent="Requisition-newProcessItemValidation-parentBean" scope="prototype"/>
 
-	<bean id="PurchaseOrder-newProcessItemValidation"
-		parent="PurchaseOrder-newProcessItemValidation-parentBean" scope="prototype" />
+    <bean id="PurchaseOrder-newProcessItemValidation"
+          parent="PurchaseOrder-newProcessItemValidation-parentBean" scope="prototype"/>
 
-	<bean id="Purchasing-capitalAssetValidation-test" parent="Purchasing-capitalAssetValidation"
-		scope="prototype" />
+    <bean id="Purchasing-capitalAssetValidation-test" parent="Purchasing-capitalAssetValidation"
+          scope="prototype"/>
 
-	<bean id="PurchasingAccountsPayable-accountPercentBetween0And100Validation-test"
-		parent="PurchasingAccountsPayable-accountPercentBetween0And100Validation" scope="prototype" />
+    <bean id="PurchasingAccountsPayable-accountPercentBetween0And100Validation-test"
+          parent="PurchasingAccountsPayable-accountPercentBetween0And100Validation" scope="prototype"/>
 
 </beans>

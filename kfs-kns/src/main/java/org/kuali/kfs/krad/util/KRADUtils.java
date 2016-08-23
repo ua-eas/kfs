@@ -1,44 +1,42 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.krad.util;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.core.api.util.Truth;
 import org.kuali.kfs.coreservice.framework.CoreFrameworkServiceLocator;
-import org.kuali.rice.core.api.CoreApiServiceLocator;
-import org.kuali.rice.core.api.encryption.EncryptionService;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterConstants;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.core.web.format.BooleanFormatter;
 import org.kuali.kfs.krad.UserSession;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.krad.uif.util.ObjectPropertyUtils;
-import org.kuali.rice.core.web.format.FormatException;
+import org.kuali.rice.core.api.CoreApiServiceLocator;
+import org.kuali.rice.core.api.encryption.EncryptionService;
+import org.kuali.rice.core.api.util.Truth;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+import org.kuali.rice.core.web.format.BooleanFormatter;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.security.GeneralSecurityException;
 import java.text.NumberFormat;
@@ -54,8 +52,6 @@ import java.util.regex.Pattern;
 
 /**
  * Miscellaneous Utility Methods
- *
- * 
  */
 public final class KRADUtils {
     private static KualiModuleService kualiModuleService;
@@ -67,7 +63,7 @@ public final class KRADUtils {
     public final static String getBusinessTitleForClass(Class<? extends Object> clazz) {
         if (clazz == null) {
             throw new IllegalArgumentException(
-                    "The getBusinessTitleForClass method of KRADUtils requires a non-null class");
+                "The getBusinessTitleForClass method of KRADUtils requires a non-null class");
         }
         String className = clazz.getSimpleName();
 
@@ -107,7 +103,7 @@ public final class KRADUtils {
      * amount by 100 so the decimal places are not lost, for example, 320.15 is converted into 32015.
      *
      * @return an integer string of the given money amount through multiplicating by 100 and removing the fraction
-     *         portion.
+     * portion.
      */
     public final static String convertDecimalIntoInteger(KualiDecimal decimalNumber) {
         KualiDecimal decimalAmount = decimalNumber.multiply(ONE_HUNDRED);
@@ -133,13 +129,13 @@ public final class KRADUtils {
      * either because the propertyType is null or because the transformation required exceeds this method's very small
      * bag of tricks, then null is returned.
      *
-     * @param propertyType the Class to coerce the attributeValue to
+     * @param propertyType   the Class to coerce the attributeValue to
      * @param attributeValue the String value to coerce
      * @return an instance of the propertyType class, or null the transformation can't be made.
      */
-    public static Object hydrateAttributeValue(Class<?> propertyType, String attributeValue){
+    public static Object hydrateAttributeValue(Class<?> propertyType, String attributeValue) {
         Object attributeValueObject = null;
-        if ( propertyType!=null && attributeValue!=null ) {
+        if (propertyType != null && attributeValue != null) {
             if (String.class.equals(propertyType)) {
                 // it's already a String
                 attributeValueObject = attributeValue;
@@ -198,8 +194,8 @@ public final class KRADUtils {
             return "";
 
         return org.kuali.kfs.krad.util.KRADConstants.SINGLE_QUOTE +
-                StringUtils.join(list.iterator(), org.kuali.kfs.krad.util.KRADConstants.SINGLE_QUOTE + "," + org.kuali.kfs.krad.util.KRADConstants.SINGLE_QUOTE) +
-                org.kuali.kfs.krad.util.KRADConstants.SINGLE_QUOTE;
+            StringUtils.join(list.iterator(), org.kuali.kfs.krad.util.KRADConstants.SINGLE_QUOTE + "," + org.kuali.kfs.krad.util.KRADConstants.SINGLE_QUOTE) +
+            org.kuali.kfs.krad.util.KRADConstants.SINGLE_QUOTE;
     }
 
     private static KualiModuleService getKualiModuleService() {
@@ -374,7 +370,7 @@ public final class KRADUtils {
      * Retrieves value for the given parameter name in the request and attempts to convert to a Boolean using
      * the <code>BooleanFormatter</code>
      *
-     * @param request - servlet request containing parameters
+     * @param request       - servlet request containing parameters
      * @param parameterName - name of parameter to retrieve value for
      * @return Boolean set to value of parameter, or null if parameter was not found in request
      */
@@ -420,16 +416,16 @@ public final class KRADUtils {
      * performed to determine if the values are secure and should be decrypted.
      * If true, the value is decrypted before returning
      *
-     * @param parameterNames - names of the parameters whose values should be retrieved
-     * from the request
+     * @param parameterNames    - names of the parameters whose values should be retrieved
+     *                          from the request
      * @param parentObjectClass - object class that contains the parameter names as properties
-     * and should be consulted for security checks
+     *                          and should be consulted for security checks
      * @param requestParameters - all request parameters to pull from
      * @return Map<String, String> populated with parameter name/value pairs
-     *         pulled from the request
+     * pulled from the request
      */
     public static Map<String, String> getParametersFromRequest(List<String> parameterNames, Class<?> parentObjectClass,
-            Map<String, String> requestParameters) {
+                                                               Map<String, String> requestParameters) {
         Map<String, String> parameterValues = new HashMap<String, String>();
 
         for (Iterator<String> iter = parameterNames.iterator(); iter.hasNext(); ) {
@@ -440,7 +436,7 @@ public final class KRADUtils {
 
                 // Check if this element was encrypted, if it was decrypt it
                 if (KRADServiceLocatorWeb.getDataObjectAuthorizationService()
-                        .attributeValueNeedsToBeEncryptedOnFormsAndLinks(parentObjectClass, keyPropertyName)) {
+                    .attributeValueNeedsToBeEncryptedOnFormsAndLinks(parentObjectClass, keyPropertyName)) {
                     try {
                         keyValue = StringUtils.removeEnd(keyValue, EncryptionService.ENCRYPTION_POST_PREFIX);
                         keyValue = CoreApiServiceLocator.getEncryptionService().decrypt(keyValue);
@@ -462,12 +458,12 @@ public final class KRADUtils {
      * the value
      *
      * @param propertyNames - list of property names to get key/value pairs for
-     * @param dataObject - object instance containing the properties for which the values will be pulled
+     * @param dataObject    - object instance containing the properties for which the values will be pulled
      * @return Map<String, String> containing entry for each property name with the property name as the map key
-     *         and the property value as the value
+     * and the property value as the value
      */
     public static Map<String, String> getPropertyKeyValuesFromDataObject(List<String> propertyNames,
-            Object dataObject) {
+                                                                         Object dataObject) {
         Map<String, String> propertyKeyValues = new HashMap<String, String>();
 
         if (dataObject == null) {
@@ -482,17 +478,17 @@ public final class KRADUtils {
             }
 
             if (KRADServiceLocatorWeb.getDataObjectAuthorizationService()
-                    .attributeValueNeedsToBeEncryptedOnFormsAndLinks(dataObject.getClass(), propertyName)) {
+                .attributeValueNeedsToBeEncryptedOnFormsAndLinks(dataObject.getClass(), propertyName)) {
                 try {
-                    if(CoreApiServiceLocator.getEncryptionService().isEnabled()) {
+                    if (CoreApiServiceLocator.getEncryptionService().isEnabled()) {
                         propertyValue = CoreApiServiceLocator.getEncryptionService().encrypt(propertyValue) +
-                                EncryptionService.ENCRYPTION_POST_PREFIX;
+                            EncryptionService.ENCRYPTION_POST_PREFIX;
                     }
                 } catch (GeneralSecurityException e) {
                     throw new RuntimeException("Exception while trying to encrypt value for key/value map.", e);
                 }
             }
- 
+
             // TODO: need to apply formatting to return value once util class is ready
             propertyKeyValues.put(propertyName, propertyValue.toString());
         }
@@ -520,7 +516,7 @@ public final class KRADUtils {
 
     /**
      * Utility method to convert a Request Parameters Map to a Properties object
-     *
+     * <p>
      * <p>
      * Multiple values for a parameter are joined together with comma delimiter
      * </p>
@@ -549,8 +545,8 @@ public final class KRADUtils {
         }
         ParameterService parameterService = CoreFrameworkServiceLocator.getParameterService();
         Collection<String> sensitiveDataPatterns = parameterService
-                .getParameterValuesAsString(org.kuali.kfs.krad.util.KRADConstants.KNS_NAMESPACE, ParameterConstants.ALL_COMPONENT,
-                        org.kuali.kfs.krad.util.KRADConstants.SystemGroupParameterNames.SENSITIVE_DATA_PATTERNS);
+            .getParameterValuesAsString(org.kuali.kfs.krad.util.KRADConstants.KNS_NAMESPACE, ParameterConstants.ALL_COMPONENT,
+                org.kuali.kfs.krad.util.KRADConstants.SystemGroupParameterNames.SENSITIVE_DATA_PATTERNS);
         for (String pattern : sensitiveDataPatterns) {
             if (Pattern.compile(pattern).matcher(fieldValue).find()) {
                 return true;
@@ -562,7 +558,7 @@ public final class KRADUtils {
     /**
      * Gets the UserSession object from the HttpServletRequest object's
      * associated session.
-     *
+     * <p>
      * <p>
      * In some cases (different threads) the UserSession cannot be retrieved
      * from GlobalVariables but can still be accessed via the session object
@@ -577,9 +573,9 @@ public final class KRADUtils {
      */
     public static boolean isProductionEnvironment() {
         return KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(
-                org.kuali.kfs.krad.util.KRADConstants.PROD_ENVIRONMENT_CODE_KEY)
-                .equalsIgnoreCase(KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(
-                        org.kuali.kfs.krad.util.KRADConstants.ENVIRONMENT_KEY));
+            org.kuali.kfs.krad.util.KRADConstants.PROD_ENVIRONMENT_CODE_KEY)
+            .equalsIgnoreCase(KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(
+                org.kuali.kfs.krad.util.KRADConstants.ENVIRONMENT_KEY));
     }
 
 }

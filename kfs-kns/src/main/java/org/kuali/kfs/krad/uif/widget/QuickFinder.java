@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -21,15 +21,15 @@ package org.kuali.kfs.krad.uif.widget;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.krad.bo.DataObjectRelationship;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.kfs.krad.uif.UifParameters;
 import org.kuali.kfs.krad.uif.component.BindingInfo;
 import org.kuali.kfs.krad.uif.component.Component;
 import org.kuali.kfs.krad.uif.component.ComponentBase;
+import org.kuali.kfs.krad.uif.container.CollectionGroup;
 import org.kuali.kfs.krad.uif.field.ActionField;
 import org.kuali.kfs.krad.uif.field.InputField;
-import org.kuali.kfs.krad.uif.UifParameters;
-import org.kuali.kfs.krad.uif.container.CollectionGroup;
-import org.kuali.kfs.krad.uif.view.View;
 import org.kuali.kfs.krad.uif.util.ViewModelUtils;
+import org.kuali.kfs.krad.uif.view.View;
 import org.kuali.kfs.krad.util.KRADUtils;
 
 import java.util.HashMap;
@@ -38,8 +38,6 @@ import java.util.Map;
 
 /**
  * Widget for navigating to a lookup from a field (called a quickfinder)
- *
- * 
  */
 public class QuickFinder extends WidgetBase {
     private static final long serialVersionUID = 3302390972815386785L;
@@ -80,11 +78,11 @@ public class QuickFinder extends WidgetBase {
 
     /**
      * The following finalization is performed:
-     *
+     * <p>
      * <ul>
      * <li>
      * Sets defaults on collectionLookup such as collectionName, and the class if not set
-     *
+     * <p>
      * <p>
      * If the data object class was not configured for the lookup, the class configured for the collection group will
      * be used if it has a lookup defined. If not data object class is found for the lookup it will be disabled. The
@@ -96,7 +94,7 @@ public class QuickFinder extends WidgetBase {
      * </ul>
      *
      * @see Widget#performFinalize(View,
-     *      java.lang.Object, Component)
+     * java.lang.Object, Component)
      */
     @Override
     public void performFinalize(View view, Object model, Component parent) {
@@ -142,15 +140,15 @@ public class QuickFinder extends WidgetBase {
             if (StringUtils.isBlank(getDataObjectClassName())) {
                 Class<?> collectionObjectClass = collectionGroup.getCollectionObjectClass();
                 boolean isCollectionClassLookupable = KRADServiceLocatorWeb.getViewDictionaryService().isLookupable(
-                        collectionObjectClass);
+                    collectionObjectClass);
                 if (isCollectionClassLookupable) {
                     setDataObjectClassName(collectionObjectClass.getName());
 
                     if ((fieldConversions == null) || fieldConversions.isEmpty()) {
                         // use PK fields for collection class
                         List<String> collectionObjectPKFields =
-                                KRADServiceLocatorWeb.getDataObjectMetaDataService().listPrimaryKeyFieldNames(
-                                        collectionObjectClass);
+                            KRADServiceLocatorWeb.getDataObjectMetaDataService().listPrimaryKeyFieldNames(
+                                collectionObjectClass);
 
                         for (String pkField : collectionObjectPKFields) {
                             fieldConversions.put(pkField, pkField);
@@ -173,12 +171,12 @@ public class QuickFinder extends WidgetBase {
 
         if (!fieldConversions.isEmpty()) {
             quickfinderActionField.addActionParameter(UifParameters.CONVERSION_FIELDS,
-                    KRADUtils.buildMapParameterString(fieldConversions));
+                KRADUtils.buildMapParameterString(fieldConversions));
         }
 
         if (!lookupParameters.isEmpty()) {
             quickfinderActionField.addActionParameter(UifParameters.LOOKUP_PARAMETERS,
-                    KRADUtils.buildMapParameterString(lookupParameters));
+                KRADUtils.buildMapParameterString(lookupParameters));
         }
 
         addActionParameterIfNotNull(UifParameters.VIEW_NAME, viewName);
@@ -218,7 +216,7 @@ public class QuickFinder extends WidgetBase {
 
         // get relationship from metadata service
         return KRADServiceLocatorWeb.getDataObjectMetaDataService().getDataObjectRelationship(parentObject,
-                parentObjectClass, propertyName, "", true, true, false);
+            parentObjectClass, propertyName, "", true, true, false);
     }
 
     protected void generateFieldConversions(InputField field, DataObjectRelationship relationship) {
@@ -246,7 +244,7 @@ public class QuickFinder extends WidgetBase {
             // String, DataObjectRelationship, String, List, String)
 
             if (relationship.getUserVisibleIdentifierKey() == null || relationship.getUserVisibleIdentifierKey().equals(
-                    fromField)) {
+                fromField)) {
                 lookupParameters.put(fromField, toField);
             }
         }
@@ -302,7 +300,7 @@ public class QuickFinder extends WidgetBase {
 
     /**
      * Returns the URL for the lookup for which parameters will be added
-     *
+     * <p>
      * <p>
      * The base URL includes the domain, context, and controller mapping for the lookup invocation. Parameters are
      * then added based on configuration to complete the URL. This is generally defaulted to the application URL and
@@ -327,13 +325,13 @@ public class QuickFinder extends WidgetBase {
 
     /**
      * Full class name the lookup should be provided for
-     * 
      * <p>
-     * This is passed on to the lookup request for the data object the lookup should be rendered for. This is then 
+     * <p>
+     * This is passed on to the lookup request for the data object the lookup should be rendered for. This is then
      * used by the lookup framework to select the lookup view (if more than one lookup view exists for the same
      * data object class name, the {@link #getViewName()} property should be specified to select the view to render).
      * </p>
-     * 
+     *
      * @return String lookup class name
      */
     public String getDataObjectClassName() {
@@ -342,7 +340,7 @@ public class QuickFinder extends WidgetBase {
 
     /**
      * Setter for the class name that lookup should be provided for
-     * 
+     *
      * @param dataObjectClassName
      */
     public void setDataObjectClassName(String dataObjectClassName) {
@@ -351,13 +349,13 @@ public class QuickFinder extends WidgetBase {
 
     /**
      * Specifies the name of the lookup view that should be render when the quickfinder is clicked
-     * 
+     * <p>
      * <p>
      * When more than one lookup exists for the {@link #getDataObjectClassName()}, the view name must be specified
      * to select which one to render. Note when a view name is not specified, it receives a name of 'DEFAULT'.
      * Therefore this name can be sent to select the lookup view without a view name specified.
      * </p>
-     * 
+     *
      * @return String name of lookup view
      */
     public String getViewName() {
@@ -366,7 +364,7 @@ public class QuickFinder extends WidgetBase {
 
     /**
      * Setter for the lookup view name
-     * 
+     *
      * @param viewName
      */
     public void setViewName(String viewName) {
@@ -498,7 +496,7 @@ public class QuickFinder extends WidgetBase {
     /**
      * For the case of multi-value lookup, indicates the collection that should be populated with
      * the return results
-     *
+     * <p>
      * <p>
      * Note when the quickfinder is associated with a <code>CollectionGroup</code>, this property is
      * set automatically from the collection name associated with the group

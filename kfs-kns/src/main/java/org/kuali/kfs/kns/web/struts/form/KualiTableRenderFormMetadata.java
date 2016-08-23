@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -45,7 +45,7 @@ public class KualiTableRenderFormMetadata {
 
     /**
      * The number of rows that match the query criteria or
-     *  the max results limit size (if applicable), whichever is less
+     * the max results limit size (if applicable), whichever is less
      */
     private int resultsLimitedSize;
 
@@ -79,6 +79,7 @@ public class KualiTableRenderFormMetadata {
 
     /**
      * Gets the columnToSortIndex attribute.
+     *
      * @return Returns the columnToSortIndex.
      */
     public int getColumnToSortIndex() {
@@ -87,6 +88,7 @@ public class KualiTableRenderFormMetadata {
 
     /**
      * Sets the columnToSortIndex attribute value.
+     *
      * @param columnToSortIndex The columnToSortIndex to set.
      */
     public void setColumnToSortIndex(int columnToSortIndex) {
@@ -95,6 +97,7 @@ public class KualiTableRenderFormMetadata {
 
     /**
      * Gets the previouslySortedColumnIndex attribute.
+     *
      * @return Returns the previouslySortedColumnIndex.
      */
     public int getPreviouslySortedColumnIndex() {
@@ -103,6 +106,7 @@ public class KualiTableRenderFormMetadata {
 
     /**
      * Sets the previouslySortedColumnIndex attribute value.
+     *
      * @param previouslySortedColumnIndex The previouslySortedColumnIndex to set.
      */
     public void setPreviouslySortedColumnIndex(int previouslySortedColumnIndex) {
@@ -111,6 +115,7 @@ public class KualiTableRenderFormMetadata {
 
     /**
      * Gets the resultsActualSize attribute.
+     *
      * @return Returns the resultsActualSize.
      */
     public int getResultsActualSize() {
@@ -119,6 +124,7 @@ public class KualiTableRenderFormMetadata {
 
     /**
      * Sets the resultsActualSize attribute value.
+     *
      * @param resultsActualSize The resultsActualSize to set.
      */
     public void setResultsActualSize(int resultsActualSize) {
@@ -127,6 +133,7 @@ public class KualiTableRenderFormMetadata {
 
     /**
      * Gets the resultsLimitedSize attribute.
+     *
      * @return Returns the resultsLimitedSize.
      */
     public int getResultsLimitedSize() {
@@ -135,6 +142,7 @@ public class KualiTableRenderFormMetadata {
 
     /**
      * Sets the resultsLimitedSize attribute value.
+     *
      * @param resultsLimitedSize The resultsLimitedSize to set.
      */
     public void setResultsLimitedSize(int resultsLimitedSize) {
@@ -143,6 +151,7 @@ public class KualiTableRenderFormMetadata {
 
     /**
      * Gets the switchToPageNumber attribute.
+     *
      * @return Returns the switchToPageNumber.
      */
     public int getSwitchToPageNumber() {
@@ -151,6 +160,7 @@ public class KualiTableRenderFormMetadata {
 
     /**
      * Sets the switchToPageNumber attribute value.
+     *
      * @param switchToPageNumber The switchToPageNumber to set.
      */
     public void setSwitchToPageNumber(int switchToPageNumber) {
@@ -159,6 +169,7 @@ public class KualiTableRenderFormMetadata {
 
     /**
      * Gets the viewedPageNumber attribute.
+     *
      * @return Returns the viewedPageNumber.
      */
     public int getViewedPageNumber() {
@@ -167,6 +178,7 @@ public class KualiTableRenderFormMetadata {
 
     /**
      * Sets the viewedPageNumber attribute value.
+     *
      * @param viewedPageNumber The viewedPageNumber to set.
      */
     public void setViewedPageNumber(int viewedPageNumber) {
@@ -175,6 +187,7 @@ public class KualiTableRenderFormMetadata {
 
     /**
      * Gets the totalNumberOfPages attribute.
+     *
      * @return Returns the totalNumberOfPages.
      */
     public int getTotalNumberOfPages() {
@@ -183,6 +196,7 @@ public class KualiTableRenderFormMetadata {
 
     /**
      * Sets the totalNumberOfPages attribute value.
+     *
      * @param totalNumberOfPages The totalNumberOfPages to set.
      */
     public void setTotalNumberOfPages(int totalNumberOfPages) {
@@ -191,6 +205,7 @@ public class KualiTableRenderFormMetadata {
 
     /**
      * Gets the firstRowIndex attribute.
+     *
      * @return Returns the firstRowIndex.
      */
     public int getFirstRowIndex() {
@@ -199,6 +214,7 @@ public class KualiTableRenderFormMetadata {
 
     /**
      * Sets the firstRowIndex attribute value.
+     *
      * @param firstRowIndex The firstRowIndex to set.
      */
     public void setFirstRowIndex(int firstRowIndex) {
@@ -207,6 +223,7 @@ public class KualiTableRenderFormMetadata {
 
     /**
      * Gets the lastRowIndex attribute.
+     *
      * @return Returns the lastRowIndex.
      */
     public int getLastRowIndex() {
@@ -215,6 +232,7 @@ public class KualiTableRenderFormMetadata {
 
     /**
      * Sets the lastRowIndex attribute value.
+     *
      * @param lastRowIndex The lastRowIndex to set.
      */
     public void setLastRowIndex(int lastRowIndex) {
@@ -223,6 +241,7 @@ public class KualiTableRenderFormMetadata {
 
     /**
      * Gets the sortDescending attribute.
+     *
      * @return Returns the sortDescending.
      */
     public boolean isSortDescending() {
@@ -231,45 +250,46 @@ public class KualiTableRenderFormMetadata {
 
     /**
      * Sets the sortDescending attribute value.
+     *
      * @param sortDescending The sortDescending to set.
      */
     public void setSortDescending(boolean sortDescending) {
         this.sortDescending = sortDescending;
     }
 
-	/**
-	 * @return the columnToSortName
-	 */
-	public String getColumnToSortName() {
-		return this.columnToSortName;
-	}
+    /**
+     * @return the columnToSortName
+     */
+    public String getColumnToSortName() {
+        return this.columnToSortName;
+    }
 
-	/**
-	 * @param columnToSortName the columnToSortName to set
-	 */
-	public void setColumnToSortName(String columnToSortName) {
-		this.columnToSortName = columnToSortName;
-	}
+    /**
+     * @param columnToSortName the columnToSortName to set
+     */
+    public void setColumnToSortName(String columnToSortName) {
+        this.columnToSortName = columnToSortName;
+    }
 
-	/**
-	 * @return the previouslySortedColumnName
-	 */
-	public String getPreviouslySortedColumnName() {
-		return this.previouslySortedColumnName;
-	}
+    /**
+     * @return the previouslySortedColumnName
+     */
+    public String getPreviouslySortedColumnName() {
+        return this.previouslySortedColumnName;
+    }
 
-	/**
-	 * @param previouslySortedColumnName the previouslySortedColumnName to set
-	 */
-	public void setPreviouslySortedColumnName(String previouslySortedColumnName) {
-		this.previouslySortedColumnName = previouslySortedColumnName;
-	}
+    /**
+     * @param previouslySortedColumnName the previouslySortedColumnName to set
+     */
+    public void setPreviouslySortedColumnName(String previouslySortedColumnName) {
+        this.previouslySortedColumnName = previouslySortedColumnName;
+    }
 
 
     /**
      * Sets the paging form parameters to go to the first page of the list
      *
-     * @param listSize size of table being rendered
+     * @param listSize       size of table being rendered
      * @param maxRowsPerPage
      */
     public void jumpToFirstPage(int listSize, int maxRowsPerPage) {
@@ -279,7 +299,7 @@ public class KualiTableRenderFormMetadata {
     /**
      * Sets the paging form parameters to go to the last page of the list
      *
-     * @param listSize size of table being rendered
+     * @param listSize       size of table being rendered
      * @param maxRowsPerPage
      */
     public void jumpToLastPage(int listSize, int maxRowsPerPage) {
@@ -289,11 +309,10 @@ public class KualiTableRenderFormMetadata {
     /**
      * Sets the paging form parameters to go to the specified page of the list
      *
-     * @param pageNumber first page is 0, must be non-negative.  If the list is not large enough to have the page specified, then
-     *   this method will be equivalent to calling jumpToLastPage.
-     * @param listSize size of table being rendered
+     * @param pageNumber     first page is 0, must be non-negative.  If the list is not large enough to have the page specified, then
+     *                       this method will be equivalent to calling jumpToLastPage.
+     * @param listSize       size of table being rendered
      * @param maxRowsPerPage
-     *
      * @see KualiTableRenderFormMetadata#jumpToLastPage(int, int)
      */
     public void jumpToPage(int pageNumber, int listSize, int maxRowsPerPage) {
@@ -317,63 +336,63 @@ public class KualiTableRenderFormMetadata {
      */
     public void sort(List<?> items, int maxRowsPerPage) {
 
-    	// Don't bother to sort null, empty or singleton lists
-    	if (items == null || items.size() <= 1)
-    		return;
+        // Don't bother to sort null, empty or singleton lists
+        if (items == null || items.size() <= 1)
+            return;
 
         String columnToSortOn = getColumnToSortName();
 
         // Don't bother to sort if no column to sort on is provided
         if (StringUtils.isEmpty(columnToSortOn))
-        	return;
+            return;
 
         String previouslySortedColumnName = getPreviouslySortedColumnName();
 
         // We know members isn't null or empty from the check above
-    	Object firstItem = items.get(0);
-    	// Need to decide if the comparator is for a bean property or a mapped key on the qualififer attribute set
-    	Comparator comparator = null;
-    	Comparator subComparator = new Comparator<Object>() {
+        Object firstItem = items.get(0);
+        // Need to decide if the comparator is for a bean property or a mapped key on the qualififer attribute set
+        Comparator comparator = null;
+        Comparator subComparator = new Comparator<Object>() {
 
-    		public int compare(Object o1, Object o2) {
-    			if (o1 == null)
-    				return -1;
-    			if (o2 == null)
-    				return 1;
+            public int compare(Object o1, Object o2) {
+                if (o1 == null)
+                    return -1;
+                if (o2 == null)
+                    return 1;
 
-    			if (o1 instanceof java.util.Date && o2 instanceof java.util.Date) {
-    				Date d1 = (Date)o1;
-    				Date d2 = (Date)o2;
-    				return d1.compareTo(d2);
-    			}
+                if (o1 instanceof java.util.Date && o2 instanceof java.util.Date) {
+                    Date d1 = (Date) o1;
+                    Date d2 = (Date) o2;
+                    return d1.compareTo(d2);
+                }
 
-    			String s1 = o1.toString();
-    			String s2 = o2.toString();
-    			int n1=s1.length(), n2=s2.length();
-    			for (int i1=0, i2=0; i1<n1 && i2<n2; i1++, i2++) {
-    				char c1 = s1.charAt(i1);
-    				char c2 = s2.charAt(i2);
-    				if (c1 != c2) {
-    					c1 = Character.toUpperCase(c1);
-    					c2 = Character.toUpperCase(c2);
-    					if (c1 != c2) {
-    						c1 = Character.toLowerCase(c1);
-    						c2 = Character.toLowerCase(c2);
-    						if (c1 != c2) {
-    							return c1 - c2;
-    						}
-    					}
-    				}
-    			}
-    			return n1 - n2;
-    		}
-    	};
-    	// If the columnName is a readable bean property on the first member, then it's safe to say we need a simple bean property comparator,
-    	// otherwise it's a mapped property -- syntax for BeanComparator is "name" and "name(key)", respectively
-    	if (PropertyUtils.isReadable(firstItem, columnToSortOn))
-    		comparator = new BeanComparator(columnToSortOn, subComparator);
-    	else
-    		comparator = new BeanComparator(new StringBuilder().append("qualifierAsMap(").append(columnToSortOn).append(")").toString(), subComparator);
+                String s1 = o1.toString();
+                String s2 = o2.toString();
+                int n1 = s1.length(), n2 = s2.length();
+                for (int i1 = 0, i2 = 0; i1 < n1 && i2 < n2; i1++, i2++) {
+                    char c1 = s1.charAt(i1);
+                    char c2 = s2.charAt(i2);
+                    if (c1 != c2) {
+                        c1 = Character.toUpperCase(c1);
+                        c2 = Character.toUpperCase(c2);
+                        if (c1 != c2) {
+                            c1 = Character.toLowerCase(c1);
+                            c2 = Character.toLowerCase(c2);
+                            if (c1 != c2) {
+                                return c1 - c2;
+                            }
+                        }
+                    }
+                }
+                return n1 - n2;
+            }
+        };
+        // If the columnName is a readable bean property on the first member, then it's safe to say we need a simple bean property comparator,
+        // otherwise it's a mapped property -- syntax for BeanComparator is "name" and "name(key)", respectively
+        if (PropertyUtils.isReadable(firstItem, columnToSortOn))
+            comparator = new BeanComparator(columnToSortOn, subComparator);
+        else
+            comparator = new BeanComparator(new StringBuilder().append("qualifierAsMap(").append(columnToSortOn).append(")").toString(), subComparator);
 
 
         // If the user has decided to resort by the same column that the list is currently sorted by, then assume that s/he wants to reverse the order of the sort
@@ -384,9 +403,9 @@ public class KualiTableRenderFormMetadata {
 
             setSortDescending(!isSortDescending());
         } else {
-        	// Track which column we're currently sorting, so that the above logic will work on the next sort
-        	setPreviouslySortedColumnName(columnToSortOn);
-        	setSortDescending(true);
+            // Track which column we're currently sorting, so that the above logic will work on the next sort
+            setPreviouslySortedColumnName(columnToSortOn);
+            setSortDescending(true);
         }
 
         //if the user is just going between pages no need to sort
@@ -394,7 +413,7 @@ public class KualiTableRenderFormMetadata {
             Collections.sort(items, comparator);
         }
 
-		jumpToFirstPage(items.size(), maxRowsPerPage);
+        jumpToFirstPage(items.size(), maxRowsPerPage);
     }
 
 }

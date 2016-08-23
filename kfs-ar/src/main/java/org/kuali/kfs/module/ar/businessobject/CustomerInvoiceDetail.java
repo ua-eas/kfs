@@ -1,22 +1,39 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.businessobject;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.kuali.kfs.coa.businessobject.ObjectCode;
+import org.kuali.kfs.coa.businessobject.SubObjectCode;
+import org.kuali.kfs.integration.ar.AccountsReceivableCustomerInvoiceDetail;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
+import org.kuali.kfs.module.ar.document.service.CustomerInvoiceWriteoffDocumentService;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
+import org.kuali.kfs.sys.businessobject.UnitOfMeasure;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+import org.kuali.rice.kew.api.exception.WorkflowException;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -26,28 +43,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.kuali.kfs.coa.businessobject.ObjectCode;
-import org.kuali.kfs.coa.businessobject.SubObjectCode;
-import org.kuali.kfs.integration.ar.AccountsReceivableCustomerInvoiceDetail;
-import org.kuali.kfs.module.ar.document.CustomerInvoiceDocument;
-import org.kuali.kfs.module.ar.document.service.CustomerInvoiceWriteoffDocumentService;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
-import org.kuali.kfs.sys.businessobject.UnitOfMeasure;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.ObjectUtils;
-
 /**
  * This class represents a customer invoice detail on the customer invoice document. This class extends SourceAccountingLine since
  * each customer invoice detail has associated accounting line information.
- *
- * 
  */
 public class CustomerInvoiceDetail extends SourceAccountingLine implements AppliedPayment, AccountsReceivableCustomerInvoiceDetail {
 
@@ -63,7 +61,8 @@ public class CustomerInvoiceDetail extends SourceAccountingLine implements Appli
     private String invoiceItemDescription;
     private String accountsReceivableObjectCode;
     private String accountsReceivableSubObjectCode;
-    private KualiDecimal invoiceItemTaxAmount = KualiDecimal.ZERO;;
+    private KualiDecimal invoiceItemTaxAmount = KualiDecimal.ZERO;
+    ;
     private boolean taxableIndicator;
     private boolean isDebit;
     private Integer invoiceItemDiscountLineNumber;
@@ -142,11 +141,10 @@ public class CustomerInvoiceDetail extends SourceAccountingLine implements Appli
     //}
 
     /**
-     *
      * Retrieves the discounted amount.  This is the amount minues any
      * discounts that might exist.  If no discount exists, then it
      * just returns the amount.
-     *
+     * <p>
      * NOTE this does not subtract PaidApplieds, only discounts.
      *
      * @return
@@ -155,7 +153,7 @@ public class CustomerInvoiceDetail extends SourceAccountingLine implements Appli
     public KualiDecimal getAmountDiscounted() {
         KualiDecimal a = getAmount();
         CustomerInvoiceDetail discount = getDiscountCustomerInvoiceDetail();
-        if(ObjectUtils.isNotNull(discount)) {
+        if (ObjectUtils.isNotNull(discount)) {
             KualiDecimal d = discount.getAmount();
             a = a.add(d);
         }
@@ -231,7 +229,7 @@ public class CustomerInvoiceDetail extends SourceAccountingLine implements Appli
         List<InvoicePaidApplied> invoicePaidApplieds = null;
         invoicePaidApplieds = getMatchingInvoicePaidAppliedsMatchingAnyDocumentFromDatabase();
         KualiDecimal appliedAmount = new KualiDecimal(0);
-        for(InvoicePaidApplied invoicePaidApplied : invoicePaidApplieds) {
+        for (InvoicePaidApplied invoicePaidApplied : invoicePaidApplieds) {
             appliedAmount = appliedAmount.add(invoicePaidApplied.getInvoiceItemAppliedAmount());
         }
         return appliedAmount;
@@ -253,6 +251,7 @@ public class CustomerInvoiceDetail extends SourceAccountingLine implements Appli
 //     return getAmountAppliedBy(getCurrentPaymentApplicationDocument());
 // }
 //
+
     /**
      * @param paymentApplicationDocument
      * @return
@@ -265,7 +264,7 @@ public class CustomerInvoiceDetail extends SourceAccountingLine implements Appli
             invoicePaidApplieds = getMatchingInvoicePaidAppliedsMatchingDocument(documentNumber);
         }
         KualiDecimal appliedAmount = new KualiDecimal(0);
-        for(InvoicePaidApplied invoicePaidApplied : invoicePaidApplieds) {
+        for (InvoicePaidApplied invoicePaidApplied : invoicePaidApplieds) {
             appliedAmount = appliedAmount.add(invoicePaidApplied.getInvoiceItemAppliedAmount());
         }
         return appliedAmount;
@@ -304,8 +303,7 @@ public class CustomerInvoiceDetail extends SourceAccountingLine implements Appli
             //     memos, the getAmount() isnt the amount that the writeoff document will have
             //     written off
             return super.getAmount(); // using the accounting line amount ... see comments at top of class
-        }
-        else {
+        } else {
             return getAmountOpen();
         }
     }
@@ -415,8 +413,7 @@ public class CustomerInvoiceDetail extends SourceAccountingLine implements Appli
     public void setInvoiceItemUnitPrice(KualiDecimal invoiceItemUnitPrice) {
         if (ObjectUtils.isNotNull(invoiceItemUnitPrice)) {
             this.invoiceItemUnitPrice = invoiceItemUnitPrice.bigDecimalValue();
-        }
-        else {
+        } else {
             this.invoiceItemUnitPrice = BigDecimal.ZERO;
         }
     }
@@ -663,13 +660,13 @@ public class CustomerInvoiceDetail extends SourceAccountingLine implements Appli
         BusinessObjectService businessObjectService = SpringContext.getBean(BusinessObjectService.class);
 
         // assuming here that you never have a PaidApplied against a Discount line
-        Map<String,Object> criteria = new HashMap<String,Object>();
+        Map<String, Object> criteria = new HashMap<String, Object>();
         criteria.put("invoiceItemNumber", getInvoiceItemNumber());
         criteria.put("financialDocumentReferenceInvoiceNumber", getDocumentNumber());
         criteria.put("documentHeader.financialDocumentStatusCode", KFSConstants.DocumentStatusCodes.APPROVED);
 
         List<InvoicePaidApplied> invoicePaidApplieds = (List<InvoicePaidApplied>) businessObjectService.findMatching(InvoicePaidApplied.class, criteria);
-        if(ObjectUtils.isNull(invoicePaidApplieds)) {
+        if (ObjectUtils.isNull(invoicePaidApplieds)) {
             invoicePaidApplieds = new ArrayList<InvoicePaidApplied>();
         }
         return invoicePaidApplieds;
@@ -687,13 +684,13 @@ public class CustomerInvoiceDetail extends SourceAccountingLine implements Appli
         }
 
         BusinessObjectService businessObjectService = SpringContext.getBean(BusinessObjectService.class);
-        Map<String,Object> criteria = new HashMap<String,Object>();
+        Map<String, Object> criteria = new HashMap<String, Object>();
         criteria.put("documentNumber", documentNumber);
         criteria.put("invoiceItemNumber", getSequenceNumber());
         criteria.put("financialDocumentReferenceInvoiceNumber", getDocumentNumber());
 
         List<InvoicePaidApplied> invoicePaidApplieds = (List<InvoicePaidApplied>) businessObjectService.findMatching(InvoicePaidApplied.class, criteria);
-        if(ObjectUtils.isNull(invoicePaidApplieds)) {
+        if (ObjectUtils.isNull(invoicePaidApplieds)) {
             invoicePaidApplieds = new ArrayList<InvoicePaidApplied>();
         }
         return invoicePaidApplieds;
@@ -761,8 +758,7 @@ public class CustomerInvoiceDetail extends SourceAccountingLine implements Appli
             DocumentService documentService = SpringContext.getBean(DocumentService.class);
             try {
                 customerInvoiceDocument = (CustomerInvoiceDocument) documentService.getByDocumentHeaderId(getDocumentNumber());
-            }
-            catch (WorkflowException e) {
+            } catch (WorkflowException e) {
                 throw new RuntimeException("A WorkflowException was thrown when trying to open the details parent document.  This should never happen.", e);
             }
         }
@@ -828,7 +824,6 @@ public class CustomerInvoiceDetail extends SourceAccountingLine implements Appli
     }
 
     /**
-     *
      * @see org.kuali.rice.krad.bo.PersistableBusinessObjectBase#refresh()
      */
     @Override

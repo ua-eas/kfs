@@ -1,3 +1,21 @@
+/*
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 body {
     font-family: Lato, sans-serif;
     min-height: 100vh;
@@ -74,7 +92,7 @@ div.fineprint {
 
 header.navbar {
     height: 60px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     background-color: #f8f8f8;
     border-color: #e7e7e7;
     position: fixed;
@@ -88,6 +106,7 @@ header.navbar {
 header.navbar .navbar-header {
     padding-left: 70px;
 }
+
 header.navbar .navbar-brand {
     height: 60px;
     font-size: 26px;
@@ -95,21 +114,23 @@ header.navbar .navbar-brand {
     padding: 14px 15px;
     color: #767676;
 }
+
 header.navbar .navbar-brand img {
     float: left;
 }
+
 header.navbar .navbar-brand .logo-right {
     border-left: 1px solid #767676;
     margin-left: 15px;
     padding-left: 15px;
 }
 
-.navbar-nav>li>.dropdown-menu {
+.navbar-nav > li > .dropdown-menu {
     margin-top: -1px;
     margin-right: -1px;
 }
 
-.dropdown-menu>li {
+.dropdown-menu > li {
     padding: 3px 20px;
     line-height: 30px;
     color: #333;
@@ -155,7 +176,7 @@ header.navbar .navbar-brand .logo-right {
     border: 1px solid #D6D6D6;
     border-radius: 4px;
     margin-right: 7px;
-    box-shadow: inset 0 1px 4px rgba(0,0,0,0.15);
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.15);
     padding: 0 5px;
     width: inherit;
 }
@@ -182,7 +203,7 @@ header.navbar .navbar-brand .logo-right {
     position: relative;
     z-index: 0;
     margin-left: 320px;
-    transition:500ms all;
+    transition: 500ms all;
 }
 
 .content.fullwidth {
@@ -190,7 +211,7 @@ header.navbar .navbar-brand .logo-right {
 }
 
 #content-overlay {
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     width: 100%;
     height: 100%;
     position: fixed;
@@ -246,17 +267,17 @@ nav ul.nav li {
 #sidebar {
     background-color: #5b5b5b;
     position: fixed;
-    transition:500ms all;
+    transition: 500ms all;
     width: 320px;
     top: 60px;
     bottom: 0;
 }
 
-.test-env>#sidebar {
+.test-env > #sidebar {
     top: 100px;
 }
 
-#sidebar>div {
+#sidebar > div {
     position: fixed;
     height: calc(100% - 100px);
 }
@@ -268,13 +289,13 @@ nav ul.nav li {
     left: 0;
     top: 0;
     position: absolute;
-    z-index:1 !important;
-    background-color:black;
+    z-index: 1 !important;
+    background-color: black;
     opacity: 0.40;
 }
 
 #sidebar.collapsed,
-#sidebar.collapsed>div {
+#sidebar.collapsed > div {
     width: 25px;
 }
 
@@ -323,7 +344,7 @@ nav ul.nav li {
     font-size: 20px;
 }
 
-#sidebar ul>li.list-item {
+#sidebar ul > li.list-item {
     padding: 0;
     border-bottom: 1px solid #6a6a6a;
     font-size: 14px;
@@ -332,17 +353,17 @@ nav ul.nav li {
     opacity: 1;
 }
 
-#sidebar ul>li.search.list-item {
+#sidebar ul > li.search.list-item {
     border-bottom: none;
 }
 
-#sidebar ul>li.search>span {
+#sidebar ul > li.search > span {
     margin-left: -45px;
     color: #BCBCBC;
     cursor: pointer;
 }
 
-#sidebar ul>li.search input {
+#sidebar ul > li.search input {
     margin: 10px 12px;
     padding: 7px;
     border-radius: 2px;
@@ -351,10 +372,10 @@ nav ul.nav li {
     border: 1px solid #CCCCCC;
     font-size: 16px;
     color: #767676;
-    box-shadow: 0px 1px 2px 0px rgba(0,0,0,.15);
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, .15);
 }
 
-#sidebar.collapsed ul>li.list-item,
+#sidebar.collapsed ul > li.list-item,
 #sidebar.collapsed .refresh {
     opacity: 0;
 }
@@ -372,13 +393,20 @@ nav ul.nav li {
     animation: spin 1s linear infinite;
 }
 
-@keyframes spin
-{
-    from { transform: rotate(0deg);   opacity: 0.2; }
-    50%  { transform: rotate(180deg); opacity: 1.0; }
-    to   { transform: rotate(360deg); opacity: 0.2; }
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+        opacity: 0.2;
+    }
+    50% {
+        transform: rotate(180deg);
+        opacity: 1.0;
+    }
+    to {
+        transform: rotate(360deg);
+        opacity: 0.2;
+    }
 }
-
 
 #sidebar .refresh {
     color: #aaaaaa;
@@ -432,7 +460,7 @@ nav ul.nav li {
     font-size: 14px;
 }
 
-#sidebar .nav li>a {
+#sidebar .nav li > a {
     padding: 8px 0 8px 25px;
 }
 
@@ -483,7 +511,7 @@ nav ul.nav li {
     width: 1080px;
 }
 
-#sidebar .sublinks.col-3>div.links-container {
+#sidebar .sublinks.col-3 > div.links-container {
     -webkit-column-count: 3;
     -moz-column-count: 3;
     column-count: 3;
@@ -496,7 +524,7 @@ nav ul.nav li {
     width: 720px;
 }
 
-#sidebar .sublinks.col-2>div.links-container {
+#sidebar .sublinks.col-2 > div.links-container {
     -webkit-column-count: 2;
     -moz-column-count: 2;
     column-count: 2;
@@ -675,7 +703,7 @@ nav ul.nav li {
 .btn {
     padding: 5px 15px 7px 15px;
     border: none;
-    box-shadow: inset 0 -2px 0 0 rgba(0,0,0,0.2);
+    box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, 0.2);
 }
 
 .btn.small {
@@ -708,7 +736,7 @@ nav ul.nav li {
 }
 
 .btn.clean.move {
-    color: rgba(215,215,215,0.7);
+    color: rgba(215, 215, 215, 0.7);
     font-size: 18px;
     margin: 0;
 }
@@ -835,7 +863,7 @@ nav ul.nav li {
 }
 
 .motd {
-	padding: 15px 15px 15px 55px;
+    padding: 15px 15px 15px 55px;
 }
 
 /* IE10+ specific styles go here */

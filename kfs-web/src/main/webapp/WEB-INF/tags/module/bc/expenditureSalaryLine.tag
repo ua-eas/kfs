@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -43,67 +43,67 @@
 		<kul:htmlAttributeHeaderCell attributeEntry="${accountAttributes.subFundGroupCode}" hideRequiredAsterisk="true"/>
 		<kul:htmlAttributeHeaderCell attributeEntry="${accountAttributes.organizationCode}" hideRequiredAsterisk="true"/>
 	</tr>
-	
+
 	<tr>
 		<%-- Chart of Accounts Code and Name --%>
-		<bc:pbglLineDataCell dataCellCssClass="datacell" 
-			accountingLine="${accountingLine}" 
-			field="chartOfAccountsCode" 
-			detailFunction="loadChartInfo" 
+		<bc:pbglLineDataCell dataCellCssClass="datacell"
+			accountingLine="${accountingLine}"
+			field="chartOfAccountsCode"
+			detailFunction="loadChartInfo"
 			detailField="chartOfAccounts.finChartOfAccountDescription"
-			attributes="${sseAttributes}" lookup="false" inquiry="true" 
-			boClassSimpleName="Chart" readOnly="true" displayHidden="false" colSpan="1" 
+			attributes="${sseAttributes}" lookup="false" inquiry="true"
+			boClassSimpleName="Chart" readOnly="true" displayHidden="false" colSpan="1"
 			lookupOrInquiryKeys="chartOfAccountsCode"
 			accountingLineValuesMap="${KualiForm.salarySettingExpansion.valuesMap}" />
 
 
 		<%-- Account Number and Name --%>
-		<bc:pbglLineDataCell dataCellCssClass="datacell" 
-			accountingLine="${accountingLine}" 
-			field="accountNumber" 
-			detailFunction="loadAccountInfo" 
-			detailField="account.accountName" 
-			attributes="${sseAttributes}" lookup="false" inquiry="true" 
-			boClassSimpleName="Account" readOnly="true" displayHidden="false" colSpan="1" 
-			lookupOrInquiryKeys="chartOfAccountsCode" 
+		<bc:pbglLineDataCell dataCellCssClass="datacell"
+			accountingLine="${accountingLine}"
+			field="accountNumber"
+			detailFunction="loadAccountInfo"
+			detailField="account.accountName"
+			attributes="${sseAttributes}" lookup="false" inquiry="true"
+			boClassSimpleName="Account" readOnly="true" displayHidden="false" colSpan="1"
+			lookupOrInquiryKeys="chartOfAccountsCode"
 			accountingLineValuesMap="${KualiForm.salarySettingExpansion.valuesMap}" />
 
 		<%-- Sub-Account Number and Name --%>
 		<c:set var="doLookupOrInquiry" value="${KualiForm.salarySettingExpansion.subAccountNumber ne KualiForm.dashSubAccountNumber ? true : false}" />
-		<bc:pbglLineDataCell dataCellCssClass="datacell" 
-			accountingLine="${accountingLine}" 
-			field="subAccountNumber" 
-			detailFunction="loadSubAccountInfo" detailField="subAccount.subAccountName" 
-			attributes="${sseAttributes}" lookup="${doLookupOrInquiry}" inquiry="${doLookupOrInquiry}" 
-			boClassSimpleName="SubAccount" readOnly="true" displayHidden="false" colSpan="1" 
+		<bc:pbglLineDataCell dataCellCssClass="datacell"
+			accountingLine="${accountingLine}"
+			field="subAccountNumber"
+			detailFunction="loadSubAccountInfo" detailField="subAccount.subAccountName"
+			attributes="${sseAttributes}" lookup="${doLookupOrInquiry}" inquiry="${doLookupOrInquiry}"
+			boClassSimpleName="SubAccount" readOnly="true" displayHidden="false" colSpan="1"
 			lookupOrInquiryKeys="chartOfAccountsCode,accountNumber"
 			accountingLineValuesMap="${KualiForm.salarySettingExpansion.valuesMap}" />
 
 		<%-- Object Code and Name --%>
-		<bc:pbglLineDataCell dataCellCssClass="datacell" 
-			accountingLine="${accountingLine}" field="financialObjectCode" 
-			detailFunction="loadObjectInfo" detailField="financialObject.financialObjectCodeName" 
-			attributes="${sseAttributes}" lookup="false" inquiry="true" 
-			boClassSimpleName="ObjectCode" readOnly="true" displayHidden="false" colSpan="1" 
+		<bc:pbglLineDataCell dataCellCssClass="datacell"
+			accountingLine="${accountingLine}" field="financialObjectCode"
+			detailFunction="loadObjectInfo" detailField="financialObject.financialObjectCodeName"
+			attributes="${sseAttributes}" lookup="false" inquiry="true"
+			boClassSimpleName="ObjectCode" readOnly="true" displayHidden="false" colSpan="1"
 			lookupOrInquiryKeys="universityFiscalYear,chartOfAccountsCode"
 			accountingLineValuesMap="${KualiForm.salarySettingExpansion.valuesMap}" />
 
 		<%-- Sub-Object Code and Name --%>
 		<c:set var="doLookupOrInquiry" value="${KualiForm.salarySettingExpansion.financialSubObjectCode ne KualiForm.dashFinancialSubObjectCode ? true : false}" />
-		<bc:pbglLineDataCell dataCellCssClass="datacell" 
-			accountingLine="${accountingLine}" field="financialSubObjectCode" 
+		<bc:pbglLineDataCell dataCellCssClass="datacell"
+			accountingLine="${accountingLine}" field="financialSubObjectCode"
 			detailFunction="loadSubObjectInfo" detailField="financialSubObject.financialSubObjectCodeName"
-			attributes="${sseAttributes}" lookup="${doLookupOrInquiry}" inquiry="${doLookupOrInquiry}" 
+			attributes="${sseAttributes}" lookup="${doLookupOrInquiry}" inquiry="${doLookupOrInquiry}"
 			boClassSimpleName="SubObjCd" readOnly="true" displayHidden="false" colSpan="1"
-			lookupOrInquiryKeys="universityFiscalYear,chartOfAccountsCode,accountNumber,financialObjectCode" 
+			lookupOrInquiryKeys="universityFiscalYear,chartOfAccountsCode,accountNumber,financialObjectCode"
 			accountingLineValuesMap="${KualiForm.salarySettingExpansion.valuesMap}" />
 
 		<%-- Sub-Fund Group Code  --%>
 		<td>
-			<kul:htmlControlAttribute property="salarySettingExpansion.account.subFundGroupCode" 
+			<kul:htmlControlAttribute property="salarySettingExpansion.account.subFundGroupCode"
 				attributeEntry="${accountAttributes.subFundGroupCode}" readOnly="true" readOnlyBody="true">
-				
-				<kul:inquiry boClassName="org.kuali.kfs.coa.businessobject.SubFundGroup" 
+
+				<kul:inquiry boClassName="org.kuali.kfs.coa.businessobject.SubFundGroup"
 					keyValues="subFundGroupCode=${KualiForm.salarySettingExpansion.account.subFundGroupCode}" render="true">
 				</kul:inquiry>
 			</kul:htmlControlAttribute>
@@ -113,9 +113,9 @@
 
 		<%-- organization Code  --%>
 		<td>
-			<kul:htmlControlAttribute property="salarySettingExpansion.account.organizationCode" 
+			<kul:htmlControlAttribute property="salarySettingExpansion.account.organizationCode"
 				attributeEntry="${accountAttributes.organizationCode}" readOnly="true" readOnlyBody="true">
-				
+
 				<kul:inquiry boClassName="org.kuali.kfs.coa.businessobject.Organization"
 					keyValues="chartOfAccountsCode=${KualiForm.salarySettingExpansion.account.chartOfAccountsCode}&amp;organizationCode=${KualiForm.salarySettingExpansion.account.organizationCode}" render="true">
 				</kul:inquiry>
@@ -134,16 +134,16 @@
 					alt="Add Position"
 					styleClass="btn btn-default"
 					value="Add Position"/>
-				
+
 	   		<html:submit
 					property="methodToCall.addIncumbent"
 					title="Add Incumbent"
 					alt="Add Incumbent"
 					styleClass="btn btn-default"
 					value="Add Incumbent"/>
-	          
+
 		</td>
-	</tr>	
+	</tr>
 	</c:if>
 </tbody>
 </table>

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -146,7 +146,7 @@ public class CabPropertyConstants {
         public static final String FINANCIAL_OBJECT_SUB_TYPE_CODE = "objectCode.financialObjectSubTypeCode";
         public static final String ACCOUNT_SUB_FUND_GROUP_CODE = "account.subFundGroupCode";
         public static final String CHART_OF_ACCOUNTS_CODE = "chartOfAccountsCode";
-        public static final String PURAP_ITEM_UNIT_PRICE = "purapItem.itemUnitPrice";        
+        public static final String PURAP_ITEM_UNIT_PRICE = "purapItem.itemUnitPrice";
         public static final String PO_INITIAL_OPEN_TIMESTAMP = "purapItem.purapDocument.purchaseOrderInitialOpenTimestamp";
         public static final String PURAP_CAPITAL_ASSET_SYSTEM_STATE_CODE = "purapItem.purapDocument.capitalAssetSystemStateCode";
     }

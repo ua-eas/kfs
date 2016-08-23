@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -29,8 +29,6 @@ import java.util.concurrent.Callable;
 
 /**
  * Holds all of our thread local variables and accessors for those
- *
- * 
  */
 public final class GlobalVariables {
 
@@ -65,14 +63,15 @@ public final class GlobalVariables {
     private UserSession userSession = null;
     private String hideSessionFromTestsMessage = null;
     private org.kuali.kfs.krad.util.MessageMap messageMap = new org.kuali.kfs.krad.util.MessageMap();
-    private Map<String,Object> requestCache = new HashMap<String, Object>();
+    private Map<String, Object> requestCache = new HashMap<String, Object>();
     private UifFormManager uifFormManager = null;
 
-    private GlobalVariables() {}
+    private GlobalVariables() {
+    }
 
     /**
      * @return the UserSession that has been assigned to this thread of execution it is important that this not be called by
-     *         anything that lives outside
+     * anything that lives outside
      */
     public static UserSession getUserSession() {
         GlobalVariables vars = getCurrentGlobalVariables();
@@ -111,6 +110,7 @@ public final class GlobalVariables {
 
     /**
      * Merges a message map into the global variables error map
+     *
      * @param messageMap
      */
     public static void mergeErrorMap(org.kuali.kfs.krad.util.MessageMap messageMap) {
@@ -166,12 +166,13 @@ public final class GlobalVariables {
     public static void clear() {
         GlobalVariables vars = getCurrentGlobalVariables();
         vars.messageMap = new org.kuali.kfs.krad.util.MessageMap();
-        vars.requestCache = new HashMap<String,Object>();
+        vars.requestCache = new HashMap<String, Object>();
     }
 
     /**
      * Pushes a new GlobalVariables object onto the ThreadLocal GlobalVariables stack, invokes the runnable,
      * and pops the GlobalVariables off in a finally clause
+     *
      * @param callable the code to run under a new set of GlobalVariables
      */
     public static <T> T doInNewGlobalVariables(Callable<T> callable) throws Exception {
@@ -181,8 +182,9 @@ public final class GlobalVariables {
     /**
      * Convenience method that creates a new GlobalVariables stack frame, initialized with the provided
      * UserSession (which may be the previous UserSession).
+     *
      * @param userSession the UserSession to initialize the new frame with (may be null)
-     * @param callable the code to run under a new set of GlobalVariables
+     * @param callable    the code to run under a new set of GlobalVariables
      * @throws Exception
      */
     public static <T> T doInNewGlobalVariables(UserSession userSession, Callable<T> callable) throws Exception {

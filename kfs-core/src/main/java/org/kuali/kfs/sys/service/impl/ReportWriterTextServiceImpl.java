@@ -1,22 +1,33 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.service.impl;
+
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.Message;
+import org.kuali.kfs.sys.batch.service.WrappingBatchService;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.report.BusinessObjectReportHelper;
+import org.kuali.kfs.sys.service.ReportWriterService;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -26,17 +37,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.Message;
-import org.kuali.kfs.sys.batch.service.WrappingBatchService;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.report.BusinessObjectReportHelper;
-import org.kuali.kfs.sys.service.ReportWriterService;
-import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Text output implementation of <code>ReportWriterService</code> interface. If you are a developer attempting to add a new business
@@ -110,8 +110,7 @@ public class ReportWriterTextServiceImpl implements ReportWriterService, Wrappin
     public void initialize() {
         try {
             printStream = new PrintStream(generateFullFilePath());
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
 
@@ -139,8 +138,7 @@ public class ReportWriterTextServiceImpl implements ReportWriterService, Wrappin
     protected String generateFullFilePath() {
         if (aggregationModeOn) {
             return filePath + File.separator + this.fileNamePrefix + fileNameSuffix;
-        }
-        else {
+        } else {
             return filePath + File.separator + this.fileNamePrefix + dateTimeService.toDateTimeStringForFilename(dateTimeService.getCurrentDate()) + fileNameSuffix;
         }
     }
@@ -149,7 +147,7 @@ public class ReportWriterTextServiceImpl implements ReportWriterService, Wrappin
      * @see org.kuali.kfs.sys.batch.service.WrappingBatchService#destroy()
      */
     public void destroy() {
-        if(printStream != null) {
+        if (printStream != null) {
             printStream.close();
             printStream = null;
         }
@@ -170,8 +168,7 @@ public class ReportWriterTextServiceImpl implements ReportWriterService, Wrappin
         if (message.length() > pageWidth) {
             LOG.warn("sub title to be written exceeds pageWidth. Printing anyway.");
             this.writeFormattedMessageLine(message);
-        }
-        else {
+        } else {
             int padding = (pageWidth - message.length()) / 2;
             this.writeFormattedMessageLine("%" + (padding + message.length()) + "s", message);
         }
@@ -195,8 +192,7 @@ public class ReportWriterTextServiceImpl implements ReportWriterService, Wrappin
             if (businessObjectClass == null) {
                 // If we didn't write the header before, write it with a subTitle
                 this.writeSubTitle(errorSubTitle);
-            }
-            else if (!businessObjectClass.getName().equals(businessObject.getClass().getName())) {
+            } else if (!businessObjectClass.getName().equals(businessObject.getClass().getName())) {
                 // If it changed push a newline in for neater formatting
                 this.writeNewLines(1);
             }
@@ -213,8 +209,7 @@ public class ReportWriterTextServiceImpl implements ReportWriterService, Wrappin
         List<Object> formatterArgs = new ArrayList<Object>();
         if (printBusinessObjectValues) {
             formatterArgs.addAll(businessObjectReportHelper.getValues(businessObject));
-        }
-        else {
+        } else {
             formatterArgs.addAll(businessObjectReportHelper.getBlankValues(businessObject));
         }
 
@@ -227,12 +222,11 @@ public class ReportWriterTextServiceImpl implements ReportWriterService, Wrappin
             if (!firstMessageLine) {
                 formatterArgs = new ArrayList<Object>();
                 formatterArgs.addAll(businessObjectReportHelper.getBlankValues(businessObject));
-            }
-            else {
+            } else {
                 firstMessageLine = false;
             }
 
-            messageToPrint =  StringUtils.trim(messageToPrint);
+            messageToPrint = StringUtils.trim(messageToPrint);
             String messageLine = messageToPrint;
             if (messageLine.length() > maxMessageLength) {
                 messageLine = StringUtils.substring(messageLine, 0, maxMessageLength);
@@ -253,14 +247,13 @@ public class ReportWriterTextServiceImpl implements ReportWriterService, Wrappin
      */
     public void writeError(BusinessObject businessObject, List<Message> messages) {
         int i = 0;
-        for (Iterator<Message> messagesIter = messages.iterator(); messagesIter.hasNext();) {
+        for (Iterator<Message> messagesIter = messages.iterator(); messagesIter.hasNext(); ) {
             Message message = messagesIter.next();
 
             if (i == 0) {
                 // First one has its values written
                 this.writeError(businessObject, message, true);
-            }
-            else {
+            } else {
                 // Any consecutive one only has message written
                 this.writeError(businessObject, message, false);
             }
@@ -329,12 +322,11 @@ public class ReportWriterTextServiceImpl implements ReportWriterService, Wrappin
      */
     public void writeFormattedMessageLine(String format, Object... args) {
         if (format.indexOf("% s") > -1) {
-            LOG.warn("Cannot properly format: "+format);
-        }
-        else {
+            LOG.warn("Cannot properly format: " + format);
+        } else {
             Object[] escapedArgs = escapeArguments(args);
             if (LOG.isDebugEnabled()) {
-                LOG.debug("writeFormattedMessageLine, format: "+format);
+                LOG.debug("writeFormattedMessageLine, format: " + format);
             }
 
             String message = null;
@@ -342,7 +334,7 @@ public class ReportWriterTextServiceImpl implements ReportWriterService, Wrappin
             if (escapedArgs.length > 0) {
                 message = String.format(format + newLineCharacter, escapedArgs);
             } else {
-                message = format+newLineCharacter;
+                message = format + newLineCharacter;
             }
 
             // Log we are writing out of bounds. Would be nice to show message here but not so sure if it's wise to dump that data into
@@ -365,6 +357,7 @@ public class ReportWriterTextServiceImpl implements ReportWriterService, Wrappin
 
     /**
      * Determines if all formatting on the given String is escaped - ie, that it has no formatting
+     *
      * @param format the format to test
      * @return true if the String is without formatting, false otherwise
      */
@@ -372,7 +365,7 @@ public class ReportWriterTextServiceImpl implements ReportWriterService, Wrappin
         int currPoint = 0;
         int currIndex = format.indexOf('%', currPoint);
         while (currIndex > -1) {
-            char nextChar = format.charAt(currIndex+1);
+            char nextChar = format.charAt(currIndex + 1);
             if (nextChar != '%') {
                 return false;
             }
@@ -407,8 +400,7 @@ public class ReportWriterTextServiceImpl implements ReportWriterService, Wrappin
 
         if (aggregationModeOn) {
             this.writeFormattedMessageLine("%s%s%s", headerText, pageLabel, KFSConstants.REPORT_WRITER_SERVICE_PAGE_NUMBER_PLACEHOLDER);
-        }
-        else {
+        } else {
             this.writeFormattedMessageLine("%s%s%,9d", headerText, pageLabel, page);
         }
         this.writeNewLines(1);
@@ -429,13 +421,12 @@ public class ReportWriterTextServiceImpl implements ReportWriterService, Wrappin
         }
 
         // Print the header one by one. Note the last element is the formatter. So capture that seperately
-        for (Iterator<String> headers = errorHeader.iterator(); headers.hasNext();) {
+        for (Iterator<String> headers = errorHeader.iterator(); headers.hasNext(); ) {
             String header = headers.next();
 
             if (headers.hasNext()) {
                 this.writeFormattedMessageLine("%s", header);
-            }
-            else {
+            } else {
                 errorFormat = header;
             }
         }
@@ -456,6 +447,7 @@ public class ReportWriterTextServiceImpl implements ReportWriterService, Wrappin
 
     /**
      * Writes out the table header, based on a business object class
+     *
      * @param businessObjectClass the class to write the header out for
      */
     public void writeTableHeader(Class<? extends BusinessObject> businessObjectClass) {
@@ -553,9 +545,9 @@ public class ReportWriterTextServiceImpl implements ReportWriterService, Wrappin
     public BusinessObjectReportHelper getBusinessObjectReportHelper(BusinessObject businessObject) {
         if (LOG.isDebugEnabled()) {
             if (businessObject == null) {
-                LOG.debug("reporting "+filePath+" but can't because null business object sent in");
+                LOG.debug("reporting " + filePath + " but can't because null business object sent in");
             } else if (businessObjectReportHelpers == null) {
-                LOG.debug("Logging "+businessObject+" in report "+filePath+" but businessObjectReportHelpers are null");
+                LOG.debug("Logging " + businessObject + " in report " + filePath + " but businessObjectReportHelpers are null");
             }
         }
         BusinessObjectReportHelper businessObjectReportHelper = this.businessObjectReportHelpers.get(businessObject.getClass());
@@ -584,8 +576,8 @@ public class ReportWriterTextServiceImpl implements ReportWriterService, Wrappin
     /**
      * write the given information as multiple lines if it contains more than one line breaks
      *
-     * @param format the given text format definition
-     * @param messageLines the given information being written out
+     * @param format               the given text format definition
+     * @param messageLines         the given information being written out
      * @param headerLinesInNewPage the given header lines being written in the begin of a new page
      */
     protected void writeMultipleFormattedMessageLines(String[] messageLines, String[] headerLinesInNewPage, boolean isRowBreakAcrossPageAllowed) {
@@ -613,7 +605,7 @@ public class ReportWriterTextServiceImpl implements ReportWriterService, Wrappin
      * write the given information as multiple lines if it contains more than one line breaks
      *
      * @param format the given text format definition
-     * @param args the given information being written out
+     * @param args   the given information being written out
      */
     public void writeMultipleFormattedMessageLines(String[] messageLines) {
         this.writeMultipleFormattedMessageLines(messageLines, null, false);
@@ -651,10 +643,9 @@ public class ReportWriterTextServiceImpl implements ReportWriterService, Wrappin
             if (arg == null) {
                 args[i] = "";
             } else if (arg != null && arg instanceof String) {
-                String escapedArg = escapeFormatCharacters((String)arg);
+                String escapedArg = escapeFormatCharacters((String) arg);
                 escapedArgs[i] = escapedArg;
-            }
-            else {
+            } else {
                 escapedArgs[i] = arg;
             }
         }
@@ -808,6 +799,7 @@ public class ReportWriterTextServiceImpl implements ReportWriterService, Wrappin
 
     /**
      * Gets the parametersLabel attribute.
+     *
      * @return Returns the parametersLabel.
      */
     public String getParametersLabel() {
@@ -816,6 +808,7 @@ public class ReportWriterTextServiceImpl implements ReportWriterService, Wrappin
 
     /**
      * Sets the parametersLabel attribute value.
+     *
      * @param parametersLabel The parametersLabel to set.
      */
     public void setParametersLabel(String parametersLabel) {
@@ -824,6 +817,7 @@ public class ReportWriterTextServiceImpl implements ReportWriterService, Wrappin
 
     /**
      * Gets the parametersLeftPadding attribute.
+     *
      * @return Returns the parametersLeftPadding.
      */
     public String getParametersLeftPadding() {
@@ -832,6 +826,7 @@ public class ReportWriterTextServiceImpl implements ReportWriterService, Wrappin
 
     /**
      * Sets the parametersLeftPadding attribute value.
+     *
      * @param parametersLeftPadding The parametersLeftPadding to set.
      */
     public void setParametersLeftPadding(String parametersLeftPadding) {
@@ -840,6 +835,7 @@ public class ReportWriterTextServiceImpl implements ReportWriterService, Wrappin
 
     /**
      * Gets the aggregationModeOn attribute.
+     *
      * @return Returns the aggregationModeOn.
      */
     public boolean isAggregationModeOn() {
@@ -848,6 +844,7 @@ public class ReportWriterTextServiceImpl implements ReportWriterService, Wrappin
 
     /**
      * Sets the aggregationModeOn attribute value.
+     *
      * @param aggregationModeOn The aggregationModeOn to set.
      */
     public void setAggregationModeOn(boolean aggregationModeOn) {

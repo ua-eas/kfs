@@ -1,27 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.dataaccess.impl;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.businessobject.TrialBalanceReport;
@@ -32,12 +27,16 @@ import org.kuali.rice.core.framework.persistence.jdbc.dao.PlatformAwareDaoBaseJd
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A class to do the database queries needed to calculate Balance By Consolidation Balance Inquiry Screen
  */
 public class TrialBalanceDaoJdbc extends PlatformAwareDaoBaseJdbc implements TrialBalanceDao {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(TrialBalanceDaoJdbc.class);
-
 
 
     /*
@@ -48,27 +47,27 @@ public class TrialBalanceDaoJdbc extends PlatformAwareDaoBaseJdbc implements Tri
      * @param periodCode
      * @return
      */
-    private static String buildYTDQueryString( String periodCode ){
+    private static String buildYTDQueryString(String periodCode) {
 
-        if ( StringUtils.isBlank(periodCode)) {
+        if (StringUtils.isBlank(periodCode)) {
             return " SUM(A0.FIN_BEG_BAL_LN_AMT + A0.ACLN_ANNL_BAL_AMT)";
         }
 
         int number = 0;
         try {
-            number = Integer.parseInt( periodCode );
-        } catch (NumberFormatException e){
+            number = Integer.parseInt(periodCode);
+        } catch (NumberFormatException e) {
             //if periodCode is not a number, then consider it blank
             return " SUM(A0.FIN_BEG_BAL_LN_AMT + A0.ACLN_ANNL_BAL_AMT)";
         }
 
         StringBuilder ytdQuery = new StringBuilder(" SUM(A0.FIN_BEG_BAL_LN_AMT + ");
-        for ( int i = 1; i<=number; i++){
+        for (int i = 1; i <= number; i++) {
             ytdQuery.append("MO" + i);
-            ytdQuery.append( i<number?"_ACCT_LN_AMT + ":"_ACCT_LN_AMT ");
+            ytdQuery.append(i < number ? "_ACCT_LN_AMT + " : "_ACCT_LN_AMT ");
         }
 
-        return ytdQuery.append( ")" ).toString();
+        return ytdQuery.append(")").toString();
     }
 
 
@@ -93,7 +92,7 @@ public class TrialBalanceDaoJdbc extends PlatformAwareDaoBaseJdbc implements Tri
             queryArguments.add(chartCode);
         }
         queryBuilder.append("GROUP BY A0.FIN_OBJECT_CD, A0.FIN_COA_CD, A1.FIN_OBJ_CD_NM, A2.FIN_OBJTYP_DBCR_CD, A3.FIN_REPORT_SORT_CD ");
-        queryBuilder.append("HAVING "+YTDQuery+" <> 0 ");
+        queryBuilder.append("HAVING " + YTDQuery + " <> 0 ");
         queryBuilder.append("ORDER BY A0.FIN_COA_CD, A3.FIN_REPORT_SORT_CD, A0.FIN_OBJECT_CD");
 
         getJdbcTemplate().query(queryBuilder.toString(), queryArguments.toArray(), new ResultSetExtractor() {
@@ -121,8 +120,7 @@ public class TrialBalanceDaoJdbc extends PlatformAwareDaoBaseJdbc implements Tri
                         reportLine.setCreditAmount(ytdAmount.abs());
                         // sum the total credit
                         totalCredit = totalCredit.add(reportLine.getCreditAmount());
-                    }
-                    else if ((ytdAmount.isPositive() && KFSConstants.GL_DEBIT_CODE.equals(objectTypeDebitCreditCd)) || (ytdAmount.isNegative() && KFSConstants.GL_CREDIT_CODE.equals(objectTypeDebitCreditCd))) {
+                    } else if ((ytdAmount.isPositive() && KFSConstants.GL_DEBIT_CODE.equals(objectTypeDebitCreditCd)) || (ytdAmount.isNegative() && KFSConstants.GL_CREDIT_CODE.equals(objectTypeDebitCreditCd))) {
                         reportLine.setDebitAmount(ytdAmount.abs());
                         // sum the total debit
                         totalDebit = totalDebit.add(reportLine.getDebitAmount());

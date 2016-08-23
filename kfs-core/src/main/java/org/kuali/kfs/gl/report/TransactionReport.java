@@ -1,38 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.report;
-
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import org.kuali.kfs.gl.businessobject.Transaction;
-import org.kuali.kfs.sys.Message;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.datetime.DateTimeService;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -46,11 +30,25 @@ import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfPageEventHelper;
 import com.lowagie.text.pdf.PdfWriter;
+import org.kuali.kfs.gl.businessobject.Transaction;
+import org.kuali.kfs.sys.Message;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class represents the functionality related to the generating the Transaction Report. The transaction report
  * shows the primary key from transactions and a list of messages for each one.
- * 
  */
 public class TransactionReport {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(TransactionReport.class);
@@ -62,7 +60,7 @@ public class TransactionReport {
 
         /**
          * Generates the end page for this transaction report
-         * 
+         *
          * @see com.lowagie.text.pdf.PdfPageEventHelper#onEndPage(com.lowagie.text.pdf.PdfWriter, com.lowagie.text.Document)
          */
         public void onEndPage(PdfWriter writer, Document document) {
@@ -86,8 +84,7 @@ public class TransactionReport {
 
                 head.setTotalWidth(page.width() - document.leftMargin() - document.rightMargin());
                 head.writeSelectedRows(0, -1, document.leftMargin(), page.height() - document.topMargin() + head.getTotalHeight(), writer.getDirectContent());
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 throw new ExceptionConverter(e);
             }
         }
@@ -100,12 +97,12 @@ public class TransactionReport {
 
     /**
      * Generates transaction report
-     * 
-     * @param reportErrors map containing transactions and the errors associated with each transaction
-     * @param reportSummary list of summary objects
-     * @param runDate date report is run
-     * @param title title of report
-     * @param fileprefix file prefix of report file
+     *
+     * @param reportErrors         map containing transactions and the errors associated with each transaction
+     * @param reportSummary        list of summary objects
+     * @param runDate              date report is run
+     * @param title                title of report
+     * @param fileprefix           file prefix of report file
      * @param destinationDirectory destination of where report file will reside
      */
     public void generateReport(Map<Transaction, List<Message>> reportErrors, List<Summary> reportSummary, Date runDate, String title, String fileprefix, String destinationDirectory) {
@@ -120,13 +117,13 @@ public class TransactionReport {
 
     /**
      * Generates transaction report
-     * 
-     * @param errorSortedList list of error'd transactions
-     * @param reportErrors map containing transactions and the errors associated with each transaction
-     * @param reportSummary list of summary objects
-     * @param runDate date report is run
-     * @param title title of report
-     * @param fileprefix file prefix of report file
+     *
+     * @param errorSortedList      list of error'd transactions
+     * @param reportErrors         map containing transactions and the errors associated with each transaction
+     * @param reportSummary        list of summary objects
+     * @param runDate              date report is run
+     * @param title                title of report
+     * @param fileprefix           file prefix of report file
      * @param destinationDirectory destination of where report file will reside
      */
     public void generateReport(List<Transaction> errorSortedList, Map<Transaction, List<Message>> reportErrors, List<Summary> reportSummary, Date runDate, String title, String fileprefix, String destinationDirectory) {
@@ -144,7 +141,7 @@ public class TransactionReport {
 
         try {
             DateTimeService dateTimeService = SpringContext.getBean(DateTimeService.class);
-            
+
             String filename = destinationDirectory + "/" + fileprefix + "_";
             filename = filename + dateTimeService.toDateTimeStringForFilename(runDate);
             filename = filename + ".pdf";
@@ -153,16 +150,13 @@ public class TransactionReport {
 
             document.open();
             appendReport(document, headerFont, textFont, errorSortedList, reportErrors, reportSummary, runDate);
-        }
-        catch (DocumentException de) {
+        } catch (DocumentException de) {
             LOG.error("generateReport() Error creating PDF report", de);
             throw new RuntimeException("Report Generation Failed: " + de.getMessage());
-        }
-        catch (FileNotFoundException fnfe) {
+        } catch (FileNotFoundException fnfe) {
             LOG.error("generateReport() Error writing PDF report", fnfe);
             throw new RuntimeException("Report Generation Failed: Error writing to file " + fnfe.getMessage());
-        }
-        finally {
+        } finally {
             if ((document != null) && document.isOpen()) {
                 document.close();
             }
@@ -171,21 +165,21 @@ public class TransactionReport {
 
     /**
      * Appends the scrubber totals/statistics and error report to the given (iText) document object.
-     * 
-     * @param document the PDF document
-     * @param headerFont font for header
-     * @param textFont font for report text
+     *
+     * @param document        the PDF document
+     * @param headerFont      font for header
+     * @param textFont        font for report text
      * @param errorSortedList list of error'd transactions
-     * @param reportErrors map containing transactions and the errors associated with each transaction
-     * @param reportSummary list of summary objects
-     * @param runDate date report was run
+     * @param reportErrors    map containing transactions and the errors associated with each transaction
+     * @param reportSummary   list of summary objects
+     * @param runDate         date report was run
      * @throws DocumentException
      */
     public void appendReport(Document document, Font headerFont, Font textFont, List<Transaction> errorSortedList, Map<Transaction, List<Message>> reportErrors, List<Summary> reportSummary, Date runDate) throws DocumentException {
         // Sort what we get
         Collections.sort(reportSummary);
 
-        float[] summaryWidths = { 80, 20 };
+        float[] summaryWidths = {80, 20};
         PdfPTable summary = new PdfPTable(summaryWidths);
         summary.setWidthPercentage(40);
         PdfPCell cell = new PdfPCell(new Phrase("S T A T I S T I C S", headerFont));
@@ -194,7 +188,7 @@ public class TransactionReport {
         cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
         summary.addCell(cell);
 
-        for (Iterator iter = reportSummary.iterator(); iter.hasNext();) {
+        for (Iterator iter = reportSummary.iterator(); iter.hasNext(); ) {
             Summary s = (Summary) iter.next();
 
             cell = new PdfPCell(new Phrase(s.getDescription(), textFont));
@@ -205,8 +199,7 @@ public class TransactionReport {
                 cell = new PdfPCell(new Phrase("", textFont));
                 cell.setBorder(Rectangle.NO_BORDER);
                 summary.addCell(cell);
-            }
-            else {
+            } else {
                 DecimalFormat nf = new DecimalFormat("###,###,###,##0");
                 cell = new PdfPCell(new Phrase(nf.format(s.getCount()), textFont));
                 cell.setBorder(Rectangle.NO_BORDER);
@@ -222,7 +215,7 @@ public class TransactionReport {
         document.add(summary);
 
         if (reportErrors != null && reportErrors.size() > 0) {
-            float[] warningWidths = { 4, 3, 6, 5, 5, 4, 5, 5, 4, 5, 5, 9, 4, 36 };
+            float[] warningWidths = {4, 3, 6, 5, 5, 4, 5, 5, 4, 5, 5, 9, 4, 36};
             PdfPTable warnings = new PdfPTable(warningWidths);
             warnings.setHeaderRows(2);
             warnings.setWidthPercentage(100);
@@ -261,23 +254,21 @@ public class TransactionReport {
             cell = new PdfPCell(new Phrase("Warning", headerFont));
             warnings.addCell(cell);
 
-            for (Iterator errorIter = errorSortedList.iterator(); errorIter.hasNext();) {
+            for (Iterator errorIter = errorSortedList.iterator(); errorIter.hasNext(); ) {
                 Transaction tran = (Transaction) errorIter.next();
                 boolean first = true;
 
                 List errors = (List) reportErrors.get(tran);
-                for (Iterator listIter = errors.iterator(); listIter.hasNext();) {
+                for (Iterator listIter = errors.iterator(); listIter.hasNext(); ) {
                     String msg = null;
                     Object m = listIter.next();
                     if (m instanceof Message) {
                         Message mm = (Message) m;
                         msg = mm.getMessage();
-                    }
-                    else {
+                    } else {
                         if (m == null) {
                             msg = "";
-                        }
-                        else {
+                        } else {
                             msg = m.toString();
                         }
                     }
@@ -287,8 +278,7 @@ public class TransactionReport {
 
                         if (tran.getUniversityFiscalYear() == null) {
                             cell = new PdfPCell(new Phrase("NULL", textFont));
-                        }
-                        else {
+                        } else {
                             cell = new PdfPCell(new Phrase(tran.getUniversityFiscalYear().toString(), textFont));
                         }
                         warnings.addCell(cell);
@@ -316,13 +306,11 @@ public class TransactionReport {
                         warnings.addCell(cell);
                         if (tran.getTransactionLedgerEntrySequenceNumber() == null) {
                             cell = new PdfPCell(new Phrase("NULL", textFont));
-                        }
-                        else {
+                        } else {
                             cell = new PdfPCell(new Phrase(tran.getTransactionLedgerEntrySequenceNumber().toString(), textFont));
                         }
                         warnings.addCell(cell);
-                    }
-                    else {
+                    } else {
                         cell = new PdfPCell(new Phrase("", textFont));
                         cell.setColspan(13);
                         warnings.addCell(cell);

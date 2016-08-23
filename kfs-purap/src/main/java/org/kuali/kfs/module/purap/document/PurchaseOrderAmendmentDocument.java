@@ -1,35 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.module.purap.document;
 
-import static org.kuali.kfs.sys.KFSConstants.GL_DEBIT_CODE;
-import static org.kuali.rice.core.api.util.type.KualiDecimal.ZERO;
-import static org.kuali.rice.core.api.util.type.KualiDecimal.ZERO;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapConstants.PurapDocTypeCodes;
 import org.kuali.kfs.module.purap.PurapConstants.PurchaseOrderStatuses;
@@ -52,11 +45,17 @@ import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
-import org.kuali.kfs.krad.service.SequenceAccessorService;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
+import static org.kuali.kfs.sys.KFSConstants.GL_DEBIT_CODE;
+import static org.kuali.rice.core.api.util.type.KualiDecimal.ZERO;
+
 /**
  * Purchase Order Amendment Document
  */
@@ -72,8 +71,8 @@ public class PurchaseOrderAmendmentDocument extends PurchaseOrderDocument {
      *
      * @see org.kuali.kfs.module.purap.document.PurchaseOrderDocument#doRouteStatusChange()
      */
-   @Override
-	public void doRouteStatusChange(DocumentRouteStatusChange statusChangeEvent) {
+    @Override
+    public void doRouteStatusChange(DocumentRouteStatusChange statusChangeEvent) {
         super.doRouteStatusChange(statusChangeEvent);
 
         try {
@@ -82,13 +81,13 @@ public class PurchaseOrderAmendmentDocument extends PurchaseOrderDocument {
                 // generate GL entries
                 SpringContext.getBean(PurapGeneralLedgerService.class).generateEntriesApproveAmendPurchaseOrder(this);
 
-            // if gl entries created(means there is amount change) for amend purchase order send an FYI to all fiscal officers
-            if ((getGlOnlySourceAccountingLines() != null && !getGlOnlySourceAccountingLines().isEmpty())) {
-                SpringContext.getBean(PurchaseOrderService.class).sendFyiForGLEntries(this);
-            }
+                // if gl entries created(means there is amount change) for amend purchase order send an FYI to all fiscal officers
+                if ((getGlOnlySourceAccountingLines() != null && !getGlOnlySourceAccountingLines().isEmpty())) {
+                    SpringContext.getBean(PurchaseOrderService.class).sendFyiForGLEntries(this);
+                }
 
-                    // update indicators
-                    SpringContext.getBean(PurchaseOrderService.class).completePurchaseOrderAmendment(this);
+                // update indicators
+                SpringContext.getBean(PurchaseOrderService.class).completePurchaseOrderAmendment(this);
 
                 // update vendor commodity code by automatically spawning vendor maintenance document
                 SpringContext.getBean(PurchaseOrderService.class).updateVendorCommodityCode(this);
@@ -118,47 +117,46 @@ public class PurchaseOrderAmendmentDocument extends PurchaseOrderDocument {
                 // for app doc status
                 updateAndSaveAppDocStatus(PurapConstants.PurchaseOrderStatuses.APPDOC_CANCELLED);
             }
-        }
-        catch (WorkflowException e) {
+        } catch (WorkflowException e) {
             logAndThrowRuntimeException("Error saving routing data while saving document with id " + getDocumentNumber(), e);
         }
-   }
+    }
 
-   /**
-    * @see org.kuali.module.purap.rules.PurapAccountingDocumentRuleBase#customizeExplicitGeneralLedgerPendingEntry(org.kuali.kfs.sys.document.AccountingDocument,
-    *      org.kuali.kfs.sys.businessobject.AccountingLine, org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry)
-    */
-   @Override
-   public void customizeExplicitGeneralLedgerPendingEntry(GeneralLedgerPendingEntrySourceDetail postable, GeneralLedgerPendingEntry explicitEntry) {
-       super.customizeExplicitGeneralLedgerPendingEntry(postable, explicitEntry);
+    /**
+     * @see org.kuali.module.purap.rules.PurapAccountingDocumentRuleBase#customizeExplicitGeneralLedgerPendingEntry(org.kuali.kfs.sys.document.AccountingDocument,
+     * org.kuali.kfs.sys.businessobject.AccountingLine, org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry)
+     */
+    @Override
+    public void customizeExplicitGeneralLedgerPendingEntry(GeneralLedgerPendingEntrySourceDetail postable, GeneralLedgerPendingEntry explicitEntry) {
+        super.customizeExplicitGeneralLedgerPendingEntry(postable, explicitEntry);
 
-       SpringContext.getBean(PurapGeneralLedgerService.class).customizeGeneralLedgerPendingEntry(this, (AccountingLine)postable, explicitEntry, getPurapDocumentIdentifier(), GL_DEBIT_CODE, PurapDocTypeCodes.PO_DOCUMENT, true);
+        SpringContext.getBean(PurapGeneralLedgerService.class).customizeGeneralLedgerPendingEntry(this, (AccountingLine) postable, explicitEntry, getPurapDocumentIdentifier(), GL_DEBIT_CODE, PurapDocTypeCodes.PO_DOCUMENT, true);
 
-       // don't think i should have to override this, but default isn't getting the right PO doc
-       explicitEntry.setFinancialDocumentTypeCode(PurapDocTypeCodes.PO_AMENDMENT_DOCUMENT);
-       explicitEntry.setFinancialDocumentApprovedCode(KFSConstants.PENDING_ENTRY_APPROVED_STATUS_CODE.APPROVED);
-   }
+        // don't think i should have to override this, but default isn't getting the right PO doc
+        explicitEntry.setFinancialDocumentTypeCode(PurapDocTypeCodes.PO_AMENDMENT_DOCUMENT);
+        explicitEntry.setFinancialDocumentApprovedCode(KFSConstants.PENDING_ENTRY_APPROVED_STATUS_CODE.APPROVED);
+    }
 
-   @Override
-   public List<GeneralLedgerPendingEntrySourceDetail> getGeneralLedgerPendingEntrySourceDetails() {
-       List<GeneralLedgerPendingEntrySourceDetail> accountingLines = new ArrayList<GeneralLedgerPendingEntrySourceDetail>();
+    @Override
+    public List<GeneralLedgerPendingEntrySourceDetail> getGeneralLedgerPendingEntrySourceDetails() {
+        List<GeneralLedgerPendingEntrySourceDetail> accountingLines = new ArrayList<GeneralLedgerPendingEntrySourceDetail>();
 
-       if (getGlOnlySourceAccountingLines() != null) {
-           Iterator iter = getGlOnlySourceAccountingLines().iterator();
-           while (iter.hasNext()) {
-               accountingLines.add((GeneralLedgerPendingEntrySourceDetail) iter.next());
-           }
-       }
-       return accountingLines;
-   }
+        if (getGlOnlySourceAccountingLines() != null) {
+            Iterator iter = getGlOnlySourceAccountingLines().iterator();
+            while (iter.hasNext()) {
+                accountingLines.add((GeneralLedgerPendingEntrySourceDetail) iter.next());
+            }
+        }
+        return accountingLines;
+    }
 
 
-   @Override
-   public void populateDocumentForRouting() {
-       newUnorderedItem = SpringContext.getBean(PurchaseOrderService.class).hasNewUnorderedItem(this);
-       receivingDeliveryCampusCode = SpringContext.getBean(ReceivingService.class).getReceivingDeliveryCampusCode(this);
-       super.populateDocumentForRouting();
-   }
+    @Override
+    public void populateDocumentForRouting() {
+        newUnorderedItem = SpringContext.getBean(PurchaseOrderService.class).hasNewUnorderedItem(this);
+        receivingDeliveryCampusCode = SpringContext.getBean(ReceivingService.class).getReceivingDeliveryCampusCode(this);
+        super.populateDocumentForRouting();
+    }
 
     public boolean isNewUnorderedItem() {
         return newUnorderedItem;
@@ -179,7 +177,7 @@ public class PurchaseOrderAmendmentDocument extends PurchaseOrderDocument {
     @Override
     public boolean answerSplitNodeQuestion(String nodeName) throws UnsupportedOperationException {
         if (nodeName.equals(PurapWorkflowConstants.HAS_NEW_UNORDERED_ITEMS)) return isNewUnorderedItem();
-        throw new UnsupportedOperationException("Cannot answer split question for this node you call \""+nodeName+"\"");
+        throw new UnsupportedOperationException("Cannot answer split question for this node you call \"" + nodeName + "\"");
     }
 
     @Override
@@ -217,8 +215,7 @@ public class PurchaseOrderAmendmentDocument extends PurchaseOrderDocument {
                     KualiDecimal totalAmount = item.getTotalAmount() == null ? ZERO : item.getTotalAmount();
                     outstandingEncumbrance = totalAmount.subtract(item.getItemInvoicedTotalAmount());
                     item.setItemOutstandingEncumberedAmount(outstandingEncumbrance);
-                }
-                else {
+                } else {
                     // if the item is quantity based
                     BigDecimal itemUnitPrice = ObjectUtils.isNull(item.getItemUnitPrice()) ? BigDecimal.ZERO : item.getItemUnitPrice();
                     outstandingEncumbrance = new KualiDecimal(item.getItemOutstandingEncumberedQuantity().bigDecimalValue().multiply(itemUnitPrice));
@@ -254,16 +251,14 @@ public class PurchaseOrderAmendmentDocument extends PurchaseOrderDocument {
             excludeList = SpringContext.getBean(ParameterService.class).getParameterValuesAsString(PurchaseOrderDocument.class, PurapParameterConstants.PO_NOTIFY_EXCLUSIONS);
         }
 
-        if (getDocumentHeader().getWorkflowDocument().isDisapproved() ) {
+        if (getDocumentHeader().getWorkflowDocument().isDisapproved()) {
             return true;
         }
-        if (getDocumentHeader().getWorkflowDocument().isFinal() && !excludeList.contains(getRequisitionSourceCode()) ) {
+        if (getDocumentHeader().getWorkflowDocument().isFinal() && !excludeList.contains(getRequisitionSourceCode())) {
             return true;
         }
         return false;
     }
-
-
 
 
 }

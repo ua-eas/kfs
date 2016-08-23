@@ -1,39 +1,39 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.util;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.document.web.struts.BudgetExpansionForm;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.kns.web.struts.form.KualiForm;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * Provides helper methods for building URLs to various budget actions.
@@ -42,11 +42,11 @@ public class BudgetUrlUtil {
 
     /**
      * Builds url for temp list action.
-     * 
-     * @param mapping struts action mapping
-     * @param form BudgetExpansionForm
-     * @param tempListMode mode for temp list action
-     * @param tempListLookupClass class name to lookup
+     *
+     * @param mapping              struts action mapping
+     * @param form                 BudgetExpansionForm
+     * @param tempListMode         mode for temp list action
+     * @param tempListLookupClass  class name to lookup
      * @param additionalParameters appended to the url or replace default
      * @return string url
      */
@@ -59,7 +59,7 @@ public class BudgetUrlUtil {
         parameters.put(KFSConstants.SUPPRESS_ACTIONS, "false");
         parameters.put(BCConstants.SHOW_INITIAL_RESULTS, "true");
         parameters.put(BCConstants.TempListLookupMode.TEMP_LIST_LOOKUP_MODE, Integer.toString(tempListMode));
-        
+
         if (additionalParameters != null) {
             for (String parameterKey : additionalParameters.keySet()) {
                 parameters.put(parameterKey, additionalParameters.get(parameterKey));
@@ -71,10 +71,10 @@ public class BudgetUrlUtil {
 
     /**
      * Builds a budget URL setting default parameters.
-     * 
-     * @param mapping struts action mapping
-     * @param form BudgetExpansionForm
-     * @param actionPath url path for requested action
+     *
+     * @param mapping              struts action mapping
+     * @param form                 BudgetExpansionForm
+     * @param actionPath           url path for requested action
      * @param additionalParameters appended to the url or replace default
      * @return string url
      */
@@ -87,7 +87,7 @@ public class BudgetUrlUtil {
         parameters.put(KFSConstants.BACK_LOCATION, basePath + mapping.getPath() + ".do");
         parameters.put(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, form.getUniversityFiscalYear().toString());
         parameters.put(KFSPropertyConstants.KUALI_USER_PERSON_UNIVERSAL_IDENTIFIER, GlobalVariables.getUserSession().getPerson().getPrincipalId());
-        
+
         if (StringUtils.isNotEmpty(((KualiForm) form).getAnchor())) {
             parameters.put(BCConstants.RETURN_ANCHOR, ((KualiForm) form).getAnchor());
         }

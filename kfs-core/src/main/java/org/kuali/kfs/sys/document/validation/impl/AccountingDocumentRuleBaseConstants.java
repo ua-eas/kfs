@@ -1,28 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.kns.service.DataDictionaryService;
 
 /**
  * Holds common constants for all Transaction Processing eDoc rule classes.
@@ -41,7 +41,7 @@ public interface AccountingDocumentRuleBaseConstants {
         public static final String MANDATORY_TRANSFER_SUBTYPE_CODES = "MANDATORY_TRANSFER_OBJECT_SUB_TYPES";
         public static final String NONMANDATORY_TRANSFER_SUBTYPE_CODES = "NON_MANDATORY_TRANSFER_OBJECT_SUB_TYPES";
         public static final String FUND_GROUP_BALANCING_SET = "FUND_GROUP_BALANCING_SET";
-        
+
         public static final String ALLOW_MANY_TO_MANY_TRANSFERS = "ALLOW_MANY_TO_MANY_TRANSFERS_IND";
         // doctype parameter
         public static final String DOCTYPE_SALES_TAX_CHECK = "SALES_TAX_APPLICABLE_DOCUMENT_TYPES";

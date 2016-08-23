@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,23 +18,22 @@
  */
 package org.kuali.kfs.module.tem.document.web.struts;
 
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.upload.FormFile;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.kns.web.struts.form.KualiTableRenderFormMetadata;
+import org.kuali.kfs.kns.web.ui.Column;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.businessobject.AgencyEntryFull;
 import org.kuali.kfs.module.tem.document.TemCorrectionProcessDocument;
 import org.kuali.kfs.module.tem.document.service.TemCorrectionDocumentService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.kfs.kns.web.struts.form.KualiTableRenderFormMetadata;
-import org.kuali.kfs.kns.web.ui.Column;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 
 public class TemCorrectionForm extends KualiDocumentFormBase {
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(TemCorrectionForm.class);
@@ -131,7 +130,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
             // the param we're looking for looks like: methodToCall.switchToPage.1.x , where 1 is the page nbr
             String paramPrefix = KFSConstants.DISPATCH_REQUEST_PARAMETER + "." + KFSConstants.TableRenderConstants.SWITCH_TO_PAGE_METHOD + ".";
-            for (Enumeration i = request.getParameterNames(); i.hasMoreElements();) {
+            for (Enumeration i = request.getParameterNames(); i.hasMoreElements(); ) {
                 String parameterName = (String) i.nextElement();
                 if (parameterName.startsWith(paramPrefix)) {
                     String switchToPageNumberStr = StringUtils.substringBetween(parameterName, paramPrefix, ".");
@@ -148,7 +147,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
             // the param we're looking for looks like: methodToCall.sort.1.x , where 1 is the column to sort on
             String paramPrefix = KFSConstants.DISPATCH_REQUEST_PARAMETER + "." + KFSConstants.TableRenderConstants.SORT_METHOD + ".";
-            for (Enumeration i = request.getParameterNames(); i.hasMoreElements();) {
+            for (Enumeration i = request.getParameterNames(); i.hasMoreElements(); ) {
                 String parameterName = (String) i.nextElement();
                 if (parameterName.startsWith(paramPrefix) && parameterName.endsWith(".x")) {
                     String columnToSortStr = StringUtils.substringBetween(parameterName, paramPrefix, ".");
@@ -173,7 +172,6 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * This method synchronizes number of group holders added with the group count
-     *
      */
     public void syncGroups() {
         int groupCount = getCorrectionDocument().getCorrectionChangeGroup().size();
@@ -225,7 +223,6 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Clears agency entry for manual edit
-     *
      */
     public void clearEntryForManualEdit() {
         AgencyEntryFull ae = new AgencyEntryFull();
@@ -276,6 +273,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Gets the chooseSystem attribute.
+     *
      * @return Returns the chooseSystem.
      */
     public String getChooseSystem() {
@@ -284,6 +282,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Sets the chooseSystem attribute value.
+     *
      * @param chooseSystem The chooseSystem to set.
      */
     public void setChooseSystem(String chooseSystem) {
@@ -292,6 +291,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Gets the previousChooseSystem attribute.
+     *
      * @return Returns the previousChooseSystem.
      */
     public String getPreviousChooseSystem() {
@@ -300,6 +300,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Sets the previousChooseSystem attribute value.
+     *
      * @param previousChooseSystem The previousChooseSystem to set.
      */
     public void setPreviousChooseSystem(String previousChooseSystem) {
@@ -308,6 +309,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Gets the editMethod attribute.
+     *
      * @return Returns the editMethod.
      */
     public String getEditMethod() {
@@ -316,6 +318,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Sets the editMethod attribute value.
+     *
      * @param editMethod The editMethod to set.
      */
     public void setEditMethod(String editMethod) {
@@ -328,6 +331,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Gets the previousEditMethod attribute.
+     *
      * @return Returns the previousEditMethod.
      */
     public String getPreviousEditMethod() {
@@ -336,6 +340,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Sets the previousEditMethod attribute value.
+     *
      * @param previousEditMethod The previousEditMethod to set.
      */
     public void setPreviousEditMethod(String previousEditMethod) {
@@ -344,6 +349,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Gets the previousInputGroupId attribute.
+     *
      * @return Returns the previousInputGroupId.
      */
     public String getPreviousInputGroupId() {
@@ -352,6 +358,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Sets the previousInputGroupId attribute value.
+     *
      * @param previousInputGroupId The previousInputGroupId to set.
      */
     public void setPreviousInputGroupId(String previousInputGroupId) {
@@ -360,6 +367,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Gets the inputGroupIdFromLastDocumentLoad attribute.
+     *
      * @return Returns the inputGroupIdFromLastDocumentLoad.
      */
     public String getInputGroupIdFromLastDocumentLoad() {
@@ -368,6 +376,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Sets the inputGroupIdFromLastDocumentLoad attribute value.
+     *
      * @param inputGroupIdFromLastDocumentLoad The inputGroupIdFromLastDocumentLoad to set.
      */
     public void setInputGroupIdFromLastDocumentLoad(String inputGroupIdFromLastDocumentLoad) {
@@ -376,6 +385,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Gets the inputGroupIdFromLastDocumentLoadIsMissing attribute.
+     *
      * @return Returns the inputGroupIdFromLastDocumentLoadIsMissing.
      */
     public boolean isInputGroupIdFromLastDocumentLoadIsMissing() {
@@ -384,6 +394,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Sets the inputGroupIdFromLastDocumentLoadIsMissing attribute value.
+     *
      * @param inputGroupIdFromLastDocumentLoadIsMissing The inputGroupIdFromLastDocumentLoadIsMissing to set.
      */
     public void setInputGroupIdFromLastDocumentLoadIsMissing(boolean inputGroupIdFromLastDocumentLoadIsMissing) {
@@ -392,6 +403,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Gets the persistedOriginEntriesMissing attribute.
+     *
      * @return Returns the persistedOriginEntriesMissing.
      */
     public boolean isPersistedOriginEntriesMissing() {
@@ -400,6 +412,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Sets the persistedOriginEntriesMissing attribute value.
+     *
      * @param persistedOriginEntriesMissing The persistedOriginEntriesMissing to set.
      */
     public void setPersistedOriginEntriesMissing(boolean persistedOriginEntriesMissing) {
@@ -408,6 +421,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Gets the outputGroupId attribute.
+     *
      * @return Returns the outputGroupId.
      */
     public String getOutputGroupId() {
@@ -416,6 +430,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Sets the outputGroupId attribute value.
+     *
      * @param outputGroupId The outputGroupId to set.
      */
     public void setOutputGroupId(String outputGroupId) {
@@ -424,6 +439,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Gets the inputFileName attribute.
+     *
      * @return Returns the inputFileName.
      */
     public String getInputFileName() {
@@ -432,6 +448,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Sets the inputFileName attribute value.
+     *
      * @param inputFileName The inputFileName to set.
      */
     public void setInputFileName(String inputFileName) {
@@ -440,6 +457,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Gets the sourceFile attribute.
+     *
      * @return Returns the sourceFile.
      */
     public FormFile getSourceFile() {
@@ -448,6 +466,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Sets the sourceFile attribute value.
+     *
      * @param sourceFile The sourceFile to set.
      */
     public void setSourceFile(FormFile sourceFile) {
@@ -456,6 +475,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Gets the processInBatch attribute.
+     *
      * @return Returns the processInBatch.
      */
     public boolean isProcessInBatch() {
@@ -464,6 +484,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Sets the processInBatch attribute value.
+     *
      * @param processInBatch The processInBatch to set.
      */
     public void setProcessInBatch(boolean processInBatch) {
@@ -472,6 +493,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Gets the matchCriteriaOnly attribute.
+     *
      * @return Returns the matchCriteriaOnly.
      */
     public boolean isMatchCriteriaOnly() {
@@ -480,6 +502,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Sets the matchCriteriaOnly attribute value.
+     *
      * @param matchCriteriaOnly The matchCriteriaOnly to set.
      */
     public void setMatchCriteriaOnly(boolean matchCriteriaOnly) {
@@ -488,6 +511,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Gets the dataLoadedFlag attribute.
+     *
      * @return Returns the dataLoadedFlag.
      */
     public boolean isDataLoadedFlag() {
@@ -496,6 +520,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Sets the dataLoadedFlag attribute value.
+     *
      * @param dataLoadedFlag The dataLoadedFlag to set.
      */
     public void setDataLoadedFlag(boolean dataLoadedFlag) {
@@ -504,6 +529,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Gets the editableFlag attribute.
+     *
      * @return Returns the editableFlag.
      */
     public boolean isEditableFlag() {
@@ -512,6 +538,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Sets the editableFlag attribute value.
+     *
      * @param editableFlag The editableFlag to set.
      */
     public void setEditableFlag(boolean editableFlag) {
@@ -520,6 +547,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Gets the manualEditFlag attribute.
+     *
      * @return Returns the manualEditFlag.
      */
     public boolean isManualEditFlag() {
@@ -528,6 +556,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Sets the manualEditFlag attribute value.
+     *
      * @param manualEditFlag The manualEditFlag to set.
      */
     public void setManualEditFlag(boolean manualEditFlag) {
@@ -536,6 +565,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Gets the deleteFileFlag attribute.
+     *
      * @return Returns the deleteFileFlag.
      */
     public boolean isDeleteFileFlag() {
@@ -544,6 +574,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Sets the deleteFileFlag attribute value.
+     *
      * @param deleteFileFlag The deleteFileFlag to set.
      */
     public void setDeleteFileFlag(boolean deleteFileFlag) {
@@ -552,6 +583,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Gets the showOutputFlag attribute.
+     *
      * @return Returns the showOutputFlag.
      */
     public boolean isShowOutputFlag() {
@@ -560,6 +592,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Sets the showOutputFlag attribute value.
+     *
      * @param showOutputFlag The showOutputFlag to set.
      */
     public void setShowOutputFlag(boolean showOutputFlag) {
@@ -568,6 +601,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Gets the showSummaryOutputFlag attribute.
+     *
      * @return Returns the showSummaryOutputFlag.
      */
     public boolean isShowSummaryOutputFlag() {
@@ -576,6 +610,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Sets the showSummaryOutputFlag attribute value.
+     *
      * @param showSummaryOutputFlag The showSummaryOutputFlag to set.
      */
     public void setShowSummaryOutputFlag(boolean showSummaryOutputFlag) {
@@ -584,6 +619,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Gets the restrictedFunctionalityMode attribute.
+     *
      * @return Returns the restrictedFunctionalityMode.
      */
     public boolean isRestrictedFunctionalityMode() {
@@ -592,6 +628,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Sets the restrictedFunctionalityMode attribute value.
+     *
      * @param restrictedFunctionalityMode The restrictedFunctionalityMode to set.
      */
     public void setRestrictedFunctionalityMode(boolean restrictedFunctionalityMode) {
@@ -600,6 +637,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Gets the displayEntries attribute.
+     *
      * @return Returns the displayEntries.
      */
     public List<AgencyEntryFull> getDisplayEntries() {
@@ -608,6 +646,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Sets the displayEntries attribute value.
+     *
      * @param displayEntries The displayEntries to set.
      */
     public void setDisplayEntries(List<AgencyEntryFull> displayEntries) {
@@ -616,6 +655,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Gets the entryUniversityFiscalYear attribute.
+     *
      * @return Returns the entryUniversityFiscalYear.
      */
     public String getEntryUniversityFiscalYear() {
@@ -624,6 +664,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Sets the entryUniversityFiscalYear attribute value.
+     *
      * @param entryUniversityFiscalYear The entryUniversityFiscalYear to set.
      */
     public void setEntryUniversityFiscalYear(String entryUniversityFiscalYear) {
@@ -632,6 +673,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Gets the entryFinancialDocumentReversalDate attribute.
+     *
      * @return Returns the entryFinancialDocumentReversalDate.
      */
     public String getEntryFinancialDocumentReversalDate() {
@@ -640,6 +682,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Sets the entryFinancialDocumentReversalDate attribute value.
+     *
      * @param entryFinancialDocumentReversalDate The entryFinancialDocumentReversalDate to set.
      */
     public void setEntryFinancialDocumentReversalDate(String entryFinancialDocumentReversalDate) {
@@ -648,6 +691,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Gets the entryTransactionDate attribute.
+     *
      * @return Returns the entryTransactionDate.
      */
     public String getEntryTransactionDate() {
@@ -656,6 +700,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Sets the entryTransactionDate attribute value.
+     *
      * @param entryTransactionDate The entryTransactionDate to set.
      */
     public void setEntryTransactionDate(String entryTransactionDate) {
@@ -664,6 +709,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Gets the entryTransactionLedgerEntrySequenceNumber attribute.
+     *
      * @return Returns the entryTransactionLedgerEntrySequenceNumber.
      */
     public String getEntryTransactionLedgerEntrySequenceNumber() {
@@ -672,6 +718,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Sets the entryTransactionLedgerEntrySequenceNumber attribute value.
+     *
      * @param entryTransactionLedgerEntrySequenceNumber The entryTransactionLedgerEntrySequenceNumber to set.
      */
     public void setEntryTransactionLedgerEntrySequenceNumber(String entryTransactionLedgerEntrySequenceNumber) {
@@ -680,6 +727,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Gets the entryTransactionLedgerEntryAmount attribute.
+     *
      * @return Returns the entryTransactionLedgerEntryAmount.
      */
     public String getEntryTransactionLedgerEntryAmount() {
@@ -688,6 +736,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Sets the entryTransactionLedgerEntryAmount attribute value.
+     *
      * @param entryTransactionLedgerEntryAmount The entryTransactionLedgerEntryAmount to set.
      */
     public void setEntryTransactionLedgerEntryAmount(String entryTransactionLedgerEntryAmount) {
@@ -695,8 +744,8 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
     }
 
     public TemCorrectionProcessDocument getCorrectionDocument() {
-        if(ObjectUtils.isNotNull(this.getDocument())) {
-            return (TemCorrectionProcessDocument)this.getDocument();
+        if (ObjectUtils.isNotNull(this.getDocument())) {
+            return (TemCorrectionProcessDocument) this.getDocument();
         } else {
             return null;
         }
@@ -704,6 +753,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Gets the allEntries attribute.
+     *
      * @return Returns the allEntries.
      */
     public List<AgencyEntryFull> getAllEntries() {
@@ -712,6 +762,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Sets the allEntries attribute value.
+     *
      * @param allEntries The allEntries to set.
      */
     public void setAllEntries(List<AgencyEntryFull> allEntries) {
@@ -720,12 +771,12 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Return size of list of all OriginEntryInformation objects
+     *
      * @return size of entries size
      */
     public Integer getAllEntriesSize() {
         return (allEntries == null) ? null : allEntries.size();
     }
-
 
 
     /**
@@ -749,6 +800,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Gets the persistedAgencyEntriesMissing attribute.
+     *
      * @return Returns the persistedAgencyEntriesMissing.
      */
     public boolean isPersistedAgencyEntriesMissing() {
@@ -757,6 +809,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Sets the persistedAgencyEntriesMissing attribute value.
+     *
      * @param persistedAgencyEntriesMissing The persistedAgencyEntriesMissing to set.
      */
     public void setPersistedAgencyEntriesMissing(boolean persistedAgencyEntriesMissing) {
@@ -765,6 +818,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Gets the entryForManualEdit attribute.
+     *
      * @return Returns the entryForManualEdit.
      */
     public AgencyEntryFull getEntryForManualEdit() {
@@ -773,6 +827,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Sets the entryForManualEdit attribute value.
+     *
      * @param entryForManualEdit The entryForManualEdit to set.
      */
     public void setEntryForManualEdit(AgencyEntryFull entryForManualEdit) {
@@ -781,6 +836,7 @@ public class TemCorrectionForm extends KualiDocumentFormBase {
 
     /**
      * Sets the agencyEntrySearchResultTableMetadata attribute value.
+     *
      * @param agencyEntrySearchResultTableMetadata The agencyEntrySearchResultTableMetadata to set.
      */
     public void setAgencyEntrySearchResultTableMetadata(KualiTableRenderFormMetadata agencyEntrySearchResultTableMetadata) {

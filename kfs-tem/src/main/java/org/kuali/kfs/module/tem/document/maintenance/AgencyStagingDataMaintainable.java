@@ -1,35 +1,41 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.document.maintenance;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.text.StrBuilder;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.NoteService;
+import org.kuali.kfs.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
-import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.TemConstants.AgencyStagingDataErrorCodes;
 import org.kuali.kfs.module.tem.TemConstants.ExpenseImportTypes;
+import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.batch.service.AgencyDataImportService;
 import org.kuali.kfs.module.tem.batch.service.ExpenseImportByTravelerService;
 import org.kuali.kfs.module.tem.batch.service.ExpenseImportByTripService;
@@ -49,21 +55,14 @@ import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.IdentityService;
 import org.kuali.rice.kim.api.identity.principal.Principal;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.bo.DocumentHeader;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.NoteService;
-import org.kuali.kfs.krad.util.ErrorMessage;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.MessageMap;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Maintainable instance for the travel agency audit maintenance document
- *
  */
 public class AgencyStagingDataMaintainable extends FinancialSystemMaintainable {
     static final Logger LOG = Logger.getLogger(AgencyStagingDataMaintainable.class);
@@ -81,7 +80,7 @@ public class AgencyStagingDataMaintainable extends FinancialSystemMaintainable {
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#processAfterNew(org.kuali.rice.kns.document.MaintenanceDocument, java.util.Map)
      */
     @Override
-    public void processAfterNew(MaintenanceDocument document, Map<String,String[]> parameters) {
+    public void processAfterNew(MaintenanceDocument document, Map<String, String[]> parameters) {
         super.processAfterNew(document, parameters);
         AgencyStagingData agencyData = (AgencyStagingData) getBusinessObject();
         agencyData.setManualCreated(true);
@@ -98,19 +97,19 @@ public class AgencyStagingDataMaintainable extends FinancialSystemMaintainable {
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#processAfterCopy(org.kuali.rice.kns.document.MaintenanceDocument, java.util.Map)
      */
     @Override
-    public void processAfterCopy(MaintenanceDocument document, Map<String,String[]> parameters) {
+    public void processAfterCopy(MaintenanceDocument document, Map<String, String[]> parameters) {
         super.processAfterCopy(document, parameters);
         AgencyStagingData agencyData = (AgencyStagingData) getBusinessObject();
         agencyData.setManualCreated(true);
         agencyData.setCreationTimestamp(getDateTimeService().getCurrentTimestamp());
 
-        AgencyStagingDataMaintainable oldMaintainable = (AgencyStagingDataMaintainable)document.getOldMaintainableObject();
+        AgencyStagingDataMaintainable oldMaintainable = (AgencyStagingDataMaintainable) document.getOldMaintainableObject();
         //this is not new, so it must be for copy - we will set the Copied From Id
-        agencyData.setCopiedFromId(((AgencyStagingData)oldMaintainable.getBusinessObject()).getId());
+        agencyData.setCopiedFromId(((AgencyStagingData) oldMaintainable.getBusinessObject()).getId());
 
         //set TripAccountingInformation primary key and foreign key to null so the maintainance document can handle setting the appropriate key values
         if (!agencyData.getTripAccountingInformation().isEmpty()) {
-            for(TripAccountingInformation account : agencyData.getTripAccountingInformation()) {
+            for (TripAccountingInformation account : agencyData.getTripAccountingInformation()) {
                 account.setId(null);
                 account.setAgencyStagingDataId(null);
             }
@@ -122,8 +121,8 @@ public class AgencyStagingDataMaintainable extends FinancialSystemMaintainable {
      */
     @Override
     public void doRouteStatusChange(DocumentHeader documentHeader) {
-        if (documentHeader.getWorkflowDocument().isProcessed()){
-            AgencyStagingData agencyStaging  = (AgencyStagingData) getBusinessObject();
+        if (documentHeader.getWorkflowDocument().isProcessed()) {
+            AgencyStagingData agencyStaging = (AgencyStagingData) getBusinessObject();
 
             updateCreditCardAgency(agencyStaging);
 
@@ -132,16 +131,15 @@ public class AgencyStagingDataMaintainable extends FinancialSystemMaintainable {
 
             //after fixing the agency audit record, attempt to move agency data to historical table
             List<ErrorMessage> errors = getAgencyDataImportService().processAgencyStagingExpense(agencyStaging, getGeneralLedgerPendingEntrySequenceHelper());
-            LOG.info("Agency Data Id: "+ agencyStaging.getId() + (errors.isEmpty() ? " was":" was not") +" processed.");
+            LOG.info("Agency Data Id: " + agencyStaging.getId() + (errors.isEmpty() ? " was" : " was not") + " processed.");
 
             //add a Note if there were errors reconciling or distributing the record
             if (!errors.isEmpty()) {
                 try {
                     MaintenanceDocument document = (MaintenanceDocument) getDocumentService().getByDocumentHeaderId(documentHeader.getDocumentNumber());
                     addNoteAfterProcessingAgencyStagingExpense(document, errors);
-                }
-                catch (WorkflowException exception) {
-                    LOG.error("Unable to add Note to Document Id: "+ documentHeader.getDocumentNumber(), exception);
+                } catch (WorkflowException exception) {
+                    LOG.error("Unable to add Note to Document Id: " + documentHeader.getDocumentNumber(), exception);
                     LOG.error(getMessageAsString(errors));
                 }
             }
@@ -169,13 +167,12 @@ public class AgencyStagingDataMaintainable extends FinancialSystemMaintainable {
     }
 
     /**
-     *
      * @param agencyStaging
      */
-    protected void updateCreditCardAgency(AgencyStagingData agencyStaging){
+    protected void updateCreditCardAgency(AgencyStagingData agencyStaging) {
         //update the agency name base on code if provided
         CreditCardAgency agency = getCreditCardAgencyService().getCreditCardAgencyByCode(agencyStaging.getCreditCardOrAgencyCode());
-        if (agency != null){
+        if (agency != null) {
             agencyStaging.setCreditCardAgency(agency);
         }
     }
@@ -185,7 +182,7 @@ public class AgencyStagingDataMaintainable extends FinancialSystemMaintainable {
      */
     @Override
     public void processAfterPost(MaintenanceDocument document, Map<String, String[]> parameters) {
-        updateCreditCardAgency((AgencyStagingData)document.getNewMaintainableObject().getBusinessObject());
+        updateCreditCardAgency((AgencyStagingData) document.getNewMaintainableObject().getBusinessObject());
         super.processAfterPost(document, parameters);
     }
 
@@ -194,13 +191,12 @@ public class AgencyStagingDataMaintainable extends FinancialSystemMaintainable {
      */
     @Override
     public void processAfterEdit(MaintenanceDocument document, Map<String, String[]> parameters) {
-        List<ErrorMessage>  errorMessages = null;
-        AgencyStagingData  agency = (AgencyStagingData)document.getNewMaintainableObject().getBusinessObject();
+        List<ErrorMessage> errorMessages = null;
+        AgencyStagingData agency = (AgencyStagingData) document.getNewMaintainableObject().getBusinessObject();
 
-        if(TemConstants.ExpenseImportTypes.IMPORT_BY_TRIP.equals(agency.getImportBy())) {
-           errorMessages = getExpenseImportByTripService().validateAgencyData(agency);
-        }
-        else if (TemConstants.ExpenseImportTypes.IMPORT_BY_TRAVELLER.equals(agency.getImportBy())) {
+        if (TemConstants.ExpenseImportTypes.IMPORT_BY_TRIP.equals(agency.getImportBy())) {
+            errorMessages = getExpenseImportByTripService().validateAgencyData(agency);
+        } else if (TemConstants.ExpenseImportTypes.IMPORT_BY_TRAVELLER.equals(agency.getImportBy())) {
             errorMessages = getExpenseImportByTravelerService().validateAgencyData(agency);
         }
 
@@ -209,33 +205,33 @@ public class AgencyStagingDataMaintainable extends FinancialSystemMaintainable {
         }
 
         MessageMap messageMap = GlobalVariables.getMessageMap();
-        for(ErrorMessage message : errorMessages ){
+        for (ErrorMessage message : errorMessages) {
             messageMap.putError(KFSConstants.GLOBAL_ERRORS, message.getErrorKey(), message.getMessageParameters());
         }
 
-        updateCreditCardAgency((AgencyStagingData)document.getNewMaintainableObject().getBusinessObject());
+        updateCreditCardAgency((AgencyStagingData) document.getNewMaintainableObject().getBusinessObject());
 
         super.processAfterEdit(document, parameters);
     }
 
-	/**
-	 * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#saveBusinessObject()
-	 */
-	@Override
-	public void saveBusinessObject() {
-	    AgencyStagingData agencyStaging = (AgencyStagingData) getBusinessObject();
+    /**
+     * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#saveBusinessObject()
+     */
+    @Override
+    public void saveBusinessObject() {
+        AgencyStagingData agencyStaging = (AgencyStagingData) getBusinessObject();
 
-	    if (agencyStaging.isActive()) {
-    	    //since it is fixed and submitted, changing the status to OK unless it has already been set to HIS
-	        if (!agencyStaging.getErrorCode().equals(AgencyStagingDataErrorCodes.AGENCY_MOVED_TO_HISTORICAL)) {
-	            agencyStaging.setErrorCode(AgencyStagingDataErrorCodes.AGENCY_NO_ERROR);
-	        }
+        if (agencyStaging.isActive()) {
+            //since it is fixed and submitted, changing the status to OK unless it has already been set to HIS
+            if (!agencyStaging.getErrorCode().equals(AgencyStagingDataErrorCodes.AGENCY_MOVED_TO_HISTORICAL)) {
+                agencyStaging.setErrorCode(AgencyStagingDataErrorCodes.AGENCY_NO_ERROR);
+            }
         }
 
         super.saveBusinessObject();
-	}
+    }
 
-	/**
+    /**
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#refresh(java.lang.String, java.util.Map, org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
@@ -257,7 +253,7 @@ public class AgencyStagingDataMaintainable extends FinancialSystemMaintainable {
     protected void addProfileReferenceToRefresh(String refreshCaller, Map fieldValues) {
 
         if (StringUtils.isNotEmpty(refreshCaller) && refreshCaller.equals(TemConstants.TEM_PROFILE_LOOKUPABLE)) {
-            String referencesToRefresh = ""+ fieldValues.get(KRADConstants.REFERENCES_TO_REFRESH)+ KRADConstants.REFERENCES_TO_REFRESH_SEPARATOR + TemPropertyConstants.PROFILE;
+            String referencesToRefresh = "" + fieldValues.get(KRADConstants.REFERENCES_TO_REFRESH) + KRADConstants.REFERENCES_TO_REFRESH_SEPARATOR + TemPropertyConstants.PROFILE;
             fieldValues.put(KRADConstants.REFERENCES_TO_REFRESH, referencesToRefresh);
         }
     }
@@ -272,29 +268,26 @@ public class AgencyStagingDataMaintainable extends FinancialSystemMaintainable {
     protected void updateFieldsFromProfileRefresh(String refreshCaller, Map fieldValues, MaintenanceDocument document) {
 
         if (StringUtils.isNotEmpty(refreshCaller) &&
-                refreshCaller.equals(TemConstants.TEM_PROFILE_LOOKUPABLE)) {
+            refreshCaller.equals(TemConstants.TEM_PROFILE_LOOKUPABLE)) {
 
-            AgencyStagingDataMaintainable newMaintainable = (AgencyStagingDataMaintainable)document.getNewMaintainableObject();
-            AgencyStagingData agencyData = (AgencyStagingData)newMaintainable.getBusinessObject();
+            AgencyStagingDataMaintainable newMaintainable = (AgencyStagingDataMaintainable) document.getNewMaintainableObject();
+            AgencyStagingData agencyData = (AgencyStagingData) newMaintainable.getBusinessObject();
 
             TemProfile profile = agencyData.getProfile();
             if (ObjectUtils.isNotNull(profile)) {
                 if (StringUtils.isNotEmpty(profile.getEmployeeId())) {
                     agencyData.setTravelerId(profile.getEmployeeId());
-                }
-                else if (StringUtils.isNotEmpty(profile.getCustomerNumber())) {
+                } else if (StringUtils.isNotEmpty(profile.getCustomerNumber())) {
                     agencyData.setTravelerId(profile.getCustomerNumber());
-                }
-                else {
+                } else {
                     agencyData.setTravelerId("");
                 }
 
-                agencyData.setTravelerName(profile.getFirstName() +" "+ profile.getLastName());
+                agencyData.setTravelerName(profile.getFirstName() + " " + profile.getLastName());
 
                 if (ObjectUtils.isNotNull(profile.getPrincipal())) {
                     agencyData.setTravelerNetworkId(profile.getPrincipal().getPrincipalName());
-                }
-                else {
+                } else {
                     agencyData.setTravelerNetworkId("");
                 }
             }
@@ -302,80 +295,80 @@ public class AgencyStagingDataMaintainable extends FinancialSystemMaintainable {
     }
 
     /**
-	 *
-	 * This method trims the descriptionText to 40 characters.
-	 * @param descriptionText
-	 * @return
-	 */
-	protected String trimDescription(String descriptionText) {
+     * This method trims the descriptionText to 40 characters.
+     *
+     * @param descriptionText
+     * @return
+     */
+    protected String trimDescription(String descriptionText) {
         return StringUtils.substring(descriptionText, 0, 39);
-	}
+    }
 
-	protected void addNoteAfterProcessingAgencyStagingExpense(MaintenanceDocument document, List<ErrorMessage> errors) {
+    protected void addNoteAfterProcessingAgencyStagingExpense(MaintenanceDocument document, List<ErrorMessage> errors) {
 
         Principal kfsSystemUser = getIdentityService().getPrincipalByPrincipalName(KFSConstants.SYSTEM_USER);
-	    String errorText = getMessageAsString(errors);
+        String errorText = getMessageAsString(errors);
 
-	    if (!StringUtils.isEmpty(errorText)) {
-	        //check maxLength on a Note and truncate if necessary
-    	    Integer maxLength = getDataDictionaryService().getAttributeMaxLength(Note.class, KRADConstants.NOTE_TEXT_PROPERTY_NAME);
-    	    if (errorText.length() > maxLength) {
-    	        LOG.warn("Adding a truncated error text to Note due to space limitations. Original text:");
-    	        LOG.warn(errorText);
-    	        errorText = errorText.substring(0,maxLength);
-    	    }
+        if (!StringUtils.isEmpty(errorText)) {
+            //check maxLength on a Note and truncate if necessary
+            Integer maxLength = getDataDictionaryService().getAttributeMaxLength(Note.class, KRADConstants.NOTE_TEXT_PROPERTY_NAME);
+            if (errorText.length() > maxLength) {
+                LOG.warn("Adding a truncated error text to Note due to space limitations. Original text:");
+                LOG.warn(errorText);
+                errorText = errorText.substring(0, maxLength);
+            }
 
             final Note newNote = getDocumentService().createNoteFromDocument(document, errorText);
             newNote.setAuthorUniversalIdentifier(kfsSystemUser.getPrincipalId());
             document.addNote(newNote);
             getNoteService().save(newNote);
-	    }
-	}
+        }
+    }
 
-    protected String getMessageAsString(List<ErrorMessage> errorMessages){
+    protected String getMessageAsString(List<ErrorMessage> errorMessages) {
 
         List<String> messageList = new ArrayList<String>();
 
-        for (ErrorMessage error : errorMessages){
+        for (ErrorMessage error : errorMessages) {
             messageList.add(MessageUtils.getErrorMessage(error));
         }
 
         StrBuilder builder = new StrBuilder();
         builder.appendWithSeparators(messageList, BusinessObjectReportHelper.LINE_BREAK);
-        return  builder.toString();
+        return builder.toString();
     }
 
-	public DateTimeService getDateTimeService(){
-	    return SpringContext.getBean(DateTimeService.class);
-	}
+    public DateTimeService getDateTimeService() {
+        return SpringContext.getBean(DateTimeService.class);
+    }
 
-	public AgencyDataImportService getAgencyDataImportService() {
-	    if (agencyDataImportService == null) {
-	        agencyDataImportService = SpringContext.getBean(AgencyDataImportService.class);
-	    }
-	    return agencyDataImportService;
-	}
+    public AgencyDataImportService getAgencyDataImportService() {
+        if (agencyDataImportService == null) {
+            agencyDataImportService = SpringContext.getBean(AgencyDataImportService.class);
+        }
+        return agencyDataImportService;
+    }
 
-	public ExpenseImportByTravelerService getExpenseImportByTravelerService() {
-	    if (expenseImportByTravelerService == null) {
-	        expenseImportByTravelerService = SpringContext.getBean(ExpenseImportByTravelerService.class);
-	    }
-	    return expenseImportByTravelerService;
-	}
+    public ExpenseImportByTravelerService getExpenseImportByTravelerService() {
+        if (expenseImportByTravelerService == null) {
+            expenseImportByTravelerService = SpringContext.getBean(ExpenseImportByTravelerService.class);
+        }
+        return expenseImportByTravelerService;
+    }
 
-	public ExpenseImportByTripService getExpenseImportByTripService() {
-	    if (expenseImportByTripService == null) {
-	        expenseImportByTripService = SpringContext.getBean(ExpenseImportByTripService.class);
-	    }
-	    return expenseImportByTripService;
-	}
+    public ExpenseImportByTripService getExpenseImportByTripService() {
+        if (expenseImportByTripService == null) {
+            expenseImportByTripService = SpringContext.getBean(ExpenseImportByTripService.class);
+        }
+        return expenseImportByTripService;
+    }
 
-	public CreditCardAgencyService getCreditCardAgencyService() {
-	    if (creditCardAgencyService == null) {
-	        creditCardAgencyService = SpringContext.getBean(CreditCardAgencyService.class);
-	    }
-	    return creditCardAgencyService;
-	}
+    public CreditCardAgencyService getCreditCardAgencyService() {
+        if (creditCardAgencyService == null) {
+            creditCardAgencyService = SpringContext.getBean(CreditCardAgencyService.class);
+        }
+        return creditCardAgencyService;
+    }
 
     public DocumentService getDocumentService() {
         if (documentService == null) {
@@ -384,26 +377,26 @@ public class AgencyStagingDataMaintainable extends FinancialSystemMaintainable {
         return documentService;
     }
 
-	@Override
+    @Override
     public DataDictionaryService getDataDictionaryService() {
         if (dataDictionaryService == null) {
             dataDictionaryService = SpringContext.getBean(DataDictionaryService.class);
         }
         return dataDictionaryService;
-	}
+    }
 
-	public IdentityService getIdentityService() {
+    public IdentityService getIdentityService() {
         if (identityService == null) {
             identityService = SpringContext.getBean(IdentityService.class);
         }
         return identityService;
-	}
+    }
 
-	public NoteService getNoteService() {
+    public NoteService getNoteService() {
         if (noteService == null) {
             noteService = SpringContext.getBean(NoteService.class);
         }
         return noteService;
-	}
+    }
 
 }

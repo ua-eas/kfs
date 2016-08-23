@@ -1,31 +1,24 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.service.impl;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
-
 import net.sf.jasperreports.engine.JRParameter;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.dataaccess.TrialBalanceDao;
 import org.kuali.kfs.gl.service.TrialBalanceService;
@@ -35,6 +28,12 @@ import org.kuali.kfs.sys.report.ReportInfo;
 import org.kuali.kfs.sys.service.ReportGenerationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 /**
  * This class is the OJB implementation of the Balance Service
@@ -55,21 +54,21 @@ public class TrialBalanceServiceImpl implements TrialBalanceService {
     @Override
     public List findTrialBalance(String selectedFiscalYear, String chartCode, String periodCode) {
 
-        if ( StringUtils.isBlank(chartCode) || KFSConstants.WILDCARD_CHARACTER.equals(chartCode)) {
+        if (StringUtils.isBlank(chartCode) || KFSConstants.WILDCARD_CHARACTER.equals(chartCode)) {
             chartCode = "";
         }
 
         //for invalid options of financialPeriodCode, it will be considered empty, which is equivalent to getting the current fp
-        if ( StringUtils.isBlank(periodCode) || KFSConstants.WILDCARD_CHARACTER.equals(periodCode) ) {
+        if (StringUtils.isBlank(periodCode) || KFSConstants.WILDCARD_CHARACTER.equals(periodCode)) {
             periodCode = "";
         }
 
         try {
-            Integer period = Integer.parseInt( periodCode );
-            if ( 0>= period || period > 13){
+            Integer period = Integer.parseInt(periodCode);
+            if (0 >= period || period > 13) {
                 periodCode = "";
             }
-        } catch ( NumberFormatException e){
+        } catch (NumberFormatException e) {
             periodCode = "";
         }
 
@@ -78,22 +77,22 @@ public class TrialBalanceServiceImpl implements TrialBalanceService {
 
     /**
      * @see org.kuali.kfs.module.ec.service.EffortCertificationReportService#generateReportForExtractProcess(org.kuali.kfs.module.ec.util.ExtractProcessReportDataHolder,
-     *      java.util.Date)
+     * java.util.Date)
      */
     @Override
     public String generateReportForExtractProcess(Collection dataSource, String fiscalYear, String periodCode) {
         String fiscalPeriod = "Current";
 
-        if ( !StringUtils.isBlank(periodCode) && !KFSConstants.WILDCARD_CHARACTER.equals(periodCode) ) {
+        if (!StringUtils.isBlank(periodCode) && !KFSConstants.WILDCARD_CHARACTER.equals(periodCode)) {
             try {
-                Integer period = Integer.parseInt( periodCode );
-                if ( 0>= period || period > 13){
+                Integer period = Integer.parseInt(periodCode);
+                if (0 >= period || period > 13) {
                     periodCode = "";
                 }
-            } catch ( NumberFormatException e){
+            } catch (NumberFormatException e) {
                 periodCode = "";
             }
-            if ( !StringUtils.isEmpty(periodCode) ) {
+            if (!StringUtils.isEmpty(periodCode)) {
                 fiscalPeriod = periodCode;
             }
         }

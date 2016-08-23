@@ -1,30 +1,34 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.Calendar;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.Customer;
@@ -35,14 +39,10 @@ import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.MessageMap;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.Calendar;
 
 public class CustomerRule extends MaintenanceDocumentRuleBase {
     protected static Logger LOG = org.apache.log4j.Logger.getLogger(CustomerRule.class);
@@ -126,8 +126,7 @@ public class CustomerRule extends MaintenanceDocumentRuleBase {
             if (oldCustomer != null) {
                 oldCustomer.setCustomerNumber(customerNumber);
             }
-        }
-        catch (StringIndexOutOfBoundsException sibe) {
+        } catch (StringIndexOutOfBoundsException sibe) {
             // It is expected that if a StringIndexOutOfBoundsException occurs, it is due to the customer name being less than three
             // characters
             GlobalVariables.getMessageMap().putError(KFSConstants.MAINTENANCE_NEW_MAINTAINABLE + ArPropertyConstants.CustomerFields.CUSTOMER_NAME, ArKeyConstants.CustomerConstants.ERROR_CUSTOMER_NAME_LESS_THAN_THREE_CHARACTERS);
@@ -154,7 +153,7 @@ public class CustomerRule extends MaintenanceDocumentRuleBase {
 
     /**
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomAddCollectionLineBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument,
-     *      java.lang.String, org.kuali.rice.krad.bo.PersistableBusinessObject)
+     * java.lang.String, org.kuali.rice.krad.bo.PersistableBusinessObject)
      */
     @Override
     public boolean processCustomAddCollectionLineBusinessRules(MaintenanceDocument document, String collectionName, PersistableBusinessObject line) {
@@ -194,8 +193,7 @@ public class CustomerRule extends MaintenanceDocumentRuleBase {
                             // date)
                             if (!checkEndDateIsValid(endDate, false)) {
                                 customer.getCustomerAddresses().get(i).setCustomerAddressTypeCode(ArKeyConstants.CustomerConstants.CUSTOMER_ADDRESS_TYPE_CODE_ALTERNATE);
-                            }
-                            else {
+                            } else {
                                 isActivePrimaryAddress = true;
                             }
                         }
@@ -203,9 +201,9 @@ public class CustomerRule extends MaintenanceDocumentRuleBase {
                     if (!isActivePrimaryAddress) {
                         customerAddress.setCustomerAddressTypeCode(ArKeyConstants.CustomerConstants.CUSTOMER_ADDRESS_TYPE_CODE_PRIMARY);
                     } else {
-                    	if (StringUtils.isEmpty(customerAddress.getCustomerAddressTypeCode())) {
-                    		customerAddress.setCustomerAddressTypeCode(ArKeyConstants.CustomerConstants.CUSTOMER_ADDRESS_TYPE_CODE_ALTERNATE);
-                    	}
+                        if (StringUtils.isEmpty(customerAddress.getCustomerAddressTypeCode())) {
+                            customerAddress.setCustomerAddressTypeCode(ArKeyConstants.CustomerConstants.CUSTOMER_ADDRESS_TYPE_CODE_ALTERNATE);
+                        }
                     }
                 }
             }
@@ -275,8 +273,7 @@ public class CustomerRule extends MaintenanceDocumentRuleBase {
             if (ObjectUtils.isNull(oldEndDate) || ObjectUtils.isNotNull(oldEndDate) && !oldEndDate.toString().equals(newEndDate.toString())) {
                 String propertyName = ArPropertyConstants.CustomerFields.CUSTOMER_TAB_ADDRESSES + "[" + ind + "]." + ArPropertyConstants.CustomerFields.CUSTOMER_ADDRESS_END_DATE;
                 putFieldError(propertyName, ArKeyConstants.CustomerConstants.ERROR_CUSTOMER_ADDRESS_END_DATE_MUST_BE_CURRENT_OR_FUTURE_DATE);
-            }
-            else {
+            } else {
                 isValid = true;
             }
         }
@@ -324,8 +321,7 @@ public class CustomerRule extends MaintenanceDocumentRuleBase {
                 isValid = false;
                 putFieldError(propertyName + ArPropertyConstants.CustomerFields.CUSTOMER_ADDRESS_STATE_CODE, ArKeyConstants.CustomerConstants.ERROR_CUSTOMER_ADDRESS_STATE_CODE_REQUIRED_WHEN_COUNTTRY_US);
             }
-        }
-        else {
+        } else {
             if (customerAddress.getCustomerInternationalMailCode() == null || "".equalsIgnoreCase(customerAddress.getCustomerInternationalMailCode())) {
                 isValid = false;
                 // GlobalVariables.getMessageMap().putError(ArPropertyConstants.CustomerFields.CUSTOMER_ADDRESS_INTERNATIONAL_MAIL_CODE,
@@ -355,8 +351,7 @@ public class CustomerRule extends MaintenanceDocumentRuleBase {
                 isValid = false;
                 GlobalVariables.getMessageMap().putError(ArPropertyConstants.CustomerFields.CUSTOMER_ADDRESS_STATE_CODE, ArKeyConstants.CustomerConstants.ERROR_CUSTOMER_ADDRESS_STATE_CODE_REQUIRED_WHEN_COUNTTRY_US);
             }
-        }
-        else {
+        } else {
             if (customerAddress.getCustomerInternationalMailCode() == null || "".equalsIgnoreCase(customerAddress.getCustomerInternationalMailCode())) {
                 isValid = false;
                 GlobalVariables.getMessageMap().putError(ArPropertyConstants.CustomerFields.CUSTOMER_ADDRESS_INTERNATIONAL_MAIL_CODE, ArKeyConstants.CustomerConstants.ERROR_CUSTOMER_ADDRESS_INTERNATIONAL_MAIL_CODE_REQUIRED_WHEN_COUNTTRY_NON_US);
@@ -383,8 +378,7 @@ public class CustomerRule extends MaintenanceDocumentRuleBase {
                 if (hasPrimaryAddress) {
                     isValid = false;
                     GlobalVariables.getMessageMap().putError(KFSConstants.MAINTENANCE_NEW_MAINTAINABLE + ArPropertyConstants.CustomerFields.CUSTOMER_TAB_ADDRESSES, ArKeyConstants.CustomerConstants.ERROR_ONLY_ONE_PRIMARY_ADDRESS);
-                }
-                else {
+                } else {
                     hasPrimaryAddress = true;
                 }
             }
@@ -452,7 +446,7 @@ public class CustomerRule extends MaintenanceDocumentRuleBase {
      *
      * @param customer
      * @return true if tax number is required and tax number is entered or if tax number is not required, false if tax number
-     *         required and tax number not entered
+     * required and tax number not entered
      */
     public boolean checkTaxNumber(Customer customer) {
         boolean isValid = true;
@@ -475,8 +469,7 @@ public class CustomerRule extends MaintenanceDocumentRuleBase {
         boolean paramExists = SpringContext.getBean(ParameterService.class).parameterExists(Customer.class, KFSConstants.CustomerParameter.TAX_NUMBER_REQUIRED_IND);
         if (paramExists) {
             return SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(Customer.class, KFSConstants.CustomerParameter.TAX_NUMBER_REQUIRED_IND);
-        }
-        else {
+        } else {
             return false;
         }
     }

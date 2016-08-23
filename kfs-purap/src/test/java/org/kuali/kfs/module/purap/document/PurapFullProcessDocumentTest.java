@@ -1,28 +1,25 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.appleton;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.ferland;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
-
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.impl.DocumentServiceImpl;
 import org.kuali.kfs.module.purap.PurapConstants.PurchaseOrderDocTypes;
 import org.kuali.kfs.module.purap.PurapConstants.PurchaseOrderStatuses;
 import org.kuali.kfs.module.purap.document.service.PurchaseOrderService;
@@ -34,8 +31,11 @@ import org.kuali.kfs.sys.document.AccountingDocumentTestUtils;
 import org.kuali.kfs.sys.document.workflow.WorkflowTestUtils;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.impl.DocumentServiceImpl;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.appleton;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.ferland;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
 
 /**
  * Used to create and test populated Purchase Order Documents of various kinds.
@@ -115,13 +115,12 @@ public class PurapFullProcessDocumentTest extends KualiTestBase {
     }
 
 
-
-    @ConfigureContext(session = appleton, shouldCommitTransactions=true)
+    @ConfigureContext(session = appleton, shouldCommitTransactions = true)
     public final PaymentRequestDocument routePREQDocumentToFinal(PurchaseOrderDocument POdoc) throws Exception {
 //        purchaseOrderDocument = createPurchaseOrderDocument(PurchaseOrderDocumentFixture.PO_APPROVAL_REQUIRED, true);
         PaymentRequestDocumentTest preqDocTest = new PaymentRequestDocumentTest();
         PaymentRequestDocument paymentRequestDocument = preqDocTest.createPaymentRequestDocument(PaymentRequestDocumentFixture.PREQ_APPROVAL_REQUIRED,
-                POdoc, true, new KualiDecimal[] {new KualiDecimal(100)});
+            POdoc, true, new KualiDecimal[]{new KualiDecimal(100)});
 
         final String docId = paymentRequestDocument.getDocumentNumber();
         AccountingDocumentTestUtils.routeDocument(paymentRequestDocument, documentService);
@@ -138,7 +137,7 @@ public class PurapFullProcessDocumentTest extends KualiTestBase {
         changeCurrentUser(ferland);
         paymentRequestDocument = (PaymentRequestDocument) documentService.getByDocumentHeaderId(docId);
         assertTrue("At incorrect node.", WorkflowTestUtils.isAtNode(paymentRequestDocument,
-                ACCOUNT_REVIEW));
+            ACCOUNT_REVIEW));
         assertTrue("Document should be enroute.", paymentRequestDocument.getDocumentHeader().getWorkflowDocument().isEnroute());
         assertTrue("ferland should have an approve request.", paymentRequestDocument.getDocumentHeader().getWorkflowDocument().isApprovalRequested());
         documentService.approveDocument(paymentRequestDocument, "Test approving as ferland", null);

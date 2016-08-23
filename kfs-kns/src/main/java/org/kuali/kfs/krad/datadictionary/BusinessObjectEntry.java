@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -24,10 +24,8 @@ import org.kuali.rice.krad.bo.BusinessObject;
 /**
  * A single BusinessObject entry in the DataDictionary, which contains information relating to the display, validation,
  * and general maintenance of a BusinessObject and its attributes.
- *
+ * <p>
  * Note: the setters do copious amounts of validation, to facilitate generating errors during the parsing process
- *
- * 
  */
 public class BusinessObjectEntry extends DataObjectEntry {
 
@@ -98,10 +96,10 @@ public class BusinessObjectEntry extends DataObjectEntry {
             for (InactivationBlockingDefinition ibd : inactivationBlockingDefinitions) {
                 ibd.setBusinessObjectClass(getBusinessObjectClass());
                 if (StringUtils.isNotBlank(ibd.getBlockedReferencePropertyName()) &&
-                        ibd.getBlockedBusinessObjectClass() == null) {
+                    ibd.getBlockedBusinessObjectClass() == null) {
                     // if the user didn't specify a class name for the blocked reference, determine it here
                     ibd.setBlockedBusinessObjectClass(DataDictionary
-                            .getAttributeClass(getDataObjectClass(), ibd.getBlockedReferencePropertyName()));
+                        .getAttributeClass(getDataObjectClass(), ibd.getBlockedReferencePropertyName()));
                 }
                 ibd.setBlockingReferenceBusinessObjectClass(getBusinessObjectClass());
             }

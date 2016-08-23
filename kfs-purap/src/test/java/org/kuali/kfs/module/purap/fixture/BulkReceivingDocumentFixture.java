@@ -1,35 +1,35 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.fixture;
 
-import java.sql.Date;
-
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.purap.document.BulkReceivingDocument;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
 import org.kuali.kfs.module.purap.fixture.PurapTestConstants.BulkReceiving;
 import org.kuali.kfs.sys.DocumentTestUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.service.DocumentService;
+
+import java.sql.Date;
 
 public enum BulkReceivingDocumentFixture {
-    
+
     SIMPLE_DOCUMENT(
         null,//purchaseOrderIdentifier
         BulkReceiving.SHIPMENT_RECEIVIED_DATE,//shipmentReceivedDate
@@ -72,9 +72,9 @@ public enum BulkReceivingDocumentFixture {
         null,//institutionContactName
         null,//institutionContactPhoneNumber
         null//institutionContactEmailAddress
-        
+
     ),
-    
+
     SIMPLE_DOCUMENT_FOR_PO(
         null,//purchaseOrderIdentifier
         BulkReceiving.SHIPMENT_RECEIVIED_DATE,//shipmentReceivedDate
@@ -117,22 +117,21 @@ public enum BulkReceivingDocumentFixture {
         null,//institutionContactName
         null,//institutionContactPhoneNumber
         null//institutionContactEmailAddress
-    ),
-    ;
-    
+    ),;
+
     private Integer purchaseOrderIdentifier;
     private Date shipmentReceivedDate;
     private String shipmentPackingSlipNumber;
     private String carrierCode;
     private String shipmentBillOfLadingNumber;
-    
+
     private String shipmentReferenceNumber;
     private String shipmentWeight;
     private Integer noOfCartons;
     private String trackingNumber;
     private Integer vendorHeaderGeneratedIdentifier;
     private Integer vendorDetailAssignedIdentifier;
-    
+
     private String vendorName;
     private String vendorLine1Address;
     private String vendorLine2Address;
@@ -142,11 +141,11 @@ public enum BulkReceivingDocumentFixture {
     private String vendorCountryCode;
     private String vendorAddressInternationalProvinceName;
     private String vendorNoteText;
-    
+
     private Integer alternateVendorHeaderGeneratedIdentifier;
     private Integer alternateVendorDetailAssignedIdentifier;
     private String alternateVendorName;
-    
+
     private String deliveryBuildingCode;
     private String deliveryBuildingName;
     private String deliveryBuildingRoomNumber;
@@ -162,23 +161,23 @@ public enum BulkReceivingDocumentFixture {
     private String deliveryToName;
     private String deliveryToEmailAddress;
     private String deliveryToPhoneNumber;
-    
+
     private String institutionContactName;
     private String institutionContactPhoneNumber;
     private String institutionContactEmailAddress;
-    
-    
+
+
     private BulkReceivingDocumentFixture(Integer purchaseOrderIdentifier,
                                          Date shipmentReceivedDate,
                                          String shipmentPackingSlipNumber,
                                          String carrierCode,
                                          String shipmentBillOfLadingNumber,
-                                        
+
                                          String shipmentReferenceNumber,
                                          String shipmentWeight,
                                          Integer noOfCartons,
                                          String trackingNumber,
-                                        
+
                                          Integer vendorHeaderGeneratedIdentifier,
                                          Integer vendorDetailAssignedIdentifier,
                                          String vendorName,
@@ -190,11 +189,11 @@ public enum BulkReceivingDocumentFixture {
                                          String vendorCountryCode,
                                          String vendorAddressInternationalProvinceName,
                                          String vendorNoteText,
-                                         
+
                                          Integer alternateVendorHeaderGeneratedIdentifier,
                                          Integer alternateVendorDetailAssignedIdentifier,
-                                         String  alternateVendorName,
-                                         
+                                         String alternateVendorName,
+
                                          String deliveryBuildingCode,
                                          String deliveryBuildingName,
                                          String deliveryBuildingRoomNumber,
@@ -210,39 +209,39 @@ public enum BulkReceivingDocumentFixture {
                                          String deliveryToName,
                                          String deliveryToEmailAddress,
                                          String deliveryToPhoneNumber,
-                                        
+
                                          String institutionContactName,
                                          String institutionContactPhoneNumber,
-                                         String institutionContactEmailAddress){
-     
-        
+                                         String institutionContactEmailAddress) {
+
+
         this.purchaseOrderIdentifier = purchaseOrderIdentifier;
         this.shipmentReceivedDate = shipmentReceivedDate;
         this.shipmentPackingSlipNumber = shipmentPackingSlipNumber;
         this.carrierCode = carrierCode;
         this.shipmentBillOfLadingNumber = shipmentBillOfLadingNumber;
-        
+
         this.shipmentReferenceNumber = shipmentReferenceNumber;
         this.shipmentWeight = shipmentWeight;
         this.noOfCartons = noOfCartons;
         this.trackingNumber = trackingNumber;
-        
+
         this.vendorHeaderGeneratedIdentifier = vendorHeaderGeneratedIdentifier;
         this.vendorDetailAssignedIdentifier = vendorDetailAssignedIdentifier;
         this.vendorName = vendorName;
         this.vendorLine1Address = vendorLine1Address;
-        this.vendorLine2Address = vendorLine2Address; 
+        this.vendorLine2Address = vendorLine2Address;
         this.vendorCityName = vendorCityName;
-        this.vendorStateCode = vendorStateCode; 
+        this.vendorStateCode = vendorStateCode;
         this.vendorPostalCode = vendorPostalCode;
-        this.vendorCountryCode = vendorCountryCode; 
+        this.vendorCountryCode = vendorCountryCode;
         this.vendorAddressInternationalProvinceName = vendorAddressInternationalProvinceName;
         this.vendorNoteText = vendorNoteText;
-        
+
         this.alternateVendorHeaderGeneratedIdentifier = alternateVendorHeaderGeneratedIdentifier;
         this.alternateVendorDetailAssignedIdentifier = alternateVendorDetailAssignedIdentifier;
         this.alternateVendorName = alternateVendorName;
-        
+
         this.deliveryBuildingCode = deliveryBuildingCode;
         this.deliveryBuildingName = deliveryBuildingName;
         this.deliveryBuildingRoomNumber = deliveryBuildingRoomNumber;
@@ -258,21 +257,20 @@ public enum BulkReceivingDocumentFixture {
         this.deliveryToName = deliveryToName;
         this.deliveryToEmailAddress = deliveryToEmailAddress;
         this.deliveryToPhoneNumber = deliveryToPhoneNumber;
-        
+
         this.institutionContactName = institutionContactName;
         this.institutionContactPhoneNumber = institutionContactPhoneNumber;
         this.institutionContactEmailAddress = institutionContactEmailAddress;
     }
-    
-    public BulkReceivingDocument createBulkReceivingDocument(){
+
+    public BulkReceivingDocument createBulkReceivingDocument() {
         BulkReceivingDocument doc;
         try {
-             doc = (BulkReceivingDocument) DocumentTestUtils.createDocument(SpringContext.getBean(DocumentService.class), BulkReceivingDocument.class);
-        }
-        catch (WorkflowException e) {
+            doc = (BulkReceivingDocument) DocumentTestUtils.createDocument(SpringContext.getBean(DocumentService.class), BulkReceivingDocument.class);
+        } catch (WorkflowException e) {
             throw new RuntimeException("Document creation failed.");
         }
-        
+
         doc.setPurchaseOrderIdentifier(purchaseOrderIdentifier);
         doc.setShipmentReceivedDate(shipmentReceivedDate);
         doc.setShipmentReferenceNumber(shipmentReferenceNumber);
@@ -311,19 +309,18 @@ public enum BulkReceivingDocumentFixture {
         doc.setDeliveryToName(deliveryToName);
         doc.setDeliveryToEmailAddress(deliveryToEmailAddress);
         doc.setDeliveryToPhoneNumber(deliveryToPhoneNumber);
-        
+
         return doc;
     }
-    
-    public BulkReceivingDocument createBulkReceivingDocument(PurchaseOrderDocument poDoc){
+
+    public BulkReceivingDocument createBulkReceivingDocument(PurchaseOrderDocument poDoc) {
         BulkReceivingDocument doc;
         try {
-             doc = (BulkReceivingDocument) DocumentTestUtils.createDocument(SpringContext.getBean(DocumentService.class), BulkReceivingDocument.class);
-        }
-        catch (WorkflowException e) {
+            doc = (BulkReceivingDocument) DocumentTestUtils.createDocument(SpringContext.getBean(DocumentService.class), BulkReceivingDocument.class);
+        } catch (WorkflowException e) {
             throw new RuntimeException("Document creation failed.");
         }
-        
+
         doc.setShipmentReceivedDate(shipmentReceivedDate);
         doc.setShipmentReferenceNumber(shipmentReferenceNumber);
         doc.setShipmentPackingSlipNumber(shipmentPackingSlipNumber);
@@ -333,10 +330,10 @@ public enum BulkReceivingDocumentFixture {
         doc.setNoOfCartons(noOfCartons);
         doc.setTrackingNumber(trackingNumber);
         doc.setDeliveryAdditionalInstructionText(deliveryAdditionalInstructionText);
-        
+
         doc.populateBulkReceivingFromPurchaseOrder(poDoc);
-        
+
         return doc;
     }
-    
+
 }

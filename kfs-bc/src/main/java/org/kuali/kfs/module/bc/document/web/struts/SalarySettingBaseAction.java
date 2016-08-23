@@ -1,35 +1,36 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.document.web.struts;
-
-import java.text.MessageFormat;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.kuali.kfs.fp.service.FiscalYearFunctionControlService;
+import org.kuali.kfs.kns.question.ConfirmationQuestion;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.krad.exception.AuthorizationException;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.BCKeyConstants;
 import org.kuali.kfs.module.bc.BCPropertyConstants;
@@ -47,14 +48,12 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.services.IdentityManagementService;
-import org.kuali.kfs.kns.question.ConfirmationQuestion;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.krad.exception.AuthorizationException;
-import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.KualiRuleService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.text.MessageFormat;
+import java.util.List;
 
 /**
  * the base action class for salary setting, which provides the implementations of common actions of the salary setting screens
@@ -75,7 +74,7 @@ public abstract class SalarySettingBaseAction extends BudgetExpansionAction {
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiAction#execute(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -121,8 +120,7 @@ public abstract class SalarySettingBaseAction extends BudgetExpansionAction {
         boolean isAuthorized = SpringContext.getBean(IdentityManagementService.class).isAuthorized(user.getPrincipalId(), BCConstants.BUDGET_CONSTRUCTION_NAMESPACE, BCConstants.KimApiConstants.USE_ORG_SALARY_SETTING_PERMISSION_NAME, null);
         if (isAuthorized) {
             salarySettingForm.getDocumentActions().put(KRADConstants.KUALI_ACTION_CAN_EDIT, KRADConstants.KUALI_DEFAULT_TRUE_VALUE);
-        }
-        else {
+        } else {
             throw new AuthorizationException(user.getName(), "view", salarySettingForm.getAccountNumber() + ", " + salarySettingForm.getSubAccountNumber());
         }
 
@@ -147,7 +145,7 @@ public abstract class SalarySettingBaseAction extends BudgetExpansionAction {
 
     /**
      * @see org.kuali.kfs.module.bc.document.web.struts.BudgetExpansionAction#close(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward close(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -289,8 +287,7 @@ public abstract class SalarySettingBaseAction extends BudgetExpansionAction {
         String adjustmentMeasurement = appointmentFunding.getAdjustmentMeasurement();
         if (BCConstants.SalaryAdjustmentMeasurement.PERCENT.measurement.equals(adjustmentMeasurement)) {
             salarySettingService.adjustRequestedSalaryByPercent(appointmentFunding);
-        }
-        else if (BCConstants.SalaryAdjustmentMeasurement.AMOUNT.measurement.equals(adjustmentMeasurement)) {
+        } else if (BCConstants.SalaryAdjustmentMeasurement.AMOUNT.measurement.equals(adjustmentMeasurement)) {
             salarySettingService.adjustRequestedSalaryByAmount(appointmentFunding);
         }
     }
@@ -346,8 +343,8 @@ public abstract class SalarySettingBaseAction extends BudgetExpansionAction {
      * build the error key prefix based on the given information
      *
      * @param fundingAwareObjectName the name of object that holds the given set of appointment funding lines
-     * @param appointmentFundings the given set of appointment funding lines
-     * @param appointmentFunding the given appointment funding line
+     * @param appointmentFundings    the given set of appointment funding lines
+     * @param appointmentFunding     the given appointment funding line
      * @return the error key prefix built from the given information
      */
     protected String getErrorKeyPrefixOfAppointmentFundingLine(List<PendingBudgetConstructionAppointmentFunding> appointmentFundings, PendingBudgetConstructionAppointmentFunding appointmentFunding) {

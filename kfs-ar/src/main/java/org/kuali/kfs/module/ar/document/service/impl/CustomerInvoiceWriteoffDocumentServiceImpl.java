@@ -1,32 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.document.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.service.ObjectCodeService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.batch.service.CustomerInvoiceWriteoffBatchService;
@@ -52,16 +51,17 @@ import org.kuali.kfs.sys.service.FinancialSystemUserService;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.WorkflowDocumentFactory;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Transactional
 public class CustomerInvoiceWriteoffDocumentServiceImpl implements CustomerInvoiceWriteoffDocumentService {
@@ -80,7 +80,6 @@ public class CustomerInvoiceWriteoffDocumentServiceImpl implements CustomerInvoi
     protected ObjectCodeService objectCodeService;
 
     /**
-     *
      * @see org.kuali.kfs.module.ar.document.service.CustomerInvoiceWriteoffDocumentService#completeWriteoffProcess(org.kuali.kfs.module.ar.document.CustomerInvoiceWriteoffDocument)
      */
     @Override
@@ -90,14 +89,13 @@ public class CustomerInvoiceWriteoffDocumentServiceImpl implements CustomerInvoi
         String invoiceNumber = writeoff.getFinancialDocumentReferenceInvoiceNumber();
         CustomerInvoiceDocument invoice;
         try {
-             invoice = (CustomerInvoiceDocument) documentService.getByDocumentHeaderId(invoiceNumber);
-        }
-        catch (WorkflowException e) {
+            invoice = (CustomerInvoiceDocument) documentService.getByDocumentHeaderId(invoiceNumber);
+        } catch (WorkflowException e) {
             throw new RuntimeException("A WorkflowException was generated when trying to load Customer Invoice #" + invoiceNumber + ".", e);
         }
         if (!invoice.isOpenInvoiceIndicator()) {
             throw new UnsupportedOperationException("The Invoice Writeoff Document #" + writeoff.getDocumentNumber() + " attempted to writeoff " +
-                    "an Invoice [#" + invoiceNumber + "] that was already closed.  This is not supported.");
+                "an Invoice [#" + invoiceNumber + "] that was already closed.  This is not supported.");
         }
 
         Integer paidAppliedItemNumber = 0;
@@ -115,7 +113,7 @@ public class CustomerInvoiceWriteoffDocumentServiceImpl implements CustomerInvoi
             //  retrieve the number of current paid applieds, so we dont have item number overlap
             if (paidAppliedItemNumber == 0) {
                 paidAppliedItemNumber = paidAppliedService.getNumberOfInvoicePaidAppliedsForInvoiceDetail(invoiceNumber,
-                        invoiceDetail.getInvoiceItemNumber());
+                    invoiceDetail.getInvoiceItemNumber());
             }
 
             //  create and save the paidApplied
@@ -165,7 +163,7 @@ public class CustomerInvoiceWriteoffDocumentServiceImpl implements CustomerInvoi
         boolean isUsingOrgAcctDefaultWriteoffFAU = ArConstants.GLPE_WRITEOFF_GENERATION_METHOD_ORG_ACCT_DEFAULT.equals(writeoffGenerationOption);
 
         String writeoffTaxGenerationOption = parameterService.getParameterValueAsString(CustomerInvoiceWriteoffDocument.class, ArConstants.ALLOW_SALES_TAX_LIABILITY_ADJUSTMENT_IND);
-        boolean isUsingTaxGenerationMethodDisallow = ArConstants.ALLOW_SALES_TAX_LIABILITY_ADJUSTMENT_IND_NO.equals( writeoffTaxGenerationOption );
+        boolean isUsingTaxGenerationMethodDisallow = ArConstants.ALLOW_SALES_TAX_LIABILITY_ADJUSTMENT_IND_NO.equals(writeoffTaxGenerationOption);
         if (isUsingOrgAcctDefaultWriteoffFAU || isUsingTaxGenerationMethodDisallow) {
 
             Integer currentUniversityFiscalYear = universityDateService.getCurrentFiscalYear();
@@ -218,21 +216,16 @@ public class CustomerInvoiceWriteoffDocumentServiceImpl implements CustomerInvoi
             if (ObjectUtils.isNotNull(customerInvoiceDocument) && customerInvoiceDocument.isOpenInvoiceIndicator()) {
                 customerInvoiceDocuments.add(customerInvoiceDocument);
             }
-        }
-        else if (StringUtils.isNotEmpty(customerNumber)) {
+        } else if (StringUtils.isNotEmpty(customerNumber)) {
             customerInvoiceDocuments = customerInvoiceDocumentService.getOpenInvoiceDocumentsByCustomerNumber(customerNumber);
-        }
-        else if (StringUtils.isNotEmpty(customerName) && StringUtils.isNotEmpty(customerTypeCode)) {
+        } else if (StringUtils.isNotEmpty(customerName) && StringUtils.isNotEmpty(customerTypeCode)) {
             customerInvoiceDocuments = customerInvoiceDocumentService.getOpenInvoiceDocumentsByCustomerNameByCustomerType(customerName, customerTypeCode);
-        }
-        else if (StringUtils.isNotEmpty(customerName)) {
+        } else if (StringUtils.isNotEmpty(customerName)) {
             customerInvoiceDocuments = customerInvoiceDocumentService.getOpenInvoiceDocumentsByCustomerName(customerName);
-        }
-        else if (StringUtils.isNotEmpty(customerTypeCode)) {
+        } else if (StringUtils.isNotEmpty(customerTypeCode)) {
             customerInvoiceDocuments = customerInvoiceDocumentService.getOpenInvoiceDocumentsByCustomerType(customerTypeCode);
-        }
-        else {
-             customerInvoiceDocuments = customerInvoiceDocumentService.getAllOpenCustomerInvoiceDocumentsWithoutWorkflow();
+        } else {
+            customerInvoiceDocuments = customerInvoiceDocumentService.getAllOpenCustomerInvoiceDocumentsWithoutWorkflow();
         }
 
         // attach headers
@@ -252,7 +245,7 @@ public class CustomerInvoiceWriteoffDocumentServiceImpl implements CustomerInvoi
             eligibleInvoiceFlag = true;
 
             if (ObjectUtils.isNotNull(invoice.getAge())) {
-                eligibleInvoiceFlag &=((new Integer(age)).compareTo(invoice.getAge()) <= 0);
+                eligibleInvoiceFlag &= ((new Integer(age)).compareTo(invoice.getAge()) <= 0);
             } else {
                 eligibleInvoiceFlag = false;
             }
@@ -314,7 +307,7 @@ public class CustomerInvoiceWriteoffDocumentServiceImpl implements CustomerInvoi
         }
 
         String userId = GlobalVariables.getUserSession().getPrincipalId();
-        for(CustomerCreditMemoDocument customerCreditMemoDocument : customerCreditMemoDocuments) {
+        for (CustomerCreditMemoDocument customerCreditMemoDocument : customerCreditMemoDocuments) {
             workflowDocument = WorkflowDocumentFactory.loadDocument(userId, customerCreditMemoDocument.getDocumentNumber());
             if (!(workflowDocument.isApproved() || workflowDocument.isCanceled() || workflowDocument.isDisapproved())) {
                 isSuccess = false;
@@ -348,7 +341,7 @@ public class CustomerInvoiceWriteoffDocumentServiceImpl implements CustomerInvoi
         }
 
         String userId = GlobalVariables.getUserSession().getPrincipalId();
-        for(CustomerInvoiceWriteoffDocument customerInvoiceWriteoffDocument : customerInvoiceWriteoffDocuments) {
+        for (CustomerInvoiceWriteoffDocument customerInvoiceWriteoffDocument : customerInvoiceWriteoffDocuments) {
             workflowDocument = WorkflowDocumentFactory.loadDocument(userId, customerInvoiceWriteoffDocument.getDocumentNumber());
             if (!(workflowDocument.isApproved() || workflowDocument.isCanceled() || workflowDocument.isDisapproved())) {
                 isSuccess = false;
@@ -360,7 +353,6 @@ public class CustomerInvoiceWriteoffDocumentServiceImpl implements CustomerInvoi
 
 
     /**
-     *
      * @see org.kuali.kfs.module.ar.document.service.CustomerInvoiceWriteoffDocumentService#sendCustomerInvoiceWriteoffDocumentsToBatch(org.kuali.rice.kim.api.identity.Person, java.util.Collection)
      */
     @Override
@@ -373,7 +365,7 @@ public class CustomerInvoiceWriteoffDocumentServiceImpl implements CustomerInvoi
 
         //  add the customer note, if one was added
         String note = null;
-        for( CustomerInvoiceWriteoffLookupResult customerInvoiceWriteoffLookupResult : customerInvoiceWriteoffLookupResults ){
+        for (CustomerInvoiceWriteoffLookupResult customerInvoiceWriteoffLookupResult : customerInvoiceWriteoffLookupResults) {
             note = customerInvoiceWriteoffLookupResult.getCustomerNote();
         }
         if (StringUtils.isNotBlank(note)) {
@@ -381,8 +373,8 @@ public class CustomerInvoiceWriteoffDocumentServiceImpl implements CustomerInvoi
         }
 
         //  add the document numbers
-        for( CustomerInvoiceWriteoffLookupResult customerInvoiceWriteoffLookupResult : customerInvoiceWriteoffLookupResults ){
-            for( CustomerInvoiceDocument customerInvoiceDocument : customerInvoiceWriteoffLookupResult.getCustomerInvoiceDocuments() ){
+        for (CustomerInvoiceWriteoffLookupResult customerInvoiceWriteoffLookupResult : customerInvoiceWriteoffLookupResults) {
+            for (CustomerInvoiceDocument customerInvoiceDocument : customerInvoiceWriteoffLookupResult.getCustomerInvoiceDocuments()) {
                 batch.addInvoiceNumber(customerInvoiceDocument.getDocumentNumber());
             }
         }
@@ -403,7 +395,7 @@ public class CustomerInvoiceWriteoffDocumentServiceImpl implements CustomerInvoi
 
         //  setup the defaults and tie it to the Invoice document
         document.setFinancialDocumentReferenceInvoiceNumber(invoiceNumber);
-        setupDefaultValuesForNewCustomerInvoiceWriteoffDocument( document );
+        setupDefaultValuesForNewCustomerInvoiceWriteoffDocument(document);
         document.getDocumentHeader().setDocumentDescription(ArConstants.CUSTOMER_INVOICE_WRITEOFF_DOCUMENT_DESCRIPTION + " " + invoiceNumber + ".");
 
         document.setCustomerNote(note);
@@ -411,8 +403,7 @@ public class CustomerInvoiceWriteoffDocumentServiceImpl implements CustomerInvoi
         //  satisfy silly > 10 chars explanation rule
         if (StringUtils.isBlank(note)) {
             note = "Document created by batch process.";
-        }
-        else if (note.length() <= 10) {
+        } else if (note.length() <= 10) {
             note = "Document created by batch process.  " + note;
         }
         document.setCustomerNote(note);
@@ -439,11 +430,11 @@ public class CustomerInvoiceWriteoffDocumentServiceImpl implements CustomerInvoi
     @Override
     public String getFinancialObjectCode(CustomerInvoiceDetail postable, CustomerInvoiceWriteoffDocument poster, boolean isUsingOrgAcctDefaultWriteoffFAU, boolean isUsingChartForWriteoff, String chartOfAccountsCode) {
 
-        if ( isUsingOrgAcctDefaultWriteoffFAU ){
+        if (isUsingOrgAcctDefaultWriteoffFAU) {
             return poster.getFinancialObjectCode();
-        } else if ( isUsingChartForWriteoff ) {
+        } else if (isUsingChartForWriteoff) {
             return parameterService.getSubParameterValueAsString(CustomerInvoiceWriteoffDocument.class, ArConstants.GLPE_WRITEOFF_OBJECT_CODE_BY_CHART, chartOfAccountsCode);
-         } else {
+        } else {
             return postable.getAccountsReceivableObjectCode();
         }
     }
@@ -451,8 +442,8 @@ public class CustomerInvoiceWriteoffDocumentServiceImpl implements CustomerInvoi
     @Override
     public ObjectCode getObjectCode(CustomerInvoiceDetail postable, CustomerInvoiceWriteoffDocument poster, boolean isUsingOrgAcctDefaultWriteoffFAU, boolean isUsingChartForWriteoff, String chartOfAccountsCode) {
         return objectCodeService.getByPrimaryIdForCurrentYear(
-                chartOfAccountsCode,
-                getFinancialObjectCode(postable, poster, isUsingOrgAcctDefaultWriteoffFAU,isUsingChartForWriteoff, chartOfAccountsCode));
+            chartOfAccountsCode,
+            getFinancialObjectCode(postable, poster, isUsingOrgAcctDefaultWriteoffFAU, isUsingChartForWriteoff, chartOfAccountsCode));
     }
 
     public void setParameterService(ParameterService parameterService) {

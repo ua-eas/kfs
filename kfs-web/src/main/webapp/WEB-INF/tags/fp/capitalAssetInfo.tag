@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -21,12 +21,12 @@
 
 <%@ tag description="render the given field in the capital asset info object"%>
 
-<%@ attribute name="readOnly" required="false" description="Whether the capital asset information should be read only" %>	
+<%@ attribute name="readOnly" required="false" description="Whether the capital asset information should be read only" %>
 
 <script language="JavaScript" type="text/javascript" src="dwr/interface/VendorService.js"></script>
 <script language="JavaScript" type="text/javascript" src="scripts/vnd/objectInfo.js"></script>
-	
-<c:set var="attributes" value="${DataDictionary.CapitalAssetInformation.attributes}" />	
+
+<c:set var="attributes" value="${DataDictionary.CapitalAssetInformation.attributes}" />
 <c:set var="dataCellCssClass" value="datacell" />
 <c:set var="capitalAssetInfoName" value="document.capitalAssetInformation" />
 
@@ -89,7 +89,7 @@
                     </td>
                 </tr>
             </c:if>
-		   
+
 			<tr>
 				<td colspan="8">
                     <table class="datatable standard items" style="border-top: 1px solid #c3c3c3;" cellpadding="0" cellspacing="0" summary="Asset for Accounting Lines">
@@ -210,5 +210,5 @@
 		   		</td>
 			</tr>
 		</c:if>
-	</c:forEach>	
+	</c:forEach>
 </table>

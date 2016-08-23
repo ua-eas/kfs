@@ -1,3 +1,21 @@
+/*
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 .clickable {
     cursor: pointer;
 }
@@ -50,7 +68,7 @@ input[type=radio] {
     font-size: 16px;
 }
 
-#view_div .main-panel .toggle-show-tab>span {
+#view_div .main-panel .toggle-show-tab > span {
     cursor: pointer;
 }
 
@@ -64,7 +82,7 @@ input[type=radio] {
     margin-left: 30px;
 }
 
-#view_div .left-errmsg>.error {
+#view_div .left-errmsg > .error {
     color: #C47965;
     margin-left: 0;
 }
@@ -170,12 +188,12 @@ div.excol {
     height: 30px;
 }
 
-#lookup .multi-column-table>tbody>tr>td {
+#lookup .multi-column-table > tbody > tr > td {
     vertical-align: top;
     padding-bottom: 0;
 }
 
-#lookup .multi-column-table>tbody>tr>td:first-child {
+#lookup .multi-column-table > tbody > tr > td:first-child {
     padding-right: 35px;
 }
 
@@ -213,7 +231,7 @@ div.excol {
     position: fixed;
     bottom: 0;
     height: 65px;
-    background-color: rgba(255,255,255,0.9);
+    background-color: rgba(255, 255, 255, 0.9);
 }
 
 #lookup td.infoline.multiline.fixed {
@@ -237,7 +255,7 @@ textarea {
     border: 1px solid #D6D6D6;
     border-radius: 4px;
     margin-right: 3px;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.15);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.15);
     padding: 0 5px;
 }
 
@@ -277,7 +295,6 @@ select {
     color: #555555;
     padding-top: 14px;
 }
-
 
 .search-results .headerarea-small.fixed {
     position: fixed;
@@ -334,11 +351,11 @@ select {
     padding: 2px 12px 2px 12px;
 }
 
-.paginator .pagelinks span.btn>a {
+.paginator .pagelinks span.btn > a {
     border-bottom: none;
 }
 
-.paginator .pagelinks span>a {
+.paginator .pagelinks span > a {
     border-bottom: 1px #979797 dotted;
 }
 
@@ -388,7 +405,7 @@ select {
 }
 
 tr.even {
-    background-color: rgba(202,202,202,0.2);
+    background-color: rgba(202, 202, 202, 0.2);
 }
 
 .exportlinks {
@@ -430,7 +447,7 @@ tr.even {
     position: fixed;
     bottom: 40px;
     height: 62px;
-    background-color: rgba(255,255,255,0.9);
+    background-color: rgba(255, 255, 255, 0.9);
 }
 
 .inquiry #globalbuttons .btn,
@@ -494,7 +511,7 @@ h2 a.new-window:hover span.glyphicon,
 td.grid a.new-window:hover span.glyphicon,
 td.infocell a.new-window:hover span.glyphicon,
 td.infoline a.new-window:hover span.glyphicon,
-td.datacell a.new-window:hover span.glyphicon{
+td.datacell a.new-window:hover span.glyphicon {
     display: inherit;
     opacity: .8;
 }
@@ -534,7 +551,6 @@ div.inquiry table.datatable th {
     border-radius: 6px;
 }
 
-
 .remodal .content {
     border-radius: 6px;
 }
@@ -555,30 +571,30 @@ div.inquiry table.datatable th {
     margin: 20px 0 0 10px;
 }
 
-#view_div>form>.headerbox {
+#view_div > form > .headerbox {
     float: right;
     color: #767676;
 }
 
-#view_div>form>.headerbox th {
+#view_div > form > .headerbox th {
     text-align: right;
     padding: 0 5px 0 30px;
 }
 
-#view_div>form>.msg-excol {
+#view_div > form > .msg-excol {
     margin-top: 15px;
     clear: both;
 }
 
-#view_div>form>.msg-excol>.right {
+#view_div > form > .msg-excol > .right {
     color: #999999;
 }
 
-#view_div>form>.msg-excol>.right>.excol {
+#view_div > form > .msg-excol > .right > .excol {
     margin-right: 0;
 }
 
-#view_div>form>.headerarea-small {
+#view_div > form > .headerarea-small {
     float: left;
     margin-top: 15px;
 }
@@ -677,7 +693,7 @@ div.inquiry table.datatable th {
     background-color: inherit !important;
 }
 
-.main-panel .tab-container table.standard tr.header>th {
+.main-panel .tab-container table.standard tr.header > th {
     text-transform: uppercase;
     font-size: 11px;
     padding-bottom: 2px;
@@ -717,11 +733,11 @@ div.inquiry table.datatable th {
 }
 
 .main-panel .tab-container table.standard tr.highlight tr.highlight {
-    background-color: rgba(0,0,0,.1);
+    background-color: rgba(0, 0, 0, .1);
 }
 
 .main-panel .tab-container table.standard td.total-line {
-    border-top: 1px solid rgba(204,204,204,0.3);
+    border-top: 1px solid rgba(204, 204, 204, 0.3);
 }
 
 .main-panel .tab-container table.adhoc td:first-child,
@@ -759,11 +775,11 @@ div.inquiry table.datatable th {
 }
 
 .main-panel .tab-container table.old-new td:nth-child(2) {
-    border-left: 1px solid rgba(196,121,101, 0.2);
+    border-left: 1px solid rgba(196, 121, 101, 0.2);
 }
 
 .main-panel .tab-container table.old-new td:last-child {
-    border-left: 1px solid rgba(109,164,135, 0.2);
+    border-left: 1px solid rgba(109, 164, 135, 0.2);
 }
 
 .main-panel .tab-container table.old-new tr:not(:first-child):hover {

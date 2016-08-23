@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -37,6 +37,7 @@ public class CapitalAccountingLinesAccessibleValidation extends AccountingLineAc
 
     /**
      * Due to code in CapitalAccountingLinesAuthorizerBase we need alter the accessible logic a bit. Otherwise the user gets stopped for reasons they shouldn't be
+     *
      * @see org.kuali.kfs.fp.document.authorization.CapitalAccountingLinesAuthorizerBase#determineEditPermissionOnField
      * @see org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizerBase#determineEditPermissionOnField
      * @see org.kuali.kfs.sys.document.validation.impl.AccountingLineAccessibleValidation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
@@ -46,12 +47,12 @@ public class CapitalAccountingLinesAccessibleValidation extends AccountingLineAc
         if (accountingDocumentForValidation instanceof CapitalAccountingLinesDocumentBase) {
             CapitalAccountingLinesDocumentBase caldb = (CapitalAccountingLinesDocumentBase) accountingDocumentForValidation;
 
-            if(caldb.getCapitalAccountingLines().size() > 0 && capitalAssetBuilderModuleService.hasCapitalAssetObjectSubType(accountingLineForValidation)) {
+            if (caldb.getCapitalAccountingLines().size() > 0 && capitalAssetBuilderModuleService.hasCapitalAssetObjectSubType(accountingLineForValidation)) {
                 // In this scenario the line is readOnly because of the logic in CapitalAccountingLinesAuthorizerBase. We only stop the user from updating
                 // if the document shouldn't be editable. That means call AccountingLineAuthorizerBase#determineEditPermissionOnField and skip
                 // CapitalAccountingLinesAuthorizerBase#determineEditPermissionOnField. Furthermore error correction documents should not be stopped
                 if (accountingDocumentForValidation instanceof Correctable) {
-                    final String errorDocumentNumber = ((FinancialSystemDocumentHeader)accountingDocumentForValidation.getDocumentHeader()).getFinancialDocumentInErrorNumber();
+                    final String errorDocumentNumber = ((FinancialSystemDocumentHeader) accountingDocumentForValidation.getDocumentHeader()).getFinancialDocumentInErrorNumber();
                     if (StringUtils.isNotBlank(errorDocumentNumber)) {
                         return true;
                     }

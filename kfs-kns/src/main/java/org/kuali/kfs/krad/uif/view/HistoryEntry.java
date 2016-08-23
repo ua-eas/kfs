@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -24,11 +24,9 @@ import java.io.Serializable;
 
 /**
  * A simple object that keeps track of various HistoryInformation
- *
+ * <p>
  * TODO a variety of these settings are not used in the current implementation of breadcrumbs
  * and history, they may be removed later if they prove unuseful in future changes
- *
- * 
  */
 public class HistoryEntry extends ConfigurableBase implements Serializable {
     private static final long serialVersionUID = -8310916657379268794L;
@@ -40,7 +38,7 @@ public class HistoryEntry extends ConfigurableBase implements Serializable {
     private String formKey;
 
     public HistoryEntry() {
-       super();
+        super();
     }
 
     public HistoryEntry(String viewId, String pageId, String title, String url, String formKey) {
@@ -55,14 +53,14 @@ public class HistoryEntry extends ConfigurableBase implements Serializable {
 
     public String toParam() {
         return viewId
-                + History.VAR_TOKEN
-                + pageId
-                + History.VAR_TOKEN
-                + title
-                + History.VAR_TOKEN
-                + url
-                + History.VAR_TOKEN
-                + formKey;
+            + History.VAR_TOKEN
+            + pageId
+            + History.VAR_TOKEN
+            + title
+            + History.VAR_TOKEN
+            + url
+            + History.VAR_TOKEN
+            + formKey;
     }
 
     /**

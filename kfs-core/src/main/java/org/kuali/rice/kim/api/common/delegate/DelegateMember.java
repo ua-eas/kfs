@@ -1,34 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.rice.kim.api.common.delegate;
-
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.Map;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAnyElement;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
@@ -42,22 +30,33 @@ import org.kuali.rice.core.api.util.jaxb.MapStringStringAdapter;
 import org.kuali.rice.kim.api.KimConstants;
 import org.w3c.dom.Element;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyElement;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Map;
+
 @XmlRootElement(name = DelegateMember.Constants.ROOT_ELEMENT_NAME)
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlType(name = DelegateMember.Constants.TYPE_NAME, propOrder = {
-        DelegateMember.Elements.DELEGATION_MEMBER_ID,
-        DelegateMember.Elements.DELEGATION_ID,
-        DelegateMember.Elements.MEMBER_ID,
-        DelegateMember.Elements.ROLE_MEMBER_ID,
-        DelegateMember.Elements.TYPE_CODE,
-        DelegateMember.Elements.ATTRIBUTES,
-        CoreConstants.CommonElements.ACTIVE_FROM_DATE,
-        CoreConstants.CommonElements.ACTIVE_TO_DATE,
-        CoreConstants.CommonElements.VERSION_NUMBER,
-        CoreConstants.CommonElements.FUTURE_ELEMENTS
+    DelegateMember.Elements.DELEGATION_MEMBER_ID,
+    DelegateMember.Elements.DELEGATION_ID,
+    DelegateMember.Elements.MEMBER_ID,
+    DelegateMember.Elements.ROLE_MEMBER_ID,
+    DelegateMember.Elements.TYPE_CODE,
+    DelegateMember.Elements.ATTRIBUTES,
+    CoreConstants.CommonElements.ACTIVE_FROM_DATE,
+    CoreConstants.CommonElements.ACTIVE_TO_DATE,
+    CoreConstants.CommonElements.VERSION_NUMBER,
+    CoreConstants.CommonElements.FUTURE_ELEMENTS
 })
 public final class DelegateMember extends AbstractDataTransferObject
-        implements DelegateMemberContract {
+    implements DelegateMemberContract {
 
     @XmlElement(name = Elements.DELEGATION_MEMBER_ID, required = false)
     private final String delegationMemberId;

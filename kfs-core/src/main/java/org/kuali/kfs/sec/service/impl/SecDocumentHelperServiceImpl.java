@@ -1,29 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sec.service.impl;
 
+import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
+import org.kuali.kfs.kns.document.authorization.TransactionalDocumentAuthorizer;
 import org.kuali.kfs.sec.document.authorization.SecTransactionalDocumentAuthorizer;
 import org.kuali.kfs.sec.service.AccessSecurityService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.impl.DocumentHelperServiceImpl;
-import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
-import org.kuali.kfs.kns.document.authorization.TransactionalDocumentAuthorizer;
 
 
 /**
@@ -44,7 +44,7 @@ public class SecDocumentHelperServiceImpl extends DocumentHelperServiceImpl {
         // get document authorizer instance configured in data dictionary
         DocumentAuthorizer configuredDocumentAuthorizer = super.getDocumentAuthorizer(documentType);
         if (getAccessSecurityService().isAccessSecurityControlledDocumentType(documentType)) {
-            if  ( configuredDocumentAuthorizer instanceof TransactionalDocumentAuthorizer ) {
+            if (configuredDocumentAuthorizer instanceof TransactionalDocumentAuthorizer) {
                 try {
                     SecTransactionalDocumentAuthorizer secDocumentAuthorizer = SecTransactionalDocumentAuthorizer.class.newInstance();
                     secDocumentAuthorizer.setDocumentAuthorizer((TransactionalDocumentAuthorizer) configuredDocumentAuthorizer);
@@ -54,7 +54,7 @@ public class SecDocumentHelperServiceImpl extends DocumentHelperServiceImpl {
                     throw new RuntimeException("Unable to create new instance of SecTransactionalDocumentAuthorizer for document type: " + documentType, e);
                 }
             } else {
-                throw new RuntimeException( "Original DocumentAuthorizer for " + documentType + " is not an instance of " + TransactionalDocumentAuthorizer.class.getName() + ". It can not be wrapped.  This is a configuration error." );
+                throw new RuntimeException("Original DocumentAuthorizer for " + documentType + " is not an instance of " + TransactionalDocumentAuthorizer.class.getName() + ". It can not be wrapped.  This is a configuration error.");
             }
         }
 
@@ -62,7 +62,7 @@ public class SecDocumentHelperServiceImpl extends DocumentHelperServiceImpl {
     }
 
     public AccessSecurityService getAccessSecurityService() {
-        if ( accessSecurityService == null ) {
+        if (accessSecurityService == null) {
             accessSecurityService = SpringContext.getBean(AccessSecurityService.class);
         }
         return accessSecurityService;

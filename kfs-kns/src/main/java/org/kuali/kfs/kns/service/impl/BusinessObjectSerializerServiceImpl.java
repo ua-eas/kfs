@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -36,20 +36,19 @@ public class BusinessObjectSerializerServiceImpl extends org.kuali.kfs.krad.serv
 
         String docTypeName = getDocumentDictionaryService().getMaintenanceDocumentTypeName(businessObject.getClass());
         MaintenanceDocumentEntry maintenanceDocumentEntry =
-                getDocumentDictionaryService().getMaintenanceDocumentEntry(docTypeName);
+            getDocumentDictionaryService().getMaintenanceDocumentEntry(docTypeName);
 
         if (maintenanceDocumentEntry instanceof org.kuali.kfs.kns.datadictionary.MaintenanceDocumentEntry) {
             List<MaintainableSectionDefinition> maintainableSectionDefinitions =
-                    ((org.kuali.kfs.kns.datadictionary.MaintenanceDocumentEntry) maintenanceDocumentEntry).getMaintainableSections();
+                ((org.kuali.kfs.kns.datadictionary.MaintenanceDocumentEntry) maintenanceDocumentEntry).getMaintainableSections();
             if (CollectionUtils.isEmpty(maintainableSectionDefinitions)) {
                 evaluator = new AlwaysTruePropertySerializibilityEvaluator();
             } else {
                 evaluator = new MaintenanceDocumentPropertySerializibilityEvaluator();
                 evaluator.initializeEvaluatorForDataObject(businessObject);
             }
-        }
-        else {
-           evaluator = new AlwaysTruePropertySerializibilityEvaluator();
+        } else {
+            evaluator = new AlwaysTruePropertySerializibilityEvaluator();
         }
 
         return evaluator;

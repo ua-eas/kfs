@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -37,7 +37,7 @@ public class BudgetConstructionOrgMonthSummaryReport {
     private String fundGroupName;
     private String subFundGroupCode;
     private String subFundGroupDescription;
-   
+
 
     // Groups
     //private String financialObjectLevelCode;
@@ -46,8 +46,8 @@ public class BudgetConstructionOrgMonthSummaryReport {
     private String financialLevelSortCode;
     private String financialObjectCode;
     private String financialSubObjectCode;
-    //private String financialConsolidationSortCode; 
-    
+    //private String financialConsolidationSortCode;
+
     // Body parts
     //private String financialObjectLevelName;
     private String financialObjectCodeName;
@@ -64,7 +64,7 @@ public class BudgetConstructionOrgMonthSummaryReport {
     private Integer financialDocumentMonth10LineAmount;
     private Integer financialDocumentMonth11LineAmount;
     private Integer financialDocumentMonth12LineAmount;
-   
+
 
     // Total parts
     private String levelTotalDescription;
@@ -81,7 +81,7 @@ public class BudgetConstructionOrgMonthSummaryReport {
     private Integer levelMonth10LineAmount;
     private Integer levelMonth11LineAmount;
     private Integer levelMonth12LineAmount;
-    
+
     private String consTotalDescription;
     private Integer consAccountLineAnnualBalanceAmount;
     private Integer consMonth1LineAmount;
@@ -96,7 +96,7 @@ public class BudgetConstructionOrgMonthSummaryReport {
     private Integer consMonth10LineAmount;
     private Integer consMonth11LineAmount;
     private Integer consMonth12LineAmount;
-    
+
     private String typeTotalDescription;
     private Integer typeAccountLineAnnualBalanceAmount;
     private Integer typeMonth1LineAmount;
@@ -111,7 +111,7 @@ public class BudgetConstructionOrgMonthSummaryReport {
     private Integer typeMonth10LineAmount;
     private Integer typeMonth11LineAmount;
     private Integer typeMonth12LineAmount;
-    
+
     private Integer revAccountLineAnnualBalanceAmount;
     private Integer revMonth1LineAmount;
     private Integer revMonth2LineAmount;
@@ -125,7 +125,7 @@ public class BudgetConstructionOrgMonthSummaryReport {
     private Integer revMonth10LineAmount;
     private Integer revMonth11LineAmount;
     private Integer revMonth12LineAmount;
-    
+
     private Integer expAccountLineAnnualBalanceAmount;
     private Integer expMonth1LineAmount;
     private Integer expMonth2LineAmount;
@@ -139,7 +139,7 @@ public class BudgetConstructionOrgMonthSummaryReport {
     private Integer expMonth10LineAmount;
     private Integer expMonth11LineAmount;
     private Integer expMonth12LineAmount;
-    
+
     private Integer differenceAccountLineAnnualBalanceAmount;
     private Integer differenceMonth1LineAmount;
     private Integer differenceMonth2LineAmount;
@@ -153,11 +153,11 @@ public class BudgetConstructionOrgMonthSummaryReport {
     private Integer differenceMonth10LineAmount;
     private Integer differenceMonth11LineAmount;
     private Integer differenceMonth12LineAmount;
-    
+
 
     /**
      * Gets the consHdr
-     * 
+     *
      * @return Returns the consHdr.
      */
     public String getConsHdr() {
@@ -166,7 +166,7 @@ public class BudgetConstructionOrgMonthSummaryReport {
 
     /**
      * Sets the consHdr
-     * 
+     *
      * @param consHdr The consHdr to set.
      */
     public void setConsHdr(String consHdr) {
@@ -175,7 +175,7 @@ public class BudgetConstructionOrgMonthSummaryReport {
 
     /**
      * Gets the fiscalYear
-     * 
+     *
      * @return Returns the fiscalYear.
      */
     public String getFiscalYear() {
@@ -184,7 +184,7 @@ public class BudgetConstructionOrgMonthSummaryReport {
 
     /**
      * Sets the fiscalYear
-     * 
+     *
      * @param fiscalYear The fiscalYear to set.
      */
     public void setFiscalYear(String fiscalYear) {
@@ -193,7 +193,7 @@ public class BudgetConstructionOrgMonthSummaryReport {
 
     /**
      * Gets the fundGroupCode
-     * 
+     *
      * @return Returns the fundGroupCode.
      */
     public String getFundGroupCode() {
@@ -202,16 +202,16 @@ public class BudgetConstructionOrgMonthSummaryReport {
 
     /**
      * Sets the fundGroupCode
-     * 
+     *
      * @param fundGroupCode The fundGroupCode to set.
      */
     public void setFundGroupCode(String fundGroupCode) {
         this.fundGroupCode = fundGroupCode;
     }
 
-      /**
+    /**
      * Gets the organizationCode
-     * 
+     *
      * @return Returns the organizationCode.
      */
     public String getOrganizationCode() {
@@ -220,7 +220,7 @@ public class BudgetConstructionOrgMonthSummaryReport {
 
     /**
      * Sets the organizationCode
-     * 
+     *
      * @param organizationCode The organizationCode to set.
      */
     public void setOrganizationCode(String organizationCode) {
@@ -229,7 +229,7 @@ public class BudgetConstructionOrgMonthSummaryReport {
 
     /**
      * Gets the organizationName
-     * 
+     *
      * @return Returns the organizationName.
      */
     public String getOrganizationName() {
@@ -238,7 +238,7 @@ public class BudgetConstructionOrgMonthSummaryReport {
 
     /**
      * Sets the organizationName
-     * 
+     *
      * @param organizationName The organizationName to set.
      */
     public void setOrganizationName(String organizationName) {
@@ -247,7 +247,7 @@ public class BudgetConstructionOrgMonthSummaryReport {
 
     /**
      * Gets the subFundGroupCode
-     * 
+     *
      * @return Returns the subFundGroupCode.
      */
     public String getSubFundGroupCode() {
@@ -256,7 +256,7 @@ public class BudgetConstructionOrgMonthSummaryReport {
 
     /**
      * Sets the subFundGroupCode
-     * 
+     *
      * @param subFundGroupCode The subFundGroupCode to set.
      */
     public void setSubFundGroupCode(String subFundGroupCode) {
@@ -265,7 +265,7 @@ public class BudgetConstructionOrgMonthSummaryReport {
 
     /**
      * Gets the subFundGroupDescription
-     * 
+     *
      * @return Returns the subFundGroupDescription.
      */
     public String getSubFundGroupDescription() {
@@ -274,7 +274,7 @@ public class BudgetConstructionOrgMonthSummaryReport {
 
     /**
      * Sets the subFundGroupDescription
-     * 
+     *
      * @param subFundGroupDescription The subFundGroupDescription to set.
      */
     public void setSubFundGroupDescription(String subFundGroupDescription) {
@@ -283,7 +283,7 @@ public class BudgetConstructionOrgMonthSummaryReport {
 
     /**
      * Gets the fundGroupName
-     * 
+     *
      * @return Returns the fundGroupName.
      */
     public String getFundGroupName() {
@@ -292,7 +292,7 @@ public class BudgetConstructionOrgMonthSummaryReport {
 
     /**
      * Sets the fundGroupName
-     * 
+     *
      * @param fundGroupName The fundGroupName to set.
      */
     public void setFundGroupName(String fundGroupName) {
@@ -301,7 +301,7 @@ public class BudgetConstructionOrgMonthSummaryReport {
 
     /**
      * Gets the chartOfAccountDescription
-     * 
+     *
      * @return Returns the chartOfAccountDescription.
      */
     public String getChartOfAccountDescription() {
@@ -310,7 +310,7 @@ public class BudgetConstructionOrgMonthSummaryReport {
 
     /**
      * Sets the chartOfAccountDescription
-     * 
+     *
      * @param chartOfAccountDescription The chartOfAccountDescription to set.
      */
     public void setChartOfAccountDescription(String chartOfAccountDescription) {
@@ -319,7 +319,7 @@ public class BudgetConstructionOrgMonthSummaryReport {
 
     /**
      * Gets the chartOfAccountsCode
-     * 
+     *
      * @return Returns the chartOfAccountsCode.
      */
     public String getChartOfAccountsCode() {
@@ -328,7 +328,7 @@ public class BudgetConstructionOrgMonthSummaryReport {
 
     /**
      * Sets the chartOfAccountsCode
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -337,7 +337,7 @@ public class BudgetConstructionOrgMonthSummaryReport {
 
     /**
      * Gets the orgChartOfAccountDescription
-     * 
+     *
      * @return Returns the orgChartOfAccountDescription.
      */
     public String getOrgChartOfAccountDescription() {
@@ -346,7 +346,7 @@ public class BudgetConstructionOrgMonthSummaryReport {
 
     /**
      * Sets the orgChartOfAccountDescription
-     * 
+     *
      * @param orgChartOfAccountDescription The orgChartOfAccountDescription to set.
      */
     public void setOrgChartOfAccountDescription(String orgChartOfAccountDescription) {
@@ -355,7 +355,7 @@ public class BudgetConstructionOrgMonthSummaryReport {
 
     /**
      * Gets the orgChartOfAccountsCode
-     * 
+     *
      * @return Returns the orgChartOfAccountsCode.
      */
     public String getOrgChartOfAccountsCode() {
@@ -364,7 +364,7 @@ public class BudgetConstructionOrgMonthSummaryReport {
 
     /**
      * Sets the orgChartOfAccountsCode
-     * 
+     *
      * @param orgChartOfAccountsCode The orgChartOfAccountsCode to set.
      */
     public void setOrgChartOfAccountsCode(String orgChartOfAccountsCode) {

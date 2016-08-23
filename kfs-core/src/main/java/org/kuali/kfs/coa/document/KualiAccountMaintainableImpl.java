@@ -1,28 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.coa.document;
-
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -32,15 +26,21 @@ import org.kuali.kfs.coa.service.AccountPersistenceStructureService;
 import org.kuali.kfs.coa.service.AccountService;
 import org.kuali.kfs.coa.service.SubAccountTrickleDownInactivationService;
 import org.kuali.kfs.coa.service.SubObjectTrickleDownInactivationService;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
-import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.maintenance.MaintenanceLock;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class overrides the saveBusinessObject() method which is called during post process from the KualiPostProcessor so that it
@@ -84,7 +84,7 @@ public class KualiAccountMaintainableImpl extends FinancialSystemMaintainable {
         account.setAccountEffectiveDate(new Date(SpringContext.getBean(DateTimeService.class).getCurrentDate().getTime()));
         account.setActive(true);
         List<IndirectCostRecoveryAccount> copyIndirectCostRecoveryAccounts = new ArrayList<IndirectCostRecoveryAccount>();
-        for(IndirectCostRecoveryAccount indirectAccount : account.getActiveIndirectCostRecoveryAccounts()) {
+        for (IndirectCostRecoveryAccount indirectAccount : account.getActiveIndirectCostRecoveryAccounts()) {
             indirectAccount.setIndirectCostRecoveryAccountGeneratedIdentifier(null);
             copyIndirectCostRecoveryAccounts.add(indirectAccount);
         }
@@ -107,7 +107,7 @@ public class KualiAccountMaintainableImpl extends FinancialSystemMaintainable {
 
     protected Account retrieveExistingAccountFromDB() {
         Account newAccount = (Account) getBusinessObject();
-         Account oldAccount = SpringContext.getBean(AccountService.class).getByPrimaryId(newAccount.getChartOfAccountsCode(), newAccount.getAccountNumber());
+        Account oldAccount = SpringContext.getBean(AccountService.class).getByPrimaryId(newAccount.getChartOfAccountsCode(), newAccount.getAccountNumber());
         return oldAccount;
     }
 
@@ -144,7 +144,7 @@ public class KualiAccountMaintainableImpl extends FinancialSystemMaintainable {
      * Had to override this method because account guideline data was lost when copied and then a lookup is performed
      *
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#refresh(java.lang.String, java.util.Map,
-     *      org.kuali.rice.kns.document.MaintenanceDocument)
+     * org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
     public void refresh(String refreshCaller, Map fieldValues, MaintenanceDocument document) {
@@ -162,29 +162,29 @@ public class KualiAccountMaintainableImpl extends FinancialSystemMaintainable {
     @Override
     protected void refreshReferences(String referencesToRefresh) {
         //make call to super
-        super.refreshReferences( removeReferenceFromString(referencesToRefresh, ACCOUNT_GUIDE_LINE_PROPERTY) );
+        super.refreshReferences(removeReferenceFromString(referencesToRefresh, ACCOUNT_GUIDE_LINE_PROPERTY));
     }
 
     /**
      * Removes a named reference from a referencesToRefresh string
      */
-    protected String removeReferenceFromString(String referencesToRefresh, String referenceToRemove){
+    protected String removeReferenceFromString(String referencesToRefresh, String referenceToRemove) {
         String newReference = referencesToRefresh;
 
-        if(ObjectUtils.isNotNull(newReference)){
+        if (ObjectUtils.isNotNull(newReference)) {
             int index = newReference.indexOf(referenceToRemove);
-            if(index != -1){
+            if (index != -1) {
                 //remove from beginning
-                if(index == 0){
+                if (index == 0) {
 
                     String suffix = "";
                     //add comma at end since there is more after this word
-                    if(newReference.length() != referenceToRemove.length()){
+                    if (newReference.length() != referenceToRemove.length()) {
                         suffix = ",";
                     }
                     newReference = referencesToRefresh.replaceAll(ACCOUNT_GUIDE_LINE_PROPERTY + suffix, "");
 
-                }else{
+                } else {
                     //removing from middle to end... either way, comma will be in front
                     newReference = referencesToRefresh.replaceAll("," + ACCOUNT_GUIDE_LINE_PROPERTY, "");
                 }
@@ -196,7 +196,7 @@ public class KualiAccountMaintainableImpl extends FinancialSystemMaintainable {
 
     /**
      * @see org.kuali.kfs.sys.document.FinancialSystemMaintainable#populateChartOfAccountsCodeFields()
-     *
+     * <p>
      * Special treatment is needed when a new Account is created, the chartCode-accountNumber fields in the document can use the new account
      * that's being created; in which case chart code shall be populated from the PK chart code in the document instead of retrieving it from DB
      * using the account number, as the new account doesn't exist in the DB yet.
@@ -214,10 +214,10 @@ public class KualiAccountMaintainableImpl extends FinancialSystemMaintainable {
             Map.Entry<String, String> entry = chartAccountPairs.next();
             String coaCodeName = entry.getKey();
             String acctNumName = entry.getValue();
-            String accountNumber = (String)ObjectUtils.getPropertyValue(bo, acctNumName);
+            String accountNumber = (String) ObjectUtils.getPropertyValue(bo, acctNumName);
             String coaCode = null;
-            String coaCodePK = (String)ObjectUtils.getPropertyValue(bo, KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE);
-            String accountNumberPK = (String)ObjectUtils.getPropertyValue(bo, KFSPropertyConstants.ACCOUNT_NUMBER);
+            String coaCodePK = (String) ObjectUtils.getPropertyValue(bo, KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE);
+            String accountNumberPK = (String) ObjectUtils.getPropertyValue(bo, KFSPropertyConstants.ACCOUNT_NUMBER);
 
             // if reference account number is same as the primary key accountNumber, copy the primary key chart code to reference chart Code
             if (StringUtils.equalsIgnoreCase(accountNumber, accountNumberPK)) {
@@ -233,8 +233,7 @@ public class KualiAccountMaintainableImpl extends FinancialSystemMaintainable {
 
             try {
                 ObjectUtils.setObjectProperty(bo, coaCodeName, coaCode);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 LOG.error("Error in setting property value for " + coaCodeName);
             }
         }

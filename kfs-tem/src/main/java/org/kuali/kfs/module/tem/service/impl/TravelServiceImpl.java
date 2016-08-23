@@ -1,30 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.integration.ar.AccountsReceivableModuleService;
+import org.kuali.kfs.kns.datadictionary.validation.charlevel.RegexValidationPattern;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.businessobject.TemProfile;
 import org.kuali.kfs.module.tem.businessobject.TravelCardType;
@@ -33,12 +31,14 @@ import org.kuali.kfs.module.tem.document.TravelDocument;
 import org.kuali.kfs.module.tem.service.TemRoleService;
 import org.kuali.kfs.module.tem.service.TravelService;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.datadictionary.validation.charlevel.RegexValidationPattern;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Travel Service Implementation
@@ -58,7 +58,7 @@ public class TravelServiceImpl implements TravelService {
      * @param phoneNumber to validate
      */
     @Override
-    public String validatePhoneNumber(final String phoneNumber, String error){
+    public String validatePhoneNumber(final String phoneNumber, String error) {
         return validatePhoneNumber("", phoneNumber, error);
     }
 
@@ -69,26 +69,23 @@ public class TravelServiceImpl implements TravelService {
      * @param phoneNumber to validate
      */
     @Override
-    public String validatePhoneNumber(final String countryCode, final String phoneNumber, String error){
+    public String validatePhoneNumber(final String countryCode, final String phoneNumber, String error) {
 
         //Determine if the US phone format should be used or a very lax international format.
-        if (StringUtils.isBlank(countryCode) || (!countryCode.equals("US"))){
+        if (StringUtils.isBlank(countryCode) || (!countryCode.equals("US"))) {
             RegexValidationPattern pattern = new RegexValidationPattern();
             pattern.setPattern(TemConstants.INT_PHONE_PATTERN);
-            if (phoneNumber != null && pattern.matches(phoneNumber)){
+            if (phoneNumber != null && pattern.matches(phoneNumber)) {
                 return "";
-            }
-            else{
+            } else {
                 return error;
             }
-        }
-        else{
+        } else {
             RegexValidationPattern pattern = new RegexValidationPattern();
             pattern.setPattern(TemConstants.US_PHONE_PATTERN);
-            if (pattern.matches(phoneNumber)){
+            if (pattern.matches(phoneNumber)) {
                 return "";
-            }
-            else{
+            } else {
                 return error;
             }
         }
@@ -106,14 +103,14 @@ public class TravelServiceImpl implements TravelService {
      * @see org.kuali.kfs.module.tem.service.TravelService#isUserInitiatorOrArranger(org.kuali.kfs.module.tem.document.TravelDocument, org.kuali.rice.kim.bo.Person)
      */
     @Override
-    public boolean isUserInitiatorOrArranger(TravelDocument document, Person user){
+    public boolean isUserInitiatorOrArranger(TravelDocument document, Person user) {
         boolean isUser = false;
 
         WorkflowDocument workflowDocument = document.getDocumentHeader().getWorkflowDocument();
         String initiator = workflowDocument.getInitiatorPrincipalId();
         String docType = document.getDocumentHeader().getWorkflowDocument().getDocumentTypeName();
 
-        if(initiator.equals(user.getPrincipalId()) || temRoleService.isTravelDocumentArrangerForProfile(docType, user.getPrincipalId(), document.getProfileId()) ) {
+        if (initiator.equals(user.getPrincipalId()) || temRoleService.isTravelDocumentArrangerForProfile(docType, user.getPrincipalId(), document.getProfileId())) {
             isUser = true;
         }
         return isUser;
@@ -125,7 +122,7 @@ public class TravelServiceImpl implements TravelService {
     @Override
     public List<String> getTravelCardTypes() {
         List<String> travelCardTypes = new ArrayList<String>();
-        for (TravelCardType cardType : (List<TravelCardType>)businessObjectService.findAll(TravelCardType.class)){
+        for (TravelCardType cardType : (List<TravelCardType>) businessObjectService.findAll(TravelCardType.class)) {
             travelCardTypes.add(cardType.getCode());
         }
         return travelCardTypes;
@@ -133,6 +130,7 @@ public class TravelServiceImpl implements TravelService {
 
     /**
      * Retrieves the parent document type names - up to "TT" - for the document type
+     *
      * @param documentTypeName the document type to find the ancestry of
      * @return the document type names, including TT and the given document type
      */
@@ -169,7 +167,7 @@ public class TravelServiceImpl implements TravelService {
         this.travelDocumentDao = travelDocumentDao;
     }
 
-    public void setTemRoleService(TemRoleService temRoleService){
+    public void setTemRoleService(TemRoleService temRoleService) {
         this.temRoleService = temRoleService;
     }
 

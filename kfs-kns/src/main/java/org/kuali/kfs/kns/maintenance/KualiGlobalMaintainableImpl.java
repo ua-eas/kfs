@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -22,8 +22,8 @@ import org.kuali.kfs.kns.service.KNSServiceLocator;
 import org.kuali.kfs.krad.bo.GlobalBusinessObject;
 import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetail;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.maintenance.*;
 import org.kuali.kfs.krad.maintenance.Maintainable;
+import org.kuali.kfs.krad.maintenance.MaintenanceLock;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.kfs.krad.util.KRADPropertyConstants;
@@ -85,17 +85,13 @@ public abstract class KualiGlobalMaintainableImpl extends KualiMaintainableImpl 
         List primaryKeys = KNSServiceLocator.getBusinessObjectMetaDataService().listPrimaryKeyFieldNames(gboClass);
         if (primaryKeys == null) {
             assumptionIsWrong = true;
-        }
-        else if (primaryKeys.isEmpty()) {
+        } else if (primaryKeys.isEmpty()) {
             assumptionIsWrong = true;
-        }
-        else if (primaryKeys.size() != 1) {
+        } else if (primaryKeys.size() != 1) {
             assumptionIsWrong = true;
-        }
-        else if (!primaryKeys.get(0).getClass().equals(String.class)) {
+        } else if (!primaryKeys.get(0).getClass().equals(String.class)) {
             assumptionIsWrong = true;
-        }
-        else if (!KRADPropertyConstants.DOCUMENT_NUMBER.equalsIgnoreCase((String) primaryKeys.get(0))) {
+        } else if (!KRADPropertyConstants.DOCUMENT_NUMBER.equalsIgnoreCase((String) primaryKeys.get(0))) {
             assumptionIsWrong = true;
         }
         if (assumptionIsWrong) {
@@ -114,12 +110,11 @@ public abstract class KualiGlobalMaintainableImpl extends KualiMaintainableImpl 
         if (newBo == null) {
             throw new RuntimeException("The Global Business Object could not be retrieved from the DB.  " + "This should never happen under normal circumstances.  If this is a legitimate case " + "Then this exception should be removed.");
         }
-        
+
         // property newCollectionRecord of PersistableObjectBase is not persisted, but is always true for globals
         try {
             ObjectUtils.setObjectPropertyDeep(newBo, KRADPropertyConstants.NEW_COLLECTION_RECORD, boolean.class, true, 2);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("unable to set newCollectionRecord property: " + e.getMessage());
             throw new RuntimeException("unable to set newCollectionRecord property: " + e.getMessage());
         }
@@ -138,7 +133,7 @@ public abstract class KualiGlobalMaintainableImpl extends KualiMaintainableImpl 
         gbo.setDocumentNumber(getDocumentNumber());
 
         List<? extends GlobalBusinessObjectDetail> details = gbo.getAllDetailObjects();
-        for ( GlobalBusinessObjectDetail detail : details ) {
+        for (GlobalBusinessObjectDetail detail : details) {
             detail.setDocumentNumber(getDocumentNumber());
         }
     }
@@ -146,6 +141,7 @@ public abstract class KualiGlobalMaintainableImpl extends KualiMaintainableImpl 
     /**
      * This overrides the standard version in KualiMaintainableImpl which works for non-global maintenance documents
      * Each global document must in turn override this with its own locking representation, since it varies from document to document (some have one detail class and others have two, and the way to combine the two detail classes is unique to document with two detail classes)
+     *
      * @see Maintainable#generateMaintenanceLocks()
      */
     @Override
@@ -176,6 +172,6 @@ public abstract class KualiGlobalMaintainableImpl extends KualiMaintainableImpl 
         }
 
     }
-    
+
     public abstract Class<? extends PersistableBusinessObject> getPrimaryEditedBusinessObjectClass();
 }

@@ -1,32 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.web.struts;
 
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
+import org.kuali.kfs.sys.KFSConstants;
+
+import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.kns.web.struts.form.KualiForm;
-import org.kuali.kfs.kns.web.ui.ExtraButton;
 
 /**
  * This class is the action form for Customer Aging Reports.
@@ -44,6 +43,7 @@ public class CustomerInvoiceGenerationForm extends KualiForm {
 
     /**
      * Gets the userId attribute.
+     *
      * @return Returns the userId.
      */
     public String getUserId() {
@@ -51,10 +51,9 @@ public class CustomerInvoiceGenerationForm extends KualiForm {
     }
 
 
-
-
     /**
      * Sets the userId attribute value.
+     *
      * @param userId The userId to set.
      */
     public void setUserId(String userId) {
@@ -62,10 +61,9 @@ public class CustomerInvoiceGenerationForm extends KualiForm {
     }
 
 
-
-
     /**
      * Gets the message attribute.
+     *
      * @return Returns the message.
      */
     public String getMessage() {
@@ -73,17 +71,14 @@ public class CustomerInvoiceGenerationForm extends KualiForm {
     }
 
 
-
-
     /**
      * Sets the message attribute value.
+     *
      * @param message The message to set.
      */
     public void setMessage(String message) {
         this.message = message;
     }
-
-
 
 
     @Override
@@ -115,11 +110,9 @@ public class CustomerInvoiceGenerationForm extends KualiForm {
     }
 
 
-
-
-
     /**
      * Gets the runDate attribute.
+     *
      * @return Returns the runDate.
      */
     public Date getRunDate() {
@@ -127,9 +120,9 @@ public class CustomerInvoiceGenerationForm extends KualiForm {
     }
 
 
-
     /**
      * Sets the runDate attribute value.
+     *
      * @param runDate The runDate to set.
      */
     public void setRunDate(Date runDate) {
@@ -139,6 +132,7 @@ public class CustomerInvoiceGenerationForm extends KualiForm {
 
     /**
      * Gets the orgType attribute.
+     *
      * @return Returns the orgType.
      */
     public String getOrgType() {
@@ -146,15 +140,14 @@ public class CustomerInvoiceGenerationForm extends KualiForm {
     }
 
 
-
     /**
      * Sets the orgType attribute value.
+     *
      * @param orgType The orgType to set.
      */
     public void setOrgType(String orgType) {
         this.orgType = orgType;
     }
-
 
 
     @Override
@@ -163,9 +156,9 @@ public class CustomerInvoiceGenerationForm extends KualiForm {
     }
 
 
-
     /**
      * Gets the chartCode attribute.
+     *
      * @return Returns the chartCode.
      */
     public String getChartCode() {
@@ -173,9 +166,9 @@ public class CustomerInvoiceGenerationForm extends KualiForm {
     }
 
 
-
     /**
      * Sets the chartCode attribute value.
+     *
      * @param chartCode The chartCode to set.
      */
     public void setChartCode(String chartCode) {
@@ -183,9 +176,9 @@ public class CustomerInvoiceGenerationForm extends KualiForm {
     }
 
 
-
     /**
      * Gets the orgCode attribute.
+     *
      * @return Returns the orgCode.
      */
     public String getOrgCode() {
@@ -193,16 +186,14 @@ public class CustomerInvoiceGenerationForm extends KualiForm {
     }
 
 
-
     /**
      * Sets the orgCode attribute value.
+     *
      * @param orgCode The orgCode to set.
      */
     public void setOrgCode(String orgCode) {
         this.orgCode = orgCode;
     }
-
-
 
 
 }

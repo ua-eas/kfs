@@ -1,28 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.PurapParameterConstants;
@@ -43,12 +45,10 @@ import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.kfs.vnd.businessobject.VendorHeader;
 import org.kuali.kfs.vnd.document.service.VendorService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PurchasingProcessVendorValidation extends PurchasingAccountsPayableProcessVendorValidation {
 
@@ -73,8 +73,8 @@ public class PurchasingProcessVendorValidation extends PurchasingAccountsPayable
             if (purDocument.getVendorHeaderGeneratedIdentifier() != null && purDocument.getPurchaseOrderTransmissionMethodCode().equals(PurapConstants.POTransmissionMethods.FAX) && StringUtils.isBlank(purDocument.getVendorFaxNumber())) {
                 valid &= false;
                 String attributeLabel = SpringContext.getBean(DataDictionaryService.class).
-                getDataDictionary().getBusinessObjectEntry(VendorAddress.class.getName()).
-                getAttributeDefinition(VendorPropertyConstants.VENDOR_FAX_NUMBER).getLabel();
+                    getDataDictionary().getBusinessObjectEntry(VendorAddress.class.getName()).
+                    getAttributeDefinition(VendorPropertyConstants.VENDOR_FAX_NUMBER).getLabel();
                 errorMap.putError(VendorPropertyConstants.VENDOR_FAX_NUMBER, KFSKeyConstants.ERROR_REQUIRED, attributeLabel);
             }
         }
@@ -88,7 +88,7 @@ public class PurchasingProcessVendorValidation extends PurchasingAccountsPayable
         // make sure that the vendor is not debarred
         if (vendorDetail.isVendorDebarred()) {
             if (parameterService.getParameterValueAsBoolean(KFSConstants.OptionalModuleNamespaces.PURCHASING_ACCOUNTS_PAYABLE, "Requisition", PurapParameterConstants.SHOW_DEBARRED_VENDOR_WARNING_IND)) {
-                if (StringUtils.isEmpty(((PurchasingDocumentBase)purDocument).getJustification())) {
+                if (StringUtils.isEmpty(((PurchasingDocumentBase) purDocument).getJustification())) {
                     errorMap.putWarning(VendorPropertyConstants.VENDOR_NAME, PurapKeyConstants.WARNING_DEBARRED_VENDOR, vendorDetail.getVendorName());
                     valid &= false;
                 }
@@ -99,11 +99,11 @@ public class PurchasingProcessVendorValidation extends PurchasingAccountsPayable
         }
 
         // make sure that the vendor is of allowed type
-        List<String> allowedVendorTypes = new ArrayList<String>( parameterService.getParameterValuesAsString(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapRuleConstants.PURAP_VENDOR_TYPE_ALLOWED_ON_REQ_AND_PO) );
-        if (allowedVendorTypes != null && !allowedVendorTypes.isEmpty()){
-           if (ObjectUtils.isNotNull(vendorHeader) && ObjectUtils.isNotNull(vendorHeader.getVendorTypeCode()) && ! allowedVendorTypes.contains(vendorHeader.getVendorTypeCode())) {
-                    valid &= false;
-                    errorMap.putError(VendorPropertyConstants.VENDOR_NAME, PurapKeyConstants.ERROR_INVALID_VENDOR_TYPE);
+        List<String> allowedVendorTypes = new ArrayList<String>(parameterService.getParameterValuesAsString(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapRuleConstants.PURAP_VENDOR_TYPE_ALLOWED_ON_REQ_AND_PO));
+        if (allowedVendorTypes != null && !allowedVendorTypes.isEmpty()) {
+            if (ObjectUtils.isNotNull(vendorHeader) && ObjectUtils.isNotNull(vendorHeader.getVendorTypeCode()) && !allowedVendorTypes.contains(vendorHeader.getVendorTypeCode())) {
+                valid &= false;
+                errorMap.putError(VendorPropertyConstants.VENDOR_NAME, PurapKeyConstants.ERROR_INVALID_VENDOR_TYPE);
             }
         }
 

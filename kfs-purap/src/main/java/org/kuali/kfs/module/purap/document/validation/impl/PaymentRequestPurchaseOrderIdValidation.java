@@ -1,26 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
@@ -31,14 +31,14 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.List;
 
 public class PaymentRequestPurchaseOrderIdValidation extends GenericValidation {
 
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
-        PaymentRequestDocument document = (PaymentRequestDocument)event.getDocument();
+        PaymentRequestDocument document = (PaymentRequestDocument) event.getDocument();
         GlobalVariables.getMessageMap().clearErrorPath();
         GlobalVariables.getMessageMap().addToErrorPath(KFSPropertyConstants.DOCUMENT);
 
@@ -48,17 +48,14 @@ public class PaymentRequestPurchaseOrderIdValidation extends GenericValidation {
         if (ObjectUtils.isNull(purchaseOrderDocument)) {
             GlobalVariables.getMessageMap().putError(PurapPropertyConstants.PURCHASE_ORDER_IDENTIFIER, PurapKeyConstants.ERROR_PURCHASE_ORDER_NOT_EXIST);
             valid &= false;
-        }
-        else if (purchaseOrderDocument.isPendingActionIndicator()) {
+        } else if (purchaseOrderDocument.isPendingActionIndicator()) {
             GlobalVariables.getMessageMap().putError(PurapPropertyConstants.PURCHASE_ORDER_IDENTIFIER, PurapKeyConstants.ERROR_PURCHASE_PENDING_ACTION);
             valid &= false;
-        }
-        else if (!StringUtils.equals(purchaseOrderDocument.getApplicationDocumentStatus(), PurapConstants.PurchaseOrderStatuses.APPDOC_OPEN)) {
+        } else if (!StringUtils.equals(purchaseOrderDocument.getApplicationDocumentStatus(), PurapConstants.PurchaseOrderStatuses.APPDOC_OPEN)) {
             GlobalVariables.getMessageMap().putError(PurapPropertyConstants.PURCHASE_ORDER_IDENTIFIER, PurapKeyConstants.ERROR_PURCHASE_ORDER_NOT_OPEN);
             valid &= false;
             // if the PO is pending and it is not a Retransmit, we cannot generate a Payment Request for it
-        }
-        else {
+        } else {
             // Verify that there exists at least 1 item left to be invoiced
             //valid &= encumberedItemExistsForInvoicing(purchaseOrderDocument);
         }
@@ -69,7 +66,7 @@ public class PaymentRequestPurchaseOrderIdValidation extends GenericValidation {
     /**
      * Determines if there are items with encumbrances to be invoiced on passed in
      * purchase order document.
-     * 
+     *
      * @param document - purchase order document
      * @return
      */

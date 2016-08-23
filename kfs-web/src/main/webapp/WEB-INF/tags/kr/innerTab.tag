@@ -1,17 +1,20 @@
- <%--
- Copyright 2005-2010 The Kuali Foundation
-
- Licensed under the Educational Community License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.osedu.org/licenses/ECL-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
+<%--
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
 <%@ include file="/WEB-INF/jsp/kraTldHeader.jsp"%>
 <%@ attribute name="tabTitle" required="true" %>
@@ -71,9 +74,9 @@
 <c:if test="${! empty tabItemCount}">
   <c:set var="tabTitle" value="${tabTitle} (${tabItemCount})" />
 </c:if>
-              
+
 	              <div class="${overrideDivClass}">
-	              <c:if test="${!noShowHideButton}" >	              
+	              <c:if test="${!noShowHideButton}" >
 	               <c:if test="${isOpen == 'true' || isOpen == 'TRUE'}">
 	                 <html:submit property="methodToCall.toggleTab.tab${tabKey}" title="close ${tabTitle}" alt="close ${tabTitle}" styleClass="btn btn-default small" styleId="tab-${tabKey}-imageToggle" onclick="javascript: return toggleTab(document, '${tabKey}'); " value="Hide" />&nbsp;
 	               </c:if>
@@ -83,7 +86,7 @@
 	               </c:if>
 	               ${tabTitle}
 	              </div>
-              
+
 
 <c:if test="${isOpen == 'true' || isOpen == 'TRUE'}">
 <div style="display: block;" id="tab-${tabKey}-div">
@@ -91,14 +94,14 @@
 <c:if test="${isOpen != 'true' && isOpen != 'TRUE'}" >
 <div style="display: none;" id="tab-${tabKey}-div">
 </c:if>
-  
- 
-      
+
+
+
         <!-- display errors for this tab -->
         <c:if test="${! (empty tabErrorKey)}">
             <kul:errors keyMatch="${tabErrorKey}" displayInDiv="true"/>
         </c:if>
-        
+
         <c:if test="${! (empty tabAuditKey)}">
         	<div class="tab-container-error"><div class="left-errmsg-tab">
 				<c:forEach items="${fn:split(auditCluster,',')}" var="cluster">
@@ -106,11 +109,11 @@
 				</c:forEach>
         	</div></div>
       	</c:if>
-      
-        <!-- Before the jsp:doBody of the kul:tab tag -->            
-        <jsp:doBody/>            
+
+        <!-- Before the jsp:doBody of the kul:tab tag -->
+        <jsp:doBody/>
         <!-- After the jsp:doBody of the kul:tab tag -->
- 
-      
-  
-</div>         
+
+
+
+</div>

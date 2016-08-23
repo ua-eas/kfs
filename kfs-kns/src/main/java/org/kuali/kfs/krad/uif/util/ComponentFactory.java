@@ -1,25 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.krad.uif.util;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.datadictionary.validation.constraint.ValidCharactersConstraint;
+import org.kuali.kfs.krad.keyvalues.KeyValuesFinder;
+import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.kfs.krad.uif.UifConstants;
 import org.kuali.kfs.krad.uif.component.Component;
+import org.kuali.kfs.krad.uif.container.CollectionGroup;
 import org.kuali.kfs.krad.uif.container.Group;
 import org.kuali.kfs.krad.uif.container.LinkGroup;
 import org.kuali.kfs.krad.uif.container.NavigationGroup;
@@ -29,11 +34,13 @@ import org.kuali.kfs.krad.uif.container.TreeGroup;
 import org.kuali.kfs.krad.uif.control.CheckboxControl;
 import org.kuali.kfs.krad.uif.control.CheckboxGroupControl;
 import org.kuali.kfs.krad.uif.control.Control;
+import org.kuali.kfs.krad.uif.control.FileControl;
 import org.kuali.kfs.krad.uif.control.HiddenControl;
 import org.kuali.kfs.krad.uif.control.MultiValueControl;
 import org.kuali.kfs.krad.uif.control.RadioGroupControl;
 import org.kuali.kfs.krad.uif.control.SelectControl;
 import org.kuali.kfs.krad.uif.control.SizedControl;
+import org.kuali.kfs.krad.uif.control.TextAreaControl;
 import org.kuali.kfs.krad.uif.control.TextControl;
 import org.kuali.kfs.krad.uif.field.ActionField;
 import org.kuali.kfs.krad.uif.field.BlankField;
@@ -42,6 +49,7 @@ import org.kuali.kfs.krad.uif.field.ErrorsField;
 import org.kuali.kfs.krad.uif.field.FieldGroup;
 import org.kuali.kfs.krad.uif.field.GenericField;
 import org.kuali.kfs.krad.uif.field.HeaderField;
+import org.kuali.kfs.krad.uif.field.IframeField;
 import org.kuali.kfs.krad.uif.field.ImageField;
 import org.kuali.kfs.krad.uif.field.InputField;
 import org.kuali.kfs.krad.uif.field.LabelField;
@@ -64,14 +72,6 @@ import org.kuali.rice.core.api.uif.RemotableTextInput;
 import org.kuali.rice.core.api.uif.RemotableTextarea;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.datadictionary.validation.constraint.ValidCharactersConstraint;
-import org.kuali.kfs.krad.keyvalues.KeyValuesFinder;
-import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
-import org.kuali.kfs.krad.uif.UifConstants;
-import org.kuali.kfs.krad.uif.container.CollectionGroup;
-import org.kuali.kfs.krad.uif.control.FileControl;
-import org.kuali.kfs.krad.uif.control.TextAreaControl;
-import org.kuali.kfs.krad.uif.field.IframeField;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -81,8 +81,6 @@ import java.util.Map;
 /**
  * Factory class for creating new UIF components from their base definitions
  * in the dictionary
- *
- * 
  */
 public class ComponentFactory {
 
@@ -151,7 +149,7 @@ public class ComponentFactory {
             component = view.getViewIndex().getInitialComponentStates().get(origComponent.getFactoryId());
         } else {
             component = (Component) KRADServiceLocatorWeb.getDataDictionaryService().getDictionaryObject(
-                    origComponent.getFactoryId());
+                origComponent.getFactoryId());
         }
 
         if (component != null) {
@@ -267,7 +265,7 @@ public class ComponentFactory {
     }
 
     public static InputField getInputField(String propertyName, String label, UifConstants.ControlType controlType,
-            String defaultValue) {
+                                           String defaultValue) {
         InputField field = (InputField) getNewComponentInstance(INPUT_FIELD);
 
         field.setPropertyName(propertyName);
@@ -279,7 +277,7 @@ public class ComponentFactory {
     }
 
     public static InputField getInputField(String propertyName, String label, UifConstants.ControlType controlType,
-            Class<? extends KeyValuesFinder> optionsFinderClass) {
+                                           Class<? extends KeyValuesFinder> optionsFinderClass) {
         InputField field = (InputField) getNewComponentInstance(INPUT_FIELD);
 
         field.setPropertyName(propertyName);
@@ -291,7 +289,7 @@ public class ComponentFactory {
     }
 
     public static InputField getInputField(String propertyName, String label, UifConstants.ControlType controlType,
-            List<KeyValue> options) {
+                                           List<KeyValue> options) {
         InputField field = (InputField) getNewComponentInstance(INPUT_FIELD);
 
         field.setPropertyName(propertyName);
@@ -308,7 +306,7 @@ public class ComponentFactory {
     }
 
     public static InputField getInputField(String propertyName, String label, UifConstants.ControlType controlType,
-            int size, int maxLength, int minLength) {
+                                           int size, int maxLength, int minLength) {
         InputField field = (InputField) getNewComponentInstance(INPUT_FIELD);
 
         field.setPropertyName(propertyName);
@@ -330,7 +328,7 @@ public class ComponentFactory {
     /**
      * Builds a new <code>InputField</code> from the properties set on the
      * given <code>RemotableAttributeField</code>
-     *
+     * <p>
      * <p>
      * Note the returned InputField will not be initialized yet. Its state will be that of the initial
      * object returned from the UIF dictionary with the properties set from the remotable attribute field, thus it

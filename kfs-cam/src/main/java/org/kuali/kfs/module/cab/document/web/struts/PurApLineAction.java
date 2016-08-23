@@ -1,37 +1,37 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cab.document.web.struts;
 
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.question.ConfirmationQuestion;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.KRADUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cab.CabConstants;
 import org.kuali.kfs.module.cab.CabKeyConstants;
 import org.kuali.kfs.module.cab.CabPropertyConstants;
@@ -50,15 +50,14 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.RiceKeyConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.question.ConfirmationQuestion;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.KRADUtils;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PurApLineAction extends CabActionBase {
     private static final Logger LOG = Logger.getLogger(PurApLineAction.class);
@@ -68,7 +67,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Handle start action.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -80,8 +79,7 @@ public class PurApLineAction extends CabActionBase {
         PurApLineForm purApLineForm = (PurApLineForm) form;
         if (purApLineForm.getPurchaseOrderIdentifier() == null) {
             GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, CabKeyConstants.ERROR_PO_ID_EMPTY);
-        }
-        else {
+        } else {
             // set Contact Email Address and Phone Number from PurAp Purchase Order document
             purApInfoService.setPurchaseOrderFromPurAp(purApLineForm);
 
@@ -121,7 +119,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Build PurchasingAccountsPayableDocument list in which all documents have the same PO_ID.
-     * 
+     *
      * @param purApLineForm
      */
     protected void buildPurApDocList(PurApLineForm purApLineForm) {
@@ -131,8 +129,7 @@ public class PurApLineAction extends CabActionBase {
 
         if (purApDocs == null || purApDocs.isEmpty()) {
             GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, CabKeyConstants.ERROR_PO_ID_INVALID, purApLineForm.getPurchaseOrderIdentifier().toString());
-        }
-        else {
+        } else {
             boolean existActiveDoc = false;
             for (PurchasingAccountsPayableDocument purApDoc : purApDocs) {
                 if (ObjectUtils.isNotNull(purApDoc) && purApDoc.isActive()) {
@@ -153,7 +150,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Setup relationship from account to item and item to doc. In this way, we keep all working objects in the same view as form.
-     * 
+     *
      * @param purApDocs
      */
     protected void setupObjectRelationship(List<PurchasingAccountsPayableDocument> purApDocs) {
@@ -169,10 +166,10 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Cancels the action and returns to portal main page
-     * 
-     * @param mapping {@link ActionMapping}
-     * @param form {@link ActionForm}
-     * @param request {@link HttpServletRequest}
+     *
+     * @param mapping  {@link ActionMapping}
+     * @param form     {@link ActionForm}
+     * @param request  {@link HttpServletRequest}
      * @param response {@link HttpServletResponse}
      * @return {@link ActionForward}
      * @throws Exception
@@ -208,8 +205,7 @@ public class PurApLineAction extends CabActionBase {
         if (question == null) {
             // ask question if not already asked
             return this.performQuestionWithoutInput(mapping, form, request, response, KRADConstants.DOCUMENT_SAVE_BEFORE_CLOSE_QUESTION, kualiConfiguration.getPropertyValueAsString(RiceKeyConstants.QUESTION_SAVE_BEFORE_CLOSE), KRADConstants.CONFIRMATION_QUESTION, KRADConstants.MAPPING_CLOSE, "");
-        }
-        else {
+        } else {
             Object buttonClicked = request.getParameter(KRADConstants.QUESTION_CLICKED_BUTTON);
             PurApLineSession purApLineSession = retrievePurApLineSession(purApLineForm);
             if ((KRADConstants.DOCUMENT_SAVE_BEFORE_CLOSE_QUESTION.equals(question)) && ConfirmationQuestion.YES.equals(buttonClicked)) {
@@ -224,7 +220,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Remove PurApLineSession object from user session.
-     * 
+     *
      * @param purApLineForm
      */
     private void removePurApLineSession(Integer purchaseOrderIdentifier) {
@@ -234,7 +230,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * This method handles split action. Create one item with split quantity
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -269,7 +265,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Get PurApLineSession object from user session.
-     * 
+     *
      * @param purApLineForm
      * @return
      */
@@ -284,7 +280,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Check user input splitQty. It must be required and can't be zero or greater than current quantity.
-     * 
+     *
      * @param itemAsset
      * @param errorPath
      */
@@ -301,8 +297,7 @@ public class PurApLineAction extends CabActionBase {
 
         if (splitQty == null) {
             GlobalVariables.getMessageMap().putError(CabPropertyConstants.PurchasingAccountsPayableItemAsset.SPLIT_QTY, CabKeyConstants.ERROR_SPLIT_QTY_REQUIRED);
-        }
-        else if (splitQty.isLessEqual(KualiDecimal.ZERO) || splitQty.isGreaterEqual(oldQty)) {
+        } else if (splitQty.isLessEqual(KualiDecimal.ZERO) || splitQty.isGreaterEqual(oldQty)) {
             GlobalVariables.getMessageMap().putError(CabPropertyConstants.PurchasingAccountsPayableItemAsset.SPLIT_QTY, CabKeyConstants.ERROR_SPLIT_QTY_INVALID, maxAllowQty.toString());
         }
         return;
@@ -310,7 +305,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Merge Action includes merge all functionality.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -332,12 +327,10 @@ public class PurApLineAction extends CabActionBase {
                     // check if objectSubTypes are different and bring the obj sub types warning message
                     String warningMessage = generateObjectSubTypeQuestion();
                     return this.performQuestionWithoutInput(mapping, form, request, response, CabConstants.PAYMENT_DIFFERENT_OBJECT_SUB_TYPE_CONFIRMATION_QUESTION, warningMessage, KRADConstants.CONFIRMATION_QUESTION, CabConstants.Actions.MERGE, "");
-                }
-                else {
+                } else {
                     performMerge(purApForm, mergeLines, isMergeAll);
                 }
-            }
-            else if (CabConstants.PAYMENT_DIFFERENT_OBJECT_SUB_TYPE_CONFIRMATION_QUESTION.equals(question) && ConfirmationQuestion.YES.equals(buttonClicked)) {
+            } else if (CabConstants.PAYMENT_DIFFERENT_OBJECT_SUB_TYPE_CONFIRMATION_QUESTION.equals(question) && ConfirmationQuestion.YES.equals(buttonClicked)) {
                 performMerge(purApForm, mergeLines, isMergeAll);
             }
 
@@ -353,13 +346,11 @@ public class PurApLineAction extends CabActionBase {
             // Display a warning message without blocking the action if TI indicator exists but TI allowance not exist.
             if (tradeInIndicatorInSelectedLines && !tradeInAllowanceInAllLines) {
                 return this.performQuestionWithoutInput(mapping, form, request, response, CabConstants.TRADE_IN_INDICATOR_QUESTION, SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(CabKeyConstants.QUESTION_TRADE_IN_INDICATOR_EXISTING), KRADConstants.CONFIRMATION_QUESTION, CabConstants.Actions.MERGE, "");
-            }
-            else if (purApLineService.mergeLinesHasDifferentObjectSubTypes(mergeLines)) {
+            } else if (purApLineService.mergeLinesHasDifferentObjectSubTypes(mergeLines)) {
                 // check if objectSubTypes are different and bring the obj sub types warning message
                 String warningMessage = generateObjectSubTypeQuestion();
                 return this.performQuestionWithoutInput(mapping, form, request, response, CabConstants.PAYMENT_DIFFERENT_OBJECT_SUB_TYPE_CONFIRMATION_QUESTION, warningMessage, KRADConstants.CONFIRMATION_QUESTION, CabConstants.Actions.MERGE, "");
-            }
-            else {
+            } else {
                 performMerge(purApForm, mergeLines, isMergeAll);
             }
         }
@@ -370,7 +361,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Generate the question string for different object sub type codes.
-     * 
+     *
      * @return
      */
     protected String generateObjectSubTypeQuestion() {
@@ -381,10 +372,10 @@ public class PurApLineAction extends CabActionBase {
         String warningMessage = kualiConfiguration.getPropertyValueAsString(CabKeyConstants.QUESTION_DIFFERENT_OBJECT_SUB_TYPES) + " " + CamsConstants.Parameters.OBJECT_SUB_TYPE_GROUPS + " " + parameterDetail + ". " + continueQuestion;
         return warningMessage;
     }
- 
+
     /**
      * Merge with service help.
-     * 
+     *
      * @param purApForm
      * @param mergeLines
      */
@@ -401,7 +392,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Retrieve user input merge quantity and merge description.
-     * 
+     *
      * @param firstItem
      * @param purApForm
      */
@@ -415,7 +406,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Clear user input after merge.
-     * 
+     *
      * @param purApForm
      */
     protected void clearForMerge(PurApLineForm purApForm) {
@@ -428,7 +419,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Check if the merge action is valid or not.
-     * 
+     *
      * @param purApForm
      * @param mergeLines
      */
@@ -439,8 +430,7 @@ public class PurApLineAction extends CabActionBase {
         // Check if the selected merge lines violate the business constraints.
         if (isMergeAll) {
             checkMergeAllValid(tradeInAllowanceInAllLines, tradeInIndicatorInSelectedLines);
-        }
-        else {
+        } else {
             checkMergeLinesValid(mergeLines, tradeInAllowanceInAllLines, tradeInIndicatorInSelectedLines);
         }
 
@@ -451,7 +441,7 @@ public class PurApLineAction extends CabActionBase {
     /**
      * If to be merged items have: (1) No Pretag data: No problem; (2) 1 Pretag data entry: Associate this one with the new item
      * created after merge;(3) 1+ Pretag data entries: Display error, user has to manually fix data
-     * 
+     *
      * @param mergeLines
      */
     protected void checkPreTagValidForMerge(List<PurchasingAccountsPayableItemAsset> mergeLines, Integer purchaseOrderIdentifier) {
@@ -464,7 +454,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Build a Hashmap for itemLineNumber since itemLines could exist duplicate itemLineNumber
-     * 
+     *
      * @param itemLines
      * @return
      */
@@ -480,7 +470,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * For merge all, check if exists Trade-in allowance pending for allocate.
-     * 
+     *
      * @param mergeLines
      * @param purApForm
      */
@@ -493,15 +483,14 @@ public class PurApLineAction extends CabActionBase {
     /**
      * Check if merge lines selected are allowed to continue this action. Constraints include: merge lines must more than 1; no
      * additional charges pending for allocate.
-     * 
+     *
      * @param mergeLines
      * @param purApForm
      */
     protected void checkMergeLinesValid(List<PurchasingAccountsPayableItemAsset> mergeLines, boolean tradeInAllowanceInAllLines, boolean tradeInIndicatorInSelectedLines) {
         if (mergeLines.size() <= 1) {
             GlobalVariables.getMessageMap().putError(CabPropertyConstants.PurApLineForm.PURAP_DOCS, CabKeyConstants.ERROR_MERGE_LINE_SELECTED);
-        }
-        else {
+        } else {
             // if merge for different document lines and that document has additional charge allocation pending, additional charges
             // should be allocated first.
             if (purApLineService.isAdditionalChargePending(mergeLines)) {
@@ -532,7 +521,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Update the item quantity value from a decimal(less than 1) to 1.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -554,7 +543,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Allocate line items including allocate additional charges functionality.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -579,12 +568,10 @@ public class PurApLineAction extends CabActionBase {
                     // check if objectSubTypes are different and bring the obj sub types warning message
                     String warningMessage = generateObjectSubTypeQuestion();
                     return this.performQuestionWithoutInput(mapping, form, request, response, CabConstants.PAYMENT_DIFFERENT_OBJECT_SUB_TYPE_CONFIRMATION_QUESTION, warningMessage, KRADConstants.CONFIRMATION_QUESTION, CabConstants.Actions.ALLOCATE, "");
-                }
-                else {
+                } else {
                     performAllocate(purApForm, allocateSourceLine, allocateTargetLines);
                 }
-            }
-            else if (CabConstants.PAYMENT_DIFFERENT_OBJECT_SUB_TYPE_CONFIRMATION_QUESTION.equals(question) && ConfirmationQuestion.YES.equals(buttonClicked)) {
+            } else if (CabConstants.PAYMENT_DIFFERENT_OBJECT_SUB_TYPE_CONFIRMATION_QUESTION.equals(question) && ConfirmationQuestion.YES.equals(buttonClicked)) {
                 performAllocate(purApForm, allocateSourceLine, allocateTargetLines);
             }
 
@@ -600,13 +587,11 @@ public class PurApLineAction extends CabActionBase {
             // to confirm this action.
             if (!allocateSourceLine.isAdditionalChargeNonTradeInIndicator() && !allocateSourceLine.isTradeInAllowance() && (allocateSourceLine.isItemAssignedToTradeInIndicator() || targetLineHasTradeIn) && hasTradeInAllowance) {
                 return this.performQuestionWithoutInput(mapping, form, request, response, CabConstants.TRADE_IN_INDICATOR_QUESTION, SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(CabKeyConstants.QUESTION_TRADE_IN_INDICATOR_EXISTING), KRADConstants.CONFIRMATION_QUESTION, CabConstants.Actions.ALLOCATE, "");
-            }
-            else if (purApLineService.allocateLinesHasDifferentObjectSubTypes(allocateTargetLines, allocateSourceLine)) {
+            } else if (purApLineService.allocateLinesHasDifferentObjectSubTypes(allocateTargetLines, allocateSourceLine)) {
                 // check if objectSubTypes are different and bring the obj sub types warning message
                 String warningMessage = generateObjectSubTypeQuestion();
                 return this.performQuestionWithoutInput(mapping, form, request, response, CabConstants.PAYMENT_DIFFERENT_OBJECT_SUB_TYPE_CONFIRMATION_QUESTION, warningMessage, KRADConstants.CONFIRMATION_QUESTION, CabConstants.Actions.ALLOCATE, "");
-            }
-            else {
+            } else {
                 performAllocate(purApForm, allocateSourceLine, allocateTargetLines);
             }
         }
@@ -616,7 +601,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Allocate with service help.
-     * 
+     *
      * @param purApForm
      * @param allocateSourceLine
      * @param allocateTargetLines
@@ -625,8 +610,7 @@ public class PurApLineAction extends CabActionBase {
         PurApLineSession purApLineSession = retrievePurApLineSession(purApForm);
         if (!purApLineService.processAllocate(allocateSourceLine, allocateTargetLines, purApLineSession.getActionsTakenHistory(), purApForm.getPurApDocs(), false)) {
             GlobalVariables.getMessageMap().putError(CabPropertyConstants.PurApLineForm.PURAP_DOCS, CabKeyConstants.ERROR_ALLOCATE_NO_TARGET_ACCOUNT);
-        }
-        else {
+        } else {
             purApLineSession.getProcessedItems().add(allocateSourceLine);
             // clear select check box
             purApLineService.resetSelectedValue(purApForm.getPurApDocs());
@@ -636,7 +620,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Check if the line items are allowed to allocate.
-     * 
+     *
      * @param selectedLine
      * @param allocateTargetLines
      * @param purApForm
@@ -670,7 +654,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Get the user selected line item and set the link reference to document
-     * 
+     *
      * @param purApLineForm
      * @return
      */
@@ -686,7 +670,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Get the user selected document.
-     * 
+     *
      * @param purApLineForm
      * @return
      */
@@ -696,7 +680,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Handle apply payment action.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -718,8 +702,7 @@ public class PurApLineAction extends CabActionBase {
             if ((CabConstants.TRADE_IN_INDICATOR_QUESTION.equals(question)) && ConfirmationQuestion.YES.equals(buttonClicked)) {
                 // create CAMS asset payment global document.
                 return createApplyPaymentDocument(mapping, purApForm, selectedLine);
-            }
-            else {
+            } else {
                 return mapping.findForward(KFSConstants.MAPPING_BASIC);
             }
         }
@@ -734,7 +717,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Create CAMS asset payment document.
-     * 
+     *
      * @param mapping
      * @param purApForm
      * @param selectedLine
@@ -756,7 +739,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Handle create asset action.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -780,12 +763,10 @@ public class PurApLineAction extends CabActionBase {
                 // confirmation.
                 if (isSettingAssetsInPurAp(selectedLine)) {
                     return this.performQuestionWithoutInput(mapping, form, request, response, CabConstants.SKIP_ASSET_NUMBERS_TO_ASSET_GLOBAL_QUESTION, SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(CabKeyConstants.QUESTION_SKIP_ASSET_NUMBERS_TO_ASSET_GLOBAL), KRADConstants.CONFIRMATION_QUESTION, CabConstants.Actions.CREATE_ASSET, "");
-                }
-                else {
+                } else {
                     return createAssetGlobalDocument(mapping, purApForm, selectedLine);
                 }
-            }
-            else if (CabConstants.SKIP_ASSET_NUMBERS_TO_ASSET_GLOBAL_QUESTION.equals(question) && ConfirmationQuestion.YES.equals(buttonClicked)) {
+            } else if (CabConstants.SKIP_ASSET_NUMBERS_TO_ASSET_GLOBAL_QUESTION.equals(question) && ConfirmationQuestion.YES.equals(buttonClicked)) {
                 return createAssetGlobalDocument(mapping, purApForm, selectedLine);
             }
             return mapping.findForward(KFSConstants.MAPPING_BASIC);
@@ -803,8 +784,7 @@ public class PurApLineAction extends CabActionBase {
             // Asset Global document.
             else if (isSettingAssetsInPurAp(selectedLine)) {
                 return this.performQuestionWithoutInput(mapping, form, request, response, CabConstants.SKIP_ASSET_NUMBERS_TO_ASSET_GLOBAL_QUESTION, SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(CabKeyConstants.QUESTION_SKIP_ASSET_NUMBERS_TO_ASSET_GLOBAL), KRADConstants.CONFIRMATION_QUESTION, CabConstants.Actions.CREATE_ASSET, "");
-            }
-            else {
+            } else {
                 return createAssetGlobalDocument(mapping, purApForm, selectedLine);
             }
         }
@@ -814,7 +794,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * check if PurAp set CAMS Assets information
-     * 
+     *
      * @param selectedLine
      * @return
      */
@@ -824,7 +804,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Create asset global document
-     * 
+     *
      * @param mapping
      * @param purApForm
      * @param selectedLine
@@ -846,7 +826,7 @@ public class PurApLineAction extends CabActionBase {
 
     /**
      * Validate selected line item for asset global creation.
-     * 
+     *
      * @param selectedLine
      */
     protected void validateCreateAssetAction(PurchasingAccountsPayableItemAsset selectedLine) {

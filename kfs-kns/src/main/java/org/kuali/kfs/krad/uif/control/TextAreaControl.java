@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -27,8 +27,6 @@ import org.kuali.kfs.krad.uif.view.View;
 /**
  * Represents a HTML TextArea control. Generally used for values that are very
  * large (such as a description)
- *
- * 
  */
 public class TextAreaControl extends ControlBase {
     private static final long serialVersionUID = -4664558047325456844L;
@@ -47,13 +45,13 @@ public class TextAreaControl extends ControlBase {
 
     /**
      * The following actions are performed:
-     *
+     * <p>
      * <ul>
      * <li>Defaults maxLength, minLength (if not set) to maxLength of parent field</li>
      * </ul>
      *
      * @see ComponentBase#performFinalize(View,
-     *      java.lang.Object, Component)
+     * java.lang.Object, Component)
      */
     @Override
     public void performFinalize(View view, Object model, Component parent) {
@@ -99,7 +97,7 @@ public class TextAreaControl extends ControlBase {
 
     /**
      * Maximum number of characters that can be inputted
-     *
+     * <p>
      * <p>If not set on control, max length of field will be used</p>
      *
      * @return int max number of characters
@@ -119,7 +117,7 @@ public class TextAreaControl extends ControlBase {
 
     /**
      * Minimum number of characters that can be inputted
-     *
+     * <p>
      * <p>If not set on control, min length of field will be used</p>
      *
      * @return int max number of characters

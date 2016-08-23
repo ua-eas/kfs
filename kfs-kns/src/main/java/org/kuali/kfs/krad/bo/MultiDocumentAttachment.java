@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -25,16 +25,16 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="KRNS_MAINT_DOC_ATT_LST_T")
+@Table(name = "KRNS_MAINT_DOC_ATT_LST_T")
 public class MultiDocumentAttachment extends org.kuali.kfs.krad.bo.PersistableAttachmentBase {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name="ATT_ID")
+    @Column(name = "ATT_ID")
     private String id;
 
-    @Column(name="DOC_HDR_ID")
+    @Column(name = "DOC_HDR_ID")
     private String documentNumber;
 
     public String getId() {

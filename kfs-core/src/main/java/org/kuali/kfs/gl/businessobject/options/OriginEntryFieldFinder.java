@@ -1,22 +1,32 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.businessobject.options;
+
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.gl.businessobject.OriginEntryFull;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+import org.kuali.rice.core.api.util.KeyValue;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,23 +35,14 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.gl.businessobject.OriginEntryFull;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.keyvalues.KeyValuesBase;
-
 /**
- * An extension of KeyValuesBase that 
+ * An extension of KeyValuesBase that
  */
 public class OriginEntryFieldFinder extends KeyValuesBase {
 
     /**
      * Returns a list of all field names and display field names for the Origin Entry class
+     *
      * @return a List of key/value pair options
      * @see org.kuali.rice.kns.lookup.keyvalues.KeyValuesFinder#getKeyValues()
      */
@@ -77,12 +78,12 @@ public class OriginEntryFieldFinder extends KeyValuesBase {
 
     /**
      * Given the property field name for a field, returns the display name
-     * 
+     *
      * @param fieldName the property field name for a field
      * @return the display field name of that field
      */
     public String getFieldDisplayName(String fieldName) {
-        for (Iterator iter = getKeyValues().iterator(); iter.hasNext();) {
+        for (Iterator iter = getKeyValues().iterator(); iter.hasNext(); ) {
             KeyValue klp = (KeyValue) iter.next();
             if (klp.getKey().equals(fieldName)) {
                 return klp.getValue();
@@ -93,12 +94,12 @@ public class OriginEntryFieldFinder extends KeyValuesBase {
 
     /**
      * Given the display name of a field, returns the property field name
-     * 
+     *
      * @param fieldDisplayName the display name of the field
      * @return the property field name for that field
      */
     public String getFieldName(String fieldDisplayName) {
-        for (Iterator iter = getKeyValues().iterator(); iter.hasNext();) {
+        for (Iterator iter = getKeyValues().iterator(); iter.hasNext(); ) {
             KeyValue klp = (KeyValue) iter.next();
             if (klp.getValue().equals(fieldDisplayName)) {
                 return (String) klp.getKey();
@@ -109,9 +110,9 @@ public class OriginEntryFieldFinder extends KeyValuesBase {
 
     /**
      * Given a field name and a value, determines if that value is valid for the field
-     * 
+     *
      * @param fieldName the name of a field to inquire on
-     * @param value the value that the field will potentially be set to
+     * @param value     the value that the field will potentially be set to
      * @return true if the value is valid, false if otherwise
      */
     public boolean isValidValue(String fieldName, String value) {
@@ -134,27 +135,22 @@ public class OriginEntryFieldFinder extends KeyValuesBase {
             try {
                 KualiDecimal d = new KualiDecimal(value);
                 return true;
-            }
-            catch (NumberFormatException nfe) {
+            } catch (NumberFormatException nfe) {
                 return false;
             }
-        }
-        else if ("Integer".equals(fieldType)) {
+        } else if ("Integer".equals(fieldType)) {
             try {
                 Integer d = new Integer(value);
                 return true;
-            }
-            catch (NumberFormatException nfe) {
+            } catch (NumberFormatException nfe) {
                 return false;
             }
-        }
-        else if ("Date".equals(fieldType)) {
+        } else if ("Date".equals(fieldType)) {
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             try {
                 Date d = df.parse(value);
                 return true;
-            }
-            catch (ParseException e) {
+            } catch (ParseException e) {
                 return false;
             }
         }
@@ -163,7 +159,7 @@ public class OriginEntryFieldFinder extends KeyValuesBase {
 
     /**
      * Returns a String with the name of the type of the given field
-     * 
+     *
      * @param fieldName the name of the field to inquire on
      * @return a String with the name of the class that field returns
      */
@@ -188,7 +184,7 @@ public class OriginEntryFieldFinder extends KeyValuesBase {
 
     /**
      * Returns whether the given field can be set to null or not
-     * 
+     *
      * @param fieldName the name of the field to inquire about
      * @return true if it can be set to null, false otherwise
      */
@@ -201,7 +197,7 @@ public class OriginEntryFieldFinder extends KeyValuesBase {
 
     /**
      * Returns the length of a given field in Origin Entry
-     * 
+     *
      * @param fieldName the name of the Origin Entry field to get a length for
      * @return the length of the field
      */
@@ -211,5 +207,5 @@ public class OriginEntryFieldFinder extends KeyValuesBase {
         fieldLength = dataDictionaryService.getAttributeMaxLength(OriginEntryFull.class, fieldName);
         return fieldLength;
     }
-    
+
 }

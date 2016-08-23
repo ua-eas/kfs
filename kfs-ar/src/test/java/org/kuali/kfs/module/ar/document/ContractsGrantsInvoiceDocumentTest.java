@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -365,7 +365,7 @@ public class ContractsGrantsInvoiceDocumentTest extends KualiTestBase {
         List<AwardAccount> awardAccounts = new ArrayList<AwardAccount>();
         awardAccounts.add(awardAccount_1);
         awardAccounts.add(awardAccount_2);
-        ((Award)award).setAwardAccounts(awardAccounts);
+        ((Award) award).setAwardAccounts(awardAccounts);
         refreshAccounts(award);
 
         List<String> errorString = contractsGrantsInvoiceDocumentServiceImpl.checkAwardContractControlAccounts(award);
@@ -393,7 +393,7 @@ public class ContractsGrantsInvoiceDocumentTest extends KualiTestBase {
         List<AwardAccount> awardAccounts = new ArrayList<AwardAccount>();
         awardAccounts.add(awardAccount_1);
         awardAccounts.add(awardAccount_2);
-        ((Award)award).setAwardAccounts(awardAccounts);
+        ((Award) award).setAwardAccounts(awardAccounts);
         refreshAccounts(award);
 
         List<String> errorString = contractsGrantsInvoiceDocumentServiceImpl.checkAwardContractControlAccounts(award);
@@ -422,7 +422,7 @@ public class ContractsGrantsInvoiceDocumentTest extends KualiTestBase {
         List<AwardAccount> awardAccounts = new ArrayList<AwardAccount>();
         awardAccounts.add(awardAccount_1);
         awardAccounts.add(awardAccount_2);
-        ((Award)award).setAwardAccounts(awardAccounts);
+        ((Award) award).setAwardAccounts(awardAccounts);
         refreshAccounts(award);
 
         List<String> errorString = contractsGrantsInvoiceDocumentServiceImpl.checkAwardContractControlAccounts(award);
@@ -434,8 +434,8 @@ public class ContractsGrantsInvoiceDocumentTest extends KualiTestBase {
 
     private void refreshAccounts(ContractsAndGrantsBillingAward award) {
         List<ContractsAndGrantsBillingAwardAccount> awardAccounts = award.getActiveAwardAccounts();
-        for (ContractsAndGrantsBillingAwardAccount awardAccount: awardAccounts) {
-            ((AwardAccount)awardAccount).refreshReferenceObject("account");
+        for (ContractsAndGrantsBillingAwardAccount awardAccount : awardAccounts) {
+            ((AwardAccount) awardAccount).refreshReferenceObject("account");
         }
     }
 
@@ -451,10 +451,10 @@ public class ContractsGrantsInvoiceDocumentTest extends KualiTestBase {
 
         Map<String, Object> map = new ReflectionMap(cinvDoc);
         assertEquals("80075", map.get(ArPropertyConstants.ContractsGrantsInvoiceDocumentFields.PROPOSAL_NUMBER));
-        assertEquals("MILE", map.get(ArPropertyConstants.INVOICE_GENERAL_DETAIL+"." + ArPropertyConstants.BILLING_FREQUENCY_CODE));
-        assertEquals("9000000", map.get("accountDetails[0]."+KFSPropertyConstants.ACCOUNT_NUMBER));
+        assertEquals("MILE", map.get(ArPropertyConstants.INVOICE_GENERAL_DETAIL + "." + ArPropertyConstants.BILLING_FREQUENCY_CODE));
+        assertEquals("9000000", map.get("accountDetails[0]." + KFSPropertyConstants.ACCOUNT_NUMBER));
         assertNull(map.get("zebra"));
-        assertNull(map.get(ArPropertyConstants.INVOICE_GENERAL_DETAIL+".zebra"));
-        assertNull(map.get("accountDetails[2]."+KFSPropertyConstants.ACCOUNT_NUMBER));
+        assertNull(map.get(ArPropertyConstants.INVOICE_GENERAL_DETAIL + ".zebra"));
+        assertNull(map.get("accountDetails[2]." + KFSPropertyConstants.ACCOUNT_NUMBER));
     }
 }

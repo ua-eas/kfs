@@ -1,33 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
@@ -37,14 +35,16 @@ import org.kuali.kfs.module.ar.document.service.InvoiceRecurrenceDocumentService
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.util.KfsDateUtils;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class InvoiceRecurrenceRule extends MaintenanceDocumentRuleBase {
     protected static Logger LOG = org.apache.log4j.Logger.getLogger(InvoiceRecurrenceRule.class);
@@ -73,15 +73,15 @@ public class InvoiceRecurrenceRule extends MaintenanceDocumentRuleBase {
         success &= validateDocumentRecurrenceBeginDate(newInvoiceRecurrence);
 */
         success &= validateDocumentRecurrenceEndDate(newInvoiceRecurrence.getDocumentRecurrenceBeginDate(),
-                                                     newInvoiceRecurrence.getDocumentRecurrenceEndDate());
+            newInvoiceRecurrence.getDocumentRecurrenceEndDate());
         success &= validateIfBothEndDateAndTotalRecurrenceNumberAreEntered(newInvoiceRecurrence.getDocumentRecurrenceBeginDate(),
-                                                                           newInvoiceRecurrence.getDocumentRecurrenceEndDate(),
-                                                                           newInvoiceRecurrence.getDocumentTotalRecurrenceNumber(),
-                                                                           newInvoiceRecurrence.getDocumentRecurrenceIntervalCode());
+            newInvoiceRecurrence.getDocumentRecurrenceEndDate(),
+            newInvoiceRecurrence.getDocumentTotalRecurrenceNumber(),
+            newInvoiceRecurrence.getDocumentRecurrenceIntervalCode());
         success &= validateEndDateOrTotalNumberofRecurrences(newInvoiceRecurrence.getDocumentRecurrenceEndDate(),
-                                                             newInvoiceRecurrence.getDocumentTotalRecurrenceNumber());
+            newInvoiceRecurrence.getDocumentTotalRecurrenceNumber());
         success &= validateMaximumNumberOfRecurrences(newInvoiceRecurrence.getDocumentTotalRecurrenceNumber(),
-                                                      newInvoiceRecurrence.getDocumentRecurrenceIntervalCode());
+            newInvoiceRecurrence.getDocumentRecurrenceIntervalCode());
         return success;
     }
 
@@ -106,6 +106,7 @@ public class InvoiceRecurrenceRule extends MaintenanceDocumentRuleBase {
         }
         return success;
     }
+
     /**
      * Validate if the invoice has an approved status.
      */
@@ -120,11 +121,10 @@ public class InvoiceRecurrenceRule extends MaintenanceDocumentRuleBase {
         if (!SpringContext.getBean(DocumentService.class).documentExists(recurrenceInvoiceNumber)) {
             putFieldError(ArPropertyConstants.INVOICE_NUMBER, ArKeyConstants.ERROR_INVOICE_DOES_NOT_EXIST);
             success = false;
-        }
-        else {
+        } else {
             try {
-                customerInvoiceDocument = (CustomerInvoiceDocument)SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(recurrenceInvoiceNumber);
-            } catch (WorkflowException e){
+                customerInvoiceDocument = (CustomerInvoiceDocument) SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(recurrenceInvoiceNumber);
+            } catch (WorkflowException e) {
             }
             if (ObjectUtils.isNotNull(customerInvoiceDocument)) {
                 WorkflowDocument workflowDocument = customerInvoiceDocument.getDocumentHeader().getWorkflowDocument();
@@ -136,6 +136,7 @@ public class InvoiceRecurrenceRule extends MaintenanceDocumentRuleBase {
         }
         return success;
     }
+
     /**
      * Validate Begin Date.
      */
@@ -152,6 +153,7 @@ public class InvoiceRecurrenceRule extends MaintenanceDocumentRuleBase {
         }
         return success;
     }
+
     /**
      * Validate End Date.
      */
@@ -163,6 +165,7 @@ public class InvoiceRecurrenceRule extends MaintenanceDocumentRuleBase {
         }
         return success;
     }
+
     /**
      * This method checks that End Date and Total Recurrence Number are valid when both are entered.
      *
@@ -197,7 +200,7 @@ public class InvoiceRecurrenceRule extends MaintenanceDocumentRuleBase {
             addCounter = 3;
         }
         /* perform this loop while begin_date is less than or equal to end_date */
-        while (!(beginDate.after(endDate))){
+        while (!(beginDate.after(endDate))) {
             beginCalendar.setTime(beginDate);
             beginCalendar.add(Calendar.MONTH, addCounter);
             beginDate = KfsDateUtils.convertToSqlDate(beginCalendar.getTime());
@@ -219,6 +222,7 @@ public class InvoiceRecurrenceRule extends MaintenanceDocumentRuleBase {
 
         return true;
     }
+
     /**
      * Validate that either End Date or Total Number of Recurrences must be entered.
      */
@@ -243,7 +247,7 @@ public class InvoiceRecurrenceRule extends MaintenanceDocumentRuleBase {
         boolean success = true;
         Integer maximumRecurrencesByInterval;
         if (ObjectUtils.isNotNull(recurrenceIntervalCode)) {
-            List<String> maximumRecurrences = new ArrayList<String>( SpringContext.getBean(ParameterService.class).getSubParameterValuesAsString(InvoiceRecurrence.class, ArConstants.MAXIMUM_RECURRENCES_BY_INTERVAL, recurrenceIntervalCode) );
+            List<String> maximumRecurrences = new ArrayList<String>(SpringContext.getBean(ParameterService.class).getSubParameterValuesAsString(InvoiceRecurrence.class, ArConstants.MAXIMUM_RECURRENCES_BY_INTERVAL, recurrenceIntervalCode));
             if (maximumRecurrences.size() > 0 && StringUtils.isNotBlank(maximumRecurrences.get(0))) {
                 maximumRecurrencesByInterval = Integer.valueOf(maximumRecurrences.get(0));
                 if (totalRecurrenceNumber > maximumRecurrencesByInterval) {

@@ -1,22 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.util;
+
+import org.apache.log4j.Logger;
+import org.kuali.kfs.gl.exception.LoadException;
+import org.kuali.kfs.module.ld.businessobject.LaborOriginEntry;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -25,10 +29,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-
-import org.apache.log4j.Logger;
-import org.kuali.kfs.gl.exception.LoadException;
-import org.kuali.kfs.module.ld.businessobject.LaborOriginEntry;
 
 /**
  * This class lazy loads the origin entries in a flat file. This implementation uses a limited amount of memory because it does not
@@ -46,10 +46,10 @@ public class LaborOriginEntryFileIterator implements Iterator<LaborOriginEntry> 
 
     /**
      * Constructs a LaborOriginEntryFileIterator
-     * 
-     * @param reader a reader representing flat-file origin entries
+     *
+     * @param reader          a reader representing flat-file origin entries
      * @param autoCloseReader whether to automatically close the reader when the end of origin entries has been reached (i.e. when
-     *        hasNext() returns false)
+     *                        hasNext() returns false)
      */
     public LaborOriginEntryFileIterator(BufferedReader reader) {
         this(reader, true);
@@ -57,10 +57,10 @@ public class LaborOriginEntryFileIterator implements Iterator<LaborOriginEntry> 
 
     /**
      * Constructs a LaborOriginEntryFileIterator
-     * 
-     * @param reader a reader representing flat-file origin entries
+     *
+     * @param reader          a reader representing flat-file origin entries
      * @param autoCloseReader whether to automatically close the reader when the end of origin entries has been reached (i.e. when
-     *        hasNext() returns false)
+     *                        hasNext() returns false)
      */
     public LaborOriginEntryFileIterator(BufferedReader reader, boolean autoCloseReader) {
 
@@ -77,7 +77,7 @@ public class LaborOriginEntryFileIterator implements Iterator<LaborOriginEntry> 
     /**
      * Constructs a LaborOriginEntryFileIterator When constructed with this method, the file handle will be automatically closed
      * when the end of origin entries has been reached (i.e. when hasNext() returns false)
-     * 
+     *
      * @param file the file
      */
     public LaborOriginEntryFileIterator(File file) {
@@ -90,8 +90,7 @@ public class LaborOriginEntryFileIterator implements Iterator<LaborOriginEntry> 
             this.autoCloseReader = true;
             nextEntry = null;
             lineNumber = 0;
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             LOG.error("File not found for LaborOriginEntryFileIterator! " + file.getAbsolutePath(), e);
             throw new RuntimeException("File not found for LaborOriginEntryFileIterator! " + file.getAbsolutePath());
         }
@@ -104,8 +103,7 @@ public class LaborOriginEntryFileIterator implements Iterator<LaborOriginEntry> 
         if (nextEntry == null) {
             fetchNextEntry();
             return nextEntry != null;
-        }
-        else {
+        } else {
             // we have the next entry loaded
             return true;
         }
@@ -120,8 +118,7 @@ public class LaborOriginEntryFileIterator implements Iterator<LaborOriginEntry> 
             LaborOriginEntry temp = nextEntry;
             nextEntry = null;
             return temp;
-        }
-        else {
+        } else {
             // maybe next() is called repeatedly w/o calling hasNext. This is a bad idea, but the
             // interface allows it
             fetchNextEntry();
@@ -152,13 +149,11 @@ public class LaborOriginEntryFileIterator implements Iterator<LaborOriginEntry> 
                 if (autoCloseReader) {
                     reader.close();
                 }
-            }
-            else {
+            } else {
                 nextEntry = new LaborOriginEntry();
                 try {
                     nextEntry.setFromTextFileForBatch(line, lineNumber - 1);
-                }
-                catch (LoadException e) {
+                } catch (LoadException e) {
                     // wipe out the next entry so that the next call to hasNext or next will force a new row to be fetched
                     nextEntry = null;
 
@@ -166,8 +161,7 @@ public class LaborOriginEntryFileIterator implements Iterator<LaborOriginEntry> 
                     throw e;
                 }
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             LOG.error("error in the CorrectionDocumentServiceImpl iterator", e);
             nextEntry = null;
             throw new RuntimeException("error retrieving origin entries");

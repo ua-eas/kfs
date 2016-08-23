@@ -1,3 +1,21 @@
+/*
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.kuali.kfs.sys.batch.service.impl;
 
 import org.apache.log4j.Logger;
@@ -51,7 +69,7 @@ public class DetectDocumentsMissingPendingEntriesServiceImplTest {
         mockLogger.debug("Running reportDocumentsWithoutPendingEntries");
         EasyMock.expect(parameterService.getParameterValuesAsString(KfsParameterConstants.FINANCIAL_SYSTEM_BATCH.class, KFSParameterKeyConstants.DetectDocumentsMissingPendingEntriesConstants.MISSING_PLES_NOTIFICATION_EMAIL_ADDRESSES)).andReturn(new ArrayList<>());
         EasyMock.expect(configurationService.getPropertyValueAsString(KFSKeyConstants.DetectMissingPendingEntriesMessages.FAILURE_HEADER)).andReturn("Could not find expected general ledger pending entries:");
-        mockLogger.warn("\n"+"Could not find expected general ledger pending entries:\n");
+        mockLogger.warn("\n" + "Could not find expected general ledger pending entries:\n");
 
         EasyMock.replay(mockLogger, configurationService, parameterService);
 
@@ -76,8 +94,8 @@ public class DetectDocumentsMissingPendingEntriesServiceImplTest {
 
         initializeDetectDocumentsMissingPendingEntriesService();
         List<DocumentHeaderData> documentHeaderDataList = new ArrayList<>();
-        DocumentHeaderData documentHeaderData1 = new DocumentHeaderData("AAAA","DT1");
-        DocumentHeaderData documentHeaderData2 = new DocumentHeaderData("BBBB","DT2");
+        DocumentHeaderData documentHeaderData1 = new DocumentHeaderData("AAAA", "DT1");
+        DocumentHeaderData documentHeaderData2 = new DocumentHeaderData("BBBB", "DT2");
         documentHeaderDataList.add(documentHeaderData1);
         documentHeaderDataList.add(documentHeaderData2);
         detectDocumentsMissingPendingEntriesService.reportDocumentsWithoutPendingEntries(documentHeaderDataList);
@@ -139,9 +157,9 @@ public class DetectDocumentsMissingPendingEntriesServiceImplTest {
         mailMessage.setToAddresses(expectedEmailAddresses);
         mailMessage.setFromAddress("from@kuali.co");
         mailMessage.setMessage("Could not find expected general ledger pending entries:\n" +
-                "Document Number: AAAA Document Type: DT1\n" +
-                "Document Number: BBBB Document Type: DT2\n" +
-                "Document Number: CCCC Document Type: DT3");
+            "Document Number: AAAA Document Type: DT1\n" +
+            "Document Number: BBBB Document Type: DT2\n" +
+            "Document Number: CCCC Document Type: DT3");
 
         captureSendMessageResults();
 
@@ -150,9 +168,9 @@ public class DetectDocumentsMissingPendingEntriesServiceImplTest {
         initializeDetectDocumentsMissingPendingEntriesService();
         detectDocumentsMissingPendingEntriesService.setMailService(mailService);
         List<DocumentHeaderData> documentHeaderDataList = new ArrayList<>();
-        DocumentHeaderData documentHeaderData1 = new DocumentHeaderData("AAAA","DT1");
-        DocumentHeaderData documentHeaderData2 = new DocumentHeaderData("BBBB","DT2");
-        DocumentHeaderData documentHeaderData3 = new DocumentHeaderData("CCCC","DT3");
+        DocumentHeaderData documentHeaderData1 = new DocumentHeaderData("AAAA", "DT1");
+        DocumentHeaderData documentHeaderData2 = new DocumentHeaderData("BBBB", "DT2");
+        DocumentHeaderData documentHeaderData3 = new DocumentHeaderData("CCCC", "DT3");
         documentHeaderDataList.add(documentHeaderData1);
         documentHeaderDataList.add(documentHeaderData2);
         documentHeaderDataList.add(documentHeaderData3);
@@ -178,7 +196,8 @@ public class DetectDocumentsMissingPendingEntriesServiceImplTest {
             }
 
             @Override
-            public void sendMessage(MailMessage message, boolean htmlMessage) throws InvalidAddressException, MessagingException {}
+            public void sendMessage(MailMessage message, boolean htmlMessage) throws InvalidAddressException, MessagingException {
+            }
 
             @Override
             public String getBatchMailingList() {

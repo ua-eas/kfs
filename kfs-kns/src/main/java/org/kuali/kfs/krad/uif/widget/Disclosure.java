@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -22,8 +22,6 @@ import org.kuali.kfs.krad.uif.component.ClientSideState;
 
 /**
  * Decorates a group with collapse/expand functionality
- * 
- * 
  */
 public class Disclosure extends WidgetBase {
     private static final long serialVersionUID = 1238789480161901850L;
@@ -47,7 +45,7 @@ public class Disclosure extends WidgetBase {
 
     /**
      * Path to the images that should be displayed to collapse the group
-     * 
+     *
      * @return String image path
      */
     public String getCollapseImageSrc() {
@@ -56,7 +54,7 @@ public class Disclosure extends WidgetBase {
 
     /**
      * Setter for the collapse image path
-     * 
+     *
      * @param collapseImageSrc
      */
     public void setCollapseImageSrc(String collapseImageSrc) {
@@ -65,7 +63,7 @@ public class Disclosure extends WidgetBase {
 
     /**
      * Path to the images that should be displayed to expand the group
-     * 
+     *
      * @return String image path
      */
     public String getExpandImageSrc() {
@@ -74,7 +72,7 @@ public class Disclosure extends WidgetBase {
 
     /**
      * Setter for the expand image path
-     * 
+     *
      * @param collapseImageSrc
      */
     public void setExpandImageSrc(String expandImageSrc) {
@@ -84,7 +82,7 @@ public class Disclosure extends WidgetBase {
     /**
      * Gives the speed for the open/close animation, a smaller int will result
      * in a faster animation
-     * 
+     *
      * @return int animation speed
      */
     public int getAnimationSpeed() {
@@ -93,7 +91,7 @@ public class Disclosure extends WidgetBase {
 
     /**
      * Setter for the open/close animation speed
-     * 
+     *
      * @param animationSpeed
      */
     public void setAnimationSpeed(int animationSpeed) {
@@ -102,9 +100,9 @@ public class Disclosure extends WidgetBase {
 
     /**
      * Indicates whether the group should be initially open
-     * 
+     *
      * @return boolean true if group should be initially open, false if it
-     *         should be closed
+     * should be closed
      */
     public boolean isDefaultOpen() {
         return this.defaultOpen;
@@ -112,7 +110,7 @@ public class Disclosure extends WidgetBase {
 
     /**
      * Setter for the default open indicator
-     * 
+     *
      * @param defaultOpen
      */
     public void setDefaultOpen(boolean defaultOpen) {

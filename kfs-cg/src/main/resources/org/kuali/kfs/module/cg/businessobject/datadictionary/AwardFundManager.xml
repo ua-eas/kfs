@@ -1,213 +1,213 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-	<bean id="AwardFundManager" parent="AwardFundManager-parentBean" />
+    <bean id="AwardFundManager" parent="AwardFundManager-parentBean"/>
 
-	<bean id="AwardFundManager-parentBean" abstract="true"
-		parent="BusinessObjectEntry">
-		<property name="businessObjectClass"
-			value="org.kuali.kfs.module.cg.businessobject.AwardFundManager" />
-		<property name="inquiryDefinition">
-			<ref bean="AwardFundManager-inquiryDefinition" />
-		</property>
-		<property name="lookupDefinition">
-			<ref bean="AwardFundManager-lookupDefinition" />
-		</property>
-		<property name="objectLabel" value="Award Fund Manager" />
-		<property name="attributes">
-			<list>
-				<ref bean="AwardFundManager-principalId" />
-				<ref bean="AwardFundManager-fundManager.principalName" />
-				<ref bean="AwardFundManager-fundManager.name" />
-				<ref bean="AwardFundManager-proposalNumber" />
-				<ref bean="AwardFundManager-primaryFundManagerIndicator" />
-				<ref bean="AwardFundManager-projectTitle" />
-				<ref bean="AwardFundManager-newCollectionRecord" />
-				<ref bean="AwardFundManager-active" />
-			</list>
-		</property>
-		<property name="relationships">
-			<list>
-				<bean parent="RelationshipDefinition">
-					<property name="objectAttributeName" value="fundManager" />
-					<property name="primitiveAttributes">
-						<list>
-							<bean parent="PrimitiveAttributeDefinition" p:sourceName="principalId"
-								p:targetName="principalId" />
-						</list>
-					</property>
-					<property name="supportAttributes">
-						<list>
-							<bean parent="SupportAttributeDefinition" p:sourceName="fundManager.principalName"
-								p:targetName="principalName" />
-							<bean parent="SupportAttributeDefinition" p:sourceName="fundManager.name"
-								p:targetName="name" />
+    <bean id="AwardFundManager-parentBean" abstract="true"
+          parent="BusinessObjectEntry">
+        <property name="businessObjectClass"
+                  value="org.kuali.kfs.module.cg.businessobject.AwardFundManager"/>
+        <property name="inquiryDefinition">
+            <ref bean="AwardFundManager-inquiryDefinition"/>
+        </property>
+        <property name="lookupDefinition">
+            <ref bean="AwardFundManager-lookupDefinition"/>
+        </property>
+        <property name="objectLabel" value="Award Fund Manager"/>
+        <property name="attributes">
+            <list>
+                <ref bean="AwardFundManager-principalId"/>
+                <ref bean="AwardFundManager-fundManager.principalName"/>
+                <ref bean="AwardFundManager-fundManager.name"/>
+                <ref bean="AwardFundManager-proposalNumber"/>
+                <ref bean="AwardFundManager-primaryFundManagerIndicator"/>
+                <ref bean="AwardFundManager-projectTitle"/>
+                <ref bean="AwardFundManager-newCollectionRecord"/>
+                <ref bean="AwardFundManager-active"/>
+            </list>
+        </property>
+        <property name="relationships">
+            <list>
+                <bean parent="RelationshipDefinition">
+                    <property name="objectAttributeName" value="fundManager"/>
+                    <property name="primitiveAttributes">
+                        <list>
+                            <bean parent="PrimitiveAttributeDefinition" p:sourceName="principalId"
+                                  p:targetName="principalId"/>
+                        </list>
+                    </property>
+                    <property name="supportAttributes">
+                        <list>
+                            <bean parent="SupportAttributeDefinition" p:sourceName="fundManager.principalName"
+                                  p:targetName="principalName"/>
+                            <bean parent="SupportAttributeDefinition" p:sourceName="fundManager.name"
+                                  p:targetName="name"/>
 
-						</list>
-					</property>
-				</bean>
-			</list>
-		</property>
-	</bean>
+                        </list>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
 
-	<!-- Attribute Definitions -->
+    <!-- Attribute Definitions -->
 
 
-	<bean id="AwardFundManager-principalId" parent="AwardFundManager-principalId-parentBean" />
+    <bean id="AwardFundManager-principalId" parent="AwardFundManager-principalId-parentBean"/>
 
-	<bean id="AwardFundManager-principalId-parentBean" abstract="true"
-		parent="PersonImpl-principalId">
-		<property name="forceUppercase" value="true" />
-		<property name="label" value="Fund Manager ID" />
-		<property name="shortLabel" value="Fund Mgr ID" />
-		<property name="control">
-			<ref bean="HiddenControl" />
-		</property>
-	</bean>
-	<bean id="AwardFundManager-fundManager.principalName" parent="AwardFundManager-fundManager.principalName-parentBean" />
+    <bean id="AwardFundManager-principalId-parentBean" abstract="true"
+          parent="PersonImpl-principalId">
+        <property name="forceUppercase" value="true"/>
+        <property name="label" value="Fund Manager ID"/>
+        <property name="shortLabel" value="Fund Mgr ID"/>
+        <property name="control">
+            <ref bean="HiddenControl"/>
+        </property>
+    </bean>
+    <bean id="AwardFundManager-fundManager.principalName" parent="AwardFundManager-fundManager.principalName-parentBean"/>
 
-	<bean id="AwardFundManager-fundManager.principalName-parentBean"
-		abstract="true" parent="PersonImpl-principalName">
-		<property name="name" value="fundManager.principalName" />
-		<property name="label" value="Fund Manager Principal Name" />
-		<property name="required" value="false" />
-		<property name="control">
-      		<bean parent="TextControlDefinition" p:size="42"/>
-    	</property>
-	</bean>
-	<bean id="AwardFundManager-fundManager.name" parent="AwardFundManager-fundManager.name-parentBean" />
+    <bean id="AwardFundManager-fundManager.principalName-parentBean"
+          abstract="true" parent="PersonImpl-principalName">
+        <property name="name" value="fundManager.principalName"/>
+        <property name="label" value="Fund Manager Principal Name"/>
+        <property name="required" value="false"/>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="42"/>
+        </property>
+    </bean>
+    <bean id="AwardFundManager-fundManager.name" parent="AwardFundManager-fundManager.name-parentBean"/>
 
-	<bean id="AwardFundManager-fundManager.name-parentBean" abstract="true"
-		parent="PersonImpl-name">
-		<property name="name" value="fundManager.name" />
-		<property name="label" value="Name" />
-		<property name="required" value="false" />
-		<property name="control">
-			<ref bean="StandardNameTextControl" />
-		</property>
-	</bean>
-	<bean id="AwardFundManager-proposalNumber" parent="AwardFundManager-proposalNumber-parentBean">
-		<property name="forceUppercase" value="true" />
-	</bean>
+    <bean id="AwardFundManager-fundManager.name-parentBean" abstract="true"
+          parent="PersonImpl-name">
+        <property name="name" value="fundManager.name"/>
+        <property name="label" value="Name"/>
+        <property name="required" value="false"/>
+        <property name="control">
+            <ref bean="StandardNameTextControl"/>
+        </property>
+    </bean>
+    <bean id="AwardFundManager-proposalNumber" parent="AwardFundManager-proposalNumber-parentBean">
+        <property name="forceUppercase" value="true"/>
+    </bean>
 
-	<bean id="AwardFundManager-proposalNumber-parentBean" abstract="true"
-		parent="Award-proposalNumber">
-	</bean>
-	<bean id="AwardFundManager-primaryFundManagerIndicator"
-		parent="AwardFundManager-primaryFundManagerIndicator-parentBean" />
+    <bean id="AwardFundManager-proposalNumber-parentBean" abstract="true"
+          parent="Award-proposalNumber">
+    </bean>
+    <bean id="AwardFundManager-primaryFundManagerIndicator"
+          parent="AwardFundManager-primaryFundManagerIndicator-parentBean"/>
 
-	<bean id="AwardFundManager-primaryFundManagerIndicator-parentBean"
-		abstract="true" parent="GenericAttributes-genericBoolean">
-		<property name="name" value="primaryFundManagerIndicator" />
-		<property name="label" value="Primary" />
-		<property name="shortLabel" value="Primary" />
-	</bean>
-	<bean id="AwardFundManager-projectTitle"
-		parent="AwardFundManager-projectTitle-parentBean" />
+    <bean id="AwardFundManager-primaryFundManagerIndicator-parentBean"
+          abstract="true" parent="GenericAttributes-genericBoolean">
+        <property name="name" value="primaryFundManagerIndicator"/>
+        <property name="label" value="Primary"/>
+        <property name="shortLabel" value="Primary"/>
+    </bean>
+    <bean id="AwardFundManager-projectTitle"
+          parent="AwardFundManager-projectTitle-parentBean"/>
 
-	<bean id="AwardFundManager-projectTitle-parentBean"
-		abstract="true" parent="AttributeDefinition">
-		<property name="name" value="projectTitle" />
-		<property name="label" value="Title" />
-		<property name="shortLabel" value="Title" />
-		<property name="maxLength" value="100" />
-		<property name="validationPattern">
-			<ref bean="AnyCharacterWithWhitespaceValidation" />
-		</property>
-		<property name="control">
-			<ref bean="StandardNameTextControl" />
-		</property>
-	</bean>
-	<bean id="AwardFundManager-newCollectionRecord" parent="AwardFundManager-newCollectionRecord-parentBean" />
+    <bean id="AwardFundManager-projectTitle-parentBean"
+          abstract="true" parent="AttributeDefinition">
+        <property name="name" value="projectTitle"/>
+        <property name="label" value="Title"/>
+        <property name="shortLabel" value="Title"/>
+        <property name="maxLength" value="100"/>
+        <property name="validationPattern">
+            <ref bean="AnyCharacterWithWhitespaceValidation"/>
+        </property>
+        <property name="control">
+            <ref bean="StandardNameTextControl"/>
+        </property>
+    </bean>
+    <bean id="AwardFundManager-newCollectionRecord" parent="AwardFundManager-newCollectionRecord-parentBean"/>
 
-	<bean id="AwardFundManager-newCollectionRecord-parentBean"
-		abstract="true" parent="GenericAttributes-newCollectionRecord">
-	</bean>
-	<bean id="AwardFundManager-active" parent="AwardFundManager-active-parentBean" />
+    <bean id="AwardFundManager-newCollectionRecord-parentBean"
+          abstract="true" parent="GenericAttributes-newCollectionRecord">
+    </bean>
+    <bean id="AwardFundManager-active" parent="AwardFundManager-active-parentBean"/>
 
-	<bean id="AwardFundManager-active-parentBean" abstract="true"
-		parent="GenericAttributes-activeIndicator">
-		<property name="name" value="active" />
-	</bean>
+    <bean id="AwardFundManager-active-parentBean" abstract="true"
+          parent="GenericAttributes-activeIndicator">
+        <property name="name" value="active"/>
+    </bean>
 
-	<!-- Business Object Inquiry Definition -->
+    <!-- Business Object Inquiry Definition -->
 
-	<bean id="AwardFundManager-inquiryDefinition" parent="AwardFundManager-inquiryDefinition-parentBean" />
+    <bean id="AwardFundManager-inquiryDefinition" parent="AwardFundManager-inquiryDefinition-parentBean"/>
 
-	<bean id="AwardFundManager-inquiryDefinition-parentBean" abstract="true"
-		parent="InquiryDefinition">
-		<property name="title" value="Award Fund Manager Inquiry" />
-		<property name="inquirySections">
-			<list>
-				<ref bean="AwardFundManager-inquirySectionDefinition" />
-			</list>
-		</property>
-	</bean>
+    <bean id="AwardFundManager-inquiryDefinition-parentBean" abstract="true"
+          parent="InquiryDefinition">
+        <property name="title" value="Award Fund Manager Inquiry"/>
+        <property name="inquirySections">
+            <list>
+                <ref bean="AwardFundManager-inquirySectionDefinition"/>
+            </list>
+        </property>
+    </bean>
 
-	<bean id="AwardFundManager-inquirySectionDefinition" parent="AwardFundManager-inquirySectionDefinition-parentBean" />
-	<bean id="AwardFundManager-inquirySectionDefinition-parentBean"
-		parent="InquirySectionDefinition" abstract="true">
-		<property name="title" value="Award Fund Manager Details" />
-		<property name="inquiryFields">
-			<list>
-				<bean parent="FieldDefinition" p:attributeName="principalId" />
-				<bean parent="FieldDefinition" p:attributeName="proposalNumber" />
-				<bean parent="FieldDefinition" p:attributeName="primaryFundManagerIndicator" />
-				<bean parent="FieldDefinition" p:attributeName="projectTitle" />
-				<bean parent="FieldDefinition" p:attributeName="active" />
-			</list>
-		</property>
-	</bean>
+    <bean id="AwardFundManager-inquirySectionDefinition" parent="AwardFundManager-inquirySectionDefinition-parentBean"/>
+    <bean id="AwardFundManager-inquirySectionDefinition-parentBean"
+          parent="InquirySectionDefinition" abstract="true">
+        <property name="title" value="Award Fund Manager Details"/>
+        <property name="inquiryFields">
+            <list>
+                <bean parent="FieldDefinition" p:attributeName="principalId"/>
+                <bean parent="FieldDefinition" p:attributeName="proposalNumber"/>
+                <bean parent="FieldDefinition" p:attributeName="primaryFundManagerIndicator"/>
+                <bean parent="FieldDefinition" p:attributeName="projectTitle"/>
+                <bean parent="FieldDefinition" p:attributeName="active"/>
+            </list>
+        </property>
+    </bean>
 
-	<!-- Business Object Lookup Definition -->
+    <!-- Business Object Lookup Definition -->
 
-	<bean id="AwardFundManager-lookupDefinition" parent="AwardFundManager-lookupDefinition-parentBean" />
+    <bean id="AwardFundManager-lookupDefinition" parent="AwardFundManager-lookupDefinition-parentBean"/>
 
-	<bean id="AwardFundManager-lookupDefinition-parentBean" abstract="true"
-		parent="LookupDefinition">
-		<property name="title" value="Award Fund Manager Lookup" />
+    <bean id="AwardFundManager-lookupDefinition-parentBean" abstract="true"
+          parent="LookupDefinition">
+        <property name="title" value="Award Fund Manager Lookup"/>
 
-		<property name="defaultSort">
-			<bean parent="SortDefinition">
-			</bean>
-		</property>
-		<property name="lookupFields">
-			<list>
-				<bean parent="FieldDefinition" p:attributeName="principalId" />
-				<bean parent="FieldDefinition" p:attributeName="proposalNumber" />
-				<bean parent="FieldDefinition" p:attributeName="primaryFundManagerIndicator" />
-				<bean parent="FieldDefinition" p:attributeName="projectTitle" />
-				<bean parent="FieldDefinition" p:attributeName="active" />
-			</list>
-		</property>
-		<property name="resultFields">
-			<list>
-				<bean parent="FieldDefinition" p:attributeName="principalId" />
-				<bean parent="FieldDefinition" p:attributeName="proposalNumber" />
-				<bean parent="FieldDefinition" p:attributeName="primaryFundManagerIndicator" />
-				<bean parent="FieldDefinition" p:attributeName="projectTitle" />
-				<bean parent="FieldDefinition" p:attributeName="active" />
-			</list>
-		</property>
-	</bean>
+        <property name="defaultSort">
+            <bean parent="SortDefinition">
+            </bean>
+        </property>
+        <property name="lookupFields">
+            <list>
+                <bean parent="FieldDefinition" p:attributeName="principalId"/>
+                <bean parent="FieldDefinition" p:attributeName="proposalNumber"/>
+                <bean parent="FieldDefinition" p:attributeName="primaryFundManagerIndicator"/>
+                <bean parent="FieldDefinition" p:attributeName="projectTitle"/>
+                <bean parent="FieldDefinition" p:attributeName="active"/>
+            </list>
+        </property>
+        <property name="resultFields">
+            <list>
+                <bean parent="FieldDefinition" p:attributeName="principalId"/>
+                <bean parent="FieldDefinition" p:attributeName="proposalNumber"/>
+                <bean parent="FieldDefinition" p:attributeName="primaryFundManagerIndicator"/>
+                <bean parent="FieldDefinition" p:attributeName="projectTitle"/>
+                <bean parent="FieldDefinition" p:attributeName="active"/>
+            </list>
+        </property>
+    </bean>
 </beans>

@@ -1,36 +1,34 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.krad.datadictionary.validation.constraint;
 
-import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.kfs.krad.uif.UifConstants;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * TODO Administrator don't forget to fill this in. 
- * 
- * 
+ * TODO Administrator don't forget to fill this in.
  */
-public class IntegerPatternConstraint extends ValidDataPatternConstraint{
+public class IntegerPatternConstraint extends ValidDataPatternConstraint {
     protected boolean allowNegative;
     protected boolean onlyNegative;
     protected boolean omitZero;
@@ -44,23 +42,20 @@ public class IntegerPatternConstraint extends ValidDataPatternConstraint{
 
         if (isAllowNegative() && !onlyNegative) {
             regex.append("((-?");
-        }
-        else if(onlyNegative){
+        } else if (onlyNegative) {
             regex.append("((-");
-        }
-        else {
+        } else {
             regex.append("((");
         }
-        if(omitZero){
+        if (omitZero) {
             regex.append("[1-9][0-9]*))");
-        }
-        else{
+        } else {
             regex.append("[1-9][0-9]*)|[0]*)");
         }
 
         return regex.toString();
     }
-    
+
     /**
      * @return the allowNegative
      */
@@ -81,6 +76,7 @@ public class IntegerPatternConstraint extends ValidDataPatternConstraint{
 
     /**
      * When set to true, only allows negative numbers (and zero if allowZero is still true)
+     *
      * @param onlyNegative
      */
     public void setOnlyNegative(boolean onlyNegative) {
@@ -93,6 +89,7 @@ public class IntegerPatternConstraint extends ValidDataPatternConstraint{
 
     /**
      * When set to true, zero is not allowed in the set of allowed numbers.
+     *
      * @param omitZero
      */
     public void setOmitZero(boolean omitZero) {
@@ -101,7 +98,7 @@ public class IntegerPatternConstraint extends ValidDataPatternConstraint{
 
     /**
      * This overridden method ...
-     * 
+     *
      * @see ValidDataPatternConstraint#getValidationMessageParams()
      */
     @Override
@@ -110,35 +107,30 @@ public class IntegerPatternConstraint extends ValidDataPatternConstraint{
             validationMessageParams = new ArrayList<String>();
             ConfigurationService configService = KRADServiceLocator.getKualiConfigurationService();
             if (allowNegative && !onlyNegative) {
-                if(omitZero){
+                if (omitZero) {
                     validationMessageParams.add(configService
-                            .getPropertyValueAsString(UifConstants.Messages.VALIDATION_MSG_KEY_PREFIX
-                                    + "positiveOrNegative"));
+                        .getPropertyValueAsString(UifConstants.Messages.VALIDATION_MSG_KEY_PREFIX
+                            + "positiveOrNegative"));
+                } else {
+                    validationMessageParams.add(configService
+                        .getPropertyValueAsString(UifConstants.Messages.VALIDATION_MSG_KEY_PREFIX
+                            + "positiveOrNegativeOrZero"));
                 }
-                else{
+            } else if (onlyNegative) {
+                if (omitZero) {
                     validationMessageParams.add(configService
-                            .getPropertyValueAsString(UifConstants.Messages.VALIDATION_MSG_KEY_PREFIX
-                                    + "positiveOrNegativeOrZero"));
+                        .getPropertyValueAsString(UifConstants.Messages.VALIDATION_MSG_KEY_PREFIX + "negative"));
+                } else {
+                    validationMessageParams.add(configService
+                        .getPropertyValueAsString(UifConstants.Messages.VALIDATION_MSG_KEY_PREFIX + "negativeOrZero"));
                 }
-            }
-            else if(onlyNegative){
-                if(omitZero){
+            } else {
+                if (omitZero) {
                     validationMessageParams.add(configService
-                            .getPropertyValueAsString(UifConstants.Messages.VALIDATION_MSG_KEY_PREFIX + "negative"));
-                }
-                else{
+                        .getPropertyValueAsString(UifConstants.Messages.VALIDATION_MSG_KEY_PREFIX + "positive"));
+                } else {
                     validationMessageParams.add(configService
-                            .getPropertyValueAsString(UifConstants.Messages.VALIDATION_MSG_KEY_PREFIX + "negativeOrZero"));
-                }
-            }
-            else {
-                if(omitZero){
-                    validationMessageParams.add(configService
-                            .getPropertyValueAsString(UifConstants.Messages.VALIDATION_MSG_KEY_PREFIX + "positive"));
-                }
-                else{
-                    validationMessageParams.add(configService
-                            .getPropertyValueAsString(UifConstants.Messages.VALIDATION_MSG_KEY_PREFIX + "positiveOrZero"));
+                        .getPropertyValueAsString(UifConstants.Messages.VALIDATION_MSG_KEY_PREFIX + "positiveOrZero"));
                 }
             }
         }

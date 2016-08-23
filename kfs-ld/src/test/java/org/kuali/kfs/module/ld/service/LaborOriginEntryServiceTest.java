@@ -1,31 +1,25 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.service;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 import org.kuali.kfs.gl.businessobject.OriginEntryGroup;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.ld.businessobject.LaborOriginEntry;
 import org.kuali.kfs.module.ld.testdata.LaborTestDataPropertyConstants;
 import org.kuali.kfs.module.ld.util.LaborTestDataPreparator;
@@ -34,7 +28,13 @@ import org.kuali.kfs.sys.TestDataPreparator;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 @ConfigureContext
 public class LaborOriginEntryServiceTest extends KualiTestBase {
@@ -56,7 +56,7 @@ public class LaborOriginEntryServiceTest extends KualiTestBase {
         String propertiesFileName = LaborTestDataPropertyConstants.TEST_DATA_PACKAGE_NAME + "/laborOriginEntryService.properties";
 
         properties = TestDataPreparator.loadPropertiesFromClassPath(propertiesFileName);
-        
+
         fieldNames = properties.getProperty("fieldNames");
         deliminator = properties.getProperty("deliminator");
 
@@ -65,7 +65,7 @@ public class LaborOriginEntryServiceTest extends KualiTestBase {
         businessObjectService = SpringContext.getBean(BusinessObjectService.class);
 
         Date today = (SpringContext.getBean(DateTimeService.class)).getCurrentSqlDate();
-        
+
         //TODO:- commented out
         //group1 = originEntryGroupService.createGroup(today, LABOR_MAIN_POSTER_VALID, false, false, false);
         //group2 = originEntryGroupService.createGroup(today, LABOR_MAIN_POSTER_VALID, false, false, false);
@@ -175,7 +175,7 @@ public class LaborOriginEntryServiceTest extends KualiTestBase {
         int expectedNumber = Integer.valueOf(properties.getProperty("getCountOfEntriesInGroups.expectedNumOfData"));
 
         List<OriginEntryGroup> groups = new ArrayList<OriginEntryGroup>();
-        
+
         //TODO:- do it later
 //        int count = laborOriginEntryService.getCountOfEntriesInGroups(groups);
 //        assertEquals(0, count);

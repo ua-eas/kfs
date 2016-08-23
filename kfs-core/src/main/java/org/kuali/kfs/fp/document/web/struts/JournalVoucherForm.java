@@ -1,37 +1,36 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document.web.struts;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.BalanceType;
 import org.kuali.kfs.coa.service.BalanceTypeService;
 import org.kuali.kfs.fp.document.JournalVoucherDocument;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class is the Struts specific form object that works in conjunction with the pojo utilities to build the UI for the Journal
@@ -60,12 +59,12 @@ public class JournalVoucherForm extends VoucherForm {
     protected String getDefaultDocumentTypeName() {
         return "JV";
     }
-    
+
     /**
      * Overrides the parent to call super.populate and then to call the two methods that are specific to loading the two select
      * lists on the page. In addition, this also makes sure that the credit and debit amounts are filled in for situations where
      * validation errors occur and the page reposts.
-     * 
+     *
      * @see org.kuali.rice.kns.web.struts.pojo.PojoForm#populate(javax.servlet.http.HttpServletRequest)
      */
     @Override
@@ -78,7 +77,7 @@ public class JournalVoucherForm extends VoucherForm {
      * Override the parent, to push the chosen accounting period and balance type down into the source accounting line object. In
      * addition, check the balance type to see if it's the "External Encumbrance" balance and alter the encumbrance update code on
      * the accounting line appropriately.
-     * 
+     *
      * @see org.kuali.rice.kns.web.struts.form.KualiTransactionalDocumentFormBase#populateSourceAccountingLine(org.kuali.rice.krad.bo.SourceAccountingLine)
      */
     @Override
@@ -89,11 +88,11 @@ public class JournalVoucherForm extends VoucherForm {
 
     /**
      * Sets the encumbrance code of the line based on the balance type.
-     * 
+     *
      * @param sourceLine - line to set code on
      */
     protected void populateSourceAccountingLineEncumbranceCode(SourceAccountingLine sourceLine) {
-        BalanceType selectedBalanceType = getSelectedBalanceType();      
+        BalanceType selectedBalanceType = getSelectedBalanceType();
         if (ObjectUtils.isNotNull(selectedBalanceType)) {
             selectedBalanceType.refresh();
             sourceLine.setBalanceTyp(selectedBalanceType);
@@ -108,11 +107,10 @@ public class JournalVoucherForm extends VoucherForm {
 //            else {
 //                sourceLine.setEncumbranceUpdateCode(null);
 //            }
-        }
-        else {
+        } else {
             // it's the first time in, the form will be empty the first time in
             // set up default selection value
-            selectedBalanceType = getPopulatedBalanceTypeInstance(KFSConstants.BALANCE_TYPE_ACTUAL);   
+            selectedBalanceType = getPopulatedBalanceTypeInstance(KFSConstants.BALANCE_TYPE_ACTUAL);
             setSelectedBalanceType(selectedBalanceType);
             setOriginalBalanceType(selectedBalanceType.getCode());
 
@@ -122,7 +120,7 @@ public class JournalVoucherForm extends VoucherForm {
 
     /**
      * This method retrieves the list of valid balance types to display.
-     * 
+     *
      * @return List
      */
     public List getBalanceTypes() {
@@ -131,7 +129,7 @@ public class JournalVoucherForm extends VoucherForm {
 
     /**
      * This method sets the selected balance type.
-     * 
+     *
      * @return BalanceTyp
      */
     public BalanceType getSelectedBalanceType() {
@@ -140,7 +138,7 @@ public class JournalVoucherForm extends VoucherForm {
 
     /**
      * This method retrieves the selected balance type.
-     * 
+     *
      * @param selectedBalanceType
      */
     public void setSelectedBalanceType(BalanceType selectedBalanceType) {
@@ -149,7 +147,7 @@ public class JournalVoucherForm extends VoucherForm {
 
     /**
      * This method sets the list of valid balance types to display.
-     * 
+     *
      * @param balanceTypes
      */
     public void setBalanceTypes(List balanceTypes) {
@@ -158,7 +156,7 @@ public class JournalVoucherForm extends VoucherForm {
 
     /**
      * This method returns the journal voucher document associated with this form.
-     * 
+     *
      * @return Returns the journalVoucherDocument.
      */
     public JournalVoucherDocument getJournalVoucherDocument() {
@@ -167,7 +165,7 @@ public class JournalVoucherForm extends VoucherForm {
 
     /**
      * This method sets the journal voucher document associated with this form.
-     * 
+     *
      * @param journalVoucherDocument The journalVoucherDocument to set.
      */
     public void setJournalVoucherDocument(JournalVoucherDocument journalVoucherDocument) {
@@ -176,7 +174,7 @@ public class JournalVoucherForm extends VoucherForm {
 
     /**
      * This method retrieves the originalBalanceType attribute.
-     * 
+     *
      * @return String
      */
     public String getOriginalBalanceType() {
@@ -185,24 +183,24 @@ public class JournalVoucherForm extends VoucherForm {
 
     /**
      * This method sets the originalBalanceType attribute.
-     * 
+     *
      * @param changedBalanceType
      */
     public void setOriginalBalanceType(String changedBalanceType) {
         this.originalBalanceType = changedBalanceType;
     }
-    
+
     /**
      * Using the selected accounting period to determine university fiscal year and look up all the encumbrance
      * balance type - check if the selected balance type is for encumbrance
-     * 
+     *
      * @return true/false  - true if it is an encumbrance balance type
      */
-    public boolean getIsEncumbranceBalanceType(){
+    public boolean getIsEncumbranceBalanceType() {
         //get encumbrance balance type list
         BalanceTypeService balanceTypeSerivce = SpringContext.getBean(BalanceTypeService.class);
         List<String> encumbranceBalanceTypes = balanceTypeSerivce.getEncumbranceBalanceTypes(getSelectedPostingYear());
-        
+
         return encumbranceBalanceTypes.contains(selectedBalanceType.getCode());
     }
 
@@ -228,14 +226,14 @@ public class JournalVoucherForm extends VoucherForm {
     /**
      * This method will fully populate a balance type given the passed in code, by calling the business object service that
      * retrieves the rest of the instances' information.
-     * 
+     *
      * @param balanceTypeCode
      * @return BalanceTyp
      */
     protected BalanceType getPopulatedBalanceTypeInstance(String balanceTypeCode) {
         // now we have to get the code and the name of the original and new balance types
         BalanceTypeService bts = SpringContext.getBean(BalanceTypeService.class);
-      
+
         BalanceType balanceType = bts.getBalanceTypeByCode(balanceTypeCode);
         balanceType.setCode(balanceTypeCode);
         return balanceType;
@@ -255,10 +253,10 @@ public class JournalVoucherForm extends VoucherForm {
     /**
      * This is a convenience helper method that is used several times throughout this action class to determine if the selected
      * balance type contained within the form instance is a financial offset generation balance type or not.
-     * 
+     *
      * @return boolean True if it is an offset generation balance type, false otherwise.
      */
     protected boolean isSelectedBalanceTypeFinancialOffsetGenerationIndicator() {
         return getPopulatedBalanceTypeInstance(getSelectedBalanceType().getCode()).isFinancialOffsetGenerationIndicator();
-      }
+    }
 }

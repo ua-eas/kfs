@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -28,14 +28,12 @@ import java.io.Serializable;
 /**
  * Provides binding configuration for an DataBinding component (attribute or
  * collection)
- * 
+ * <p>
  * <p>
  * From the binding configuration the binding path is determined (if not
  * manually set) and used to set the path in the UI or to get the value from the
  * model
  * </p>
- * 
- * 
  */
 public class BindingInfo extends ConfigurableBase implements Serializable {
     private static final long serialVersionUID = -7389398061672136091L;
@@ -61,18 +59,16 @@ public class BindingInfo extends ConfigurableBase implements Serializable {
     /**
      * Sets up some default binding properties based on the view configuration
      * and the component's property name
-     * 
+     * <p>
      * <p>
      * Sets the bindingName (if not set) to the given property name, and if the
      * binding object path has not been set uses the default binding object path
      * setup for the view
      * </p>
-     * 
-     * @param view
-     *            - the view instance the component belongs to
-     * @param propertyName
-     *            - name of the property (relative to the parent object) the
-     *            component binds to
+     *
+     * @param view         - the view instance the component belongs to
+     * @param propertyName - name of the property (relative to the parent object) the
+     *                     component binds to
      */
     public void setDefaults(View view, String propertyName) {
         if (StringUtils.isBlank(bindingName)) {
@@ -89,13 +85,13 @@ public class BindingInfo extends ConfigurableBase implements Serializable {
      * dot notation for nested properties. If the binding path was manually set
      * it will be returned as it is, otherwise the path will be formed by using
      * the binding object path and the bind prefix
-     * 
+     * <p>
      * <p>
      * e.g. Property name 'foo' on a model would have binding path "foo", while
      * property name 'name' of the nested model property 'account' would have
      * binding path "account.name"
      * </p>
-     * 
+     *
      * @return String binding path
      */
     public String getBindingPath() {
@@ -161,7 +157,7 @@ public class BindingInfo extends ConfigurableBase implements Serializable {
      * binding name. This can be used to get the binding path when just a property
      * name is given that is assumed to be on the same parent object of the field with
      * the configured binding info
-     *
+     * <p>
      * <p>
      * Special check is done for UifConstants#NO_BIND_ADJUST_PREFIX prefix
      * on the property name which indicates the property path is the full path and should
@@ -209,7 +205,7 @@ public class BindingInfo extends ConfigurableBase implements Serializable {
     /**
      * Setter for the binding path. Can be left blank in which the path will be
      * determined from the binding configuration
-     * 
+     *
      * @param bindingPath
      */
     public void setBindingPath(String bindingPath) {
@@ -222,9 +218,9 @@ public class BindingInfo extends ConfigurableBase implements Serializable {
      * binds through a nested form object. If bindToForm is false, it is assumed
      * the component binds to the object given by the form property whose path
      * is configured by bindingObjectPath.
-     * 
+     *
      * @return boolean true if component binds directly to form, false if it
-     *         binds to a nested object
+     * binds to a nested object
      */
     public boolean isBindToForm() {
         return this.bindToForm;
@@ -232,7 +228,7 @@ public class BindingInfo extends ConfigurableBase implements Serializable {
 
     /**
      * Setter for the bind to form indicator
-     * 
+     *
      * @param bindToForm
      */
     public void setBindToForm(boolean bindToForm) {
@@ -243,11 +239,11 @@ public class BindingInfo extends ConfigurableBase implements Serializable {
      * Gives the name of the property that the component binds to. The name can
      * be nested but not the full path, just from the parent object or in the
      * case of binding directly to the form from the form object
-     * 
+     * <p>
      * <p>
      * If blank this will be set from the name field of the component
      * </p>
-     * 
+     *
      * @return String name of the bind property
      */
     public String getBindingName() {
@@ -256,7 +252,7 @@ public class BindingInfo extends ConfigurableBase implements Serializable {
 
     /**
      * Setter for the bind property name
-     * 
+     *
      * @param bindingName
      */
     public void setBindingName(String bindingName) {
@@ -266,7 +262,7 @@ public class BindingInfo extends ConfigurableBase implements Serializable {
     /**
      * Prefix that will be used to form the binding path from the component
      * name. Typically used for nested collection properties
-     * 
+     *
      * @return String binding prefix
      */
     public String getBindByNamePrefix() {
@@ -275,7 +271,7 @@ public class BindingInfo extends ConfigurableBase implements Serializable {
 
     /**
      * Setter for the prefix to use for forming the binding path by name
-     * 
+     *
      * @param bindByNamePrefix
      */
     public void setBindByNamePrefix(String bindByNamePrefix) {
@@ -284,13 +280,13 @@ public class BindingInfo extends ConfigurableBase implements Serializable {
 
     /**
      * If field is part of a collection field, gives path to collection
-     * 
+     * <p>
      * <p>
      * This is used for metadata purposes when getting finding the attribute
      * definition from the dictionary and is not used in building the final
      * binding path
      * </p>
-     * 
+     *
      * @return String path to collection
      */
     public String getCollectionPath() {
@@ -299,7 +295,7 @@ public class BindingInfo extends ConfigurableBase implements Serializable {
 
     /**
      * Setter for the field's collection path (if part of a collection)
-     * 
+     *
      * @param collectionPath
      */
     public void setCollectionPath(String collectionPath) {
@@ -310,7 +306,7 @@ public class BindingInfo extends ConfigurableBase implements Serializable {
      * For attribute fields that do not belong to the default form object (given
      * by the view), this field specifies the path to the object (on the form)
      * the attribute does belong to.
-     * 
+     * <p>
      * <p>
      * e.g. Say we have an attribute field with property name 'number', that
      * belongs to the object given by the 'account' property on the form. The
@@ -322,7 +318,7 @@ public class BindingInfo extends ConfigurableBase implements Serializable {
      * on the <code>View</code> will be used (unless bindToForm is set to true,
      * where is assumed the property is directly available from the form).
      * </p>
-     * 
+     *
      * @return String path to object from form
      */
     public String getBindingObjectPath() {
@@ -331,7 +327,7 @@ public class BindingInfo extends ConfigurableBase implements Serializable {
 
     /**
      * Setter for the object path on the form
-     * 
+     *
      * @param bindingObjectPath
      */
     public void setBindingObjectPath(String bindingObjectPath) {
@@ -342,7 +338,7 @@ public class BindingInfo extends ConfigurableBase implements Serializable {
      * Indicates whether the parent object for the property that we are binding
      * to is a Map. If true the binding path will be adjusted to use the map key
      * syntax
-     * 
+     *
      * @return boolean true if the property binds to a map, false if it does not
      */
     public boolean isBindToMap() {
@@ -351,7 +347,7 @@ public class BindingInfo extends ConfigurableBase implements Serializable {
 
     /**
      * Setter for the bind to map indicator
-     * 
+     *
      * @param bindToMap
      */
     public void setBindToMap(boolean bindToMap) {

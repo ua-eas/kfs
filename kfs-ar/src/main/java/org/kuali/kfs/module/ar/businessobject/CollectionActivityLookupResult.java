@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 
 /**
  * Defines an entry in the Contracts & Grants Invoice Lookup Result.
@@ -82,7 +82,7 @@ public class CollectionActivityLookupResult extends TransientBusinessObjectBase 
         if (this.proposalNumber != null) {
             m.put(KFSPropertyConstants.PROPOSAL_NUMBER, this.proposalNumber.toString());
         }
-                return m;
+        return m;
     }
 
     public List<String> getAwardAttributesForDisplay() {

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -46,12 +46,13 @@ import java.util.List;
  * Parser for Style content type, managed by StyleService
  */
 public class StyleXmlParserImpl implements StyleXmlParser {
-	private static final Logger LOG = Logger.getLogger(StyleXmlParserImpl.class);
+    private static final Logger LOG = Logger.getLogger(StyleXmlParserImpl.class);
 
-	private StyleRepositoryService styleRepositoryService;
-	
+    private StyleRepositoryService styleRepositoryService;
+
     /**
      * Returns a valid DocumentBuilder
+     *
      * @return a valid DocumentBuilder
      */
     private static DocumentBuilder getDocumentBuilder() {
@@ -67,14 +68,14 @@ public class StyleXmlParserImpl implements StyleXmlParser {
     }
 
     public void loadXml(InputStream inputStream, String principalId) {
-    	List<Style> styles = parseStyles(inputStream);
-    	for (Style style : styles) {
-    		styleRepositoryService.saveStyle(style);
-    	}
+        List<Style> styles = parseStyles(inputStream);
+        for (Style style : styles) {
+            styleRepositoryService.saveStyle(style);
+        }
     }
-    
+
     public List<Style> parseStyles(InputStream inputStream) {
-    	DocumentBuilder db = getDocumentBuilder();
+        DocumentBuilder db = getDocumentBuilder();
         XPath xpath = XPathFactory.newInstance().newXPath();
         Document doc;
         try {
@@ -84,35 +85,34 @@ public class StyleXmlParserImpl implements StyleXmlParser {
         }
         NodeList styles;
         try {
-        	styles = (NodeList) xpath.evaluate("//" + XmlConstants.STYLE_STYLES, doc.getFirstChild(), XPathConstants.NODESET);
+            styles = (NodeList) xpath.evaluate("//" + XmlConstants.STYLE_STYLES, doc.getFirstChild(), XPathConstants.NODESET);
         } catch (XPathExpressionException e) {
-        	throw generateException("Error evaluating XPath expression", e);
+            throw generateException("Error evaluating XPath expression", e);
         }
 
         List<Style> parsedStyles = new ArrayList<Style>();
         for (int i = 0; i < styles.getLength(); i++) {
-        	Node edl = styles.item(i);
-        	NodeList children = edl.getChildNodes();
-        	for (int j = 0; j < children.getLength(); j++) {
-        		Node node = children.item(j);
-        		if (node.getNodeType() == Node.ELEMENT_NODE) {
-        			Element e = (Element) node;
-        			if (XmlConstants.STYLE_STYLE.equals(node.getNodeName())) {
-        				LOG.debug("Digesting style: " + e.getAttribute("name"));
-        				Style.Builder styleBuilder = parseStyle(e);
-        				parsedStyles.add(styleBuilder.build());
-        			}
+            Node edl = styles.item(i);
+            NodeList children = edl.getChildNodes();
+            for (int j = 0; j < children.getLength(); j++) {
+                Node node = children.item(j);
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    Element e = (Element) node;
+                    if (XmlConstants.STYLE_STYLE.equals(node.getNodeName())) {
+                        LOG.debug("Digesting style: " + e.getAttribute("name"));
+                        Style.Builder styleBuilder = parseStyle(e);
+                        parsedStyles.add(styleBuilder.build());
+                    }
                 }
             }
         }
         return parsedStyles;
     }
-    
+
     /**
      * Parses an EDocLiteStyle
      *
-     * @param e
-     *            element to parse
+     * @param e element to parse
      * @return an EDocLiteStyle
      */
     private static Style.Builder parseStyle(Element e) {
@@ -152,13 +152,13 @@ public class StyleXmlParserImpl implements StyleXmlParser {
     private static XmlIngestionException generateSerializationException(String element, XmlException cause) {
         return generateException("Error serializing Style '" + element + "' element", cause);
     }
-    
+
     private static XmlIngestionException generateException(String error, Throwable cause) {
-    	return new XmlIngestionException(error, cause);
+        return new XmlIngestionException(error, cause);
     }
-    
+
     public void setStyleRepositoryService(StyleRepositoryService styleRepositoryService) {
-    	this.styleRepositoryService = styleRepositoryService;
+        this.styleRepositoryService = styleRepositoryService;
     }
 
 }

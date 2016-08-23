@@ -1,34 +1,34 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.businessobject.TravelCompanyCode;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.util.List;
 
 /**
  * Wrapper of HistoricalTravelExpense that implements TemExpense
@@ -54,7 +54,8 @@ public class HistoricalExpenseAsTemExpenseWrapper implements TemExpense {
      * All setters are ignored
      */
     @Override
-    public void setId(Long id) {}
+    public void setId(Long id) {
+    }
 
     /**
      * @return the document number of the base expense
@@ -68,7 +69,8 @@ public class HistoricalExpenseAsTemExpenseWrapper implements TemExpense {
      * All setters are ignored
      */
     @Override
-    public void setDocumentNumber(String documentNumber) {}
+    public void setDocumentNumber(String documentNumber) {
+    }
 
     /**
      * @return null; no equivalent for document line number
@@ -82,7 +84,8 @@ public class HistoricalExpenseAsTemExpenseWrapper implements TemExpense {
      * All setters are ignored
      */
     @Override
-    public void setDocumentLineNumber(Integer documentLineNumber) {}
+    public void setDocumentLineNumber(Integer documentLineNumber) {
+    }
 
     /**
      * @return null; no equivalent for parent id
@@ -96,7 +99,8 @@ public class HistoricalExpenseAsTemExpenseWrapper implements TemExpense {
      * All setters are ignored
      */
     @Override
-    public void setExpenseParentId(Long expenseParentId) {}
+    public void setExpenseParentId(Long expenseParentId) {
+    }
 
     /**
      * @return the expense notification date of the HistoricalTravelExpense
@@ -110,7 +114,8 @@ public class HistoricalExpenseAsTemExpenseWrapper implements TemExpense {
      * All setters are ignored
      */
     @Override
-    public void setExpenseDate(Date expenseDate) {}
+    public void setExpenseDate(Date expenseDate) {
+    }
 
     /**
      * @return the opposite of HistoricalTravelExpense#getReimbursable
@@ -124,7 +129,8 @@ public class HistoricalExpenseAsTemExpenseWrapper implements TemExpense {
      * All setters are ignored
      */
     @Override
-    public void setNonReimbursable(Boolean nonReimbursable) {}
+    public void setNonReimbursable(Boolean nonReimbursable) {
+    }
 
     /**
      * @return false, as there is no equivalency
@@ -138,7 +144,8 @@ public class HistoricalExpenseAsTemExpenseWrapper implements TemExpense {
      * All setters are ignored
      */
     @Override
-    public void setTaxable(Boolean argTaxable) {}
+    public void setTaxable(Boolean argTaxable) {
+    }
 
     /**
      * @return missingReciept from the base HistoricalTravelExpense
@@ -152,7 +159,8 @@ public class HistoricalExpenseAsTemExpenseWrapper implements TemExpense {
      * All setters are ignored
      */
     @Override
-    public void setMissingReceipt(Boolean argMissingReceipt) {}
+    public void setMissingReceipt(Boolean argMissingReceipt) {
+    }
 
     /**
      * @return the of the base HistoricalTravelExpense
@@ -166,7 +174,8 @@ public class HistoricalExpenseAsTemExpenseWrapper implements TemExpense {
      * All setters are ignored
      */
     @Override
-    public void setExpenseAmount(KualiDecimal expenseAmount) {}
+    public void setExpenseAmount(KualiDecimal expenseAmount) {
+    }
 
     /**
      * @return the description of the base HistoricalTravelExpense
@@ -180,7 +189,8 @@ public class HistoricalExpenseAsTemExpenseWrapper implements TemExpense {
      * All setters are ignored
      */
     @Override
-    public void setDescription(String argDescription) {}
+    public void setDescription(String argDescription) {
+    }
 
     /**
      * @return null - no equivalency
@@ -194,7 +204,8 @@ public class HistoricalExpenseAsTemExpenseWrapper implements TemExpense {
      * All setters are ignored
      */
     @Override
-    public void setNotes(String argDescription) {}
+    public void setNotes(String argDescription) {
+    }
 
     /**
      * @return the currencyRate of the base HistoricalTravelExpense
@@ -208,13 +219,15 @@ public class HistoricalExpenseAsTemExpenseWrapper implements TemExpense {
      * All setters are ignored
      */
     @Override
-    public void setCurrencyRate(BigDecimal argCurrencyRate) {}
+    public void setCurrencyRate(BigDecimal argCurrencyRate) {
+    }
 
     /**
      * All setters are ignored
      */
     @Override
-    public void setConvertedAmount(KualiDecimal convertedAmount) {}
+    public void setConvertedAmount(KualiDecimal convertedAmount) {
+    }
 
     /**
      * @return the convertedAmount of the base HistoricalTravelExpense
@@ -236,10 +249,12 @@ public class HistoricalExpenseAsTemExpenseWrapper implements TemExpense {
      * All setters are ignored
      */
     @Override
-    public void setTravelCompanyCodeName(String argTravelCompanyCodeName) {}
+    public void setTravelCompanyCodeName(String argTravelCompanyCodeName) {
+    }
 
     /**
      * Returns null - no equivalency
+     *
      * @see org.kuali.kfs.module.tem.businessobject.TemExpense#getTravelCompanyCode()
      */
     @Override
@@ -251,10 +266,12 @@ public class HistoricalExpenseAsTemExpenseWrapper implements TemExpense {
      * All setters are ignored
      */
     @Override
-    public void setTravelCompanyCode(TravelCompanyCode argTravelCompanyCode) {}
+    public void setTravelCompanyCode(TravelCompanyCode argTravelCompanyCode) {
+    }
 
     /**
      * Returns null - no equivalencies
+     *
      * @see org.kuali.kfs.module.tem.businessobject.TemExpense#getExpenseDetails()
      */
     @Override
@@ -266,10 +283,12 @@ public class HistoricalExpenseAsTemExpenseWrapper implements TemExpense {
      * All setters are ignored
      */
     @Override
-    public void setExpenseDetails(List<TemExpense> expenseDetails) {}
+    public void setExpenseDetails(List<TemExpense> expenseDetails) {
+    }
 
     /**
      * Returns null - no equivalencies
+     *
      * @see org.kuali.kfs.module.tem.businessobject.TemExpense#getTotalDetailExpenseAmount()
      */
     @Override
@@ -281,10 +300,12 @@ public class HistoricalExpenseAsTemExpenseWrapper implements TemExpense {
      * All adds are ignored
      */
     @Override
-    public void addExpenseDetails(TemExpense expense) {}
+    public void addExpenseDetails(TemExpense expense) {
+    }
 
     /**
      * Returns null - no equivalencies
+     *
      * @see org.kuali.kfs.module.tem.businessobject.TemExpense#getSequenceName()
      */
     @Override
@@ -294,6 +315,7 @@ public class HistoricalExpenseAsTemExpenseWrapper implements TemExpense {
 
     /**
      * Returns the travelExpenseType of the base HistoricalTravelExpense
+     *
      * @see org.kuali.kfs.module.tem.businessobject.TemExpense#getExpenseLineTypeCode()
      */
     @Override
@@ -305,10 +327,12 @@ public class HistoricalExpenseAsTemExpenseWrapper implements TemExpense {
      * All setters are ignored
      */
     @Override
-    public void setExpenseLineTypeCode(String expenseLineTypeCode) {}
+    public void setExpenseLineTypeCode(String expenseLineTypeCode) {
+    }
 
     /**
      * returns air ticket class from related agency staging data if possible
+     *
      * @see org.kuali.kfs.module.tem.businessobject.TemExpense#getClassOfServiceCode()
      */
     @Override
@@ -321,18 +345,20 @@ public class HistoricalExpenseAsTemExpenseWrapper implements TemExpense {
 
     /**
      * Finds the related expense type to determine if this
+     *
      * @see org.kuali.kfs.module.tem.businessobject.TemExpense#isRentalCar()
      */
     @Override
     public boolean isRentalCar() {
-       if (getExpenseType() != null) {
-           return StringUtils.equals(TemConstants.ExpenseTypeMetaCategory.RENTAL_CAR.getCode(), getExpenseType().getExpenseTypeMetaCategoryCode());
-       }
-       return false; // no expense type code, so we can't tell...
+        if (getExpenseType() != null) {
+            return StringUtils.equals(TemConstants.ExpenseTypeMetaCategory.RENTAL_CAR.getCode(), getExpenseType().getExpenseTypeMetaCategoryCode());
+        }
+        return false; // no expense type code, so we can't tell...
     }
 
     /**
      * Always returns false, as it can never be rental car insurance
+     *
      * @see org.kuali.kfs.module.tem.businessobject.TemExpense#getRentalCarInsurance()
      */
     @Override
@@ -342,6 +368,7 @@ public class HistoricalExpenseAsTemExpenseWrapper implements TemExpense {
 
     /**
      * Returns the travelExpenseType of the base HistoricalTravelExpense
+     *
      * @see org.kuali.kfs.module.tem.businessobject.TemExpense#getExpenseTypeCode()
      */
     @Override
@@ -361,10 +388,12 @@ public class HistoricalExpenseAsTemExpenseWrapper implements TemExpense {
      * All setters are ignored
      */
     @Override
-    public void setExpenseTypeObjectCodeId(Long expenseTypeObjectCodeId) {}
+    public void setExpenseTypeObjectCodeId(Long expenseTypeObjectCodeId) {
+    }
 
     /**
      * Returns null - no easy equivalency
+     *
      * @see org.kuali.kfs.module.tem.businessobject.TemExpense#getExpenseTypeObjectCode()
      */
     @Override
@@ -376,7 +405,8 @@ public class HistoricalExpenseAsTemExpenseWrapper implements TemExpense {
      * All setters are ignored
      */
     @Override
-    public void setExpenseTypeObjectCode(ExpenseTypeObjectCode expenseTypeObjectCode) {}
+    public void setExpenseTypeObjectCode(ExpenseTypeObjectCode expenseTypeObjectCode) {
+    }
 
     public String getCardType() {
         return baseExpense.getCreditCardAgency().getTravelCardTypeCode();
@@ -386,7 +416,8 @@ public class HistoricalExpenseAsTemExpenseWrapper implements TemExpense {
      * Does nothing
      */
     @Override
-    public void refreshExpenseTypeObjectCode(String documentTypeName, String travelerTypeCode, String tripTypeCode) {}
+    public void refreshExpenseTypeObjectCode(String documentTypeName, String travelerTypeCode, String tripTypeCode) {
+    }
 
     public ExpenseType getExpenseType() {
         if (expenseType == null && !StringUtils.isBlank(getExpenseTypeCode())) {

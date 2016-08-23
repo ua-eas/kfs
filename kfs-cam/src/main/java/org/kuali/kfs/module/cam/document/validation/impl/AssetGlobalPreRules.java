@@ -1,27 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cam.document.validation.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.coa.document.validation.impl.MaintenancePreRulesBase;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsKeyConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
@@ -31,17 +32,16 @@ import org.kuali.kfs.module.cam.document.service.AssetService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AssetGlobalPreRules extends MaintenancePreRulesBase {
     protected static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AssetGlobalPreRules.class);
 
     /**
      * Sets up a convenience object and few other Asset attributes
-     * 
+     *
      * @see org.kuali.kfs.coa.document.validation.impl.MaintenancePreRulesBase#doCustomPreRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
@@ -58,7 +58,7 @@ public class AssetGlobalPreRules extends MaintenancePreRulesBase {
 
     /**
      * Validate all object sub type codes are from the same group.
-     * 
+     *
      * @param assetGlobal
      * @param newLine
      * @return

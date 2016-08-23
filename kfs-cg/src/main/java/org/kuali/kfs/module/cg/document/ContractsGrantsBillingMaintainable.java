@@ -1,30 +1,23 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cg.document;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
-import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
 import org.kuali.kfs.kns.datadictionary.MaintainableFieldDefinition;
 import org.kuali.kfs.kns.datadictionary.MaintainableItemDefinition;
 import org.kuali.kfs.kns.datadictionary.MaintainableSectionDefinition;
@@ -36,6 +29,13 @@ import org.kuali.kfs.kns.service.KNSServiceLocator;
 import org.kuali.kfs.kns.web.ui.Section;
 import org.kuali.kfs.kns.web.ui.SectionBridge;
 import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Abstract class that overrides getCoreSections to ignore CGB-specific sections if CGB is disabled.
@@ -55,27 +55,27 @@ public abstract class ContractsGrantsBillingMaintainable extends FinancialSystem
     public List<Section> getCoreSections(MaintenanceDocument document, Maintainable oldMaintainable) {
         List<Section> sections = new ArrayList<Section>();
         MaintenanceDocumentRestrictions maintenanceRestrictions = KNSServiceLocator
-                .getBusinessObjectAuthorizationService().getMaintenanceDocumentRestrictions(document,
-                        GlobalVariables.getUserSession().getPerson());
+            .getBusinessObjectAuthorizationService().getMaintenanceDocumentRestrictions(document,
+                GlobalVariables.getUserSession().getPerson());
 
         MaintenanceDocumentPresentationController maintenanceDocumentPresentationController = (MaintenanceDocumentPresentationController) getDocumentHelperService()
-                .getDocumentPresentationController(document);
+            .getDocumentPresentationController(document);
         Set<String> conditionallyRequiredFields = maintenanceDocumentPresentationController
-                .getConditionallyRequiredPropertyNames(document);
+            .getConditionallyRequiredPropertyNames(document);
 
         List<MaintainableSectionDefinition> sectionDefinitions = getMaintenanceDocumentDictionaryService()
-                .getMaintainableSections(getDocumentTypeName());
+            .getMaintainableSections(getDocumentTypeName());
         try {
             Collection<?> sectionIdsToIgnore = getSectionIdsToIgnore();
 
             // iterate through section definitions and create Section UI object
-            for (Iterator iter = sectionDefinitions.iterator(); iter.hasNext();) {
+            for (Iterator iter = sectionDefinitions.iterator(); iter.hasNext(); ) {
                 MaintainableSectionDefinition maintSectionDef = (MaintainableSectionDefinition) iter.next();
 
                 List<String> displayedFieldNames = new ArrayList<String>();
                 if (!maintenanceRestrictions.isHiddenSectionId(maintSectionDef.getId()) && !sectionIdsToIgnore.contains(maintSectionDef.getId())) {
 
-                    for (Iterator iter2 = maintSectionDef.getMaintainableItems().iterator(); iter2.hasNext();) {
+                    for (Iterator iter2 = maintSectionDef.getMaintainableItems().iterator(); iter2.hasNext(); ) {
                         MaintainableItemDefinition item = (MaintainableItemDefinition) iter2.next();
                         if (item instanceof MaintainableFieldDefinition) {
                             displayedFieldNames.add(((MaintainableFieldDefinition) item).getName());
@@ -83,8 +83,8 @@ public abstract class ContractsGrantsBillingMaintainable extends FinancialSystem
                     }
 
                     Section section = SectionBridge
-                            .toSection(maintSectionDef, getBusinessObject(), this, oldMaintainable,
-                                    getMaintenanceAction(), displayedFieldNames, conditionallyRequiredFields);
+                        .toSection(maintSectionDef, getBusinessObject(), this, oldMaintainable,
+                            getMaintenanceAction(), displayedFieldNames, conditionallyRequiredFields);
                     if (maintenanceRestrictions.isReadOnlySectionId(maintSectionDef.getId())) {
                         section.setReadOnly(true);
                     }
@@ -95,8 +95,7 @@ public abstract class ContractsGrantsBillingMaintainable extends FinancialSystem
 
             }
 
-        }
-        catch (InstantiationException | IllegalAccessException e) {
+        } catch (InstantiationException | IllegalAccessException e) {
             LOG.error("Unable to create instance of object class" + e.getMessage());
             throw new RuntimeException("Unable to create instance of object class" + e.getMessage());
         }

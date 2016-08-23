@@ -1,37 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.document.web.struts;
 
-import static org.kuali.kfs.module.tem.TemPropertyConstants.NEW_ATTENDEE_LINE;
-import static org.kuali.kfs.module.tem.TemPropertyConstants.AttendeeProperties.ATTENDEE_TYPE;
-import static org.kuali.kfs.module.tem.TemPropertyConstants.AttendeeProperties.COMPANY;
-import static org.kuali.kfs.module.tem.TemPropertyConstants.AttendeeProperties.NAME;
-import static org.kuali.kfs.module.tem.TemPropertyConstants.AttendeeProperties.TITLE;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
-
 import org.apache.log4j.Logger;
+import org.kuali.kfs.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.tem.businessobject.Attendee;
 import org.kuali.kfs.module.tem.businessobject.options.AttendeeTypeValuesFinder;
 import org.kuali.kfs.module.tem.document.TravelEntertainmentDocument;
@@ -41,8 +30,19 @@ import org.kuali.kfs.module.tem.document.validation.event.AddAttendeeLineEvent;
 import org.kuali.kfs.module.tem.document.web.bean.TravelEntertainmentMvcWrapperBean;
 import org.kuali.kfs.module.tem.exception.UploadParserException;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.kfs.krad.service.KualiRuleService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
+
+import static org.kuali.kfs.module.tem.TemPropertyConstants.AttendeeProperties.ATTENDEE_TYPE;
+import static org.kuali.kfs.module.tem.TemPropertyConstants.AttendeeProperties.COMPANY;
+import static org.kuali.kfs.module.tem.TemPropertyConstants.AttendeeProperties.NAME;
+import static org.kuali.kfs.module.tem.TemPropertyConstants.AttendeeProperties.TITLE;
+import static org.kuali.kfs.module.tem.TemPropertyConstants.NEW_ATTENDEE_LINE;
 
 /**
  * Event that handles import of attendees from CSV File. Activated by the "Import Attendees" link
@@ -54,8 +54,8 @@ public class ImportAttendeesEvent implements Observer {
     private static final int WRAPPER_ARG_IDX = 0;
     private static final int FILE_CONTENTS_ARG_IDX = 1;
 
-    public static final String[] ATTENDEE_ATTRIBUTE_NAMES = { ATTENDEE_TYPE, COMPANY, TITLE, NAME };
-    public static final Integer[] MAX_LENGTH = { 10, 40, 40, 40 };
+    public static final String[] ATTENDEE_ATTRIBUTE_NAMES = {ATTENDEE_TYPE, COMPANY, TITLE, NAME};
+    public static final Integer[] MAX_LENGTH = {10, 40, 40, 40};
 
     protected KualiRuleService kualiRuleService;
     protected TravelDocumentService travelDocumentService;
@@ -104,8 +104,7 @@ public class ImportAttendeesEvent implements Observer {
                     document.getAttendee().add(attendee);
                 }
             }
-        }
-        catch (UploadParserException e) {
+        } catch (UploadParserException e) {
             GlobalVariables.getMessageMap().putError(tabErrorKey, e.getErrorKey(), e.getErrorParameters());
         }
     }

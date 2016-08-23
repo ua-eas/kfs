@@ -1,32 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.pdf;
-
-import java.io.File;
-
-import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADUtils;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.Element;
@@ -40,6 +30,15 @@ import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfPageEventHelper;
 import com.lowagie.text.pdf.PdfTemplate;
 import com.lowagie.text.pdf.PdfWriter;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.io.File;
 
 /**
  * Base class to be extended for implementing PDF documents in Purchasing/Accounts Payable module.
@@ -47,7 +46,9 @@ import com.lowagie.text.pdf.PdfWriter;
 public class PurapPdf extends PdfPageEventHelper {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PurapPdf.class);
 
-    /** headerTable pieces need to be public */
+    /**
+     * headerTable pieces need to be public
+     */
     public PdfTemplate tpl; // A template that will hold the total number of pages.
     public PdfContentByte cb;
     public Image logo;
@@ -101,8 +102,8 @@ public class PurapPdf extends PdfPageEventHelper {
      * Overrides the method in PdfPageEventHelper from itext to include our watermark text to indicate that
      * this is a Test document and include the environment, if the environment is not a production environment.
      *
-     * @param writer    The PdfWriter for this document.
-     * @param document  The document.
+     * @param writer   The PdfWriter for this document.
+     * @param document The document.
      * @see com.lowagie.text.pdf.PdfPageEventHelper#onStartPage(com.lowagie.text.pdf.PdfWriter, com.lowagie.text.Document)
      */
     @Override
@@ -117,7 +118,7 @@ public class PurapPdf extends PdfPageEventHelper {
             cb.endText();
             cb.restoreState();
         }
-        if(GlobalVariables.getUserSession() != null && GlobalVariables.getUserSession().retrieveObject("isPreview") != null) {
+        if (GlobalVariables.getUserSession() != null && GlobalVariables.getUserSession().retrieveObject("isPreview") != null) {
             GlobalVariables.getUserSession().removeObject("isPreview");
             PdfContentByte cb = writer.getDirectContentUnder();
             cb.saveState();
@@ -134,8 +135,8 @@ public class PurapPdf extends PdfPageEventHelper {
      * Overrides the method in PdfPageEventHelper from itext to write the headerTable, compose the footer and show the
      * footer.
      *
-     * @param writer    The PdfWriter for this document.
-     * @param document  The document.
+     * @param writer   The PdfWriter for this document.
+     * @param document The document.
      * @see com.lowagie.text.pdf.PdfPageEventHelper#onEndPage(com.lowagie.text.pdf.PdfWriter, com.lowagie.text.Document)
      */
     @Override
@@ -165,8 +166,8 @@ public class PurapPdf extends PdfPageEventHelper {
     /**
      * Overrides the method in the PdfPageEventHelper from itext to put the total number of pages into the template.
      *
-     * @param writer    The PdfWriter for this document.
-     * @param document  The document.
+     * @param writer   The PdfWriter for this document.
+     * @param document The document.
      * @see com.lowagie.text.pdf.PdfPageEventHelper#onCloseDocument(com.lowagie.text.pdf.PdfWriter, com.lowagie.text.Document)
      */
     @Override
@@ -193,11 +194,11 @@ public class PurapPdf extends PdfPageEventHelper {
      * Creates an instance of a new Document and set its margins according to
      * the given input parameters.
      *
-     * @param f1  Left margin.
-     * @param f2  Right margin.
-     * @param f3  Top margin.
-     * @param f4  Bottom margin.
-     * @return    The created Document object.
+     * @param f1 Left margin.
+     * @param f2 Right margin.
+     * @param f3 Top margin.
+     * @param f4 Bottom margin.
+     * @return The created Document object.
      */
     public Document getDocument(float f1, float f2, float f3, float f4) {
         LOG.debug("getDocument() started");
@@ -210,8 +211,8 @@ public class PurapPdf extends PdfPageEventHelper {
     /**
      * Deletes an already created PDF.
      *
-     * @param pdfFileLocation  The location of the pdf file.
-     * @param pdfFilename      The name of the pdf file.
+     * @param pdfFileLocation The location of the pdf file.
+     * @param pdfFilename     The name of the pdf file.
      */
     public void deletePdf(String pdfFileLocation, String pdfFilename) {
         if (LOG.isDebugEnabled()) {

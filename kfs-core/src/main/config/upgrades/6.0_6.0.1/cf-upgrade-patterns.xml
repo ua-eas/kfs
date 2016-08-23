@@ -2,7 +2,7 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
    -
-   - Copyright 2005-2014 The Kuali Foundation
+   - Copyright 2005-2016 The Kuali Foundation
    -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
@@ -96,8 +96,8 @@
             <replacement>org.kuali.kfs.kns.bo.lookup.StateValuesFinder</replacement>
         </pattern>
         <pattern>
-        	<match>org\.kuali\.rice\.core\.framework\.persistence\.ojb\.conversion</match>
-        	<replacement>org.kuali.kfs.core.framework.persistence.ojb.conversion</replacement>
+            <match>org\.kuali\.rice\.core\.framework\.persistence\.ojb\.conversion</match>
+            <replacement>org.kuali.kfs.core.framework.persistence.ojb.conversion</replacement>
         </pattern>
     </rule>
 </rules>

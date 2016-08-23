@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -69,7 +69,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
 
     public void testValidateManualAwardsOneInvalidAward() {
         List<ContractsAndGrantsBillingAward> awards = setupAwards();
-        ((Award)awards.get(0)).setExcludedFromInvoicing(true);
+        ((Award) awards.get(0)).setExcludedFromInvoicing(true);
         List<ContractsGrantsInvoiceDocumentErrorLog> contractsGrantsInvoiceDocumentErrorLogs = new ArrayList<ContractsGrantsInvoiceDocumentErrorLog>();
 
         Collection<ContractsAndGrantsBillingAward> validAwards = contractsGrantsInvoiceCreateDocumentService.validateAwards(awards, contractsGrantsInvoiceDocumentErrorLogs, null, ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.MANUAL.getCode());
@@ -80,7 +80,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
 
         Collection<ContractsGrantsInvoiceDocumentErrorLog> persistedErrors = businessObjectService.findAll(ContractsGrantsInvoiceDocumentErrorLog.class);
         assertTrue("one error should be persisted", persistedErrors.size() == 1);
-        for (ContractsGrantsInvoiceDocumentErrorLog persistedError: persistedErrors) {
+        for (ContractsGrantsInvoiceDocumentErrorLog persistedError : persistedErrors) {
             assertTrue("process type should be manual", persistedError.getCreationProcessTypeCode().equals(ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.MANUAL.getCode()));
         }
     }
@@ -88,7 +88,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
     public void testValidateManualAwardsTwoValidAwards() {
         List<ContractsAndGrantsBillingAward> awards = setupAwards();
         List<ContractsAndGrantsBillingAward> awards2 = setupAwards();
-        ((Award)awards2.get(0)).setProposalNumber("11");
+        ((Award) awards2.get(0)).setProposalNumber("11");
         awards.addAll(awards2);
         Collection<ContractsGrantsInvoiceDocumentErrorLog> contractsGrantsInvoiceDocumentErrorLogs = new ArrayList<ContractsGrantsInvoiceDocumentErrorLog>();
 
@@ -105,10 +105,10 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
 
     public void testValidateManualAwardsTwoInvalidAwards() {
         List<ContractsAndGrantsBillingAward> awards = setupAwards();
-        ((Award)awards.get(0)).setExcludedFromInvoicing(true);
+        ((Award) awards.get(0)).setExcludedFromInvoicing(true);
         List<ContractsAndGrantsBillingAward> awards2 = setupAwards();
-        ((Award)awards2.get(0)).setExcludedFromInvoicing(true);
-        ((Award)awards2.get(0)).setProposalNumber("11");
+        ((Award) awards2.get(0)).setExcludedFromInvoicing(true);
+        ((Award) awards2.get(0)).setProposalNumber("11");
         awards.addAll(awards2);
         List<ContractsGrantsInvoiceDocumentErrorLog> contractsGrantsInvoiceDocumentErrorLogs = new ArrayList<ContractsGrantsInvoiceDocumentErrorLog>();
 
@@ -121,7 +121,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
 
         Collection<ContractsGrantsInvoiceDocumentErrorLog> persistedErrors = businessObjectService.findAll(ContractsGrantsInvoiceDocumentErrorLog.class);
         assertTrue("two errors should be persisted", persistedErrors.size() == 2);
-        for (ContractsGrantsInvoiceDocumentErrorLog persistedError: persistedErrors) {
+        for (ContractsGrantsInvoiceDocumentErrorLog persistedError : persistedErrors) {
             assertTrue("process type should be manual", persistedError.getCreationProcessTypeCode().equals(ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.MANUAL.getCode()));
         }
     }
@@ -129,8 +129,8 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
     public void testValidateManualAwardsOneValidOneInvalidAwards() {
         List<ContractsAndGrantsBillingAward> awards = setupAwards();
         List<ContractsAndGrantsBillingAward> awards2 = setupAwards();
-        ((Award)awards2.get(0)).setExcludedFromInvoicing(true);
-        ((Award)awards2.get(0)).setProposalNumber("11");
+        ((Award) awards2.get(0)).setExcludedFromInvoicing(true);
+        ((Award) awards2.get(0)).setProposalNumber("11");
         awards.addAll(awards2);
         List<ContractsGrantsInvoiceDocumentErrorLog> contractsGrantsInvoiceDocumentErrorLogs = new ArrayList<ContractsGrantsInvoiceDocumentErrorLog>();
 
@@ -143,7 +143,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
 
         Collection<ContractsGrantsInvoiceDocumentErrorLog> persistedErrors = businessObjectService.findAll(ContractsGrantsInvoiceDocumentErrorLog.class);
         assertTrue("one error should be persisted", persistedErrors.size() == 1);
-        for (ContractsGrantsInvoiceDocumentErrorLog persistedError: persistedErrors) {
+        for (ContractsGrantsInvoiceDocumentErrorLog persistedError : persistedErrors) {
             assertTrue("process type should be manual", persistedError.getCreationProcessTypeCode().equals(ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.MANUAL.getCode()));
         }
     }
@@ -165,7 +165,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
 
     public void testValidateBatchAwardsOneInvalidAward() {
         List<ContractsAndGrantsBillingAward> awards = setupAwards();
-        ((Award)awards.get(0)).setExcludedFromInvoicing(true);
+        ((Award) awards.get(0)).setExcludedFromInvoicing(true);
 
         Collection<ContractsAndGrantsBillingAward> validAwards = contractsGrantsInvoiceCreateDocumentService.validateAwards(awards, null, errorOutputFile, ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.BATCH.getCode());
 
@@ -173,7 +173,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
 
         Collection<ContractsGrantsInvoiceDocumentErrorLog> persistedErrors = businessObjectService.findAll(ContractsGrantsInvoiceDocumentErrorLog.class);
         assertTrue("one error should be persisted", persistedErrors.size() == 1);
-        for (ContractsGrantsInvoiceDocumentErrorLog persistedError: persistedErrors) {
+        for (ContractsGrantsInvoiceDocumentErrorLog persistedError : persistedErrors) {
             assertTrue("process type should be batch", persistedError.getCreationProcessTypeCode().equals(ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.BATCH.getCode()));
         }
 
@@ -185,7 +185,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
     public void testValidateBatchAwardsTwoValidAwards() {
         List<ContractsAndGrantsBillingAward> awards = setupAwards();
         List<ContractsAndGrantsBillingAward> awards2 = setupAwards();
-        ((Award)awards2.get(0)).setProposalNumber("11");
+        ((Award) awards2.get(0)).setProposalNumber("11");
         awards.addAll(awards2);
 
         Collection<ContractsAndGrantsBillingAward> validAwards = contractsGrantsInvoiceCreateDocumentService.validateAwards(awards, null, errorOutputFile, ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.BATCH.getCode());
@@ -203,10 +203,10 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
 
     public void testValidateBatchAwardsTwoInvalidAwards() {
         List<ContractsAndGrantsBillingAward> awards = setupAwards();
-        ((Award)awards.get(0)).setExcludedFromInvoicing(true);
+        ((Award) awards.get(0)).setExcludedFromInvoicing(true);
         List<ContractsAndGrantsBillingAward> awards2 = setupAwards();
-        ((Award)awards2.get(0)).setExcludedFromInvoicing(true);
-        ((Award)awards2.get(0)).setProposalNumber("11");
+        ((Award) awards2.get(0)).setExcludedFromInvoicing(true);
+        ((Award) awards2.get(0)).setProposalNumber("11");
         awards.addAll(awards2);
 
         Collection<ContractsAndGrantsBillingAward> validAwards = contractsGrantsInvoiceCreateDocumentService.validateAwards(awards, null, errorOutputFile, ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.BATCH.getCode());
@@ -215,7 +215,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
 
         Collection<ContractsGrantsInvoiceDocumentErrorLog> persistedErrors = businessObjectService.findAll(ContractsGrantsInvoiceDocumentErrorLog.class);
         assertTrue("two errors should be persisted", persistedErrors.size() == 2);
-        for (ContractsGrantsInvoiceDocumentErrorLog persistedError: persistedErrors) {
+        for (ContractsGrantsInvoiceDocumentErrorLog persistedError : persistedErrors) {
             assertTrue("process type should be batch", persistedError.getCreationProcessTypeCode().equals(ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.BATCH.getCode()));
         }
 
@@ -227,8 +227,8 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
     public void testValidateBatchAwardsOneValidOneInvalidAwards() {
         List<ContractsAndGrantsBillingAward> awards = setupAwards();
         List<ContractsAndGrantsBillingAward> awards2 = setupAwards();
-        ((Award)awards2.get(0)).setExcludedFromInvoicing(true);
-        ((Award)awards2.get(0)).setProposalNumber("11");
+        ((Award) awards2.get(0)).setExcludedFromInvoicing(true);
+        ((Award) awards2.get(0)).setProposalNumber("11");
         awards.addAll(awards2);
 
         Collection<ContractsAndGrantsBillingAward> validAwards = contractsGrantsInvoiceCreateDocumentService.validateAwards(awards, null, errorOutputFile, ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.BATCH.getCode());
@@ -238,7 +238,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
 
         Collection<ContractsGrantsInvoiceDocumentErrorLog> persistedErrors = businessObjectService.findAll(ContractsGrantsInvoiceDocumentErrorLog.class);
         assertTrue("one error should be persisted", persistedErrors.size() == 1);
-        for (ContractsGrantsInvoiceDocumentErrorLog persistedError: persistedErrors) {
+        for (ContractsGrantsInvoiceDocumentErrorLog persistedError : persistedErrors) {
             assertTrue("process type should be batch", persistedError.getCreationProcessTypeCode().equals(ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.BATCH.getCode()));
         }
 
@@ -328,7 +328,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
 
         Collection<ContractsGrantsInvoiceDocumentErrorLog> persistedErrors = businessObjectService.findAll(ContractsGrantsInvoiceDocumentErrorLog.class);
         assertTrue("one error should be persisted", persistedErrors.size() == 1);
-        for (ContractsGrantsInvoiceDocumentErrorLog persistedError: persistedErrors) {
+        for (ContractsGrantsInvoiceDocumentErrorLog persistedError : persistedErrors) {
             assertTrue("process type should be manual", persistedError.getCreationProcessTypeCode().equals(ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.MANUAL.getCode()));
             assertTrue("error message text should match", persistedError.getErrorMessages().get(0).getErrorMessageText().equals(errorMessage));
         }
@@ -346,7 +346,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
 
         Collection<ContractsGrantsInvoiceDocumentErrorLog> persistedErrors = businessObjectService.findAll(ContractsGrantsInvoiceDocumentErrorLog.class);
         assertTrue("one error should be persisted", persistedErrors.size() == 1);
-        for (ContractsGrantsInvoiceDocumentErrorLog persistedError: persistedErrors) {
+        for (ContractsGrantsInvoiceDocumentErrorLog persistedError : persistedErrors) {
             assertTrue("process type should be manual", persistedError.getCreationProcessTypeCode().equals(ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.MANUAL.getCode()));
             assertTrue("error message text should match", persistedError.getErrorMessages().get(0).getErrorMessageText().equals(errorMessage));
         }
@@ -354,7 +354,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
 
     public void testManualCreateCGInvoiceDocumentsByAwardsNoOrg() {
         List<ContractsAndGrantsBillingAward> awards = setupAwards();
-        Award award = (Award)awards.get(0);
+        Award award = (Award) awards.get(0);
         award.setAwardOrganizations(new ArrayList<AwardOrganization>());
 
         List<ErrorMessage> errorMessages = contractsGrantsInvoiceCreateDocumentService.createCGInvoiceDocumentsByAwards(awards, ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.MANUAL);
@@ -367,7 +367,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
 
         Collection<ContractsGrantsInvoiceDocumentErrorLog> persistedErrors = businessObjectService.findAll(ContractsGrantsInvoiceDocumentErrorLog.class);
         assertTrue("one error should be persisted", persistedErrors.size() == 1);
-        for (ContractsGrantsInvoiceDocumentErrorLog persistedError: persistedErrors) {
+        for (ContractsGrantsInvoiceDocumentErrorLog persistedError : persistedErrors) {
             assertTrue("process type should be manual", persistedError.getCreationProcessTypeCode().equals(ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.MANUAL.getCode()));
             assertTrue("error message text should match", persistedError.getErrorMessages().get(0).getErrorMessageText().equals(errorMessage));
         }
@@ -376,7 +376,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
     @ConfigureContext(session = wklykins)
     public void testManualCreateCGInvoiceDocumentsByAccountNonBillable() throws WorkflowException {
         List<ContractsAndGrantsBillingAward> awards = setupAwards();
-        Award award = ((Award)awards.get(0));
+        Award award = ((Award) awards.get(0));
         award.setBillingFrequencyCode(ArConstants.BillingFrequencyValues.PREDETERMINED_BILLING.getCode());
         List<ErrorMessage> errorMessages = new ArrayList<ErrorMessage>();
         ContractsGrantsInvoiceDocument cgInvoice = contractsGrantsInvoiceCreateDocumentService.createCGInvoiceDocumentByAwardInfo(award, award.getActiveAwardAccounts(), "BL", "PSY", errorMessages, null, null);
@@ -385,7 +385,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
         documentService.saveDocument(cgInvoice);
 
         List<ContractsAndGrantsBillingAward> awards2 = setupAwards();
-        Award award2 = (Award)awards2.get(0);
+        Award award2 = (Award) awards2.get(0);
         award2.setInvoicingOptionCode(ArConstants.INV_ACCOUNT);
 
         errorMessages = contractsGrantsInvoiceCreateDocumentService.createCGInvoiceDocumentsByAwards(awards2, ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.MANUAL);
@@ -398,7 +398,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
 
         Collection<ContractsGrantsInvoiceDocumentErrorLog> persistedErrors = businessObjectService.findAll(ContractsGrantsInvoiceDocumentErrorLog.class);
         assertTrue("one error should be persisted", persistedErrors.size() == 1);
-        for (ContractsGrantsInvoiceDocumentErrorLog persistedError: persistedErrors) {
+        for (ContractsGrantsInvoiceDocumentErrorLog persistedError : persistedErrors) {
             assertTrue("process type should be manual", persistedError.getCreationProcessTypeCode().equals(ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.MANUAL.getCode()));
             assertTrue("error message text should match", persistedError.getErrorMessages().get(0).getErrorMessageText().equals(errorMessage));
         }
@@ -409,7 +409,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
         contractsGrantsInvoiceCreateDocumentService.setUniversityDateService(buildMockUniversityDateService());
 
         List<ContractsAndGrantsBillingAward> awards = setupBillableAwards();
-        Award award = ((Award)awards.get(0));
+        Award award = ((Award) awards.get(0));
         award.setInvoicingOptionCode(ArConstants.INV_ACCOUNT);
         AwardAccount awardAccount_2 = ARAwardAccountFixture.AWD_ACCT_WITH_CCA_2.createAwardAccount();
         awardAccount_2.setCurrentLastBilledDate(new Date(System.currentTimeMillis()));
@@ -426,7 +426,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
 
         Collection<ContractsGrantsInvoiceDocumentErrorLog> persistedErrors = businessObjectService.findAll(ContractsGrantsInvoiceDocumentErrorLog.class);
         assertEquals("one error should be persisted", 1, persistedErrors.size());
-        for (ContractsGrantsInvoiceDocumentErrorLog persistedError: persistedErrors) {
+        for (ContractsGrantsInvoiceDocumentErrorLog persistedError : persistedErrors) {
             assertTrue("process type should be manual", persistedError.getCreationProcessTypeCode().equals(ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.MANUAL.getCode()));
             assertTrue("error message text should match", persistedError.getErrorMessages().get(0).getErrorMessageText().equals(errorMessage));
         }
@@ -437,7 +437,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
     @ConfigureContext(session = wklykins)
     public void testManualCreateCGInvoiceDocumentsByCCAContractAccountNotBillable() throws WorkflowException {
         List<ContractsAndGrantsBillingAward> awards = setupAwards();
-        Award award = ((Award)awards.get(0));
+        Award award = ((Award) awards.get(0));
         award.setBillingFrequencyCode(ArConstants.BillingFrequencyValues.PREDETERMINED_BILLING.getCode());
         List<ErrorMessage> errorMessages = new ArrayList<ErrorMessage>();
         ContractsGrantsInvoiceDocument cgInvoice = contractsGrantsInvoiceCreateDocumentService.createCGInvoiceDocumentByAwardInfo(award, award.getActiveAwardAccounts(), "BL", "PSY", errorMessages, null, null);
@@ -446,7 +446,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
         documentService.saveDocument(cgInvoice);
 
         List<ContractsAndGrantsBillingAward> awards2 = setupAwards();
-        Award award2 = (Award)awards2.get(0);
+        Award award2 = (Award) awards2.get(0);
         award2.setInvoicingOptionCode(ArConstants.INV_CONTRACT_CONTROL_ACCOUNT);
 
         errorMessages = contractsGrantsInvoiceCreateDocumentService.createCGInvoiceDocumentsByAwards(awards2, ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.MANUAL);
@@ -459,7 +459,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
 
         Collection<ContractsGrantsInvoiceDocumentErrorLog> persistedErrors = businessObjectService.findAll(ContractsGrantsInvoiceDocumentErrorLog.class);
         assertTrue("one error should be persisted", persistedErrors.size() == 1);
-        for (ContractsGrantsInvoiceDocumentErrorLog persistedError: persistedErrors) {
+        for (ContractsGrantsInvoiceDocumentErrorLog persistedError : persistedErrors) {
             assertTrue("process type should be manual", persistedError.getCreationProcessTypeCode().equals(ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.MANUAL.getCode()));
             assertTrue("error message text should match", persistedError.getErrorMessages().get(0).getErrorMessageText().equals(errorMessage));
         }
@@ -468,7 +468,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
     @ConfigureContext(session = wklykins)
     public void testManualCreateCGInvoiceDocumentsByAwardNotAllBillableAccounts() throws WorkflowException {
         List<ContractsAndGrantsBillingAward> awards = setupAwards();
-        Award award = ((Award)awards.get(0));
+        Award award = ((Award) awards.get(0));
         award.setBillingFrequencyCode(ArConstants.BillingFrequencyValues.PREDETERMINED_BILLING.getCode());
         List<ErrorMessage> errorMessages = new ArrayList<ErrorMessage>();
         ContractsGrantsInvoiceDocument cgInvoice = contractsGrantsInvoiceCreateDocumentService.createCGInvoiceDocumentByAwardInfo(award, award.getActiveAwardAccounts(), "BL", "PSY", errorMessages, null, null);
@@ -477,7 +477,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
         documentService.saveDocument(cgInvoice);
 
         List<ContractsAndGrantsBillingAward> awards2 = setupAwards();
-        Award award2 = (Award)awards2.get(0);
+        Award award2 = (Award) awards2.get(0);
         award2.setInvoicingOptionCode(ArConstants.INV_AWARD);
 
         errorMessages = contractsGrantsInvoiceCreateDocumentService.createCGInvoiceDocumentsByAwards(awards2, ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.MANUAL);
@@ -490,7 +490,7 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
 
         Collection<ContractsGrantsInvoiceDocumentErrorLog> persistedErrors = businessObjectService.findAll(ContractsGrantsInvoiceDocumentErrorLog.class);
         assertTrue("one error should be persisted", persistedErrors.size() == 1);
-        for (ContractsGrantsInvoiceDocumentErrorLog persistedError: persistedErrors) {
+        for (ContractsGrantsInvoiceDocumentErrorLog persistedError : persistedErrors) {
             assertTrue("process type should be manual", persistedError.getCreationProcessTypeCode().equals(ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.MANUAL.getCode()));
             assertTrue("error message text should match", persistedError.getErrorMessages().get(0).getErrorMessageText().equals(errorMessage));
         }
@@ -498,19 +498,18 @@ public class ContractsGrantsInvoiceCreateDocumentServiceTest extends ContractsGr
 
     private boolean messagesContainsExpectedError(List<ErrorMessage> errorMessages, String expectedErrorMessage) {
         ErrorMessage errorMessage = errorMessages.get(0);
-        String errorMessageString = MessageFormat.format(configurationService.getPropertyValueAsString(errorMessage.getErrorKey()), (Object[])errorMessage.getMessageParameters());
+        String errorMessageString = MessageFormat.format(configurationService.getPropertyValueAsString(errorMessage.getErrorKey()), (Object[]) errorMessage.getMessageParameters());
         return StringUtils.equals(errorMessageString, expectedErrorMessage);
     }
 
     private boolean errorLogContainsAward(Collection<ContractsGrantsInvoiceDocumentErrorLog> contractsGrantsInvoiceDocumentErrorLogs, ContractsAndGrantsBillingAward award) {
-        for (ContractsGrantsInvoiceDocumentErrorLog contractsGrantsInvoiceDocumentErrorLog: contractsGrantsInvoiceDocumentErrorLogs) {
+        for (ContractsGrantsInvoiceDocumentErrorLog contractsGrantsInvoiceDocumentErrorLog : contractsGrantsInvoiceDocumentErrorLogs) {
             if (contractsGrantsInvoiceDocumentErrorLog.getProposalNumber().equals(award.getProposalNumber())) {
                 return true;
             }
         }
         return false;
     }
-
 
 
 }

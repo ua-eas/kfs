@@ -1,19 +1,20 @@
 <%--
-
-    Copyright 2005-2015 The Kuali Foundation
-
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-    http://www.opensource.org/licenses/ecl2.php
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
 <%@ include file="/krad/WEB-INF/jsp/tldHeader.jsp" %>
 
@@ -27,11 +28,11 @@
 is omitted by default, but the link to it is still present, it can be shown as a clickable
 link again through jquery as in setPageBreadcrumb when needed --%>
 <c:if test="${(fn:length(crumbs) >= 1) || (widget.displayBreadcrumbsWhenOne && fn:length(crumbs) == 0)}">
-  <label id="breadcrumb_label" class="offScreen">Breadcrumbs</label>
-  <span class="${widget.styleClassesAsString}">
+    <label id="breadcrumb_label" class="offScreen">Breadcrumbs</label>
+    <span class="${widget.styleClassesAsString}">
     <ol id="breadcrumbs" role="navigation" aria-labelledby="breadcrumb_label">
       <c:forEach var="entry" items="${crumbs}">
-        <li><a href="${entry.url}">${entry.title}</a><span role="presentation"> &raquo; </span></li>
+          <li><a href="${entry.url}">${entry.title}</a><span role="presentation"> &raquo; </span></li>
       </c:forEach>
       <span class="kr-current" id="current_breadcrumb_span">${current.title}</span>
       <a style="display:none;" id="current_breadcrumb_anchor" href="${current.url}"/>${current.title}</a>

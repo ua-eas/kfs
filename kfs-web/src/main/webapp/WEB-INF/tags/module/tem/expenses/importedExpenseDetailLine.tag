@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -40,7 +40,7 @@
 										</c:when>
 										<c:otherwise>
 											<th scope="row" class="infoline" rowspan="2">
-												<div align="center"> 
+												<div align="center">
 													${detailLineNumber+1}
 												</div>
 											</th>
@@ -59,7 +59,7 @@
 										<div align="center">
 											<kul:htmlControlAttribute
 												attributeEntry="${importedExpenseAttributes.expenseAmount}"
-												property="${detail}.expenseAmount" 
+												property="${detail}.expenseAmount"
 												readOnly="${!fullEntryMode}" />
 										</div>
 									</td>
@@ -67,7 +67,7 @@
 										<div align="center">
 											<kul:htmlControlAttribute
 												attributeEntry="${importedExpenseAttributes.convertedAmount}"
-												property="${detail}.convertedAmount" 
+												property="${detail}.convertedAmount"
 												readOnly="true" />
 										</div>
 									</td>
@@ -116,8 +116,8 @@
 												</div>
 											</c:otherwise>
 										</c:choose>
-					
-										
+
+
 									</td>
 								</tr>
 								<tr>
@@ -129,7 +129,7 @@
 									<td valign="top" class="infoline" colspan="5">
 										<kul:htmlControlAttribute
 											attributeEntry="${importedExpenseAttributes.description}"
-											property="${detail}.description" 
+											property="${detail}.description"
 											readOnly="${!fullEntryMode}" />
 									</td>
 								</tr>

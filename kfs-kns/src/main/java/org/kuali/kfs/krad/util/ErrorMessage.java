@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -28,8 +28,6 @@ import java.util.Arrays;
 
 /**
  * Contains the error message key and parameters for a specific instantiation of an error message.
- * 
- * 
  */
 public class ErrorMessage implements Serializable {
     private String errorKey;
@@ -43,7 +41,7 @@ public class ErrorMessage implements Serializable {
 
     /**
      * Convenience constructor which sets both fields
-     * 
+     *
      * @param errorKey
      * @param messageParameters
      */
@@ -102,7 +100,6 @@ public class ErrorMessage implements Serializable {
 
 
     /**
-     * 
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -111,8 +108,7 @@ public class ErrorMessage implements Serializable {
 
         if (this == obj) {
             equals = true;
-        }
-        else if (obj instanceof ErrorMessage) {
+        } else if (obj instanceof ErrorMessage) {
             ErrorMessage other = (ErrorMessage) obj;
 
             if (StringUtils.equals(getErrorKey(), other.getErrorKey())) {
@@ -125,7 +121,7 @@ public class ErrorMessage implements Serializable {
 
     /**
      * Defined because when you redefine equals, you must redefine hashcode.
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override

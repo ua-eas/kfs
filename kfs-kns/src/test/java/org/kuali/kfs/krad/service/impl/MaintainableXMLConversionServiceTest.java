@@ -1,3 +1,21 @@
+/*
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.kuali.kfs.krad.service.impl;
 
 import org.easymock.EasyMock;
@@ -6,7 +24,6 @@ import org.junit.Test;
 import org.kuali.kfs.krad.bo.DataObjectRelationship;
 import org.kuali.kfs.krad.bo.NoteForTest;
 import org.kuali.kfs.krad.bo.NoteForTestExtension;
-import org.kuali.kfs.krad.datadictionary.RelationshipDefinition;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.MaintainableXMLConversionService;
 import org.kuali.kfs.krad.service.ModuleService;
@@ -28,14 +45,14 @@ public class MaintainableXMLConversionServiceTest {
             @Override
             protected void setRuleMaps() {
                 super.setRuleMaps();
-                this.classNameRuleMap.put("org.kuali.kfs.krad.bo.AdHocRoutePerson","org.kuali.kfs.krad.bo.AdHocRouteWorkgroup");
+                this.classNameRuleMap.put("org.kuali.kfs.krad.bo.AdHocRoutePerson", "org.kuali.kfs.krad.bo.AdHocRouteWorkgroup");
             }
         };
-        ((InitializingBean)maintainableXMLConversionService).afterPropertiesSet();
+        ((InitializingBean) maintainableXMLConversionService).afterPropertiesSet();
         final String originalXML = "<org.kuali.kfs.krad.bo.AdHocRoutePerson><type>1</type></org.kuali.kfs.krad.bo.AdHocRoutePerson>";
         final String convertedXML = maintainableXMLConversionService.transformMaintainableXML(originalXML);
         Assert.assertTrue("Converted XML should start with new class name", convertedXML.startsWith("<org.kuali.kfs.krad.bo.AdHocRouteWorkgroup>"));
-        Assert.assertTrue("Converted XML should end with new class name", convertedXML.endsWith("</org.kuali.kfs.krad.bo.AdHocRouteWorkgroup>"+System.getProperty("line.separator")+"<maintenanceAction>"));
+        Assert.assertTrue("Converted XML should end with new class name", convertedXML.endsWith("</org.kuali.kfs.krad.bo.AdHocRouteWorkgroup>" + System.getProperty("line.separator") + "<maintenanceAction>"));
     }
 
     @Test
@@ -44,18 +61,18 @@ public class MaintainableXMLConversionServiceTest {
             @Override
             protected void setRuleMaps() {
                 super.setRuleMaps();
-                this.classNameRuleMap.put("org.kuali.kfs.krad.bo.AdHocRoutePerson","org.kuali.kfs.krad.bo.AdHocRouteWorkgroup");
+                this.classNameRuleMap.put("org.kuali.kfs.krad.bo.AdHocRoutePerson", "org.kuali.kfs.krad.bo.AdHocRouteWorkgroup");
                 this.classPropertyRuleMap = new HashMap<>();
                 Map<String, String> childRules = new HashMap<>();
                 childRules.put("adHocRouteType", "type");
-                this.classPropertyRuleMap.put("org.kuali.kfs.krad.bo.AdHocRouteWorkgroup",childRules);
+                this.classPropertyRuleMap.put("org.kuali.kfs.krad.bo.AdHocRouteWorkgroup", childRules);
             }
         };
-        ((InitializingBean)maintainableXMLConversionService).afterPropertiesSet();
+        ((InitializingBean) maintainableXMLConversionService).afterPropertiesSet();
         final String originalXML = "<org.kuali.kfs.krad.bo.AdHocRoutePerson><adHocRouteType>1</adHocRouteType></org.kuali.kfs.krad.bo.AdHocRoutePerson>";
         final String convertedXML = maintainableXMLConversionService.transformMaintainableXML(originalXML);
-        Assert.assertTrue("Converted XML should start with new class name", convertedXML.startsWith("<org.kuali.kfs.krad.bo.AdHocRouteWorkgroup>"+System.getProperty("line.separator")+"<type>"));
-        Assert.assertTrue("Converted XML should end with new class name", convertedXML.endsWith("</type>"+System.getProperty("line.separator")+"</org.kuali.kfs.krad.bo.AdHocRouteWorkgroup>"+System.getProperty("line.separator")+"<maintenanceAction>"));
+        Assert.assertTrue("Converted XML should start with new class name", convertedXML.startsWith("<org.kuali.kfs.krad.bo.AdHocRouteWorkgroup>" + System.getProperty("line.separator") + "<type>"));
+        Assert.assertTrue("Converted XML should end with new class name", convertedXML.endsWith("</type>" + System.getProperty("line.separator") + "</org.kuali.kfs.krad.bo.AdHocRouteWorkgroup>" + System.getProperty("line.separator") + "<maintenanceAction>"));
     }
 
     @Test
@@ -64,7 +81,7 @@ public class MaintainableXMLConversionServiceTest {
             @Override
             protected void setRuleMaps() {
                 super.setRuleMaps();
-                this.classNameRuleMap.put("org.kuali.rice.kim.bo.impl.PersonImpl","org.kuali.rice.kim.impl.identity.PersonImpl");
+                this.classNameRuleMap.put("org.kuali.rice.kim.bo.impl.PersonImpl", "org.kuali.rice.kim.impl.identity.PersonImpl");
             }
 
             @Override
@@ -78,11 +95,11 @@ public class MaintainableXMLConversionServiceTest {
                 return moduleServiceMock;
             }
         };
-        ((InitializingBean)maintainableXMLConversionService).afterPropertiesSet();
+        ((InitializingBean) maintainableXMLConversionService).afterPropertiesSet();
         final String originalXML = "<org.kuali.kfs.krad.bo.NoteForTest><authorUniversal class=\"org.kuali.rice.kim.bo.impl.PersonImpl\"><principalName>khuntley</principalName></authorUniversal></org.kuali.kfs.krad.bo.NoteForTest>";
         final String convertedXML = maintainableXMLConversionService.transformMaintainableXML(originalXML);
-        Assert.assertTrue("Converted XML should start with new class name", convertedXML.startsWith("<org.kuali.kfs.krad.bo.NoteForTest>"+System.getProperty("line.separator")+"<authorUniversal class=\"org.kuali.rice.kim.impl.identity.PersonImpl\">"));
-        Assert.assertTrue("Converted XML should end with new class name", convertedXML.endsWith("</authorUniversal>"+System.getProperty("line.separator")+"</org.kuali.kfs.krad.bo.NoteForTest>"+System.getProperty("line.separator")+"<maintenanceAction>"));
+        Assert.assertTrue("Converted XML should start with new class name", convertedXML.startsWith("<org.kuali.kfs.krad.bo.NoteForTest>" + System.getProperty("line.separator") + "<authorUniversal class=\"org.kuali.rice.kim.impl.identity.PersonImpl\">"));
+        Assert.assertTrue("Converted XML should end with new class name", convertedXML.endsWith("</authorUniversal>" + System.getProperty("line.separator") + "</org.kuali.kfs.krad.bo.NoteForTest>" + System.getProperty("line.separator") + "<maintenanceAction>"));
     }
 
     @Test
@@ -105,10 +122,10 @@ public class MaintainableXMLConversionServiceTest {
                 return moduleServiceMock;
             }
         };
-        ((InitializingBean)maintainableXMLConversionService).afterPropertiesSet();
+        ((InitializingBean) maintainableXMLConversionService).afterPropertiesSet();
         final String originalXML = "<org.kuali.kfs.krad.bo.NoteForTest><authorUniversal class=\"org.kuali.rice.kim.bo.impl.PersonImpl\"/></org.kuali.kfs.krad.bo.NoteForTest>";
         final String convertedXML = maintainableXMLConversionService.transformMaintainableXML(originalXML);
-        Assert.assertTrue("Converted XML should have removed person class", convertedXML.equals("<org.kuali.kfs.krad.bo.NoteForTest/>"+System.getProperty("line.separator")+"<maintenanceAction>"));
+        Assert.assertTrue("Converted XML should have removed person class", convertedXML.equals("<org.kuali.kfs.krad.bo.NoteForTest/>" + System.getProperty("line.separator") + "<maintenanceAction>"));
     }
 
     @Test
@@ -118,7 +135,7 @@ public class MaintainableXMLConversionServiceTest {
             protected void setRuleMaps() {
                 super.setRuleMaps();
                 Map<String, String> propertySubstitution = new HashMap<>();
-                propertySubstitution.put("aValue","someValue");
+                propertySubstitution.put("aValue", "someValue");
                 this.classPropertyRuleMap.put("org.kuali.kfs.krad.bo.NoteForTestExtension", propertySubstitution);
             }
 
@@ -144,20 +161,21 @@ public class MaintainableXMLConversionServiceTest {
                 return mockPersistenceStructureService;
             }
         };
-        ((InitializingBean)maintainableXMLConversionService).afterPropertiesSet();
+        ((InitializingBean) maintainableXMLConversionService).afterPropertiesSet();
         final String originalXML = "<org.kuali.kfs.krad.bo.NoteForTest><extension><aValue>khuntley</aValue></extension></org.kuali.kfs.krad.bo.NoteForTest>";
         final String convertedXML = maintainableXMLConversionService.transformMaintainableXML(originalXML);
-        Assert.assertTrue("Converted XML should start with new class name", convertedXML.startsWith("<org.kuali.kfs.krad.bo.NoteForTest>"+System.getProperty("line.separator")+"<extension>"+System.getProperty("line.separator")+"<someValue>khuntley"));
-        Assert.assertTrue("Converted XML should end with new class name", convertedXML.endsWith("</someValue>"+System.getProperty("line.separator")+"</extension>"+System.getProperty("line.separator")+"</org.kuali.kfs.krad.bo.NoteForTest>"+System.getProperty("line.separator")+"<maintenanceAction>"));
+        Assert.assertTrue("Converted XML should start with new class name", convertedXML.startsWith("<org.kuali.kfs.krad.bo.NoteForTest>" + System.getProperty("line.separator") + "<extension>" + System.getProperty("line.separator") + "<someValue>khuntley"));
+        Assert.assertTrue("Converted XML should end with new class name", convertedXML.endsWith("</someValue>" + System.getProperty("line.separator") + "</extension>" + System.getProperty("line.separator") + "</org.kuali.kfs.krad.bo.NoteForTest>" + System.getProperty("line.separator") + "<maintenanceAction>"));
     }
 
     @Test
     public void testUninstantiatableClassSkipping() throws Exception {
-        MaintainableXMLConversionService maintainableXMLConversionService = new MockMaintainableXMLConversionServiceImpl() {};
-        ((InitializingBean)maintainableXMLConversionService).afterPropertiesSet();
+        MaintainableXMLConversionService maintainableXMLConversionService = new MockMaintainableXMLConversionServiceImpl() {
+        };
+        ((InitializingBean) maintainableXMLConversionService).afterPropertiesSet();
         final String originalXML = "<org.kuali.kfs.krad.bo.NoteForTest><workRatio><value>0.95</value></workRatio></org.kuali.kfs.krad.bo.NoteForTest>";
         final String convertedXML = maintainableXMLConversionService.transformMaintainableXML(originalXML);
-        Assert.assertTrue("Converted XML should start with new class name", convertedXML.equals("<org.kuali.kfs.krad.bo.NoteForTest>"+System.getProperty("line.separator")+"<workRatio>"+System.getProperty("line.separator")+"<value>0.95</value>"+System.getProperty("line.separator")+"</workRatio>"+System.getProperty("line.separator")+"</org.kuali.kfs.krad.bo.NoteForTest>"+System.getProperty("line.separator")+"<maintenanceAction>"));
+        Assert.assertTrue("Converted XML should start with new class name", convertedXML.equals("<org.kuali.kfs.krad.bo.NoteForTest>" + System.getProperty("line.separator") + "<workRatio>" + System.getProperty("line.separator") + "<value>0.95</value>" + System.getProperty("line.separator") + "</workRatio>" + System.getProperty("line.separator") + "</org.kuali.kfs.krad.bo.NoteForTest>" + System.getProperty("line.separator") + "<maintenanceAction>"));
     }
 
     @Test
@@ -167,14 +185,14 @@ public class MaintainableXMLConversionServiceTest {
             protected void setRuleMaps() {
                 super.setRuleMaps();
                 Map<String, String> propertySubstitution = new HashMap<>();
-                propertySubstitution.put("autoIncrementSet","");
+                propertySubstitution.put("autoIncrementSet", "");
                 this.classPropertyRuleMap.put("*", propertySubstitution);
             }
         };
-        ((InitializingBean)maintainableXMLConversionService).afterPropertiesSet();
+        ((InitializingBean) maintainableXMLConversionService).afterPropertiesSet();
         final String originalXML = "<org.kuali.kfs.krad.bo.NoteForTest><autoIncrementSet>1</autoIncrementSet></org.kuali.kfs.krad.bo.NoteForTest>";
         final String convertedXML = maintainableXMLConversionService.transformMaintainableXML(originalXML);
-        Assert.assertTrue("Converted XML should remove autoIncrementSet", convertedXML.equals("<org.kuali.kfs.krad.bo.NoteForTest/>"+System.getProperty("line.separator")+"<maintenanceAction>"));
+        Assert.assertTrue("Converted XML should remove autoIncrementSet", convertedXML.equals("<org.kuali.kfs.krad.bo.NoteForTest/>" + System.getProperty("line.separator") + "<maintenanceAction>"));
     }
 
     @Test
@@ -184,14 +202,14 @@ public class MaintainableXMLConversionServiceTest {
             protected void setRuleMaps() {
                 super.setRuleMaps();
                 Map<String, String> propertySubstitution = new HashMap<>();
-                propertySubstitution.put("autoIncrementSet","");
+                propertySubstitution.put("autoIncrementSet", "");
                 this.classPropertyRuleMap.put("*", propertySubstitution);
             }
         };
-        ((InitializingBean)maintainableXMLConversionService).afterPropertiesSet();
+        ((InitializingBean) maintainableXMLConversionService).afterPropertiesSet();
         final String originalXML = "<org.kuali.kfs.krad.bo.NoteForTest><subNotes class=\"java.util.ArrayList\"><org.kuali.kfs.krad.bo.NoteForTest><noteText>hi</noteText><autoIncrementSet>1</autoIncrementSet></org.kuali.kfs.krad.bo.NoteForTest></subNotes></org.kuali.kfs.krad.bo.NoteForTest>";
         final String convertedXML = maintainableXMLConversionService.transformMaintainableXML(originalXML);
-        Assert.assertTrue("Converted XML should remove autoIncrementSet from NoteForTest inside subNotes", convertedXML.equals("<org.kuali.kfs.krad.bo.NoteForTest>"+System.getProperty("line.separator")+"<subNotes class=\"java.util.ArrayList\">"+System.getProperty("line.separator")+"<org.kuali.kfs.krad.bo.NoteForTest>"+System.getProperty("line.separator")+"<noteText>hi</noteText>"+System.getProperty("line.separator")+"</org.kuali.kfs.krad.bo.NoteForTest>"+System.getProperty("line.separator")+"</subNotes>"+System.getProperty("line.separator")+"</org.kuali.kfs.krad.bo.NoteForTest>"+System.getProperty("line.separator")+"<maintenanceAction>"));
+        Assert.assertTrue("Converted XML should remove autoIncrementSet from NoteForTest inside subNotes", convertedXML.equals("<org.kuali.kfs.krad.bo.NoteForTest>" + System.getProperty("line.separator") + "<subNotes class=\"java.util.ArrayList\">" + System.getProperty("line.separator") + "<org.kuali.kfs.krad.bo.NoteForTest>" + System.getProperty("line.separator") + "<noteText>hi</noteText>" + System.getProperty("line.separator") + "</org.kuali.kfs.krad.bo.NoteForTest>" + System.getProperty("line.separator") + "</subNotes>" + System.getProperty("line.separator") + "</org.kuali.kfs.krad.bo.NoteForTest>" + System.getProperty("line.separator") + "<maintenanceAction>"));
     }
 
     class MockMaintainableXMLConversionServiceImpl extends MaintainableXMLConversionServiceImpl {
@@ -204,6 +222,7 @@ public class MaintainableXMLConversionServiceTest {
 
         /**
          * Override to return _something_ - without which conversion will not run
+         *
          * @return a silly test rule
          */
         @Override

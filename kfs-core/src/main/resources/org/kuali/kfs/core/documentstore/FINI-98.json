@@ -1906,7 +1906,7 @@
                     "linkType": "rice"
                   },
                   {
-                    "documentTypeCode" : "CCIE",
+                    "documentTypeCode": "CCIE",
                     "type": "activities",
                     "linkType": "kfs"
                   },

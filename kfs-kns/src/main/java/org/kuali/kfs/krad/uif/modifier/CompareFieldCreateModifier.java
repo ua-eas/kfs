@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -21,15 +21,15 @@ package org.kuali.kfs.krad.uif.modifier;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
-import org.kuali.kfs.krad.uif.util.ComponentUtils;
-import org.kuali.kfs.krad.uif.util.ObjectPropertyUtils;
 import org.kuali.kfs.krad.uif.UifConstants;
 import org.kuali.kfs.krad.uif.UifPropertyPaths;
+import org.kuali.kfs.krad.uif.component.Component;
 import org.kuali.kfs.krad.uif.container.Group;
 import org.kuali.kfs.krad.uif.field.DataField;
-import org.kuali.kfs.krad.uif.view.View;
-import org.kuali.kfs.krad.uif.component.Component;
 import org.kuali.kfs.krad.uif.field.HeaderField;
+import org.kuali.kfs.krad.uif.util.ComponentUtils;
+import org.kuali.kfs.krad.uif.util.ObjectPropertyUtils;
+import org.kuali.kfs.krad.uif.view.View;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,7 +41,7 @@ import java.util.Set;
 /**
  * Generates <code>Field</code> instances to produce a comparison view among
  * objects of the same type
- *
+ * <p>
  * <p>
  * Modifier is initialized with a List of <code>ComparableInfo</code> instances.
  * For each comparable info, a copy of the configured group field is made and
@@ -50,8 +50,6 @@ import java.util.Set;
  * addition, a <code>HeaderField<code> can be generated to label each group
  * of comparison fields.
  * </p>
- *
- * 
  */
 public class CompareFieldCreateModifier extends ComponentModifierBase {
     private static final Logger LOG = Logger.getLogger(CompareFieldCreateModifier.class);
@@ -75,7 +73,7 @@ public class CompareFieldCreateModifier extends ComponentModifierBase {
      * Calls <code>ViewHelperService</code> to initialize the header field prototype
      *
      * @see ComponentModifier#performInitialization(View,
-     *      java.lang.Object, Component)
+     * java.lang.Object, Component)
      */
     @Override
     public void performInitialization(View view, Object model, Component component) {
@@ -88,7 +86,7 @@ public class CompareFieldCreateModifier extends ComponentModifierBase {
 
     /**
      * Generates the comparison fields
-     *
+     * <p>
      * <p>
      * First the configured List of <code>ComparableInfo</code> instances are
      * sorted based on their order property. Then if generateCompareHeaders is
@@ -101,14 +99,14 @@ public class CompareFieldCreateModifier extends ComponentModifierBase {
      * </p>
      *
      * @see ComponentModifier#performModification(View,
-     *      java.lang.Object, Component)
+     * java.lang.Object, Component)
      */
     @SuppressWarnings("unchecked")
     @Override
     public void performModification(View view, Object model, Component component) {
         if ((component != null) && !(component instanceof Group)) {
             throw new IllegalArgumentException(
-                    "Compare field initializer only support Group components, found type: " + component.getClass());
+                "Compare field initializer only support Group components, found type: " + component.getClass());
         }
 
         if (component == null) {
@@ -120,7 +118,7 @@ public class CompareFieldCreateModifier extends ComponentModifierBase {
 
         // sort comparables by their order property
         List<ComparableInfo> groupComparables = (List<ComparableInfo>) ComponentUtils.sort(comparables,
-                defaultOrderSequence);
+            defaultOrderSequence);
 
         // evaluate expressions on comparables
         Map<String, Object> context = new HashMap<String, Object>();
@@ -129,7 +127,7 @@ public class CompareFieldCreateModifier extends ComponentModifierBase {
 
         for (ComparableInfo comparable : groupComparables) {
             KRADServiceLocatorWeb.getExpressionEvaluatorService().evaluateObjectExpressions(comparable, model,
-                    context);
+                context);
         }
 
         // generate compare header
@@ -166,7 +164,7 @@ public class CompareFieldCreateModifier extends ComponentModifierBase {
                 Component compareItem = ComponentUtils.copy(item, idSuffix);
 
                 ComponentUtils.setComponentPropertyDeep(compareItem, UifPropertyPaths.BIND_OBJECT_PATH,
-                        comparable.getBindingObjectPath());
+                    comparable.getBindingObjectPath());
                 if (comparable.isReadOnly()) {
                     compareItem.setReadOnly(true);
                     if (compareItem.getPropertyExpressions().containsKey("readOnly")) {
@@ -176,7 +174,7 @@ public class CompareFieldCreateModifier extends ComponentModifierBase {
 
                 // do value comparison
                 if (performValueChangeComparison && comparable.isHighlightValueChange() && !comparable
-                        .isCompareToForValueChange()) {
+                    .isCompareToForValueChange()) {
                     performValueComparison(group, compareItem, model, compareValueObjectBindingPath);
                 }
 
@@ -194,13 +192,13 @@ public class CompareFieldCreateModifier extends ComponentModifierBase {
      * main comparable. If the value is different, adds script to the field on ready event to add the change icon to
      * the field and the containing group header
      *
-     * @param group - group that contains the item and whose header will be highlighted for changes
-     * @param compareItem - the compare item being generated and to pull attribute fields from
-     * @param model - object containing the data
+     * @param group                         - group that contains the item and whose header will be highlighted for changes
+     * @param compareItem                   - the compare item being generated and to pull attribute fields from
+     * @param model                         - object containing the data
      * @param compareValueObjectBindingPath - object path for the comparison item
      */
     protected void performValueComparison(Group group, Component compareItem, Object model,
-            String compareValueObjectBindingPath) {
+                                          String compareValueObjectBindingPath) {
         // get any attribute fields for the item so we can compare the values
         List<DataField> itemFields = ComponentUtils.getComponentsOfTypeDeep(compareItem, DataField.class);
         for (DataField field : itemFields) {
@@ -208,7 +206,7 @@ public class CompareFieldCreateModifier extends ComponentModifierBase {
             Object fieldValue = ObjectPropertyUtils.getPropertyValue(model, fieldBindingPath);
 
             String compareBindingPath = StringUtils.replaceOnce(fieldBindingPath,
-                    field.getBindingInfo().getBindingObjectPath(), compareValueObjectBindingPath);
+                field.getBindingInfo().getBindingObjectPath(), compareValueObjectBindingPath);
             Object compareValue = ObjectPropertyUtils.getPropertyValue(model, compareBindingPath);
 
             boolean valueChanged = false;
@@ -239,7 +237,7 @@ public class CompareFieldCreateModifier extends ComponentModifierBase {
 
     /**
      * Generates an id suffix for the comparable item
-     *
+     * <p>
      * <p>
      * If the idSuffix to use if configured on the <code>ComparableInfo</code>
      * it will be used, else the given integer index will be used with an
@@ -247,7 +245,7 @@ public class CompareFieldCreateModifier extends ComponentModifierBase {
      * </p>
      *
      * @param comparable - comparable info to check for id suffix
-     * @param index - sequence integer
+     * @param index      - sequence integer
      * @return String id suffix
      * @see ComparableInfo.getIdSuffix()
      */
@@ -305,7 +303,7 @@ public class CompareFieldCreateModifier extends ComponentModifierBase {
     /**
      * Indicates whether a <code>HeaderField</code> should be created for each
      * group of comparison fields
-     *
+     * <p>
      * <p>
      * If set to true, for each group of comparison fields a header field will
      * be created using the headerFieldPrototype configured on the modifier with
@@ -313,7 +311,7 @@ public class CompareFieldCreateModifier extends ComponentModifierBase {
      * </p>
      *
      * @return boolean true if the headers should be created, false if no
-     *         headers should be created
+     * headers should be created
      */
     public boolean isGenerateCompareHeaders() {
         return this.generateCompareHeaders;
@@ -350,7 +348,7 @@ public class CompareFieldCreateModifier extends ComponentModifierBase {
     /**
      * List of <code>ComparableInfo</code> instances the compare fields should
      * be generated for
-     *
+     * <p>
      * <p>
      * For each comparable, a copy of the fields configured for the
      * <code>Group</code> will be created for the comparison view

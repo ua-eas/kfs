@@ -1,43 +1,36 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.document.web.struts;
 
-import static org.kuali.kfs.module.bc.BCConstants.AppointmentFundingDurationCodes.LWPA;
-import static org.kuali.kfs.module.bc.BCConstants.AppointmentFundingDurationCodes.LWPF;
-import static org.kuali.kfs.module.bc.BCConstants.AppointmentFundingDurationCodes.NONE;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.question.ConfirmationQuestion;
+import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.module.bc.BCConstants;
+import org.kuali.kfs.module.bc.BCConstants.SynchronizationCheckType;
 import org.kuali.kfs.module.bc.BCKeyConstants;
 import org.kuali.kfs.module.bc.BCPropertyConstants;
-import org.kuali.kfs.module.bc.BCConstants.SynchronizationCheckType;
 import org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding;
 import org.kuali.kfs.module.bc.document.BudgetConstructionDocument;
 import org.kuali.kfs.module.bc.document.service.BudgetDocumentService;
@@ -51,11 +44,17 @@ import org.kuali.kfs.sys.ObjectUtil;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.question.ConfirmationQuestion;
-import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.kuali.kfs.module.bc.BCConstants.AppointmentFundingDurationCodes.LWPA;
+import static org.kuali.kfs.module.bc.BCConstants.AppointmentFundingDurationCodes.LWPF;
+import static org.kuali.kfs.module.bc.BCConstants.AppointmentFundingDurationCodes.NONE;
 
 /**
  * the base struts action for the detail salary setting
@@ -69,7 +68,7 @@ public abstract class DetailSalarySettingAction extends SalarySettingBaseAction 
 
     /**
      * @see org.kuali.kfs.module.bc.document.web.struts.SalarySettingBaseAction#execute(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -77,8 +76,7 @@ public abstract class DetailSalarySettingAction extends SalarySettingBaseAction 
 
         try {
             executeAction = super.execute(mapping, form, request, response);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             // release all locks when encountering runtime exception
             DetailSalarySettingForm salarySettingForm = (DetailSalarySettingForm) form;
             if (!salarySettingForm.isViewOnlyEntry()) {
@@ -97,7 +95,7 @@ public abstract class DetailSalarySettingAction extends SalarySettingBaseAction 
 
     /**
      * @see org.kuali.kfs.module.bc.document.web.struts.BudgetExpansionAction#close(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward close(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -108,8 +106,7 @@ public abstract class DetailSalarySettingAction extends SalarySettingBaseAction 
         ActionForward closeActionForward;
         if (salarySettingForm.isViewOnlyEntry() || salarySettingForm.isSalarySettingClosed()) {
             closeActionForward = this.returnAfterClose(salarySettingForm, mapping, request, response);
-        }
-        else {
+        } else {
             closeActionForward = super.close(mapping, salarySettingForm, request, response);
         }
 
@@ -127,7 +124,7 @@ public abstract class DetailSalarySettingAction extends SalarySettingBaseAction 
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiAction#refresh(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward refresh(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -138,13 +135,13 @@ public abstract class DetailSalarySettingAction extends SalarySettingBaseAction 
 
         if (refreshCaller != null && refreshCaller.endsWith(KFSConstants.LOOKUPABLE_SUFFIX)) {
             // user could return from a lookup using a different fiscal year - do not allow it to change the funding line
-            if (!salarySettingForm.getNewBCAFLine().getUniversityFiscalYear().equals(salarySettingForm.getUniversityFiscalYear())){
+            if (!salarySettingForm.getNewBCAFLine().getUniversityFiscalYear().equals(salarySettingForm.getUniversityFiscalYear())) {
                 salarySettingForm.getNewBCAFLine().setUniversityFiscalYear(salarySettingForm.getUniversityFiscalYear());
             }
-            if (salarySettingForm instanceof PositionSalarySettingForm){
+            if (salarySettingForm instanceof PositionSalarySettingForm) {
                 // check that the object code is consistent with the position default object
                 PositionSalarySettingForm ssPosForm = (PositionSalarySettingForm) salarySettingForm;
-                if (!ssPosForm.getNewBCAFLine().getFinancialObjectCode().equals(ssPosForm.getBudgetConstructionPosition().getIuDefaultObjectCode())){
+                if (!ssPosForm.getNewBCAFLine().getFinancialObjectCode().equals(ssPosForm.getBudgetConstructionPosition().getIuDefaultObjectCode())) {
                     ssPosForm.getNewBCAFLine().setFinancialObjectCode(ssPosForm.getBudgetConstructionPosition().getIuDefaultObjectCode());
                 }
             }
@@ -156,7 +153,7 @@ public abstract class DetailSalarySettingAction extends SalarySettingBaseAction 
 
     /**
      * @see org.kuali.kfs.module.bc.document.web.struts.SalarySettingBaseAction#save(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward save(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -204,8 +201,7 @@ public abstract class DetailSalarySettingAction extends SalarySettingBaseAction 
         // so it knows when to remove purged funding position locks when it is the last line for the position
         if (form instanceof IncumbentSalarySettingForm) {
             salarySettingService.saveSalarySetting(savableAppointmentFundings, Boolean.TRUE);
-        }
-        else {
+        } else {
             salarySettingService.saveSalarySetting(savableAppointmentFundings, Boolean.FALSE);
         }
 
@@ -365,7 +361,7 @@ public abstract class DetailSalarySettingAction extends SalarySettingBaseAction 
     /**
      * This should return the SynchronizationCheckType based on the context. SynchronizationCheckType.POSN is used in
      * IncumbentSalarySetting and SynchronizationCheckType.EID is used in PositionSalarySetting
-     * 
+     *
      * @return
      */
     public abstract SynchronizationCheckType getSynchronizationCheckType();

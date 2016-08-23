@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -31,7 +31,6 @@ public class UpcomingMilestoneNotificationStep extends AbstractStep {
     protected UpcomingMilestoneNotificationService upcomingMilestoneNotificationService;
 
     /**
-     *
      * @see org.kuali.kfs.sys.batch.Step#execute(java.lang.String, java.util.Date)
      */
     @Override

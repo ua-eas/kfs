@@ -1,28 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.coa.dataaccess.impl;
-
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
 
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryFactory;
@@ -30,13 +24,19 @@ import org.apache.ojb.broker.query.ReportQueryByCriteria;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.AccountDelegate;
 import org.kuali.kfs.coa.dataaccess.AccountDao;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.AccountResponsibility;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * This class is the OJB implementation of the AccountDao interface.
@@ -46,9 +46,9 @@ public class AccountDaoOjb extends PlatformAwareDaoBaseOjb implements AccountDao
 
     /**
      * Retrieves account business object by primary key
-     * 
+     *
      * @param chartOfAccountsCode - the FIN_COA_CD of the Chart Code that is part of the composite key of Account
-     * @param accountNumber - the ACCOUNT_NBR part of the composite key of Accont
+     * @param accountNumber       - the ACCOUNT_NBR part of the composite key of Accont
      * @return Account
      * @see AccountDao
      */
@@ -64,7 +64,7 @@ public class AccountDaoOjb extends PlatformAwareDaoBaseOjb implements AccountDao
 
     /**
      * fetch the accounts that the user is either the fiscal officer or a delegate of the fiscal officer
-     * 
+     *
      * @param kualiUser
      * @return a list of Accounts that the user has responsibility for
      */
@@ -79,7 +79,7 @@ public class AccountDaoOjb extends PlatformAwareDaoBaseOjb implements AccountDao
 
     /**
      * @see org.kuali.kfs.coa.dataaccess.AccountDao#determineUserResponsibilityOnAccount(org.kuali.rice.kim.api.identity.Person,
-     *      org.kuali.kfs.coa.businessobject.Account, java.sql.Date)
+     * org.kuali.kfs.coa.businessobject.Account, java.sql.Date)
      */
     public boolean determineUserResponsibilityOnAccount(Person person, Account account, Date currentSqlDate) {
         boolean result = hasFiscalOfficerResponsibility(person, account);
@@ -92,9 +92,9 @@ public class AccountDaoOjb extends PlatformAwareDaoBaseOjb implements AccountDao
     /**
      * Resolves the Primary Delegate for the given delegate example. If the primary delegate exists for a specific Document Type
      * Code and for a Document Type Code of "KFS", the delegate for the specific document type code is returned;
-     * 
+     *
      * @see org.kuali.kfs.coa.dataaccess.AccountDao#getPrimaryDelegationByExample(org.kuali.kfs.coa.businessobject.AccountDelegate,
-     *      java.lang.String)
+     * java.lang.String)
      */
     public List getPrimaryDelegationByExample(AccountDelegate delegateExample, Date currentSqlDate, String totalDollarAmount) {
         return new ArrayList(getPersistenceBrokerTemplate().getCollectionByQuery(QueryFactory.newQuery(AccountDelegate.class, getDelegateByExampleCriteria(delegateExample, currentSqlDate, totalDollarAmount, "Y"))));
@@ -102,7 +102,7 @@ public class AccountDaoOjb extends PlatformAwareDaoBaseOjb implements AccountDao
 
     /**
      * @see org.kuali.kfs.coa.dataaccess.AccountDao#getSecondaryDelegationsByExample(org.kuali.kfs.coa.businessobject.AccountDelegate,
-     *      java.lang.String)
+     * java.lang.String)
      */
     public List getSecondaryDelegationsByExample(AccountDelegate delegateExample, Date currentSqlDate, String totalDollarAmount) {
         return new ArrayList(getPersistenceBrokerTemplate().getCollectionByQuery(QueryFactory.newQuery(AccountDelegate.class, getDelegateByExampleCriteria(delegateExample, currentSqlDate, totalDollarAmount, "N"))));
@@ -110,7 +110,7 @@ public class AccountDaoOjb extends PlatformAwareDaoBaseOjb implements AccountDao
 
     /**
      * This method creates a {@link Criteria} based on {@link Delegate}, dollar amount and whether or not it is the primary delegate
-     * 
+     *
      * @param delegateExample
      * @param totalDollarAmount
      * @param accountsDelegatePrmrtIndicator
@@ -181,7 +181,7 @@ public class AccountDaoOjb extends PlatformAwareDaoBaseOjb implements AccountDao
 
     /**
      * method to get the fo responsibilities for the account
-     * 
+     *
      * @param person - fiscal officer to check for
      * @return list of {@link AccountResponsibility} for this fiscal officer
      */
@@ -190,7 +190,7 @@ public class AccountDaoOjb extends PlatformAwareDaoBaseOjb implements AccountDao
         Criteria criteria = new Criteria();
         criteria.addEqualTo("accountFiscalOfficerSystemIdentifier", person.getPrincipalId());
         Collection accounts = getPersistenceBrokerTemplate().getCollectionByQuery(QueryFactory.newQuery(Account.class, criteria));
-        for (Iterator iter = accounts.iterator(); iter.hasNext();) {
+        for (Iterator iter = accounts.iterator(); iter.hasNext(); ) {
             Account account = (Account) iter.next();
             AccountResponsibility accountResponsibility = new AccountResponsibility(AccountResponsibility.FISCAL_OFFICER_RESPONSIBILITY, KualiDecimal.ZERO, KualiDecimal.ZERO, "", account);
             fiscalOfficerResponsibilities.add(accountResponsibility);
@@ -200,8 +200,8 @@ public class AccountDaoOjb extends PlatformAwareDaoBaseOjb implements AccountDao
 
     /**
      * This method determines if a given user has fiscal officer responsiblity on a given account.
-     * 
-     * @param person the user to check responsibilities for
+     *
+     * @param person  the user to check responsibilities for
      * @param account the account to check responsibilities on
      * @return true if user does have fiscal officer responsibility on account, false if otherwise
      */
@@ -223,7 +223,7 @@ public class AccountDaoOjb extends PlatformAwareDaoBaseOjb implements AccountDao
 
     /**
      * method to get the fo delegated responsibilities for the account
-     * 
+     *
      * @param person - user to check against
      * @return a list of {@link AccountResponsibility} objects for a delegate
      */
@@ -232,7 +232,7 @@ public class AccountDaoOjb extends PlatformAwareDaoBaseOjb implements AccountDao
         Criteria criteria = new Criteria();
         criteria.addEqualTo("accountDelegateSystemId", person.getPrincipalId());
         Collection accountDelegates = getPersistenceBrokerTemplate().getCollectionByQuery(QueryFactory.newQuery(AccountDelegate.class, criteria));
-        for (Iterator iter = accountDelegates.iterator(); iter.hasNext();) {
+        for (Iterator iter = accountDelegates.iterator(); iter.hasNext(); ) {
             AccountDelegate accountDelegate = (AccountDelegate) iter.next();
             if (accountDelegate.isActive()) {
                 // the start_date should never be null in the real world, but
@@ -252,8 +252,8 @@ public class AccountDaoOjb extends PlatformAwareDaoBaseOjb implements AccountDao
 
     /**
      * This method determines if a user has delegated responsibilities on a given account.
-     * 
-     * @param person the user to check responsibilities for
+     *
+     * @param person  the user to check responsibilities for
      * @param account the account to check responsibilities on
      * @return true if user has delegated responsibilities
      */
@@ -264,7 +264,7 @@ public class AccountDaoOjb extends PlatformAwareDaoBaseOjb implements AccountDao
         criteria.addEqualTo("chartOfAccountsCode", account.getChartOfAccountsCode());
         criteria.addEqualTo("accountNumber", account.getAccountNumber());
         Collection accountDelegates = getPersistenceBrokerTemplate().getCollectionByQuery(QueryFactory.newQuery(AccountDelegate.class, criteria));
-        for (Iterator iter = accountDelegates.iterator(); iter.hasNext() && !hasResponsibility;) {
+        for (Iterator iter = accountDelegates.iterator(); iter.hasNext() && !hasResponsibility; ) {
             AccountDelegate accountDelegate = (AccountDelegate) iter.next();
             if (accountDelegate.isActive()) {
                 // the start_date should never be null in the real world, but
@@ -281,8 +281,8 @@ public class AccountDaoOjb extends PlatformAwareDaoBaseOjb implements AccountDao
     }
 
     /**
-     * @see org.kuali.kfs.coa.dataaccess.AccountDao#getAllAccounts()
      * @return an iterator for all accounts
+     * @see org.kuali.kfs.coa.dataaccess.AccountDao#getAllAccounts()
      */
     public Iterator getAllAccounts() {
         LOG.debug("getAllAccounts() started");
@@ -337,7 +337,7 @@ public class AccountDaoOjb extends PlatformAwareDaoBaseOjb implements AccountDao
 
     /**
      * Builds a criteria to find expired accounts
-     * 
+     *
      * @return a Criteria for expired accounts
      */
     protected Criteria getAccountExpiredCriteria(Date currentSqlDate) {
@@ -349,7 +349,7 @@ public class AccountDaoOjb extends PlatformAwareDaoBaseOjb implements AccountDao
 
     /**
      * Builds a criteria to find non-expired accounts
-     * 
+     *
      * @return a Criteria for non-expired accounts
      */
     protected Criteria getAccountNotExpiredCriteria(Date currentSqlDate) {
@@ -372,8 +372,8 @@ public class AccountDaoOjb extends PlatformAwareDaoBaseOjb implements AccountDao
 
     /**
      * Determines if any non-closed accounts exist where the principal id is in the role of the role name
-     * 
-     * @param principalId the principal id to check
+     *
+     * @param principalId       the principal id to check
      * @param principalRoleName the name of the field on account to check for the principal id in
      * @return true if the principal has that account role, false otherwise
      */
@@ -383,7 +383,7 @@ public class AccountDaoOjb extends PlatformAwareDaoBaseOjb implements AccountDao
         criteria.addEqualTo("active", "Y");
 
         ReportQueryByCriteria reportQuery = QueryFactory.newReportQuery(Account.class, criteria);
-        reportQuery.setAttributes(new String[] { "count(*)" });
+        reportQuery.setAttributes(new String[]{"count(*)"});
 
         int resultCount = 0;
         Iterator iter = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(reportQuery);

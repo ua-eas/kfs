@@ -1,62 +1,63 @@
 <%--
-
-    Copyright 2005-2015 The Kuali Foundation
-
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-    http://www.opensource.org/licenses/ecl2.php
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/krad/WEB-INF/jsp/tldHeader.jsp"%>
+<%@ include file="/krad/WEB-INF/jsp/tldHeader.jsp" %>
 
 <c:choose>
-  <c:when test="${KualiForm.renderFullView}">
+    <c:when test="${KualiForm.renderFullView}">
 
-     <%-- render full view --%>
-     <krad:template component="${KualiForm.view}"/>
+        <%-- render full view --%>
+        <krad:template component="${KualiForm.view}"/>
 
-  </c:when>
-  <c:otherwise>
-  
-     <%-- render page only --%>
-     <html>
-       <%-- rerun view pre-load script to get new state variables for page --%>
-       <krad:script value="${view.preLoadScript}"/>
+    </c:when>
+    <c:otherwise>
 
-       <s:nestedPath path="KualiForm">
-       	 <krad:template component="${KualiForm.view.breadcrumbs}"/>
+        <%-- render page only --%>
+        <html>
+            <%-- rerun view pre-load script to get new state variables for page --%>
+        <krad:script value="${view.preLoadScript}"/>
 
-         <div id="viewpage_div">
-            <krad:template component="${KualiForm.view.currentPage}"/>
-        
-            <c:if test="${KualiForm.view.renderForm}">
-              <form:hidden path="pageId"/>
-              <c:if test="${!empty view.currentPage}">
-				        <form:hidden id="currentPageTitle" path="view.currentPage.title"/>
-			        </c:if>
+        <s:nestedPath path="KualiForm">
+            <krad:template component="${KualiForm.view.breadcrumbs}"/>
 
-              <form:hidden path="jumpToId"/>
-          	  <form:hidden path="jumpToName"/>
-          	  <form:hidden path="focusId"/>
-          	  <form:hidden path="formHistory.historyParameterString"/>
-            </c:if>
+            <div id="viewpage_div">
+                <krad:template component="${KualiForm.view.currentPage}"/>
 
-            <krad:script value="performJumpTo();"/>
+                <c:if test="${KualiForm.view.renderForm}">
+                    <form:hidden path="pageId"/>
+                    <c:if test="${!empty view.currentPage}">
+                        <form:hidden id="currentPageTitle" path="view.currentPage.title"/>
+                    </c:if>
 
-            <c:if test="${KualiForm.view.currentPage.autoFocus}">
-            	<krad:script value="performFocus();"/>
-            </c:if>
-         </div>
-       </s:nestedPath>
-     </html>
-     
-  </c:otherwise>
+                    <form:hidden path="jumpToId"/>
+                    <form:hidden path="jumpToName"/>
+                    <form:hidden path="focusId"/>
+                    <form:hidden path="formHistory.historyParameterString"/>
+                </c:if>
+
+                <krad:script value="performJumpTo();"/>
+
+                <c:if test="${KualiForm.view.currentPage.autoFocus}">
+                    <krad:script value="performFocus();"/>
+                </c:if>
+            </div>
+        </s:nestedPath>
+        </html>
+
+    </c:otherwise>
 </c:choose>

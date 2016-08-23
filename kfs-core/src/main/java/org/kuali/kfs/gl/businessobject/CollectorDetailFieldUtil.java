@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.gl.businessobject;
 
-import java.util.Map;
-
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.BusinessObjectStringParserFieldUtils;
 import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.util.Map;
 
 /**
  * This class has utility methods for parsing OriginEntries from Strings
@@ -31,6 +31,7 @@ public class CollectorDetailFieldUtil extends BusinessObjectStringParserFieldUti
 
     /**
      * Returns the class to parse into - OriginEntryFull
+     *
      * @see org.kuali.kfs.sys.businessobject.BusinessObjectStringParserFieldUtils#getBusinessObjectClass()
      */
     @Override
@@ -40,29 +41,29 @@ public class CollectorDetailFieldUtil extends BusinessObjectStringParserFieldUti
 
     /**
      * Returns the fields to be parsed from a String, in order, to form an OriginEntryFull
+     *
      * @see org.kuali.kfs.sys.businessobject.BusinessObjectStringParserFieldUtils#getOrderedProperties()
      */
     @Override
     public String[] getOrderedProperties() {
-        return new String[] {
-                KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR,
-                KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE,
-                KFSPropertyConstants.ACCOUNT_NUMBER,
-                KFSPropertyConstants.SUB_ACCOUNT_NUMBER,
-                KFSPropertyConstants.FINANCIAL_OBJECT_CODE,
-                KFSPropertyConstants.FINANCIAL_SUB_OBJECT_CODE,
-                KFSPropertyConstants.FINANCIAL_BALANCE_TYPE_CODE,
-                KFSPropertyConstants.FINANCIAL_OBJECT_TYPE_CODE,
-                KFSPropertyConstants.COLLECTOR_DETAIL_SEQUENCE_NUMBER,
-                KFSPropertyConstants.FINANCIAL_DOCUMENT_TYPE_CODE,
-                KFSPropertyConstants.FINANCIAL_SYSTEM_ORIGINATION_CODE,
-                KFSPropertyConstants.DOCUMENT_NUMBER,
-                KFSPropertyConstants.COLLECTOR_DETAIL_AMOUNT,
-                KFSPropertyConstants.COLLECTOR_DETAIL_GL_CREDIT_CODE,
-                KFSPropertyConstants.COLLECTOR_DETAIL_NOTE_TEXT
+        return new String[]{
+            KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR,
+            KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE,
+            KFSPropertyConstants.ACCOUNT_NUMBER,
+            KFSPropertyConstants.SUB_ACCOUNT_NUMBER,
+            KFSPropertyConstants.FINANCIAL_OBJECT_CODE,
+            KFSPropertyConstants.FINANCIAL_SUB_OBJECT_CODE,
+            KFSPropertyConstants.FINANCIAL_BALANCE_TYPE_CODE,
+            KFSPropertyConstants.FINANCIAL_OBJECT_TYPE_CODE,
+            KFSPropertyConstants.COLLECTOR_DETAIL_SEQUENCE_NUMBER,
+            KFSPropertyConstants.FINANCIAL_DOCUMENT_TYPE_CODE,
+            KFSPropertyConstants.FINANCIAL_SYSTEM_ORIGINATION_CODE,
+            KFSPropertyConstants.DOCUMENT_NUMBER,
+            KFSPropertyConstants.COLLECTOR_DETAIL_AMOUNT,
+            KFSPropertyConstants.COLLECTOR_DETAIL_GL_CREDIT_CODE,
+            KFSPropertyConstants.COLLECTOR_DETAIL_NOTE_TEXT
         };
     }
-
 
 
     public int getDetailLineTotalLength() {

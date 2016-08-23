@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -20,8 +20,8 @@
 
 <%@ attribute name="documentAttributes" required="true" type="java.util.Map"
               description="The DataDictionary entry containing attributes for this row's fields." %>
-              
-<c:set var="customerAddressAttributes" value="${DataDictionary.CustomerAddress.attributes}" />              
+
+<c:set var="customerAddressAttributes" value="${DataDictionary.CustomerAddress.attributes}" />
 <c:set var="tabindexOverrideBase" value="200" />
 
 <%@ attribute name="readOnly" required="true" description="used to decide editability of overview fields" %>
@@ -54,7 +54,7 @@
 								title="Refresh Bill to Address" alt="Refresh Bill To Address"
 								styleClass="btn btn-default small"
 								value="Refresh"/>
-					</c:if>			
+					</c:if>
 				</td>
 				<th class="right" style="width: 25%;">
 					<kul:htmlAttributeLabel attributeEntry="${customerAddressAttributes.customerCityName}" />
@@ -69,7 +69,7 @@
 					</div>
 				</td>
 			</tr>
-			
+
 			<tr>
 				<th class="right" style="width: 25%;">
 					<kul:htmlAttributeLabel attributeEntry="${customerAddressAttributes.customerAddressTypeCode}" />
@@ -96,7 +96,7 @@
 					</div>
 				</td>
 			</tr>
-			
+
 			<tr>
 				<th class="right" style="width: 25%;">
 					<kul:htmlAttributeLabel attributeEntry="${customerAddressAttributes.customerAddressName}" />
@@ -123,7 +123,7 @@
 					</div>
 				</td>
 			</tr>
-			
+
 			<tr>
 				<th class="right" style="width: 25%;">
 					<kul:htmlAttributeLabel attributeEntry="${customerAddressAttributes.customerLine1StreetAddress}" />
@@ -177,7 +177,7 @@
 					</div>
 				</td>
 			</tr>
-			
+
 			<tr>
 				<th class="right" style="width: 25%;">
 					<kul:htmlAttributeLabel attributeEntry="${customerAddressAttributes.customerEmailAddress}" />
@@ -204,8 +204,8 @@
 					</div>
 				</td>
 			</tr>
-			
-			
+
+
 	        <tr>
 				<td colspan="4" class="subhead"><h3>Ship To Address</h3></td>
 			</tr>
@@ -231,7 +231,7 @@
 								tabindex="-1"
 								styleClass="btn btn-default small"
 								value="Refresh"/>
-					</c:if>			
+					</c:if>
 				</td>
 				<th class="right" style="width: 25%;">
 					<kul:htmlAttributeLabel attributeEntry="${customerAddressAttributes.customerCityName}" />
@@ -246,7 +246,7 @@
                      </div>
 				</td>
 			</tr>
-			
+
 			<tr>
 				<th class="right" style="width: 25%;">
 					<kul:htmlAttributeLabel attributeEntry="${customerAddressAttributes.customerAddressTypeCode}" />
@@ -270,10 +270,10 @@
 						property="document.shippingStateCode"
 						tabindexOverride="${tabindexOverrideBase} + 75"
 						readOnly="true" />
-                     </div>   
+                     </div>
 				</td>
 			</tr>
-			
+
 			<tr>
 				<th class="right" style="width: 25%;">
 					<kul:htmlAttributeLabel attributeEntry="${customerAddressAttributes.customerAddressName}" />

@@ -1,31 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cg.document.validation.impl;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.ar.AccountsReceivableModuleBillingService;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cg.businessobject.Agency;
 import org.kuali.kfs.module.cg.businessobject.AwardFundManager;
 import org.kuali.kfs.module.cg.businessobject.CGProjectDirector;
@@ -38,10 +35,13 @@ import org.kuali.rice.kim.api.identity.CodedAttribute;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.role.RoleService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Rules for the Proposal/Award/Agency maintenance document.
@@ -49,7 +49,7 @@ import org.kuali.kfs.krad.util.ObjectUtils;
 public class CGMaintenanceDocumentRuleBase extends MaintenanceDocumentRuleBase {
 
     protected static final String PROJECT_DIRECTOR_DECEASED = "D";
-    protected static final String[] PROJECT_DIRECTOR_INVALID_STATUSES = { PROJECT_DIRECTOR_DECEASED };
+    protected static final String[] PROJECT_DIRECTOR_INVALID_STATUSES = {PROJECT_DIRECTOR_DECEASED};
 
     protected static final String AGENCY_TYPE_CODE_FEDERAL = "F";
 
@@ -132,7 +132,6 @@ public class CGMaintenanceDocumentRuleBase extends MaintenanceDocumentRuleBase {
     }
 
     /**
-     *
      * @param fundManagers
      * @param collectionName
      * @return
@@ -188,8 +187,8 @@ public class CGMaintenanceDocumentRuleBase extends MaintenanceDocumentRuleBase {
      * of "D" cannot be added to a {@link Proposal} or {@link Award}.
      *
      * @param projectDirectors Collection of project directors to be reviewed.
-     * @param elementClass Type of object that the collection belongs to.
-     * @param propertyName Name of field that error will be attached to.
+     * @param elementClass     Type of object that the collection belongs to.
+     * @param propertyName     Name of field that error will be attached to.
      * @return True if all the project directors have valid statuses, false otherwise.
      */
     protected <T extends CGProjectDirector> boolean checkProjectDirectorsStatuses(List<T> projectDirectors, Class<T> elementClass, String propertyName) {
@@ -198,13 +197,13 @@ public class CGMaintenanceDocumentRuleBase extends MaintenanceDocumentRuleBase {
             String pdEmplStatusCode = pd.getProjectDirector().getEmployeeStatusCode();
             if (StringUtils.isBlank(pdEmplStatusCode) || Arrays.asList(PROJECT_DIRECTOR_INVALID_STATUSES).contains(pdEmplStatusCode)) {
                 String pdEmplStatusName = "INVALID STATUS CODE " + pdEmplStatusCode;
-                if ( StringUtils.isNotBlank(pdEmplStatusCode) ) {
+                if (StringUtils.isNotBlank(pdEmplStatusCode)) {
                     CodedAttribute empStatus = KimApiServiceLocator.getIdentityService().getEmploymentStatus(pdEmplStatusCode);
-                    if ( empStatus != null ) {
+                    if (empStatus != null) {
                         pdEmplStatusName = empStatus.getName();
                     }
                 }
-                String[] errors = { pd.getProjectDirector().getName(), pdEmplStatusCode + " - " + pdEmplStatusName };
+                String[] errors = {pd.getProjectDirector().getName(), pdEmplStatusCode + " - " + pdEmplStatusName};
                 putFieldError(propertyName, KFSKeyConstants.ERROR_INVALID_PROJECT_DIRECTOR_STATUS, errors);
                 success = false;
             }
@@ -223,7 +222,7 @@ public class CGMaintenanceDocumentRuleBase extends MaintenanceDocumentRuleBase {
      */
     protected boolean checkAgencyNotEqualToFederalPassThroughAgency(Agency agency, Agency federalPassThroughAgency, String agencyPropertyName, String fedPassThroughAgencyPropertyName) {
         boolean success = true;
-        if (ObjectUtils.isNotNull(agency) && ObjectUtils.isNotNull(federalPassThroughAgency) && ObjectUtils.isNotNull(agency.getAgencyNumber()) && ObjectUtils.isNotNull(federalPassThroughAgency.getAgencyNumber()) &&  agency.equals(federalPassThroughAgency)) {
+        if (ObjectUtils.isNotNull(agency) && ObjectUtils.isNotNull(federalPassThroughAgency) && ObjectUtils.isNotNull(agency.getAgencyNumber()) && ObjectUtils.isNotNull(federalPassThroughAgency.getAgencyNumber()) && agency.equals(federalPassThroughAgency)) {
             putFieldError(agencyPropertyName, KFSKeyConstants.ERROR_AGENCY_EQUALS_FEDERAL_PASS_THROUGH_AGENCY);
             putFieldError(fedPassThroughAgencyPropertyName, KFSKeyConstants.ERROR_FEDERAL_PASS_THROUGH_AGENCY_EQUALS_AGENCY);
             success = false;
@@ -252,22 +251,20 @@ public class CGMaintenanceDocumentRuleBase extends MaintenanceDocumentRuleBase {
         if (primaryAgencyIsFederal) {
             if (federalPassThroughIndicator) {
                 // fpt indicator should not be checked if primary agency is federal
-                putFieldError(federalPassThroughIndicatorFieldName, KFSKeyConstants.ERROR_PRIMARY_AGENCY_IS_FEDERAL_AND_FPT_INDICATOR_IS_CHECKED, new String[] { primaryAgency.getAgencyNumber(), AGENCY_TYPE_CODE_FEDERAL });
+                putFieldError(federalPassThroughIndicatorFieldName, KFSKeyConstants.ERROR_PRIMARY_AGENCY_IS_FEDERAL_AND_FPT_INDICATOR_IS_CHECKED, new String[]{primaryAgency.getAgencyNumber(), AGENCY_TYPE_CODE_FEDERAL});
                 success = false;
             }
             if (!StringUtils.isBlank(federalPassThroughAgencyNumber)) {
                 // fpt agency number should be blank if primary agency is federal
-                putFieldError(KFSPropertyConstants.FEDERAL_PASS_THROUGH_AGENCY_NUMBER, KFSKeyConstants.ERROR_PRIMARY_AGENCY_IS_FEDERAL_AND_FPT_AGENCY_IS_NOT_BLANK, new String[] { primaryAgency.getAgencyNumber(), AGENCY_TYPE_CODE_FEDERAL });
+                putFieldError(KFSPropertyConstants.FEDERAL_PASS_THROUGH_AGENCY_NUMBER, KFSKeyConstants.ERROR_PRIMARY_AGENCY_IS_FEDERAL_AND_FPT_AGENCY_IS_NOT_BLANK, new String[]{primaryAgency.getAgencyNumber(), AGENCY_TYPE_CODE_FEDERAL});
                 success = false;
             }
-        }
-        else {
+        } else {
             if (federalPassThroughIndicator && StringUtils.isBlank(federalPassThroughAgencyNumber)) {
                 // fpt agency number is required if fpt indicator is checked
                 putFieldError(KFSPropertyConstants.FEDERAL_PASS_THROUGH_AGENCY_NUMBER, KFSKeyConstants.ERROR_FPT_AGENCY_NUMBER_REQUIRED);
                 success = false;
-            }
-            else if (!federalPassThroughIndicator && !StringUtils.isBlank(federalPassThroughAgencyNumber)) {
+            } else if (!federalPassThroughIndicator && !StringUtils.isBlank(federalPassThroughAgencyNumber)) {
                 // fpt agency number should be blank if fpt indicator is not checked
                 putFieldError(KFSPropertyConstants.FEDERAL_PASS_THROUGH_AGENCY_NUMBER, KFSKeyConstants.ERROR_FPT_AGENCY_NUMBER_NOT_BLANK);
                 success = false;

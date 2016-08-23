@@ -1,25 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sec.document.authorization;
-
-import java.util.List;
-import java.util.Set;
 
 import org.kuali.kfs.fp.document.authorization.CapitalAccountingLinesAuthorizer;
 import org.kuali.kfs.sec.service.AccessSecurityService;
@@ -30,6 +27,9 @@ import org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizer;
 import org.kuali.kfs.sys.document.web.AccountingLineRenderingContext;
 import org.kuali.kfs.sys.document.web.AccountingLineViewAction;
 import org.kuali.rice.kim.api.identity.Person;
+
+import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -108,7 +108,7 @@ public class SecAccountingLineAuthorizer implements AccountingLineAuthorizer, Ca
     @Override
     public boolean determineEditPermissionOnFieldBypassCapitalCheck(AccountingDocument accountingDocument, AccountingLine accountingLine, String accountingLineCollectionProperty, String fieldName, boolean editablePage) {
         if (lineAuthorizer instanceof CapitalAccountingLinesAuthorizer) {
-            return ((CapitalAccountingLinesAuthorizer)lineAuthorizer).determineEditPermissionOnFieldBypassCapitalCheck(accountingDocument, accountingLine, accountingLineCollectionProperty, fieldName, editablePage);
+            return ((CapitalAccountingLinesAuthorizer) lineAuthorizer).determineEditPermissionOnFieldBypassCapitalCheck(accountingDocument, accountingLine, accountingLineCollectionProperty, fieldName, editablePage);
         }
 
         // this should never be reached

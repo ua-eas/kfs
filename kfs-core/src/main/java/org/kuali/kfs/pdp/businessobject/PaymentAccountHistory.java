@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -22,12 +22,12 @@
  */
 package org.kuali.kfs.pdp.businessobject;
 
-import java.sql.Timestamp;
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.TimestampedBusinessObjectBase;
 import org.kuali.rice.core.api.util.type.KualiInteger;
+
+import java.sql.Timestamp;
+import java.util.LinkedHashMap;
 
 public class PaymentAccountHistory extends TimestampedBusinessObjectBase {
 
@@ -40,7 +40,7 @@ public class PaymentAccountHistory extends TimestampedBusinessObjectBase {
     private String acctAttributeOrigValue; // ACCT_ATTRIB_ORIG_VAL
     private String acctAttributeNewValue; // ACCT_ATTRIB_NEW_VAL
     private Timestamp acctChangeDate; // ACCT_CHG_TS
-    
+
     private KualiInteger paymentAccountDetailId;
     private PaymentAccountDetail paymentAccountDetail; // PMT_ACCT_DTL_ID
 
@@ -49,8 +49,8 @@ public class PaymentAccountHistory extends TimestampedBusinessObjectBase {
     }
 
     /**
-     * @hibernate.many-to-one column="PMT_ACCT_DTL_ID" class="edu.iu.uis.pdp.bo.PaymentAccountHistory"
      * @return Returns the accountDetailId.
+     * @hibernate.many-to-one column="PMT_ACCT_DTL_ID" class="edu.iu.uis.pdp.bo.PaymentAccountHistory"
      */
     public PaymentAccountDetail getPaymentAccountDetail() {
         return paymentAccountDetail;
@@ -64,9 +64,9 @@ public class PaymentAccountHistory extends TimestampedBusinessObjectBase {
     }
 
     /**
+     * @return Returns the Id.
      * @hibernate.id column="PMT_ACCT_HIST_ID" generator-class="sequence"
      * @hibernate.generator-param name="sequence" value="PDP.PDP_PMT_ACCT_HIST_ID_SEQ"
-     * @return Returns the Id.
      */
     public KualiInteger getId() {
         return id;
@@ -156,6 +156,7 @@ public class PaymentAccountHistory extends TimestampedBusinessObjectBase {
 
     /**
      * This method gets the accountingChangeCode
+     *
      * @return accountingChangeCode
      */
     public String getAccountingChangeCode() {
@@ -164,6 +165,7 @@ public class PaymentAccountHistory extends TimestampedBusinessObjectBase {
 
     /**
      * This method sets the accountingChangeCode
+     *
      * @param accountingChangeCode
      */
     public void setAccountingChangeCode(String accountingChangeCode) {
@@ -173,13 +175,13 @@ public class PaymentAccountHistory extends TimestampedBusinessObjectBase {
     /**
      * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
      */
-    
+
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap m = new LinkedHashMap();
-        
+
         m.put(KFSPropertyConstants.ID, this.id);
 
         return m;
     }
-   
+
 }

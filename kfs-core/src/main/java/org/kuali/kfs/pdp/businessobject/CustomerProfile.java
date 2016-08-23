@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -21,11 +21,6 @@
  *
  */
 package org.kuali.kfs.pdp.businessobject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -36,19 +31,23 @@ import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
-import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.rice.location.api.LocationConstants;
 import org.kuali.rice.location.framework.campus.CampusEbo;
 import org.kuali.rice.location.framework.country.CountryEbo;
 import org.kuali.rice.location.framework.postalcode.PostalCodeEbo;
 import org.kuali.rice.location.framework.state.StateEbo;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class CustomerProfile extends PersistableBusinessObjectBase implements MutableInactivatable {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CustomerProfile.class);
@@ -118,7 +117,8 @@ public class CustomerProfile extends PersistableBusinessObjectBase implements Mu
 
     public CustomerProfile() {
         super();
-        customerBanks = new ArrayList<CustomerBank>();;
+        customerBanks = new ArrayList<CustomerBank>();
+        ;
     }
 
     public String getCustomerShortName() {
@@ -134,8 +134,8 @@ public class CustomerProfile extends PersistableBusinessObjectBase implements Mu
     }
 
     /**
-     * @hibernate.property column="ACCTG_EDIT_REQ_IND" type="yes_no" not-null="true"
      * @return Returns the accountingEditRequird.
+     * @hibernate.property column="ACCTG_EDIT_REQ_IND" type="yes_no" not-null="true"
      */
     public boolean getAccountingEditRequired() {
         return accountingEditRequired;
@@ -149,8 +149,8 @@ public class CustomerProfile extends PersistableBusinessObjectBase implements Mu
     }
 
     /**
-     * @hibernate.property column="DFLT_SUB_ACCT_NBR" length="5" not-null="true"
      * @return Returns the defaultSubAccountNumber.
+     * @hibernate.property column="DFLT_SUB_ACCT_NBR" length="5" not-null="true"
      */
     public String getDefaultSubAccountNumber() {
         return defaultSubAccountNumber;
@@ -191,136 +191,136 @@ public class CustomerProfile extends PersistableBusinessObjectBase implements Mu
     }
 
     /**
-     * @hibernate.property column="ACH_PMT_DESC" length="100" not-null="false"
      * @return Returns the achPaymentDescription.
+     * @hibernate.property column="ACH_PMT_DESC" length="100" not-null="false"
      */
     public String getAchPaymentDescription() {
         return achPaymentDescription;
     }
 
     /**
-     * @hibernate.property column="ADDL_CHK_NTE_TXT_LN1" length="90" not-null="false"
      * @return Returns the additionalCheckNoteTextLine1.
+     * @hibernate.property column="ADDL_CHK_NTE_TXT_LN1" length="90" not-null="false"
      */
     public String getAdditionalCheckNoteTextLine1() {
         return additionalCheckNoteTextLine1;
     }
 
     /**
-     * @hibernate.property column="ADDL_CHK_NTE_TXT_LN2" length="90" not-null="false"
      * @return Returns the additionalCheckNoteTextLine2.
+     * @hibernate.property column="ADDL_CHK_NTE_TXT_LN2" length="90" not-null="false"
      */
     public String getAdditionalCheckNoteTextLine2() {
         return additionalCheckNoteTextLine2;
     }
 
     /**
-     * @hibernate.property column="ADDL_CHK_NTE_LN3_TXT" length="90" not-null="false"
      * @return Returns the additionalCheckNoteTextLine3.
+     * @hibernate.property column="ADDL_CHK_NTE_LN3_TXT" length="90" not-null="false"
      */
     public String getAdditionalCheckNoteTextLine3() {
         return additionalCheckNoteTextLine3;
     }
 
     /**
-     * @hibernate.property column="ADDL_CHK_NTE_TXT_LN4" length="90" not-null="false"
      * @return Returns the additionalCheckNoteTextLine4.
+     * @hibernate.property column="ADDL_CHK_NTE_TXT_LN4" length="90" not-null="false"
      */
     public String getAdditionalCheckNoteTextLine4() {
         return additionalCheckNoteTextLine4;
     }
 
     /**
-     * @hibernate.property column="CUST_LN1_ADDR" length="55" not-null="false"
      * @return Returns the address1.
+     * @hibernate.property column="CUST_LN1_ADDR" length="55" not-null="false"
      */
     public String getAddress1() {
         return address1;
     }
 
     /**
-     * @hibernate.property column="CUST_LN2_ADDR" length="55" not-null="false"
      * @return Returns the address2.
+     * @hibernate.property column="CUST_LN2_ADDR" length="55" not-null="false"
      */
     public String getAddress2() {
         return address2;
     }
 
     /**
-     * @hibernate.property column="CUST_LN3_ADDR" length="55" not-null="false"
      * @return Returns the address3.
+     * @hibernate.property column="CUST_LN3_ADDR" length="55" not-null="false"
      */
     public String getAddress3() {
         return address3;
     }
 
     /**
-     * @hibernate.property column="CUST_LN4_ADDR" length="55" not-null="false"
      * @return Returns the address4.
+     * @hibernate.property column="CUST_LN4_ADDR" length="55" not-null="false"
      */
     public String getAddress4() {
         return address4;
     }
 
     /**
-     * @hibernate.property column="ADV_HDR_TXT" length="200" not-null="false"
      * @return Returns the adviceHeaderText.
+     * @hibernate.property column="ADV_HDR_TXT" length="200" not-null="false"
      */
     public String getAdviceHeaderText() {
         return adviceHeaderText;
     }
 
     /**
-     * @hibernate.property column="FIN_COA_CD" length="2" not-null="true"
      * @return Returns the chartCode.
+     * @hibernate.property column="FIN_COA_CD" length="2" not-null="true"
      */
     public String getChartCode() {
         return chartCode;
     }
 
     /**
-     * @hibernate.property column="CHK_HDR_NTE_TXT_LN1" length="90" not-null="false"
      * @return Returns the checkHeaderNoteTextLine1.
+     * @hibernate.property column="CHK_HDR_NTE_TXT_LN1" length="90" not-null="false"
      */
     public String getCheckHeaderNoteTextLine1() {
         return checkHeaderNoteTextLine1;
     }
 
     /**
-     * @hibernate.property column="CHK_HDR_NTE_TXT_LN2" length="90" not-null="false"
      * @return Returns the checkHeaderNoteTextLine2.
+     * @hibernate.property column="CHK_HDR_NTE_TXT_LN2" length="90" not-null="false"
      */
     public String getCheckHeaderNoteTextLine2() {
         return checkHeaderNoteTextLine2;
     }
 
     /**
-     * @hibernate.property column="CHK_HDR_NTE_LN3_TXT" length="90" not-null="false"
      * @return Returns the checkHeaderNoteTextLine3.
+     * @hibernate.property column="CHK_HDR_NTE_LN3_TXT" length="90" not-null="false"
      */
     public String getCheckHeaderNoteTextLine3() {
         return checkHeaderNoteTextLine3;
     }
 
     /**
-     * @hibernate.property column="CHK_HDR_NTE_TXT_LN4" length="90" not-null="false"
      * @return Returns the checkHeaderNoteTextLine4.
+     * @hibernate.property column="CHK_HDR_NTE_TXT_LN4" length="90" not-null="false"
      */
     public String getCheckHeaderNoteTextLine4() {
         return checkHeaderNoteTextLine4;
     }
 
     /**
-     * @hibernate.property column="CUST_CTY_NM" length="30" not-null="false"
      * @return Returns the city.
+     * @hibernate.property column="CUST_CTY_NM" length="30" not-null="false"
      */
     public String getCity() {
         return city;
     }
 
     /**
-     * @hibernate.property column="CUST_CNTC_FULL_NM" length="50" not-null="false"
      * @return Returns the contactFullName.
+     * @hibernate.property column="CUST_CNTC_FULL_NM" length="50" not-null="false"
      */
     public String getContactFullName() {
         return contactFullName;
@@ -328,64 +328,64 @@ public class CustomerProfile extends PersistableBusinessObjectBase implements Mu
 
 
     /**
-     * @hibernate.property column="CUST_DESC" length="50" not-null="false"
      * @return Returns the customerDescription.
+     * @hibernate.property column="CUST_DESC" length="50" not-null="false"
      */
     public String getCustomerDescription() {
         return customerDescription;
     }
 
     /**
-     * @hibernate.property column="DFLT_ACCT_NBR" length="7" not-null="true"
      * @return Returns the defaultAccountNumber.
+     * @hibernate.property column="DFLT_ACCT_NBR" length="7" not-null="true"
      */
     public String getDefaultAccountNumber() {
         return defaultAccountNumber;
     }
 
     /**
-     * @hibernate.property column="DFLT_COA_CD" length="2" not-null="true"
      * @return Returns the defaultChartCode.
+     * @hibernate.property column="DFLT_COA_CD" length="2" not-null="true"
      */
     public String getDefaultChartCode() {
         return defaultChartCode;
     }
 
     /**
-     * @hibernate.property column="DFLT_OBJ_CD" length="4" not-null="true"
      * @return Returns the defaultObjectCode.
+     * @hibernate.property column="DFLT_OBJ_CD" length="4" not-null="true"
      */
     public String getDefaultObjectCode() {
         return defaultObjectCode;
     }
 
     /**
-     * @hibernate.property column="DFLT_PHYS_CMP_PROC_CD" length="2" not-null="false"
      * @return Returns the defaultPhysicalCampusProcessingCode.
+     * @hibernate.property column="DFLT_PHYS_CMP_PROC_CD" length="2" not-null="false"
      */
     public String getDefaultPhysicalCampusProcessingCode() {
         return defaultPhysicalCampusProcessingCode;
     }
 
     /**
-     * @hibernate.property column="DFLT_SUB_OBJ_CD" length="3" not-null="true"
      * @return Returns the defaultSubObjectCode.
+     * @hibernate.property column="DFLT_SUB_OBJ_CD" length="3" not-null="true"
      */
     public String getDefaultSubObjectCode() {
         return defaultSubObjectCode;
     }
 
     /**
-     * @hibernate.property column="FL_THRSHLD_AMT" not-null="false"
      * @return Returns the fileThresholdAmount.
+     * @hibernate.property column="FL_THRSHLD_AMT" not-null="false"
      */
     public KualiDecimal getFileThresholdAmount() {
         return fileThresholdAmount;
     }
 
     /**
-     * @hibernate.property column="CUST_FILE_THRSHLD_EMAIL_ADDR" length="50" not-null="false"
      * @return Returns the fileThresholdEmailAddress.
+     * @hibernate.property column="CUST_FILE_THRSHLD_EMAIL_ADDR" length="50" not-null="false"
      */
     public String getFileThresholdEmailAddress() {
         return fileThresholdEmailAddress;
@@ -401,32 +401,32 @@ public class CustomerProfile extends PersistableBusinessObjectBase implements Mu
     }
 
     /**
-     * @hibernate.property column="ORG_CD" length="4" not-null="true"
      * @return Returns the unitCode.
+     * @hibernate.property column="ORG_CD" length="4" not-null="true"
      */
     public String getUnitCode() {
         return unitCode;
     }
 
     /**
-     * @hibernate.property column="PMT_THRSHLD_AMT" not-null="false"
      * @return Returns the paymentThresholdAmount.
+     * @hibernate.property column="PMT_THRSHLD_AMT" not-null="false"
      */
     public KualiDecimal getPaymentThresholdAmount() {
         return paymentThresholdAmount;
     }
 
     /**
-     * @hibernate.property column="CUST_PMT_THRSHLD_EMAIL_ADDR" length="50" not-null="false"
      * @return Returns the paymentThresholdEmailAddress.
+     * @hibernate.property column="CUST_PMT_THRSHLD_EMAIL_ADDR" length="50" not-null="false"
      */
     public String getPaymentThresholdEmailAddress() {
         return paymentThresholdEmailAddress;
     }
 
     /**
-     * @hibernate.property column="CUST_PRCS_EMAIL_ADDR" length="50" not-null="false"
      * @return Returns the processingEmailAddr.
+     * @hibernate.property column="CUST_PRCS_EMAIL_ADDR" length="50" not-null="false"
      */
     public String getProcessingEmailAddr() {
         return processingEmailAddr;
@@ -440,24 +440,24 @@ public class CustomerProfile extends PersistableBusinessObjectBase implements Mu
     }
 
     /**
-     * @hibernate.property column="CUST_ST_CD" length="30" not-null="false"
      * @return Returns the state.
+     * @hibernate.property column="CUST_ST_CD" length="30" not-null="false"
      */
     public String getStateCode() {
         return stateCode;
     }
 
     /**
-     * @hibernate.property column="SBUNT_CD" length="4" not-null="true"
      * @return Returns the subUnitCode.
+     * @hibernate.property column="SBUNT_CD" length="4" not-null="true"
      */
     public String getSubUnitCode() {
         return subUnitCode;
     }
 
     /**
-     * @hibernate.property column="CUST_ZIP_CD" length="20" not-null="false"
      * @return Returns the zipCode.
+     * @hibernate.property column="CUST_ZIP_CD" length="20" not-null="false"
      */
     public String getZipCode() {
         return zipCode;
@@ -469,56 +469,56 @@ public class CustomerProfile extends PersistableBusinessObjectBase implements Mu
     }
 
     /**
-     * @hibernate.property column="ADV_CRTE_IND" type="yes_no" not-null="false"
      * @return Returns the adviceCreate.
+     * @hibernate.property column="ADV_CRTE_IND" type="yes_no" not-null="false"
      */
     public boolean getAdviceCreate() {
         return adviceCreate;
     }
 
     /**
-     * @hibernate.property column="ADV_SUBJ_LN_TXT" length="40" not-null="false"
      * @return Returns the adviceSubjectLine.
+     * @hibernate.property column="ADV_SUBJ_LN_TXT" length="40" not-null="false"
      */
     public String getAdviceSubjectLine() {
         return adviceSubjectLine;
     }
 
     /**
-     * @hibernate.property column="ADV_RTRN_EMAIL_ADDR" length="50" not-null="false"
      * @return Returns the adviceReturnEmailAddr.
+     * @hibernate.property column="ADV_RTRN_EMAIL_ADDR" length="50" not-null="false"
      */
     public String getAdviceReturnEmailAddr() {
         return adviceReturnEmailAddr;
     }
 
     /**
-     * @hibernate.property column="CUST_EMP_CHK_IND" type="yes_no" not-null="false"
      * @return Returns the employeeCheck.
+     * @hibernate.property column="CUST_EMP_CHK_IND" type="yes_no" not-null="false"
      */
     public boolean getEmployeeCheck() {
         return employeeCheck;
     }
 
     /**
-     * @hibernate.property column="CUST_NRA_RVW_IND" type="yes_no" not-null="false"
      * @return Returns the nraReview.
+     * @hibernate.property column="CUST_NRA_RVW_IND" type="yes_no" not-null="false"
      */
     public boolean getNraReview() {
         return nraReview;
     }
 
     /**
-     * @hibernate.property column="CUST_OWNR_CD_REQ_IND" type="yes_no" not-null="false"
      * @return Returns the ownershipCodeRequired.
+     * @hibernate.property column="CUST_OWNR_CD_REQ_IND" type="yes_no" not-null="false"
      */
     public boolean getOwnershipCodeRequired() {
         return ownershipCodeRequired;
     }
 
     /**
-     * @hibernate.property column="CUST_PAYEE_ID_REQ_IND" type="yes_no" not-null="false"
      * @return Returns the payeeIdRequired.
+     * @hibernate.property column="CUST_PAYEE_ID_REQ_IND" type="yes_no" not-null="false"
      */
     public boolean getPayeeIdRequired() {
         return payeeIdRequired;
@@ -838,17 +838,17 @@ public class CustomerProfile extends PersistableBusinessObjectBase implements Mu
      * @return Returns the defaultProcessingCampus.
      */
     public CampusEbo getDefaultProcessingCampus() {
-        if ( StringUtils.isBlank(defaultPhysicalCampusProcessingCode) ) {
+        if (StringUtils.isBlank(defaultPhysicalCampusProcessingCode)) {
             defaultProcessingCampus = null;
         } else {
-            if ( defaultProcessingCampus == null || !StringUtils.equals( defaultProcessingCampus.getCode(),defaultPhysicalCampusProcessingCode) ) {
+            if (defaultProcessingCampus == null || !StringUtils.equals(defaultProcessingCampus.getCode(), defaultPhysicalCampusProcessingCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(CampusEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(1);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(1);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, defaultPhysicalCampusProcessingCode);
                     defaultProcessingCampus = moduleService.getExternalizableBusinessObject(CampusEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -960,18 +960,18 @@ public class CustomerProfile extends PersistableBusinessObjectBase implements Mu
      * @return Returns the state.
      */
     public StateEbo getState() {
-        if ( StringUtils.isBlank(stateCode) || StringUtils.isBlank(countryCode ) ) {
+        if (StringUtils.isBlank(stateCode) || StringUtils.isBlank(countryCode)) {
             state = null;
         } else {
-            if ( state == null || !StringUtils.equals( state.getCode(),stateCode) || !StringUtils.equals(state.getCountryCode(), countryCode ) ) {
+            if (state == null || !StringUtils.equals(state.getCode(), stateCode) || !StringUtils.equals(state.getCountryCode(), countryCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(StateEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(2);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(2);
                     keys.put(LocationConstants.PrimaryKeyConstants.COUNTRY_CODE, countryCode);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, stateCode);
                     state = moduleService.getExternalizableBusinessObject(StateEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -993,18 +993,18 @@ public class CustomerProfile extends PersistableBusinessObjectBase implements Mu
      * @return Returns the postalCode.
      */
     public PostalCodeEbo getPostalCode() {
-        if ( StringUtils.isBlank(zipCode) || StringUtils.isBlank(countryCode) ) {
+        if (StringUtils.isBlank(zipCode) || StringUtils.isBlank(countryCode)) {
             postalCode = null;
         } else {
-            if ( postalCode == null || !StringUtils.equals( postalCode.getCode(),zipCode) || !StringUtils.equals(postalCode.getCountryCode(), countryCode ) ) {
+            if (postalCode == null || !StringUtils.equals(postalCode.getCode(), zipCode) || !StringUtils.equals(postalCode.getCountryCode(), countryCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(PostalCodeEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(2);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(2);
                     keys.put(LocationConstants.PrimaryKeyConstants.COUNTRY_CODE, countryCode);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, zipCode);
                     postalCode = moduleService.getExternalizableBusinessObject(PostalCodeEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -1026,17 +1026,17 @@ public class CustomerProfile extends PersistableBusinessObjectBase implements Mu
      * @return Returns the country.
      */
     public CountryEbo getCountry() {
-        if ( StringUtils.isBlank(countryCode) ) {
+        if (StringUtils.isBlank(countryCode)) {
             country = null;
         } else {
-            if ( country == null || !StringUtils.equals( country.getCode(),countryCode) ) {
+            if (country == null || !StringUtils.equals(country.getCode(), countryCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(CountryEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(1);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(1);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, countryCode);
                     country = moduleService.getExternalizableBusinessObject(CountryEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -1070,6 +1070,7 @@ public class CustomerProfile extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Gets the countryCode attribute.
+     *
      * @return Returns the countryCode.
      */
     public String getCountryCode() {
@@ -1078,6 +1079,7 @@ public class CustomerProfile extends PersistableBusinessObjectBase implements Mu
 
     /**
      * Sets the countryCode attribute value.
+     *
      * @param countryCode The countryCode to set.
      */
     public void setCountryCode(String countryCode) {
@@ -1122,13 +1124,16 @@ public class CustomerProfile extends PersistableBusinessObjectBase implements Mu
 
     /**
      * This method gets the selected for format flag.
+     *
      * @return selectedForFormat
      */
     public boolean isSelectedForFormat() {
         return selectedForFormat;
-}
+    }
+
     /**
      * This method sets the selectedForFormat value.
+     *
      * @param sameCampus
      */
     public void setSelectedForFormat(boolean sameCampus) {

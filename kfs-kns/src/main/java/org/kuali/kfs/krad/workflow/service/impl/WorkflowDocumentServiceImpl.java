@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -20,21 +20,6 @@ package org.kuali.kfs.krad.workflow.service.impl;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.StopWatch;
-import org.kuali.rice.core.api.exception.RiceRuntimeException;
-import org.kuali.rice.core.api.util.RiceKeyConstants;
-import org.kuali.rice.kew.api.KewApiServiceLocator;
-import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.rice.kew.api.WorkflowDocumentFactory;
-import org.kuali.rice.kew.api.action.ActionRequestType;
-import org.kuali.rice.kew.api.action.ActionType;
-import org.kuali.rice.kew.api.document.node.RouteNodeInstance;
-import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.kew.api.exception.InvalidActionTakenException;
-import org.kuali.rice.kew.api.KewApiConstants;
-import org.kuali.rice.kim.api.group.Group;
-import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kim.api.identity.principal.Principal;
-import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.kfs.krad.bo.AdHocRoutePerson;
 import org.kuali.kfs.krad.bo.AdHocRouteRecipient;
 import org.kuali.kfs.krad.bo.AdHocRouteWorkgroup;
@@ -42,6 +27,21 @@ import org.kuali.kfs.krad.exception.UnknownDocumentIdException;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
+import org.kuali.rice.core.api.exception.RiceRuntimeException;
+import org.kuali.rice.core.api.util.RiceKeyConstants;
+import org.kuali.rice.kew.api.KewApiConstants;
+import org.kuali.rice.kew.api.KewApiServiceLocator;
+import org.kuali.rice.kew.api.WorkflowDocument;
+import org.kuali.rice.kew.api.WorkflowDocumentFactory;
+import org.kuali.rice.kew.api.action.ActionRequestType;
+import org.kuali.rice.kew.api.action.ActionType;
+import org.kuali.rice.kew.api.document.node.RouteNodeInstance;
+import org.kuali.rice.kew.api.exception.InvalidActionTakenException;
+import org.kuali.rice.kew.api.exception.WorkflowException;
+import org.kuali.rice.kim.api.group.Group;
+import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.kim.api.identity.principal.Principal;
+import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.MessageFormat;
@@ -97,7 +97,7 @@ public class WorkflowDocumentServiceImpl implements WorkflowDocumentService {
         WorkflowDocument document = WorkflowDocumentFactory.createDocument(person.getPrincipalId(), documentTypeName);
         watch.stop();
         if (LOG.isDebugEnabled()) {
-            LOG.debug(watchName + ": " + watch.toString());	
+            LOG.debug(watchName + ": " + watch.toString());
         }
 
         return document;
@@ -110,15 +110,14 @@ public class WorkflowDocumentServiceImpl implements WorkflowDocumentService {
         }
         if (user == null) {
             throw new IllegalArgumentException("invalid (null) workflowUser");
-        }
-        else if (StringUtils.isEmpty(user.getPrincipalName())) {
+        } else if (StringUtils.isEmpty(user.getPrincipalName())) {
             throw new IllegalArgumentException("invalid (empty) workflowUser");
         }
 
         if (LOG.isDebugEnabled()) {
             LOG.debug("retrieving document(" + documentId + "," + user.getPrincipalName() + ")");
         }
-        
+
         try {
             return WorkflowDocumentFactory.loadDocument(user.getPrincipalId(), documentId);
         } catch (IllegalArgumentException e) {
@@ -133,7 +132,7 @@ public class WorkflowDocumentServiceImpl implements WorkflowDocumentService {
             LOG.debug("acknowleding document(" + workflowDocument.getDocumentId() + ",'" + annotation + "')");
         }
 
-        handleAdHocRouteRequests(workflowDocument, annotation, filterAdHocRecipients(adHocRecipients, new String[] { KewApiConstants.ACTION_REQUEST_ACKNOWLEDGE_REQ, KewApiConstants.ACTION_REQUEST_FYI_REQ }));
+        handleAdHocRouteRequests(workflowDocument, annotation, filterAdHocRecipients(adHocRecipients, new String[]{KewApiConstants.ACTION_REQUEST_ACKNOWLEDGE_REQ, KewApiConstants.ACTION_REQUEST_FYI_REQ}));
         workflowDocument.acknowledge(annotation);
     }
 
@@ -143,16 +142,16 @@ public class WorkflowDocumentServiceImpl implements WorkflowDocumentService {
             LOG.debug("approving document(" + workflowDocument.getDocumentId() + ",'" + annotation + "')");
         }
 
-        handleAdHocRouteRequests(workflowDocument, annotation, filterAdHocRecipients(adHocRecipients, new String[] { KewApiConstants.ACTION_REQUEST_ACKNOWLEDGE_REQ, KewApiConstants.ACTION_REQUEST_FYI_REQ, KewApiConstants.ACTION_REQUEST_APPROVE_REQ }));
+        handleAdHocRouteRequests(workflowDocument, annotation, filterAdHocRecipients(adHocRecipients, new String[]{KewApiConstants.ACTION_REQUEST_ACKNOWLEDGE_REQ, KewApiConstants.ACTION_REQUEST_FYI_REQ, KewApiConstants.ACTION_REQUEST_APPROVE_REQ}));
         workflowDocument.approve(annotation);
     }
 
 
     @Override
     public void superUserApprove(WorkflowDocument workflowDocument, String annotation) throws WorkflowException {
-    	if ( LOG.isInfoEnabled() ) {
-    		LOG.info("super user approve document(" + workflowDocument.getDocumentId() + ",'" + annotation + "')");
-    	}
+        if (LOG.isInfoEnabled()) {
+            LOG.info("super user approve document(" + workflowDocument.getDocumentId() + ",'" + annotation + "')");
+        }
         workflowDocument.superUserBlanketApprove(annotation);
     }
 
@@ -164,9 +163,9 @@ public class WorkflowDocumentServiceImpl implements WorkflowDocumentService {
 
     @Override
     public void superUserDisapprove(WorkflowDocument workflowDocument, String annotation) throws WorkflowException {
-    	if ( LOG.isInfoEnabled() ) {
-    		LOG.info("super user disapprove document(" + workflowDocument.getDocumentId() + ",'" + annotation + "')");
-    	}
+        if (LOG.isInfoEnabled()) {
+            LOG.info("super user disapprove document(" + workflowDocument.getDocumentId() + ",'" + annotation + "')");
+        }
         workflowDocument.superUserDisapprove(annotation);
     }
 
@@ -176,7 +175,7 @@ public class WorkflowDocumentServiceImpl implements WorkflowDocumentService {
             LOG.debug("blanket approving document(" + workflowDocument.getDocumentId() + ",'" + annotation + "')");
         }
 
-        handleAdHocRouteRequests(workflowDocument, annotation, filterAdHocRecipients(adHocRecipients, new String[] { KewApiConstants.ACTION_REQUEST_ACKNOWLEDGE_REQ, KewApiConstants.ACTION_REQUEST_FYI_REQ }));
+        handleAdHocRouteRequests(workflowDocument, annotation, filterAdHocRecipients(adHocRecipients, new String[]{KewApiConstants.ACTION_REQUEST_ACKNOWLEDGE_REQ, KewApiConstants.ACTION_REQUEST_FYI_REQ}));
         workflowDocument.blanketApprove(annotation);
     }
 
@@ -204,15 +203,15 @@ public class WorkflowDocumentServiceImpl implements WorkflowDocumentService {
             LOG.debug("clearing FYI for document(" + workflowDocument.getDocumentId() + ")");
         }
 
-        handleAdHocRouteRequests(workflowDocument, "", filterAdHocRecipients(adHocRecipients, new String[] { KewApiConstants.ACTION_REQUEST_FYI_REQ }));
+        handleAdHocRouteRequests(workflowDocument, "", filterAdHocRecipients(adHocRecipients, new String[]{KewApiConstants.ACTION_REQUEST_FYI_REQ}));
         workflowDocument.fyi();
     }
 
     @Override
     public void sendWorkflowNotification(WorkflowDocument workflowDocument, String annotation, List<AdHocRouteRecipient> adHocRecipients) throws WorkflowException {
-    	sendWorkflowNotification(workflowDocument, annotation, adHocRecipients, null);
+        sendWorkflowNotification(workflowDocument, annotation, adHocRecipients, null);
     }
-    
+
     @Override
     public void sendWorkflowNotification(WorkflowDocument workflowDocument, String annotation, List<AdHocRouteRecipient> adHocRecipients, String notificationLabel) throws WorkflowException {
         if (LOG.isDebugEnabled()) {
@@ -237,20 +236,19 @@ public class WorkflowDocumentServiceImpl implements WorkflowDocumentService {
             LOG.debug("routing document(" + workflowDocument.getDocumentId() + ",'" + annotation + "')");
         }
 
-        handleAdHocRouteRequests(workflowDocument, annotation, filterAdHocRecipients(adHocRecipients, new String[] { KewApiConstants.ACTION_REQUEST_ACKNOWLEDGE_REQ, KewApiConstants.ACTION_REQUEST_FYI_REQ, KewApiConstants.ACTION_REQUEST_APPROVE_REQ, KewApiConstants.ACTION_REQUEST_COMPLETE_REQ }));
+        handleAdHocRouteRequests(workflowDocument, annotation, filterAdHocRecipients(adHocRecipients, new String[]{KewApiConstants.ACTION_REQUEST_ACKNOWLEDGE_REQ, KewApiConstants.ACTION_REQUEST_FYI_REQ, KewApiConstants.ACTION_REQUEST_APPROVE_REQ, KewApiConstants.ACTION_REQUEST_COMPLETE_REQ}));
         workflowDocument.route(annotation);
     }
 
     @Override
     public void save(WorkflowDocument workflowDocument, String annotation) throws WorkflowException {
         if (workflowDocument.isValidAction(ActionType.SAVE)) {
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("saving document(" + workflowDocument.getDocumentId() + ",'" + annotation + "')");
-        }
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("saving document(" + workflowDocument.getDocumentId() + ",'" + annotation + "')");
+            }
 
-        workflowDocument.saveDocument(annotation);
-    }
-        else {
+            workflowDocument.saveDocument(annotation);
+        } else {
             this.saveRoutingData(workflowDocument);
         }
     }
@@ -273,8 +271,7 @@ public class WorkflowDocumentServiceImpl implements WorkflowDocumentService {
         WorkflowDocument freshCopyWorkflowDoc = loadWorkflowDocument(workflowDocument.getDocumentId(), GlobalVariables.getUserSession().getPerson());
         return getCurrentRouteNodeNames(freshCopyWorkflowDoc);
     }
-    
-    
+
 
     @Override
     public String getCurrentRouteNodeNames(WorkflowDocument workflowDocument) {
@@ -291,9 +288,9 @@ public class WorkflowDocumentServiceImpl implements WorkflowDocumentService {
     }
 
     private void handleAdHocRouteRequests(WorkflowDocument workflowDocument, String annotation, List<AdHocRouteRecipient> adHocRecipients) throws WorkflowException {
-    	handleAdHocRouteRequests(workflowDocument, annotation, adHocRecipients, null);
+        handleAdHocRouteRequests(workflowDocument, annotation, adHocRecipients, null);
     }
-    
+
     /**
      * Convenience method for generating ad hoc requests for a given document
      *
@@ -311,7 +308,7 @@ public class WorkflowDocumentServiceImpl implements WorkflowDocumentService {
             Set<String> currentNodes = workflowDocument.getNodeNames();
             if (currentNodes.isEmpty()) {
                 List<RouteNodeInstance> nodes = KewApiServiceLocator.getWorkflowDocumentService().getTerminalRouteNodeInstances(
-                        workflowDocument.getDocumentId());
+                    workflowDocument.getDocumentId());
                 currentNodes = new HashSet<String>();
                 for (RouteNodeInstance node : nodes) {
                     currentNodes.add(node.getName());
@@ -319,45 +316,44 @@ public class WorkflowDocumentServiceImpl implements WorkflowDocumentService {
             }
             // for now just pick a node and go with it...
             currentNode = currentNodes.iterator().next();
-            
+
             List<AdHocRoutePerson> adHocRoutePersons = new ArrayList<AdHocRoutePerson>();
             List<AdHocRouteWorkgroup> adHocRouteWorkgroups = new ArrayList<AdHocRouteWorkgroup>();
-            
+
             for (AdHocRouteRecipient recipient : adHocRecipients) {
                 if (StringUtils.isNotEmpty(recipient.getId())) {
-                	String newAnnotation = annotation;
-                	if ( StringUtils.isBlank( annotation ) ) {
-                		try {
-                			String message = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(
-                                    RiceKeyConstants.MESSAGE_ADHOC_ANNOTATION);
-                			newAnnotation = MessageFormat.format(message, GlobalVariables.getUserSession().getPrincipalName() );
-                		} catch ( Exception ex ) {
-                			LOG.warn("Unable to set annotation", ex );
-                		}
-                	}
+                    String newAnnotation = annotation;
+                    if (StringUtils.isBlank(annotation)) {
+                        try {
+                            String message = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(
+                                RiceKeyConstants.MESSAGE_ADHOC_ANNOTATION);
+                            newAnnotation = MessageFormat.format(message, GlobalVariables.getUserSession().getPrincipalName());
+                        } catch (Exception ex) {
+                            LOG.warn("Unable to set annotation", ex);
+                        }
+                    }
                     if (AdHocRouteRecipient.PERSON_TYPE.equals(recipient.getType())) {
                         // TODO make the 1 a constant
-                    	Principal principal = KimApiServiceLocator.getIdentityService().getPrincipalByPrincipalName(recipient.getId());
-                		if (principal == null) {
-                			throw new RiceRuntimeException("Could not locate principal with name '" + recipient.getId() + "'");
-                		}
+                        Principal principal = KimApiServiceLocator.getIdentityService().getPrincipalByPrincipalName(recipient.getId());
+                        if (principal == null) {
+                            throw new RiceRuntimeException("Could not locate principal with name '" + recipient.getId() + "'");
+                        }
                         workflowDocument.adHocToPrincipal(ActionRequestType.fromCode(recipient.getActionRequested()), currentNode, newAnnotation, principal.getPrincipalId(), "", true, notificationLabel);
-                        AdHocRoutePerson personRecipient  = (AdHocRoutePerson)recipient;
+                        AdHocRoutePerson personRecipient = (AdHocRoutePerson) recipient;
                         adHocRoutePersons.add(personRecipient);
-                    }
-                    else {
-                    	Group group = KimApiServiceLocator.getGroupService().getGroup(recipient.getId());
-                		if (group == null) {
-                			throw new RiceRuntimeException("Could not locate group with id '" + recipient.getId() + "'");
-                		}
-                    	workflowDocument.adHocToGroup(ActionRequestType.fromCode(recipient.getActionRequested()), currentNode, newAnnotation, group.getId() , "", true, notificationLabel);
-                        AdHocRouteWorkgroup groupRecipient  = (AdHocRouteWorkgroup)recipient;
+                    } else {
+                        Group group = KimApiServiceLocator.getGroupService().getGroup(recipient.getId());
+                        if (group == null) {
+                            throw new RiceRuntimeException("Could not locate group with id '" + recipient.getId() + "'");
+                        }
+                        workflowDocument.adHocToGroup(ActionRequestType.fromCode(recipient.getActionRequested()), currentNode, newAnnotation, group.getId(), "", true, notificationLabel);
+                        AdHocRouteWorkgroup groupRecipient = (AdHocRouteWorkgroup) recipient;
                         adHocRouteWorkgroups.add(groupRecipient);
                     }
                 }
             }
             KRADServiceLocator.getBusinessObjectService().delete(adHocRoutePersons);
-            KRADServiceLocator.getBusinessObjectService().delete(adHocRouteWorkgroups);  
+            KRADServiceLocator.getBusinessObjectService().delete(adHocRouteWorkgroups);
         }
     }
 
@@ -386,14 +382,14 @@ public class WorkflowDocumentServiceImpl implements WorkflowDocumentService {
 
     /**
      * Completes workflow document
-     * 
+     *
      * @see WorkflowDocumentService#complete(org.kuali.rice.kew.api.WorkflowDocument, String, java.util.List)
      */
     public void complete(WorkflowDocument workflowDocument, String annotation, List adHocRecipients) throws WorkflowException {
         if (LOG.isDebugEnabled()) {
             LOG.debug("routing flexDoc(" + workflowDocument.getDocumentId() + ",'" + annotation + "')");
         }
-        handleAdHocRouteRequests(workflowDocument, annotation, filterAdHocRecipients(adHocRecipients, new String[] { KewApiConstants.ACTION_REQUEST_COMPLETE_REQ,KewApiConstants.ACTION_REQUEST_ACKNOWLEDGE_REQ, KewApiConstants.ACTION_REQUEST_FYI_REQ, KewApiConstants.ACTION_REQUEST_APPROVE_REQ }));
+        handleAdHocRouteRequests(workflowDocument, annotation, filterAdHocRecipients(adHocRecipients, new String[]{KewApiConstants.ACTION_REQUEST_COMPLETE_REQ, KewApiConstants.ACTION_REQUEST_ACKNOWLEDGE_REQ, KewApiConstants.ACTION_REQUEST_FYI_REQ, KewApiConstants.ACTION_REQUEST_APPROVE_REQ}));
         workflowDocument.complete(annotation);
     }
 }

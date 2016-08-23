@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -19,8 +19,8 @@
 package org.kuali.kfs.kns.util;
 
 import org.kuali.kfs.kns.web.struts.form.KualiForm;
-import org.kuali.rice.core.framework.util.ApplicationThreadLocal;
 import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.rice.core.framework.util.ApplicationThreadLocal;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -43,10 +43,10 @@ public final class KNSGlobalVariables {
     };
 
     private static ThreadLocal<HashMap<String, AuditCluster>> auditErrorMaps = new ApplicationThreadLocal<HashMap<String, AuditCluster>>() {
-    	@Override
-    	protected HashMap<String, AuditCluster> initialValue() {
-    		return new HashMap<String, AuditCluster>();
-    	}
+        @Override
+        protected HashMap<String, AuditCluster> initialValue() {
+            return new HashMap<String, AuditCluster>();
+        }
     };
 
     /**

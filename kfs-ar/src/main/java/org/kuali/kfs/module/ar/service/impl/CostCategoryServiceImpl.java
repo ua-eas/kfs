@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,15 +18,12 @@
  */
 package org.kuali.kfs.module.ar.service.impl;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.ObjectCodeCurrent;
 import org.kuali.kfs.gl.businessobject.Balance;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.businessobject.CostCategory;
 import org.kuali.kfs.module.ar.businessobject.CostCategoryDetail;
 import org.kuali.kfs.module.ar.businessobject.CostCategoryObjectCode;
@@ -36,9 +33,12 @@ import org.kuali.kfs.module.ar.dataaccess.CostCategoryDao;
 import org.kuali.kfs.module.ar.service.CostCategoryService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.util.TransactionalServiceUtils;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Default implementation of the CostCategoryService, basically wrapping CostCategoryDao service methods
@@ -104,7 +104,7 @@ public class CostCategoryServiceImpl implements CostCategoryService {
     @Override
     public List<Balance> getBalancesForCostCategory(Integer fiscalYear, String chartOfAccountsCode, String accountNumber, String balanceType, Collection<String> objectTypeCodes, CostCategory costCategory) {
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Retrieving balances for cost category: "+costCategory.getCategoryCode()+"; fiscal year = "+fiscalYear+"; chart: "+chartOfAccountsCode+"; account number: "+accountNumber+"; balance type: "+balanceType+"; object type codes: "+objectTypeCodes.toString());
+            LOG.debug("Retrieving balances for cost category: " + costCategory.getCategoryCode() + "; fiscal year = " + fiscalYear + "; chart: " + chartOfAccountsCode + "; account number: " + accountNumber + "; balance type: " + balanceType + "; object type codes: " + objectTypeCodes.toString());
         }
         return getCostCategoryDao().getBalancesForCostCategory(fiscalYear, chartOfAccountsCode, accountNumber, balanceType, objectTypeCodes, costCategory);
     }
@@ -119,6 +119,7 @@ public class CostCategoryServiceImpl implements CostCategoryService {
 
     /**
      * Look up the given category; if found, then look up an object code with the given chart within any object code, level, or consolidation within the category
+     *
      * @see org.kuali.kfs.module.ar.service.CostCategoryService#findObjectCodeForChartAndCategory(java.lang.String, java.lang.String)
      */
     @Override
@@ -147,6 +148,7 @@ public class CostCategoryServiceImpl implements CostCategoryService {
 
     /**
      * Finds an object code which matches the given chart of accounts within the list of cost category object codes
+     *
      * @param chartOfAccountsCode the chart of accounts code to find an object code for
      * @param categoryObjectCodes a list of cost category object codes
      * @return a matching object code, or null if one could not be found
@@ -162,7 +164,8 @@ public class CostCategoryServiceImpl implements CostCategoryService {
 
     /**
      * Finds an object code which matches the given chart of accounts within the list of cost category object levels
-     * @param chartOfAccountsCode the chart of accounts code to find an object code for
+     *
+     * @param chartOfAccountsCode  the chart of accounts code to find an object code for
      * @param categoryObjectLevels a list of cost category object levels
      * @return a matching object code, or null if one could not be found
      */
@@ -183,7 +186,8 @@ public class CostCategoryServiceImpl implements CostCategoryService {
 
     /**
      * Finds an object code which matches the given chart of accounts within the list of cost category object consolidations
-     * @param chartOfAccountsCode the chart of accounts code to find an object code for
+     *
+     * @param chartOfAccountsCode          the chart of accounts code to find an object code for
      * @param categoryObjectConsolidations a list of cost category object consolidations
      * @return a matching object code, or null if one could not be found
      */
@@ -192,7 +196,7 @@ public class CostCategoryServiceImpl implements CostCategoryService {
             if (StringUtils.equals(costCategoryObjectConsolidation.getChartOfAccountsCode(), chartOfAccountsCode)) {
                 Map<String, Object> fieldValues = new HashMap<>();
                 fieldValues.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, chartOfAccountsCode);
-                fieldValues.put(KFSPropertyConstants.FINANCIAL_OBJECT_LEVEL+"."+KFSPropertyConstants.FINANCIAL_CONSOLIDATION_OBJECT_CODE, costCategoryObjectConsolidation.getFinConsolidationObjectCode());
+                fieldValues.put(KFSPropertyConstants.FINANCIAL_OBJECT_LEVEL + "." + KFSPropertyConstants.FINANCIAL_CONSOLIDATION_OBJECT_CODE, costCategoryObjectConsolidation.getFinConsolidationObjectCode());
                 Collection<ObjectCodeCurrent> objectCodes = getBusinessObjectService().findMatching(ObjectCodeCurrent.class, fieldValues);
                 if (!CollectionUtils.isEmpty(objectCodes)) {
                     return TransactionalServiceUtils.retrieveFirstAndExhaustIterator(objectCodes.iterator());

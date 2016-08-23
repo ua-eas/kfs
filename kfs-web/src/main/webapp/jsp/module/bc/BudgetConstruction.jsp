@@ -1,24 +1,24 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 <c:set var="budgetConstructionAttributes"
-	value="${DataDictionary['BudgetConstructionDocument'].attributes}" />
+       value="${DataDictionary['BudgetConstructionDocument'].attributes}"/>
 
 <c:if test="${KualiForm.pickListClose}">
     <kul:page
@@ -50,23 +50,23 @@
             docTitle="Budget Construction Document"
             transactionalDocument="true">
 
-        <html:hidden property="mainWindow" />
+        <html:hidden property="mainWindow"/>
 
-        <sys:documentOverview editingMode="${KualiForm.editingMode}" />
+        <sys:documentOverview editingMode="${KualiForm.editingMode}"/>
 
         <c:if test="${!KualiForm.securityNoAccess}">
-            <bc:systemInformation />
+            <bc:systemInformation/>
 
-            <bc:budgetConstructionRevenueLines />
+            <bc:budgetConstructionRevenueLines/>
 
-            <bc:budgetConstructionExpenditureLines />
+            <bc:budgetConstructionExpenditureLines/>
 
-            <kul:notes />
+            <kul:notes/>
         </c:if>
 
-        <kul:routeLog />
+        <kul:routeLog/>
 
-        <sys:documentControls transactionalDocument="false" suppressRoutingControls="true" />
+        <sys:documentControls transactionalDocument="false" suppressRoutingControls="true"/>
 
         <script type="text/javascript">
             subObjectCodeNameSuffix = ".financialSubObject.financialSubObjectCdshortNm";

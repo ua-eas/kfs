@@ -1,27 +1,24 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.service.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionPosition;
 import org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding;
 import org.kuali.kfs.module.bc.businessobject.Position;
@@ -31,14 +28,17 @@ import org.kuali.kfs.module.bc.service.BudgetConstructionPositionService;
 import org.kuali.kfs.module.bc.service.HumanResourcesPayrollService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.service.NonTransactional;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
  * Implementation of BudgetConstructionPositionService that uses the HumanResourcesPayrollService
- * 
+ *
  * @see org.kuali.kfs.module.bc.service.BudgetConstructionPositionService
  * @see org.kuali.kfs.module.bc.service.HumanResourcesPayrollService
  */
@@ -51,7 +51,7 @@ public class BudgetConstructionPositionServiceImpl implements BudgetConstruction
 
     /**
      * @see org.kuali.kfs.module.bc.service.BudgetConstructionPositionService#pullNewPositionFromExternal(java.lang.Integer,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Transactional
     public synchronized void pullNewPositionFromExternal(Integer universityFiscalYear, String positionNumber) throws BudgetPositionAlreadyExistsException {
@@ -62,11 +62,10 @@ public class BudgetConstructionPositionServiceImpl implements BudgetConstruction
         BudgetConstructionPosition retrievedPosition = getByPrimaryId(universityFiscalYear.toString(), positionNumber);
         if (retrievedPosition != null) {
             throw new BudgetPositionAlreadyExistsException(universityFiscalYear, positionNumber);
-        }
-        else {
+        } else {
             retrievedPosition = new BudgetConstructionPosition();
         }
-        
+
         // populate BudgetConstructionPosition
         BudgetConstructionPosition budgetConstructionPosition = buildBudgetPosition(position, retrievedPosition);
 
@@ -76,7 +75,7 @@ public class BudgetConstructionPositionServiceImpl implements BudgetConstruction
 
     /**
      * @see org.kuali.kfs.module.bc.service.BudgetConstructionPositionService#refreshPositionFromExternal(java.lang.Integer,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public synchronized void refreshPositionFromExternal(Integer universityFiscalYear, String positionNumber) {
@@ -85,7 +84,7 @@ public class BudgetConstructionPositionServiceImpl implements BudgetConstruction
 
         // update budget record
         BudgetConstructionPosition retrievedPosition = getByPrimaryId(universityFiscalYear.toString(), positionNumber);
-        
+
         // populate BudgetConstructionPosition
         BudgetConstructionPosition budgetConstructionPosition = buildBudgetPosition(position, retrievedPosition);
 
@@ -99,9 +98,9 @@ public class BudgetConstructionPositionServiceImpl implements BudgetConstruction
     /**
      * Retrieves all funding lines for the position that are not marked as delete and sets the position change indicator fields to
      * true.
-     * 
+     *
      * @param universityFiscalYear budget fiscal year for the position
-     * @param positionNumber position number for the record
+     * @param positionNumber       position number for the record
      */
     protected void updateFundingPositionChangeIndicators(Integer universityFiscalYear, String positionNumber) {
         // retrieve funding records for the position
@@ -113,7 +112,7 @@ public class BudgetConstructionPositionServiceImpl implements BudgetConstruction
                 appointmentFunding.setPositionObjectChangeIndicator(true);
                 appointmentFunding.setPositionSalaryChangeIndicator(true);
                 appointmentFunding.setVersionNumber(appointmentFunding.getVersionNumber());
-                
+
                 businessObjectService.save(appointmentFunding);
             }
         }
@@ -121,8 +120,8 @@ public class BudgetConstructionPositionServiceImpl implements BudgetConstruction
 
     /**
      * Populates a new <code>BudgetConstructionPosition</code> object from a <code>Position</code> object.
-     * 
-     * @param position object to copy
+     *
+     * @param position                   object to copy
      * @param budgetConstructionPosition bc position to populate
      * @return BudgetConstructionPosition populated from <code>Position</code>
      * @see org.kuali.kfs.module.bc.businessobject.BudgetConstructionPosition
@@ -180,7 +179,7 @@ public class BudgetConstructionPositionServiceImpl implements BudgetConstruction
 
     /**
      * Sets the businessObjectService attribute value.
-     * 
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     @NonTransactional
@@ -190,7 +189,7 @@ public class BudgetConstructionPositionServiceImpl implements BudgetConstruction
 
     /**
      * Sets the humanResourcesPayrollService attribute value.
-     * 
+     *
      * @param humanResourcesPayrollService The humanResourcesPayrollService to set.
      */
     @NonTransactional
@@ -200,7 +199,7 @@ public class BudgetConstructionPositionServiceImpl implements BudgetConstruction
 
     /**
      * Sets the budgetConstructionDao attribute value.
-     * 
+     *
      * @param budgetConstructionDao The budgetConstructionDao to set.
      */
     @NonTransactional

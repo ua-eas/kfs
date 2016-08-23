@@ -1,24 +1,33 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.businessobject.lookup;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.module.ar.businessobject.CustomerAgingReportDetail;
+import org.kuali.kfs.module.ar.web.struts.CustomerAgingReportForm;
+import org.kuali.kfs.sys.ConfigureContext;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.context.KualiTestBase;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -28,16 +37,7 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.kuali.kfs.module.ar.businessobject.CustomerAgingReportDetail;
-import org.kuali.kfs.module.ar.web.struts.CustomerAgingReportForm;
-import org.kuali.kfs.sys.ConfigureContext;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.context.KualiTestBase;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 /**
  * This class tests the CustomerAgingReport lookup and totals calculations
@@ -110,7 +110,7 @@ public class CustomerAgingReportLookupableHelperServiceImplTest extends KualiTes
         assertEquals(customerAgingReportLookupableHelperServiceImpl.getTotal31to60().toString(), test31to60total.toString());
         assertEquals(customerAgingReportLookupableHelperServiceImpl.getTotal61to90().toString(), test61to90total.toString());
         LOG.info("\n\n\n\n***************************************************************************************\n" + "\n\t\t testtotal0to30 = " + customerAgingReportLookupableHelperServiceImpl.getTotal0to30().toString() + "\t\t\t\t\tactualtotal0to30 = " + test0to30total.toString() + "\n\t\t testtotal31to60 = " + customerAgingReportLookupableHelperServiceImpl.getTotal31to60().toString() + "\t\t\t\t\t\tactualtotal31to60 = " + test31to60total.toString() + "\n\t\t testtotal61to90 = " + customerAgingReportLookupableHelperServiceImpl.getTotal61to90().toString() + "\t\t\t\t\t\tactualtotal61to90 = " + test61to90total.toString() + "\n\t\t testtotal91toSYSPR = " + customerAgingReportLookupableHelperServiceImpl.getTotal91toSYSPR().toString() + "\t\t\t\t\tactualtotal91toSYSPR = " + test91toSYSPRtotal.toString() + "\n\t\t testtotalSYSPRplus1orMore = " + customerAgingReportLookupableHelperServiceImpl.getTotalSYSPRplus1orMore().toString() + "\t\t\tactualtotalSYSPRplus1orMore = "
-                + testSYSPRplus1orMoretotal.toString() + "\n\n***************************************************************************************\n\n");
+            + testSYSPRplus1orMoretotal.toString() + "\n\n***************************************************************************************\n\n");
     }
 
     /**

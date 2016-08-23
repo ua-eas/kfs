@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -23,28 +23,29 @@ import org.apache.commons.lang.StringUtils;
 import java.io.Serializable;
 
 /**
-            The help element provides the keys to obtain a
-            help description from the database.
-
-            On document JSP pages, a help icon may be rendered.  If this tag is specified, then
-            the filename of this page will be located in the value of the parameter specified by the namespace, detail type, and name.
-
-            The value of the parameter is relative to the value of the "externalizable.help.url" property in ConfigurationService (see KualiHelpAction).
-            parameterNamespace: namespace of the parameter that has the path to the help page
-            parameterName: name of the parameter that has the path to the help page
-            parameterDetailType: detail type of the parameter that has the path to the help page
+ * The help element provides the keys to obtain a
+ * help description from the database.
+ * <p>
+ * On document JSP pages, a help icon may be rendered.  If this tag is specified, then
+ * the filename of this page will be located in the value of the parameter specified by the namespace, detail type, and name.
+ * <p>
+ * The value of the parameter is relative to the value of the "externalizable.help.url" property in ConfigurationService (see KualiHelpAction).
+ * parameterNamespace: namespace of the parameter that has the path to the help page
+ * parameterName: name of the parameter that has the path to the help page
+ * parameterDetailType: detail type of the parameter that has the path to the help page
  */
 public class HelpDefinition extends DataDictionaryDefinitionBase implements Serializable {
     private static final long serialVersionUID = -6869646654597012863L;
-    
-	protected String parameterNamespace;
+
+    protected String parameterNamespace;
     protected String parameterDetailType;
     protected String parameterName;
 
     /**
      * Constructs a HelpDefinition.
      */
-    public HelpDefinition() {}
+    public HelpDefinition() {
+    }
 
     /**
      * @see DataDictionaryDefinition#completeValidation(java.lang.Class, java.lang.Class)
@@ -88,18 +89,18 @@ public class HelpDefinition extends DataDictionaryDefinitionBase implements Seri
         this.parameterNamespace = parameterNamespace;
     }
 
-	public String getParameterDetailType() {
-		return this.parameterDetailType;
-	}
+    public String getParameterDetailType() {
+        return this.parameterDetailType;
+    }
 
-	/**
-	 * parameterDetailType: detail type of the parameter that has the path to the help page
-	 */
-	public void setParameterDetailType(String parameterDetailType) {
+    /**
+     * parameterDetailType: detail type of the parameter that has the path to the help page
+     */
+    public void setParameterDetailType(String parameterDetailType) {
         if (StringUtils.isBlank(parameterDetailType)) {
             throw new IllegalArgumentException("invalid (blank) parameterDetailType");
         }
-		this.parameterDetailType = parameterDetailType;
-	}
+        this.parameterDetailType = parameterDetailType;
+    }
 
 }

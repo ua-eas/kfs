@@ -1,38 +1,38 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.batch.ProcurementCardCreateDocumentsStep;
 import org.kuali.kfs.fp.businessobject.ProcurementCardDefault;
-import org.kuali.kfs.sys.KFSKeyConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.sys.KFSKeyConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class represents business rules for the procurement cardholder maintenance document
@@ -47,13 +47,12 @@ public class ProcurementCardDefaultRule extends MaintenanceDocumentRuleBase {
      *
      * @param document submitted procurement card defaults maintenance document
      * @return true if chart/account/organization is valid
-     *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomRouteDocumentBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
     protected boolean processCustomRouteDocumentBusinessRules(MaintenanceDocument document) {
         boolean continueRouting = super.processCustomRouteDocumentBusinessRules(document);
-        final ProcurementCardDefault newProcurementCardDefault = (ProcurementCardDefault)getNewBo();
+        final ProcurementCardDefault newProcurementCardDefault = (ProcurementCardDefault) getNewBo();
 
         continueRouting &= validateCreditCardNumberUniqueness(newProcurementCardDefault);
         continueRouting &= validateCardHolderDefault(newProcurementCardDefault);
@@ -61,15 +60,17 @@ public class ProcurementCardDefaultRule extends MaintenanceDocumentRuleBase {
 
         return continueRouting;
     }
+
     /**
      * Always returns true; provides user feedback on procurement card defaults maintenance document
+     *
      * @see org.kuali.rice.kns.rules.DocumentRuleBase#processCustomSaveDocumentBusinessRules(org.kuali.rice.kns.document.Document)
      */
     @Override
     protected boolean processCustomSaveDocumentBusinessRules(MaintenanceDocument document) {
         super.processCustomSaveDocumentBusinessRules(document);
 
-        final ProcurementCardDefault newProcurementCardDefault = (ProcurementCardDefault)getNewBo();
+        final ProcurementCardDefault newProcurementCardDefault = (ProcurementCardDefault) getNewBo();
         validateCreditCardNumberUniqueness(newProcurementCardDefault);
         validateCardHolderDefault(newProcurementCardDefault);
         validateAccountingDefault(newProcurementCardDefault);
@@ -79,6 +80,7 @@ public class ProcurementCardDefaultRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Determines if the given procurement card default has a unique credit card number
+     *
      * @param procurementCardDefault the procurement card default to check
      * @return true if the procurement card default credit card number is unique, false otherwise
      */
@@ -116,6 +118,7 @@ public class ProcurementCardDefaultRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Validates the card holder information
+     *
      * @return true if the card holder is valid, false otherwise
      */
     protected boolean validateCardHolderDefault(ProcurementCardDefault newProcurementCardDefault) {
@@ -167,6 +170,7 @@ public class ProcurementCardDefaultRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Validates the accounting default information
+     *
      * @return true if the accounting default information is valid, false otherwise
      */
     protected boolean validateAccountingDefault(ProcurementCardDefault newProcurementCardDefault) {
@@ -191,8 +195,8 @@ public class ProcurementCardDefaultRule extends MaintenanceDocumentRuleBase {
     /**
      * Adds a property-specific error to the global errors list, with the DD short label as the single argument.
      *
-     * @param propertyName - Property name of the element that is associated with the error. Used to mark the field as errored in
-     *        the UI.
+     * @param propertyName  - Property name of the element that is associated with the error. Used to mark the field as errored in
+     *                      the UI.
      * @param errorConstant - Error Constant that can be mapped to a resource for the actual text message.
      */
     protected void putFieldErrorWithLabel(String propertyName, String errorConstant) {

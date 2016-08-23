@@ -1,25 +1,25 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.lang.reflect.Field;
-import java.util.LinkedHashMap;
+import org.apache.log4j.Logger;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,18 +27,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import org.apache.log4j.Logger;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import java.lang.reflect.Field;
+import java.util.LinkedHashMap;
 
 @Entity
-@Table(name="TEM_ATTENDEE_T")
-public class Attendee  extends PersistableBusinessObjectBase{
+@Table(name = "TEM_ATTENDEE_T")
+public class Attendee extends PersistableBusinessObjectBase {
 
     public static Logger LOG = Logger.getLogger(Attendee.class);
 
-    @GeneratedValue(generator="TEM_ATTENDEE_ID_SEQ")
-    @SequenceGenerator(name="TEM_ATTENDEE_ID_SEQ",sequenceName="TEM_ATTENDEE_ID_SEQ", allocationSize=5)
+    @GeneratedValue(generator = "TEM_ATTENDEE_ID_SEQ")
+    @SequenceGenerator(name = "TEM_ATTENDEE_ID_SEQ", sequenceName = "TEM_ATTENDEE_ID_SEQ", allocationSize = 5)
     private Integer id;
     private String company;
     private String title;
@@ -48,7 +47,7 @@ public class Attendee  extends PersistableBusinessObjectBase{
 
 
     @Id
-    @Column(name="id",nullable=false)
+    @Column(name = "id", nullable = false)
     public Integer getId() {
         return id;
     }
@@ -56,12 +55,13 @@ public class Attendee  extends PersistableBusinessObjectBase{
     public void setId(final Integer id) {
         this.id = id;
     }
+
     /**
      * Gets the documentNumber attribute.
      *
      * @return Returns the documentNumber
      */
-    @Column(name="FDOC_NBR")
+    @Column(name = "FDOC_NBR")
     public String getDocumentNumber() {
         return documentNumber;
     }
@@ -75,31 +75,39 @@ public class Attendee  extends PersistableBusinessObjectBase{
     public void setDocumentNumber(String documentNumber) {
         this.documentNumber = documentNumber;
     }
-    @Column(name="COMPANY",length=40,nullable=false)
+
+    @Column(name = "COMPANY", length = 40, nullable = false)
     public String getCompany() {
         return company;
     }
+
     public void setCompany(String company) {
         this.company = company;
     }
-    @Column(name="TITLE",length=40,nullable=false)
+
+    @Column(name = "TITLE", length = 40, nullable = false)
     public String getTitle() {
         return title;
     }
+
     public void setTitle(String title) {
         this.title = title;
     }
-    @Column(name="ATTENDEE_TYPE",length=40,nullable=false)
+
+    @Column(name = "ATTENDEE_TYPE", length = 40, nullable = false)
     public String getAttendeeType() {
         return attendeeType;
     }
+
     public void setAttendeeType(String attendeeType) {
         this.attendeeType = attendeeType;
     }
-    @Column(name="NAME",length=40,nullable=false)
+
+    @Column(name = "NAME", length = 40, nullable = false)
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -112,16 +120,15 @@ public class Attendee  extends PersistableBusinessObjectBase{
             boolean rethrow = true;
             Exception e = null;
             while (rethrow) {
-                LOG.debug("Looking for id in "+ boClass.getName());
+                LOG.debug("Looking for id in " + boClass.getName());
                 try {
                     final Field idField = boClass.getDeclaredField("id");
                     final SequenceGenerator sequenceInfo = idField.getAnnotation(SequenceGenerator.class);
 
                     return sequenceInfo.sequenceName();
-                }
-                catch (Exception ee) {
+                } catch (Exception ee) {
                     // ignore and try again
-                    LOG.debug("Could not find id in "+ boClass.getName());
+                    LOG.debug("Could not find id in " + boClass.getName());
 
                     // At the end. Went all the way up the hierarchy until we got to Object
                     if (Object.class.equals(boClass)) {
@@ -137,9 +144,8 @@ public class Attendee  extends PersistableBusinessObjectBase{
             if (e != null) {
                 throw e;
             }
-        }
-        catch (Exception e) {
-            LOG.error("Could not get the sequence name for business object "+ getClass().getSimpleName());
+        } catch (Exception e) {
+            LOG.error("Could not get the sequence name for business object " + getClass().getSimpleName());
             LOG.error(e.getMessage());
             if (LOG.isDebugEnabled()) {
                 e.printStackTrace();

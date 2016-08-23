@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -42,74 +42,73 @@ public interface PojoForm {
 
     // begin Kuali Foundation modification
     public void processValidationFail();
-    
+
     Set<String> getRequiredNonEditableProperties();
-    
+
     void registerEditableProperty(String editablePropertyName);
-    
+
     /**
      * Reinitializes the form to allow it to register the editable properties of the currently processing request.
      */
     void clearEditablePropertyInformation();
 
     Set<String> getEditableProperties();
-    
+
     /**
-     * 
      * This method adds the required property names, that are not directly editable by user on the html page, to a list, regardless of the context
      * in which they appear.  Request parameter names corresponding to these properties
-     * will be populated into the form. 
-     *
+     * will be populated into the form.
      */
     void addRequiredNonEditableProperties();
-    
+
     /**
      * Sets the value of the "scope" attribute for the Struts action mapping corresponding to this form instance.  Note that this
      * method name is NOT in the syntax of the conventional POJO setter; this is to prevent clients from maliciously altering the value
      * of this parameter
-     * 
+     *
      * @param scope
      */
     public void registerStrutsActionMappingScope(String scope);
-    
-   
+
+
     public void registerIsNewForm(boolean isNewForm);
-    
+
     public boolean getIsNewForm();
-    
-    
+
+
     /**
-	 * Returns whether a request parameter should be populated as a property of the form, assuming that the request parameter name
-	 * corresponds to a property on the form.  This method makes no determination whether the request parameter is a property of the form, but rather
-	 * from a security perspective, whether the framework should attempt to set the form property with the same name as the request parameter. 
-	 * 
-	 * @param requestParameterName the name of the request parameter
-	 * @param request the HTTP request
-	 * @return whether the parameter should be 
-	 */
-	public boolean shouldPropertyBePopulatedInForm(String requestParameterName, HttpServletRequest request);
-	
-	/**
-	 * Returns a set of methodToCalls for which the system will bypass the session.  The return value of this method may depend ONLY upon the
-	 * type of the class implementing it.  Each instance of an implementation of this interface
-	 * must return the same result.  More formally, for 2 instances of this interfaces a1 and a2, if a1.getClass().equals(a2.getClass()), then
-	 * a1.getMethodToCallsToBypassSessionRetrievalForGETRequests().equals(a2.getMethodToCallsToBypassSessionRetrievalForGETRequests())
-	 * 
-	 * NOTE: read Javadoc of {@link PojoFormBase#getMethodToCallsToBypassSessionRetrievalForGETRequests()} for important implementation details.
-	 * 
-	 * @return
-	 */
-	public Set<String> getMethodToCallsToBypassSessionRetrievalForGETRequests();
-	
-	/**
+     * Returns whether a request parameter should be populated as a property of the form, assuming that the request parameter name
+     * corresponds to a property on the form.  This method makes no determination whether the request parameter is a property of the form, but rather
+     * from a security perspective, whether the framework should attempt to set the form property with the same name as the request parameter.
+     *
+     * @param requestParameterName the name of the request parameter
+     * @param request              the HTTP request
+     * @return whether the parameter should be
+     */
+    public boolean shouldPropertyBePopulatedInForm(String requestParameterName, HttpServletRequest request);
+
+    /**
+     * Returns a set of methodToCalls for which the system will bypass the session.  The return value of this method may depend ONLY upon the
+     * type of the class implementing it.  Each instance of an implementation of this interface
+     * must return the same result.  More formally, for 2 instances of this interfaces a1 and a2, if a1.getClass().equals(a2.getClass()), then
+     * a1.getMethodToCallsToBypassSessionRetrievalForGETRequests().equals(a2.getMethodToCallsToBypassSessionRetrievalForGETRequests())
+     * <p>
+     * NOTE: read Javadoc of {@link PojoFormBase#getMethodToCallsToBypassSessionRetrievalForGETRequests()} for important implementation details.
+     *
+     * @return
+     */
+    public Set<String> getMethodToCallsToBypassSessionRetrievalForGETRequests();
+
+    /**
      * Sets the editable properties guid for this form
+     *
      * @param guid the key to the editable properties for this form
      */
     public abstract void setPopulateEditablePropertiesGuid(String guid);
-    
+
     /**
      * Sets the guid associated with the edited properties associated with the action
-     * 
+     *
      * @param guid the guid of the action editable properties
      */
     public abstract void setActionEditablePropertiesGuid(String guid);

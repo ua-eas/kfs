@@ -1,30 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.service.impl;
 
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.module.tem.service.AgencyEntryGroupService;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
-
-import org.kuali.kfs.module.tem.service.AgencyEntryGroupService;
-import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.krad.service.KualiModuleService;
 
 public class AgencyEntryGroupServiceImpl implements AgencyEntryGroupService {
     protected DateTimeService dateTimeService;
@@ -68,15 +68,13 @@ public class AgencyEntryGroupServiceImpl implements AgencyEntryGroupService {
             for (File eachFile : fileList) {
                 if (newestFile == null) {
                     newestFile = eachFile;
-                }
-                else {
+                } else {
                     if (newestFile.lastModified() < eachFile.lastModified()) {
                         newestFile = eachFile;
                     }
                 }
             }
-        }
-        else {
+        } else {
             return null;
         }
 
@@ -106,6 +104,7 @@ public class AgencyEntryGroupServiceImpl implements AgencyEntryGroupService {
 
     /**
      * Gets the dateTimeService attribute.
+     *
      * @return Returns the dateTimeService.
      */
     public DateTimeService getDateTimeService() {
@@ -114,6 +113,7 @@ public class AgencyEntryGroupServiceImpl implements AgencyEntryGroupService {
 
     /**
      * Sets the dateTimeService attribute value.
+     *
      * @param dateTimeService The dateTimeService to set.
      */
     public void setDateTimeService(DateTimeService dateTimeService) {
@@ -122,6 +122,7 @@ public class AgencyEntryGroupServiceImpl implements AgencyEntryGroupService {
 
     /**
      * Gets the batchFileDirectoryName attribute.
+     *
      * @return Returns the batchFileDirectoryName.
      */
     public String getBatchFileErrorDirectoryName() {
@@ -130,6 +131,7 @@ public class AgencyEntryGroupServiceImpl implements AgencyEntryGroupService {
 
     /**
      * Sets the batchFileDirectoryName attribute value.
+     *
      * @param batchFileDirectoryName The batchFileDirectoryName to set.
      */
     public void setBatchFileErrorDirectoryName(String batchFileErrorDirectoryName) {
@@ -138,6 +140,7 @@ public class AgencyEntryGroupServiceImpl implements AgencyEntryGroupService {
 
     /**
      * Gets the kualiModuleService attribute.
+     *
      * @return Returns the kualiModuleService.
      */
     public KualiModuleService getKualiModuleService() {
@@ -146,6 +149,7 @@ public class AgencyEntryGroupServiceImpl implements AgencyEntryGroupService {
 
     /**
      * Sets the kualiModuleService attribute value.
+     *
      * @param kualiModuleService The kualiModuleService to set.
      */
     public void setKualiModuleService(KualiModuleService kualiModuleService) {
@@ -154,6 +158,7 @@ public class AgencyEntryGroupServiceImpl implements AgencyEntryGroupService {
 
     /**
      * Gets the nightlyOutFileName attribute.
+     *
      * @return Returns the nightlyOutFileName.
      */
     public String getNightlyOutFileName() {
@@ -162,6 +167,7 @@ public class AgencyEntryGroupServiceImpl implements AgencyEntryGroupService {
 
     /**
      * Sets the nightlyOutFileName attribute value.
+     *
      * @param nightlyOutFileName The nightlyOutFileName to set.
      */
     public void setNightlyOutFileName(String nightlyOutFileName) {
@@ -170,6 +176,7 @@ public class AgencyEntryGroupServiceImpl implements AgencyEntryGroupService {
 
     /**
      * Gets the backupFileName attribute.
+     *
      * @return Returns the backupFileName.
      */
     public String getBackupFileName() {
@@ -178,6 +185,7 @@ public class AgencyEntryGroupServiceImpl implements AgencyEntryGroupService {
 
     /**
      * Sets the backupFileName attribute value.
+     *
      * @param backupFileName The backupFileName to set.
      */
     public void setBackupFileName(String backupFileName) {
@@ -186,6 +194,7 @@ public class AgencyEntryGroupServiceImpl implements AgencyEntryGroupService {
 
     /**
      * Gets the batchFileDirectoryName attribute.
+     *
      * @return Returns the batchFileDirectoryName.
      */
     public String getBatchFileDirectoryName() {
@@ -194,6 +203,7 @@ public class AgencyEntryGroupServiceImpl implements AgencyEntryGroupService {
 
     /**
      * Sets the batchFileDirectoryName attribute value.
+     *
      * @param batchFileDirectoryName The batchFileDirectoryName to set.
      */
     public void setBatchFileDirectoryName(String batchFileDirectoryName) {

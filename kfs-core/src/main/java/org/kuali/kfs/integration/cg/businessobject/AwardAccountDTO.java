@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,19 +18,18 @@
  */
 package org.kuali.kfs.integration.cg.businessobject;
 
-import java.io.Serializable;
+import org.kuali.kfs.integration.cg.ContractsAndGrantsAwardAccount;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
-
-import org.kuali.kfs.integration.cg.ContractsAndGrantsAwardAccount;
+import java.io.Serializable;
 
 /**
  * <p>Java class for awardAccountDTO complex type.
- *
+ * <p>
  * <p>The following schema fragment specifies the expected content contained within this class.
- *
+ * <p>
  * <pre>
  * &lt;complexType name="awardAccountDTO">
  *   &lt;complexContent>
@@ -54,8 +53,6 @@ import org.kuali.kfs.integration.cg.ContractsAndGrantsAwardAccount;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- *
- *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "awardAccountDTO", propOrder = {

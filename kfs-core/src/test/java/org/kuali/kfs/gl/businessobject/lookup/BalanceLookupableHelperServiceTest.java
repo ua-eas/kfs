@@ -1,31 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.gl.Constant;
 import org.kuali.kfs.gl.businessobject.Balance;
 import org.kuali.kfs.gl.service.BalanceService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
@@ -33,7 +29,11 @@ import org.kuali.kfs.sys.businessobject.lookup.LookupableSpringContext;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class contains the test cases that can be applied to the method in BalanceLookupableImpl class.
@@ -45,6 +45,7 @@ public class BalanceLookupableHelperServiceTest extends AbstractGeneralLedgerLoo
 
     /**
      * Sets up the services needed to test balance lookups
+     *
      * @see org.kuali.kfs.gl.businessobject.lookup.AbstractGeneralLedgerLookupableHelperServiceTestBase#setUp()
      */
     @Override
@@ -58,6 +59,7 @@ public class BalanceLookupableHelperServiceTest extends AbstractGeneralLedgerLoo
 
     /**
      * Covers the search results returned by BalanceLookupableHelperService
+     *
      * @throws Exception thrown if an exception is encountered for any reason
      * @see org.kuali.module.gl.web.lookupable.AbstractGLLookupableTestBase#testGetSearchResults()
      */
@@ -99,7 +101,7 @@ public class BalanceLookupableHelperServiceTest extends AbstractGeneralLedgerLoo
 
     /**
      * This method includes the test cases applied to the pending entry option: Approved and All
-     * 
+     *
      * @throws Exception thrown if an exception is encountered for any reason
      */
     public void testPendingEntryOption() throws Exception {
@@ -150,7 +152,7 @@ public class BalanceLookupableHelperServiceTest extends AbstractGeneralLedgerLoo
 
     /**
      * This method tests if the orphan pending entries can be included in the search results
-     * 
+     *
      * @throws Exception thrown if an exception is encountered for any reason
      */
     public void testOrphanPendingEntry() throws Exception {
@@ -178,7 +180,7 @@ public class BalanceLookupableHelperServiceTest extends AbstractGeneralLedgerLoo
 
     /**
      * This method includes the test cases applied to the consolidation option: Consolidate and Detail
-     * 
+     *
      * @throws Exception thrown if an exception is encountered for any reason
      */
     public void testConsolidationOption() throws Exception {
@@ -217,7 +219,7 @@ public class BalanceLookupableHelperServiceTest extends AbstractGeneralLedgerLoo
 
     /**
      * This method includes the test cases applied to the amount view option: Monthly and Accumulate
-     * 
+     *
      * @throws Exception thrown if an exception is encountered for any reason
      */
     public void testAmountViewOption() throws Exception {
@@ -250,15 +252,14 @@ public class BalanceLookupableHelperServiceTest extends AbstractGeneralLedgerLoo
 
             // test if the acculated amount is greater than or equal to the monthly amount
             assertTrue(testDataGenerator.getMessageValue("incorrectAmount"), accumulatedMonth2Amount.isGreaterEqual(month2Amount));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     /**
      * This method includes the test cases applied to the consolidation option: Consolidate and Detail
-     * 
+     *
      * @throws Exception thrown if an exception is encountered for any reason
      */
     public void testPerformance() throws Exception {
@@ -296,6 +297,7 @@ public class BalanceLookupableHelperServiceTest extends AbstractGeneralLedgerLoo
 
     /**
      * Returns the lookup fields to test in the search results
+     *
      * @param isExtended true if extended fields should be included, false if they should not be included
      * @return a List of field names to check
      * @see org.kuali.module.gl.web.lookupable.AbstractGLLookupableTestBase#getLookupFields(boolean)
@@ -324,21 +326,20 @@ public class BalanceLookupableHelperServiceTest extends AbstractGeneralLedgerLoo
 
     /**
      * This method inserts a new balance record into database
-     * 
+     *
      * @param balance the given balance
      */
     protected void insertNewRecord(Balance balance) {
         try {
             SpringContext.getBean(BusinessObjectService.class).save(balance);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     /**
      * Gets the balanceService attribute.
-     * 
+     *
      * @return Returns the balanceService.
      */
     public BalanceService getBalanceService() {
@@ -347,7 +348,7 @@ public class BalanceLookupableHelperServiceTest extends AbstractGeneralLedgerLoo
 
     /**
      * Sets the balanceService attribute value.
-     * 
+     *
      * @param balanceService The balanceService to set.
      */
     public void setBalanceService(BalanceService balanceService) {

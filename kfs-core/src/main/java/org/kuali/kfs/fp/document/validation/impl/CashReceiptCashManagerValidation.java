@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -20,12 +20,12 @@ package org.kuali.kfs.fp.document.validation.impl;
 
 import org.kuali.kfs.fp.document.CashReceiptDocument;
 import org.kuali.kfs.fp.document.CashReceiptFamilyBase;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants.CashReceipt;
 import org.kuali.kfs.sys.document.validation.RouteNodeValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 public class CashReceiptCashManagerValidation extends RouteNodeValidation {
 
@@ -39,9 +39,9 @@ public class CashReceiptCashManagerValidation extends RouteNodeValidation {
      * which must match the document total amount when the document route.
      * For Cash Receipt, since there could be change request, the total amount refers to the net total after change total is taken off.
      * Following are the formula for various total amounts in Cash Receipt:
-     *      net total = money in - money out
-     *      money in = check + currency + coin
-     *      money out = change currency + change coin
+     * net total = money in - money out
+     * money in = check + currency + coin
+     * money out = change currency + change coin
      *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */

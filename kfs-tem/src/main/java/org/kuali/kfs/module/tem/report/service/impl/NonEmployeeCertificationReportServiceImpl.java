@@ -1,38 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.report.service.impl;
 
-import static org.kuali.kfs.module.tem.TemConstants.TravelReimbursementParameters.FAX_NUMBER;
-import static org.kuali.kfs.sys.KFSConstants.ReportGeneration.PDF_FILE_EXTENSION;
-
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.coa.businessobject.Organization;
 import org.kuali.kfs.coa.service.OrganizationService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.businessobject.ActualExpense;
@@ -52,12 +43,21 @@ import org.kuali.kfs.sys.report.ReportInfo;
 import org.kuali.kfs.sys.service.ReportGenerationService;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
-public class NonEmployeeCertificationReportServiceImpl implements NonEmployeeCertificationReportService{
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.kuali.kfs.module.tem.TemConstants.TravelReimbursementParameters.FAX_NUMBER;
+import static org.kuali.kfs.sys.KFSConstants.ReportGeneration.PDF_FILE_EXTENSION;
+
+public class NonEmployeeCertificationReportServiceImpl implements NonEmployeeCertificationReportService {
 
     public static Logger LOG = Logger.getLogger(NonEmployeeCertificationReportServiceImpl.class);
 
@@ -75,7 +75,7 @@ public class NonEmployeeCertificationReportServiceImpl implements NonEmployeeCer
         report.setTripId(travelDocument.getTravelDocumentIdentifier().toString());
         report.setPurpose(travelDocument.getReportPurpose() == null ? "" : travelDocument.getReportPurpose());
         report.setInstitution(getParameterService().getParameterValueAsString(KfsParameterConstants.FINANCIAL_SYSTEM_ALL.class, KfsParameterConstants.INSTITUTION_NAME));
-        report.setCertificationDescription(getTravelDocumentService().getMessageFrom(TemKeyConstants.TEM_NON_EMPLOYEE_CERTIFICATION,report.getInstitution() ));
+        report.setCertificationDescription(getTravelDocumentService().getMessageFrom(TemKeyConstants.TEM_NON_EMPLOYEE_CERTIFICATION, report.getInstitution()));
 
         report.setDocumentId(travelDocument.getTravelDocumentIdentifier().toString());
         if (!ObjectUtils.isNull(travelDocument.getTraveler())) {
@@ -90,63 +90,63 @@ public class NonEmployeeCertificationReportServiceImpl implements NonEmployeeCer
         if (travelDocument instanceof TravelReimbursementDocument) {
             report.setDestination(travelDocument.getPrimaryDestination().getPrimaryDestinationName());
             report.setEventType("TravelReimbursement");
-        }else if (travelDocument instanceof TravelRelocationDocument) {
+        } else if (travelDocument instanceof TravelRelocationDocument) {
             report.setDestination(getDestination((TravelRelocationDocument) travelDocument));
             report.setEventType("TravelRelocation");
-        }else if (travelDocument instanceof TravelEntertainmentDocument) {
-            report.setEventType(((TravelEntertainmentDocument)travelDocument).getPurpose().getPurposeName());
-            report.setEventName(((TravelEntertainmentDocument)travelDocument).getEventTitle());
+        } else if (travelDocument instanceof TravelEntertainmentDocument) {
+            report.setEventType(((TravelEntertainmentDocument) travelDocument).getPurpose().getPurposeName());
+            report.setEventName(((TravelEntertainmentDocument) travelDocument).getEventTitle());
         }
 
         //Lookup the Organization Name of the initiator's primary department for the Approving Department
         final String initiatorId = travelDocument.getDocumentHeader().getWorkflowDocument().getInitiatorPrincipalId();
         final Person initiator = getPersonService().getPerson(initiatorId);
         Organization organization = getOrganizationService().getByPrimaryId(StringUtils.substringBefore(initiator.getPrimaryDepartmentCode(), "-"), StringUtils.substringAfter(initiator.getPrimaryDepartmentCode(), "-"));
-        if(ObjectUtils.isNotNull(organization)) {
+        if (ObjectUtils.isNotNull(organization)) {
             report.setApprovingDepartment(organization.getOrganizationName());
         } else {
             report.setApprovingDepartment("N/A");
         }
 
         final List<NonEmployeeCertificationReport.Detail> other = new ArrayList<NonEmployeeCertificationReport.Detail>();
-        final Map<String,KualiDecimal> summaryData = new HashMap<String,KualiDecimal>();
+        final Map<String, KualiDecimal> summaryData = new HashMap<String, KualiDecimal>();
 
         if (travelDocument.getActualExpenses() != null) {
             for (final ActualExpense expense : travelDocument.getActualExpenses()) {
                 expense.refreshReferenceObject(TemPropertyConstants.EXPENSE_TYPE_OBJECT_CODE);
                 final String expenseDate = new SimpleDateFormat("MM/dd").format(expense.getExpenseDate());
-                final NonEmployeeCertificationReport.Detail detail = new NonEmployeeCertificationReport.Detail(expense.getExpenseTypeObjectCode().getExpenseType().getName()==null?
-                        "":expense.getExpenseTypeObjectCode().getExpenseType().getName(), new KualiDecimal(expense.getExpenseAmount().bigDecimalValue().multiply(expense.getCurrencyRate())), expenseDate);
+                final NonEmployeeCertificationReport.Detail detail = new NonEmployeeCertificationReport.Detail(expense.getExpenseTypeObjectCode().getExpenseType().getName() == null ?
+                    "" : expense.getExpenseTypeObjectCode().getExpenseType().getName(), new KualiDecimal(expense.getExpenseAmount().bigDecimalValue().multiply(expense.getCurrencyRate())), expenseDate);
 
                 other.add(detail);
                 incrementSummary(summaryData, expense);
             }
         }
 
-        if(other.size()==0) {
-            other.add(new NonEmployeeCertificationReport.Detail("",null,""));
+        if (other.size() == 0) {
+            other.add(new NonEmployeeCertificationReport.Detail("", null, ""));
         }
         report.setExpenseDetails(other);
 
         return report;
     }
 
-    public String getDestination(TravelRelocationDocument relocation){
+    public String getDestination(TravelRelocationDocument relocation) {
         StringBuffer destination = new StringBuffer();
 
-        if(relocation.getToAddress1() != null){
+        if (relocation.getToAddress1() != null) {
             destination.append(relocation.getToAddress1() + " ");
         }
-        if(relocation.getToAddress2() != null){
+        if (relocation.getToAddress2() != null) {
             destination.append(relocation.getToAddress2() + " ");
         }
-        if(relocation.getToCity() != null){
+        if (relocation.getToCity() != null) {
             destination.append(relocation.getToCity() + " ");
         }
-        if(relocation.getToStateCode() != null){
+        if (relocation.getToStateCode() != null) {
             destination.append(relocation.getToStateCode() + " ");
         }
-        if(relocation.getToCountryCode() != null){
+        if (relocation.getToCountryCode() != null) {
             destination.append(relocation.getToCountryCode());
         }
 
@@ -186,7 +186,7 @@ public class NonEmployeeCertificationReportServiceImpl implements NonEmployeeCer
         String template = reportTemplateClassPath + reportTemplateName;
         String fullReportFileName = getReportGenerationService().buildFullFileName(new Date(), reportDirectory, reportFileName, "");
         getReportGenerationService().generateReportToPdfFile(reportData, report.getExpenseDetails(), template, fullReportFileName);
-        File reportFile = new File(fullReportFileName+ PDF_FILE_EXTENSION);
+        File reportFile = new File(fullReportFileName + PDF_FILE_EXTENSION);
         return reportFile;
     }
 
@@ -194,16 +194,17 @@ public class NonEmployeeCertificationReportServiceImpl implements NonEmployeeCer
         return SpringContext.getBean(ReportGenerationService.class);
     }
 
-    public ReportInfo getReportInfo(){
+    public ReportInfo getReportInfo() {
         return this.reportInfo;
     }
 
-    public void setReportInfo(ReportInfo reportInfo){
+    public void setReportInfo(ReportInfo reportInfo) {
         this.reportInfo = reportInfo;
     }
 
     /**
      * Gets the parameterService attribute.
+     *
      * @return Returns the parameterService.
      */
     public ParameterService getParameterService() {
@@ -212,6 +213,7 @@ public class NonEmployeeCertificationReportServiceImpl implements NonEmployeeCer
 
     /**
      * Sets the parameterService attribute value.
+     *
      * @param parameterService The parameterService to set.
      */
     public void setParameterService(ParameterService parameterService) {
@@ -219,71 +221,77 @@ public class NonEmployeeCertificationReportServiceImpl implements NonEmployeeCer
     }
 
     public String getApprovingDepartment(final TravelerDetail traveler) {
-        String approvingDepartment=KFSConstants.EMPTY_STRING;
-        if(ObjectUtils.isNotNull(traveler)&&ObjectUtils.isNotNull(traveler.getPrincipalId())){
-            TemProfile profile=getTemProfileService().findTemProfileByPrincipalId(traveler.getPrincipalId());
-            if(ObjectUtils.isNotNull(profile)&&ObjectUtils.isNotNull(profile.getHomeDepartment())) {
-                approvingDepartment=profile.getHomeDepartment();
+        String approvingDepartment = KFSConstants.EMPTY_STRING;
+        if (ObjectUtils.isNotNull(traveler) && ObjectUtils.isNotNull(traveler.getPrincipalId())) {
+            TemProfile profile = getTemProfileService().findTemProfileByPrincipalId(traveler.getPrincipalId());
+            if (ObjectUtils.isNotNull(profile) && ObjectUtils.isNotNull(profile.getHomeDepartment())) {
+                approvingDepartment = profile.getHomeDepartment();
             }
-        }else if(ObjectUtils.isNotNull(traveler)){
-            Map<String,String> criteria=new HashMap<String, String>();
+        } else if (ObjectUtils.isNotNull(traveler)) {
+            Map<String, String> criteria = new HashMap<String, String>();
             criteria.put("firstName", traveler.getFirstName());
             criteria.put("lastName", traveler.getLastName());
-            TemProfile profile=getTemProfileService().findTemProfile(criteria);
-            if(ObjectUtils.isNotNull(profile)&&ObjectUtils.isNotNull(profile.getHomeDepartment())) {
-                approvingDepartment=profile.getHomeDepartment();
+            TemProfile profile = getTemProfileService().findTemProfile(criteria);
+            if (ObjectUtils.isNotNull(profile) && ObjectUtils.isNotNull(profile.getHomeDepartment())) {
+                approvingDepartment = profile.getHomeDepartment();
             }
         }
         return approvingDepartment;
     }
 
-	/**
-	 * Gets the personService attribute.
-	 * @return Returns the personService.
-	 */
-	public PersonService getPersonService() {
-		return personService;
-	}
+    /**
+     * Gets the personService attribute.
+     *
+     * @return Returns the personService.
+     */
+    public PersonService getPersonService() {
+        return personService;
+    }
 
-	/**
-	 * Sets the personService attribute value.
-	 * @param personService The personService to set.
-	 */
-	public void setPersonService(PersonService personService) {
-		this.personService = personService;
-	}
+    /**
+     * Sets the personService attribute value.
+     *
+     * @param personService The personService to set.
+     */
+    public void setPersonService(PersonService personService) {
+        this.personService = personService;
+    }
 
-	/**
-	 * Gets the organizationService attribute.
-	 * @return Returns the organizationService.
-	 */
-	public OrganizationService getOrganizationService() {
-		return organizationService;
-	}
+    /**
+     * Gets the organizationService attribute.
+     *
+     * @return Returns the organizationService.
+     */
+    public OrganizationService getOrganizationService() {
+        return organizationService;
+    }
 
-	/**
-	 * Sets the organizationService attribute value.
-	 * @param organizationService The organizationService to set.
-	 */
-	public void setOrganizationService(OrganizationService organizationService) {
-		this.organizationService = organizationService;
-	}
+    /**
+     * Sets the organizationService attribute value.
+     *
+     * @param organizationService The organizationService to set.
+     */
+    public void setOrganizationService(OrganizationService organizationService) {
+        this.organizationService = organizationService;
+    }
 
-	/**
-	 * Gets the travelDocumentService attribute.
-	 * @return Returns the travelDocumentService.
-	 */
-	public TravelDocumentService getTravelDocumentService() {
-		return travelDocumentService;
-	}
+    /**
+     * Gets the travelDocumentService attribute.
+     *
+     * @return Returns the travelDocumentService.
+     */
+    public TravelDocumentService getTravelDocumentService() {
+        return travelDocumentService;
+    }
 
-	/**
-	 * Sets the travelDocumentService attribute value.
-	 * @param travelDocumentService The travelDocumentService to set.
-	 */
-	public void setTravelDocumentService(TravelDocumentService travelDocumentService) {
-		this.travelDocumentService = travelDocumentService;
-	}
+    /**
+     * Sets the travelDocumentService attribute value.
+     *
+     * @param travelDocumentService The travelDocumentService to set.
+     */
+    public void setTravelDocumentService(TravelDocumentService travelDocumentService) {
+        this.travelDocumentService = travelDocumentService;
+    }
 
     public TemProfileService getTemProfileService() {
         return temProfileService;

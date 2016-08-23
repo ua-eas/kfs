@@ -1,34 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.batch.service.impl;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.apache.commons.io.filefilter.SuffixFileFilter;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.batch.service.EnterpriseFeederNotificationService;
 import org.kuali.kfs.gl.batch.service.impl.RequiredFilesMissingStatus;
 import org.kuali.kfs.gl.report.LedgerSummaryReport;
@@ -44,7 +36,15 @@ import org.kuali.kfs.sys.batch.InitiateDirectoryBase;
 import org.kuali.kfs.sys.service.ReportWriterService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * This class iterates through the files in the enterprise feeder staging directory, which is injected by Spring. Note: this class
@@ -87,131 +87,127 @@ public class FileEnterpriseFeederServiceImpl extends InitiateDirectoryBase imple
             String enterpriseFeedFileName = LaborConstants.BatchFileSystem.LABOR_ENTERPRISE_FEED + LaborConstants.BatchFileSystem.EXTENSION;
             enterpriseFeedFile = new File(laborOriginEntryDirectoryName + File.separator + enterpriseFeedFileName);
 
-			PrintStream enterpriseFeedPs = null;
-			try {
-				enterpriseFeedPs = new PrintStream(enterpriseFeedFile);
-			}
-			catch (FileNotFoundException e) {
-				LOG.error("enterpriseFeedFile doesn't exist " + enterpriseFeedFileName);
-				throw new RuntimeException("enterpriseFeedFile doesn't exist " + enterpriseFeedFileName);
-			}
+            PrintStream enterpriseFeedPs = null;
+            try {
+                enterpriseFeedPs = new PrintStream(enterpriseFeedFile);
+            } catch (FileNotFoundException e) {
+                LOG.error("enterpriseFeedFile doesn't exist " + enterpriseFeedFileName);
+                throw new RuntimeException("enterpriseFeedFile doesn't exist " + enterpriseFeedFileName);
+            }
 
-			if ( LOG.isInfoEnabled() ) {
-			    LOG.info("New File created for enterprise feeder service run: " + enterpriseFeedFileName);
-			}
+            if (LOG.isInfoEnabled()) {
+                LOG.info("New File created for enterprise feeder service run: " + enterpriseFeedFileName);
+            }
 
-			File directory = new File(directoryName);
-			if (!directory.exists() || !directory.isDirectory()) {
-				LOG.error("Directory doesn't exist and or it's not really a directory " + directoryName);
-				throw new RuntimeException("Directory doesn't exist and or it's not really a directory " + directoryName);
-			}
+            File directory = new File(directoryName);
+            if (!directory.exists() || !directory.isDirectory()) {
+                LOG.error("Directory doesn't exist and or it's not really a directory " + directoryName);
+                throw new RuntimeException("Directory doesn't exist and or it's not really a directory " + directoryName);
+            }
 
-			File[] doneFiles = directory.listFiles(doneFileFilter);
-			reorderDoneFiles(doneFiles);
+            File[] doneFiles = directory.listFiles(doneFileFilter);
+            reorderDoneFiles(doneFiles);
 
-			LedgerSummaryReport ledgerSummaryReport = new LedgerSummaryReport();
+            LedgerSummaryReport ledgerSummaryReport = new LedgerSummaryReport();
 
-			//  keeps track of statistics for reporting
-			EnterpriseFeederReportData feederReportData = new EnterpriseFeederReportData();
+            //  keeps track of statistics for reporting
+            EnterpriseFeederReportData feederReportData = new EnterpriseFeederReportData();
 
-			List<EnterpriseFeederStatusAndErrorMessagesWrapper> statusAndErrorsList = new ArrayList<EnterpriseFeederStatusAndErrorMessagesWrapper>();
+            List<EnterpriseFeederStatusAndErrorMessagesWrapper> statusAndErrorsList = new ArrayList<EnterpriseFeederStatusAndErrorMessagesWrapper>();
 
-			for (File doneFile : doneFiles) {
-				File dataFile = null;
-				File reconFile = null;
+            for (File doneFile : doneFiles) {
+                File dataFile = null;
+                File reconFile = null;
 
-				EnterpriseFeederStatusAndErrorMessagesWrapper statusAndErrors = new EnterpriseFeederStatusAndErrorMessagesWrapper();
-				statusAndErrors.setErrorMessages(new ArrayList<Message>());
+                EnterpriseFeederStatusAndErrorMessagesWrapper statusAndErrors = new EnterpriseFeederStatusAndErrorMessagesWrapper();
+                statusAndErrors.setErrorMessages(new ArrayList<Message>());
 
-				dataFile = getDataFile(doneFile);
-				reconFile = getReconFile(doneFile);
+                dataFile = getDataFile(doneFile);
+                reconFile = getReconFile(doneFile);
 
-				statusAndErrors.setFileNames(dataFile, reconFile, doneFile);
+                statusAndErrors.setFileNames(dataFile, reconFile, doneFile);
 
-				if (dataFile == null) {
-					LOG.error("Unable to find data file for done file: " + doneFile.getAbsolutePath());
-					statusAndErrors.getErrorMessages().add(
-							new Message("Unable to find data file for done file: " + doneFile.getAbsolutePath(), Message.TYPE_FATAL));
-					statusAndErrors.setStatus(new RequiredFilesMissingStatus());
-				}
+                if (dataFile == null) {
+                    LOG.error("Unable to find data file for done file: " + doneFile.getAbsolutePath());
+                    statusAndErrors.getErrorMessages().add(
+                        new Message("Unable to find data file for done file: " + doneFile.getAbsolutePath(), Message.TYPE_FATAL));
+                    statusAndErrors.setStatus(new RequiredFilesMissingStatus());
+                }
 
-				if (reconFile == null) {
-					LOG.error("Unable to find recon file for done file: " + doneFile.getAbsolutePath());
-					statusAndErrors.getErrorMessages().add(
-							new Message("Unable to find recon file for done file: " + doneFile.getAbsolutePath(), Message.TYPE_FATAL));
-					statusAndErrors.setStatus(new RequiredFilesMissingStatus());
-				}
+                if (reconFile == null) {
+                    LOG.error("Unable to find recon file for done file: " + doneFile.getAbsolutePath());
+                    statusAndErrors.getErrorMessages().add(
+                        new Message("Unable to find recon file for done file: " + doneFile.getAbsolutePath(), Message.TYPE_FATAL));
+                    statusAndErrors.setStatus(new RequiredFilesMissingStatus());
+                }
 
-				try {
-					if (dataFile != null && reconFile != null) {
-					    if ( LOG.isInfoEnabled() ) {
-					        LOG.info("Data file: " + dataFile.getAbsolutePath());
-	                        LOG.info("Reconciliation File: " + reconFile.getAbsolutePath());
-					    }
+                try {
+                    if (dataFile != null && reconFile != null) {
+                        if (LOG.isInfoEnabled()) {
+                            LOG.info("Data file: " + dataFile.getAbsolutePath());
+                            LOG.info("Reconciliation File: " + reconFile.getAbsolutePath());
+                        }
 
-						fileEnterpriseFeederHelperService.feedOnFile(doneFile, dataFile, reconFile, enterpriseFeedPs, processName,
-								reconciliationTableId, statusAndErrors, ledgerSummaryReport, errorStatisticsReport, feederReportData);
-					}
-				}
-				catch (RuntimeException e) {
-					// we need to be extremely resistant to a file load failing so that it doesn't prevent other files from loading
-					LOG.error("Caught exception when feeding done file: " + doneFile.getAbsolutePath());
-				}
-				finally {
-					statusAndErrorsList.add(statusAndErrors);
-					boolean doneFileDeleted = doneFile.delete();
-					if (!doneFileDeleted) {
-						statusAndErrors.getErrorMessages().add(
-								new Message("Unable to delete done file: " + doneFile.getAbsolutePath(), Message.TYPE_FATAL));
-					}
-					if (performNotifications) {
-						enterpriseFeederNotificationService.notifyFileFeedStatus(processName, statusAndErrors.getStatus(), doneFile, dataFile,
-								reconFile, statusAndErrors.getErrorMessages());
-					}
-				}
-			}
+                        fileEnterpriseFeederHelperService.feedOnFile(doneFile, dataFile, reconFile, enterpriseFeedPs, processName,
+                            reconciliationTableId, statusAndErrors, ledgerSummaryReport, errorStatisticsReport, feederReportData);
+                    }
+                } catch (RuntimeException e) {
+                    // we need to be extremely resistant to a file load failing so that it doesn't prevent other files from loading
+                    LOG.error("Caught exception when feeding done file: " + doneFile.getAbsolutePath());
+                } finally {
+                    statusAndErrorsList.add(statusAndErrors);
+                    boolean doneFileDeleted = doneFile.delete();
+                    if (!doneFileDeleted) {
+                        statusAndErrors.getErrorMessages().add(
+                            new Message("Unable to delete done file: " + doneFile.getAbsolutePath(), Message.TYPE_FATAL));
+                    }
+                    if (performNotifications) {
+                        enterpriseFeederNotificationService.notifyFileFeedStatus(processName, statusAndErrors.getStatus(), doneFile, dataFile,
+                            reconFile, statusAndErrors.getErrorMessages());
+                    }
+                }
+            }
 
-			enterpriseFeedPs.close();
+            enterpriseFeedPs.close();
 
-			// if errors encountered is greater than max allowed the enterprise feed file should not be sent
-			boolean enterpriseFeedFileCreated = false;
-			if (feederReportData.getNumberOfErrorEncountered() > getMaximumNumberOfErrorsAllowed()) {
-				enterpriseFeedFile.delete();
-			}
-			else {
-				// generate done file
-				String enterpriseFeedDoneFileName = enterpriseFeedFileName.replace(
-						LaborConstants.BatchFileSystem.EXTENSION, LaborConstants.BatchFileSystem.DONE_FILE_EXTENSION);
-				File enterpriseFeedDoneFile = new File(laborOriginEntryDirectoryName + File.separator
-						+ enterpriseFeedDoneFileName);
-				if (!enterpriseFeedDoneFile.exists()) {
-					try {
-						enterpriseFeedDoneFile.createNewFile();
-					}
-					catch (IOException e) {
-						LOG.error("Unable to create done file for enterprise feed output group.", e);
-						throw new RuntimeException("Unable to create done file for enterprise feed output group.", e);
-					}
-				}
+            // if errors encountered is greater than max allowed the enterprise feed file should not be sent
+            boolean enterpriseFeedFileCreated = false;
+            if (feederReportData.getNumberOfErrorEncountered() > getMaximumNumberOfErrorsAllowed()) {
+                enterpriseFeedFile.delete();
+            } else {
+                // generate done file
+                String enterpriseFeedDoneFileName = enterpriseFeedFileName.replace(
+                    LaborConstants.BatchFileSystem.EXTENSION, LaborConstants.BatchFileSystem.DONE_FILE_EXTENSION);
+                File enterpriseFeedDoneFile = new File(laborOriginEntryDirectoryName + File.separator
+                    + enterpriseFeedDoneFileName);
+                if (!enterpriseFeedDoneFile.exists()) {
+                    try {
+                        enterpriseFeedDoneFile.createNewFile();
+                    } catch (IOException e) {
+                        LOG.error("Unable to create done file for enterprise feed output group.", e);
+                        throw new RuntimeException("Unable to create done file for enterprise feed output group.", e);
+                    }
+                }
 
-				enterpriseFeedFileCreated = true;
-			}
+                enterpriseFeedFileCreated = true;
+            }
 
-			// write out totals to log file
-			if ( LOG.isInfoEnabled() ) {
-	            LOG.info("Total records read: " + feederReportData.getNumberOfRecordsRead());
-	            LOG.info("Total amount read: " + feederReportData.getTotalAmountRead());
-	            LOG.info("Total records written: " + feederReportData.getNumberOfRecordsRead());
-	            LOG.info("Total amount written: " + feederReportData.getTotalAmountWritten());
-			}
+            // write out totals to log file
+            if (LOG.isInfoEnabled()) {
+                LOG.info("Total records read: " + feederReportData.getNumberOfRecordsRead());
+                LOG.info("Total amount read: " + feederReportData.getTotalAmountRead());
+                LOG.info("Total records written: " + feederReportData.getNumberOfRecordsRead());
+                LOG.info("Total amount written: " + feederReportData.getTotalAmountWritten());
+            }
 
-			generateReport(enterpriseFeedFileCreated, feederReportData, statusAndErrorsList, ledgerSummaryReport,
-					laborOriginEntryDirectoryName + File.separator + enterpriseFeedFileName);
+            generateReport(enterpriseFeedFileCreated, feederReportData, statusAndErrorsList, ledgerSummaryReport,
+                laborOriginEntryDirectoryName + File.separator + enterpriseFeedFileName);
         }
     }
 
     /**
      * Sets the laborOriginEntryDirectoryName attribute value.
+     *
      * @param laborOriginEntryDirectoryName The laborOriginEntryDirectoryName to set.
      */
     public void setLaborOriginEntryDirectoryName(String laborOriginEntryDirectoryName) {
@@ -291,7 +287,6 @@ public class FileEnterpriseFeederServiceImpl extends InitiateDirectoryBase imple
     }
 
 
-
     public void setDateTimeService(DateTimeService dateTimeService) {
         this.dateTimeService = dateTimeService;
     }
@@ -322,15 +317,15 @@ public class FileEnterpriseFeederServiceImpl extends InitiateDirectoryBase imple
         this.reconciliationTableId = reconciliationTableId;
     }
 
-	protected void generateReport(boolean enterpriseFeedFileCreated, EnterpriseFeederReportData feederReportData,
-			List<EnterpriseFeederStatusAndErrorMessagesWrapper> statusAndErrorsList, LedgerSummaryReport report,
-			String outputFileName) {
-		if (enterpriseFeedFileCreated) {
-			reportWriterService.writeFormattedMessageLine("Output File Name:        %s", outputFileName);
-		} else {
-			reportWriterService
-					.writeFormattedMessageLine(configurationService.getPropertyValueAsString(LaborKeyConstants.EnterpriseFeed.ERROR_OUTPUT_FILE_NOT_GENERATED));
-		}
+    protected void generateReport(boolean enterpriseFeedFileCreated, EnterpriseFeederReportData feederReportData,
+                                  List<EnterpriseFeederStatusAndErrorMessagesWrapper> statusAndErrorsList, LedgerSummaryReport report,
+                                  String outputFileName) {
+        if (enterpriseFeedFileCreated) {
+            reportWriterService.writeFormattedMessageLine("Output File Name:        %s", outputFileName);
+        } else {
+            reportWriterService
+                .writeFormattedMessageLine(configurationService.getPropertyValueAsString(LaborKeyConstants.EnterpriseFeed.ERROR_OUTPUT_FILE_NOT_GENERATED));
+        }
         reportWriterService.writeNewLines(1);
 
         generateFilesLoadedStatusReport(statusAndErrorsList);
@@ -378,31 +373,31 @@ public class FileEnterpriseFeederServiceImpl extends InitiateDirectoryBase imple
     }
 
     protected void generateErrorAndStatisticsReport(EnterpriseFeederReportData feederReportData) {
-    	errorStatisticsReport.writeStatisticLine("LABOR LEDGER RECORDS READ                    %,9d", feederReportData.getNumberOfRecordsRead());
-    	errorStatisticsReport.writeStatisticLine("LABOR LEDGER ACTUALS READ                    %,9d", feederReportData.getNumberOfBalanceTypeActualsRead());
-    	errorStatisticsReport.writeStatisticLine("LABOR LEDGER ENCUMBRANCES READ               %,9d", feederReportData.getNumberOfBalanceTypeEncumbranceRead());
-    	errorStatisticsReport.writeStatisticLine("FRINGE BENEFIT ACTUALS RECORDS WRITTEN       %,9d", feederReportData.getNumberOfFringeActualsGenerated());
-    	errorStatisticsReport.writeStatisticLine("FRINGE BENEFIT ENCUMBRANCE RECORS WRITTEN    %,9d", feederReportData.getNumberOfFringeEncumbrancesGenerated());
-    	errorStatisticsReport.writeStatisticLine("MAX NUMBER OF ERRORS ALLOWED                 %,9d", getMaximumNumberOfErrorsAllowed());
-    	errorStatisticsReport.writeStatisticLine("NUMBER OF ERRORS FOUND                       %,9d", feederReportData.getNumberOfErrorEncountered());
+        errorStatisticsReport.writeStatisticLine("LABOR LEDGER RECORDS READ                    %,9d", feederReportData.getNumberOfRecordsRead());
+        errorStatisticsReport.writeStatisticLine("LABOR LEDGER ACTUALS READ                    %,9d", feederReportData.getNumberOfBalanceTypeActualsRead());
+        errorStatisticsReport.writeStatisticLine("LABOR LEDGER ENCUMBRANCES READ               %,9d", feederReportData.getNumberOfBalanceTypeEncumbranceRead());
+        errorStatisticsReport.writeStatisticLine("FRINGE BENEFIT ACTUALS RECORDS WRITTEN       %,9d", feederReportData.getNumberOfFringeActualsGenerated());
+        errorStatisticsReport.writeStatisticLine("FRINGE BENEFIT ENCUMBRANCE RECORS WRITTEN    %,9d", feederReportData.getNumberOfFringeEncumbrancesGenerated());
+        errorStatisticsReport.writeStatisticLine("MAX NUMBER OF ERRORS ALLOWED                 %,9d", getMaximumNumberOfErrorsAllowed());
+        errorStatisticsReport.writeStatisticLine("NUMBER OF ERRORS FOUND                       %,9d", feederReportData.getNumberOfErrorEncountered());
     }
 
-	/**
-	 * Retrieves the system parameter value that indicates the maximum number of
-	 * errors that are allowed to occur in benefit generation
-	 *
-	 * @return int max number of errors
-	 */
-	protected int getMaximumNumberOfErrorsAllowed() {
-		String maxBenefitGenerationErrorsStr = parameterService	.getParameterValueAsString(LaborEnterpriseFeedStep.class,
-						LaborConstants.BenefitCalculation.MAX_NUMBER_OF_ERRORS_ALLOWED_PARAMETER);
-		int maxBenefitGenerationErrors = 0;
-		if (StringUtils.isNumeric(maxBenefitGenerationErrorsStr)) {
-			maxBenefitGenerationErrors = Integer.parseInt(maxBenefitGenerationErrorsStr);
-		}
+    /**
+     * Retrieves the system parameter value that indicates the maximum number of
+     * errors that are allowed to occur in benefit generation
+     *
+     * @return int max number of errors
+     */
+    protected int getMaximumNumberOfErrorsAllowed() {
+        String maxBenefitGenerationErrorsStr = parameterService.getParameterValueAsString(LaborEnterpriseFeedStep.class,
+            LaborConstants.BenefitCalculation.MAX_NUMBER_OF_ERRORS_ALLOWED_PARAMETER);
+        int maxBenefitGenerationErrors = 0;
+        if (StringUtils.isNumeric(maxBenefitGenerationErrorsStr)) {
+            maxBenefitGenerationErrors = Integer.parseInt(maxBenefitGenerationErrorsStr);
+        }
 
-		return maxBenefitGenerationErrors;
-	}
+        return maxBenefitGenerationErrors;
+    }
 
     public void setReportWriterService(ReportWriterService reportWriterService) {
         this.reportWriterService = reportWriterService;
@@ -413,16 +408,18 @@ public class FileEnterpriseFeederServiceImpl extends InitiateDirectoryBase imple
      */
     @Override
     public List<String> getRequiredDirectoryNames() {
-        return new ArrayList<String>() {{add(getDirectoryName()); }};
-	}
+        return new ArrayList<String>() {{
+            add(getDirectoryName());
+        }};
+    }
 
-	public void setParameterService(ParameterService parameterService) {
-		this.parameterService = parameterService;
-	}
+    public void setParameterService(ParameterService parameterService) {
+        this.parameterService = parameterService;
+    }
 
-	public void setConfigurationService(ConfigurationService configurationService) {
-		this.configurationService = configurationService;
-	}
+    public void setConfigurationService(ConfigurationService configurationService) {
+        this.configurationService = configurationService;
+    }
 
     public void setErrorStatisticsReport(ReportWriterService errorStatisticsReport) {
         this.errorStatisticsReport = errorStatisticsReport;

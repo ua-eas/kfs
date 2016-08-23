@@ -1,48 +1,46 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.krad.uif.field;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.core.api.exception.RiceRuntimeException;
 import org.kuali.kfs.krad.uif.UifConstants.Position;
-import org.kuali.kfs.krad.uif.component.ComponentSecurity;
-import org.kuali.kfs.krad.uif.view.View;
 import org.kuali.kfs.krad.uif.component.Component;
 import org.kuali.kfs.krad.uif.component.ComponentBase;
+import org.kuali.kfs.krad.uif.component.ComponentSecurity;
 import org.kuali.kfs.krad.uif.util.ComponentFactory;
+import org.kuali.kfs.krad.uif.view.View;
+import org.kuali.rice.core.api.exception.RiceRuntimeException;
 
 import java.util.List;
 
 /**
  * Base class for <code>Field</code> implementations
- *
+ * <p>
  * <p>
  * Sets the component type name so that all field templates have a fixed
  * contract
  * </p>
- *
+ * <p>
  * <p>
  * Holds a nested <code>LabelField</code> with configuration for rendering the
  * label and configuration on label placement.
  * </p>
- *
- * 
  */
 public class FieldBase extends ComponentBase implements Field {
     private static final long serialVersionUID = -5888414844802862760L;
@@ -61,7 +59,7 @@ public class FieldBase extends ComponentBase implements Field {
 
     /**
      * The following initialization is performed:
-     *
+     * <p>
      * <ul>
      * </ul>
      *
@@ -74,7 +72,7 @@ public class FieldBase extends ComponentBase implements Field {
 
     /**
      * The following finalization is performed:
-     *
+     * <p>
      * <ul>
      * <li>Set the labelForComponentId to this component id</li>
      * <li>Set the label text on the label field from the field's label property
@@ -85,7 +83,7 @@ public class FieldBase extends ComponentBase implements Field {
      * </ul>
      *
      * @see ComponentBase#performFinalize(View,
-     *      java.lang.Object, Component)
+     * java.lang.Object, Component)
      */
     @Override
     public void performFinalize(View view, Object model, Component parent) {
@@ -109,8 +107,8 @@ public class FieldBase extends ComponentBase implements Field {
             if (labelPlacement.equals(Position.RIGHT)) {
                 labelField.setRenderColon(false);
             }
-            
-            if (labelPlacement.equals(Position.TOP) || labelPlacement.equals(Position.BOTTOM)){
+
+            if (labelPlacement.equals(Position.TOP) || labelPlacement.equals(Position.BOTTOM)) {
                 labelField.addStyleClass("uif-labelBlock");
             }
         }
@@ -176,14 +174,14 @@ public class FieldBase extends ComponentBase implements Field {
 
     /**
      * Sets whether the label should be displayed
-     *
+     * <p>
      * <p>
      * Convenience method for configuration that sets the render indicator on
      * the fields <code>LabelField</code> instance
      * </p>
      *
      * @param showLabel boolean true if label should be displayed, false if the label
-     * should not be displayed
+     *                  should not be displayed
      */
     public void setShowLabel(boolean showLabel) {
         if (labelField != null) {

@@ -1,27 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl;
-
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 import org.apache.commons.beanutils.DynaClass;
 import org.apache.commons.beanutils.DynaProperty;
@@ -30,14 +25,19 @@ import org.apache.commons.beanutils.WrapDynaClass;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.Query;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
 import org.kuali.kfs.kns.datadictionary.FieldDefinition;
 import org.kuali.kfs.krad.dao.LookupDao;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
+
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * This class provides a set of utilities that can handle common tasks related to business objects.
@@ -49,7 +49,7 @@ public class OJBUtility {
 
     /**
      * This method builds a map of business object with its property names and values
-     * 
+     *
      * @param businessObject the given business object
      * @return the map of business object with its property names and values
      */
@@ -66,8 +66,7 @@ public class OJBUtility {
                     propertyMap.put(propertyName, propertyValue);
                 }
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("OJBUtility.buildPropertyMap()" + e);
         }
         return propertyMap;
@@ -75,8 +74,8 @@ public class OJBUtility {
 
     /**
      * This method builds an OJB query criteria based on the input field map
-     * 
-     * @param fieldValues the input field map
+     *
+     * @param fieldValues    the input field map
      * @param businessObject the given business object
      * @return an OJB query criteria
      */
@@ -84,7 +83,7 @@ public class OJBUtility {
 
         Criteria criteria = new Criteria();
         BusinessObjectEntry entry = (BusinessObjectEntry) KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(businessObject.getClass().getName());
-           //FieldDefinition lookupField = entry.getLookupDefinition().getLookupField(attributeName);
+        //FieldDefinition lookupField = entry.getLookupDefinition().getLookupField(attributeName);
         //System.out.println(entry.getTitleAttribute());
         try {
             Iterator propsIter = fieldValues.keySet().iterator();
@@ -92,8 +91,8 @@ public class OJBUtility {
                 String propertyName = (String) propsIter.next();
                 Object propertyValueObject = fieldValues.get(propertyName);
                 String propertyValue = "";
-         
-                 
+
+
                 FieldDefinition lookupField = (entry != null) ? entry.getLookupDefinition().getLookupField(propertyName) : null;
                 if (lookupField != null && lookupField.isTreatWildcardsAndOperatorsAsLiteral()) {
                     propertyValue = (propertyValueObject != null) ? StringUtils.replace(propertyValueObject.toString().trim(), "*", "\\*") : "";
@@ -108,8 +107,7 @@ public class OJBUtility {
                     continue;
                 }
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("OJBUtility.buildCriteriaFromMap()" + e);
         }
         return criteria;
@@ -117,7 +115,7 @@ public class OJBUtility {
 
     /**
      * Limit the size of the result set from the given query operation
-     * 
+     *
      * @param query the given query operation
      */
     public static void limitResultSize(Query query) {
@@ -130,10 +128,10 @@ public class OJBUtility {
 
     /**
      * This method calculates the actual size of given selection results
-     * 
-     * @param result the given selection results
-     * @param recordCount the possible number of the given results
-     * @param fieldValues the input field map
+     *
+     * @param result         the given selection results
+     * @param recordCount    the possible number of the given results
+     * @param fieldValues    the input field map
      * @param businessObject the given business object
      * @return the actual size of given selection results
      */
@@ -151,8 +149,8 @@ public class OJBUtility {
 
     /**
      * This method gets the size of a result set from the given search criteria
-     * 
-     * @param fieldValues the input field map
+     *
+     * @param fieldValues    the input field map
      * @param businessObject the given business object
      * @return the size of a result set from the given search criteria
      */
@@ -163,7 +161,7 @@ public class OJBUtility {
 
     /**
      * This method gets the limit of the selection results
-     * 
+     *
      * @return the limit of the selection results
      */
     public static Integer getResultLimit() {

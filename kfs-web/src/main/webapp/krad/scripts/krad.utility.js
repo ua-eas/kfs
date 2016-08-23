@@ -1,17 +1,20 @@
 /*
- * Copyright 2005-2015 The Kuali Foundation
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Licensed under the Educational Community License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Copyright 2005-2016 The Kuali Foundation
  *
- * http://www.opensource.org/licenses/ecl2.php
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
  * Takes a name that may have characters incompatible with jQuery selection and escapes them so they can
@@ -20,8 +23,8 @@
  *
  * @returns a string that has been escaped for use in jQuery selectors
  */
-function escapeName(name){
-    if(name != undefined && name != null && name != ""){
+function escapeName(name) {
+    if (name != undefined && name != null && name != "") {
         name = name.replace(/\\'/g, "'");
         name = name.replace(/'/g, "\\'");
         name = name.replace(/\\"/g, "\"");
@@ -39,7 +42,7 @@ function escapeName(name){
  * @returns the jQuery context that can be used to perform actions that must be global to the entire page
  * ie, showing lightBoxes and growls etc
  */
-function getContext(){
+function getContext() {
     if (usePortalForContext()) {
         return top.jQuery;
     }
@@ -198,42 +201,42 @@ function getComponentState(componentId, key) {
 }
 
 // gets the the label for field with the corresponding id
-function getLabel(id){
-	var label =  jq("#" + id + "_label");
-	if(label){
-		return label.text();
-	}
-	else{
-		return "";
-	}
+function getLabel(id) {
+    var label = jq("#" + id + "_label");
+    if (label) {
+        return label.text();
+    }
+    else {
+        return "";
+    }
 }
 
-function runHiddenScripts(id){
-	if(id){
-		jq("#" + id).find("input[name='script']").each(function(){
-			eval(jq(this).val());
+function runHiddenScripts(id) {
+    if (id) {
+        jq("#" + id).find("input[name='script']").each(function () {
+            eval(jq(this).val());
             jq(this).attr("script", "first_run");
-			jq(this).removeAttr("name");
-		});
-	}
-	else{
-		jq("input[name='script']").each(function(){
-			eval(jq(this).val());
+            jq(this).removeAttr("name");
+        });
+    }
+    else {
+        jq("input[name='script']").each(function () {
+            eval(jq(this).val());
             jq(this).attr("script", "first_run");
-			jq(this).removeAttr("name");
-		});
-	}
+            jq(this).removeAttr("name");
+        });
+    }
 }
 
-function runHiddenScriptsAgain(id){
-    if(id){
-        jq("#" + id).find("script[name='first_run']").each(function(){
+function runHiddenScriptsAgain(id) {
+    if (id) {
+        jq("#" + id).find("script[name='first_run']").each(function () {
             eval(jq(this).val());
             jq(this).removeAttr("script");
         });
     }
-    else{
-        jq("input[script='first_run']").each(function(){
+    else {
+        jq("input[script='first_run']").each(function () {
             eval(jq(this).val());
             jq(this).removeAttr("script");
         });
@@ -277,31 +280,31 @@ function writeHiddenToForm(propertyName, propertyValue) {
 /**
  * Retrieves the actual value from the input widget specified by name
  */
-function coerceValue(name){
-	var value = "";
-	var nameSelect = "[name='" + escapeName(name) + "']";
-	if(jq(nameSelect + ":checkbox").length){
-		value = jq(nameSelect + ":checked").val();
-	}
-	else if(jq(nameSelect + ":radio").length){
-		value = jq(nameSelect + ":checked").val();
-	}
-	else if(jq(nameSelect).length){
-		if (jq(nameSelect).hasClass("watermark")) {
-			jq.watermark.hide(nameSelect);
-			value = jq(nameSelect).val();
-			jq.watermark.show(nameSelect);
-		}
-		else{
-			value = jq(nameSelect).val();
-		}
-	}
+function coerceValue(name) {
+    var value = "";
+    var nameSelect = "[name='" + escapeName(name) + "']";
+    if (jq(nameSelect + ":checkbox").length) {
+        value = jq(nameSelect + ":checked").val();
+    }
+    else if (jq(nameSelect + ":radio").length) {
+        value = jq(nameSelect + ":checked").val();
+    }
+    else if (jq(nameSelect).length) {
+        if (jq(nameSelect).hasClass("watermark")) {
+            jq.watermark.hide(nameSelect);
+            value = jq(nameSelect).val();
+            jq.watermark.show(nameSelect);
+        }
+        else {
+            value = jq(nameSelect).val();
+        }
+    }
 
-	if(value == null){
-		value = "";
-	}
+    if (value == null) {
+        value = "";
+    }
 
-	return value;
+    return value;
 }
 
 /**
@@ -315,34 +318,34 @@ function setValue(name, value) {
     jq(nameSelect).val(value);
 }
 
-function isValueEmpty(value){
-	if(value != undefined && value != null && value != ""){
-		return false;
-	}
-	else{
-		return true;
-	}
+function isValueEmpty(value) {
+    if (value != undefined && value != null && value != "") {
+        return false;
+    }
+    else {
+        return true;
+    }
 }
 
 //returns true if the field with name of name1 occurs before field with name2
-function occursBefore(name1, name2){
-	var field1 = jq("[name='" + escapeName(name1) + "']");
-	var field2 = jq("[name='" + escapeName(name2) + "']");
+function occursBefore(name1, name2) {
+    var field1 = jq("[name='" + escapeName(name1) + "']");
+    var field2 = jq("[name='" + escapeName(name2) + "']");
 
-	field1.addClass("prereqcheck");
-	field2.addClass("prereqcheck");
+    field1.addClass("prereqcheck");
+    field2.addClass("prereqcheck");
 
-	var fields = jq(".prereqcheck");
+    var fields = jq(".prereqcheck");
 
-	field1.removeClass("prereqcheck");
-	field2.removeClass("prereqcheck");
+    field1.removeClass("prereqcheck");
+    field2.removeClass("prereqcheck");
 
-	if(fields.index(field1) < fields.index(field2) ){
-		return true;
-	}
-	else{
-		return false;
-	}
+    if (fields.index(field1) < fields.index(field2)) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
 /**
@@ -355,33 +358,31 @@ function occursBefore(name1, name2){
  * @param event
  * @returns true if the form has dirty fields
  */
-function checkDirty(event){
-	var validateDirty = jq("[name='validateDirty']").val()
-	var dirty = jq(".uif-field").find("input.dirty")
+function checkDirty(event) {
+    var validateDirty = jq("[name='validateDirty']").val()
+    var dirty = jq(".uif-field").find("input.dirty")
 
-	if (validateDirty == "true" && dirty.length > 0)
-	{
-		var answer = confirm ("Form has unsaved data. Do you want to leave anyway?")
-		if (answer == false){
-			event.preventDefault();
-			event.stopImmediatePropagation();
+    if (validateDirty == "true" && dirty.length > 0) {
+        var answer = confirm("Form has unsaved data. Do you want to leave anyway?")
+        if (answer == false) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
 
-			//Change the current nav button class to 'current' if user doesn't wants to leave the page
-			var ul = jq("#" + event.target.id).closest("ul");
-			if (ul.length > 0)
-			{
-				var pageId = jq("[name='pageId']").val();
-				if(ul.hasClass("tabMenu")){
-					jq("#" + ul.attr("id")).selectTab({selectPage : pageId});
-				}
-				else{
-					jq("#" + ul.attr("id")).selectMenuItem({selectPage : pageId});
-				}
-			}
-			return true;
-		}
-	}
-	return false;
+            //Change the current nav button class to 'current' if user doesn't wants to leave the page
+            var ul = jq("#" + event.target.id).closest("ul");
+            if (ul.length > 0) {
+                var pageId = jq("[name='pageId']").val();
+                if (ul.hasClass("tabMenu")) {
+                    jq("#" + ul.attr("id")).selectTab({selectPage: pageId});
+                }
+                else {
+                    jq("#" + ul.attr("id")).selectMenuItem({selectPage: pageId});
+                }
+            }
+            return true;
+        }
+    }
+    return false;
 }
 
 /**
@@ -392,110 +393,110 @@ function checkDirty(event){
  * @param elementId
  * @param elementType
  */
-function getAttributeId(elementId, elementType){
-	var id = elementId;
-	if(elementType == "radio" || elementType == "checkbox" || elementType == "select-one" || elementType == "select-multiple"){
-		id = elementId.replace(/_attribute\S*/, "");
-	}
-	return id;
+function getAttributeId(elementId, elementType) {
+    var id = elementId;
+    if (elementType == "radio" || elementType == "checkbox" || elementType == "select-one" || elementType == "select-multiple") {
+        id = elementId.replace(/_attribute\S*/, "");
+    }
+    return id;
 }
 
 //performs a 'jump' - a scroll to the necessary html element
 //The element that is used is based on the hidden value of jumpToId or jumpToName on the form
 //if these hidden attributes do not contain a value it jumps to the top of the page by default
-function performJumpTo(){
-	var jumpToId = jq("[name='jumpToId']").val();
-	var jumpToName = jq("[name='jumpToName']").val();
-	if(jumpToId){
-		if(jumpToId.toUpperCase() === "TOP"){
-			jumpToTop();
-		}
-		else if(jumpToId.toUpperCase() === "BOTTOM"){
-			jumpToBottom();
-		}
-		else{
-			jumpToElementById(jumpToId);
-		}
-	}
-	else if(jumpToName){
-		jumpToElementByName(jumpToName);
-	}
-	else{
-		jumpToTop();
-	}
+function performJumpTo() {
+    var jumpToId = jq("[name='jumpToId']").val();
+    var jumpToName = jq("[name='jumpToName']").val();
+    if (jumpToId) {
+        if (jumpToId.toUpperCase() === "TOP") {
+            jumpToTop();
+        }
+        else if (jumpToId.toUpperCase() === "BOTTOM") {
+            jumpToBottom();
+        }
+        else {
+            jumpToElementById(jumpToId);
+        }
+    }
+    else if (jumpToName) {
+        jumpToElementByName(jumpToName);
+    }
+    else {
+        jumpToTop();
+    }
 }
 
 //performs a focus on an the element with the id preset
-function performFocus(){
-	var focusId = jq("[name='focusId']").val();
-	if(focusId){
-		jq("#" + focusId).focus();
-	}
-	else{
-		jq("input:not(input[type='button'], input[type='submit']):visible:first", "#kualiForm").focus();
-	}
+function performFocus() {
+    var focusId = jq("[name='focusId']").val();
+    if (focusId) {
+        jq("#" + focusId).focus();
+    }
+    else {
+        jq("input:not(input[type='button'], input[type='submit']):visible:first", "#kualiForm").focus();
+    }
 }
 
 //performs a focus on an the element with the name specified
-function focusOnElementByName(name){
-	var theElement =  jq("[name='" + escapeName(name) + "']");
-	if(theElement.length != 0){
-		theElement.focus();
-	}
+function focusOnElementByName(name) {
+    var theElement = jq("[name='" + escapeName(name) + "']");
+    if (theElement.length != 0) {
+        theElement.focus();
+    }
 }
 
 //performs a focus on an the element with the id specified
-function focusOnElementById(focusId){
-	if(focusId){
-		jq("#" + focusId).focus();
-	}
+function focusOnElementById(focusId) {
+    if (focusId) {
+        jq("#" + focusId).focus();
+    }
 }
 
 //Jump(scroll) to an element by name
-function jumpToElementByName(name){
-	var theElement =  jq("[name='" + escapeName(name) + "']");
-	if(theElement.length != 0){
-		if(!usePortalForContext() || jQuery("#fancybox-frame", parent.document).length){
-			jQuery.scrollTo(theElement, 0);
-		}
-		else{
+function jumpToElementByName(name) {
+    var theElement = jq("[name='" + escapeName(name) + "']");
+    if (theElement.length != 0) {
+        if (!usePortalForContext() || jQuery("#fancybox-frame", parent.document).length) {
+            jQuery.scrollTo(theElement, 0);
+        }
+        else {
             var headerOffset = top.jQuery("#header").outerHeight(true) + top.jQuery(".header2").outerHeight(true);
-			top.jQuery.scrollTo(theElement, 0, {offset: {top:headerOffset}});
-		}
-	}
+            top.jQuery.scrollTo(theElement, 0, {offset: {top: headerOffset}});
+        }
+    }
 }
 
 //Jump(scroll) to an element by Id
-function jumpToElementById(id){
-	var theElement =  jq("#" + id);
-	if(theElement.length != 0){
-		if(!usePortalForContext() || jQuery("#fancybox-frame", parent.document).length){
+function jumpToElementById(id) {
+    var theElement = jq("#" + id);
+    if (theElement.length != 0) {
+        if (!usePortalForContext() || jQuery("#fancybox-frame", parent.document).length) {
             jQuery.scrollTo(theElement, 0);
-		}
-		else{
+        }
+        else {
             var headerOffset = top.jQuery("#header").outerHeight(true) + top.jQuery(".header2").outerHeight(true);
-			top.jQuery.scrollTo(theElement, 0, {offset: {top:headerOffset}});
-		}
-	}
+            top.jQuery.scrollTo(theElement, 0, {offset: {top: headerOffset}});
+        }
+    }
 }
 
 //Jump(scroll) to the top of the current screen
-function jumpToTop(){
-    if(!usePortalForContext() || jQuery("#fancybox-frame", parent.document).length){
+function jumpToTop() {
+    if (!usePortalForContext() || jQuery("#fancybox-frame", parent.document).length) {
         jQuery.scrollTo(jQuery("html"), 0);
     }
-    else{
-		top.jQuery.scrollTo(top.jQuery("html"), 0);
+    else {
+        top.jQuery.scrollTo(top.jQuery("html"), 0);
     }
 }
 
 //Jump(scroll) to the bottom of the current screen
-function jumpToBottom(){
-    if(!usePortalForContext() || jQuery("#fancybox-frame", parent.document).length){
+function jumpToBottom() {
+    if (!usePortalForContext() || jQuery("#fancybox-frame", parent.document).length) {
         jQuery.scrollTo("max", 0);
     }
-    else{
-		top.jQuery.scrollTo("max", 0);
+    else {
+        top.jQuery.scrollTo("max", 0);
     }
 }
 

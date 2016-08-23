@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -22,6 +22,9 @@ import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService;
 import org.kuali.kfs.integration.purap.CapitalAssetLocation;
 import org.kuali.kfs.integration.purap.CapitalAssetSystem;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
@@ -34,9 +37,6 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.RiceKeyConstants;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class PurchasingCapitalAssetValidation extends GenericValidation {
     CapitalAssetBuilderModuleService capitalAssetBuilderModuleService;
@@ -59,11 +59,10 @@ public class PurchasingCapitalAssetValidation extends GenericValidation {
             // if capital asset required, check to see if the capital asset data are setup
             String typeCode = purchasingDocument.getCapitalAssetSystemTypeCode();
             if (StringUtils.isBlank(typeCode) || StringUtils.isBlank(purchasingDocument.getCapitalAssetSystemStateCode()) ||
-                    purchasingDocument.getPurchasingCapitalAssetSystems() == null || purchasingDocument.getPurchasingCapitalAssetItems() == null){
+                purchasingDocument.getPurchasingCapitalAssetSystems() == null || purchasingDocument.getPurchasingCapitalAssetItems() == null) {
                 valid = false;
-            }
-            else if ((typeCode.equals(PurapConstants.CapitalAssetTabStrings.ONE_SYSTEM) || typeCode.equals(PurapConstants.CapitalAssetTabStrings.MULTIPLE_SYSTEMS)) &&
-                    purchasingDocument.getPurchasingCapitalAssetSystems().size() == 0) {
+            } else if ((typeCode.equals(PurapConstants.CapitalAssetTabStrings.ONE_SYSTEM) || typeCode.equals(PurapConstants.CapitalAssetTabStrings.MULTIPLE_SYSTEMS)) &&
+                purchasingDocument.getPurchasingCapitalAssetSystems().size() == 0) {
                 valid = false;
             }
             /* TODO
@@ -72,8 +71,7 @@ public class PurchasingCapitalAssetValidation extends GenericValidation {
              */
             else if (purchasingDocument.getPurchasingCapitalAssetItems().isEmpty()) {
                 valid = false;
-            }
-            else {
+            } else {
                 int expectedCapAssetItems = 0;
                 for (PurApItem purapItem : purchasingDocument.getItems()) {
                     if (purapItem.getItemType().isLineItemIndicator()) {
@@ -82,7 +80,7 @@ public class PurchasingCapitalAssetValidation extends GenericValidation {
                         }
                     }
                 }
-                if(purchasingDocument.getPurchasingCapitalAssetItems().size() != expectedCapAssetItems){
+                if (purchasingDocument.getPurchasingCapitalAssetItems().size() != expectedCapAssetItems) {
                     valid = false;
                 }
             }
@@ -90,8 +88,7 @@ public class PurchasingCapitalAssetValidation extends GenericValidation {
                 GlobalVariables.getMessageMap().putError("newPurchasingItemCapitalAssetLine", PurapKeyConstants.ERROR_CAPITAL_ASSET_REQD_FOR_PUR_OBJ_SUB_TYPE);
                 return valid;
             }
-        }
-        else {
+        } else {
             // if capital asset not required, reset system type and state code in case they are filled in
             // if capital asset items are empty, then set sytem type code and system state code to null
             // fix to jira KFSMI-5146
@@ -113,8 +110,7 @@ public class PurchasingCapitalAssetValidation extends GenericValidation {
                         valid &= purchasingService.checkCapitalAssetLocation(location);
                     }
                 }
-            }
-            else if (purchasingDocument.getCapitalAssetSystemTypeCode().equals(PurapConstants.CapitalAssetSystemTypes.ONE_SYSTEM)) {
+            } else if (purchasingDocument.getCapitalAssetSystemTypeCode().equals(PurapConstants.CapitalAssetSystemTypes.ONE_SYSTEM)) {
                 CapitalAssetSystem system = purchasingDocument.getPurchasingCapitalAssetSystems().get(0);
                 for (CapitalAssetLocation location : system.getCapitalAssetLocations()) {
                     valid &= purchasingService.checkCapitalAssetLocation(location);
@@ -151,8 +147,7 @@ public class PurchasingCapitalAssetValidation extends GenericValidation {
                 }
                 i++;
             }
-        }
-        else if (purchasingDocument.getCapitalAssetSystemTypeCode().equals(PurapConstants.CapitalAssetSystemTypes.ONE_SYSTEM)) {
+        } else if (purchasingDocument.getCapitalAssetSystemTypeCode().equals(PurapConstants.CapitalAssetSystemTypes.ONE_SYSTEM)) {
             // validate for One system
             if (ObjectUtils.isNotNull(purchasingDocument.getPurchasingCapitalAssetSystems())) {
                 CapitalAssetSystem system = purchasingDocument.getPurchasingCapitalAssetSystems().get(0);

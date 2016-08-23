@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -22,15 +22,9 @@
  */
 package org.kuali.kfs.pdp.businessobject;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.pdp.PdpConstants;
 import org.kuali.kfs.pdp.PdpParameterConstants;
 import org.kuali.kfs.pdp.service.PaymentGroupService;
@@ -41,8 +35,14 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 public class PaymentDetail extends TimestampedBusinessObjectBase {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PaymentDetail.class);
@@ -98,7 +98,7 @@ public class PaymentDetail extends TimestampedBusinessObjectBase {
     /**
      * Determines if the disbursement date is past the number of days old (configured in system parameter) in which actions can take
      * place
-     * 
+     *
      * @return true if actions are allowed on disbursement, false otherwise
      */
     public boolean isDisbursementActionAllowed() {
@@ -106,8 +106,8 @@ public class PaymentDetail extends TimestampedBusinessObjectBase {
             if (PdpConstants.PaymentStatusCodes.EXTRACTED.equals(paymentGroup.getPaymentStatus().getCode())) {
                 return false;
             }
-        return true;
-    }
+            return true;
+        }
 
         String daysStr = SpringContext.getBean(ParameterService.class).getParameterValueAsString(PaymentDetail.class, PdpParameterConstants.DISBURSEMENT_CANCELLATION_DAYS);
         int days = Integer.valueOf(daysStr);
@@ -160,7 +160,7 @@ public class PaymentDetail extends TimestampedBusinessObjectBase {
     /**
      * Takes a <code>String</code> and attempt to format as <code>Timestamp</code for setting the
      * invoiceDate field
-     * 
+     *
      * @param invoiceDate Timestamp as string
      */
     public void setInvoiceDate(String invoiceDate) throws ParseException {
@@ -202,13 +202,13 @@ public class PaymentDetail extends TimestampedBusinessObjectBase {
             pnt.setPaymentDetail(this);
             notes.add(pnt);
         } else {
-            LOG.warn("Did not add note to payment detail build from Document #: "+(!StringUtils.isBlank(custPaymentDocNbr) ? custPaymentDocNbr : "")+" because note was empty");
+            LOG.warn("Did not add note to payment detail build from Document #: " + (!StringUtils.isBlank(custPaymentDocNbr) ? custPaymentDocNbr : "") + " because note was empty");
         }
     }
 
     /**
      * Constructs a new <code>PaymentNoteText</code> for the given payment text and adds to the detail <code>List</code>
-     * 
+     *
      * @param paymentText note text
      */
     public void addPaymentText(String paymentText) {
@@ -225,9 +225,9 @@ public class PaymentDetail extends TimestampedBusinessObjectBase {
     }
 
     /**
+     * @return
      * @hibernate.id column="PMT_DTL_ID" generator-class="sequence"
      * @hibernate.generator-param name="sequence" value="PDP.PDP_PMT_DTL_ID_SEQ"
-     * @return
      */
     public KualiInteger getId() {
         return id;
@@ -473,7 +473,7 @@ public class PaymentDetail extends TimestampedBusinessObjectBase {
 
     /**
      * Gets the paymentGroupId attribute.
-     * 
+     *
      * @return Returns the paymentGroupId.
      */
     public KualiInteger getPaymentGroupId() {
@@ -482,7 +482,7 @@ public class PaymentDetail extends TimestampedBusinessObjectBase {
 
     /**
      * Sets the paymentGroupId attribute value.
-     * 
+     *
      * @param paymentGroupId The paymentGroupId to set.
      */
     public void setPaymentGroupId(KualiInteger paymentGroupId) {
@@ -491,7 +491,7 @@ public class PaymentDetail extends TimestampedBusinessObjectBase {
 
     /**
      * Gets the financialSystemOriginCode attribute.
-     * 
+     *
      * @return Returns the financialSystemOriginCode.
      */
     public String getFinancialSystemOriginCode() {
@@ -500,13 +500,13 @@ public class PaymentDetail extends TimestampedBusinessObjectBase {
 
     /**
      * Sets the financialSystemOriginCode attribute value.
-     * 
+     *
      * @param financialSystemOriginCode The financialSystemOriginCode to set.
      */
     public void setFinancialSystemOriginCode(String financialSystemOriginCode) {
         this.financialSystemOriginCode = financialSystemOriginCode;
     }
-    
+
     /**
      * @return the customerInstitutionNumber
      */
@@ -523,7 +523,7 @@ public class PaymentDetail extends TimestampedBusinessObjectBase {
 
     /**
      * This method returns a String representation of the payment detail notes
-     * 
+     *
      * @return the String representation of the payment detail notes
      */
     public String getNotesText() {
@@ -539,7 +539,7 @@ public class PaymentDetail extends TimestampedBusinessObjectBase {
     /**
      * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
      */
-    
+
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap m = new LinkedHashMap();
 
@@ -550,7 +550,7 @@ public class PaymentDetail extends TimestampedBusinessObjectBase {
 
     /**
      * This method returns the number of payments in the payment group associated with this payment detail.
-     * 
+     *
      * @return the number of payments in the payment group
      */
     public int getNbrOfPaymentsInPaymentGroup() {
@@ -559,11 +559,11 @@ public class PaymentDetail extends TimestampedBusinessObjectBase {
 
     /**
      * This method returns the number of payments in the disbursement associated with this payment detail.
-     * 
+     *
      * @return the number of payments in the disbursement
      */
     public int getNbrOfPaymentsInDisbursement() {
-        
+
         int nbrOfPaymentsInDisbursement = 0;
         if (ObjectUtils.isNotNull((paymentGroup.getDisbursementNbr()))) {
             List<PaymentGroup> paymentGroupList = SpringContext.getBean(PaymentGroupService.class).getByDisbursementNumber(paymentGroup.getDisbursementNbr().intValue());

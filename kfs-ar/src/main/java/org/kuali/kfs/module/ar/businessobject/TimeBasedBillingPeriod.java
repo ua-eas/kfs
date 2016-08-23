@@ -1,3 +1,21 @@
+/*
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.kuali.kfs.module.ar.businessobject;
 
 import org.apache.commons.lang.StringUtils;
@@ -31,8 +49,8 @@ public class TimeBasedBillingPeriod extends BillingPeriod {
         if (ArConstants.BillingFrequencyValues.ANNUALLY.equals(billingFrequency) && accountingPeriodService.getByDate(lastBilledDate).getUniversityFiscalYear() >= accountingPeriodService.getByDate(currentDate).getUniversityFiscalYear()) {
             return false;
         } else if (StringUtils.equals(findPreviousAccountingPeriod(currentDate).getUniversityFiscalPeriodCode(), findPreviousAccountingPeriod(lastBilledDate).getUniversityFiscalPeriodCode()) &&
-                accountingPeriodService.getByDate(lastBilledDate).getUniversityFiscalYear().equals(accountingPeriodService.getByDate(currentDate).getUniversityFiscalYear())) {
-                return false;
+            accountingPeriodService.getByDate(lastBilledDate).getUniversityFiscalYear().equals(accountingPeriodService.getByDate(currentDate).getUniversityFiscalYear())) {
+            return false;
         }
 
         return true;
@@ -53,7 +71,7 @@ public class TimeBasedBillingPeriod extends BillingPeriod {
         Integer currentFiscalYear = currentAccountingPeriod.getUniversityFiscalYear();
         if (previousAccountingPeriodCode == 0) {
             previousAccountingPeriodCode = 12;
-            currentFiscalYear -=1;
+            currentFiscalYear -= 1;
         }
 
         String periodCode;
@@ -71,12 +89,12 @@ public class TimeBasedBillingPeriod extends BillingPeriod {
     protected Integer findPreviousAccountingPeriodCode(Integer currentAccountingPeriodCode) {
         Integer previousAccountingPeriodCode;
         if (ArConstants.BillingFrequencyValues.MONTHLY.equals(billingFrequency) ||
-                ArConstants.BillingFrequencyValues.MILESTONE.equals(billingFrequency) ||
-                ArConstants.BillingFrequencyValues.PREDETERMINED_BILLING.equals(billingFrequency)) {
+            ArConstants.BillingFrequencyValues.MILESTONE.equals(billingFrequency) ||
+            ArConstants.BillingFrequencyValues.PREDETERMINED_BILLING.equals(billingFrequency)) {
             previousAccountingPeriodCode = calculatePreviousPeriodByFrequency(currentAccountingPeriodCode, 1);
         } else if (ArConstants.BillingFrequencyValues.QUARTERLY.equals(billingFrequency)) {
             previousAccountingPeriodCode = calculatePreviousPeriodByFrequency(currentAccountingPeriodCode, 3);
-        } else if (ArConstants.BillingFrequencyValues.SEMI_ANNUALLY.equals(billingFrequency)){
+        } else if (ArConstants.BillingFrequencyValues.SEMI_ANNUALLY.equals(billingFrequency)) {
             previousAccountingPeriodCode = calculatePreviousPeriodByFrequency(currentAccountingPeriodCode, 6);
         } else {
             previousAccountingPeriodCode = calculatePreviousPeriodByFrequency(currentAccountingPeriodCode, 12);

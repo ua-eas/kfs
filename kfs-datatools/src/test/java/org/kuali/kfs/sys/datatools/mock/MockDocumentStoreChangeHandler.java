@@ -18,8 +18,8 @@
  */
 package org.kuali.kfs.sys.datatools.mock;
 
-import org.kuali.kfs.sys.datatools.liquimongo.change.DocumentStoreChangeHandler;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.kuali.kfs.sys.datatools.liquimongo.change.DocumentStoreChangeHandler;
 
 public class MockDocumentStoreChangeHandler implements DocumentStoreChangeHandler {
     public int changesMade = 0;

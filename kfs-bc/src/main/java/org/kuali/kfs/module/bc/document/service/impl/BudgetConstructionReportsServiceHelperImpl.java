@@ -1,32 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.document.service.impl;
 
-import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.PdfWriter;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.PersistenceService;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionAdministrativePost;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionIntendedIncumbent;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionObjectDump;
@@ -40,14 +39,14 @@ import org.kuali.kfs.module.bc.document.service.BudgetConstructionOrganizationRe
 import org.kuali.kfs.module.bc.document.service.BudgetConstructionReportsServiceHelper;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.service.NonTransactional;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.PersistenceService;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.pdf.PdfWriter;
+import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This implements the methods described in BudgetConstructionReportsServiceHelper
@@ -56,11 +55,11 @@ public class BudgetConstructionReportsServiceHelperImpl implements BudgetConstru
 
     protected BudgetConstructionOrganizationReportsService budgetConstructionOrganizationReportsService;
     protected BusinessObjectService businessObjectService;
-    protected PersistenceService persistenceServiceOjb; 
+    protected PersistenceService persistenceServiceOjb;
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetConstructionReportsServiceHelper#getDataForBuildingReports(java.lang.Class,
-     *      java.lang.String, java.util.List)
+     * java.lang.String, java.util.List)
      */
     @Transactional
     public Collection getDataForBuildingReports(Class clazz, String principalName, List<String> orderList) {
@@ -78,7 +77,7 @@ public class BudgetConstructionReportsServiceHelperImpl implements BudgetConstru
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetConstructionReportsServiceHelper#getDataForBuildingReports(java.lang.Class,
-     *      java.util.Map, java.util.List)
+     * java.util.Map, java.util.List)
      */
     @Transactional
     public Collection getDataForBuildingReports(Class clazz, Map searchCriteria, List<String> orderList) {
@@ -88,7 +87,7 @@ public class BudgetConstructionReportsServiceHelperImpl implements BudgetConstru
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetConstructionReportsServiceHelper#generatePdf(java.util.List,
-     *      java.io.ByteArrayOutputStream)
+     * java.io.ByteArrayOutputStream)
      */
     @NonTransactional
     public void generatePdf(List<String> errorMessages, ByteArrayOutputStream baos) throws DocumentException {
@@ -105,7 +104,7 @@ public class BudgetConstructionReportsServiceHelperImpl implements BudgetConstru
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetConstructionReportsServiceHelper#getObjectCode(java.lang.Integer,
-     *      java.lang.String, java.lang.String)
+     * java.lang.String, java.lang.String)
      */
     @Transactional
     public ObjectCode getObjectCode(Integer universityFiscalYear, String chartOfAccountsCode, String financialObjectCode) {
@@ -172,7 +171,7 @@ public class BudgetConstructionReportsServiceHelperImpl implements BudgetConstru
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetConstructionReportsServiceHelper#getBudgetConstructionPosition(java.lang.Integer,
-     *      org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding)
+     * org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding)
      */
     @Transactional
     public BudgetConstructionPosition getBudgetConstructionPosition(Integer universityFiscalYear, PendingBudgetConstructionAppointmentFunding appointmentFundingEntry) {
@@ -194,7 +193,7 @@ public class BudgetConstructionReportsServiceHelperImpl implements BudgetConstru
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetConstructionReportsServiceHelper#getBudgetConstructionSalarySocialSecurityNumber(java.lang.String,
-     *      org.kuali.kfs.module.bc.businessobject.BudgetConstructionSalaryFunding)
+     * org.kuali.kfs.module.bc.businessobject.BudgetConstructionSalaryFunding)
      */
     @Transactional
     public BudgetConstructionSalarySocialSecurityNumber getBudgetConstructionSalarySocialSecurityNumber(String principalName, BudgetConstructionSalaryFunding salaryFunding) {
@@ -214,7 +213,7 @@ public class BudgetConstructionReportsServiceHelperImpl implements BudgetConstru
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetConstructionReportsServiceHelper#getSalaryFunding(java.lang.String,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Transactional
     public Collection<BudgetConstructionSalaryFunding> getSalaryFunding(String principalName, String emplid) {
@@ -236,7 +235,7 @@ public class BudgetConstructionReportsServiceHelperImpl implements BudgetConstru
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetConstructionReportsServiceHelper#getPendingBudgetConstructionAppointmentFundingList(java.lang.Integer,
-     *      org.kuali.kfs.module.bc.businessobject.BudgetConstructionObjectDump)
+     * org.kuali.kfs.module.bc.businessobject.BudgetConstructionObjectDump)
      */
     @Transactional
     public Collection<PendingBudgetConstructionAppointmentFunding> getPendingBudgetConstructionAppointmentFundingList(Integer universityFiscalYear, BudgetConstructionObjectDump budgetConstructionObjectDump) {
@@ -257,7 +256,7 @@ public class BudgetConstructionReportsServiceHelperImpl implements BudgetConstru
 
     /**
      * sets the budgetConstructionOrganizationReportsService attribute value
-     * 
+     *
      * @param budgetConstructionOrganizationReportsService
      */
     @NonTransactional
@@ -267,7 +266,7 @@ public class BudgetConstructionReportsServiceHelperImpl implements BudgetConstru
 
     /**
      * sets the businessObjectService attribute value
-     * 
+     *
      * @param businessObjectService
      */
     @NonTransactional
@@ -277,18 +276,18 @@ public class BudgetConstructionReportsServiceHelperImpl implements BudgetConstru
 
     /**
      * Gets the persistenceServiceOjb attribute.
-     * 
+     *
      * @return Returns the persistenceServiceOjb
      */
-    
+
     @NonTransactional
     public PersistenceService getPersistenceServiceOjb() {
         return persistenceServiceOjb;
     }
 
-    /**	
+    /**
      * Sets the persistenceServiceOjb attribute.
-     * 
+     *
      * @param persistenceServiceOjb The persistenceServiceOjb to set.
      */
     @NonTransactional

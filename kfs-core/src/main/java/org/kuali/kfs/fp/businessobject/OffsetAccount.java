@@ -1,31 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.fp.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.ObjectCodeCurrent;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
+import java.util.LinkedHashMap;
 
 /**
  * This class represents an offset account business object.
@@ -54,7 +54,7 @@ public class OffsetAccount extends PersistableBusinessObjectBase implements Muta
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode
      */
     public String getChartOfAccountsCode() {
@@ -63,7 +63,7 @@ public class OffsetAccount extends PersistableBusinessObjectBase implements Muta
 
     /**
      * Sets the chartOfAccountsCode attribute.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -73,7 +73,7 @@ public class OffsetAccount extends PersistableBusinessObjectBase implements Muta
 
     /**
      * Gets the accountNumber attribute.
-     * 
+     *
      * @return Returns the accountNumber
      */
     public String getAccountNumber() {
@@ -82,7 +82,7 @@ public class OffsetAccount extends PersistableBusinessObjectBase implements Muta
 
     /**
      * Sets the accountNumber attribute.
-     * 
+     *
      * @param accountNumber The accountNumber to set.
      */
     public void setAccountNumber(String accountNumber) {
@@ -92,7 +92,7 @@ public class OffsetAccount extends PersistableBusinessObjectBase implements Muta
 
     /**
      * Gets the financialOffsetObjectCode attribute.
-     * 
+     *
      * @return Returns the financialOffsetObjectCode
      */
     public String getFinancialOffsetObjectCode() {
@@ -101,7 +101,7 @@ public class OffsetAccount extends PersistableBusinessObjectBase implements Muta
 
     /**
      * Sets the financialOffsetObjectCode attribute.
-     * 
+     *
      * @param financialOffsetObjectCode The financialOffsetObjectCode to set.
      */
     public void setFinancialOffsetObjectCode(String financialOffsetObjectCode) {
@@ -111,7 +111,7 @@ public class OffsetAccount extends PersistableBusinessObjectBase implements Muta
 
     /**
      * Gets the financialOffsetChartOfAccountCode attribute.
-     * 
+     *
      * @return Returns the financialOffsetChartOfAccountCode
      */
     public String getFinancialOffsetChartOfAccountCode() {
@@ -120,7 +120,7 @@ public class OffsetAccount extends PersistableBusinessObjectBase implements Muta
 
     /**
      * Sets the financialOffsetChartOfAccountCode attribute.
-     * 
+     *
      * @param financialOffsetChartOfAccountCode The financialOffsetChartOfAccountCode to set.
      */
     public void setFinancialOffsetChartOfAccountCode(String financialOffsetChartOfAccountCode) {
@@ -130,7 +130,7 @@ public class OffsetAccount extends PersistableBusinessObjectBase implements Muta
 
     /**
      * Gets the financialOffsetAccountNumber attribute.
-     * 
+     *
      * @return Returns the financialOffsetAccountNumber
      */
     public String getFinancialOffsetAccountNumber() {
@@ -139,7 +139,7 @@ public class OffsetAccount extends PersistableBusinessObjectBase implements Muta
 
     /**
      * Sets the financialOffsetAccountNumber attribute.
-     * 
+     *
      * @param financialOffsetAccountNumber The financialOffsetAccountNumber to set.
      */
     public void setFinancialOffsetAccountNumber(String financialOffsetAccountNumber) {
@@ -149,7 +149,7 @@ public class OffsetAccount extends PersistableBusinessObjectBase implements Muta
 
     /**
      * Gets the chart attribute.
-     * 
+     *
      * @return Returns the chart
      */
     public Chart getChart() {
@@ -158,7 +158,7 @@ public class OffsetAccount extends PersistableBusinessObjectBase implements Muta
 
     /**
      * Sets the chart attribute.
-     * 
+     *
      * @param chart The chart to set.
      * @deprecated
      */
@@ -168,7 +168,7 @@ public class OffsetAccount extends PersistableBusinessObjectBase implements Muta
 
     /**
      * Gets the account attribute.
-     * 
+     *
      * @return Returns the account
      */
     public Account getAccount() {
@@ -177,7 +177,7 @@ public class OffsetAccount extends PersistableBusinessObjectBase implements Muta
 
     /**
      * Sets the account attribute.
-     * 
+     *
      * @param account The account to set.
      * @deprecated
      */
@@ -187,7 +187,7 @@ public class OffsetAccount extends PersistableBusinessObjectBase implements Muta
 
     /**
      * Gets the financialOffsetChartOfAccount attribute.
-     * 
+     *
      * @return Returns the financialOffsetChartOfAccount
      */
     public Chart getFinancialOffsetChartOfAccount() {
@@ -196,7 +196,7 @@ public class OffsetAccount extends PersistableBusinessObjectBase implements Muta
 
     /**
      * Sets the financialOffsetChartOfAccount attribute.
-     * 
+     *
      * @param financialOffsetChartOfAccount The financialOffsetChartOfAccount to set.
      * @deprecated
      */
@@ -237,7 +237,7 @@ public class OffsetAccount extends PersistableBusinessObjectBase implements Muta
     /**
      * This method (a hack by any other name...) returns a string so that an offset Account can have a link to view its own
      * inquiry page after a look up
-     * 
+     *
      * @return the String "View Offset Account"
      */
     public String getOffsetAccountViewer() {
@@ -256,7 +256,8 @@ public class OffsetAccount extends PersistableBusinessObjectBase implements Muta
     }
 
     /**
-     * Gets the active attribute. 
+     * Gets the active attribute.
+     *
      * @return Returns the active.
      */
     public boolean isActive() {
@@ -265,6 +266,7 @@ public class OffsetAccount extends PersistableBusinessObjectBase implements Muta
 
     /**
      * Sets the active attribute value.
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {

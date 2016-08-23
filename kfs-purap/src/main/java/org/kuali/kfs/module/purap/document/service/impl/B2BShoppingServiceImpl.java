@@ -1,35 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document.service.impl;
 
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.PersistenceService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapParameterConstants;
 import org.kuali.kfs.module.purap.businessobject.B2BInformation;
@@ -62,14 +56,20 @@ import org.kuali.kfs.vnd.service.PhoneNumberService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.PersistenceService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Transactional
 public class B2BShoppingServiceImpl implements B2BShoppingService {
@@ -124,80 +124,80 @@ public class B2BShoppingServiceImpl implements B2BShoppingService {
     }
 
     /**
-     * @see org.kuali.kfs.module.purap.document.service.B2BService#getPunchOutSetupRequestMessage(org.kuali.rice.kim.api.identity.Person,org.kuali.kfs.module.purap.businessobject.B2BInformation)
+     * @see org.kuali.kfs.module.purap.document.service.B2BService#getPunchOutSetupRequestMessage(org.kuali.rice.kim.api.identity.Person, org.kuali.kfs.module.purap.businessobject.B2BInformation)
      */
     @Override
     public String getPunchOutSetupRequestMessage(Person user, B2BInformation b2bInformation) {
-      StringBuffer cxml = new StringBuffer();
-      Date d = SpringContext.getBean(DateTimeService.class).getCurrentDate();
-      SimpleDateFormat date = PurApDateFormatUtils.getSimpleDateFormat(PurapConstants.NamedDateFormats.CXML_SIMPLE_DATE_FORMAT);
-      SimpleDateFormat time = PurApDateFormatUtils.getSimpleDateFormat(PurapConstants.NamedDateFormats.CXML_SIMPLE_TIME_FORMAT);
+        StringBuffer cxml = new StringBuffer();
+        Date d = SpringContext.getBean(DateTimeService.class).getCurrentDate();
+        SimpleDateFormat date = PurApDateFormatUtils.getSimpleDateFormat(PurapConstants.NamedDateFormats.CXML_SIMPLE_DATE_FORMAT);
+        SimpleDateFormat time = PurApDateFormatUtils.getSimpleDateFormat(PurapConstants.NamedDateFormats.CXML_SIMPLE_TIME_FORMAT);
 
-      // doing as two parts b/c they want a T instead of space
-      // between them, and SimpleDateFormat doesn't allow putting the
-      // constant "T" in the string
+        // doing as two parts b/c they want a T instead of space
+        // between them, and SimpleDateFormat doesn't allow putting the
+        // constant "T" in the string
 
-      cxml.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-      cxml.append("<!DOCTYPE cXML SYSTEM \"cXML.dtd\">\n");
-      cxml.append("<cXML payloadID=\"irrelevant\" xml:lang=\"en-US\" timestamp=\"").append(date.format(d)).append("T")
-          .append(time.format(d)).append("-05:00").append("\">\n");
+        cxml.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+        cxml.append("<!DOCTYPE cXML SYSTEM \"cXML.dtd\">\n");
+        cxml.append("<cXML payloadID=\"irrelevant\" xml:lang=\"en-US\" timestamp=\"").append(date.format(d)).append("T")
+            .append(time.format(d)).append("-05:00").append("\">\n");
 
-      // note that timezone is hard coded b/c this is the format
-      // they wanted, but SimpleDateFormat returns -0500, so rather than
-      // parse it just hard-coded
+        // note that timezone is hard coded b/c this is the format
+        // they wanted, but SimpleDateFormat returns -0500, so rather than
+        // parse it just hard-coded
 
-      cxml.append("  <Header>\n");
-      cxml.append("    <From>\n");
-      cxml.append("      <Credential domain=\"NetworkId\">\n");
-      cxml.append("        <Identity>").append(b2bInformation.getIdentity()).append("</Identity>\n");
-      cxml.append("      </Credential>\n");
-      cxml.append("    </From>\n");
-      cxml.append("    <To>\n");
-      cxml.append("      <Credential domain=\"DUNS\">\n");
-      cxml.append("        <Identity>").append(b2bInformation.getIdentity()).append("</Identity>\n");
-      cxml.append("      </Credential>\n");
-      cxml.append("      <Credential domain=\"internalsupplierid\">\n");
-      cxml.append("        <Identity>1016</Identity>\n");
-      cxml.append("      </Credential>\n");
-      cxml.append("    </To>\n");
-      cxml.append("    <Sender>\n");
-      cxml.append("      <Credential domain=\"TOPSNetworkUserId\">\n");
-      cxml.append("        <Identity>").append(user.getPrincipalName().toUpperCase()).append("</Identity>\n");
-      cxml.append("        <SharedSecret>").append(b2bInformation.getPassword()).append("</SharedSecret>\n");
-      cxml.append("      </Credential>\n");
-      cxml.append("      <UserAgent>").append(b2bInformation.getUserAgent()).append("</UserAgent>\n");
-      cxml.append("    </Sender>\n");
-      cxml.append("  </Header>\n");
-      cxml.append("  <Request deploymentMode=\"").append(b2bInformation.getEnvironment()).append("\">\n");
-      cxml.append("    <PunchOutSetupRequest operation=\"create\">\n");
-      cxml.append("      <BuyerCookie>").append(user.getPrincipalName().toUpperCase()).append("</BuyerCookie>\n");
-      //cxml.append(" <Extrinsic
-      // name=\"UserEmail\">jdoe@TOPS.com</Extrinsic>\n"); // we can't reliably
-      // get the e-mail address, so we're leaving it out
-      cxml.append("      <Extrinsic name=\"UniqueName\">").append(user.getPrincipalName().toUpperCase()).append("</Extrinsic>\n");
-      cxml.append("      <Extrinsic name=\"Department\">IU").append(user.getCampusCode()).append(user.getPrimaryDepartmentCode()).append("</Extrinsic>\n");
-      cxml.append("      <Extrinsic name=\"Campus\">").append(user.getCampusCode()).append("</Extrinsic>\n");
-      cxml.append("      <BrowserFormPost>\n");
-      cxml.append("        <URL>").append(b2bInformation.getPunchbackURL()).append("</URL>\n");
-      cxml.append("      </BrowserFormPost>\n");
-      cxml.append("      <Contact role=\"endUser\">\n");
-      cxml.append("        <Name xml:lang=\"en\">").append(user.getName()).append("</Name>\n");
-      //cxml.append(" <Email>jdoe@TOPS.com</Email>\n"); // again, we can't
-      // reliably get this, so we're leaving it out
-      cxml.append("      </Contact>\n");
-      cxml.append("      <SupplierSetup>\n");
-      cxml.append("        <URL>").append(b2bInformation.getPunchoutURL()).append("</URL>\n");
-      cxml.append("      </SupplierSetup>\n");
-      cxml.append("    </PunchOutSetupRequest>\n");
-      cxml.append("  </Request>\n");
-      cxml.append("</cXML>\n");
+        cxml.append("  <Header>\n");
+        cxml.append("    <From>\n");
+        cxml.append("      <Credential domain=\"NetworkId\">\n");
+        cxml.append("        <Identity>").append(b2bInformation.getIdentity()).append("</Identity>\n");
+        cxml.append("      </Credential>\n");
+        cxml.append("    </From>\n");
+        cxml.append("    <To>\n");
+        cxml.append("      <Credential domain=\"DUNS\">\n");
+        cxml.append("        <Identity>").append(b2bInformation.getIdentity()).append("</Identity>\n");
+        cxml.append("      </Credential>\n");
+        cxml.append("      <Credential domain=\"internalsupplierid\">\n");
+        cxml.append("        <Identity>1016</Identity>\n");
+        cxml.append("      </Credential>\n");
+        cxml.append("    </To>\n");
+        cxml.append("    <Sender>\n");
+        cxml.append("      <Credential domain=\"TOPSNetworkUserId\">\n");
+        cxml.append("        <Identity>").append(user.getPrincipalName().toUpperCase()).append("</Identity>\n");
+        cxml.append("        <SharedSecret>").append(b2bInformation.getPassword()).append("</SharedSecret>\n");
+        cxml.append("      </Credential>\n");
+        cxml.append("      <UserAgent>").append(b2bInformation.getUserAgent()).append("</UserAgent>\n");
+        cxml.append("    </Sender>\n");
+        cxml.append("  </Header>\n");
+        cxml.append("  <Request deploymentMode=\"").append(b2bInformation.getEnvironment()).append("\">\n");
+        cxml.append("    <PunchOutSetupRequest operation=\"create\">\n");
+        cxml.append("      <BuyerCookie>").append(user.getPrincipalName().toUpperCase()).append("</BuyerCookie>\n");
+        //cxml.append(" <Extrinsic
+        // name=\"UserEmail\">jdoe@TOPS.com</Extrinsic>\n"); // we can't reliably
+        // get the e-mail address, so we're leaving it out
+        cxml.append("      <Extrinsic name=\"UniqueName\">").append(user.getPrincipalName().toUpperCase()).append("</Extrinsic>\n");
+        cxml.append("      <Extrinsic name=\"Department\">IU").append(user.getCampusCode()).append(user.getPrimaryDepartmentCode()).append("</Extrinsic>\n");
+        cxml.append("      <Extrinsic name=\"Campus\">").append(user.getCampusCode()).append("</Extrinsic>\n");
+        cxml.append("      <BrowserFormPost>\n");
+        cxml.append("        <URL>").append(b2bInformation.getPunchbackURL()).append("</URL>\n");
+        cxml.append("      </BrowserFormPost>\n");
+        cxml.append("      <Contact role=\"endUser\">\n");
+        cxml.append("        <Name xml:lang=\"en\">").append(user.getName()).append("</Name>\n");
+        //cxml.append(" <Email>jdoe@TOPS.com</Email>\n"); // again, we can't
+        // reliably get this, so we're leaving it out
+        cxml.append("      </Contact>\n");
+        cxml.append("      <SupplierSetup>\n");
+        cxml.append("        <URL>").append(b2bInformation.getPunchoutURL()).append("</URL>\n");
+        cxml.append("      </SupplierSetup>\n");
+        cxml.append("    </PunchOutSetupRequest>\n");
+        cxml.append("  </Request>\n");
+        cxml.append("</cXML>\n");
 
-      return cxml.toString();
+        return cxml.toString();
     }
 
     /**
      * @see org.kuali.kfs.module.purap.document.service.B2BService#createRequisitionsFromCxml(org.kuali.kfs.module.purap.util.cxml.B2BParserHelper,
-     *      org.kuali.rice.kim.api.identity.Person)
+     * org.kuali.rice.kim.api.identity.Person)
      */
     @Override
     public List createRequisitionsFromCxml(B2BShoppingCart message, Person user) throws WorkflowException {
@@ -212,7 +212,7 @@ public class B2BShoppingServiceImpl implements B2BShoppingService {
         List vendors = getAllVendors(items);
 
         // create requisition(s) (one per vendor)
-        for (Iterator iter = vendors.iterator(); iter.hasNext();) {
+        for (Iterator iter = vendors.iterator(); iter.hasNext(); ) {
             VendorDetail vendor = (VendorDetail) iter.next();
 
             // create requisition
@@ -226,13 +226,11 @@ public class B2BShoppingServiceImpl implements B2BShoppingService {
                 if (ObjectUtils.isNotNull(contract.getPurchaseOrderCostSourceCode())) {
                     // if cost source is set on contract, use it
                     req.setPurchaseOrderCostSourceCode(contract.getPurchaseOrderCostSourceCode());
-                }
-                else {
+                } else {
                     // if cost source is null on the contract, we set it by default to "Estimate"
                     req.setPurchaseOrderCostSourceCode(PurapConstants.POCostSources.ESTIMATE);
                 }
-            }
-            else {
+            } else {
                 LOG.error("createRequisitionsFromCxml() Contract is missing for vendor " + vendor.getVendorName() + " (" + vendor.getVendorNumber() + ")");
                 throw new B2BShoppingException(PurapConstants.B2B_VENDOR_CONTRACT_NOT_FOUND_ERROR_MESSAGE);
             }
@@ -254,8 +252,7 @@ public class B2BShoppingServiceImpl implements B2BShoppingService {
                     req.setDeliveryCampusCode(defaultPrincipalAddress.getCampusCode());
                     req.templateBuildingToDeliveryAddress(defaultPrincipalAddress.getBuilding());
                     req.setDeliveryBuildingRoomNumber(defaultPrincipalAddress.getBuildingRoomNumber());
-                }
-                else {
+                } else {
                     //since building is now inactive, delete default building record
                     SpringContext.getBean(BusinessObjectService.class).delete(defaultPrincipalAddress);
                 }
@@ -334,28 +331,26 @@ public class B2BShoppingServiceImpl implements B2BShoppingService {
         LOG.debug("getAllVendors() started");
 
         Set vendorIdentifiers = new HashSet();
-        for (Iterator iter = items.iterator(); iter.hasNext();) {
+        for (Iterator iter = items.iterator(); iter.hasNext(); ) {
             B2BShoppingCartItem item = (B2BShoppingCartItem) iter.next();
-            vendorIdentifiers.add( getVendorNumber(item) );
+            vendorIdentifiers.add(getVendorNumber(item));
         }
 
         ArrayList vendors = new ArrayList();
-        for (Iterator iter = vendorIdentifiers.iterator(); iter.hasNext();) {
+        for (Iterator iter = vendorIdentifiers.iterator(); iter.hasNext(); ) {
             String vendorIdentifier = (String) iter.next();
             VendorDetail vd = null;
             if (isDunsNumberEnabled()) {
                 //retrieve vendor by duns number
                 vd = vendorService.getVendorByDunsNumber(vendorIdentifier);
-            }
-            else {
+            } else {
                 //retrieve vendor by vendor id
                 vd = vendorService.getVendorDetail(vendorIdentifier);
             }
 
             if (ObjectUtils.isNotNull(vd)) {
                 vendors.add(vd);
-            }
-            else {
+            } else {
                 LOG.error("getAllVendors() Invalid vendor number or DUNS from shopping cart: " + vendorIdentifier);
                 throw new B2BShoppingException("Invalid vendor number or DUNS from shopping cart: " + vendorIdentifier);
             }
@@ -367,8 +362,8 @@ public class B2BShoppingServiceImpl implements B2BShoppingService {
     /**
      * Get all the items for a specific vendor
      *
-     * @param items List of all items
-     * @param vendorId  String containing "vendorHeaderId-vendorDetailId"
+     * @param items    List of all items
+     * @param vendorId String containing "vendorHeaderId-vendorDetailId"
      * @return list of RequisitionItems for a specific vendor id
      */
     protected List getAllVendorItems(List items, VendorDetail vendorDetail) {
@@ -380,9 +375,9 @@ public class B2BShoppingServiceImpl implements B2BShoppingService {
 
         // First get all the ShoppingCartItems for this vendor in a list
         List scItems = new ArrayList();
-        for (Iterator iter = items.iterator(); iter.hasNext();) {
+        for (Iterator iter = items.iterator(); iter.hasNext(); ) {
             B2BShoppingCartItem item = (B2BShoppingCartItem) iter.next();
-            if ( StringUtils.equals(vendorNumberOrDUNS, getVendorNumber(item)) ) {
+            if (StringUtils.equals(vendorNumberOrDUNS, getVendorNumber(item))) {
                 scItems.add(item);
             }
         }
@@ -400,7 +395,7 @@ public class B2BShoppingServiceImpl implements B2BShoppingService {
         // Now convert them to Requisition items
         int itemLine = 1;
         List vendorItems = new ArrayList();
-        for (Iterator iter = scItems.iterator(); iter.hasNext();) {
+        for (Iterator iter = scItems.iterator(); iter.hasNext(); ) {
             B2BShoppingCartItem item = (B2BShoppingCartItem) iter.next();
             RequisitionItem reqItem = createRequisitionItem(item, new Integer(itemLine), defaultCommodityCode);
             itemLine = itemLine + 1;
@@ -454,7 +449,7 @@ public class B2BShoppingServiceImpl implements B2BShoppingService {
         if (ObjectUtils.isNotNull(commodity)) {
             return true;
         } else {
-            LOG.warn("Could not retrieve CommodityCode: "+commodityCode+"! Instead using default commodity code for vendor");
+            LOG.warn("Could not retrieve CommodityCode: " + commodityCode + "! Instead using default commodity code for vendor");
             return false;
         }
     }
@@ -469,7 +464,7 @@ public class B2BShoppingServiceImpl implements B2BShoppingService {
      */
     protected String getSupplierIdFromFirstItem(List reqItems) {
         if (ObjectUtils.isNotNull(reqItems) && !reqItems.isEmpty()) {
-            return ((RequisitionItem)reqItems.get(0)).getHoldSupplierId();
+            return ((RequisitionItem) reqItems.get(0)).getHoldSupplierId();
         }
         return "";
     }
@@ -482,17 +477,16 @@ public class B2BShoppingServiceImpl implements B2BShoppingService {
      * @param item the specified B2BShoppingCartItem.
      * @return the Vendor number retrieved from the B2BShoppingCartItem.
      */
-    protected String getVendorNumber(B2BShoppingCartItem item){
+    protected String getVendorNumber(B2BShoppingCartItem item) {
         String vendorNumber = null;
 
         if (isDunsNumberEnabled()) {
             vendorNumber = item.getSupplier("DUNS");
-        }
-        else {
+        } else {
             vendorNumber = item.getExtrinsic("ExternalSupplierId");
         }
 
-        if (StringUtils.isBlank(vendorNumber)){
+        if (StringUtils.isBlank(vendorNumber)) {
             throw new B2BShoppingException(PurapConstants.B2B_VENDOR_CONTRACT_NOT_FOUND_ERROR_MESSAGE);
         }
 

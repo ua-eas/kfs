@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -35,7 +35,6 @@ import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 /**
  * test the RichTable widget
@@ -48,7 +47,7 @@ public class RichTableTest {
 
     //private
     @Before
-    public void setup(){
+    public void setup() {
 
         richTable = new RichTable();
 
@@ -80,8 +79,8 @@ public class RichTableTest {
      */
     public void testComponentOptionsDefault() throws Exception {
         String expected = "[ null ,{\"sSortDataType\" : \"dom-text\" , \"sType\" : \"string\"} , "
-                + "{\"sSortDataType\" : \"dom-text\" , \"sType\" : \"string\"} , "
-                + "{\"sSortDataType\" : \"dom-text\" , \"sType\" : \"string\"} ]";
+            + "{\"sSortDataType\" : \"dom-text\" , \"sType\" : \"string\"} , "
+            + "{\"sSortDataType\" : \"dom-text\" , \"sType\" : \"string\"} ]";
         assertRichTableComponentOptions(null, expected, UifConstants.TableToolsKeys.AO_COLUMNS);
     }
 
@@ -101,7 +100,7 @@ public class RichTableTest {
     /**
      * test whether a hidden column, when marked as sortable is still hidden
      */
-     public void testComponentOptionsHideColumnOnRichTable() {
+    public void testComponentOptionsHideColumnOnRichTable() {
         Set<String> hiddenColumns = new HashSet<String>();
         hiddenColumns.add("employeeId");
         Set<String> sortableColumns = new HashSet<String>();
@@ -116,7 +115,7 @@ public class RichTableTest {
     /**
      * test that sortableColumns and hiddenColumns, when set on layoutManager, override those properties on the richTable
      */
-     public void testComponentOptionsHideColumnOnLayoutManager() {
+    public void testComponentOptionsHideColumnOnLayoutManager() {
         // set rich table properties
         Set<String> richTableHiddenColumns = new HashSet<String>();
         richTableHiddenColumns.add("employeeId");
@@ -129,8 +128,8 @@ public class RichTableTest {
         lmHiddenColumns.add("contactEmail");
         Set<String> lmSortableColumns = new HashSet<String>();
         lmSortableColumns.add("employeeId");
-        ((TableLayoutManager)group.getLayoutManager()).setSortableColumns(lmSortableColumns);
-        ((TableLayoutManager)group.getLayoutManager()).setHiddenColumns(lmHiddenColumns);
+        ((TableLayoutManager) group.getLayoutManager()).setSortableColumns(lmSortableColumns);
+        ((TableLayoutManager) group.getLayoutManager()).setHiddenColumns(lmHiddenColumns);
 
         String expected = "[ null ,{\"sSortDataType\" : \"dom-text\" , \"sType\" : \"string\"}, {'bSortable': false}, {bVisible: false}]";
         assertRichTableComponentOptions(null, expected, UifConstants.TableToolsKeys.AO_COLUMNS);
@@ -139,13 +138,13 @@ public class RichTableTest {
     /**
      * a common method to test rich table options
      *
-     * @param optionsOnGroup - a string in JSON format of the options set on the collection group
+     * @param optionsOnGroup     - a string in JSON format of the options set on the collection group
      * @param optionsOnRichTable - a string in JSON format of the options set on the rich table
-     * @param optionKey - a string with the rich table option key being tested
+     * @param optionKey          - a string with the rich table option key being tested
      */
     private void assertRichTableComponentOptions(String optionsOnGroup, String optionsOnRichTable, String optionKey) {
         richTable.getComponentOptions().put(optionKey, optionsOnGroup);
         richTable.performFinalize(new View(), new UifFormBase(), group);
-        assertEquals(optionsOnRichTable,richTable.getComponentOptions().get(optionKey));
+        assertEquals(optionsOnRichTable, richTable.getComponentOptions().get(optionKey));
     }
 }

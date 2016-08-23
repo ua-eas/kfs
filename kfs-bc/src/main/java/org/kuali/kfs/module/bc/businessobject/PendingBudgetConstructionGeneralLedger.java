@@ -1,29 +1,23 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.module.bc.businessobject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.BalanceType;
@@ -34,15 +28,21 @@ import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
 import org.kuali.kfs.integration.ld.LaborLedgerObject;
 import org.kuali.kfs.integration.ld.LaborLedgerPositionObjectBenefit;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.module.bc.util.SalarySettingCalculator;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.ObjectUtil;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.KualiModuleService;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessObjectBase {
 
@@ -88,7 +88,8 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
     }
 
     /**
-     * Gets the adjustmentAmount attribute. 
+     * Gets the adjustmentAmount attribute.
+     *
      * @return Returns the adjustmentAmount.
      */
     public KualiDecimal getAdjustmentAmount() {
@@ -97,6 +98,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Sets the adjustmentAmount attribute value.
+     *
      * @param adjustmentAmount The adjustmentAmount to set.
      */
     public void setAdjustmentAmount(KualiDecimal adjustmentAmount) {
@@ -105,7 +107,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Gets(sets) the percentChange based on the current values of base and request amounts
-     * 
+     *
      * @return Returns percentChange
      */
     public KualiDecimal getPercentChange() {
@@ -117,7 +119,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Sets the percentChange attribute value.
-     * 
+     *
      * @param percentChange The percentChange to set.
      */
     public void setPercentChange(KualiDecimal percentChange) {
@@ -126,7 +128,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Gets the documentNumber attribute.
-     * 
+     *
      * @return Returns the documentNumber
      */
     public String getDocumentNumber() {
@@ -135,7 +137,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Sets the documentNumber attribute.
-     * 
+     *
      * @param documentNumber The documentNumber to set.
      */
     public void setDocumentNumber(String documentNumber) {
@@ -145,7 +147,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Gets the universityFiscalYear attribute.
-     * 
+     *
      * @return Returns the universityFiscalYear
      */
     public Integer getUniversityFiscalYear() {
@@ -154,7 +156,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Sets the universityFiscalYear attribute.
-     * 
+     *
      * @param universityFiscalYear The universityFiscalYear to set.
      */
     public void setUniversityFiscalYear(Integer universityFiscalYear) {
@@ -164,7 +166,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode
      */
     public String getChartOfAccountsCode() {
@@ -173,7 +175,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Sets the chartOfAccountsCode attribute.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -183,7 +185,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Gets the accountNumber attribute.
-     * 
+     *
      * @return Returns the accountNumber
      */
     public String getAccountNumber() {
@@ -192,7 +194,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Sets the accountNumber attribute.
-     * 
+     *
      * @param accountNumber The accountNumber to set.
      */
     public void setAccountNumber(String accountNumber) {
@@ -202,7 +204,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Gets the subAccountNumber attribute.
-     * 
+     *
      * @return Returns the subAccountNumber
      */
     public String getSubAccountNumber() {
@@ -211,7 +213,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Sets the subAccountNumber attribute.
-     * 
+     *
      * @param subAccountNumber The subAccountNumber to set.
      */
     public void setSubAccountNumber(String subAccountNumber) {
@@ -221,7 +223,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Gets the financialObjectCode attribute.
-     * 
+     *
      * @return Returns the financialObjectCode
      */
     public String getFinancialObjectCode() {
@@ -230,7 +232,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Sets the financialObjectCode attribute.
-     * 
+     *
      * @param financialObjectCode The financialObjectCode to set.
      */
     public void setFinancialObjectCode(String financialObjectCode) {
@@ -240,7 +242,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Gets the financialSubObjectCode attribute.
-     * 
+     *
      * @return Returns the financialSubObjectCode
      */
     public String getFinancialSubObjectCode() {
@@ -249,7 +251,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Sets the financialSubObjectCode attribute.
-     * 
+     *
      * @param financialSubObjectCode The financialSubObjectCode to set.
      */
     public void setFinancialSubObjectCode(String financialSubObjectCode) {
@@ -259,7 +261,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Gets the financialBalanceTypeCode attribute.
-     * 
+     *
      * @return Returns the financialBalanceTypeCode
      */
     public String getFinancialBalanceTypeCode() {
@@ -268,7 +270,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Sets the financialBalanceTypeCode attribute.
-     * 
+     *
      * @param financialBalanceTypeCode The financialBalanceTypeCode to set.
      */
     public void setFinancialBalanceTypeCode(String financialBalanceTypeCode) {
@@ -278,7 +280,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Gets the financialObjectTypeCode attribute.
-     * 
+     *
      * @return Returns the financialObjectTypeCode
      */
     public String getFinancialObjectTypeCode() {
@@ -287,7 +289,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Sets the financialObjectTypeCode attribute.
-     * 
+     *
      * @param financialObjectTypeCode The financialObjectTypeCode to set.
      */
     public void setFinancialObjectTypeCode(String financialObjectTypeCode) {
@@ -297,7 +299,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Gets the accountLineAnnualBalanceAmount attribute.
-     * 
+     *
      * @return Returns the accountLineAnnualBalanceAmount.
      */
     public KualiInteger getAccountLineAnnualBalanceAmount() {
@@ -309,7 +311,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Sets the accountLineAnnualBalanceAmount attribute value.
-     * 
+     *
      * @param accountLineAnnualBalanceAmount The accountLineAnnualBalanceAmount to set.
      */
     public void setAccountLineAnnualBalanceAmount(KualiInteger accountLineAnnualBalanceAmount) {
@@ -318,7 +320,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Gets the persistedAccountLineAnnualBalanceAmount attribute.
-     * 
+     *
      * @return Returns the persistedAccountLineAnnualBalanceAmount.
      */
     public KualiInteger getPersistedAccountLineAnnualBalanceAmount() {
@@ -327,7 +329,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Sets the persistedAccountLineAnnualBalanceAmount attribute value.
-     * 
+     *
      * @param persistedAccountLineAnnualBalanceAmount The persistedAccountLineAnnualBalanceAmount to set.
      */
     public void setPersistedAccountLineAnnualBalanceAmount(KualiInteger persistedAccountLineAnnualBalanceAmount) {
@@ -336,7 +338,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Gets the financialBeginningBalanceLineAmount attribute.
-     * 
+     *
      * @return Returns the financialBeginningBalanceLineAmount.
      */
     public KualiInteger getFinancialBeginningBalanceLineAmount() {
@@ -345,7 +347,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Sets the financialBeginningBalanceLineAmount attribute value.
-     * 
+     *
      * @param financialBeginningBalanceLineAmount The financialBeginningBalanceLineAmount to set.
      */
     public void setFinancialBeginningBalanceLineAmount(KualiInteger financialBeginningBalanceLineAmount) {
@@ -354,7 +356,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Gets the budgetConstructionMonthly attribute.
-     * 
+     *
      * @return Returns the budgetConstructionMonthly
      */
     public List<BudgetConstructionMonthly> getBudgetConstructionMonthly() {
@@ -363,7 +365,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Sets the budgetConstructionMonthly attribute.
-     * 
+     *
      * @param budgetConstructionMonthly The budgetConstructionMonthly to set.
      * @deprecated
      */
@@ -373,7 +375,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Gets the financialObject attribute.
-     * 
+     *
      * @return Returns the financialObject
      */
     public ObjectCode getFinancialObject() {
@@ -382,7 +384,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Sets the financialObject attribute.
-     * 
+     *
      * @param financialObject The financialObject to set.
      * @deprecated
      */
@@ -392,7 +394,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Gets the chartOfAccounts attribute.
-     * 
+     *
      * @return Returns the chartOfAccounts
      */
     public Chart getChartOfAccounts() {
@@ -401,7 +403,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Sets the chartOfAccounts attribute.
-     * 
+     *
      * @param chartOfAccounts The chartOfAccounts to set.
      * @deprecated
      */
@@ -411,7 +413,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Gets the account attribute.
-     * 
+     *
      * @return Returns the account
      */
     public Account getAccount() {
@@ -420,7 +422,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Sets the account attribute.
-     * 
+     *
      * @param account The account to set.
      * @deprecated
      */
@@ -430,7 +432,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Gets the financialSubObject attribute.
-     * 
+     *
      * @return Returns the financialSubObject.
      */
     public SubObjectCode getFinancialSubObject() {
@@ -439,7 +441,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Sets the financialSubObject attribute value.
-     * 
+     *
      * @param financialSubObject The financialSubObject to set.
      * @deprecated
      */
@@ -449,7 +451,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Gets the subAccount attribute.
-     * 
+     *
      * @return Returns the subAccount.
      */
     public SubAccount getSubAccount() {
@@ -458,7 +460,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Sets the subAccount attribute value.
-     * 
+     *
      * @param subAccount The subAccount to set.
      * @deprecated
      */
@@ -468,7 +470,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Gets the balanceType attribute.
-     * 
+     *
      * @return Returns the balanceType.
      */
     public BalanceType getBalanceType() {
@@ -477,7 +479,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Sets the balanceType attribute value.
-     * 
+     *
      * @param balanceType The balanceType to set.
      * @deprecated
      */
@@ -487,7 +489,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Gets the objectType attribute.
-     * 
+     *
      * @return Returns the objectType.
      */
     public ObjectType getObjectType() {
@@ -496,7 +498,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Sets the objectType attribute value.
-     * 
+     *
      * @param objectType The objectType to set.
      * @deprecated
      */
@@ -506,7 +508,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Gets the budgetConstructionHeader attribute.
-     * 
+     *
      * @return Returns the budgetConstructionHeader.
      */
     public BudgetConstructionHeader getBudgetConstructionHeader() {
@@ -515,7 +517,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Sets the budgetConstructionHeader attribute value.
-     * 
+     *
      * @param budgetConstructionHeader The budgetConstructionHeader to set.
      * @deprecated
      */
@@ -525,7 +527,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Gets the laborObject attribute.
-     * 
+     *
      * @return Returns the laborObject.
      */
     public LaborLedgerObject getLaborObject() {
@@ -535,7 +537,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Sets the laborObject attribute value.
-     * 
+     *
      * @param laborObject The laborObject to set.
      */
     public void setLaborObject(LaborLedgerObject laborObject) {
@@ -544,7 +546,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Gets the positionObjectBenefit attribute.
-     * 
+     *
      * @return Returns the positionObjectBenefit.
      */
     public List<LaborLedgerPositionObjectBenefit> getPositionObjectBenefit() {
@@ -554,7 +556,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Sets the positionObjectBenefit attribute value.
-     * 
+     *
      * @param positionObjectBenefit The positionObjectBenefit to set.
      */
     public void setPositionObjectBenefit(List<LaborLedgerPositionObjectBenefit> positionObjectBenefit) {
@@ -563,7 +565,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Gets the pendingBudgetConstructionAppointmentFundingExists attribute.
-     * 
+     *
      * @return Returns the pendingBudgetConstructionAppointmentFundingExists.
      */
     public boolean isPendingBudgetConstructionAppointmentFundingExists() {
@@ -611,7 +613,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * Returns a map with the primitive field names as the key and the primitive values as the map value.
-     * 
+     *
      * @return Map
      */
     public Map<String, Object> getValuesMap() {
@@ -622,18 +624,19 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
 
     /**
      * build the primary key map with the field names as the map keys and the field values as the map values
-     * 
+     *
      * @return the primary key map with the field names as the map keys and the field values as the map values
      */
     public Map<String, Object> buildPrimaryKeyMap() {
         return ObjectUtil.buildPropertyMap(this, getPrimaryKeyFields());
     }
-    
+
     /**
      * get the list of primary keys
+     *
      * @return the list of primary keys
      */
-    public static List<String> getPrimaryKeyFields(){
+    public static List<String> getPrimaryKeyFields() {
         List<String> primaryKeyFields = new ArrayList<String>();
         primaryKeyFields.add(KFSPropertyConstants.DOCUMENT_NUMBER);
         primaryKeyFields.add(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR);
@@ -644,7 +647,7 @@ public class PendingBudgetConstructionGeneralLedger extends PersistableBusinessO
         primaryKeyFields.add(KFSPropertyConstants.FINANCIAL_SUB_OBJECT_CODE);
         primaryKeyFields.add(KFSPropertyConstants.FINANCIAL_BALANCE_TYPE_CODE);
         primaryKeyFields.add(KFSPropertyConstants.FINANCIAL_OBJECT_TYPE_CODE);
-        
+
         return primaryKeyFields;
     }
 }

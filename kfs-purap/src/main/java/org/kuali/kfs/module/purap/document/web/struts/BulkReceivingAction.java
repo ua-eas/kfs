@@ -1,36 +1,39 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document.web.struts;
-
-import java.io.ByteArrayOutputStream;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
+import org.kuali.kfs.kns.question.ConfirmationQuestion;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.kns.util.WebUtils;
+import org.kuali.kfs.kns.web.struts.action.KualiTransactionalDocumentActionBase;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.document.BulkReceivingDocument;
@@ -47,18 +50,12 @@ import org.kuali.kfs.vnd.service.PhoneNumberService;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.KimConstants;
-import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
-import org.kuali.kfs.kns.question.ConfirmationQuestion;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.kns.service.DocumentHelperService;
-import org.kuali.kfs.kns.util.WebUtils;
-import org.kuali.kfs.kns.web.struts.action.KualiTransactionalDocumentActionBase;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BulkReceivingAction extends KualiTransactionalDocumentActionBase {
     protected static final Logger LOG = Logger.getLogger(BulkReceivingAction.class);
@@ -134,7 +131,7 @@ public class BulkReceivingAction extends KualiTransactionalDocumentActionBase {
     public ActionForward printReceivingTicketPDF(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         BulkReceivingForm blkRecForm = (BulkReceivingForm) form;
         String docId = blkRecForm.getDocId();
-        
+
         ByteArrayOutputStream baosPDF = new ByteArrayOutputStream();
         try {
             StringBuffer sbFilename = new StringBuffer();
@@ -146,14 +143,13 @@ public class BulkReceivingAction extends KualiTransactionalDocumentActionBase {
             SpringContext.getBean(BulkReceivingService.class).performPrintReceivingTicketPDF(docId, baosPDF);
 
             WebUtils.saveMimeOutputStreamAsFile(response, KFSConstants.ReportGeneration.PDF_MIME_TYPE, baosPDF, sbFilename.toString());
-        }
-        finally {
+        } finally {
             if (baosPDF != null) {
                 baosPDF.reset();
             }
         }
 
-        return null;          
+        return null;
     }
 
     @Override
@@ -221,8 +217,7 @@ public class BulkReceivingAction extends KualiTransactionalDocumentActionBase {
                     blkRecDoc.setDeliveryStateCode("");
                     blkRecDoc.setDeliveryPostalCode("");
                     blkRecDoc.setDeliveryCountryCode("");
-                }
-                else {
+                } else {
                     // came from building lookup then turn off "OTHER" and clear room and line2address
                     blkRecDoc.setDeliveryBuildingOtherIndicator(false);
                     blkRecDoc.setDeliveryBuildingRoomNumber("");
@@ -236,10 +231,10 @@ public class BulkReceivingAction extends KualiTransactionalDocumentActionBase {
 
     /**
      * Setup document to use "OTHER" building
-     * 
-     * @param mapping An ActionMapping
-     * @param form An ActionForm
-     * @param request A HttpServletRequest
+     *
+     * @param mapping  An ActionMapping
+     * @param form     An ActionForm
+     * @param request  A HttpServletRequest
      * @param response A HttpServletResponse
      * @return An ActionForward
      * @throws Exception
@@ -261,22 +256,22 @@ public class BulkReceivingAction extends KualiTransactionalDocumentActionBase {
 
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
-    
+
     @Override
-    protected void populateAdHocActionRequestCodes(KualiDocumentFormBase formBase){
+    protected void populateAdHocActionRequestCodes(KualiDocumentFormBase formBase) {
         Document document = formBase.getDocument();
         DocumentAuthorizer documentAuthorizer = getDocumentHelperService().getDocumentAuthorizer(document);
-        Map<String,String> adHocActionRequestCodes = new HashMap<String,String>();
+        Map<String, String> adHocActionRequestCodes = new HashMap<String, String>();
 
         if (documentAuthorizer.canSendAdHocRequests(document, KewApiConstants.ACTION_REQUEST_FYI_REQ, GlobalVariables.getUserSession().getPerson())) {
-                adHocActionRequestCodes.put(KewApiConstants.ACTION_REQUEST_FYI_REQ, KewApiConstants.ACTION_REQUEST_FYI_REQ_LABEL);
+            adHocActionRequestCodes.put(KewApiConstants.ACTION_REQUEST_FYI_REQ, KewApiConstants.ACTION_REQUEST_FYI_REQ_LABEL);
         }
-        if ( (document.getDocumentHeader().getWorkflowDocument().isInitiated()
-              || document.getDocumentHeader().getWorkflowDocument().isSaved()
-              || document.getDocumentHeader().getWorkflowDocument().isEnroute()
-              )&& documentAuthorizer.canSendAdHocRequests(document, KewApiConstants.ACTION_REQUEST_ACKNOWLEDGE_REQ, GlobalVariables.getUserSession().getPerson())) {
-                adHocActionRequestCodes.put(KewApiConstants.ACTION_REQUEST_ACKNOWLEDGE_REQ, KewApiConstants.ACTION_REQUEST_ACKNOWLEDGE_REQ_LABEL);
-        } 
+        if ((document.getDocumentHeader().getWorkflowDocument().isInitiated()
+            || document.getDocumentHeader().getWorkflowDocument().isSaved()
+            || document.getDocumentHeader().getWorkflowDocument().isEnroute()
+        ) && documentAuthorizer.canSendAdHocRequests(document, KewApiConstants.ACTION_REQUEST_ACKNOWLEDGE_REQ, GlobalVariables.getUserSession().getPerson())) {
+            adHocActionRequestCodes.put(KewApiConstants.ACTION_REQUEST_ACKNOWLEDGE_REQ, KewApiConstants.ACTION_REQUEST_ACKNOWLEDGE_REQ_LABEL);
+        }
         formBase.setAdHocActionRequestCodes(adHocActionRequestCodes);
 
     }

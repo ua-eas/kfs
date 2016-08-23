@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -33,23 +33,25 @@ import java.text.ParseException;
 /**
  * PropertyEditor converts between percentage strings and
  * <code>org.kuali.rice.core.api.util.type.KualiPercent</code> objects
- * 
- * 
  */
 public class UifPercentageEditor extends PropertyEditorSupport implements Serializable {
     private static final long serialVersionUID = -3562156375311932094L;
 
-    /** The default scale for percentage values. */
+    /**
+     * The default scale for percentage values.
+     */
     public final static int PERCENTAGE_SCALE = 2;
 
-    /** The default format for percentage values. */
+    /**
+     * The default format for percentage values.
+     */
     public final static String PERCENTAGE_FORMAT = "#,##0.00";
 
     /**
      * This overridden method converts
      * <code>org.kuali.rice.core.api.util.type.KualiPercent</code> objects to the
      * display string.
-     * 
+     *
      * @see java.beans.PropertyEditorSupport#getAsText()
      */
     @Override
@@ -77,7 +79,7 @@ public class UifPercentageEditor extends PropertyEditorSupport implements Serial
     /**
      * This overridden method converts the display string to a
      * <code>org.kuali.rice.core.api.util.type.KualiPercent</code> object.
-     * 
+     *
      * @see java.beans.PropertyEditorSupport#setAsText(java.lang.String)
      */
     @Override

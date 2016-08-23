@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.module.ar.service;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
+import org.kuali.kfs.krad.util.ErrorMessage;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.ContractsGrantsInvoiceDocumentErrorLog;
 import org.kuali.kfs.module.ar.businessobject.ContractsGrantsLetterOfCreditReviewDetail;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
-import org.kuali.kfs.krad.util.ErrorMessage;
+
+import java.util.Collection;
+import java.util.List;
 
 
 /**
@@ -38,10 +38,10 @@ public interface ContractsGrantsInvoiceCreateDocumentService {
     /**
      * This method validates awards and output an error file including unqualified awards with reason stated.
      *
-     * @param awards Collection of awards to validation
+     * @param awards                                  Collection of awards to validation
      * @param contractsGrantsInvoiceDocumentErrorLogs Collection of Error Log records for unqualified awards with reason stated.
-     * @param errOutputFile The name of the file recording unqualified awards with reason stated (null to skip writing to a file).
-     * @param creationProcessTypeCode type of process (Batch, LOC or Manual) calling this method
+     * @param errOutputFile                           The name of the file recording unqualified awards with reason stated (null to skip writing to a file).
+     * @param creationProcessTypeCode                 type of process (Batch, LOC or Manual) calling this method
      * @return Collection of qualified Awards - awards that are qualified to be used to create Contracts & Grants Invoice Documents
      */
     public Collection<ContractsAndGrantsBillingAward> validateAwards(Collection<ContractsAndGrantsBillingAward> awards, Collection<ContractsGrantsInvoiceDocumentErrorLog> contractsGrantsInvoiceDocumentErrorLogs, String errOutputFile, String creationProcessTypeCode);
@@ -57,8 +57,9 @@ public interface ContractsGrantsInvoiceCreateDocumentService {
     /**
      * Looks for Contracts & Grants Invoice Document with a status of Saved, meaning they have been created and saved to "inbox", but
      * This method is called by the C&G LOC Review document to generate contracts grants invoice documents
-     * @param awards Collection of Awards used to create Contracts Grants Invoice Documents
-     * @param accountDetails the account details to create the awards
+     *
+     * @param awards          Collection of Awards used to create Contracts Grants Invoice Documents
+     * @param accountDetails  the account details to create the awards
      * @param locCreationType whether loc documents should be created by fund or fund group
      * @return List<ErrorMessage> of error messages that can be displayed to the user (empty if successful)
      */
@@ -73,12 +74,12 @@ public interface ContractsGrantsInvoiceCreateDocumentService {
     /**
      * This method creates a single CG Invoice Document
      *
-     * @param award Award used to create CG Invoice Document
-     * @param list of award accounts used to create CG Invoice Document
-     * @param coaCode chart code used to create CG Invoice Document
-     * @param orgCode org code used to create CG Invoice Document
-     * @param errorMessages a List of error messages the process can append to
-     * @param accountDetails the account details to create the awards
+     * @param award           Award used to create CG Invoice Document
+     * @param list            of award accounts used to create CG Invoice Document
+     * @param coaCode         chart code used to create CG Invoice Document
+     * @param orgCode         org code used to create CG Invoice Document
+     * @param errorMessages   a List of error messages the process can append to
+     * @param accountDetails  the account details to create the awards
      * @param locCreationType whether loc documents should be created by fund or fund group
      * @return ContractsGrantsInvoiceDocument
      */

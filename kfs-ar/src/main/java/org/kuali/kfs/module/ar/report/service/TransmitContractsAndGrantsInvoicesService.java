@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,19 +18,17 @@
  */
 package org.kuali.kfs.module.ar.report.service;
 
+import com.lowagie.text.DocumentException;
+import org.kuali.kfs.krad.exception.InvalidAddressException;
+import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
+import org.kuali.rice.kew.api.exception.WorkflowException;
+
+import javax.mail.MessagingException;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Collection;
 import java.util.Map;
-
-import javax.mail.MessagingException;
-
-import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
-import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.exception.InvalidAddressException;
-
-import com.lowagie.text.DocumentException;
 
 /**
  * Service to help the TransmitContractsAndGrantsInvoicesLookupAction
@@ -40,18 +38,18 @@ public interface TransmitContractsAndGrantsInvoicesService {
     /**
      * This seems to collect Contracts & Grants Invoices by the given lookup parameters.
      *
-     * @param userId the user carrying out this operation
-     * @param documentNumber if present, searches by document number
-     * @param proposalNumber if present, searches by the proposal number
-     * @param invoiceAmount if present, searches by the invoice amount
-     * @param chartOfAccountsCode if present, searches on the chart of accounts code
-     * @param organizationCode if present, searches on the organization
-     * @param unformattedToDate if present, searches on the to date
-     * @param unformattedFromDate if present, searches on the from date
+     * @param userId                        the user carrying out this operation
+     * @param documentNumber                if present, searches by document number
+     * @param proposalNumber                if present, searches by the proposal number
+     * @param invoiceAmount                 if present, searches by the invoice amount
+     * @param chartOfAccountsCode           if present, searches on the chart of accounts code
+     * @param organizationCode              if present, searches on the organization
+     * @param unformattedToDate             if present, searches on the to date
+     * @param unformattedFromDate           if present, searches on the from date
      * @param invoiceTransmissionMethodCode searches for invoice transmission method of EMAIL, MAIL, or BOTH (all invoices)
      * @return a Collection of ContractsGrantsInvoiceDocument objects
      * @throws WorkflowException thrown if document could not be retrieved
-     * @throws ParseException thrown if dates could not be parsed
+     * @throws ParseException    thrown if dates could not be parsed
      */
     public Collection<ContractsGrantsInvoiceDocument> getInvoicesByParametersFromRequest(Map fieldValues) throws WorkflowException, ParseException;
 
@@ -75,10 +73,10 @@ public interface TransmitContractsAndGrantsInvoicesService {
      * This method generates the actual pdf files to print.
      *
      * @param list the list of invoice documents to print
-     * @param a ByteArrayOutputStream to write out to
+     * @param a    ByteArrayOutputStream to write out to
      * @return true if printing succeeded, false otherwise
      * @throws DocumentException if PDF cannot be written
-     * @throws IOException if there is some other IO problem
+     * @throws IOException       if there is some other IO problem
      */
     public boolean printInvoicesAndEnvelopesZip(Collection<ContractsGrantsInvoiceDocument> list, ByteArrayOutputStream baos) throws DocumentException, IOException;
 
@@ -87,7 +85,7 @@ public interface TransmitContractsAndGrantsInvoicesService {
      *
      * @param fieldValues search parameters to validate
      */
-    public void validateSearchParameters(Map<String,String> fieldValues);
+    public void validateSearchParameters(Map<String, String> fieldValues);
 
     /**
      * This method emails invoices and then sets the report delivery flag.

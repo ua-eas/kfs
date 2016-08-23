@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -34,8 +34,6 @@ import java.text.ParseException;
  * Class is used to format
  * <code>org.kuali.rice.core.api.util.type.KualiDecimal</code> in the local
  * currency
- * 
- * 
  */
 public class UifCurrencyEditor extends PropertyEditorSupport implements Serializable {
     private static final long serialVersionUID = 6692868638156609014L;
@@ -43,7 +41,7 @@ public class UifCurrencyEditor extends PropertyEditorSupport implements Serializ
 
     /**
      * This overridden method ...
-     * 
+     *
      * @see java.beans.PropertyEditorSupport#getAsText()
      */
     @Override
@@ -75,7 +73,7 @@ public class UifCurrencyEditor extends PropertyEditorSupport implements Serializ
     /**
      * retrieves a currency formatter instance and sets ParseBigDecimal to true
      * to fix [KULEDOCS-742]
-     * 
+     *
      * @return CurrencyInstance
      */
     private NumberFormat getCurrencyInstanceUsingParseBigDecimal() {
@@ -90,7 +88,7 @@ public class UifCurrencyEditor extends PropertyEditorSupport implements Serializ
      * This overridden method sets the property value by parsing a given String.
      * It uses the <code>convertToObject</code> method to make the code
      * available to sub classes.
-     * 
+     *
      * @see java.beans.PropertyEditorSupport#setAsText(java.lang.String)
      */
     @Override
@@ -102,11 +100,10 @@ public class UifCurrencyEditor extends PropertyEditorSupport implements Serializ
      * Converts the string to a
      * <code>org.kuali.rice.core.api.util.type.KualiDecimal</code> object using the
      * local currency format.
-     * 
-     * @param text
-     *            the text from the UI to convert
+     *
+     * @param text the text from the UI to convert
      * @return the <code>org.kuali.rice.core.api.util.type.KualiDecimal</code>
-     *         object to be set on the bean
+     * object to be set on the bean
      */
     protected Object convertToObject(String text) {
         KualiDecimal value = null;

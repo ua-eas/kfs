@@ -1,29 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.batch.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.module.tem.businessobject.PerDiem;
 import org.kuali.kfs.module.tem.businessobject.PrimaryDestination;
 import org.kuali.kfs.module.tem.businessobject.TemRegion;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.LinkedHashMap;
 
 public class PerDiemForLoad extends PerDiem {
     public static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PerDiemForLoad.class);
@@ -116,6 +116,7 @@ public class PerDiemForLoad extends PerDiem {
 
     /**
      * Gets the expirationDateAsString attribute.
+     *
      * @return Returns the expirationDateAsString.
      */
     public String getExpirationDateAsString() {
@@ -124,6 +125,7 @@ public class PerDiemForLoad extends PerDiem {
 
     /**
      * Sets the expirationDateAsString attribute value.
+     *
      * @param expirationDateAsString The expirationDateAsString to set.
      */
     public void setExpirationDateAsString(String expirationDateAsString) {
@@ -132,6 +134,7 @@ public class PerDiemForLoad extends PerDiem {
 
     /**
      * Sets the localMeals attribute value.
+     *
      * @param localMeals The localMeals to set.
      */
     public void setLocalMeals(String localMeals) {
@@ -140,6 +143,7 @@ public class PerDiemForLoad extends PerDiem {
 
     /**
      * Sets the localMeals attribute value.
+     *
      * @param localMeals The localMeals to set.
      */
     public void setIncidentals(String incidentals) {
@@ -148,6 +152,7 @@ public class PerDiemForLoad extends PerDiem {
 
     /**
      * Sets the lodging attribute value.
+     *
      * @param lodging The lodging to set.
      */
     public void setLodging(String lodging) {
@@ -165,7 +170,6 @@ public class PerDiemForLoad extends PerDiem {
 
         return map;
     }
-
 
 
     /**

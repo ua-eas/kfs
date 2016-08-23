@@ -1,37 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.pdp.service.impl;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.sql.Timestamp;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.pdp.businessobject.Batch;
 import org.kuali.kfs.pdp.businessobject.CustomerProfile;
 import org.kuali.kfs.pdp.businessobject.LoadPaymentStatus;
@@ -50,12 +43,19 @@ import org.kuali.kfs.sys.exception.ParseException;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ErrorMessage;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.sql.Timestamp;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * @see org.kuali.kfs.pdp.service.PaymentFileService
@@ -102,13 +102,12 @@ public class PaymentFileServiceImpl extends InitiateDirectoryBase implements Pay
                     // load payment data
                     loadPayments(paymentFile, status, incomingFileName);
                     createOutputFile(status, incomingFileName);
-                }else{
+                } else {
                     //if we encounter an error for the payment file, we will remove the .done file so it will not be parse again
                     LOG.error("Encounter a problem while processing payment file: " + incomingFileName + " .  Removing the done file to stop re-process.");
                     removeDoneFile(incomingFileName);
                 }
-            }
-            catch (RuntimeException e) {
+            } catch (RuntimeException e) {
                 LOG.error("Caught exception trying to load payment file: " + incomingFileName, e);
                 // swallow exception so we can continue processing files, the errors have been reported by email
             }
@@ -119,8 +118,8 @@ public class PaymentFileServiceImpl extends InitiateDirectoryBase implements Pay
      * Attempt to parse the file, run validations, and store batch data
      *
      * @param paymentInputFileType <code>BatchInputFileType</code> for payment files
-     * @param incomingFileName name of payment file
-     * @param errorMap <code>Map</code> of errors
+     * @param incomingFileName     name of payment file
+     * @param errorMap             <code>Map</code> of errors
      * @return <code>LoadPaymentStatus</code> containing status data for load
      */
     protected PaymentFileLoad processPaymentFile(BatchInputFileType paymentInputFileType, String incomingFileName, MessageMap errorMap) {
@@ -132,7 +131,7 @@ public class PaymentFileServiceImpl extends InitiateDirectoryBase implements Pay
             doPaymentFileValidation(paymentFile, errorMap);
         }
 
-        //TODO FSKD-5416 KFSCNTRB ???        
+        //TODO FSKD-5416 KFSCNTRB ???
         // if any error from parsing or post-parsing validation, send error email notice
         if (errorMap.hasErrors()) {
             paymentFileEmailService.sendErrorEmail(paymentFile, errorMap);
@@ -143,7 +142,7 @@ public class PaymentFileServiceImpl extends InitiateDirectoryBase implements Pay
 
     /**
      * @see org.kuali.kfs.pdp.service.PaymentFileService#doPaymentFileValidation(org.kuali.kfs.pdp.businessobject.PaymentFileLoad,
-     *      org.kuali.rice.krad.util.MessageMap)
+     * org.kuali.rice.krad.util.MessageMap)
      */
     @Override
     public void doPaymentFileValidation(PaymentFileLoad paymentFile, MessageMap errorMap) {
@@ -156,8 +155,7 @@ public class PaymentFileServiceImpl extends InitiateDirectoryBase implements Pay
             //paymentFileEmailService.sendErrorEmail(paymentFile, errorMap);
             // set validation failed
             paymentFile.setPassedValidation(false);
-        }
-        else {
+        } else {
             // set validation succeeded
             paymentFile.setPassedValidation(true);
         }
@@ -207,16 +205,15 @@ public class PaymentFileServiceImpl extends InitiateDirectoryBase implements Pay
      * Calls <code>BatchInputFileService</code> to validate XML against schema and parse.
      *
      * @param paymentInputFileType <code>BatchInputFileType</code> for payment files
-     * @param incomingFileName name of the payment file to parse
-     * @param errorMap any errors encountered while parsing are adding to
+     * @param incomingFileName     name of the payment file to parse
+     * @param errorMap             any errors encountered while parsing are adding to
      * @return <code>PaymentFile</code> containing the parsed values
      */
     protected PaymentFileLoad parsePaymentFile(BatchInputFileType paymentInputFileType, String incomingFileName, MessageMap errorMap) {
         FileInputStream fileContents;
         try {
             fileContents = new FileInputStream(incomingFileName);
-        }
-        catch (FileNotFoundException e1) {
+        } catch (FileNotFoundException e1) {
             LOG.error("file to load not found " + incomingFileName, e1);
             throw new RuntimeException("Cannot find the file requested to be loaded " + incomingFileName, e1);
         }
@@ -226,14 +223,12 @@ public class PaymentFileServiceImpl extends InitiateDirectoryBase implements Pay
         try {
             byte[] fileByteContent = IOUtils.toByteArray(fileContents);
             paymentFile = (PaymentFileLoad) batchInputFileService.parse(paymentInputFileType, fileByteContent);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             LOG.error("error while getting file bytes:  " + e.getMessage(), e);
             throw new RuntimeException("Error encountered while attempting to get file bytes: " + e.getMessage(), e);
-        }
-        catch (ParseException e1) {
+        } catch (ParseException e1) {
             LOG.error("Error parsing xml " + e1.getMessage());
-            errorMap.putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.ERROR_BATCH_UPLOAD_PARSING_XML, new String[] { e1.getMessage() });
+            errorMap.putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.ERROR_BATCH_UPLOAD_PARSING_XML, new String[]{e1.getMessage()});
         }
 
         return paymentFile;
@@ -241,7 +236,7 @@ public class PaymentFileServiceImpl extends InitiateDirectoryBase implements Pay
 
     /**
      * @see org.kuali.kfs.pdp.service.PaymentFileService#createOutputFile(org.kuali.kfs.pdp.businessobject.LoadPaymentStatus,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     public boolean createOutputFile(LoadPaymentStatus status, String inputFileName) {
@@ -258,8 +253,7 @@ public class PaymentFileServiceImpl extends InitiateDirectoryBase implements Pay
         if (LoadPaymentStatus.LoadStatus.SUCCESS.equals(status.getLoadStatus())) {
             code = "SUCCESS";
             message = "Successful Load";
-        }
-        else {
+        } else {
             code = "FAIL";
             message = "Load Failed: ";
             List<ErrorMessage> errorMessages = status.getMessageMap().getMessages(KFSConstants.GLOBAL_ERRORS);
@@ -280,8 +274,7 @@ public class PaymentFileServiceImpl extends InitiateDirectoryBase implements Pay
             p.println("  <count>" + status.getDetailCount() + "</count>");
             if (status.getDetailTotal() != null) {
                 p.println("  <total>" + status.getDetailTotal() + "</total>");
-            }
-            else {
+            } else {
                 p.println("  <total>0</total>");
             }
 
@@ -298,12 +291,10 @@ public class PaymentFileServiceImpl extends InitiateDirectoryBase implements Pay
             // creating .done file
             File doneFile = new File(filename.substring(0, filename.lastIndexOf(".")) + ".done");
             doneFile.createNewFile();
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             LOG.error("createOutputFile() Cannot create output file", e);
             return false;
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             LOG.error("createOutputFile() Cannot write to output file", e);
             return false;
         }
@@ -315,7 +306,7 @@ public class PaymentFileServiceImpl extends InitiateDirectoryBase implements Pay
      * Create a new <code>Batch</code> record for the payment file.
      *
      * @param paymentFile parsed payment file object
-     * @param fileName payment file name (without path)
+     * @param fileName    payment file name (without path)
      * @return <code>Batch<code> object
      */
     protected Batch createNewBatch(PaymentFileLoad paymentFile, String fileName) {
@@ -339,8 +330,7 @@ public class PaymentFileServiceImpl extends InitiateDirectoryBase implements Pay
 
         if (fileName.length() > 30) {
             batch.setPaymentFileName(fileName.substring(0, 30));
-        }
-        else {
+        } else {
             batch.setPaymentFileName(fileName);
         }
 
@@ -464,7 +454,9 @@ public class PaymentFileServiceImpl extends InitiateDirectoryBase implements Pay
      */
     @Override
     public List<String> getRequiredDirectoryNames() {
-        return new ArrayList<String>() {{add(outgoingDirectoryName); }};
+        return new ArrayList<String>() {{
+            add(outgoingDirectoryName);
+        }};
     }
 
 }

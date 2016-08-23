@@ -1,29 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.document.web.struts;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
+import org.kuali.kfs.kns.web.ui.HeaderField;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.module.tem.TemWorkflowConstants;
 import org.kuali.kfs.module.tem.businessobject.TemProfile;
 import org.kuali.kfs.module.tem.document.CardApplicationDocument;
@@ -35,40 +36,38 @@ import org.kuali.kfs.sys.document.web.struts.FinancialSystemTransactionalDocumen
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.web.ui.ExtraButton;
-import org.kuali.kfs.kns.web.ui.HeaderField;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class TemCardApplicationForm extends FinancialSystemTransactionalDocumentFormBase {
     ConfigurationService ConfigurationService;
-    private boolean fiscalOfficer           = false;
-    private boolean travelManager           = false;
-    private boolean appliedToBank           = false;
-    private boolean initiator               = false;
-    private boolean emptyAccount            = false;
-    private boolean emptyProfile            = false;
-    private boolean multipleApplications    = false;
+    private boolean fiscalOfficer = false;
+    private boolean travelManager = false;
+    private boolean appliedToBank = false;
+    private boolean initiator = false;
+    private boolean emptyAccount = false;
+    private boolean emptyProfile = false;
+    private boolean multipleApplications = false;
 
     @Override
     public List<ExtraButton> getExtraButtons() {
         List<ExtraButton> extraButtons = super.getExtraButtons();
 
-        if (isTravelManager()){
+        if (isTravelManager()) {
             String documentStatus = getDocument().getDocumentHeader().getWorkflowDocument().getApplicationDocumentStatus();
             if (TemWorkflowConstants.RouteNodeNames.PENDING_BANK_APPLICATION.equals(documentStatus)
-                    || TemWorkflowConstants.RouteNodeNames.TRAVEL_OFFICE_REVIEW.equals(documentStatus)){
+                || TemWorkflowConstants.RouteNodeNames.TRAVEL_OFFICE_REVIEW.equals(documentStatus)) {
                 this.getDocumentActions().remove(KRADConstants.KUALI_ACTION_CAN_APPROVE);
             }
             String applyToBankButtonURL = getConfigurationService().getPropertyValueAsString(KFSConstants.EXTERNALIZABLE_IMAGES_URL_KEY);
             String submitButtonURL = getConfigurationService().getPropertyValueAsString(KFSConstants.RICE_EXTERNALIZABLE_IMAGES_URL_KEY);
 
-            if (TemWorkflowConstants.RouteNodeNames.PENDING_BANK_APPLICATION.equals(documentStatus)){
+            if (TemWorkflowConstants.RouteNodeNames.PENDING_BANK_APPLICATION.equals(documentStatus)) {
                 addExtraButton("methodToCall.applyToBank", applyToBankButtonURL + "buttonsmall_applytobank.gif", "Apply To Bank");
-            }
-            else if (TemWorkflowConstants.RouteNodeNames.TRAVEL_OFFICE_REVIEW.equals(documentStatus)) {
+            } else if (TemWorkflowConstants.RouteNodeNames.TRAVEL_OFFICE_REVIEW.equals(documentStatus)) {
                 addExtraButton("methodToCall.submit", submitButtonURL + "buttonsmall_submit.gif", "Submit");
             }
         }
@@ -77,7 +76,7 @@ public class TemCardApplicationForm extends FinancialSystemTransactionalDocument
     }
 
     public ConfigurationService getConfigurationService() {
-        if (ConfigurationService == null){
+        if (ConfigurationService == null) {
             ConfigurationService = SpringContext.getBean(ConfigurationService.class);
         }
         return ConfigurationService;
@@ -87,8 +86,8 @@ public class TemCardApplicationForm extends FinancialSystemTransactionalDocument
      * Adds a new button to the extra buttons collection.
      *
      * @param property - property for button
-     * @param source - location of image
-     * @param altText - alternate text for button if images don't appear
+     * @param source   - location of image
+     * @param altText  - alternate text for button if images don't appear
      */
     protected void addExtraButton(String property, String source, String altText) {
 
@@ -113,15 +112,14 @@ public class TemCardApplicationForm extends FinancialSystemTransactionalDocument
         CardApplicationDocument document = (CardApplicationDocument) this.getDocument();
 
         TemProfile profile = document.getTemProfile();
-        if (profile != null){
+        if (profile != null) {
             Account account = null;
-            Map<String,String> fieldValues = new HashMap<String,String>();
+            Map<String, String> fieldValues = new HashMap<String, String>();
             fieldValues.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, profile.getDefaultChartCode());
             fieldValues.put(KFSPropertyConstants.ACCOUNT_NUMBER, profile.getDefaultAccount());
             account = getBusinessObjectService().findByPrimaryKey(Account.class, fieldValues);
             return currentUser.getPrincipalId().equals(account.getAccountFiscalOfficerSystemIdentifier());
-        }
-        else{
+        } else {
             return false;
         }
     }
@@ -147,10 +145,10 @@ public class TemCardApplicationForm extends FinancialSystemTransactionalDocument
 
     public boolean isAppliedToBank() {
         CardApplicationDocument document = (CardApplicationDocument) this.getDocument();
-        if(TemWorkflowConstants.RouteNodeNames.APPLIED_TO_BANK.equals(document.getDocumentHeader().getWorkflowDocument().getApplicationDocumentStatus())
-                || TemWorkflowConstants.RouteNodeNames.APPROVED.equals(document.getDocumentHeader().getWorkflowDocument().getApplicationDocumentStatus())
-                || TemWorkflowConstants.RouteNodeNames.APPROVED_BY_BANK.equals(document.getDocumentHeader().getWorkflowDocument().getApplicationDocumentStatus())
-                || TemWorkflowConstants.RouteNodeNames.DECLINED.equals(document.getDocumentHeader().getWorkflowDocument().getApplicationDocumentStatus())){
+        if (TemWorkflowConstants.RouteNodeNames.APPLIED_TO_BANK.equals(document.getDocumentHeader().getWorkflowDocument().getApplicationDocumentStatus())
+            || TemWorkflowConstants.RouteNodeNames.APPROVED.equals(document.getDocumentHeader().getWorkflowDocument().getApplicationDocumentStatus())
+            || TemWorkflowConstants.RouteNodeNames.APPROVED_BY_BANK.equals(document.getDocumentHeader().getWorkflowDocument().getApplicationDocumentStatus())
+            || TemWorkflowConstants.RouteNodeNames.DECLINED.equals(document.getDocumentHeader().getWorkflowDocument().getApplicationDocumentStatus())) {
             setAppliedToBank(true);
         }
         return appliedToBank;
@@ -253,7 +251,7 @@ public class TemCardApplicationForm extends FinancialSystemTransactionalDocument
         String status = TemWorkflowConstants.RouteNodeNames.APPLICATION;
         String appDocStatus = document.getDocumentHeader().getWorkflowDocument().getApplicationDocumentStatus();
 
-        getDocInfo().add(new HeaderField(getDataDictionaryAttributeName(getStatusCodeFieldName()), StringUtils.isBlank(appDocStatus)?status:appDocStatus));
+        getDocInfo().add(new HeaderField(getDataDictionaryAttributeName(getStatusCodeFieldName()), StringUtils.isBlank(appDocStatus) ? status : appDocStatus));
     }
 
     /**

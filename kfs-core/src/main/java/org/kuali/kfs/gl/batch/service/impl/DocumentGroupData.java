@@ -1,31 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.batch.service.impl;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.businessobject.CollectorDetail;
 import org.kuali.kfs.gl.businessobject.OriginEntryFull;
 import org.kuali.kfs.gl.businessobject.Transaction;
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * This class represents document group-related data
@@ -49,7 +49,7 @@ public class DocumentGroupData {
 
     /**
      * Returns true if DocumentGroupData objects have the same document number, document type code, and financial system origination code
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -62,8 +62,8 @@ public class DocumentGroupData {
     }
 
     /**
-     * Returns true if this document group data object's and the transaction have the same document number, document type code, and origination code match the passed 
-     * 
+     * Returns true if this document group data object's and the transaction have the same document number, document type code, and origination code match the passed
+     *
      * @param transaction transaction to compare
      * @return true if this document group data object's and the transaction have the same document number, document type code, and origination code match the passed
      */
@@ -76,7 +76,6 @@ public class DocumentGroupData {
     }
 
     /**
-     * 
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -90,8 +89,8 @@ public class DocumentGroupData {
 
     /**
      * This returns an origin entry with document number, document type code, origination code set from this DocumentGroupData's document number, document type code, and origination code
-     * 
-     * @return populated origin entry  
+     *
+     * @return populated origin entry
      */
     public OriginEntryFull populateDocumentGroupDataFieldsInOriginEntry() {
         OriginEntryFull entry = new OriginEntryFull();
@@ -103,7 +102,7 @@ public class DocumentGroupData {
 
     /**
      * Gets the documentNumber attribute.
-     * 
+     *
      * @return Returns the documentNumber.
      */
     public String getDocumentNumber() {
@@ -112,7 +111,7 @@ public class DocumentGroupData {
 
     /**
      * Sets the documentNumber attribute value.
-     * 
+     *
      * @param documentNumber The documentNumber to set.
      */
     public void setDocumentNumber(String documentNumber) {
@@ -121,7 +120,7 @@ public class DocumentGroupData {
 
     /**
      * Gets the financialDocumentTypeCode attribute.
-     * 
+     *
      * @return Returns the financialDocumentTypeCode.
      */
     public String getFinancialDocumentTypeCode() {
@@ -130,7 +129,7 @@ public class DocumentGroupData {
 
     /**
      * Sets the financialDocumentTypeCode attribute value.
-     * 
+     *
      * @param financialDocumentTypeCode The financialDocumentTypeCode to set.
      */
     public void setFinancialDocumentTypeCode(String financialDocumentTypeCode) {
@@ -139,7 +138,7 @@ public class DocumentGroupData {
 
     /**
      * Gets the financialSystemOriginationCode attribute.
-     * 
+     *
      * @return Returns the financialSystemOriginationCode.
      */
     public String getFinancialSystemOriginationCode() {
@@ -148,7 +147,7 @@ public class DocumentGroupData {
 
     /**
      * Sets the financialSystemOriginationCode attribute value.
-     * 
+     *
      * @param financialSystemOriginationCode The financialSystemOriginationCode to set.
      */
     public void setFinancialSystemOriginationCode(String financialSystemOriginationCode) {
@@ -158,7 +157,7 @@ public class DocumentGroupData {
     /**
      * Given an iterator of {@link Transaction} objects, return a set of all the document groups (doc #, doc type, origination code)
      * for these transactions
-     * 
+     *
      * @param transactions iterator of transactions
      * @return Set of all of the document groups for this these trasnactions
      */

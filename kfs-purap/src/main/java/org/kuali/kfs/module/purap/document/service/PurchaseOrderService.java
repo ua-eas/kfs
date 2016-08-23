@@ -1,28 +1,25 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document.service;
 
-import java.io.ByteArrayOutputStream;
-import java.util.HashMap;
-import java.util.List;
-
 import org.kuali.kfs.integration.purap.CapitalAssetSystem;
+import org.kuali.kfs.krad.bo.Note;
 import org.kuali.kfs.module.purap.businessobject.AutoClosePurchaseOrderView;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderItem;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderQuoteStatus;
@@ -34,7 +31,10 @@ import org.kuali.kfs.module.purap.document.PurchaseOrderSplitDocument;
 import org.kuali.kfs.module.purap.document.RequisitionDocument;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.Note;
+
+import java.io.ByteArrayOutputStream;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Defines methods that must be implemented by classes providing a PurchaseOrderService.
@@ -57,9 +57,9 @@ public interface PurchaseOrderService extends PurchasingDocumentSpecificService 
     /**
      * Creates a PurchaseOrderDocument from given RequisitionDocument. Both documents need to be saved after this method is called.
      *
-     * @param reqDocument The requisition document that this method will use to create the purchase order.
-     * @param newSessionUserId The session user id that we'll use to invoke the performLogicWithFakedUserSession method of
-     *        PurapService.
+     * @param reqDocument         The requisition document that this method will use to create the purchase order.
+     * @param newSessionUserId    The session user id that we'll use to invoke the performLogicWithFakedUserSession method of
+     *                            PurapService.
      * @param contractManagerCode The contract manager code that we'll need to set on the purchase order.
      * @return The purchase order document object that is created by this method.
      */
@@ -69,11 +69,11 @@ public interface PurchaseOrderService extends PurchasingDocumentSpecificService 
      * Creates and saves the purchase order change document (for example, PurchaseOrderAmendmentDocument) based on an existing
      * purchase order document.
      *
-     * @param documentNumber The document number of the existing purchase order document from which we try to create a new change
-     *        document.
-     * @param docType The document type of the new change document.
+     * @param documentNumber        The document number of the existing purchase order document from which we try to create a new change
+     *                              document.
+     * @param docType               The document type of the new change document.
      * @param newDocumentStatusCode The status code that we want to set on the existing purchase order document after the new change
-     *        document is created.
+     *                              document is created.
      * @return The resulting new purchase order change document created by this method.
      */
     public PurchaseOrderDocument createAndSavePotentialChangeDocument(String documentNumber, String docType, String newDocumentStatusCode);
@@ -83,14 +83,14 @@ public interface PurchaseOrderService extends PurchasingDocumentSpecificService 
      * order document.
      *
      * @param
-     * @param documentNumber The document number of the existing purchase order document from which we try to create a new change
-     *        document.
-     * @param docType The document type of the new change document.
-     * @param annotation The annotation that we'll use to invoke the routeDocument method of DocumentService.
+     * @param documentNumber         The document number of the existing purchase order document from which we try to create a new change
+     *                               document.
+     * @param docType                The document type of the new change document.
+     * @param annotation             The annotation that we'll use to invoke the routeDocument method of DocumentService.
      * @param adhocRoutingRecipients The adhocRoutingRecipients that we'll use to invoke the routeDocument method of
-     *        DocumentService.
-     * @param newDocumentStatusCode The status code that we want to set on the existing purchase order document after the new change
-     *        document is created.
+     *                               DocumentService.
+     * @param newDocumentStatusCode  The status code that we want to set on the existing purchase order document after the new change
+     *                               document is created.
      * @return The resulting new purchase order change document created by this method.
      */
     public PurchaseOrderDocument createAndRoutePotentialChangeDocument(String documentNumber, String docType, String annotation, List adhocRoutingRecipients, String newDocumentStatusCode);
@@ -99,11 +99,11 @@ public interface PurchaseOrderService extends PurchasingDocumentSpecificService 
      * Creates and saves a Purchase Order Split document based on the old PO document, and the items from that PO that the
      * new Split PO is to contain.
      *
-     * @param newPOItems        The List<PurchaseOrderItem> of the items that the new Split PO is to contain
-     * @param currentDocument   The original PurchaseOrderDocument
-     * @param copyNotes         A boolean.  True if notes are to be copied from the old document to the new.
-     * @param splitNoteText     A String containing the text of the note to be added to the old document.
-     * @return  A PurchaseOrderSplitDocument containing the given list of items
+     * @param newPOItems      The List<PurchaseOrderItem> of the items that the new Split PO is to contain
+     * @param currentDocument The original PurchaseOrderDocument
+     * @param copyNotes       A boolean.  True if notes are to be copied from the old document to the new.
+     * @param splitNoteText   A String containing the text of the note to be added to the old document.
+     * @return A PurchaseOrderSplitDocument containing the given list of items
      */
     public PurchaseOrderSplitDocument createAndSavePurchaseOrderSplitDocument(List<PurchaseOrderItem> newPOItems, PurchaseOrderDocument currentDocument, boolean copyNotes, String splitNoteText);
 
@@ -133,8 +133,8 @@ public interface PurchaseOrderService extends PurchasingDocumentSpecificService 
      * Creates and displays the pdf document for the purchase order with a draft watermark
      *
      * @param documentNumber The document number of the purchase order document that we want to perform the first transmit.
-     * @param baosPDF The ByteArrayOutputStream object that was passed in from the struts action so that we could display the pdf on
-     *        the browser.
+     * @param baosPDF        The ByteArrayOutputStream object that was passed in from the struts action so that we could display the pdf on
+     *                       the browser.
      */
     public void performPurchaseOrderPreviewPrinting(String documentNumber, ByteArrayOutputStream baosPDF);
 
@@ -142,7 +142,7 @@ public interface PurchaseOrderService extends PurchasingDocumentSpecificService 
      * Generates and displays the purchase order pdf by invoking the generatePurchaseOrderPdf method of the PrintService.
      *
      * @param documentNumber The document number of the purchase order document that we want to print the pdf.
-     * @param baosPDF The ByteArrayOutputStream object that we'll use to display the pdf on the browser.
+     * @param baosPDF        The ByteArrayOutputStream object that we'll use to display the pdf on the browser.
      */
     public void performPrintPurchaseOrderPDFOnly(String documentNumber, ByteArrayOutputStream baosPDF);
 
@@ -150,7 +150,7 @@ public interface PurchaseOrderService extends PurchasingDocumentSpecificService 
      * Generates and displays the purchase order retransmit pdf by invoking the generatePurchaseOrderPdfForRetransmission method of
      * the PrintService.
      *
-     * @param po The purchase order document to be retransmitted.
+     * @param po      The purchase order document to be retransmitted.
      * @param baosPDF The ByteArrayOutputStream object that we'll use to display the pdf on the browser.
      */
     public void retransmitPurchaseOrderPDF(PurchaseOrderDocument po, ByteArrayOutputStream baosPDF);
@@ -245,7 +245,7 @@ public interface PurchaseOrderService extends PurchasingDocumentSpecificService 
      * Obtains the oldest purchase order given the purchase order object to be used to search, then calls the updateNotes method to
      * set the notes on the oldest purchase order and finally return the oldest purchase order.
      *
-     * @param po The current purchase order object from which we want to obtain the oldest purchase order.
+     * @param po                     The current purchase order object from which we want to obtain the oldest purchase order.
      * @param documentBusinessObject The documentBusinessObject of the current purchase order object.
      * @return The oldest purchase order whose purchase order id is the same as the current purchase order's id.
      */
@@ -308,11 +308,10 @@ public interface PurchaseOrderService extends PurchasingDocumentSpecificService 
      * The reason we're combining all of these processing here is so that we don't
      * need to loop through items and vendor commodity codes too many times.
      *
-     * @param po  The PurchaseOrderDocument containing the vendor that we want to update.
-     *
+     * @param po The PurchaseOrderDocument containing the vendor that we want to update.
      * @return VendorDetail the vendorDetail object which is a deep copy of the original
-     *         vendorDetail on the PurchaseOrderDocument, whose commodity codes have
-     *         already been updated based on our findings on the items' commodity codes.
+     * vendorDetail on the PurchaseOrderDocument, whose commodity codes have
+     * already been updated based on our findings on the items' commodity codes.
      */
     public VendorDetail updateVendorWithMissingCommodityCodesIfNecessary(PurchaseOrderDocument po);
 
@@ -338,8 +337,8 @@ public interface PurchaseOrderService extends PurchasingDocumentSpecificService 
      * are marked to be moved or not.  Retrieving the item from the hash with the key of 'movingPOItems'
      * will retrieve those Items which should move, using 'remainingPOItems'.
      *
-     * @param items     A List<PurchaseOrderItem> from the original PO of a Split.
-     * @return          A HashMap<String, List<PurchaseOrderItem>> of categorized lists of items
+     * @param items A List<PurchaseOrderItem> from the original PO of a Split.
+     * @return A HashMap<String, List<PurchaseOrderItem>> of categorized lists of items
      */
     public HashMap<String, List<PurchaseOrderItem>> categorizeItemsForSplit(List<PurchaseOrderItem> items);
 
@@ -349,13 +348,13 @@ public interface PurchaseOrderService extends PurchasingDocumentSpecificService 
      * @param headerId       The vendorHeaderGeneratedIdentifier of the selected vendor.
      * @param detailId       The vendorDetailAssignedIdentifier of the selected vendor.
      * @param documentNumber The documentNumber of the PurchaseOrderDocument containing this quote.
-     * @return               The resulting PurchaseOrderVendorQuote object.
+     * @return The resulting PurchaseOrderVendorQuote object.
      */
     public PurchaseOrderVendorQuote populateQuoteWithVendor(Integer headerId, Integer detailId, String documentNumber);
 
     /**
-     *
      * This method takes care of creating PurchaseOrderDocuments from a list of Requisitions on an ACM
+     *
      * @param acmDoc An assign a contract manager document
      */
     public void processACMReq(ContractManagerAssignmentDocument acmDoc);
@@ -366,7 +365,7 @@ public interface PurchaseOrderService extends PurchasingDocumentSpecificService 
      * the purchase order was closed by the batch job.
      *
      * @param purchaseOrderDocument The purchase order document that is being closed by the batch job.
-     * @param annotation The string to appear on the note to be attached to the purchase order.
+     * @param annotation            The string to appear on the note to be attached to the purchase order.
      */
     public void createNoteForAutoCloseOrders(PurchaseOrderDocument purchaseOrderDocument, String annotation);
 
@@ -386,12 +385,12 @@ public interface PurchaseOrderService extends PurchasingDocumentSpecificService 
      * - Vendor Choice is not Sub-Contract
      * - PO End Date <= parm date (comes from system parameter)
      * - Verify that the system parameter date entered is not greater than the current date minus three months.
-     *   If the date entered is invalid, the batch process will halt and an error will be generated.
+     * If the date entered is invalid, the batch process will halt and an error will be generated.
      * - Close and disencumber all recurring PO's that have end dates less than
-     *   the system parameter date.
+     * the system parameter date.
      * - Set the system parameter date to mm/dd/yyyy after processing.
      * - Send email indicating that the job ran and which orders were closed.
-     *   Mail it to the AUTO_CLOSE_RECURRING_PO_EMAIL_ADDRESSES in system parameter.
+     * Mail it to the AUTO_CLOSE_RECURRING_PO_EMAIL_ADDRESSES in system parameter.
      *
      * @return boolean true if the job is completed successfully and false otherwise.
      */
@@ -428,6 +427,7 @@ public interface PurchaseOrderService extends PurchasingDocumentSpecificService 
 
     /**
      * This method gets all the Purchase orders that are waiting for faxing
+     *
      * @return List of POs
      */
     public List<PurchaseOrderDocument> getPendingPurchaseOrderFaxes();
@@ -442,17 +442,17 @@ public interface PurchaseOrderService extends PurchasingDocumentSpecificService 
     public String getPurchaseOrderAppDocStatus(Integer poId);
 
     /**
-     *
      * This method is to  send an FYI to fiscal officers for general ledger entries created for amend purchase order
+     *
      * @param po
      */
     public void sendFyiForGLEntries(PurchaseOrderDocument po);
 
     /**
-    *
-    * This method is to  send an FYI to fiscal officers and Requisition Initiator
-    * @param po
-    */
+     * This method is to  send an FYI to fiscal officers and Requisition Initiator
+     *
+     * @param po
+     */
 
     public void sendAdhocFyi(PurchaseOrderDocument po);
 }

@@ -1,24 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.util.LinkedHashMap;
+import org.kuali.kfs.coa.businessobject.Account;
+import org.kuali.kfs.coa.businessobject.ProjectCode;
+import org.kuali.kfs.coa.businessobject.SubAccount;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,12 +30,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import org.kuali.kfs.coa.businessobject.Account;
-import org.kuali.kfs.coa.businessobject.ProjectCode;
-import org.kuali.kfs.coa.businessobject.SubAccount;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import java.util.LinkedHashMap;
 
 @Entity
 @Table(name = "TEM_TRP_ACCT_INFO_T")
@@ -54,7 +53,6 @@ public class TripAccountingInformation extends PersistableBusinessObjectBase {
     private ProjectCode project;
 
 
-
     public TripAccountingInformation() {
     }
 
@@ -65,18 +63,20 @@ public class TripAccountingInformation extends PersistableBusinessObjectBase {
 
     /**
      * Gets the id attribute.
+     *
      * @return Returns the id.
      */
     @Id
     @GeneratedValue(generator = "TEM_TRP_ACCT_INFO_ID_SEQ")
     @SequenceGenerator(name = "TEM_TRP_ACCT_INFO_ID_SEQ", sequenceName = "TEM_TRP_ACCT_INFO_ID_SEQ", allocationSize = 5)
-    @Column(name="ID",nullable=false)
+    @Column(name = "ID", nullable = false)
     public Integer getId() {
         return id;
     }
 
     /**
      * Sets the id attribute value.
+     *
      * @param id The id to set.
      */
     public void setId(Integer id) {
@@ -85,15 +85,17 @@ public class TripAccountingInformation extends PersistableBusinessObjectBase {
 
     /**
      * Gets the agencyStagingDataId attribute.
+     *
      * @return Returns the agencyStagingDataId.
      */
-    @Column(name = "AGENCY_ID",nullable = true)
+    @Column(name = "AGENCY_ID", nullable = true)
     public Integer getAgencyStagingDataId() {
         return agencyStagingDataId;
     }
 
     /**
      * Sets the agencyStagingDataId attribute value.
+     *
      * @param agencyStagingDataId The agencyStagingDataId to set.
      */
     public void setAgencyStagingDataId(Integer agencyStagingDataId) {
@@ -102,6 +104,7 @@ public class TripAccountingInformation extends PersistableBusinessObjectBase {
 
     /**
      * Gets the tripChartCode attribute.
+     *
      * @return Returns the tripChartCode.
      */
     @Column(name = "FIN_COA_CD", length = 2, nullable = true)
@@ -111,6 +114,7 @@ public class TripAccountingInformation extends PersistableBusinessObjectBase {
 
     /**
      * Sets the tripChartCode attribute value.
+     *
      * @param tripChartCode The tripChartCode to set.
      */
     public void setTripChartCode(String tripChartCode) {
@@ -119,6 +123,7 @@ public class TripAccountingInformation extends PersistableBusinessObjectBase {
 
     /**
      * Gets the tripAccountNumber attribute.
+     *
      * @return Returns the tripAccountNumber.
      */
     @Column(name = "ACCT_NBR", length = 7, nullable = true)
@@ -128,6 +133,7 @@ public class TripAccountingInformation extends PersistableBusinessObjectBase {
 
     /**
      * Sets the tripAccountNumber attribute value.
+     *
      * @param tripAccountNumber The tripAccountNumber to set.
      */
     public void setTripAccountNumber(String tripAccountNumber) {
@@ -136,6 +142,7 @@ public class TripAccountingInformation extends PersistableBusinessObjectBase {
 
     /**
      * Gets the tripSubAccountNumber attribute.
+     *
      * @return Returns the tripSubAccountNumber.
      */
     @Column(name = "SUB_ACCT_NBR", length = 5, nullable = true)
@@ -145,6 +152,7 @@ public class TripAccountingInformation extends PersistableBusinessObjectBase {
 
     /**
      * Sets the tripSubAccountNumber attribute value.
+     *
      * @param tripSubAccountNumber The tripSubAccountNumber to set.
      */
     public void setTripSubAccountNumber(String tripSubAccountNumber) {
@@ -153,6 +161,7 @@ public class TripAccountingInformation extends PersistableBusinessObjectBase {
 
     /**
      * Gets the objectCode attribute.
+     *
      * @return Returns the objectCode.
      */
     @Column(name = "OBJ_CD", length = 4, nullable = true)
@@ -162,6 +171,7 @@ public class TripAccountingInformation extends PersistableBusinessObjectBase {
 
     /**
      * Sets the objectCode attribute value.
+     *
      * @param objectCode The objectCode to set.
      */
     public void setObjectCode(String objectCode) {
@@ -170,6 +180,7 @@ public class TripAccountingInformation extends PersistableBusinessObjectBase {
 
     /**
      * Gets the subObjectCode attribute.
+     *
      * @return Returns the subObjectCode.
      */
     @Column(name = "SUB_OBJ_CD", length = 3, nullable = true)
@@ -179,6 +190,7 @@ public class TripAccountingInformation extends PersistableBusinessObjectBase {
 
     /**
      * Sets the subObjectCode attribute value.
+     *
      * @param subObjectCode The subObjectCode to set.
      */
     public void setSubObjectCode(String subObjectCode) {
@@ -187,6 +199,7 @@ public class TripAccountingInformation extends PersistableBusinessObjectBase {
 
     /**
      * Gets the projectCode attribute.
+     *
      * @return Returns the projectCode.
      */
     @Column(name = "PRJ_CD", length = 10, nullable = true)
@@ -196,6 +209,7 @@ public class TripAccountingInformation extends PersistableBusinessObjectBase {
 
     /**
      * Sets the projectCode attribute value.
+     *
      * @param projectCode The projectCode to set.
      */
     public void setProjectCode(String projectCode) {
@@ -204,6 +218,7 @@ public class TripAccountingInformation extends PersistableBusinessObjectBase {
 
     /**
      * Gets the organizationReference attribute.
+     *
      * @return Returns the organizationReference.
      */
     @Column(name = "ORG_REF", length = 8, nullable = true)
@@ -213,6 +228,7 @@ public class TripAccountingInformation extends PersistableBusinessObjectBase {
 
     /**
      * Sets the organizationReference attribute value.
+     *
      * @param organizationReference The organizationReference to set.
      */
     public void setOrganizationReference(String organizationReference) {
@@ -221,15 +237,17 @@ public class TripAccountingInformation extends PersistableBusinessObjectBase {
 
     /**
      * Gets the amount attribute.
+     *
      * @return Returns the amount.
      */
-    @Column(name = "AMOUNT",nullable = true)
+    @Column(name = "AMOUNT", nullable = true)
     public KualiDecimal getAmount() {
         return amount;
     }
 
     /**
      * Sets the amount attribute value.
+     *
      * @param amount The amount to set.
      */
     public void setAmount(KualiDecimal amount) {
@@ -238,6 +256,7 @@ public class TripAccountingInformation extends PersistableBusinessObjectBase {
 
     /**
      * Gets the account attribute.
+     *
      * @return Returns the account.
      */
     public Account getAccount() {
@@ -246,6 +265,7 @@ public class TripAccountingInformation extends PersistableBusinessObjectBase {
 
     /**
      * Sets the account attribute value.
+     *
      * @param account The account to set.
      */
     public void setAccount(Account account) {
@@ -254,6 +274,7 @@ public class TripAccountingInformation extends PersistableBusinessObjectBase {
 
     /**
      * Gets the subAccount attribute.
+     *
      * @return Returns the subAccount.
      */
     public SubAccount getSubAccount() {
@@ -262,6 +283,7 @@ public class TripAccountingInformation extends PersistableBusinessObjectBase {
 
     /**
      * Sets the subAccount attribute value.
+     *
      * @param subAccount The subAccount to set.
      */
     public void setSubAccount(SubAccount subAccount) {

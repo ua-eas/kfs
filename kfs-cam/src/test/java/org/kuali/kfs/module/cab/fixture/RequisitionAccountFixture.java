@@ -1,31 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cab.fixture;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.purap.businessobject.RequisitionAccount;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public enum RequisitionAccountFixture {
 
@@ -41,7 +41,9 @@ public enum RequisitionAccountFixture {
             obj.setAccountLinePercent(new BigDecimal(40));
             obj.setAmount(new KualiDecimal(7200));
             return obj;
-        };
+        }
+
+        ;
     },
 
     REC2 {
@@ -56,7 +58,9 @@ public enum RequisitionAccountFixture {
             obj.setAccountLinePercent(new BigDecimal(60));
             obj.setAmount(new KualiDecimal(10800));
             return obj;
-        };
+        }
+
+        ;
     },
 
     REC3 {
@@ -71,7 +75,9 @@ public enum RequisitionAccountFixture {
             obj.setAccountLinePercent(new BigDecimal(100));
             obj.setAmount(new KualiDecimal(14000));
             return obj;
-        };
+        }
+
+        ;
     },
 
     REC4 {
@@ -86,7 +92,9 @@ public enum RequisitionAccountFixture {
             obj.setAccountLinePercent(new BigDecimal(100));
             obj.setAmount(new KualiDecimal(750));
             return obj;
-        };
+        }
+
+        ;
     },
 
     REC5 {
@@ -101,7 +109,9 @@ public enum RequisitionAccountFixture {
             obj.setAccountLinePercent(new BigDecimal(100));
             obj.setAmount(new KualiDecimal(250));
             return obj;
-        };
+        }
+
+        ;
     },
 
     REC6 {
@@ -116,7 +126,9 @@ public enum RequisitionAccountFixture {
             obj.setAccountLinePercent(new BigDecimal(40));
             obj.setAmount(new KualiDecimal(7200));
             return obj;
-        };
+        }
+
+        ;
     },
 
     REC7 {
@@ -131,7 +143,9 @@ public enum RequisitionAccountFixture {
             obj.setAccountLinePercent(new BigDecimal(60));
             obj.setAmount(new KualiDecimal(10800));
             return obj;
-        };
+        }
+
+        ;
     },
 
     REC8 {
@@ -146,7 +160,9 @@ public enum RequisitionAccountFixture {
             obj.setAccountLinePercent(new BigDecimal(100));
             obj.setAmount(new KualiDecimal(14000));
             return obj;
-        };
+        }
+
+        ;
     },
 
     REC9 {
@@ -161,7 +177,9 @@ public enum RequisitionAccountFixture {
             obj.setAccountLinePercent(new BigDecimal(100));
             obj.setAmount(new KualiDecimal(750));
             return obj;
-        };
+        }
+
+        ;
     },
 
     REC10 {
@@ -176,7 +194,9 @@ public enum RequisitionAccountFixture {
             obj.setAccountLinePercent(new BigDecimal(100));
             obj.setAmount(new KualiDecimal(250));
             return obj;
-        };
+        }
+
+        ;
     },
 
     REC11 {
@@ -191,7 +211,9 @@ public enum RequisitionAccountFixture {
             obj.setAccountLinePercent(new BigDecimal(40));
             obj.setAmount(new KualiDecimal(7200));
             return obj;
-        };
+        }
+
+        ;
     },
 
     REC12 {
@@ -206,7 +228,9 @@ public enum RequisitionAccountFixture {
             obj.setAccountLinePercent(new BigDecimal(60));
             obj.setAmount(new KualiDecimal(10800));
             return obj;
-        };
+        }
+
+        ;
     },
 
     REC13 {
@@ -221,7 +245,9 @@ public enum RequisitionAccountFixture {
             obj.setAccountLinePercent(new BigDecimal(100));
             obj.setAmount(new KualiDecimal(14000));
             return obj;
-        };
+        }
+
+        ;
     },
 
     REC14 {
@@ -236,7 +262,9 @@ public enum RequisitionAccountFixture {
             obj.setAccountLinePercent(new BigDecimal(100));
             obj.setAmount(new KualiDecimal(750));
             return obj;
-        };
+        }
+
+        ;
     },
 
     REC15 {
@@ -251,8 +279,11 @@ public enum RequisitionAccountFixture {
             obj.setAccountLinePercent(new BigDecimal(100));
             obj.setAmount(new KualiDecimal(250));
             return obj;
-        };
+        }
+
+        ;
     };
+
     public abstract RequisitionAccount newRecord();
 
     public static void setUpData() {

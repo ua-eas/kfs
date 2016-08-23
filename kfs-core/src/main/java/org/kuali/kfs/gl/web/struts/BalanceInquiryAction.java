@@ -1,34 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.web.struts;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -38,13 +26,6 @@ import org.kuali.kfs.gl.ObjectHelper;
 import org.kuali.kfs.gl.businessobject.AccountBalance;
 import org.kuali.kfs.gl.businessobject.lookup.AccountBalanceByConsolidationLookupableHelperServiceImpl;
 import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSKeyConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.kim.api.KimConstants;
-import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.kfs.kns.lookup.Lookupable;
 import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.kns.web.struts.action.KualiAction;
@@ -57,6 +38,24 @@ import org.kuali.kfs.krad.lookup.CollectionIncomplete;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.KRADUtils;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSKeyConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
+import org.kuali.rice.kim.api.KimConstants;
+import org.kuali.rice.kim.api.services.KimApiServiceLocator;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class handles Actions for lookup flow
@@ -118,13 +117,11 @@ public class BalanceInquiryAction extends KualiAction {
      * @param request
      * @param response
      * @return
-     * @throws Exception
-     *
-     * KRAD Conversion: Lookupable performs customization of the results if
-     * account balance by consolidation. The result rows are added to a collection
-     * based on field's actual size if truncated is > 7.
-     *
-     * Fields are in data dictionary for bo Balance.
+     * @throws Exception KRAD Conversion: Lookupable performs customization of the results if
+     *                   account balance by consolidation. The result rows are added to a collection
+     *                   based on field's actual size if truncated is > 7.
+     *                   <p>
+     *                   Fields are in data dictionary for bo Balance.
      */
     public ActionForward search(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         BalanceInquiryForm lookupForm = (BalanceInquiryForm) form;
@@ -133,7 +130,7 @@ public class BalanceInquiryAction extends KualiAction {
         Map fieldValues = lookupForm.getFields();
         String consolidationOption = (String) fieldValues.get(Constant.CONSOLIDATION_OPTION);
         String subAccountNumber = (String) fieldValues.get(Constant.SUB_ACCOUNT_OPTION);
-        if (Constant.EXCLUDE_SUBACCOUNTS.equals(consolidationOption) && !subAccountNumber.equals("")){
+        if (Constant.EXCLUDE_SUBACCOUNTS.equals(consolidationOption) && !subAccountNumber.equals("")) {
             GlobalVariables.getMessageMap().putError(KFSPropertyConstants.SUB_ACCOUNT_NUMBER, KFSKeyConstants.ERROR_BALANCE_CONSOLIDATION_EXCLUDE_SUBACCOUNT);
         }
 
@@ -168,7 +165,7 @@ public class BalanceInquiryAction extends KualiAction {
                 int arrayIndex = 0;
                 int listSize = incompleteDisplayList.size();
 
-                for (; listIndex < listSize;) {
+                for (; listIndex < listSize; ) {
 
                     AccountBalance balance = (AccountBalance) incompleteDisplayList.get(listIndex);
 
@@ -196,8 +193,7 @@ public class BalanceInquiryAction extends KualiAction {
                 request.setAttribute(TOTALS_TABLE_KEY, totalsTable);
                 GlobalVariables.getUserSession().addObject(TOTALS_TABLE_KEY, totalsTable);
 
-            }
-            else {
+            } else {
 
                 request.setAttribute(KFSConstants.REQUEST_SEARCH_RESULTS, resultTable);
 
@@ -209,12 +205,10 @@ public class BalanceInquiryAction extends KualiAction {
 
             request.setAttribute(KFSConstants.SEARCH_LIST_REQUEST_KEY, GlobalVariables.getUserSession().addObjectWithGeneratedKey(resultTable));
 
-        }
-        catch (NumberFormatException e) {
-            GlobalVariables.getMessageMap().putError(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, KFSKeyConstants.ERROR_CUSTOM, new String[] { "Fiscal Year must be a four-digit number" });
-        }
-        catch (Exception e) {
-            GlobalVariables.getMessageMap().putError(KFSConstants.DOCUMENT_ERRORS, KFSKeyConstants.ERROR_CUSTOM, new String[] { "Please report the server error." });
+        } catch (NumberFormatException e) {
+            GlobalVariables.getMessageMap().putError(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, KFSKeyConstants.ERROR_CUSTOM, new String[]{"Fiscal Year must be a four-digit number"});
+        } catch (Exception e) {
+            GlobalVariables.getMessageMap().putError(KFSConstants.DOCUMENT_ERRORS, KFSKeyConstants.ERROR_CUSTOM, new String[]{"Please report the server error."});
             LOG.error("Application Errors", e);
         }
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
@@ -224,10 +218,10 @@ public class BalanceInquiryAction extends KualiAction {
      * Refresh - is called when one quickFinder returns to the previous one. Sets all the values and performs the new search.
      *
      * @see org.kuali.kfs.kns.web.struts.action.KualiAction#refresh(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     *
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * <p>
      * KRAD Conversion: Lookupable performs customization of the fields and check for additional fields.
-     *
+     * <p>
      * Fields are in data dictionary for bo Balance.
      */
     @Override
@@ -242,17 +236,16 @@ public class BalanceInquiryAction extends KualiAction {
         Map fieldValues = new HashMap();
         Map values = lookupForm.getFields();
 
-        for (Iterator iter = lookupable.getRows().iterator(); iter.hasNext();) {
+        for (Iterator iter = lookupable.getRows().iterator(); iter.hasNext(); ) {
             Row row = (Row) iter.next();
 
-            for (Iterator iterator = row.getFields().iterator(); iterator.hasNext();) {
+            for (Iterator iterator = row.getFields().iterator(); iterator.hasNext(); ) {
                 Field field = (Field) iterator.next();
 
                 if (field.getPropertyName() != null && !field.getPropertyName().equals("")) {
                     if (request.getParameter(field.getPropertyName()) != null) {
                         field.setPropertyValue(request.getParameter(field.getPropertyName()));
-                    }
-                    else if (values.get(field.getPropertyName()) != null) {
+                    } else if (values.get(field.getPropertyName()) != null) {
                         field.setPropertyValue(values.get(field.getPropertyName()));
                     }
                 }
@@ -263,16 +256,15 @@ public class BalanceInquiryAction extends KualiAction {
         fieldValues.put(KFSConstants.BACK_LOCATION, lookupForm.getBackLocation());
 
         if (lookupable.checkForAdditionalFields(fieldValues)) {
-            for (Iterator iter = lookupable.getRows().iterator(); iter.hasNext();) {
+            for (Iterator iter = lookupable.getRows().iterator(); iter.hasNext(); ) {
                 Row row = (Row) iter.next();
-                for (Iterator iterator = row.getFields().iterator(); iterator.hasNext();) {
+                for (Iterator iterator = row.getFields().iterator(); iterator.hasNext(); ) {
                     Field field = (Field) iterator.next();
                     if (field.getPropertyName() != null && !field.getPropertyName().equals("")) {
                         if (request.getParameter(field.getPropertyName()) != null) {
                             field.setPropertyValue(request.getParameter(field.getPropertyName()));
                             fieldValues.put(field.getPropertyName(), request.getParameter(field.getPropertyName()));
-                        }
-                        else if (values.get(field.getPropertyName()) != null) {
+                        } else if (values.get(field.getPropertyName()) != null) {
                             field.setPropertyValue(values.get(field.getPropertyName()));
                         }
                     }
@@ -310,11 +302,9 @@ public class BalanceInquiryAction extends KualiAction {
      * @param response
      * @return
      * @throws IOException
-     * @throws ServletException
-     *
-     * KRAD Conversion: Lookupable performs setting/clearing of the field values.
-     *
-     * Fields are in data dictionary for bo Balance.
+     * @throws ServletException KRAD Conversion: Lookupable performs setting/clearing of the field values.
+     *                          <p>
+     *                          Fields are in data dictionary for bo Balance.
      */
     public ActionForward clearValues(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         LookupForm lookupForm = (LookupForm) form;
@@ -324,9 +314,9 @@ public class BalanceInquiryAction extends KualiAction {
             throw new RuntimeException("Lookupable is null.");
         }
 
-        for (Iterator iter = lookupable.getRows().iterator(); iter.hasNext();) {
+        for (Iterator iter = lookupable.getRows().iterator(); iter.hasNext(); ) {
             Row row = (Row) iter.next();
-            for (Iterator iterator = row.getFields().iterator(); iterator.hasNext();) {
+            for (Iterator iterator = row.getFields().iterator(); iterator.hasNext(); ) {
                 Field field = (Field) iterator.next();
                 if (!field.getFieldType().equals(Field.RADIO)) {
                     field.setPropertyValue(field.getDefaultValue());
@@ -367,16 +357,15 @@ public class BalanceInquiryAction extends KualiAction {
 
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        BusinessObjectEntry boe = (org.kuali.kfs.kns.datadictionary.BusinessObjectEntry)dataDictionaryService.getDataDictionary().getBusinessObjectEntry(((LookupForm) form).getBusinessObjectClassName());
+        BusinessObjectEntry boe = (org.kuali.kfs.kns.datadictionary.BusinessObjectEntry) dataDictionaryService.getDataDictionary().getBusinessObjectEntry(((LookupForm) form).getBusinessObjectClassName());
 
         Map<String, String> permissionDetails = KRADUtils.getNamespaceAndComponentSimpleName(boe.getDataObjectClass());
         if (!KimApiServiceLocator.getPermissionService().isAuthorizedByTemplate(GlobalVariables.getUserSession().getPrincipalId(),
-                KRADConstants.KNS_NAMESPACE, KimConstants.PermissionTemplateNames.LOOK_UP_RECORDS, permissionDetails,
-                new HashMap<String,String>()))
-        {
+            KRADConstants.KNS_NAMESPACE, KimConstants.PermissionTemplateNames.LOOK_UP_RECORDS, permissionDetails,
+            new HashMap<String, String>())) {
             throw new AuthorizationException(GlobalVariables.getUserSession().getPerson().getPrincipalName(),
-                    KimConstants.PermissionTemplateNames.LOOK_UP_RECORDS,
-                    boe.getDataObjectClass().getSimpleName());
+                KimConstants.PermissionTemplateNames.LOOK_UP_RECORDS,
+                boe.getDataObjectClass().getSimpleName());
         }
 
         request.setAttribute(KRADConstants.PARAM_MAINTENANCE_VIEW_MODE, KRADConstants.PARAM_MAINTENANCE_VIEW_MODE_LOOKUP);

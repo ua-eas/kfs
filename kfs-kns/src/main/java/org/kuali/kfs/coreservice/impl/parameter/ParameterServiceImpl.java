@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -46,7 +46,8 @@ public class ParameterServiceImpl implements ParameterService {
     @Override
     public Parameter getParameter(String namespaceCode, String componentCode, String parameterName) {
         return exec(new Fun<Parameter>() {
-            @Override public Parameter f(ParameterKey key) {
+            @Override
+            public Parameter f(ParameterKey key) {
                 return parameterRepositoryService.getParameter(key);
             }
         }, namespaceCode, componentCode, parameterName);
@@ -55,7 +56,8 @@ public class ParameterServiceImpl implements ParameterService {
     @Override
     public Parameter getParameter(Class<?> componentClass, String parameterName) {
         return exec(new Fun<Parameter>() {
-            @Override public Parameter f(ParameterKey key) {
+            @Override
+            public Parameter f(ParameterKey key) {
                 return parameterRepositoryService.getParameter(key);
             }
         }, componentClass, parameterName);
@@ -132,7 +134,8 @@ public class ParameterServiceImpl implements ParameterService {
     @Override
     public String getParameterValueAsString(Class<?> componentClass, String parameterName) {
         return exec(new Fun<String>() {
-            @Override public String f(ParameterKey key) {
+            @Override
+            public String f(ParameterKey key) {
                 return parameterRepositoryService.getParameterValueAsString(key);
             }
         }, componentClass, parameterName);
@@ -147,7 +150,8 @@ public class ParameterServiceImpl implements ParameterService {
     @Override
     public Collection<String> getParameterValuesAsString(String namespaceCode, String componentCode, String parameterName) {
         return exec(new Fun<Collection<String>>() {
-            @Override public Collection<String> f(ParameterKey key) {
+            @Override
+            public Collection<String> f(ParameterKey key) {
                 return parameterRepositoryService.getParameterValuesAsString(key);
             }
         }, namespaceCode, componentCode, parameterName);
@@ -156,7 +160,8 @@ public class ParameterServiceImpl implements ParameterService {
     @Override
     public Collection<String> getParameterValuesAsString(Class<?> componentClass, String parameterName) {
         return exec(new Fun<Collection<String>>() {
-            @Override public Collection<String> f(ParameterKey key) {
+            @Override
+            public Collection<String> f(ParameterKey key) {
                 return parameterRepositoryService.getParameterValuesAsString(key);
             }
         }, componentClass, parameterName);
@@ -165,7 +170,8 @@ public class ParameterServiceImpl implements ParameterService {
     @Override
     public Collection<String> getSubParameterValuesAsString(String namespaceCode, String componentCode, String parameterName, final String constrainingValue) {
         return exec(new Fun<Collection<String>>() {
-            @Override public Collection<String> f(ParameterKey key) {
+            @Override
+            public Collection<String> f(ParameterKey key) {
                 return parameterRepositoryService.getSubParameterValuesAsString(key, constrainingValue);
             }
         }, namespaceCode, componentCode, parameterName);
@@ -174,7 +180,8 @@ public class ParameterServiceImpl implements ParameterService {
     @Override
     public Collection<String> getSubParameterValuesAsString(Class<?> componentClass, String parameterName, final String constrainingValue) {
         return exec(new Fun<Collection<String>>() {
-            @Override public Collection<String> f(ParameterKey key) {
+            @Override
+            public Collection<String> f(ParameterKey key) {
                 return parameterRepositoryService.getSubParameterValuesAsString(key, constrainingValue);
             }
         }, componentClass, parameterName);
@@ -183,8 +190,9 @@ public class ParameterServiceImpl implements ParameterService {
     @Override
     public String getSubParameterValueAsString(String namespaceCode, String componentCode, String parameterName, final String constrainingValue) {
         return exec(new Fun<String>() {
-            @Override public String f(ParameterKey key) {
-               return parameterRepositoryService.getSubParameterValueAsString(key, constrainingValue);
+            @Override
+            public String f(ParameterKey key) {
+                return parameterRepositoryService.getSubParameterValueAsString(key, constrainingValue);
             }
         }, namespaceCode, componentCode, parameterName);
     }
@@ -192,8 +200,9 @@ public class ParameterServiceImpl implements ParameterService {
     @Override
     public String getSubParameterValueAsString(Class<?> componentClass, String parameterName, final String constrainingValue) {
         return exec(new Fun<String>() {
-            @Override public String f(ParameterKey key) {
-               return parameterRepositoryService.getSubParameterValueAsString(key, constrainingValue);
+            @Override
+            public String f(ParameterKey key) {
+                return parameterRepositoryService.getSubParameterValueAsString(key, constrainingValue);
             }
         }, componentClass, parameterName);
     }

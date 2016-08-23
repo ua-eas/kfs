@@ -1,35 +1,35 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.coa.businessobject;
 
+import org.apache.log4j.Logger;
+import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetailBase;
+import org.kuali.kfs.krad.service.PersistenceStructureService;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.log4j.Logger;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetailBase;
-import org.kuali.kfs.krad.service.PersistenceStructureService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Business Object representing the account change details entity
@@ -68,8 +68,7 @@ public class AccountGlobalDetail extends GlobalBusinessObjectDetailBase {
                 pks.put(key, ObjectUtils.getPropertyValue(this, key));
             }
             return pks;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             LOG.error("unable to get primary keys for global detail object", ex);
         }
         return new HashMap<String, Object>(0);
@@ -82,7 +81,7 @@ public class AccountGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode
      */
     public String getChartOfAccountsCode() {
@@ -91,7 +90,7 @@ public class AccountGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Sets the chartOfAccountsCode attribute.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -101,7 +100,7 @@ public class AccountGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Gets the accountNumber attribute.
-     * 
+     *
      * @return Returns the accountNumber
      */
     public String getAccountNumber() {
@@ -110,7 +109,7 @@ public class AccountGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Sets the accountNumber attribute.
-     * 
+     *
      * @param accountNumber The accountNumber to set.
      */
     public void setAccountNumber(String accountNumber) {
@@ -119,7 +118,7 @@ public class AccountGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Gets the chartOfAccounts attribute.
-     * 
+     *
      * @return Returns the chartOfAccounts
      */
     public Chart getChartOfAccounts() {
@@ -128,7 +127,7 @@ public class AccountGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Sets the chartOfAccounts attribute.
-     * 
+     *
      * @param chartOfAccounts The chartOfAccounts to set.
      * @deprecated
      */
@@ -138,7 +137,7 @@ public class AccountGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Gets the account attribute.
-     * 
+     *
      * @return Returns the account
      */
     public Account getAccount() {
@@ -147,7 +146,7 @@ public class AccountGlobalDetail extends GlobalBusinessObjectDetailBase {
 
     /**
      * Sets the account attribute.
-     * 
+     *
      * @param account The account to set.
      * @deprecated
      */

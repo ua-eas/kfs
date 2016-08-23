@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,16 +18,12 @@
  */
 package org.kuali.kfs.module.ar.batch.service.impl;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.sql.Timestamp;
-import java.text.MessageFormat;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.collections.CollectionUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
@@ -48,13 +44,17 @@ import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.search.SearchOperator;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.sql.Timestamp;
+import java.text.MessageFormat;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Defines a service class for creating Cash Control documents from the LOC Review Document.
@@ -88,8 +88,7 @@ public class LetterOfCreditCreateServiceImpl implements LetterOfCreditCreateServ
 
             // calling workflow service to bypass business rule checks
             workflowDocumentService.route(cashControlDocument.getDocumentHeader().getWorkflowDocument(), "", null);
-        }
-        catch (WorkflowException e) {
+        } catch (WorkflowException e) {
             final String errorString = "Error routing document # " + cashControlDocument.getDocumentNumber();
             errorFile.println(errorString);
             LOG.error(errorString + " " + e.getMessage());
@@ -130,7 +129,7 @@ public class LetterOfCreditCreateServiceImpl implements LetterOfCreditCreateServ
                 errorFile.println(errorString);
             }
         } catch (FileNotFoundException fnfe) {
-            throw new RuntimeException("Could not write to file in "+batchFileDirectoryName, fnfe);
+            throw new RuntimeException("Could not write to file in " + batchFileDirectoryName, fnfe);
         } finally {
             // Close the error file.
             if (errorFile != null) {
@@ -190,7 +189,7 @@ public class LetterOfCreditCreateServiceImpl implements LetterOfCreditCreateServ
             cashControlDoc.setCustomerPaymentMediumCode(ArConstants.PaymentMediumCode.WIRE_TRANSFER);
             documentService.saveDocument(cashControlDoc);
         } catch (WorkflowException ex) {
-            String error = "Error creating Cash Control Document, Cash Control doc # " + (ObjectUtils.isNotNull(cashControlDoc)?cashControlDoc.getDocumentNumber():null);
+            String error = "Error creating Cash Control Document, Cash Control doc # " + (ObjectUtils.isNotNull(cashControlDoc) ? cashControlDoc.getDocumentNumber() : null);
             errorFile.println(error);
             LOG.error(error + " " + ex.getMessage());
             throw new RuntimeException(ex.getMessage(), ex);
@@ -219,6 +218,7 @@ public class LetterOfCreditCreateServiceImpl implements LetterOfCreditCreateServ
 
     /**
      * Retrieves ContractsAndGrantsInvoiceDocument documents which are open and which have the given letter of credit fund and letter of credit creation type (either fund or fund group)
+     *
      * @return a Collection of matching letter of credit created Contracts & Grants Invoices
      */
     protected Collection<ContractsGrantsInvoiceDocument> retrieveLetterOfCreditInvoices() {
@@ -313,6 +313,7 @@ public class LetterOfCreditCreateServiceImpl implements LetterOfCreditCreateServ
     public void setKualiModuleService(KualiModuleService kualiModuleService) {
         this.kualiModuleService = kualiModuleService;
     }
+
     public ConfigurationService getConfigService() {
         return configService;
     }

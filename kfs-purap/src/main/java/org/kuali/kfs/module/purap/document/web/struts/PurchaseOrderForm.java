@@ -1,33 +1,33 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document.web.struts;
 
-import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.purap.CapitalAssetLocation;
+import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
+import org.kuali.kfs.kns.web.ui.HeaderField;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapAuthorizationConstants;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapConstants.PaymentRequestStatuses;
@@ -58,14 +58,13 @@ import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.document.DocumentStatusCategory;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.services.IdentityManagementService;
-import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.kns.service.DocumentHelperService;
-import org.kuali.kfs.kns.web.ui.ExtraButton;
-import org.kuali.kfs.kns.web.ui.HeaderField;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Struts Action Form for Purchase Order document.
@@ -75,7 +74,7 @@ public class PurchaseOrderForm extends PurchasingFormBase {
     protected PurchaseOrderVendorStipulation newPurchaseOrderVendorStipulationLine;
     protected PurchaseOrderVendorQuote newPurchaseOrderVendorQuote;
     protected Long awardedVendorNumber;
-    
+
     protected boolean purchaseOrderPrintRequested;
 
     // Retransmit.
@@ -202,7 +201,7 @@ public class PurchaseOrderForm extends PurchasingFormBase {
     public void setSensitiveDatasAssigned(List<SensitiveData> poSensitiveData) {
         this.sensitiveDatasAssigned = poSensitiveData;
     }
-    
+
     public boolean isPurchaseOrderPrintRequested() {
         return purchaseOrderPrintRequested;
     }
@@ -266,8 +265,7 @@ public class PurchaseOrderForm extends PurchasingFormBase {
                     // DocumentSearchService
                     // when this next line execute
                     return SpringContext.getBean(PaymentRequestService.class).hasActivePaymentRequestsForPurchaseOrder(poDoc.getPurapDocumentIdentifier());
-                }
-                else {
+                } else {
                     return true;
                 }
             }
@@ -293,16 +291,16 @@ public class PurchaseOrderForm extends PurchasingFormBase {
     }
 
     public String getStatusChange() {
-        if (StringUtils.isNotEmpty(getPurchaseOrderDocument().getStatusChange())){
+        if (StringUtils.isNotEmpty(getPurchaseOrderDocument().getStatusChange())) {
             return getPurchaseOrderDocument().getStatusChange();
         } else {
-            if (StringUtils.equals(getPurchaseOrderDocument().getApplicationDocumentStatus(),PurchaseOrderStatuses.APPDOC_IN_PROCESS)){
+            if (StringUtils.equals(getPurchaseOrderDocument().getApplicationDocumentStatus(), PurchaseOrderStatuses.APPDOC_IN_PROCESS)) {
                 return PurchaseOrderStatuses.APPDOC_IN_PROCESS;
-            } else if (StringUtils.equals(getPurchaseOrderDocument().getApplicationDocumentStatus(),PurchaseOrderStatuses.APPDOC_WAITING_FOR_DEPARTMENT)){
+            } else if (StringUtils.equals(getPurchaseOrderDocument().getApplicationDocumentStatus(), PurchaseOrderStatuses.APPDOC_WAITING_FOR_DEPARTMENT)) {
                 return PurchaseOrderStatuses.APPDOC_WAITING_FOR_DEPARTMENT;
-            }else if (StringUtils.equals(getPurchaseOrderDocument().getApplicationDocumentStatus(),PurchaseOrderStatuses.APPDOC_WAITING_FOR_VENDOR)){
+            } else if (StringUtils.equals(getPurchaseOrderDocument().getApplicationDocumentStatus(), PurchaseOrderStatuses.APPDOC_WAITING_FOR_VENDOR)) {
                 return PurchaseOrderStatuses.APPDOC_WAITING_FOR_VENDOR;
-            }else{
+            } else {
                 return null;
             }
         }
@@ -338,9 +336,9 @@ public class PurchaseOrderForm extends PurchasingFormBase {
             String namespaceCode = KFSConstants.ParameterNamespaces.KNS;
             String permissionTemplateName = KimConstants.PermissionTemplateNames.FULL_UNMASK_FIELD;
 
-            Map<String,String> roleQualifiers = new HashMap<String,String>();
+            Map<String, String> roleQualifiers = new HashMap<String, String>();
 
-            Map<String,String> permissionDetails = new HashMap<String,String>();
+            Map<String, String> permissionDetails = new HashMap<String, String>();
             permissionDetails.put(KimConstants.AttributeConstants.COMPONENT_NAME, PurchaseOrderDocument.class.getSimpleName());
             permissionDetails.put(KimConstants.AttributeConstants.PROPERTY_NAME, PurapPropertyConstants.PURAP_DOC_ID);
 
@@ -356,20 +354,18 @@ public class PurchaseOrderForm extends PurchasingFormBase {
                     for (int i = 0; i < strLength; i++) {
                         poIDstr = poIDstr.concat("*");
                     }
-               }
+                }
             }
         }
 
         if (ObjectUtils.isNotNull(getPurchaseOrderDocument().getPurapDocumentIdentifier())) {
             getDocInfo().add(new HeaderField("DataDictionary.PurchaseOrderDocument.attributes.purapDocumentIdentifier", poIDstr));
-        }
-        else {
+        } else {
             getDocInfo().add(new HeaderField("DataDictionary.PurchaseOrderDocument.attributes.purapDocumentIdentifier", PurapConstants.PURAP_APPLICATION_DOCUMENT_ID_NOT_AVAILABLE));
         }
         if (ObjectUtils.isNotNull(getPurchaseOrderDocument().getApplicationDocumentStatus())) {
             getDocInfo().add(new HeaderField("DataDictionary.PurchaseOrderDocument.attributes.applicationDocumentStatus", getPurchaseOrderDocument().getApplicationDocumentStatus()));
-        }
-        else {
+        } else {
             getDocInfo().add(new HeaderField("DataDictionary.PurchaseOrderDocument.attributes.applicationDocumentStatus", PurapConstants.PURAP_APPLICATION_DOCUMENT_STATUS_NOT_AVAILABLE));
         }
     }
@@ -378,20 +374,20 @@ public class PurchaseOrderForm extends PurchasingFormBase {
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase#populate(javax.servlet.http.HttpServletRequest)
      */
 //    @Override
- //   public void populate(HttpServletRequest request) {
- //       super.populate(request);
+    //   public void populate(HttpServletRequest request) {
+    //       super.populate(request);
 //
- //       PurchaseOrderDocument po = (PurchaseOrderDocument)getDocument();
+    //       PurchaseOrderDocument po = (PurchaseOrderDocument)getDocument();
 
-        // RICE20 : need to determine what to do about documentBusinessObject
+    // RICE20 : need to determine what to do about documentBusinessObject
 //        if (ObjectUtils.isNotNull(po.getPurapDocumentIdentifier())) {
 //            po.refreshDocumentBusinessObject();
 //        }
- //       NoteService noteService = SpringContext.getBean(NoteService.class);
+    //       NoteService noteService = SpringContext.getBean(NoteService.class);
 //        for (Note note : noteService.getByRemoteObjectId(po.getObjectId())) {
- //           note.refreshReferenceObject("attachment");
-  //      }
-  //  }
+    //           note.refreshReferenceObject("attachment");
+    //      }
+    //  }
 
     /**
      * Processes validation rules having to do with any payment requests that the given purchase order may have. Specifically,
@@ -407,7 +403,7 @@ public class PurchaseOrderForm extends PurchasingFormBase {
         boolean checkInProcess = false;
         boolean hasInProcess = false;
 
-        Map <String, String> processPaymentRequestResult = new HashMap<String, String>();
+        Map<String, String> processPaymentRequestResult = new HashMap<String, String>();
         processPaymentRequestResult = SpringContext.getBean(PaymentRequestService.class).getPaymentRequestsByStatusAndPurchaseOrderId(PaymentRequestStatuses.APPDOC_IN_PROCESS, poDocId);
 
         if ("Y".equals(processPaymentRequestResult.get("hasInProcess"))) {
@@ -422,7 +418,7 @@ public class PurchaseOrderForm extends PurchasingFormBase {
             valid = true;
         }
 
-         return valid;
+        return valid;
     }
 
     /**
@@ -586,11 +582,11 @@ public class PurchaseOrderForm extends PurchasingFormBase {
         if (getPurchaseOrderDocument().getPurchaseOrderAutomaticIndicator()) {
             // for APO use authorization for PurchaseOrderRetransmitDocument, which is anybody
             can = documentAuthorizer.canInitiate(KFSConstants.FinancialDocumentTypeCodes.PURCHASE_ORDER_RETRANSMIT, GlobalVariables.getUserSession().getPerson());
-        }
-        else {
+        } else {
             // for NON_APO use authorization for PurchaseOrderDocument, which is purchasing user
             can = (documentAuthorizer.canInitiate(KFSConstants.FinancialDocumentTypeCodes.PURCHASE_ORDER, GlobalVariables.getUserSession().getPerson()) ||
-                    documentAuthorizer.canInitiate(KFSConstants.FinancialDocumentTypeCodes.CONTRACT_MANAGER_ASSIGNMENT, GlobalVariables.getUserSession().getPerson()));        }
+                documentAuthorizer.canInitiate(KFSConstants.FinancialDocumentTypeCodes.CONTRACT_MANAGER_ASSIGNMENT, GlobalVariables.getUserSession().getPerson()));
+        }
 
         return can;
     }
@@ -614,11 +610,10 @@ public class PurchaseOrderForm extends PurchasingFormBase {
             if (getPurchaseOrderDocument().getPurchaseOrderAutomaticIndicator()) {
                 // for APO use authorization for PurchaseOrderRetransmitDocument, which is anybody
                 can = documentAuthorizer.canInitiate(KFSConstants.FinancialDocumentTypeCodes.PURCHASE_ORDER_RETRANSMIT, GlobalVariables.getUserSession().getPerson());
-            }
-            else {
+            } else {
                 // for NON_APO use authorization for PurchaseOrderDocument, which is purchasing user
                 can = (documentAuthorizer.canInitiate(KFSConstants.FinancialDocumentTypeCodes.PURCHASE_ORDER, GlobalVariables.getUserSession().getPerson()) ||
-                        documentAuthorizer.canInitiate(KFSConstants.FinancialDocumentTypeCodes.CONTRACT_MANAGER_ASSIGNMENT, GlobalVariables.getUserSession().getPerson()));
+                    documentAuthorizer.canInitiate(KFSConstants.FinancialDocumentTypeCodes.CONTRACT_MANAGER_ASSIGNMENT, GlobalVariables.getUserSession().getPerson()));
             }
         }
 
@@ -666,7 +661,7 @@ public class PurchaseOrderForm extends PurchasingFormBase {
     /**
      * Determines whether the PO is in a status that signifies it has enough information to generate a Split PO.
      *
-     * @return  True if the PO can continue to be split.
+     * @return True if the PO can continue to be split.
      */
     protected boolean canContinuePoSplit() {
         boolean can = editingMode.containsKey(PurapAuthorizationConstants.PurchaseOrderEditMode.SPLITTING_ITEM_SELECTION);

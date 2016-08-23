@@ -1,27 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.document.authorization;
 
-import java.util.List;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemConstants.TravelAuthorizationStatusCodeKeys;
 import org.kuali.kfs.module.tem.TemConstants.TravelDocTypes;
@@ -34,13 +34,12 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * Travel Reimbursement Document Presentation Controller
- *
  */
 public class TravelAuthorizationDocumentPresentationController extends TravelAuthorizationFamilyDocumentPresentationController {
     /**
@@ -62,10 +61,10 @@ public class TravelAuthorizationDocumentPresentationController extends TravelAut
             editModes.add(TemConstants.EditModes.BLANKET_TRAVEL_VIEW);
         }
 
-        if (document instanceof TravelAuthorizationDocument && ((TravelAuthorizationDocument)document).shouldProcessAdvanceForDocument() && isAtTravelerNode(wfDocument) || wfDocument.isInitiated() || wfDocument.isSaved()) {
+        if (document instanceof TravelAuthorizationDocument && ((TravelAuthorizationDocument) document).shouldProcessAdvanceForDocument() && isAtTravelerNode(wfDocument) || wfDocument.isInitiated() || wfDocument.isSaved()) {
             editModes.add(TemConstants.TravelEditMode.ADVANCE_POLICY_ENTRY);
         }
-        if (document instanceof TravelAuthorizationDocument && ((TravelAuthorizationDocument)document).shouldProcessAdvanceForDocument() && isAtTravelNode(wfDocument)) {
+        if (document instanceof TravelAuthorizationDocument && ((TravelAuthorizationDocument) document).shouldProcessAdvanceForDocument() && isAtTravelNode(wfDocument)) {
             editModes.add(TemConstants.TravelEditMode.CLEAR_ADVANCE_MODE);
         }
 
@@ -85,13 +84,14 @@ public class TravelAuthorizationDocumentPresentationController extends TravelAut
      * Determines whether blanket travel selection will be given at all on the travel authorization document.  If a trip type is not
      * selected, or the trip type does not allow blanket travel, then the blanket travel indicator will not be shown; otherwise, if
      * there is a trip type and it allows blanket travel, the selection option will be shown
+     *
      * @return true if the blanket travel selection should be shown, false otherwise
      */
     protected boolean shouldAllowBlanketTravelEntry(Document document) {
         if (!(document instanceof TravelAuthorizationDocument)) {
             return false; // also, you're using the wrong damn authorizer
         }
-        final TravelAuthorizationDocument travelAuthorization = (TravelAuthorizationDocument)document;
+        final TravelAuthorizationDocument travelAuthorization = (TravelAuthorizationDocument) document;
         if ((!travelAuthorization.getDocumentHeader().getWorkflowDocument().isInitiated() && !travelAuthorization.getDocumentHeader().getWorkflowDocument().isSaved()) || StringUtils.isBlank(travelAuthorization.getTripTypeCode())) {
             return false;
         }
@@ -104,6 +104,7 @@ public class TravelAuthorizationDocumentPresentationController extends TravelAut
 
     /**
      * Determines if the current workflow document is at the Travel node
+     *
      * @param workflowDocument the workflow document to check the node of
      * @return true if the document is at the Travel node, false otherwise
      */
@@ -114,6 +115,7 @@ public class TravelAuthorizationDocumentPresentationController extends TravelAut
 
     /**
      * Determines if the current workflow document is at the Traveler node
+     *
      * @param workflowDocument the workflow document to check the node of
      * @return true if the document is at the Traveler node, false otherwise
      */
@@ -123,12 +125,13 @@ public class TravelAuthorizationDocumentPresentationController extends TravelAut
 
     /**
      * Overridden to handle travel authorization specific actions, such as amend, hold, remove hold, close TA, cancel TA, and pay vendor
+     *
      * @see org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentPresentationControllerBase#getDocumentActions(org.kuali.rice.krad.document.Document)
      */
     @Override
     public Set<String> getDocumentActions(Document document) {
         Set<String> actions = super.getDocumentActions(document);
-        final TravelAuthorizationDocument travelAuth = (TravelAuthorizationDocument)document;
+        final TravelAuthorizationDocument travelAuth = (TravelAuthorizationDocument) document;
         if (canAmend(travelAuth)) {
             actions.add(TemConstants.TravelAuthorizationActions.CAN_AMEND);
         }
@@ -155,6 +158,7 @@ public class TravelAuthorizationDocumentPresentationController extends TravelAut
 
     /**
      * Determines whether the authorization is in a state where it can be amended
+     *
      * @param document the authorization to test
      * @return true if the authorization can be amended, false otherwise
      */
@@ -174,6 +178,7 @@ public class TravelAuthorizationDocumentPresentationController extends TravelAut
 
     /**
      * Determines if the authorization can be held
+     *
      * @param document the authorization to check
      * @return true if the authorization can be held, false otherwise
      */
@@ -183,6 +188,7 @@ public class TravelAuthorizationDocumentPresentationController extends TravelAut
 
     /**
      * Determines if the authorization can remove a hold on it
+     *
      * @param document the authorization to check
      * @return true if the authorization is held and that hold can be removed, false otherwise
      */
@@ -192,6 +198,7 @@ public class TravelAuthorizationDocumentPresentationController extends TravelAut
 
     /**
      * Determines if the authorization can be closed
+     *
      * @param document the authorization to check
      * @return true if the authorization can be closed, false otherwise
      */
@@ -201,6 +208,7 @@ public class TravelAuthorizationDocumentPresentationController extends TravelAut
 
     /**
      * Determines if the authorization can be canceled.  Default logic verifies that the authorization is open and has not yet been reimbursed
+     *
      * @param document the authorization to check
      * @return true if the authorization can be canceled, false otherwise
      */
@@ -221,9 +229,9 @@ public class TravelAuthorizationDocumentPresentationController extends TravelAut
      * that have a workflow document status of FINAL or PROCESSED and on documents that do not have a workflow
      * App Doc Status of REIMB_HELD, CANCELLED, PEND_AMENDMENT, CLOSED, or RETIRED_VERSION. Also checks if the person has permission to
      * initiate the target documents. Will not show the new Reimbursement link if a TA already has a TR enroute.
-     *
+     * <p>
      * If the document is a TAC, the workflow document status must be FINAL and the App Doc Status must be CLOSED.
-     *
+     * <p>
      * check status of document and don't create if the status is not final or processed
      *
      * @param document
@@ -236,18 +244,18 @@ public class TravelAuthorizationDocumentPresentationController extends TravelAut
 
         final String appDocStatus = document.getApplicationDocumentStatus();
         boolean appDocStatusCheck = (!appDocStatus.equals(TravelAuthorizationStatusCodeKeys.REIMB_HELD)
-                && !appDocStatus.equals(TravelAuthorizationStatusCodeKeys.CANCELLED)
-                && !appDocStatus.equals(TravelAuthorizationStatusCodeKeys.PEND_AMENDMENT)
-                && !appDocStatus.equals(TravelAuthorizationStatusCodeKeys.RETIRED_VERSION)
-                && !appDocStatus.equals(TravelAuthorizationStatusCodeKeys.CLOSED));
+            && !appDocStatus.equals(TravelAuthorizationStatusCodeKeys.CANCELLED)
+            && !appDocStatus.equals(TravelAuthorizationStatusCodeKeys.PEND_AMENDMENT)
+            && !appDocStatus.equals(TravelAuthorizationStatusCodeKeys.RETIRED_VERSION)
+            && !appDocStatus.equals(TravelAuthorizationStatusCodeKeys.CLOSED));
 
         boolean statusCheck = documentStatusCheck && appDocStatusCheck;
 
         Person user = GlobalVariables.getUserSession().getPerson();
         boolean hasInitAccess = false;
-        if (getTemRoleService().canAccessTravelDocument(document, user) && !ObjectUtils.isNull(document.getTraveler()) && document.getTemProfileId() != null && !ObjectUtils.isNull(document.getTemProfile())){
+        if (getTemRoleService().canAccessTravelDocument(document, user) && !ObjectUtils.isNull(document.getTraveler()) && document.getTemProfileId() != null && !ObjectUtils.isNull(document.getTemProfile())) {
             //check if user also can init other docs
-            hasInitAccess = user.getPrincipalId().equals(document.getTraveler().getPrincipalId()) || getTemRoleService().isTravelDocumentArrangerForProfile(documentType, user.getPrincipalId(), document.getTemProfileId()) || getTemRoleService().isTravelArranger(user, document.getTemProfile().getHomeDepartment() , document.getTemProfileId().toString(), documentType);
+            hasInitAccess = user.getPrincipalId().equals(document.getTraveler().getPrincipalId()) || getTemRoleService().isTravelDocumentArrangerForProfile(documentType, user.getPrincipalId(), document.getTemProfileId()) || getTemRoleService().isTravelArranger(user, document.getTemProfile().getHomeDepartment(), document.getTemProfileId().toString(), documentType);
         }
 
         boolean checkRelatedDocs = true;
@@ -255,7 +263,7 @@ public class TravelAuthorizationDocumentPresentationController extends TravelAut
         //check whether there is already an ENROUTE TR
         List<Document> docs = getTravelDocumentService().getDocumentsRelatedTo(document, TemConstants.TravelDocTypes.TRAVEL_REIMBURSEMENT_DOCUMENT);
         for (Document doc : docs) {
-            TravelReimbursementDocument trDoc = (TravelReimbursementDocument)doc;
+            TravelReimbursementDocument trDoc = (TravelReimbursementDocument) doc;
             if (trDoc.getDocumentHeader().getWorkflowDocument().isEnroute()) {
                 checkRelatedDocs &= false;
             }
@@ -283,6 +291,7 @@ public class TravelAuthorizationDocumentPresentationController extends TravelAut
 
     /**
      * Determines if the given TravelAuthorizationDocument has reimbursements or not
+     *
      * @param document the authorization to check
      * @return true if the authorization has reimbursements against it, false otherwise
      */
@@ -293,6 +302,7 @@ public class TravelAuthorizationDocumentPresentationController extends TravelAut
 
     /**
      * Determines if the given travel authorization document has any enroute reimbursements
+     *
      * @param document the travel authorization to find enroute reimbursements for
      * @return true if there are any enroute reimbursements, false otherwise
      */

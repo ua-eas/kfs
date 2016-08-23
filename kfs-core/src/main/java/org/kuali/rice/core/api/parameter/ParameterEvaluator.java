@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -26,16 +26,16 @@ import java.io.Serializable;
 public interface ParameterEvaluator extends Serializable {
     /**
      * This method determines whether the constrainedValue specified when the ParameterEvaluator was created matches the parameter.
-     * 
+     *
      * @return boolean indicating whether the constrained value adheres to the restriction specified by the combination of the
-     *         parameter constraint and the parameter value
+     * parameter constraint and the parameter value
      */
     public boolean evaluationSucceeds();
 
     /**
      * This method uses the evaluateAndAddError method. It passes the constrainedPropertyName as both the constrainedPropertyName
      * and the userEditablePropertyName, i.e. it should be used when they are one and the same.
-     * 
+     *
      * @param businessObjectOrDocumentClass
      * @param constrainedPropertyName
      * @return boolean indicating whether evaluation succeeded (see evaluationSucceeds)
@@ -49,7 +49,7 @@ public interface ParameterEvaluator extends Serializable {
      * field that has the value that the parameter is evaluating. The userEditablePropertyName corresponds to the field that has the
      * value the user needs to correct to resolve the error. For example, the object type may be invalid, but the user needs to
      * change the object code in order to remedy that.
-     * 
+     *
      * @param businessObjectOrDocumentClass
      * @param userEditableFieldToHighlight
      * @param nameOfconstrainedProperty
@@ -59,7 +59,7 @@ public interface ParameterEvaluator extends Serializable {
 
     /**
      * This method determines whether the parameter lists allowed values or denied values.
-     * 
+     *
      * @return boolean indicating whether the parameter lists allowed values
      */
     public boolean constraintIsAllow();
@@ -73,7 +73,7 @@ public interface ParameterEvaluator extends Serializable {
 
     /**
      * This method returns the value of the correspnding Parameter.
-     * 
+     *
      * @return String value of underlying Parameter
      */
     public String getValue();

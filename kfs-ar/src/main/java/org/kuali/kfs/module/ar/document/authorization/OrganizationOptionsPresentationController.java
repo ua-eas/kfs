@@ -1,27 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.document.authorization;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.OrganizationOptions;
@@ -30,11 +29,12 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentPresentationControllerBase;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.role.RoleService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class OrganizationOptionsPresentationController extends FinancialSystemMaintenanceDocumentPresentationControllerBase {
 
@@ -58,9 +58,8 @@ public class OrganizationOptionsPresentationController extends FinancialSystemMa
     }
 
     /**
-     *
      * Billing Chart/Org are always read-only on an edit.  Always.
-     *
+     * <p>
      * They are editable on an Add, but only if KIM lets you in on an Add,
      * but thats handled elsewhere.
      *
@@ -100,7 +99,6 @@ public class OrganizationOptionsPresentationController extends FinancialSystemMa
     }
 
     /**
-     *
      * Sets the Remit-To Name (ie, OrgCheckPayableToName) to read only if thats how the system parameters are
      * configured, otherwise leave it read/write.
      *
@@ -108,13 +106,12 @@ public class OrganizationOptionsPresentationController extends FinancialSystemMa
      */
     protected void setRemitToNameEditable(Set<String> readOnlyPropertyNames) {
         ParameterService parameterService = SpringContext.getBean(ParameterService.class);
-        if ( parameterService.getParameterValueAsBoolean(OrganizationOptions.class, ArConstants.REMIT_TO_NAME_EDITABLE_IND, Boolean.TRUE) ) { // defaulting to true to preserve prior behavior
+        if (parameterService.getParameterValueAsBoolean(OrganizationOptions.class, ArConstants.REMIT_TO_NAME_EDITABLE_IND, Boolean.TRUE)) { // defaulting to true to preserve prior behavior
             readOnlyPropertyNames.add(ArPropertyConstants.OrganizationOptionsFields.ORGANIZATION_CHECK_PAYABLE_TO_NAME);
         }
     }
 
     /**
-     *
      * Sets the OrgPostalZipCode to readonly if thats what the system parameters say, otherwise leave it
      * read/write.
      *
@@ -122,13 +119,12 @@ public class OrganizationOptionsPresentationController extends FinancialSystemMa
      */
     protected void setOrgPostalZipCodeEditable(Set<String> readOnlyPropertyNames) {
         ParameterService service = SpringContext.getBean(ParameterService.class);
-        if (!service.getParameterValueAsBoolean(KfsParameterConstants.ACCOUNTS_RECEIVABLE_DOCUMENT.class, ArConstants.ENABLE_SALES_TAX_IND, Boolean.FALSE ) ){
+        if (!service.getParameterValueAsBoolean(KfsParameterConstants.ACCOUNTS_RECEIVABLE_DOCUMENT.class, ArConstants.ENABLE_SALES_TAX_IND, Boolean.FALSE)) {
             readOnlyPropertyNames.add(ArPropertyConstants.OrganizationOptionsFields.ORGANIZATION_POSTAL_ZIP_CODE);
         }
     }
 
     /**
-     *
      * Sets the whole Remit-To Address section to read-only if thats what the system parameter says, otherwise leave
      * it read/wrtie.
      *

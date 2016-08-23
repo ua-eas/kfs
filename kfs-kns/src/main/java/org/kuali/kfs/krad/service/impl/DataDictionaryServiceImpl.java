@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -20,13 +20,6 @@ package org.kuali.kfs.krad.service.impl;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.core.api.util.ClassLoaderUtils;
-import org.kuali.rice.core.web.format.Formatter;
-import org.kuali.rice.kew.api.KewApiServiceLocator;
-import org.kuali.rice.kew.api.doctype.DocumentType;
-import org.kuali.rice.kew.api.doctype.DocumentTypeService;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
 import org.kuali.kfs.krad.datadictionary.AttributeSecurity;
 import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
@@ -46,8 +39,15 @@ import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.keyvalues.KeyValuesFinder;
 import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.uif.view.View;
 import org.kuali.kfs.krad.uif.UifConstants.ViewType;
+import org.kuali.kfs.krad.uif.view.View;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
+import org.kuali.rice.core.api.util.ClassLoaderUtils;
+import org.kuali.rice.core.web.format.Formatter;
+import org.kuali.rice.kew.api.KewApiServiceLocator;
+import org.kuali.rice.kew.api.doctype.DocumentType;
+import org.kuali.rice.kew.api.doctype.DocumentTypeService;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -62,8 +62,6 @@ import java.util.regex.Pattern;
 /**
  * Service implementation for a DataDictionary. It is a thin wrapper around creating, initializing, and
  * returning a DataDictionary. This is the default, Kuali delivered implementation
- *
- * 
  */
 public class DataDictionaryServiceImpl implements DataDictionaryService {
     private static final Logger LOG = Logger.getLogger(DataDictionaryServiceImpl.class);
@@ -264,14 +262,14 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
      * @see DataDictionaryService#getAttributeForceUppercase(java.lang.String)
      */
     public Boolean getAttributeForceUppercase(String entryName,
-            String attributeName) throws UnknownBusinessClassAttributeException {
+                                              String attributeName) throws UnknownBusinessClassAttributeException {
         Boolean forceUppercase = null;
 
         AttributeDefinition attributeDefinition = getAttributeDefinition(entryName, attributeName);
         if (attributeDefinition == null) {
             throw new UnknownBusinessClassAttributeException(
-                    "Could not find a matching data dictionary business class attribute entry for " + entryName + "." +
-                            attributeName);
+                "Could not find a matching data dictionary business class attribute entry for " + entryName + "." +
+                    attributeName);
         }
         forceUppercase = attributeDefinition.getForceUppercase();
 
@@ -350,7 +348,7 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
 
     /**
      * @see DataDictionaryService#getAttributeValuesScopeId(java.lang.Class,
-     *      java.lang.String)
+     * java.lang.String)
      */
     public Class<? extends KeyValuesFinder> getAttributeValuesFinderClass(String entryName, String attributeName) {
         Class valuesFinderClass = null;
@@ -394,7 +392,7 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
 
     /**
      * @see DataDictionaryService#getCollectionElementLabel(java.lang.Class,
-     *      java.lang.String)
+     * java.lang.String)
      */
     public String getCollectionElementLabel(String entryName, String collectionName, Class dataObjectClass) {
         String elementLabel = "";
@@ -429,7 +427,7 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
 
     /**
      * @see DataDictionaryService#getCollectionDescription(java.lang.Class,
-     *      java.lang.String)
+     * java.lang.String)
      */
     public String getCollectionDescription(String entryName, String collectionName) {
         String description = null;
@@ -498,7 +496,7 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
         List<String> relationships = new ArrayList<String>();
 
         DataDictionaryEntryBase entry =
-                (DataDictionaryEntryBase) getDataDictionary().getDictionaryObjectEntry(entryName);
+            (DataDictionaryEntryBase) getDataDictionary().getDictionaryObjectEntry(entryName);
 
         for (RelationshipDefinition def : entry.getRelationships()) {
             for (PrimitiveAttributeDefinition pddef : def.getPrimitiveAttributes()) {
@@ -515,7 +513,7 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
         List<String> relationships = new ArrayList<String>();
 
         DataDictionaryEntryBase entry =
-                (DataDictionaryEntryBase) getDataDictionary().getDictionaryObjectEntry(entryName);
+            (DataDictionaryEntryBase) getDataDictionary().getDictionaryObjectEntry(entryName);
 
         for (RelationshipDefinition def : entry.getRelationships()) {
             for (PrimitiveAttributeDefinition pddef : def.getPrimitiveAttributes()) {
@@ -541,7 +539,7 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
         AttributeDefinition attributeDefinition = null;
 
         DataDictionaryEntryBase entry =
-                (DataDictionaryEntryBase) getDataDictionary().getDictionaryObjectEntry(entryName);
+            (DataDictionaryEntryBase) getDataDictionary().getDictionaryObjectEntry(entryName);
         if (entry != null) {
             attributeDefinition = entry.getAttributeDefinition(attributeName);
         }
@@ -561,7 +559,7 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
         CollectionDefinition collectionDefinition = null;
 
         DataDictionaryEntryBase entry =
-                (DataDictionaryEntryBase) getDataDictionary().getDictionaryObjectEntry(entryName);
+            (DataDictionaryEntryBase) getDataDictionary().getDictionaryObjectEntry(entryName);
         if (entry != null) {
             collectionDefinition = entry.getCollectionDefinition(collectionName);
         }
@@ -582,7 +580,7 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
         RelationshipDefinition relationshipDefinition = null;
 
         DataDictionaryEntryBase entry =
-                (DataDictionaryEntryBase) getDataDictionary().getDictionaryObjectEntry(entryName);
+            (DataDictionaryEntryBase) getDataDictionary().getDictionaryObjectEntry(entryName);
         if (entry != null) {
             relationshipDefinition = entry.getRelationshipDefinition(relationshipName);
         }
@@ -609,7 +607,7 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
 
     public List<String> getRelationshipNames(String entryName) {
         DataDictionaryEntryBase entry =
-                (DataDictionaryEntryBase) getDataDictionary().getDictionaryObjectEntry(entryName);
+            (DataDictionaryEntryBase) getDataDictionary().getDictionaryObjectEntry(entryName);
 
         List<String> relationshipNames = new ArrayList<String>();
         for (RelationshipDefinition def : entry.getRelationships()) {
@@ -822,7 +820,7 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
         String documentTypeName = getDocumentTypeNameByClass(documentClass);
         if (StringUtils.isBlank(documentTypeName)) {
             throw new UnknownDocumentTypeException(
-                    "unable to get documentTypeName for unknown documentClass '" + documentClass.getName() + "'");
+                "unable to get documentTypeName for unknown documentClass '" + documentClass.getName() + "'");
         }
         return documentTypeName;
     }
@@ -848,7 +846,7 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
         Class clazz = getDocumentClassByTypeName(documentTypeName);
         if (clazz == null) {
             throw new UnknownDocumentTypeException(
-                    "unable to get class for unknown documentTypeName '" + documentTypeName + "'");
+                "unable to get class for unknown documentTypeName '" + documentTypeName + "'");
         }
         return clazz;
     }
@@ -876,7 +874,7 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
 
     /**
      * @see DataDictionaryService#getViewByTypeIndex(java.lang.String,
-     *      java.util.Map)
+     * java.util.Map)
      */
     public View getViewByTypeIndex(ViewType viewTypeName, Map<String, String> indexKey) {
         return dataDictionary.getViewByTypeIndex(viewTypeName, indexKey);
@@ -912,15 +910,15 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
      * @see DataDictionaryService#getAllInactivationBlockingDefinitions(java.lang.Class)
      */
     public Set<InactivationBlockingMetadata> getAllInactivationBlockingDefinitions(
-            Class inactivationBlockedBusinessObjectClass) {
+        Class inactivationBlockedBusinessObjectClass) {
         Set<InactivationBlockingMetadata> blockingClasses =
-                dataDictionary.getAllInactivationBlockingMetadatas(inactivationBlockedBusinessObjectClass);
+            dataDictionary.getAllInactivationBlockingMetadatas(inactivationBlockedBusinessObjectClass);
         if (blockingClasses == null) {
             return Collections.emptySet();
         }
         return blockingClasses;
     }
-    
+
     public DocumentTypeService getDocumentTypeService() {
         if (documentTypeService == null) {
             documentTypeService = KewApiServiceLocator.getDocumentTypeService();

@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -19,11 +19,11 @@
 package org.kuali.kfs.sys.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.validation.Validation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 
 public class AccountingLineCheckValidationHutch implements Validation {
@@ -48,6 +48,7 @@ public class AccountingLineCheckValidationHutch implements Validation {
 
     /**
      * Sets whether the validation hutch should quit on the failure of the entire validation case failing.
+     *
      * @param b
      */
     public void setShouldQuitOnFail(boolean b) {
@@ -66,14 +67,15 @@ public class AccountingLineCheckValidationHutch implements Validation {
     /**
      * Using the parameter property names set, finds the accounting document and accounting line to be validate
      * from the property.
+     *
      * @param event the event to take properties from
      */
     protected void grabDocumentAndLineForValidationFromEvent(AttributedDocumentEvent event) {
         if (StringUtils.isNotBlank(accountingDocumentParameterPropertyName)) {
-            accountingDocumentForValidation = (AccountingDocument)ObjectUtils.getPropertyValue(event, accountingDocumentParameterPropertyName);
+            accountingDocumentForValidation = (AccountingDocument) ObjectUtils.getPropertyValue(event, accountingDocumentParameterPropertyName);
         }
         if (StringUtils.isNotBlank(accountingLineParameterPropertyName)) {
-            accountingLineForValidation = (AccountingLine)ObjectUtils.getPropertyValue(event, accountingLineParameterPropertyName);
+            accountingLineForValidation = (AccountingLine) ObjectUtils.getPropertyValue(event, accountingLineParameterPropertyName);
         }
     }
 
@@ -85,7 +87,6 @@ public class AccountingLineCheckValidationHutch implements Validation {
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -95,6 +96,7 @@ public class AccountingLineCheckValidationHutch implements Validation {
 
     /**
      * Gets the lineAmountValidation attribute.
+     *
      * @return Returns the lineAmountValidation.
      */
     public Validation getLineAmountValidation() {
@@ -103,6 +105,7 @@ public class AccountingLineCheckValidationHutch implements Validation {
 
     /**
      * Sets the lineAmountValidation attribute value.
+     *
      * @param lineAmountValidation The lineAmountValidation to set.
      */
     public void setLineAmountValidation(Validation lineAmountValidation) {
@@ -111,6 +114,7 @@ public class AccountingLineCheckValidationHutch implements Validation {
 
     /**
      * Gets the lineCheckValidation attribute.
+     *
      * @return Returns the lineCheckValidation.
      */
     public Validation getLineCheckValidation() {
@@ -119,6 +123,7 @@ public class AccountingLineCheckValidationHutch implements Validation {
 
     /**
      * Sets the lineCheckValidation attribute value.
+     *
      * @param lineCheckValidation The lineCheckValidation to set.
      */
     public void setLineCheckValidation(Validation lineCheckValidation) {
@@ -127,6 +132,7 @@ public class AccountingLineCheckValidationHutch implements Validation {
 
     /**
      * Gets the lineValuesAllowedValidation attribute.
+     *
      * @return Returns the lineValuesAllowedValidation.
      */
     public Validation getLineValuesAllowedValidation() {
@@ -135,6 +141,7 @@ public class AccountingLineCheckValidationHutch implements Validation {
 
     /**
      * Sets the lineValuesAllowedValidation attribute value.
+     *
      * @param lineValuesAllowedValidation The lineValuesAllowedValidation to set.
      */
     public void setLineValuesAllowedValidation(Validation lineValuesAllowedValidation) {

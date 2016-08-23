@@ -1,48 +1,47 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.external.kc.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.jws.WebParam;
-
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomer;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomerType;
 import org.kuali.kfs.integration.ar.AccountsReceivableModuleService;
-import org.kuali.kfs.module.external.kc.KcConstants;
-import org.kuali.kfs.module.external.kc.businessobject.Agency;
-import org.kuali.kfs.module.external.kc.dto.CustomerCreationStatusDto;
-import org.kuali.kfs.module.external.kc.dto.CustomerTypeDto;
-import org.kuali.kra.external.sponsor.SponsorDTO;
-import org.kuali.kfs.module.external.kc.service.CustomerCreationService;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.kfs.krad.UserSession;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.service.KeyValuesService;
 import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.module.external.kc.KcConstants;
+import org.kuali.kfs.module.external.kc.businessobject.Agency;
+import org.kuali.kfs.module.external.kc.dto.CustomerCreationStatusDto;
+import org.kuali.kfs.module.external.kc.dto.CustomerTypeDto;
+import org.kuali.kfs.module.external.kc.service.CustomerCreationService;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kra.external.sponsor.SponsorDTO;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
+
+import javax.jws.WebParam;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class CustomerCreationServiceImpl implements CustomerCreationService {
 
@@ -90,7 +89,7 @@ public class CustomerCreationServiceImpl implements CustomerCreationService {
     @Override
     public boolean isValidCustomer(@WebParam(name = KcConstants.CustomerCreationService.CUSTOMER_NUMBER) String customerNumber) {
         ModuleService responsibleModuleService = KRADServiceLocatorWeb.getKualiModuleService().getResponsibleModuleService(AccountsReceivableCustomer.class);
-        if (responsibleModuleService!=null && responsibleModuleService.isExternalizable(AccountsReceivableCustomer.class)) {
+        if (responsibleModuleService != null && responsibleModuleService.isExternalizable(AccountsReceivableCustomer.class)) {
             Map<String, Object> values = new HashMap<String, Object>();
             values.put(KcConstants.CustomerCreationService.CUSTOMER_NUMBER, customerNumber);
             return (responsibleModuleService.getExternalizableBusinessObject(AccountsReceivableCustomer.class, values) != null);

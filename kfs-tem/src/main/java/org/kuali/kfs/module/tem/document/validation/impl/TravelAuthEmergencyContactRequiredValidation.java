@@ -1,24 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADPropertyConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants.TravelAuthorizationParameters;
 import org.kuali.kfs.module.tem.TemConstants.TravelParameters;
 import org.kuali.kfs.module.tem.TemKeyConstants;
@@ -31,10 +35,6 @@ import org.kuali.kfs.module.tem.document.TravelAuthorizationDocument;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADPropertyConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class TravelAuthEmergencyContactRequiredValidation extends GenericValidation {
     protected ParameterService parameterService;
@@ -43,12 +43,12 @@ public class TravelAuthEmergencyContactRequiredValidation extends GenericValidat
     public boolean validate(AttributedDocumentEvent event) {
         boolean rulePassed = true;
 
-        TravelAuthorizationDocument taDocument = (TravelAuthorizationDocument)event.getDocument();
+        TravelAuthorizationDocument taDocument = (TravelAuthorizationDocument) event.getDocument();
         taDocument.refreshReferenceObject(TemPropertyConstants.TRIP_TYPE);
         TripType tripType = taDocument.getTripType();
 
         if (getParameterService().getParameterValueAsBoolean(TravelAuthorizationDocument.class, TravelAuthorizationParameters.DISPLAY_EMERGENCY_CONTACT_IND) && ObjectUtils.isNotNull(tripType)) {
-            if (tripType.isContactInfoRequired()  && (taDocument.getDocumentHeader().getWorkflowDocument().isInitiated() || taDocument.getDocumentHeader().getWorkflowDocument().isSaved())) {
+            if (tripType.isContactInfoRequired() && (taDocument.getDocumentHeader().getWorkflowDocument().isInitiated() || taDocument.getDocumentHeader().getWorkflowDocument().isSaved())) {
                 rulePassed = validEmergencyContact(taDocument);
             }
 
@@ -61,7 +61,7 @@ public class TravelAuthEmergencyContactRequiredValidation extends GenericValidat
                 }
 
                 // make sure at least one mode of transportation is filled in
-                if(taDocument.getTransportationModes() == null || taDocument.getTransportationModes().size() == 0) {
+                if (taDocument.getTransportationModes() == null || taDocument.getTransportationModes().size() == 0) {
                     rulePassed = false;
                     GlobalVariables.getMessageMap().addToErrorPath(TemPropertyConstants.EM_CONTACT);
                     GlobalVariables.getMessageMap().putError(TravelAuthorizationFields.MODE_OF_TRANSPORT, TemKeyConstants.ERROR_TA_AUTH_MODE_OF_TRANSPORT_REQUIRED);
@@ -82,7 +82,7 @@ public class TravelAuthEmergencyContactRequiredValidation extends GenericValidat
     }
 
 
-    private boolean validEmergencyContact(TravelAuthorizationDocument taDocument){
+    private boolean validEmergencyContact(TravelAuthorizationDocument taDocument) {
         // check to see if there are emergency contacts and that at least one of them has real data
         boolean validEmergencyContact = false;
         for (TravelerDetailEmergencyContact emergencyContact : taDocument.getTraveler().getEmergencyContacts()) {
@@ -93,7 +93,7 @@ public class TravelAuthEmergencyContactRequiredValidation extends GenericValidat
         }
         if (!validEmergencyContact) {
             //remove the previous error because it could already be in the message map in the wrong order
-            GlobalVariables.getMessageMap().removeAllErrorMessagesForProperty(TemPropertyConstants.EM_CONTACT+"."+TemPropertyConstants.TRVL_AUTH_EM_CONTACT_CONTACT_NAME);
+            GlobalVariables.getMessageMap().removeAllErrorMessagesForProperty(TemPropertyConstants.EM_CONTACT + "." + TemPropertyConstants.TRVL_AUTH_EM_CONTACT_CONTACT_NAME);
             GlobalVariables.getMessageMap().addToErrorPath(TemPropertyConstants.EM_CONTACT);
             GlobalVariables.getMessageMap().putError(TemPropertyConstants.TRVL_AUTH_EM_CONTACT_CONTACT_NAME, TemKeyConstants.ERROR_TA_AUTH_EMERGENCY_CONTACT_REQUIRED);
             GlobalVariables.getMessageMap().removeFromErrorPath(TemPropertyConstants.EM_CONTACT);

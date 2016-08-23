@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.sys.datatools.businessobject;
 
-import org.kuali.kfs.sys.datatools.liquimongo.businessobject.DocumentStoreChange;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import junit.framework.Assert;
 import org.junit.Test;
+import org.kuali.kfs.sys.datatools.liquimongo.businessobject.DocumentStoreChange;
 
 import java.io.IOException;
 
@@ -30,20 +30,20 @@ public class DocumentStoreChangeTest {
     @Test
     public void propertiesArePopulated() throws IOException {
         String changeJson = "{\n" +
-                "              \"jira\": \"KFSTP-2186\",\n" +
-                "              \"id\": \"add InstitutionPreferences data\",\n" +
-                "              \"changes\": [\n" +
-                "                  {\n" +
-                "                  }\n" +
-                "                ]\n" +
-                "            }";
+            "              \"jira\": \"KFSTP-2186\",\n" +
+            "              \"id\": \"add InstitutionPreferences data\",\n" +
+            "              \"changes\": [\n" +
+            "                  {\n" +
+            "                  }\n" +
+            "                ]\n" +
+            "            }";
 
         ObjectMapper mapper = new ObjectMapper();
         JsonNode changeNode = mapper.readValue(changeJson, JsonNode.class);
 
-        DocumentStoreChange dsc = new DocumentStoreChange("filename",changeNode);
-        Assert.assertEquals("ChangeID is populated","add InstitutionPreferences data",dsc.getChangeId());
-        Assert.assertEquals("Filename is populated","filename",dsc.getFileName());
-        Assert.assertTrue("Hash is populated",dsc.getHash() != null);
+        DocumentStoreChange dsc = new DocumentStoreChange("filename", changeNode);
+        Assert.assertEquals("ChangeID is populated", "add InstitutionPreferences data", dsc.getChangeId());
+        Assert.assertEquals("Filename is populated", "filename", dsc.getFileName());
+        Assert.assertTrue("Hash is populated", dsc.getHash() != null);
     }
 }

@@ -1,29 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.document.web.struts;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.kuali.kfs.module.bc.BudgetConstructionDocumentReportMode;
 
 import javax.servlet.http.HttpServletRequest;
-
-import org.kuali.kfs.module.bc.BudgetConstructionDocumentReportMode;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Form class to display document reports and dumps menu
@@ -66,7 +65,7 @@ public class ReportRunnerForm extends BudgetExpansionForm {
 
     /**
      * Gets the accountNumber attribute.
-     * 
+     *
      * @return Returns the accountNumber.
      */
     public String getAccountNumber() {
@@ -75,7 +74,7 @@ public class ReportRunnerForm extends BudgetExpansionForm {
 
     /**
      * Sets the accountNumber attribute value.
-     * 
+     *
      * @param accountNumber The accountNumber to set.
      */
     public void setAccountNumber(String accountNumber) {
@@ -84,7 +83,7 @@ public class ReportRunnerForm extends BudgetExpansionForm {
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode.
      */
     public String getChartOfAccountsCode() {
@@ -93,7 +92,7 @@ public class ReportRunnerForm extends BudgetExpansionForm {
 
     /**
      * Sets the chartOfAccountsCode attribute value.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -102,7 +101,7 @@ public class ReportRunnerForm extends BudgetExpansionForm {
 
     /**
      * Gets the documentNumber attribute.
-     * 
+     *
      * @return Returns the documentNumber.
      */
     public String getDocumentNumber() {
@@ -111,7 +110,7 @@ public class ReportRunnerForm extends BudgetExpansionForm {
 
     /**
      * Sets the documentNumber attribute value.
-     * 
+     *
      * @param documentNumber The documentNumber to set.
      */
     public void setDocumentNumber(String documentNumber) {
@@ -120,7 +119,7 @@ public class ReportRunnerForm extends BudgetExpansionForm {
 
     /**
      * Gets the subAccountNumber attribute.
-     * 
+     *
      * @return Returns the subAccountNumber.
      */
     public String getSubAccountNumber() {
@@ -129,7 +128,7 @@ public class ReportRunnerForm extends BudgetExpansionForm {
 
     /**
      * Sets the subAccountNumber attribute value.
-     * 
+     *
      * @param subAccountNumber The subAccountNumber to set.
      */
     public void setSubAccountNumber(String subAccountNumber) {
@@ -138,7 +137,7 @@ public class ReportRunnerForm extends BudgetExpansionForm {
 
     /**
      * Gets the budgetConstructionDocumentReportModes attribute.
-     * 
+     *
      * @return Returns the budgetConstructionDocumentReportModes.
      */
     public List<BudgetConstructionDocumentReportMode> getBudgetConstructionDocumentReportModes() {
@@ -147,7 +146,7 @@ public class ReportRunnerForm extends BudgetExpansionForm {
 
     /**
      * Sets the budgetConstructionDocumentReportModes attribute value.
-     * 
+     *
      * @param budgetConstructionDocumentReportModes The budgetConstructionDocumentReportModes to set.
      */
     public void setBudgetConstructionDocumentReportModes(List<BudgetConstructionDocumentReportMode> budgetConstructionDocumentReportModes) {

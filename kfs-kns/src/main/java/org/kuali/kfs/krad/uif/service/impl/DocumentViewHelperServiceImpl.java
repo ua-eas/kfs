@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -37,27 +37,27 @@ public class DocumentViewHelperServiceImpl extends ViewHelperServiceImpl {
      * Performs validation on the new collection line before it is added to the
      * corresponding collection
      *
-     * @param view - view instance that the action was taken on
+     * @param view            - view instance that the action was taken on
      * @param collectionGroup - collection group component for the collection
-     * @param addLine - new line instance to validate
-     * @param model - object instance that contains the views data
+     * @param addLine         - new line instance to validate
+     * @param model           - object instance that contains the views data
      * @return boolean true if the line is valid and it should be added to the
-     *         collection, false if it was not valid and should not be added to
-     *         the collection
+     * collection, false if it was not valid and should not be added to
+     * the collection
      */
     @Override
     protected boolean performAddLineValidation(View view, CollectionGroup collectionGroup, Object model,
-            Object addLine) {
+                                               Object addLine) {
         boolean isValidLine = true;
 
         if (model instanceof DocumentFormBase && addLine instanceof AdHocRoutePerson) {
             DocumentFormBase form = (DocumentFormBase) model;
             isValidLine = getKualiRuleService()
-                    .applyRules(new AddAdHocRoutePersonEvent(form.getDocument(), (AdHocRoutePerson) addLine));
+                .applyRules(new AddAdHocRoutePersonEvent(form.getDocument(), (AdHocRoutePerson) addLine));
         } else if (model instanceof DocumentFormBase && addLine instanceof AdHocRouteWorkgroup) {
             DocumentFormBase form = (DocumentFormBase) model;
             isValidLine = getKualiRuleService()
-                    .applyRules(new AddAdHocRouteWorkgroupEvent(form.getDocument(), (AdHocRouteWorkgroup) addLine));
+                .applyRules(new AddAdHocRouteWorkgroupEvent(form.getDocument(), (AdHocRouteWorkgroup) addLine));
         }
 
         return isValidLine;

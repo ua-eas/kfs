@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -24,10 +24,10 @@ import org.kuali.kfs.coreservice.impl.component.ComponentBo;
 import org.kuali.kfs.coreservice.impl.component.DerivedComponentBo;
 import org.kuali.kfs.kns.lookup.HtmlData;
 import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.lookup.CollectionIncomplete;
 import org.kuali.kfs.kns.lookup.LookupUtils;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 import java.util.Collection;
 import java.util.List;
@@ -37,7 +37,7 @@ public class ComponentLookupableHelperServiceImpl extends KualiLookupableHelperS
     private static final long serialVersionUID = -3978422770535345525L;
 
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ComponentLookupableHelperServiceImpl.class);
-    
+
     private static final String ACTIVE = "active";
     private static final String CODE = "code";
     private static final String NAMESPACE_CODE = "namespaceCode";
@@ -60,7 +60,7 @@ public class ComponentLookupableHelperServiceImpl extends KualiLookupableHelperS
 
             Collection<DerivedComponentBo> derivedComponentBos = null;
             if (StringUtils.isBlank(fieldValues.get(CODE)) && StringUtils.isBlank(fieldValues.get(NAMESPACE_CODE))
-                    && StringUtils.isBlank(fieldValues.get(NAME))) {
+                && StringUtils.isBlank(fieldValues.get(NAME))) {
                 derivedComponentBos = KRADServiceLocator.getBusinessObjectService().findAll(DerivedComponentBo.class);
             } else {
                 derivedComponentBos = getLookupService().findCollectionBySearchHelper(DerivedComponentBo.class, fieldValues, false);
@@ -77,8 +77,7 @@ public class ComponentLookupableHelperServiceImpl extends KualiLookupableHelperS
 
             if (totalCount > maxResultsCount) {
                 ((CollectionIncomplete) baseLookup).setActualSizeIfTruncated(totalCount);
-            }
-            else {
+            } else {
                 ((CollectionIncomplete) baseLookup).setActualSizeIfTruncated(0L);
             }
         }
@@ -91,7 +90,7 @@ public class ComponentLookupableHelperServiceImpl extends KualiLookupableHelperS
      */
     @Override
     public List<HtmlData> getCustomActionUrls(BusinessObject businessObject, List pkNames) {
-        if ( ((ComponentBo)businessObject).getObjectId() == null ) {
+        if (((ComponentBo) businessObject).getObjectId() == null) {
             return super.getEmptyActionUrls();
         }
         return super.getCustomActionUrls(businessObject, pkNames);

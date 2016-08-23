@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -40,20 +40,20 @@
 <%-- determine backdoor user to display app link; taken from kr:immutableBar.tag --%>
 <c:set var="backdoorEnabled" value="<%=org.kuali.kfs.coreservice.framework.CoreFrameworkServiceLocator.getParameterService().getParameterValueAsBoolean(org.kuali.rice.kew.api.KewApiConstants.KEW_NAMESPACE, org.kuali.kfs.krad.util.KRADConstants.DetailTypes.BACKDOOR_DETAIL_TYPE, org.kuali.rice.kew.api.KewApiConstants.SHOW_BACK_DOOR_LOGIN_IND)%>"/>
 <c:if test="${backdoorEnabled}">
-	<c:choose> 
-		<c:when test="${empty UserSession.loggedInUserPrincipalName}" > 
-			<c:set var="backdoorIdUrl" value=""/> 			
-		</c:when> 
-		<c:otherwise> 			
+	<c:choose>
+		<c:when test="${empty UserSession.loggedInUserPrincipalName}" >
+			<c:set var="backdoorIdUrl" value=""/>
+		</c:when>
+		<c:otherwise>
 			<c:choose>
 				<c:when test="${UserSession.backdoorInUse}" >
-					<c:set var="backdoorIdUrl" value="backdoorId=${UserSession.principalName}"/> 					
+					<c:set var="backdoorIdUrl" value="backdoorId=${UserSession.principalName}"/>
 				</c:when>
 				<c:otherwise>
 					<c:set var="backdoorIdUrl" value="backdoorId=${UserSession.loggedInUserPrincipalName}"/>
 				</c:otherwise>
-			</c:choose>				 			
-		</c:otherwise> 
+			</c:choose>
+		</c:otherwise>
 	</c:choose>
 </c:if>
 
@@ -89,7 +89,7 @@
 	<td class="${cssClass}">
 		<kul:htmlControlAttribute
 			attributeEntry="${cashControlDetailAttributes.customerNumber}"
-			property="${propertyName}.customerNumber" 
+			property="${propertyName}.customerNumber"
 			tabindexOverride="${tabindexOverrideBase} + 5"
 			readOnly="${readOnly}" />
 		<c:if test="${not readOnly}">

@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -20,9 +20,9 @@
 package org.kuali.kfs.module.external.kc.businessobject;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.integration.ar.AccountsReceivableBillingFrequency;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
-import org.kuali.kfs.integration.ar.AccountsReceivableBillingFrequency;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsLetterOfCreditFund;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsOrganization;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsProjectDirector;
@@ -168,11 +168,13 @@ public class Award implements ContractsAndGrantsBillingAward {
     }
 
 
-    public void prepareForWorkflow() {}
+    public void prepareForWorkflow() {
+    }
 
 
     @Override
-    public void refresh() {}
+    public void refresh() {
+    }
 
 
     public void setProposal(Proposal proposal) {
@@ -397,6 +399,7 @@ public class Award implements ContractsAndGrantsBillingAward {
     public boolean isFederalPassThroughIndicator() {
         return federalPassThroughIndicator;
     }
+
     @Override
     public boolean getFederalPassThroughIndicator() {
         return federalPassThroughIndicator;
@@ -644,6 +647,7 @@ public class Award implements ContractsAndGrantsBillingAward {
     public boolean isAutoApproveIndicator() {
         return autoApproveIndicator;
     }
+
     @Override
     public boolean getAutoApproveIndicator() {
         return autoApproveIndicator;

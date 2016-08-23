@@ -1,23 +1,35 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.module.cg.businessobject;
+
+import org.kuali.kfs.integration.cg.ContractAndGrantsProposal;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.LookupService;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+import org.kuali.rice.kim.api.identity.Person;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -25,18 +37,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
-
-import org.kuali.kfs.integration.cg.ContractAndGrantsProposal;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.service.LookupService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * See functional documentation.
@@ -92,7 +92,9 @@ public class Proposal extends PersistableBusinessObjectBase implements MutableIn
     private LookupService lookupService;
     private Award award;
 
-    /** Dummy value used to facilitate lookups */
+    /**
+     * Dummy value used to facilitate lookups
+     */
     private transient String lookupPersonUniversalIdentifier;
     private transient Person lookupPerson;
 
@@ -103,7 +105,7 @@ public class Proposal extends PersistableBusinessObjectBase implements MutableIn
     /**
      * Default constructor.
      */
-    @SuppressWarnings( { "unchecked" })
+    @SuppressWarnings({"unchecked"})
     public Proposal() {
         // Must use ArrayList because its get() method automatically grows
         // the array for Struts.
@@ -141,7 +143,7 @@ public class Proposal extends PersistableBusinessObjectBase implements MutableIn
         List<Collection<PersistableBusinessObject>> managedLists = super.buildListOfDeletionAwareLists();
         managedLists.add((List) getProposalSubcontractors());
         managedLists.add((List) getProposalOrganizations());
-        managedLists.add((List)getProposalProjectDirectors());
+        managedLists.add((List) getProposalProjectDirectors());
         // research risks cannot be deleted (nor added)
         return managedLists;
     }
@@ -233,7 +235,8 @@ public class Proposal extends PersistableBusinessObjectBase implements MutableIn
      * @param persistenceBroker from OJB
      * @throws PersistenceBrokerException
      */
-    @Override protected void prePersist() {
+    @Override
+    protected void prePersist() {
         super.prePersist();
         proposalTotalAmount = getProposalTotalAmount();
     }
@@ -246,7 +249,8 @@ public class Proposal extends PersistableBusinessObjectBase implements MutableIn
      * @param persistenceBroker from OJB
      * @throws PersistenceBrokerException
      */
-    @Override protected void preUpdate() {
+    @Override
+    protected void preUpdate() {
         super.preUpdate();
         proposalTotalAmount = getProposalTotalAmount();
     }

@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,15 +18,15 @@
  */
 package org.kuali.kfs.module.tem.document.authorization;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.workflow.authorizer.CfDocumentTypeAuthorizer;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.doctype.bo.DocumentType;
 import org.kuali.rice.kew.routeheader.DocumentRouteHeaderValue;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class TravelWorkflowDocumentAuthorizer extends CfDocumentTypeAuthorizer {
@@ -41,7 +41,7 @@ public class TravelWorkflowDocumentAuthorizer extends CfDocumentTypeAuthorizer {
 
         if (useKimPermission(KRADConstants.KUALI_RICE_SYSTEM_NAMESPACE, KewApiConstants.INITIATE_PERMISSION, permissionDetails, true)) {
             return getPermissionService().isAuthorizedByTemplate(principalId, KRADConstants.KUALI_RICE_SYSTEM_NAMESPACE,
-                    KewApiConstants.INITIATE_PERMISSION, permissionDetails, qualificationDetails);
+                KewApiConstants.INITIATE_PERMISSION, permissionDetails, qualificationDetails);
         }
         return true;
     }
@@ -65,7 +65,7 @@ public class TravelWorkflowDocumentAuthorizer extends CfDocumentTypeAuthorizer {
 
             if (useKimPermission(KewApiConstants.KEW_NAMESPACE, KewApiConstants.ROUTE_PERMISSION, permissionDetails, true)) {
                 return getPermissionService().isAuthorizedByTemplate(principalId, KewApiConstants.KEW_NAMESPACE,
-                        KewApiConstants.ROUTE_PERMISSION, permissionDetails, roleQualifiers);
+                    KewApiConstants.ROUTE_PERMISSION, permissionDetails, roleQualifiers);
             }
         }
 

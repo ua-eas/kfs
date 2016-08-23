@@ -1,35 +1,32 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document;
 
-import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertEquality;
-import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertInequality;
-import static org.kuali.kfs.sys.fixture.AccountingLineFixture.LINE5;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.dfogle;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.service.AccountingPeriodService;
 import org.kuali.kfs.fp.businessobject.VoucherSourceAccountingLine;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.service.TransactionalDocumentDictionaryService;
+import org.kuali.kfs.krad.document.Copyable;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.DocumentTestUtils;
 import org.kuali.kfs.sys.KFSConstants;
@@ -44,15 +41,17 @@ import org.kuali.kfs.sys.document.workflow.WorkflowTestUtils;
 import org.kuali.kfs.sys.fixture.AccountingLineFixture;
 import org.kuali.kfs.sys.monitor.ChangeMonitor;
 import org.kuali.kfs.sys.monitor.FinancialSystemDocumentStatusMonitor;
-import org.kuali.kfs.sys.monitor.DocumentWorkflowStatusMonitor;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.document.DocumentStatus;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.kns.service.TransactionalDocumentDictionaryService;
-import org.kuali.kfs.krad.document.Copyable;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertEquality;
+import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertInequality;
+import static org.kuali.kfs.sys.fixture.AccountingLineFixture.LINE5;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.dfogle;
 
 /**
  * This class is used to test JournalVoucherDocument.
@@ -66,8 +65,8 @@ public class JournalVoucherDocumentTest extends KualiTestBase {
         // put accounting lines into document parameter for later
         JournalVoucherDocument document = (JournalVoucherDocument) getDocumentParameterFixture();
         StackTraceElement[] trace = Thread.currentThread().getStackTrace();
-        document.getDocumentHeader().setDocumentDescription(StringUtils.abbreviate("Unit Test doc for "+trace[3].getMethodName(), SpringContext.getBean(DataDictionaryService.class).getAttributeMaxLength(document.getDocumentHeader().getClass(), "documentDescription")));
-        document.getDocumentHeader().setExplanation(StringUtils.abbreviate("Unit test created document for "+trace[3].getClassName()+"."+trace[3].getMethodName(), SpringContext.getBean(DataDictionaryService.class).getAttributeMaxLength(document.getDocumentHeader().getClass(), "explanation")));
+        document.getDocumentHeader().setDocumentDescription(StringUtils.abbreviate("Unit Test doc for " + trace[3].getMethodName(), SpringContext.getBean(DataDictionaryService.class).getAttributeMaxLength(document.getDocumentHeader().getClass(), "documentDescription")));
+        document.getDocumentHeader().setExplanation(StringUtils.abbreviate("Unit test created document for " + trace[3].getClassName() + "." + trace[3].getMethodName(), SpringContext.getBean(DataDictionaryService.class).getAttributeMaxLength(document.getDocumentHeader().getClass(), "explanation")));
 
         // set accountinglines to document
         for (AccountingLineFixture sourceFixture : getSourceAccountingLineParametersFromFixtures()) {
@@ -96,8 +95,8 @@ public class JournalVoucherDocumentTest extends KualiTestBase {
         int preCopyPECount = document.getGeneralLedgerPendingEntries().size();
         // int preCopyNoteCount = document.getDocumentHeader().getNotes().size();
 
-        List preCopySourceLines = (List) ObjectUtils.deepCopy((Serializable)document.getSourceAccountingLines());
-        List preCopyTargetLines = (List) ObjectUtils.deepCopy((Serializable)document.getTargetAccountingLines());
+        List preCopySourceLines = (List) ObjectUtils.deepCopy((Serializable) document.getSourceAccountingLines());
+        List preCopyTargetLines = (List) ObjectUtils.deepCopy((Serializable) document.getTargetAccountingLines());
         // validate preCopy state
         assertNotNull(preCopyId);
         assertNull(preCopyCopiedFromId);
@@ -193,8 +192,8 @@ public class JournalVoucherDocumentTest extends KualiTestBase {
         ArrayList preCorrectSourceLines = (ArrayList) ObjectUtils.deepCopy(new ArrayList(document.getSourceAccountingLines()));
         ArrayList preCorrectTargetLines = (ArrayList) ObjectUtils.deepCopy(new ArrayList(document.getTargetAccountingLines()));
         // validate preCorrect state
-        assertNotNull("Pre-correct document number should not be null.",preCorrectId);
-        assertNull("preCorrectCorrectsId should have been null",preCorrectCorrectsId);
+        assertNotNull("Pre-correct document number should not be null.", preCorrectId);
+        assertNull("preCorrectCorrectsId should have been null", preCorrectCorrectsId);
 
         // assertEquals(0, preCorrectNoteCount);
         assertEquals("Document status is incorrect", DocumentStatus.FINAL, preCorrectStatus);
@@ -206,7 +205,7 @@ public class JournalVoucherDocumentTest extends KualiTestBase {
         assertFalse("document number should be different before and after correction.  Both were: " + postCorrectId, postCorrectId.equals(preCorrectId));
         // pending entries should be cleared
         int postCorrectPECount = document.getGeneralLedgerPendingEntries().size();
-        assertEquals("pending entry count should have been zero after correction",0, postCorrectPECount);
+        assertEquals("pending entry count should have been zero after correction", 0, postCorrectPECount);
         // TODO: revisit this is it still needed
         // count 1 note, compare to "correction" text
         // int postCorrectNoteCount = document.getDocumentHeader().getNotes().size();

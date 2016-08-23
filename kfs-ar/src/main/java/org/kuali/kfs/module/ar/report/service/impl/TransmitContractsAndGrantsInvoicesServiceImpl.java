@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,23 +18,14 @@
  */
 package org.kuali.kfs.module.ar.report.service.impl;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Map;
-import java.util.zip.CRC32;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
-
-import javax.mail.MessagingException;
-
+import com.lowagie.text.DocumentException;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.exception.InvalidAddressException;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
@@ -58,13 +49,20 @@ import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.identity.principal.Principal;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.krad.exception.InvalidAddressException;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
-import com.lowagie.text.DocumentException;
+import javax.mail.MessagingException;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Map;
+import java.util.zip.CRC32;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 /**
  * Default implementation of the TransmitContractsAndGrantsInvoicesService
@@ -83,11 +81,11 @@ public class TransmitContractsAndGrantsInvoicesServiceImpl implements TransmitCo
     public Collection<ContractsGrantsInvoiceDocument> getInvoicesByParametersFromRequest(Map fieldValues) throws WorkflowException, ParseException {
         Date fromDate = null;
         Date toDate = null;
-        String unformattedToDate = (String)fieldValues.get(ArPropertyConstants.TransmitContractsAndGrantsInvoicesLookupFields.INVOICE_PRINT_DATE_TO);
+        String unformattedToDate = (String) fieldValues.get(ArPropertyConstants.TransmitContractsAndGrantsInvoicesLookupFields.INVOICE_PRINT_DATE_TO);
         if (StringUtils.isNotEmpty(unformattedToDate)) {
             toDate = dateTimeService.convertToDate(unformattedToDate);
         }
-        String unformattedFromDate = (String)fieldValues.get(ArPropertyConstants.TransmitContractsAndGrantsInvoicesLookupFields.INVOICE_PRINT_DATE_FROM);
+        String unformattedFromDate = (String) fieldValues.get(ArPropertyConstants.TransmitContractsAndGrantsInvoicesLookupFields.INVOICE_PRINT_DATE_FROM);
         if (StringUtils.isNotEmpty(unformattedFromDate)) {
             fromDate = dateTimeService.convertToDate(unformattedFromDate);
         }
@@ -126,7 +124,7 @@ public class TransmitContractsAndGrantsInvoicesServiceImpl implements TransmitCo
         Collection<ContractsGrantsInvoiceDocument> list = getContractsGrantsInvoiceDocumentService().retrieveAllCGInvoicesByCriteria(fieldValues);
         Collection<ContractsGrantsInvoiceDocument> finalList = new ArrayList<ContractsGrantsInvoiceDocument>();
         for (ContractsGrantsInvoiceDocument item : list) {
-            ContractsGrantsInvoiceDocument invoice = (ContractsGrantsInvoiceDocument)getDocumentService().getByDocumentHeaderId(item.getDocumentNumber());
+            ContractsGrantsInvoiceDocument invoice = (ContractsGrantsInvoiceDocument) getDocumentService().getByDocumentHeaderId(item.getDocumentNumber());
 
             if (!invoice.isInvoiceReversal() && !invoice.hasInvoiceBeenCorrected()) {
                 if (isInvoiceBetween(invoice, fromDate, toDate)) {
@@ -142,6 +140,7 @@ public class TransmitContractsAndGrantsInvoicesServiceImpl implements TransmitCo
 
     /**
      * Checks whether invoice is between the dates provided.
+     *
      * @param invoice
      * @param fromDate
      * @param toDate
@@ -211,7 +210,6 @@ public class TransmitContractsAndGrantsInvoicesServiceImpl implements TransmitCo
     }
 
     /**
-     *
      * @param report
      * @param invoiceFileWritten
      * @param zos
@@ -252,7 +250,7 @@ public class TransmitContractsAndGrantsInvoicesServiceImpl implements TransmitCo
     }
 
     @Override
-    public void validateSearchParameters(Map<String,String> fieldValues) {
+    public void validateSearchParameters(Map<String, String> fieldValues) {
         String invoiceTransmissionMethodCode = fieldValues.get(ArPropertyConstants.INVOICE_TRANSMISSION_METHOD_CODE);
         String invoiceInitiatorPrincipalName = fieldValues.get(ArPropertyConstants.TransmitContractsAndGrantsInvoicesLookupFields.INVOICE_INITIATOR_PRINCIPAL_NAME);
         String invoicePrintDateFromString = fieldValues.get(ArPropertyConstants.TransmitContractsAndGrantsInvoicesLookupFields.INVOICE_PRINT_DATE_FROM);
@@ -267,16 +265,14 @@ public class TransmitContractsAndGrantsInvoicesServiceImpl implements TransmitCo
         if (StringUtils.isNotBlank(invoicePrintDateFromString)) {
             try {
                 dateTimeService.convertToDate(invoicePrintDateFromString);
-            }
-            catch (ParseException e) {
+            } catch (ParseException e) {
                 GlobalVariables.getMessageMap().putError(ArPropertyConstants.TransmitContractsAndGrantsInvoicesLookupFields.INVOICE_PRINT_DATE_FROM, KFSKeyConstants.ERROR_DATE_TIME, ArConstants.PRINT_INVOICES_FROM_LABEL);
             }
         }
         if (StringUtils.isNotBlank(invoicePrintDateToString)) {
             try {
                 dateTimeService.convertToDate(invoicePrintDateToString);
-            }
-            catch (ParseException e) {
+            } catch (ParseException e) {
                 GlobalVariables.getMessageMap().putError(ArPropertyConstants.TransmitContractsAndGrantsInvoicesLookupFields.INVOICE_PRINT_DATE_TO, KFSKeyConstants.ERROR_DATE_TIME, ArConstants.PRINT_INVOICES_TO_LABEL);
             }
         }

@@ -1,35 +1,33 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.krad.web.form;
 
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.krad.inquiry.Inquirable;
 import org.kuali.kfs.krad.uif.UifConstants.ViewType;
 import org.kuali.kfs.krad.uif.view.InquiryView;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * Form class for <code>InquiryView</code> screens
- *
- * 
  */
 public class InquiryForm extends UifFormBase {
     private static final long serialVersionUID = 4733144086378429410L;
@@ -60,7 +58,7 @@ public class InquiryForm extends UifFormBase {
 
     /**
      * Class name of the data object the inquiry will display
-     *
+     * <p>
      * <p>
      * Used to set the data object class for the <code>Inquirable</code> which
      * is then used to perform the inquiry query

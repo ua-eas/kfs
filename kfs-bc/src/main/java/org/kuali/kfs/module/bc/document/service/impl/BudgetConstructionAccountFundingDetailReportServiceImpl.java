@@ -1,29 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.document.service.impl;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.ojb.broker.PersistenceBrokerException;
 import org.kuali.kfs.module.bc.BCConstants;
@@ -45,6 +38,13 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Service implementation of BudgetConstructionAccountFundingDetailReportService.
  */
@@ -65,7 +65,7 @@ public class BudgetConstructionAccountFundingDetailReportServiceImpl implements 
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetConstructionAccountFundingDetailReportService#buildReports(java.lang.Integer,
-     *      java.util.Collection)
+     * java.util.Collection)
      */
     @Override
     public Collection<BudgetConstructionOrgAccountFundingDetailReport> buildReports(Integer universityFiscalYear, String principalName) {
@@ -125,40 +125,35 @@ public class BudgetConstructionAccountFundingDetailReportServiceImpl implements 
 
         if (orgChartDesc == null) {
             orgAccountFundingDetailReportEntry.setOrgChartOfAccountDescription(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_CHART_DESCRIPTION));
-        }
-        else {
+        } else {
             orgAccountFundingDetailReportEntry.setOrgChartOfAccountDescription(orgChartDesc);
         }
 
         orgAccountFundingDetailReportEntry.setOrganizationCode(accountFundingDetail.getOrganizationCode());
         if (orgName == null) {
             orgAccountFundingDetailReportEntry.setOrganizationName(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_ORGANIZATION_NAME));
-        }
-        else {
+        } else {
             orgAccountFundingDetailReportEntry.setOrganizationName(orgName);
         }
 
         orgAccountFundingDetailReportEntry.setChartOfAccountsCode(accountFundingDetail.getChartOfAccountsCode());
         if (chartDesc == null) {
             orgAccountFundingDetailReportEntry.setChartOfAccountDescription(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_CHART_DESCRIPTION));
-        }
-        else {
+        } else {
             orgAccountFundingDetailReportEntry.setChartOfAccountDescription(chartDesc);
         }
 
         orgAccountFundingDetailReportEntry.setFundGroupCode(accountFundingDetail.getSubFundGroup().getFundGroupCode());
         if (fundGroupDes == null) {
             orgAccountFundingDetailReportEntry.setFundGroupName(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_FUNDGROUP_NAME));
-        }
-        else {
+        } else {
             orgAccountFundingDetailReportEntry.setFundGroupName(fundGroupDes);
         }
 
         orgAccountFundingDetailReportEntry.setSubFundGroupCode(accountFundingDetail.getSubFundGroupCode());
         if (subFundGroupDes == null) {
             orgAccountFundingDetailReportEntry.setSubFundGroupDescription(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_SUBFUNDGROUP_DESCRIPTION));
-        }
-        else {
+        } else {
             orgAccountFundingDetailReportEntry.setSubFundGroupDescription(subFundGroupDes);
         }
 
@@ -187,8 +182,7 @@ public class BudgetConstructionAccountFundingDetailReportServiceImpl implements 
             try {
                 subAccountName = accountFundingDetail.getSubAccount().getSubAccountName();
                 subAccountNumberAndName = accountFundingDetail.getSubAccount().getSubAccountNumber() + " " + accountFundingDetail.getSubAccount().getSubAccountName();
-            }
-            catch (PersistenceBrokerException e) {
+            } catch (PersistenceBrokerException e) {
                 subAccountName = kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_SUB_ACCOUNT_DESCRIPTION);
                 subAccountNumberAndName = subAccountName;
             }
@@ -215,15 +209,13 @@ public class BudgetConstructionAccountFundingDetailReportServiceImpl implements 
         if (budgetConstructionIntendedIncumbent != null) {
             if (budgetConstructionIntendedIncumbent.getName() == null) {
                 orgAccountFundingDetailReportEntry.setName(BCConstants.Report.VACANT);
-            }
-            else {
+            } else {
                 int nameLength = budgetConstructionIntendedIncumbent.getName().length();
                 orgAccountFundingDetailReportEntry.setName(budgetConstructionIntendedIncumbent.getName().substring(0, (nameLength > 33) ? 33 : nameLength));
             }
 
             orgAccountFundingDetailReportEntry.setIuClassificationLevel(budgetConstructionIntendedIncumbent.getIuClassificationLevel());
-        }
-        else {
+        } else {
             orgAccountFundingDetailReportEntry.setName(BCConstants.Report.VACANT);
             orgAccountFundingDetailReportEntry.setIuClassificationLevel(BCConstants.Report.BLANK);
         }
@@ -266,8 +258,7 @@ public class BudgetConstructionAccountFundingDetailReportServiceImpl implements 
         if (appointmentFundingEntry != null) {
             if (appointmentFundingEntry.getFinancialSubObjectCode().equals(KFSConstants.getDashFinancialSubObjectCode())) {
                 orgAccountFundingDetailReportEntry.setFinancialSubObjectCode(BCConstants.Report.BLANK);
-            }
-            else {
+            } else {
                 orgAccountFundingDetailReportEntry.setFinancialSubObjectCode(appointmentFundingEntry.getFinancialSubObjectCode());
             }
 
@@ -290,8 +281,7 @@ public class BudgetConstructionAccountFundingDetailReportServiceImpl implements 
 
         if (appointmentFundingEntry.isAppointmentFundingDeleteIndicator()) {
             orgAccountFundingDetailReportEntry.setDeleteBox(BCConstants.Report.DELETE_MARK);
-        }
-        else {
+        } else {
             orgAccountFundingDetailReportEntry.setDeleteBox(BCConstants.Report.BLANK);
         }
     }
@@ -332,7 +322,7 @@ public class BudgetConstructionAccountFundingDetailReportServiceImpl implements 
      * builds report total
      *
      * @param BudgetConstructionObjectDump bcod
-     * @param List reportTotalList
+     * @param List                         reportTotalList
      */
     protected Collection<BudgetConstructionOrgAccountFundingDetailReportTotal> calculateObjectTotal(Map appointmentFundingEntireMap, List<BudgetConstructionObjectDump> listForCalculateTotalObject) {
         Integer totalObjectPositionCsfAmount = new Integer(0);

@@ -1,26 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.document.service;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
 import org.apache.log4j.Logger;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.businessobject.AccountsReceivableDocumentHeader;
 import org.kuali.kfs.module.ar.businessobject.CashControlDetail;
@@ -32,12 +32,13 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.service.DocumentService;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class CashControlDocumentServiceTest extends KualiTestBase {
-    private static final Logger LOG = org.apache.log4j.Logger.getLogger(CashControlDocumentServiceTest.class);;
+    private static final Logger LOG = org.apache.log4j.Logger.getLogger(CashControlDocumentServiceTest.class);
+    ;
 
     protected static final String PROCESSING_CHART_CODE = "UA";
     protected static final String PROCESSING_ORG_CODE = "AR";
@@ -93,9 +94,8 @@ public class CashControlDocumentServiceTest extends KualiTestBase {
     protected CashControlDocument createCashControlDocumentWithOneDetail() {
         CashControlDocument cashControlDocument;
         try {
-            cashControlDocument = (CashControlDocument)documentService.getNewDocument(dataDictionaryService.getDocumentTypeNameByClass(CashControlDocument.class));
-        }
-        catch (Exception e) {
+            cashControlDocument = (CashControlDocument) documentService.getNewDocument(dataDictionaryService.getDocumentTypeNameByClass(CashControlDocument.class));
+        } catch (Exception e) {
             LOG.error("A Exception was thrown while trying to initiate a new CashControl document.", e);
             throw new RuntimeException("A Exception was thrown while trying to initiate a new CashControl document.", e);
         }
@@ -106,8 +106,7 @@ public class CashControlDocumentServiceTest extends KualiTestBase {
         AccountsReceivableDocumentHeader arDocHeader;
         try {
             arDocHeader = arDocHeaderService.getNewAccountsReceivableDocumentHeaderForCurrentUser();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("An Exception was thrown while trying to create a new AccountsReceivableDocumentHeader.", e);
             throw new RuntimeException("An Exception was thrown while trying to create a new AccountsReceivableDocumentHeader.", e);
         }
@@ -124,8 +123,7 @@ public class CashControlDocumentServiceTest extends KualiTestBase {
         //  add it to the document
         try {
             service.addNewCashControlDetail("Test Document", cashControlDocument, detail);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("A Exception was thrown while trying to create a new CashControl detail.", e);
             throw new RuntimeException("A Exception was thrown while trying to create a new CashControl detail.", e);
         }

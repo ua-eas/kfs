@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -20,9 +20,6 @@ package org.kuali.kfs.kns.util;
 
 /**
  * KRA Audit Error class.
- * 
- * 
- *
  */
 public class AuditError {
 
@@ -45,7 +42,7 @@ public class AuditError {
 
     /**
      * Gets the errorKey attribute.
-     * 
+     *
      * @return Returns the errorKey.
      */
     public String getErrorKey() {
@@ -54,7 +51,7 @@ public class AuditError {
 
     /**
      * Sets the errorKey attribute value.
-     * 
+     *
      * @param errorKey The errorKey to set.
      */
     public void setErrorKey(String errorKey) {
@@ -63,7 +60,7 @@ public class AuditError {
 
     /**
      * Gets the link attribute.
-     * 
+     *
      * @return Returns the link.
      */
     public String getLink() {
@@ -72,7 +69,7 @@ public class AuditError {
 
     /**
      * Sets the link attribute value.
-     * 
+     *
      * @param link The link to set.
      */
     public void setLink(String link) {
@@ -81,7 +78,7 @@ public class AuditError {
 
     /**
      * Gets the key attribute.
-     * 
+     *
      * @return Returns the key.
      */
     public String getMessageKey() {
@@ -90,7 +87,7 @@ public class AuditError {
 
     /**
      * Sets the key attribute value.
-     * 
+     *
      * @param key The key to set.
      */
     public void setMessageKey(String messageKey) {
@@ -99,7 +96,7 @@ public class AuditError {
 
     /**
      * Gets the params attribute.
-     * 
+     *
      * @return Returns the params.
      */
     public String[] getParams() {
@@ -108,7 +105,7 @@ public class AuditError {
 
     /**
      * Sets the params attribute value.
-     * 
+     *
      * @param params The params to set.
      */
     public void setParams(String[] params) {

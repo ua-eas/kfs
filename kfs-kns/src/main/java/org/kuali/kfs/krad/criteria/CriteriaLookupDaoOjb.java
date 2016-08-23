@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -92,11 +92,14 @@ public class CriteriaLookupDaoOjb extends PlatformAwareDaoBaseOjb implements Cri
                 return forRowResults(queryClass, criteria, parent, criteria.getCountFlag(), customizer.getResultTransform());
             case INCLUDE:
                 return forRowResults(queryClass, criteria, parent, criteria.getCountFlag(), customizer.getResultTransform());
-            default: throw new UnsupportedCountFlagException(criteria.getCountFlag());
+            default:
+                throw new UnsupportedCountFlagException(criteria.getCountFlag());
         }
     }
 
-    /** gets results where the actual rows are requested. */
+    /**
+     * gets results where the actual rows are requested.
+     */
     private <T> GenericQueryResults<T> forRowResults(final Class<T> queryClass, final QueryByCriteria criteria, final Criteria ojbCriteria, CountFlag flag, LookupCustomizer.Transform<T, T> transform) {
         final Query ojbQuery = QueryFactory.newQuery(queryClass, ojbCriteria);
         final GenericQueryResults.Builder<T> results = GenericQueryResults.Builder.<T>create();
@@ -136,7 +139,9 @@ public class CriteriaLookupDaoOjb extends PlatformAwareDaoBaseOjb implements Cri
         return list;
     }
 
-    /** gets results where only the count is requested. */
+    /**
+     * gets results where only the count is requested.
+     */
     private <T> GenericQueryResults<T> forCountOnly(final Class<T> queryClass, final QueryByCriteria criteria, final Criteria ojbCriteria) {
         final Query ojbQuery = QueryFactory.newQuery(queryClass, ojbCriteria);
         final GenericQueryResults.Builder<T> results = GenericQueryResults.Builder.<T>create();
@@ -145,7 +150,9 @@ public class CriteriaLookupDaoOjb extends PlatformAwareDaoBaseOjb implements Cri
         return results.build();
     }
 
-    /** adds a predicate to a Criteria.*/
+    /**
+     * adds a predicate to a Criteria.
+     */
     private void addPredicate(Predicate p, Criteria parent, LookupCustomizer.Transform<Predicate, Predicate> transform) {
         p = transform.apply(p);
 
@@ -169,7 +176,9 @@ public class CriteriaLookupDaoOjb extends PlatformAwareDaoBaseOjb implements Cri
         }
     }
 
-    /** adds a single valued predicate to a Criteria. */
+    /**
+     * adds a single valued predicate to a Criteria.
+     */
     private void addSingleValuePredicate(SingleValuedPredicate p, Criteria parent) {
         final Object value = getVal(p.getValue());
         final String pp = p.getPropertyPath();
@@ -199,7 +208,9 @@ public class CriteriaLookupDaoOjb extends PlatformAwareDaoBaseOjb implements Cri
         }
     }
 
-    /** adds a multi valued predicate to a Criteria. */
+    /**
+     * adds a multi valued predicate to a Criteria.
+     */
     private void addMultiValuePredicate(MultiValuedPredicate p, Criteria parent) {
         final String pp = p.getPropertyPath();
         if (p instanceof InPredicate) {
@@ -219,8 +230,10 @@ public class CriteriaLookupDaoOjb extends PlatformAwareDaoBaseOjb implements Cri
         }
     }
 
-    /** adds a composite predicate to a Criteria. */
-    private void addCompositePredicate(final CompositePredicate p, final Criteria parent,  LookupCustomizer.Transform<Predicate, Predicate> transform) {
+    /**
+     * adds a composite predicate to a Criteria.
+     */
+    private void addCompositePredicate(final CompositePredicate p, final Criteria parent, LookupCustomizer.Transform<Predicate, Predicate> transform) {
         for (Predicate ip : p.getPredicates()) {
             final Criteria inner = new Criteria();
             addPredicate(ip, inner, transform);
@@ -273,14 +286,18 @@ public class CriteriaLookupDaoOjb extends PlatformAwareDaoBaseOjb implements Cri
         return new StringBuilder(getUpperFunction()).append("(").append(pp).append(")").toString();
     }
 
-    /** this is a fatal error since this implementation should support all known predicates. */
+    /**
+     * this is a fatal error since this implementation should support all known predicates.
+     */
     private static class UnsupportedPredicateException extends RuntimeException {
         private UnsupportedPredicateException(Predicate predicate) {
             super("Unsupported predicate [" + String.valueOf(predicate) + "]");
         }
     }
 
-    /** this is a fatal error since this implementation should support all known count flags. */
+    /**
+     * this is a fatal error since this implementation should support all known count flags.
+     */
     private static class UnsupportedCountFlagException extends RuntimeException {
         private UnsupportedCountFlagException(CountFlag flag) {
             super("Unsupported predicate [" + String.valueOf(flag) + "]");

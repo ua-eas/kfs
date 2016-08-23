@@ -1,28 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
-import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DictionaryValidationService;
+import org.kuali.kfs.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants.PerDiemType;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
@@ -34,12 +36,10 @@ import org.kuali.kfs.module.tem.document.TravelDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.util.KfsDateUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DictionaryValidationService;
-import org.kuali.kfs.krad.util.ErrorMessage;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.List;
 
 public abstract class TemDocumentExpenseLineValidation extends GenericValidation {
     protected boolean warningOnly = true;
@@ -61,24 +61,19 @@ public abstract class TemDocumentExpenseLineValidation extends GenericValidation
         // Check to see if the same expense type is been entered in PerDiem
         if (actualExpense.isMileage() && isPerDiemMileageEntered(actualExpense.getExpenseDate(), document.getPerDiemExpenses())) {
             perDiem = PerDiemType.mileage;
-        }
-        else if (actualExpense.isLodging() && isPerDiemLodgingEntered(actualExpense.getExpenseDate(), document.getPerDiemExpenses())) {
+        } else if (actualExpense.isLodging() && isPerDiemLodgingEntered(actualExpense.getExpenseDate(), document.getPerDiemExpenses())) {
             perDiem = PerDiemType.lodging;
-        }
-        else if (actualExpense.isIncidental() && isPerDiemIncidentalEntered(actualExpense.getExpenseDate(), document.getPerDiemExpenses())) {
+        } else if (actualExpense.isIncidental() && isPerDiemIncidentalEntered(actualExpense.getExpenseDate(), document.getPerDiemExpenses())) {
             perDiem = PerDiemType.incidentals;
-        }
-        else if (actualExpense.isBreakfast() && isPerDiemBreakfastEntered(actualExpense.getExpenseDate(), document.getPerDiemExpenses())) {
+        } else if (actualExpense.isBreakfast() && isPerDiemBreakfastEntered(actualExpense.getExpenseDate(), document.getPerDiemExpenses())) {
             perDiem = PerDiemType.breakfast;
-        }
-        else if (actualExpense.isLunch() && isPerDiemLunchEntered(actualExpense.getExpenseDate(), document.getPerDiemExpenses())) {
+        } else if (actualExpense.isLunch() && isPerDiemLunchEntered(actualExpense.getExpenseDate(), document.getPerDiemExpenses())) {
             perDiem = PerDiemType.lunch;
-        }
-        else if (actualExpense.isDinner() && isPerDiemDinnerEntered(actualExpense.getExpenseDate(), document.getPerDiemExpenses())) {
+        } else if (actualExpense.isDinner() && isPerDiemDinnerEntered(actualExpense.getExpenseDate(), document.getPerDiemExpenses())) {
             perDiem = PerDiemType.dinner;
         }
 
-        if (perDiem != null){
+        if (perDiem != null) {
             success &= addPerDiemError(perDiem, isWarningOnly());
         }
 
@@ -88,7 +83,7 @@ public abstract class TemDocumentExpenseLineValidation extends GenericValidation
     /**
      * Adds a per diem error
      *
-     * @param perDiem the type of the per diem to error about
+     * @param perDiem     the type of the per diem to error about
      * @param warningOnly whether error should be a true error or a warning only
      * @return true if rule suceeded, false otherwise
      */
@@ -129,7 +124,7 @@ public abstract class TemDocumentExpenseLineValidation extends GenericValidation
     protected boolean isPerDiemMealsEntered(java.sql.Date expenseDate, List<PerDiemExpense> perDiemExpenses) {
         for (PerDiemExpense perDiemExpenseLine : perDiemExpenses) {
             if (KfsDateUtils.isSameDay(perDiemExpenseLine.getMileageDate(), expenseDate) && ObjectUtils.isNotNull(perDiemExpenseLine.getMealsAndIncidentals()) &&
-                    (perDiemExpenseLine.getMealsAndIncidentals().isGreaterThan(KualiDecimal.ZERO) ||
+                (perDiemExpenseLine.getMealsAndIncidentals().isGreaterThan(KualiDecimal.ZERO) ||
                     perDiemExpenseLine.getMealsTotal().isGreaterThan(KualiDecimal.ZERO))) {
                 return true;
             }
@@ -146,7 +141,7 @@ public abstract class TemDocumentExpenseLineValidation extends GenericValidation
     protected boolean isPerDiemLodgingEntered(java.sql.Date expenseDate, List<PerDiemExpense> perDiemExpenses) {
         for (PerDiemExpense perDiemExpenseLine : perDiemExpenses) {
             if (KfsDateUtils.isSameDay(perDiemExpenseLine.getMileageDate(), expenseDate) && ObjectUtils.isNotNull(perDiemExpenseLine.getLodgingTotal())
-                    && perDiemExpenseLine.getLodgingTotal().isGreaterThan(KualiDecimal.ZERO)) {
+                && perDiemExpenseLine.getLodgingTotal().isGreaterThan(KualiDecimal.ZERO)) {
                 return true;
             }
         }
@@ -170,7 +165,8 @@ public abstract class TemDocumentExpenseLineValidation extends GenericValidation
 
     /**
      * Loops through given per diem expenses to see if the per diem associated with the given expense date has a breakfast amount added
-     * @param expenseDate the date of the actual expense we're validating
+     *
+     * @param expenseDate     the date of the actual expense we're validating
      * @param perDiemExpenses the per diem expenses associated with the document we're validating
      * @return true if breakfast is added; false otherwise
      */
@@ -185,7 +181,8 @@ public abstract class TemDocumentExpenseLineValidation extends GenericValidation
 
     /**
      * Loops through given per diem expenses to see if the per diem associated with the given expense date has a lunch amount added
-     * @param expenseDate the date of the actual expense we're validating
+     *
+     * @param expenseDate     the date of the actual expense we're validating
      * @param perDiemExpenses the per diem expenses associated with the document we're validating
      * @return true if lunch is added; false otherwise
      */
@@ -200,7 +197,8 @@ public abstract class TemDocumentExpenseLineValidation extends GenericValidation
 
     /**
      * Loops through given per diem expenses to see if the per diem associated with the given expense date has a dinner amount added
-     * @param expenseDate the date of the actual expense we're validating
+     *
+     * @param expenseDate     the date of the actual expense we're validating
      * @param perDiemExpenses the per diem expenses associated with the document we're validating
      * @return true if dinner is added; false otherwise
      */
@@ -215,7 +213,7 @@ public abstract class TemDocumentExpenseLineValidation extends GenericValidation
 
     /**
      * This method validated following rules
-     *
+     * <p>
      * 1.Raises warning if note is not entered
      *
      * @param actualExpense
@@ -229,11 +227,11 @@ public abstract class TemDocumentExpenseLineValidation extends GenericValidation
         if (actualExpense.isAirfare() && StringUtils.isEmpty(actualExpense.getDescription())) {
             boolean justificationAdded = false;
 
-            for ( TemExpense expenseDetail : actualExpense.getExpenseDetails()) {
+            for (TemExpense expenseDetail : actualExpense.getExpenseDetails()) {
                 justificationAdded = StringUtils.isEmpty(expenseDetail.getDescription()) ? false : true;
             }
 
-            if (!message.containsMessageKey(TemPropertyConstants.TEM_ACTUAL_EXPENSE_NOTCE) && !justificationAdded){
+            if (!message.containsMessageKey(TemPropertyConstants.TEM_ACTUAL_EXPENSE_NOTCE) && !justificationAdded) {
                 if (isWarningOnly()) {
                     message.putWarning(TemPropertyConstants.TEM_ACTUAL_EXPENSE_NOTCE, TemKeyConstants.WARNING_NOTES_JUSTIFICATION);
                 } else {
@@ -249,10 +247,11 @@ public abstract class TemDocumentExpenseLineValidation extends GenericValidation
 
     /**
      * Removes any warnings associated with the given property name
+     *
      * @param propertyName the property name to remove warning messages for
      */
     protected void removeWarningsForProperty(String propertyName) {
-        final String fullPropertyName = StringUtils.join(GlobalVariables.getMessageMap().getErrorPath(), ".")+"."+propertyName;
+        final String fullPropertyName = StringUtils.join(GlobalVariables.getMessageMap().getErrorPath(), ".") + "." + propertyName;
         List<ErrorMessage> warningMessages = GlobalVariables.getMessageMap().getWarningMessagesForProperty(fullPropertyName);
         if (warningMessages != null && !warningMessages.isEmpty()) {
             GlobalVariables.getMessageMap().removeAllWarningMessagesForProperty(fullPropertyName);
@@ -261,10 +260,10 @@ public abstract class TemDocumentExpenseLineValidation extends GenericValidation
 
     /**
      * This method validates following rules
-     *
-     *  1.If the Approval Required flag = "Y" for the rental car type, the document routes to the Special Request approver routing.
-     *  Display a warning, "Enter justification in the Notes field". (This is under Rental Car Specific Rules)
-     *
+     * <p>
+     * 1.If the Approval Required flag = "Y" for the rental car type, the document routes to the Special Request approver routing.
+     * Display a warning, "Enter justification in the Notes field". (This is under Rental Car Specific Rules)
+     * <p>
      * No warning if there is already an error
      *
      * @param expenseDetail
@@ -279,10 +278,10 @@ public abstract class TemDocumentExpenseLineValidation extends GenericValidation
         if (ObjectUtils.isNotNull(expense.getExpenseTypeObjectCode()) && expense.getExpenseTypeObjectCode().isSpecialRequestRequired()) {
             if (StringUtils.isBlank(expense.getDescription())) {
                 boolean justificationAdded = false;
-                for ( TemExpense expenseDetail : expense.getExpenseDetails()) {
+                for (TemExpense expenseDetail : expense.getExpenseDetails()) {
                     justificationAdded = StringUtils.isEmpty(expenseDetail.getDescription()) ? false : true;
                 }
-                if (!message.containsMessageKey(TemPropertyConstants.TEM_ACTUAL_EXPENSE_NOTCE) && !justificationAdded){
+                if (!message.containsMessageKey(TemPropertyConstants.TEM_ACTUAL_EXPENSE_NOTCE) && !justificationAdded) {
                     if (isWarningOnly()) {
                         message.putWarning(TemPropertyConstants.TEM_ACTUAL_EXPENSE_NOTCE, TemKeyConstants.WARNING_NOTES_JUSTIFICATION);
                     } else {
@@ -321,7 +320,6 @@ public abstract class TemDocumentExpenseLineValidation extends GenericValidation
     }
 
     /**
-     *
      * @return
      */
     public final DictionaryValidationService getDictionaryValidationService() {

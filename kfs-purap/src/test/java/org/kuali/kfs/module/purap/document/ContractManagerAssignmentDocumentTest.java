@@ -1,30 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.jgerhart;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
-import static org.kuali.kfs.sys.fixture.UserNameFixture.sterner;
-
-import java.util.List;
-
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.businessobject.ContractManagerAssignmentDetail;
 import org.kuali.kfs.module.purap.fixture.ContractManagerAssignmentDocumentFixture;
@@ -35,10 +32,13 @@ import org.kuali.kfs.sys.document.AccountingDocumentTestUtils;
 import org.kuali.kfs.sys.document.workflow.WorkflowTestUtils;
 import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.List;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.jgerhart;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
+import static org.kuali.kfs.sys.fixture.UserNameFixture.sterner;
 
 /**
  * This class is used to test create and route populated Assign Contract Manager Documents.
@@ -106,16 +106,15 @@ public class ContractManagerAssignmentDocumentTest extends KualiTestBase {
     /**
      * Helper method to route the document.
      *
-     * @param document                 The assign contract manager document to be routed.
-     * @param annotation               The annotation String.
-     * @param documentService          The service to use to route the document.
+     * @param document        The assign contract manager document to be routed.
+     * @param annotation      The annotation String.
+     * @param documentService The service to use to route the document.
      * @throws WorkflowException
      */
     private void routeDocument(Document document, String annotation, DocumentService documentService) throws WorkflowException {
         try {
             documentService.routeDocument(document, annotation, null);
-        }
-        catch (ValidationException e) {
+        } catch (ValidationException e) {
             // If the business rule evaluation fails then give us more info for debugging this test.
             fail(e.getMessage() + ", " + GlobalVariables.getMessageMap());
         }
@@ -124,7 +123,7 @@ public class ContractManagerAssignmentDocumentTest extends KualiTestBase {
     /**
      * Helper method to create a new valid ContractManagerAssignmentDocument.
      *
-     * @return            The ContractManagerAssignmentDocument created by this method.
+     * @return The ContractManagerAssignmentDocument created by this method.
      * @throws Exception
      */
     private ContractManagerAssignmentDocument buildSimpleDocument() throws Exception {
@@ -147,7 +146,7 @@ public class ContractManagerAssignmentDocumentTest extends KualiTestBase {
     /**
      * Helper method to create a new valid ContractManagerAssignmentDocument.
      *
-     * @return            The ContractManagerAssignmentDocument created by this method.
+     * @return The ContractManagerAssignmentDocument created by this method.
      * @throws Exception
      */
     private ContractManagerAssignmentDocument buildSimpleDocument2() throws Exception {
@@ -170,7 +169,7 @@ public class ContractManagerAssignmentDocumentTest extends KualiTestBase {
      * The requisition document will be used to create the ContractManagerAssignmentDocument.
      *
      * @param requisitionDocument The RequisitionDocument to be routed until AwaitingContractManager status.
-     * @return                    The RequisitionDocument that was routed until AwaitingContractManager status.
+     * @return The RequisitionDocument that was routed until AwaitingContractManager status.
      * @throws Exception
      */
     private RequisitionDocument routeRequisitionUntilAwaitingContractManager(RequisitionDocument requisitionDocument) throws Exception {
@@ -204,7 +203,7 @@ public class ContractManagerAssignmentDocumentTest extends KualiTestBase {
      * The requisition document will be used to create the ContractManagerAssignmentDocument.
      *
      * @param requisitionDocument The RequisitionDocument to be routed until AwaitingContractManager status.
-     * @return                    The RequisitionDocument that was routed until AwaitingContractManager status.
+     * @return The RequisitionDocument that was routed until AwaitingContractManager status.
      * @throws Exception
      */
     private RequisitionDocument routeRequisitionUntilAwaitingContractManager2(RequisitionDocument requisitionDocument) throws Exception {

@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.ar.batch.service;
 
-import java.util.Collection;
-
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
+
+import java.util.Collection;
 
 /**
  * Methods use to create Contracts & Grants Invoice Documents in Batch
@@ -30,7 +30,7 @@ public interface ContractsGrantsInvoiceBatchCreateDocumentService {
      * Retrieves and validates awards which should have invoice documents created for them, and then calls {@link #createCGInvoiceDocumentsByAwards(Collection, String))
      * to create the Invoice documents and send them for processing.
      *
-     * @param validationErrorOutputFileName name of file to write validation errors out to
+     * @param validationErrorOutputFileName      name of file to write validation errors out to
      * @param invoiceDocumentErrorOutputFileName name of file to write invoice creation errors out to
      */
     public void processBatchInvoiceDocumentCreation(String validationErrorOutputFileName, String invoiceDocumentErrorOutputFileName);
@@ -38,7 +38,7 @@ public interface ContractsGrantsInvoiceBatchCreateDocumentService {
     /**
      * This method is called by the batch CINV creation process create Contracts & Grants Invoice Documents by Awards.
      *
-     * @param awards Collection of Awards used to create Contracts & Grants Invoice Documents
+     * @param awards        Collection of Awards used to create Contracts & Grants Invoice Documents
      * @param errOutputFile The name of the file recording unqualified awards with reason stated.
      */
     public void createCGInvoiceDocumentsByAwards(Collection<ContractsAndGrantsBillingAward> awards, String errOutputFile);

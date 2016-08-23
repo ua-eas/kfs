@@ -1,30 +1,25 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document.web.struts;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.businessobject.DisbursementVoucherNonEmployeeExpense;
 import org.kuali.kfs.fp.businessobject.DisbursementVoucherPayeeDetail;
 import org.kuali.kfs.fp.businessobject.DisbursementVoucherPreConferenceRegistrant;
@@ -32,6 +27,10 @@ import org.kuali.kfs.fp.businessobject.TravelPerDiem;
 import org.kuali.kfs.fp.document.DisbursementVoucherConstants;
 import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
 import org.kuali.kfs.fp.document.service.DisbursementVoucherCoverSheetService;
+import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
+import org.kuali.kfs.krad.service.KeyValuesService;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.KfsAuthorizationConstants.DisbursementVoucherEditMode;
@@ -40,11 +39,11 @@ import org.kuali.kfs.sys.document.service.PaymentSourceHelperService;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase;
 import org.kuali.rice.core.web.format.SimpleBooleanFormatter;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
-import org.kuali.kfs.kns.web.ui.ExtraButton;
-import org.kuali.kfs.krad.service.KeyValuesService;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class is the action form for the Disbursement Voucher.
@@ -301,9 +300,10 @@ public class DisbursementVoucherForm extends KualiAccountingDocumentFormBase {
     }
 
     public DisbursementVoucherDocument getDisbursementVoucherDocument() {
-       return (DisbursementVoucherDocument) getDocument();
+        return (DisbursementVoucherDocument) getDocument();
 
-       }
+    }
+
     /**
      * @see org.kuali.rice.kns.web.struts.form.KualiTransactionalDocumentFormBase#populate(javax.servlet.http.HttpServletRequest)
      */
@@ -312,13 +312,12 @@ public class DisbursementVoucherForm extends KualiAccountingDocumentFormBase {
         super.populate(request);
         DisbursementVoucherPayeeDetail payeeDetail = getDisbursementVoucherDocument().getDvPayeeDetail();
         SpringContext.getBean(BusinessObjectDictionaryService.class).performForceUppercase(payeeDetail);
-        }
-
-
+    }
 
 
     /**
      * Gets the tempVendorHeaderGeneratedIdentifier attribute.
+     *
      * @return Returns the tempVendorHeaderGeneratedIdentifier.
      */
     public String getTempVendorHeaderGeneratedIdentifier() {
@@ -327,6 +326,7 @@ public class DisbursementVoucherForm extends KualiAccountingDocumentFormBase {
 
     /**
      * Sets the tempVendorHeaderGeneratedIdentifier attribute value.
+     *
      * @param tempVendorHeaderGeneratedIdentifier The tempVendorHeaderGeneratedIdentifier to set.
      */
     public void setTempVendorHeaderGeneratedIdentifier(String tempVendorHeaderGeneratedIdentifier) {
@@ -335,6 +335,7 @@ public class DisbursementVoucherForm extends KualiAccountingDocumentFormBase {
 
     /**
      * Gets the tempVendorDetailAssignedIdentifier attribute.
+     *
      * @return Returns the tempVendorDetailAssignedIdentifier.
      */
     public String getTempVendorDetailAssignedIdentifier() {
@@ -343,6 +344,7 @@ public class DisbursementVoucherForm extends KualiAccountingDocumentFormBase {
 
     /**
      * Sets the tempVendorDetailAssignedIdentifier attribute value.
+     *
      * @param tempVendorDetailAssignedIdentifier The tempVendorDetailAssignedIdentifier to set.
      */
     public void setTempVendorDetailAssignedIdentifier(String tempVendorDetailAssignedIdentifier) {
@@ -351,6 +353,7 @@ public class DisbursementVoucherForm extends KualiAccountingDocumentFormBase {
 
     /**
      * Gets the tempVendorAddressGeneratedIdentifier attribute.
+     *
      * @return Returns the tempVendorAddressGeneratedIdentifier.
      */
     public String getTempVendorAddressGeneratedIdentifier() {
@@ -359,6 +362,7 @@ public class DisbursementVoucherForm extends KualiAccountingDocumentFormBase {
 
     /**
      * Sets the tempVendorAddressGeneratedIdentifier attribute value.
+     *
      * @param tempVendorAddressGeneratedIdentifier The tempVendorAddressGeneratedIdentifier to set.
      */
     public void setTempVendorAddressGeneratedIdentifier(String tempVendorAddressGeneratedIdentifier) {
@@ -366,9 +370,9 @@ public class DisbursementVoucherForm extends KualiAccountingDocumentFormBase {
     }
 
 
-
     /**
      * Gets the oldPayeeType attribute.
+     *
      * @return Returns the oldPayeeType.
      */
     public String getOldPayeeType() {
@@ -377,6 +381,7 @@ public class DisbursementVoucherForm extends KualiAccountingDocumentFormBase {
 
     /**
      * Sets the oldPayeeType attribute value.
+     *
      * @param oldPayeeType The oldPayeeType to set.
      */
     public void setOldPayeeType(String oldPayeeType) {
@@ -409,7 +414,7 @@ public class DisbursementVoucherForm extends KualiAccountingDocumentFormBase {
 
     /**
      * @see org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase#shouldMethodToCallParameterBeUsed(java.lang.String,
-     *      java.lang.String, javax.servlet.http.HttpServletRequest)
+     * java.lang.String, javax.servlet.http.HttpServletRequest)
      */
     @Override
     public boolean shouldMethodToCallParameterBeUsed(String methodToCallParameterName, String methodToCallParameterValue, HttpServletRequest request) {
@@ -435,6 +440,7 @@ public class DisbursementVoucherForm extends KualiAccountingDocumentFormBase {
 
     /**
      * Gets the canExport attribute.
+     *
      * @return Returns the canExport.
      */
     public boolean isCanExport() {
@@ -443,6 +449,7 @@ public class DisbursementVoucherForm extends KualiAccountingDocumentFormBase {
 
     /**
      * Sets the canExport attribute value.
+     *
      * @param canExport The canExport to set.
      */
     public void setCanExport(boolean canExport) {
@@ -452,7 +459,7 @@ public class DisbursementVoucherForm extends KualiAccountingDocumentFormBase {
     /**
      * RQ_AP_0760 : Ability to view disbursement information on the
      * Disbursement Voucher Document.
-     *
+     * <p>
      * This method composes the url to be used when we want to look up
      * the payment details from the disbursementInfo.tag.
      *
@@ -465,6 +472,7 @@ public class DisbursementVoucherForm extends KualiAccountingDocumentFormBase {
 
     /**
      * Adds ExtractNow as an extra button if the ExtractNowAction is allowed.
+     *
      * @see org.kuali.rice.kns.web.struts.form.KualiForm#getExtraButtons()
      */
     @Override
@@ -479,7 +487,7 @@ public class DisbursementVoucherForm extends KualiAccountingDocumentFormBase {
     /**
      * Creates ExtractNow as an extra button.
      */
-    protected ExtraButton createExtractNowButton(){
+    protected ExtraButton createExtractNowButton() {
         ExtraButton button = new ExtraButton();
         button.setExtraButtonProperty("methodToCall.extractNow");
         button.setExtraButtonSource("${" + KFSConstants.EXTERNALIZABLE_IMAGES_URL_KEY + "}buttonsmall_extractnow.gif");

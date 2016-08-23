@@ -1,34 +1,36 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document.service.impl;
 
-import java.math.BigDecimal;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.bo.AdHocRoutePerson;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.exception.InfrastructureException;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.NoteService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapConstants.PurchaseOrderDocTypes;
 import org.kuali.kfs.module.purap.PurapConstants.PurchaseOrderStatuses;
@@ -57,19 +59,17 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.service.FinancialSystemDocumentService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.bo.AdHocRoutePerson;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.exception.InfrastructureException;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.NoteService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Transactional
 public class ReceivingServiceImpl implements ReceivingService {
@@ -92,11 +92,11 @@ public class ReceivingServiceImpl implements ReceivingService {
         this.receivingDao = receivingDao;
     }
 
-    public void setDocumentService(DocumentService documentService){
+    public void setDocumentService(DocumentService documentService) {
         this.documentService = documentService;
     }
 
-    public void setWorkflowDocumentService(WorkflowDocumentService workflowDocumentService){
+    public void setWorkflowDocumentService(WorkflowDocumentService workflowDocumentService) {
         this.workflowDocumentService = workflowDocumentService;
     }
 
@@ -117,13 +117,12 @@ public class ReceivingServiceImpl implements ReceivingService {
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.purap.document.service.ReceivingService#populateReceivingLineFromPurchaseOrder(org.kuali.kfs.module.purap.document.LineItemReceivingDocument)
      */
     @Override
     public void populateReceivingLineFromPurchaseOrder(LineItemReceivingDocument rlDoc) {
 
-        if(rlDoc == null){
+        if (rlDoc == null) {
             rlDoc = new LineItemReceivingDocument();
         }
 
@@ -131,7 +130,7 @@ public class ReceivingServiceImpl implements ReceivingService {
         PurchaseOrderDocument poDoc = null;
         poDoc = purchaseOrderService.getCurrentPurchaseOrder(rlDoc.getPurchaseOrderIdentifier());
 
-        if(poDoc != null){
+        if (poDoc != null) {
             rlDoc.populateReceivingLineFromPurchaseOrder(poDoc);
         }
 
@@ -140,29 +139,27 @@ public class ReceivingServiceImpl implements ReceivingService {
     @Override
     public void populateCorrectionReceivingFromReceivingLine(CorrectionReceivingDocument rcDoc) {
 
-        if(rcDoc == null){
+        if (rcDoc == null) {
             rcDoc = new CorrectionReceivingDocument();
         }
 
         //retrieve receiving line by doc id
         LineItemReceivingDocument rlDoc = rcDoc.getLineItemReceivingDocument();
 
-        if(rlDoc != null){
+        if (rlDoc != null) {
             rcDoc.populateCorrectionReceivingFromReceivingLine(rlDoc);
         }
 
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.purap.document.service.ReceivingService#populateAndSaveLineItemReceivingDocument(org.kuali.kfs.module.purap.document.LineItemReceivingDocument)
      */
     @Override
     public void populateAndSaveLineItemReceivingDocument(LineItemReceivingDocument rlDoc) throws WorkflowException {
         try {
             documentService.saveDocument(rlDoc, AttributedContinuePurapEvent.class);
-        }
-        catch (WorkflowException we) {
+        } catch (WorkflowException we) {
             String errorMsg = "Error saving document # " + rlDoc.getDocumentHeader().getDocumentNumber() + " " + we.getMessage();
             //LOG.error(errorMsg, we);
             throw new RuntimeException(errorMsg, we);
@@ -173,12 +170,11 @@ public class ReceivingServiceImpl implements ReceivingService {
      * @see org.kuali.kfs.module.purap.document.service.ReceivingService#populateCorrectionReceivingDocument(org.kuali.kfs.module.purap.document.CorrectionReceivingDocument)
      */
     @Override
-    public void populateCorrectionReceivingDocument(CorrectionReceivingDocument rcDoc)  {
-            populateCorrectionReceivingFromReceivingLine(rcDoc);
+    public void populateCorrectionReceivingDocument(CorrectionReceivingDocument rcDoc) {
+        populateCorrectionReceivingFromReceivingLine(rcDoc);
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.purap.document.service.ReceivingService#canCreateLineItemReceivingDocument(java.lang.Integer, java.lang.String)
      */
     @Override
@@ -190,7 +186,6 @@ public class ReceivingServiceImpl implements ReceivingService {
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.purap.document.service.ReceivingService#canCreateLineItemReceivingDocument(org.kuali.kfs.module.purap.document.PurchaseOrderDocument)
      */
     @Override
@@ -211,18 +206,18 @@ public class ReceivingServiceImpl implements ReceivingService {
     }
 
     @Override
-    public boolean isPurchaseOrderActiveForLineItemReceivingDocumentCreation(Integer poId){
+    public boolean isPurchaseOrderActiveForLineItemReceivingDocumentCreation(Integer poId) {
         PurchaseOrderDocument po = purchaseOrderService.getCurrentPurchaseOrder(poId);
         return isPurchaseOrderValidForLineItemReceivingDocumentCreation(po);
     }
 
-    protected boolean isPurchaseOrderValidForLineItemReceivingDocumentCreation(PurchaseOrderDocument po){
+    protected boolean isPurchaseOrderValidForLineItemReceivingDocumentCreation(PurchaseOrderDocument po) {
         return po != null &&
-               ObjectUtils.isNotNull(po.getPurapDocumentIdentifier()) &&
-               po.isPurchaseOrderCurrentIndicator() &&
-                   (PurchaseOrderStatuses.APPDOC_OPEN.equals(po.getApplicationDocumentStatus()) ||
-                    PurchaseOrderStatuses.APPDOC_CLOSED.equals(po.getApplicationDocumentStatus()) ||
-                    PurchaseOrderStatuses.APPDOC_PAYMENT_HOLD.equals(po.getApplicationDocumentStatus()));
+            ObjectUtils.isNotNull(po.getPurapDocumentIdentifier()) &&
+            po.isPurchaseOrderCurrentIndicator() &&
+            (PurchaseOrderStatuses.APPDOC_OPEN.equals(po.getApplicationDocumentStatus()) ||
+                PurchaseOrderStatuses.APPDOC_CLOSED.equals(po.getApplicationDocumentStatus()) ||
+                PurchaseOrderStatuses.APPDOC_PAYMENT_HOLD.equals(po.getApplicationDocumentStatus()));
     }
 
     @Override
@@ -236,27 +231,27 @@ public class ReceivingServiceImpl implements ReceivingService {
         boolean canCreate = false;
         WorkflowDocument workflowDocument = null;
 
-        try{
+        try {
             workflowDocument = workflowDocumentService.loadWorkflowDocument(rl.getDocumentNumber(), GlobalVariables.getUserSession().getPerson());
-        }catch(WorkflowException we){
+        } catch (WorkflowException we) {
             throw new RuntimeException(we);
         }
 
-        if( workflowDocument.isFinal() &&
-            !isCorrectionReceivingDocumentInProcessForReceivingLine(rl.getDocumentNumber(), receivingCorrectionDocNumber)){
+        if (workflowDocument.isFinal() &&
+            !isCorrectionReceivingDocumentInProcessForReceivingLine(rl.getDocumentNumber(), receivingCorrectionDocNumber)) {
             canCreate = true;
         }
 
         return canCreate;
     }
 
-    protected boolean isLineItemReceivingDocumentInProcessForPurchaseOrder(Integer poId, String receivingDocumentNumber) throws RuntimeException{
+    protected boolean isLineItemReceivingDocumentInProcessForPurchaseOrder(Integer poId, String receivingDocumentNumber) throws RuntimeException {
         return !getLineItemReceivingDocumentNumbersInProcessForPurchaseOrder(poId, receivingDocumentNumber).isEmpty();
     }
 
     @Override
     public List<String> getLineItemReceivingDocumentNumbersInProcessForPurchaseOrder(Integer poId,
-                                                                                     String receivingDocumentNumber){
+                                                                                     String receivingDocumentNumber) {
 
         List<String> inProcessDocNumbers = new ArrayList<String>();
         List<String> docNumbers = receivingDao.getDocumentNumbersByPurchaseOrderId(poId);
@@ -264,16 +259,16 @@ public class ReceivingServiceImpl implements ReceivingService {
 
         for (String docNumber : docNumbers) {
 
-            try{
+            try {
                 workflowDocument = workflowDocumentService.loadWorkflowDocument(docNumber, GlobalVariables.getUserSession().getPerson());
-            }catch(WorkflowException we){
+            } catch (WorkflowException we) {
                 throw new RuntimeException(we);
             }
 
-            if(!(workflowDocument.isCanceled() ||
-                 workflowDocument.isException() ||
-                 workflowDocument.isFinal()) &&
-                 docNumber.equals(receivingDocumentNumber) == false ){
+            if (!(workflowDocument.isCanceled() ||
+                workflowDocument.isException() ||
+                workflowDocument.isFinal()) &&
+                docNumber.equals(receivingDocumentNumber) == false) {
                 inProcessDocNumbers.add(docNumber);
             }
         }
@@ -292,8 +287,7 @@ public class ReceivingServiceImpl implements ReceivingService {
 
             try {
                 workflowDocument = workflowDocumentService.loadWorkflowDocument(docNumber, GlobalVariables.getUserSession().getPerson());
-            }
-            catch (WorkflowException we) {
+            } catch (WorkflowException we) {
                 throw new RuntimeException(we);
             }
 
@@ -305,28 +299,26 @@ public class ReceivingServiceImpl implements ReceivingService {
         if (finalDocNumbers.size() > 0) {
             try {
                 List<LineItemReceivingDocument> docs = new ArrayList<LineItemReceivingDocument>();
-                for ( Document doc : documentService.getDocumentsByListOfDocumentHeaderIds(LineItemReceivingDocument.class, finalDocNumbers) ) {
-                    docs.add( (LineItemReceivingDocument) doc );
+                for (Document doc : documentService.getDocumentsByListOfDocumentHeaderIds(LineItemReceivingDocument.class, finalDocNumbers)) {
+                    docs.add((LineItemReceivingDocument) doc);
                 }
                 return docs;
-            }
-            catch (WorkflowException e) {
+            } catch (WorkflowException e) {
                 throw new InfrastructureException("unable to retrieve LineItemReceivingDocuments", e);
             }
-        }
-        else {
+        } else {
             return null;
         }
 
     }
 
-    protected boolean isCorrectionReceivingDocumentInProcessForPurchaseOrder(Integer poId, String receivingDocumentNumber) throws RuntimeException{
+    protected boolean isCorrectionReceivingDocumentInProcessForPurchaseOrder(Integer poId, String receivingDocumentNumber) throws RuntimeException {
         return !getCorrectionReceivingDocumentNumbersInProcessForPurchaseOrder(poId, receivingDocumentNumber).isEmpty();
     }
 
     @Override
     public List<String> getCorrectionReceivingDocumentNumbersInProcessForPurchaseOrder(Integer poId,
-                                                                                       String receivingDocumentNumber){
+                                                                                       String receivingDocumentNumber) {
 
         boolean isInProcess = false;
 
@@ -336,16 +328,16 @@ public class ReceivingServiceImpl implements ReceivingService {
 
         for (String docNumber : docNumbers) {
 
-            try{
+            try {
                 workflowDocument = workflowDocumentService.loadWorkflowDocument(docNumber, GlobalVariables.getUserSession().getPerson());
-            }catch(WorkflowException we){
+            } catch (WorkflowException we) {
                 throw new RuntimeException(we);
             }
 
-            if(!(workflowDocument.isCanceled() ||
-                 workflowDocument.isException() ||
-                 workflowDocument.isFinal()) &&
-                 docNumber.equals(receivingDocumentNumber) == false ){
+            if (!(workflowDocument.isCanceled() ||
+                workflowDocument.isException() ||
+                workflowDocument.isFinal()) &&
+                docNumber.equals(receivingDocumentNumber) == false) {
                 inProcessDocNumbers.add(docNumber);
             }
         }
@@ -354,7 +346,7 @@ public class ReceivingServiceImpl implements ReceivingService {
     }
 
 
-    protected boolean isCorrectionReceivingDocumentInProcessForReceivingLine(String receivingDocumentNumber, String receivingCorrectionDocNumber) throws RuntimeException{
+    protected boolean isCorrectionReceivingDocumentInProcessForReceivingLine(String receivingDocumentNumber, String receivingCorrectionDocNumber) throws RuntimeException {
 
         boolean isInProcess = false;
 
@@ -363,16 +355,16 @@ public class ReceivingServiceImpl implements ReceivingService {
 
         for (String docNumber : docNumbers) {
 
-            try{
+            try {
                 workflowDocument = workflowDocumentService.loadWorkflowDocument(docNumber, GlobalVariables.getUserSession().getPerson());
-            }catch(WorkflowException we){
+            } catch (WorkflowException we) {
                 throw new RuntimeException(we);
             }
 
-            if(!(workflowDocument.isCanceled() ||
-                 workflowDocument.isException() ||
-                 workflowDocument.isFinal()) &&
-                 docNumber.equals(receivingCorrectionDocNumber) == false ){
+            if (!(workflowDocument.isCanceled() ||
+                workflowDocument.isException() ||
+                workflowDocument.isFinal()) &&
+                docNumber.equals(receivingCorrectionDocNumber) == false) {
 
                 isInProcess = true;
                 break;
@@ -383,7 +375,6 @@ public class ReceivingServiceImpl implements ReceivingService {
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.purap.document.service.ReceivingService#receivingLineDuplicateMessages(org.kuali.kfs.module.purap.document.LineItemReceivingDocument)
      */
     @Override
@@ -395,39 +386,39 @@ public class ReceivingServiceImpl implements ReceivingService {
         List<String> docNumbers = null;
 
         //check vendor date for duplicates
-        if( rlDoc.getShipmentReceivedDate() != null ){
+        if (rlDoc.getShipmentReceivedDate() != null) {
             docNumbers = receivingDao.duplicateVendorDate(poId, rlDoc.getShipmentReceivedDate());
-            if( hasDuplicateEntry(docNumbers) ){
+            if (hasDuplicateEntry(docNumbers)) {
                 appendDuplicateMessage(currentMessage, PurapKeyConstants.MESSAGE_DUPLICATE_RECEIVING_LINE_VENDOR_DATE, rlDoc.getPurchaseOrderIdentifier());
             }
         }
 
         //check packing slip number for duplicates
-        if( !StringUtils.isEmpty(rlDoc.getShipmentPackingSlipNumber()) ){
+        if (!StringUtils.isEmpty(rlDoc.getShipmentPackingSlipNumber())) {
             docNumbers = receivingDao.duplicatePackingSlipNumber(poId, rlDoc.getShipmentPackingSlipNumber());
-            if( hasDuplicateEntry(docNumbers) ){
+            if (hasDuplicateEntry(docNumbers)) {
                 appendDuplicateMessage(currentMessage, PurapKeyConstants.MESSAGE_DUPLICATE_RECEIVING_LINE_PACKING_SLIP_NUMBER, rlDoc.getPurchaseOrderIdentifier());
             }
         }
 
         //check bill of lading number for duplicates
-        if( !StringUtils.isEmpty(rlDoc.getShipmentBillOfLadingNumber()) ){
+        if (!StringUtils.isEmpty(rlDoc.getShipmentBillOfLadingNumber())) {
             docNumbers = receivingDao.duplicateBillOfLadingNumber(poId, rlDoc.getShipmentBillOfLadingNumber());
-            if( hasDuplicateEntry(docNumbers) ){
+            if (hasDuplicateEntry(docNumbers)) {
                 appendDuplicateMessage(currentMessage, PurapKeyConstants.MESSAGE_DUPLICATE_RECEIVING_LINE_BILL_OF_LADING_NUMBER, rlDoc.getPurchaseOrderIdentifier());
             }
         }
 
-       //add message if one exists
-       if(currentMessage.length() > 0){
-           //add suffix
-           appendDuplicateMessage(currentMessage, PurapKeyConstants.MESSAGE_DUPLICATE_RECEIVING_LINE_SUFFIX, rlDoc.getPurchaseOrderIdentifier() );
+        //add message if one exists
+        if (currentMessage.length() > 0) {
+            //add suffix
+            appendDuplicateMessage(currentMessage, PurapKeyConstants.MESSAGE_DUPLICATE_RECEIVING_LINE_SUFFIX, rlDoc.getPurchaseOrderIdentifier());
 
-           //add msg to map
-           msgs.put(PurapConstants.LineItemReceivingDocumentStrings.DUPLICATE_RECEIVING_LINE_QUESTION, currentMessage.toString());
-       }
+            //add msg to map
+            msgs.put(PurapConstants.LineItemReceivingDocumentStrings.DUPLICATE_RECEIVING_LINE_QUESTION, currentMessage.toString());
+        }
 
-       return msgs;
+        return msgs;
     }
 
     /**
@@ -437,21 +428,21 @@ public class ReceivingServiceImpl implements ReceivingService {
      * @param docNumbers
      * @return
      */
-    protected boolean hasDuplicateEntry(List<String> docNumbers){
+    protected boolean hasDuplicateEntry(List<String> docNumbers) {
 
         boolean isDuplicate = false;
         WorkflowDocument workflowDocument = null;
 
         for (String docNumber : docNumbers) {
 
-            try{
+            try {
                 workflowDocument = workflowDocumentService.loadWorkflowDocument(docNumber, GlobalVariables.getUserSession().getPerson());
-            }catch(WorkflowException we){
+            } catch (WorkflowException we) {
                 throw new RuntimeException(we);
             }
 
             //if the doc number exists, and is in final status, consider this a dupe and return
-            if(workflowDocument.isFinal()){
+            if (workflowDocument.isFinal()) {
                 isDuplicate = true;
                 break;
             }
@@ -460,33 +451,34 @@ public class ReceivingServiceImpl implements ReceivingService {
         return isDuplicate;
 
     }
-    protected void appendDuplicateMessage(StringBuffer currentMessage, String duplicateMessageKey, Integer poId){
+
+    protected void appendDuplicateMessage(StringBuffer currentMessage, String duplicateMessageKey, Integer poId) {
 
         //append prefix if this is first call
-        if(currentMessage.length() == 0){
+        if (currentMessage.length() == 0) {
             String messageText = configurationService.getPropertyValueAsString(PurapKeyConstants.MESSAGE_DUPLICATE_RECEIVING_LINE_PREFIX);
-            String prefix = MessageFormat.format(messageText, poId.toString() );
+            String prefix = MessageFormat.format(messageText, poId.toString());
 
             currentMessage.append(prefix);
         }
 
         //append message
-        currentMessage.append( configurationService.getPropertyValueAsString(duplicateMessageKey) );
+        currentMessage.append(configurationService.getPropertyValueAsString(duplicateMessageKey));
     }
 
     @Override
-    public void completeCorrectionReceivingDocument(ReceivingDocument correctionDocument){
+    public void completeCorrectionReceivingDocument(ReceivingDocument correctionDocument) {
 
-        ReceivingDocument receivingDoc = ((CorrectionReceivingDocument)correctionDocument).getLineItemReceivingDocument();
+        ReceivingDocument receivingDoc = ((CorrectionReceivingDocument) correctionDocument).getLineItemReceivingDocument();
 
-        for (CorrectionReceivingItem correctionItem : (List<CorrectionReceivingItem>)correctionDocument.getItems()) {
-            if(!StringUtils.equalsIgnoreCase(correctionItem.getItemType().getItemTypeCode(),PurapConstants.ItemTypeCodes.ITEM_TYPE_UNORDERED_ITEM_CODE)) {
+        for (CorrectionReceivingItem correctionItem : (List<CorrectionReceivingItem>) correctionDocument.getItems()) {
+            if (!StringUtils.equalsIgnoreCase(correctionItem.getItemType().getItemTypeCode(), PurapConstants.ItemTypeCodes.ITEM_TYPE_UNORDERED_ITEM_CODE)) {
 
                 LineItemReceivingItem recItem = (LineItemReceivingItem) receivingDoc.getItem(correctionItem.getItemLineNumber().intValue() - 1);
                 List<PurchaseOrderItem> purchaseOrderItems = receivingDoc.getPurchaseOrderDocument().getItems();
                 PurchaseOrderItem poItem = purchaseOrderItems.get(correctionItem.getItemLineNumber().intValue() - 1);
 
-                if(ObjectUtils.isNotNull(recItem)) {
+                if (ObjectUtils.isNotNull(recItem)) {
                     recItem.setItemReceivedTotalQuantity(correctionItem.getItemReceivedTotalQuantity());
                     recItem.setItemReturnedTotalQuantity(correctionItem.getItemReturnedTotalQuantity());
                     recItem.setItemDamagedTotalQuantity(correctionItem.getItemDamagedTotalQuantity());
@@ -497,8 +489,8 @@ public class ReceivingServiceImpl implements ReceivingService {
     }
 
     /**
-     *
      * This method deletes unneeded items and updates the totals on the po and does any additional processing based on items i.e. FYI etc
+     *
      * @param receivingDocument receiving document
      */
     @Override
@@ -506,12 +498,12 @@ public class ReceivingServiceImpl implements ReceivingService {
 
         PurchaseOrderDocument poDoc = null;
 
-        if (receivingDocument instanceof LineItemReceivingDocument){
+        if (receivingDocument instanceof LineItemReceivingDocument) {
             // delete unentered items
             purapService.deleteUnenteredItems(receivingDocument);
             poDoc = receivingDocument.getPurchaseOrderDocument();
-        }else if (receivingDocument instanceof CorrectionReceivingDocument){
-            CorrectionReceivingDocument correctionDocument = (CorrectionReceivingDocument)receivingDocument;
+        } else if (receivingDocument instanceof CorrectionReceivingDocument) {
+            CorrectionReceivingDocument correctionDocument = (CorrectionReceivingDocument) receivingDocument;
             poDoc = purchaseOrderService.getCurrentPurchaseOrder(correctionDocument.getLineItemReceivingDocument().getPurchaseOrderIdentifier());
         }
 
@@ -529,27 +521,27 @@ public class ReceivingServiceImpl implements ReceivingService {
     }
 
     @Override
-    public void createNoteForReturnedAndDamagedItems(ReceivingDocument recDoc){
+    public void createNoteForReturnedAndDamagedItems(ReceivingDocument recDoc) {
 
-        for (ReceivingItem item : (List<ReceivingItem>)recDoc.getItems()){
-            if(!StringUtils.equalsIgnoreCase(item.getItemType().getItemTypeCode(),PurapConstants.ItemTypeCodes.ITEM_TYPE_UNORDERED_ITEM_CODE)) {
-                if (item.getItemReturnedTotalQuantity() != null && item.getItemReturnedTotalQuantity().isGreaterThan(KualiDecimal.ZERO)){
-                    try{
+        for (ReceivingItem item : (List<ReceivingItem>) recDoc.getItems()) {
+            if (!StringUtils.equalsIgnoreCase(item.getItemType().getItemTypeCode(), PurapConstants.ItemTypeCodes.ITEM_TYPE_UNORDERED_ITEM_CODE)) {
+                if (item.getItemReturnedTotalQuantity() != null && item.getItemReturnedTotalQuantity().isGreaterThan(KualiDecimal.ZERO)) {
+                    try {
                         String noteString = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(PurapKeyConstants.MESSAGE_RECEIVING_LINEITEM_RETURN_NOTE_TEXT);
                         noteString = item.getItemReturnedTotalQuantity().intValue() + " " + noteString + " " + item.getItemLineNumber();
                         addNoteToReceivingDocument(recDoc, noteString);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         String errorMsg = "Note Service Exception caught: " + e.getLocalizedMessage();
                         throw new RuntimeException(errorMsg, e);
                     }
                 }
 
-                if (item.getItemDamagedTotalQuantity() != null && item.getItemDamagedTotalQuantity().isGreaterThan(KualiDecimal.ZERO)){
-                    try{
+                if (item.getItemDamagedTotalQuantity() != null && item.getItemDamagedTotalQuantity().isGreaterThan(KualiDecimal.ZERO)) {
+                    try {
                         String noteString = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(PurapKeyConstants.MESSAGE_RECEIVING_LINEITEM_DAMAGE_NOTE_TEXT);
                         noteString = item.getItemDamagedTotalQuantity().intValue() + " " + noteString + " " + item.getItemLineNumber();
                         addNoteToReceivingDocument(recDoc, noteString);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         String errorMsg = "Note Service Exception caught: " + e.getLocalizedMessage();
                         throw new RuntimeException(errorMsg, e);
                     }
@@ -559,13 +551,13 @@ public class ReceivingServiceImpl implements ReceivingService {
     }
 
     protected void updateReceivingTotalsOnPurchaseOrder(ReceivingDocument receivingDocument, PurchaseOrderDocument poDoc) {
-        for (ReceivingItem receivingItem : (List<ReceivingItem>)receivingDocument.getItems()) {
+        for (ReceivingItem receivingItem : (List<ReceivingItem>) receivingDocument.getItems()) {
             ItemType itemType = receivingItem.getItemType();
-            if(!StringUtils.equalsIgnoreCase(itemType.getItemTypeCode(),PurapConstants.ItemTypeCodes.ITEM_TYPE_UNORDERED_ITEM_CODE)) {
+            if (!StringUtils.equalsIgnoreCase(itemType.getItemTypeCode(), PurapConstants.ItemTypeCodes.ITEM_TYPE_UNORDERED_ITEM_CODE)) {
                 //TODO: Chris - this method of getting the line out of po should be turned into a method that can get an item based on a combo or itemType and line
-                PurchaseOrderItem poItem = (PurchaseOrderItem)poDoc.getItemByLineNumber(receivingItem.getItemLineNumber());
+                PurchaseOrderItem poItem = (PurchaseOrderItem) poDoc.getItemByLineNumber(receivingItem.getItemLineNumber());
 
-                if(ObjectUtils.isNotNull(poItem)) {
+                if (ObjectUtils.isNotNull(poItem)) {
 
                     KualiDecimal poItemReceivedTotal = poItem.getItemReceivedTotalQuantity();
 
@@ -573,24 +565,24 @@ public class ReceivingServiceImpl implements ReceivingService {
                     /**
                      * FIXME: It's coming as null although we set the default value in the LineItemReceivingItem constructor - mpv
                      */
-                    if (ObjectUtils.isNull(receivingItemReceivedOriginal)){
+                    if (ObjectUtils.isNull(receivingItemReceivedOriginal)) {
                         receivingItemReceivedOriginal = KualiDecimal.ZERO;
                     }
                     KualiDecimal receivingItemReceived = receivingItem.getItemReceivedTotalQuantity();
                     KualiDecimal receivingItemTotalReceivedAdjested = receivingItemReceived.subtract(receivingItemReceivedOriginal);
 
-                    if (ObjectUtils.isNull(poItemReceivedTotal)){
+                    if (ObjectUtils.isNull(poItemReceivedTotal)) {
                         poItemReceivedTotal = KualiDecimal.ZERO;
                     }
                     KualiDecimal poItemReceivedTotalAdjusted = poItemReceivedTotal.add(receivingItemTotalReceivedAdjested);
 
                     KualiDecimal receivingItemReturnedOriginal = receivingItem.getItemOriginalReturnedTotalQuantity();
-                    if (ObjectUtils.isNull(receivingItemReturnedOriginal)){
+                    if (ObjectUtils.isNull(receivingItemReturnedOriginal)) {
                         receivingItemReturnedOriginal = KualiDecimal.ZERO;
                     }
 
                     KualiDecimal receivingItemReturned = receivingItem.getItemReturnedTotalQuantity();
-                    if (ObjectUtils.isNull(receivingItemReturned)){
+                    if (ObjectUtils.isNull(receivingItemReturned)) {
                         receivingItemReturned = KualiDecimal.ZERO;
                     }
 
@@ -601,17 +593,17 @@ public class ReceivingServiceImpl implements ReceivingService {
                     poItem.setItemReceivedTotalQuantity(poItemReceivedTotalAdjusted);
 
                     KualiDecimal poTotalDamaged = poItem.getItemDamagedTotalQuantity();
-                    if (ObjectUtils.isNull(poTotalDamaged)){
+                    if (ObjectUtils.isNull(poTotalDamaged)) {
                         poTotalDamaged = KualiDecimal.ZERO;
                     }
 
                     KualiDecimal receivingItemTotalDamagedOriginal = receivingItem.getItemOriginalDamagedTotalQuantity();
-                    if (ObjectUtils.isNull(receivingItemTotalDamagedOriginal)){
+                    if (ObjectUtils.isNull(receivingItemTotalDamagedOriginal)) {
                         receivingItemTotalDamagedOriginal = KualiDecimal.ZERO;
                     }
 
                     KualiDecimal receivingItemTotalDamaged = receivingItem.getItemDamagedTotalQuantity();
-                    if (ObjectUtils.isNull(receivingItemTotalDamaged)){
+                    if (ObjectUtils.isNull(receivingItemTotalDamaged)) {
                         receivingItemTotalDamaged = KualiDecimal.ZERO;
                     }
 
@@ -630,22 +622,22 @@ public class ReceivingServiceImpl implements ReceivingService {
      * @param receivingDocument
      * @param po
      */
-    protected void spawnPoAmendmentForUnorderedItems(ReceivingDocument receivingDocument, PurchaseOrderDocument po){
+    protected void spawnPoAmendmentForUnorderedItems(ReceivingDocument receivingDocument, PurchaseOrderDocument po) {
 
         //if receiving line document
         if (receivingDocument instanceof LineItemReceivingDocument) {
-            LineItemReceivingDocument rlDoc = (LineItemReceivingDocument)receivingDocument;
+            LineItemReceivingDocument rlDoc = (LineItemReceivingDocument) receivingDocument;
 
             //if a new item has been added spawn a purchase order amendment
-            if( hasNewUnorderedItem((LineItemReceivingDocument)receivingDocument) ){
+            if (hasNewUnorderedItem((LineItemReceivingDocument) receivingDocument)) {
                 String newSessionUserId = KFSConstants.SYSTEM_USER;
                 try {
 
                     LogicContainer logicToRun = new LogicContainer() {
                         @Override
                         public Object runLogic(Object[] objects) throws Exception {
-                            LineItemReceivingDocument rlDoc = (LineItemReceivingDocument)objects[0];
-                            String poDocNumber = (String)objects[1];
+                            LineItemReceivingDocument rlDoc = (LineItemReceivingDocument) objects[0];
+                            String poDocNumber = (String) objects[1];
 
                             //create a PO amendment
                             PurchaseOrderAmendmentDocument amendmentPo = (PurchaseOrderAmendmentDocument) purchaseOrderService.createAndSavePotentialChangeDocument(poDocNumber, PurchaseOrderDocTypes.PURCHASE_ORDER_AMENDMENT_DOCUMENT, PurchaseOrderStatuses.APPDOC_AMENDMENT);
@@ -667,13 +659,11 @@ public class ReceivingServiceImpl implements ReceivingService {
                         }
                     };
 
-                    purapService.performLogicWithFakedUserSession(newSessionUserId, logicToRun, new Object[] { rlDoc, po.getDocumentNumber() });
-                }
-                catch (WorkflowException e) {
+                    purapService.performLogicWithFakedUserSession(newSessionUserId, logicToRun, new Object[]{rlDoc, po.getDocumentNumber()});
+                } catch (WorkflowException e) {
                     String errorMsg = "Workflow Exception caught: " + e.getLocalizedMessage();
                     throw new RuntimeException(errorMsg, e);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
             }
@@ -687,13 +677,13 @@ public class ReceivingServiceImpl implements ReceivingService {
      * @return
      */
     @Override
-    public boolean hasNewUnorderedItem(LineItemReceivingDocument rlDoc){
+    public boolean hasNewUnorderedItem(LineItemReceivingDocument rlDoc) {
 
         boolean itemAdded = false;
 
-        for(LineItemReceivingItem rlItem: (List<LineItemReceivingItem>)rlDoc.getItems()){
-            if( PurapConstants.ItemTypeCodes.ITEM_TYPE_UNORDERED_ITEM_CODE.equals(rlItem.getItemTypeCode()) &&
-                !StringUtils.isEmpty(rlItem.getItemReasonAddedCode()) ){
+        for (LineItemReceivingItem rlItem : (List<LineItemReceivingItem>) rlDoc.getItems()) {
+            if (PurapConstants.ItemTypeCodes.ITEM_TYPE_UNORDERED_ITEM_CODE.equals(rlItem.getItemTypeCode()) &&
+                !StringUtils.isEmpty(rlItem.getItemReasonAddedCode())) {
                 itemAdded = true;
                 break;
             }
@@ -708,16 +698,16 @@ public class ReceivingServiceImpl implements ReceivingService {
      * @param amendment
      * @param rlDoc
      */
-    protected void addUnorderedItemsToAmendment(PurchaseOrderAmendmentDocument amendment, LineItemReceivingDocument rlDoc){
+    protected void addUnorderedItemsToAmendment(PurchaseOrderAmendmentDocument amendment, LineItemReceivingDocument rlDoc) {
 
         PurchaseOrderItem poi = null;
 
-        for(LineItemReceivingItem rlItem: (List<LineItemReceivingItem>)rlDoc.getItems()){
-            if( PurapConstants.ItemTypeCodes.ITEM_TYPE_UNORDERED_ITEM_CODE.equals(rlItem.getItemTypeCode()) &&
-                !StringUtils.isEmpty(rlItem.getItemReasonAddedCode()) ){
+        for (LineItemReceivingItem rlItem : (List<LineItemReceivingItem>) rlDoc.getItems()) {
+            if (PurapConstants.ItemTypeCodes.ITEM_TYPE_UNORDERED_ITEM_CODE.equals(rlItem.getItemTypeCode()) &&
+                !StringUtils.isEmpty(rlItem.getItemReasonAddedCode())) {
 
                 poi = createPoItemFromReceivingLine(rlItem);
-                poi.setDocumentNumber( amendment.getDocumentNumber() );
+                poi.setDocumentNumber(amendment.getDocumentNumber());
 
                 // add default commodity code from parameter, if commodity code is required on PO and not specified in the unordered item
                 // Note: if we don't add logic to populate commodity code in LineItemReceivingItem, then at this point this field is always empty for unordered item
@@ -739,27 +729,27 @@ public class ReceivingServiceImpl implements ReceivingService {
      * @param rlItem
      * @return
      */
-    protected PurchaseOrderItem createPoItemFromReceivingLine(LineItemReceivingItem rlItem){
+    protected PurchaseOrderItem createPoItemFromReceivingLine(LineItemReceivingItem rlItem) {
 
         PurchaseOrderItem poi = new PurchaseOrderItem();
 
         poi.setItemActiveIndicator(true);
         poi.setItemTypeCode(rlItem.getItemTypeCode());
         poi.setItemLineNumber(rlItem.getItemLineNumber());
-        poi.setItemCatalogNumber( rlItem.getItemCatalogNumber() );
-        poi.setItemDescription( rlItem.getItemDescription() );
+        poi.setItemCatalogNumber(rlItem.getItemCatalogNumber());
+        poi.setItemDescription(rlItem.getItemDescription());
 
-        if( rlItem.getItemReturnedTotalQuantity() == null){
-            poi.setItemQuantity( rlItem.getItemReceivedTotalQuantity());
-        }else{
-            poi.setItemQuantity( rlItem.getItemReceivedTotalQuantity().subtract(rlItem.getItemReturnedTotalQuantity()) );
+        if (rlItem.getItemReturnedTotalQuantity() == null) {
+            poi.setItemQuantity(rlItem.getItemReceivedTotalQuantity());
+        } else {
+            poi.setItemQuantity(rlItem.getItemReceivedTotalQuantity().subtract(rlItem.getItemReturnedTotalQuantity()));
         }
 
-        poi.setItemUnitOfMeasureCode( rlItem.getItemUnitOfMeasureCode() );
+        poi.setItemUnitOfMeasureCode(rlItem.getItemUnitOfMeasureCode());
         poi.setItemUnitPrice(new BigDecimal(0));
 
-        poi.setItemDamagedTotalQuantity( rlItem.getItemDamagedTotalQuantity() );
-        poi.setItemReceivedTotalQuantity( rlItem.getItemReceivedTotalQuantity() );
+        poi.setItemDamagedTotalQuantity(rlItem.getItemDamagedTotalQuantity());
+        poi.setItemReceivedTotalQuantity(rlItem.getItemReceivedTotalQuantity());
 
         return poi;
     }
@@ -770,26 +760,26 @@ public class ReceivingServiceImpl implements ReceivingService {
      * @param po
      * @return
      */
-    protected List<AdHocRoutePerson> createFyiFiscalOfficerList(ReceivingDocument recDoc){
+    protected List<AdHocRoutePerson> createFyiFiscalOfficerList(ReceivingDocument recDoc) {
 
         PurchaseOrderDocument po = recDoc.getPurchaseOrderDocument();
         List<AdHocRoutePerson> adHocRoutePersons = new ArrayList<AdHocRoutePerson>();
         Map fiscalOfficers = new HashMap();
         AdHocRoutePerson adHocRoutePerson = null;
 
-        for(ReceivingItem recItem: (List<ReceivingItem>)recDoc.getItems()){
+        for (ReceivingItem recItem : (List<ReceivingItem>) recDoc.getItems()) {
             //if this item has an item line number then it is coming from the po
             if (ObjectUtils.isNotNull(recItem.getItemLineNumber())) {
-                PurchaseOrderItem poItem = (PurchaseOrderItem)po.getItemByLineNumber(recItem.getItemLineNumber());
+                PurchaseOrderItem poItem = (PurchaseOrderItem) po.getItemByLineNumber(recItem.getItemLineNumber());
 
-                if(poItem.getItemQuantity().isLessThan(poItem.getItemReceivedTotalQuantity())||
-                        recItem.getItemDamagedTotalQuantity().isGreaterThan(KualiDecimal.ZERO)) {
+                if (poItem.getItemQuantity().isLessThan(poItem.getItemReceivedTotalQuantity()) ||
+                    recItem.getItemDamagedTotalQuantity().isGreaterThan(KualiDecimal.ZERO)) {
 
                     // loop through accounts and pull off fiscal officer
-                    for(PurApAccountingLine account : poItem.getSourceAccountingLines()){
+                    for (PurApAccountingLine account : poItem.getSourceAccountingLines()) {
 
                         //check for dupes of fiscal officer
-                        if( fiscalOfficers.containsKey(account.getAccount().getAccountFiscalOfficerUser().getPrincipalName()) == false ){
+                        if (fiscalOfficers.containsKey(account.getAccount().getAccountFiscalOfficerUser().getPrincipalName()) == false) {
 
                             //add fiscal officer to list
                             fiscalOfficers.put(account.getAccount().getAccountFiscalOfficerUser().getPrincipalName(), account.getAccount().getAccountFiscalOfficerUser().getPrincipalName());
@@ -809,25 +799,26 @@ public class ReceivingServiceImpl implements ReceivingService {
 
         return adHocRoutePersons;
     }
+
     /**
      * Sends an FYI to fiscal officers for new unordered items.
      *
      * @param po
      */
-    protected void sendFyiForItems(ReceivingDocument recDoc){
+    protected void sendFyiForItems(ReceivingDocument recDoc) {
 
         List<AdHocRoutePerson> fyiList = createFyiFiscalOfficerList(recDoc);
         String annotation = "Notification of Item exceeded Quantity or Damaged" + "(document id " + recDoc.getDocumentNumber() + ")";
         String responsibilityNote = "Please Review";
 
-        for(AdHocRoutePerson adHocPerson: fyiList){
-            try{
+        for (AdHocRoutePerson adHocPerson : fyiList) {
+            try {
                 recDoc.appSpecificRouteDocumentToUser(
-                        recDoc.getDocumentHeader().getWorkflowDocument(),
-                        adHocPerson.getPerson().getPrincipalId(),
-                        annotation,
-                        responsibilityNote);
-            }catch (WorkflowException e) {
+                    recDoc.getDocumentHeader().getWorkflowDocument(),
+                    adHocPerson.getPerson().getPrincipalId(),
+                    annotation,
+                    responsibilityNote);
+            } catch (WorkflowException e) {
                 throw new RuntimeException("Error routing fyi for document with id " + recDoc.getDocumentNumber(), e);
             }
 
@@ -835,14 +826,14 @@ public class ReceivingServiceImpl implements ReceivingService {
     }
 
     @Override
-    public void addNoteToReceivingDocument(ReceivingDocument receivingDocument, String note) throws Exception{
+    public void addNoteToReceivingDocument(ReceivingDocument receivingDocument, String note) throws Exception {
         Note noteObj = documentService.createNoteFromDocument(receivingDocument, note);
         receivingDocument.addNote(noteObj);
         noteService.save(noteObj);
     }
 
     @Override
-    public String getReceivingDeliveryCampusCode(PurchaseOrderDocument po){
+    public String getReceivingDeliveryCampusCode(PurchaseOrderDocument po) {
         String deliveryCampusCode = "";
         String latestDocumentNumber = "";
 
@@ -851,33 +842,33 @@ public class ReceivingServiceImpl implements ReceivingService {
         DateTime latestCreateDate = null;
 
         //get related views
-        if(ObjectUtils.isNotNull(po.getRelatedViews()) ){
+        if (ObjectUtils.isNotNull(po.getRelatedViews())) {
             rViews = po.getRelatedViews().getRelatedLineItemReceivingViews();
         }
 
         //if not empty, then grab the latest receiving view
-        if(ObjectUtils.isNotNull(rViews) && rViews.isEmpty() == false){
+        if (ObjectUtils.isNotNull(rViews) && rViews.isEmpty() == false) {
 
-            for(LineItemReceivingView rView : rViews){
-                try{
+            for (LineItemReceivingView rView : rViews) {
+                try {
                     workflowDocument = workflowDocumentService.loadWorkflowDocument(rView.getDocumentNumber(), GlobalVariables.getUserSession().getPerson());
 
                     //if latest create date is null or the latest is before the current, current is newer
-                    if( ObjectUtils.isNull(latestCreateDate) || latestCreateDate.isBefore(workflowDocument.getDateCreated()) ){
+                    if (ObjectUtils.isNull(latestCreateDate) || latestCreateDate.isBefore(workflowDocument.getDateCreated())) {
                         latestCreateDate = workflowDocument.getDateCreated();
                         latestDocumentNumber = workflowDocument.getDocumentId().toString();
                     }
-                }catch(WorkflowException we){
+                } catch (WorkflowException we) {
                     throw new RuntimeException(we);
                 }
             }
 
             //if there is a create date, a latest workflow doc was found
-            if( ObjectUtils.isNotNull(latestCreateDate)){
-                try{
-                    LineItemReceivingDocument rlDoc = (LineItemReceivingDocument)documentService.getByDocumentHeaderId(latestDocumentNumber);
+            if (ObjectUtils.isNotNull(latestCreateDate)) {
+                try {
+                    LineItemReceivingDocument rlDoc = (LineItemReceivingDocument) documentService.getByDocumentHeaderId(latestDocumentNumber);
                     deliveryCampusCode = rlDoc.getDeliveryCampusCode();
-                }catch(WorkflowException we){
+                } catch (WorkflowException we) {
                     throw new RuntimeException(we);
                 }
             }
@@ -890,7 +881,7 @@ public class ReceivingServiceImpl implements ReceivingService {
      * @see org.kuali.kfs.module.purap.document.service.ReceivingService#isLineItemReceivingDocumentGeneratedForPurchaseOrder(java.lang.Integer)
      */
     @Override
-    public boolean isLineItemReceivingDocumentGeneratedForPurchaseOrder(Integer poId) throws RuntimeException{
+    public boolean isLineItemReceivingDocumentGeneratedForPurchaseOrder(Integer poId) throws RuntimeException {
 
         boolean isGenerated = false;
 
@@ -899,13 +890,13 @@ public class ReceivingServiceImpl implements ReceivingService {
 
         for (String docNumber : docNumbers) {
 
-            try{
+            try {
                 workflowDocument = workflowDocumentService.loadWorkflowDocument(docNumber, GlobalVariables.getUserSession().getPerson());
-            }catch(WorkflowException we){
+            } catch (WorkflowException we) {
                 throw new RuntimeException(we);
             }
 
-            if(workflowDocument.isFinal()){
+            if (workflowDocument.isFinal()) {
                 isGenerated = true;
                 break;
             }
@@ -937,8 +928,7 @@ public class ReceivingServiceImpl implements ReceivingService {
             try {
                 LineItemReceivingDocument doc = (LineItemReceivingDocument) documentService.getByDocumentHeaderId(documentNumber);
                 return doc;
-            }
-            catch (WorkflowException e) {
+            } catch (WorkflowException e) {
                 String errorMessage = "Error getting LineItemReceiving document from document service";
                 LOG.error("getLineItemReceivingByDocumentNumber() " + errorMessage, e);
                 throw new RuntimeException(errorMessage, e);
@@ -947,13 +937,12 @@ public class ReceivingServiceImpl implements ReceivingService {
         return null;
     }
 
-    protected void approveReceivingDoc(LineItemReceivingDocument receivingDoc){
+    protected void approveReceivingDoc(LineItemReceivingDocument receivingDoc) {
         PurchaseOrderDocument poDoc = receivingDoc.getPurchaseOrderDocument();
-        if (purchaseOrderService.isPurchaseOrderOpenForProcessing(poDoc)){
-            try{
+        if (purchaseOrderService.isPurchaseOrderOpenForProcessing(poDoc)) {
+            try {
                 SpringContext.getBean(DocumentService.class).approveDocument(receivingDoc, "Approved by the batch job", null);
-            }
-            catch (WorkflowException e) {
+            } catch (WorkflowException e) {
                 LOG.error("approveReceivingDoc() Error approving receiving document from awaiting PO open", e);
                 throw new RuntimeException("Error approving receiving document from awaiting PO open", e);
             }
@@ -969,7 +958,7 @@ public class ReceivingServiceImpl implements ReceivingService {
     @Deprecated
     protected List<String> getDocumentsNumbersAwaitingPurchaseOrderOpenStatus() {
         List<String> receivingDocumentNumbers = new ArrayList<String>();
-        List<LineItemReceivingDocument> receivingDocuments= getDocumentsAwaitingPurchaseOrderOpenStatus();
+        List<LineItemReceivingDocument> receivingDocuments = getDocumentsAwaitingPurchaseOrderOpenStatus();
         for (LineItemReceivingDocument document : receivingDocuments) {
             receivingDocumentNumbers.add(document.getDocumentNumber());
         }
@@ -978,15 +967,15 @@ public class ReceivingServiceImpl implements ReceivingService {
 
     /**
      * Gets a list of receiving line item documents where  applicationdocumentstatus = 'Awaiting Purchase Order Open Status'
+     *
      * @return list of line item receiving documents.
      */
     protected List<LineItemReceivingDocument> getDocumentsAwaitingPurchaseOrderOpenStatus() {
         List<LineItemReceivingDocument> receivingDocuments;
         try {
             receivingDocuments = (List<LineItemReceivingDocument>) financialSystemDocumentService.findByApplicationDocumentStatus(
-                    LineItemReceivingDocument.class, PurapConstants.LineItemReceivingStatuses.APPDOC_AWAITING_PO_OPEN_STATUS);
-        }
-        catch (WorkflowException we) {
+                LineItemReceivingDocument.class, PurapConstants.LineItemReceivingStatuses.APPDOC_AWAITING_PO_OPEN_STATUS);
+        } catch (WorkflowException we) {
             String errorMsg = "Unable to retrieve LineItemReceivingDocuments with status " + PurapConstants.LineItemReceivingStatuses.APPDOC_AWAITING_PO_OPEN_STATUS + " " + we.getMessage();
             throw new RuntimeException(errorMsg, we);
         }

@@ -1,19 +1,20 @@
 <%--
-
-    Copyright 2005-2015 The Kuali Foundation
-
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-    http://www.opensource.org/licenses/ecl2.php
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
 <%@ include file="/krad/WEB-INF/jsp/tldHeader.jsp" %>
 
@@ -23,103 +24,103 @@
 
 <krad:span component="${field}">
 
-  <krad:fieldLabel field="${field}">
+    <krad:fieldLabel field="${field}">
 
-    <%-- render field value (if read-only) or control (if edit) --%>
-    <c:choose>
-      <c:when test="${readOnly}">
-        <c:set var="readOnlyDisplay">
-          <%-- display alternate display value if set --%>
-          <c:if test="${not empty field.alternateDisplayValue}">
-            ${field.alternateDisplayValue}
-          </c:if>
+        <%-- render field value (if read-only) or control (if edit) --%>
+        <c:choose>
+            <c:when test="${readOnly}">
+                <c:set var="readOnlyDisplay">
+                    <%-- display alternate display value if set --%>
+                    <c:if test="${not empty field.alternateDisplayValue}">
+                        ${field.alternateDisplayValue}
+                    </c:if>
 
-          <c:if test="${empty field.alternateDisplayValue}">
-            <%-- display actual field value --%>
-            <s:bind path="${field.bindingInfo.bindingPath}"
-                    htmlEscape="${field.escapeHtmlInPropertyValue}">${status.value}</s:bind>
+                    <c:if test="${empty field.alternateDisplayValue}">
+                        <%-- display actual field value --%>
+                        <s:bind path="${field.bindingInfo.bindingPath}"
+                                htmlEscape="${field.escapeHtmlInPropertyValue}">${status.value}</s:bind>
 
-            <%-- add alternate display value if set --%>
-            <c:if test="${not empty field.additionalDisplayValue}">
-              *-* ${field.additionalDisplayValue}
-            </c:if>
-          </c:if>
-        </c:set>
+                        <%-- add alternate display value if set --%>
+                        <c:if test="${not empty field.additionalDisplayValue}">
+                            *-* ${field.additionalDisplayValue}
+                        </c:if>
+                    </c:if>
+                </c:set>
 
-        <span id="${field.id}">
+                <span id="${field.id}">
           <%-- render inquiry if enabled --%>
           <c:if test="${field.fieldInquiry.render}">
-            <krad:template component="${field.fieldInquiry}" componentId="${field.id}" body="${readOnlyDisplay}"/>
+              <krad:template component="${field.fieldInquiry}" componentId="${field.id}" body="${readOnlyDisplay}"/>
           </c:if>
 
           <c:if test="${!field.fieldInquiry.render}">
-            ${readOnlyDisplay}
+              ${readOnlyDisplay}
           </c:if>
         </span>
-      </c:when>
+            </c:when>
 
-      <c:otherwise>
-        <%-- render field instructional text --%>
-        <krad:template component="${field.instructionalMessageField}"/>
+            <c:otherwise>
+                <%-- render field instructional text --%>
+                <krad:template component="${field.instructionalMessageField}"/>
 
-        <%-- render control for input --%>
-        <krad:template component="${field.control}" field="${field}"/>
-      </c:otherwise>
-    </c:choose>
+                <%-- render control for input --%>
+                <krad:template component="${field.control}" field="${field}"/>
+            </c:otherwise>
+        </c:choose>
 
-    <%-- render field quickfinder --%>
-    <c:if test="${field.inputAllowed}">
-      <krad:template component="${field.fieldLookup}" componentId="${field.id}"/>
+        <%-- render field quickfinder --%>
+        <c:if test="${field.inputAllowed}">
+            <krad:template component="${field.fieldLookup}" componentId="${field.id}"/>
+        </c:if>
+
+        <%-- render field direct inquiry if field is editable --%>
+        <c:if test="${!readOnly && field.fieldDirectInquiry.render}">
+            <krad:template component="${field.fieldDirectInquiry}" componentId="${field.id}"/>
+        </c:if>
+
+    </krad:fieldLabel>
+
+    <!-- placeholder for dynamic field markers -->
+    <span id="${field.id}_markers"></span>
+
+    <%-- render field constraint if field is editable --%>
+    <c:if test="${!readOnly}">
+        <krad:template component="${field.constraintMessageField}"/>
     </c:if>
 
-    <%-- render field direct inquiry if field is editable --%>
-    <c:if test="${!readOnly && field.fieldDirectInquiry.render}">
-      <krad:template component="${field.fieldDirectInquiry}" componentId="${field.id}"/>
-    </c:if>
-
-  </krad:fieldLabel>
-
-  <!-- placeholder for dynamic field markers -->
-  <span id="${field.id}_markers"></span>
-
-  <%-- render field constraint if field is editable --%>
-  <c:if test="${!readOnly}">
-    <krad:template component="${field.constraintMessageField}"/>
-  </c:if>
-
-  <%-- render span and values for informational properties --%>
-  <span id="${field.id}_info_message"></span>
-  <c:forEach items="${field.informationalDisplayPropertyNames}" var="infoPropertyPath" varStatus="status">
-    <%-- TODO: clean this up somehow! --%>
-    <c:set var="infoPropertyId" value="${fn:replace(infoPropertyPath,'.','_')}"/>
-    <c:set var="infoPropertyId" value="${fn:replace(infoPropertyId,'[','-lbrak-')}"/>
-    <c:set var="infoPropertyId" value="${fn:replace(infoPropertyId,']','-rbrak-')}"/>
-    <c:set var="infoPropertyId" value="${fn:replace(infoPropertyId,'\\\'','-quot-')}"/>
-     <span id="${field.id}_info_${infoPropertyId}" class="uif-informationalMessage">
+    <%-- render span and values for informational properties --%>
+    <span id="${field.id}_info_message"></span>
+    <c:forEach items="${field.informationalDisplayPropertyNames}" var="infoPropertyPath" varStatus="status">
+        <%-- TODO: clean this up somehow! --%>
+        <c:set var="infoPropertyId" value="${fn:replace(infoPropertyPath,'.','_')}"/>
+        <c:set var="infoPropertyId" value="${fn:replace(infoPropertyId,'[','-lbrak-')}"/>
+        <c:set var="infoPropertyId" value="${fn:replace(infoPropertyId,']','-rbrak-')}"/>
+        <c:set var="infoPropertyId" value="${fn:replace(infoPropertyId,'\\\'','-quot-')}"/>
+        <span id="${field.id}_info_${infoPropertyId}" class="uif-informationalMessage">
         <s:bind path="${infoPropertyPath}">${status.value}</s:bind>
      </span>
-  </c:forEach>
+    </c:forEach>
 
-  <%-- render field help --%>
+    <%-- render field help --%>
 
-  <%-- render field suggest if field is editable --%>
-  <c:if test="${!readOnly}">
-    <krad:template component="${field.fieldSuggest}" parent="${field}"/>
-  </c:if>
+    <%-- render field suggest if field is editable --%>
+    <c:if test="${!readOnly}">
+        <krad:template component="${field.fieldSuggest}" parent="${field}"/>
+    </c:if>
 
-  <%-- render hidden fields --%>
-  <%-- TODO: always render hiddens if configured? --%>
-  <c:forEach items="${field.hiddenPropertyNames}" var="hiddenPropertyName" varStatus="status">
-    <form:hidden id="${field.id}_h${status.count}" path="${hiddenPropertyName}"/>
-  </c:forEach>
+    <%-- render hidden fields --%>
+    <%-- TODO: always render hiddens if configured? --%>
+    <c:forEach items="${field.hiddenPropertyNames}" var="hiddenPropertyName" varStatus="status">
+        <form:hidden id="${field.id}_h${status.count}" path="${hiddenPropertyName}"/>
+    </c:forEach>
 </krad:span>
 
 <%-- transform all text on attribute field to uppercase --%>
 <c:if test="${!readOnly && field.performUppercase}">
-  <krad:script value="jq('#${field.control.id}').css('text-transform', 'uppercase');"/>
+    <krad:script value="jq('#${field.control.id}').css('text-transform', 'uppercase');"/>
 </c:if>
 
 <%-- render error container for field --%>
 <c:if test="${!readOnly && ((empty field.errorsField.alternateContainer) || (!field.errorsField.alternateContainer))}">
-  <krad:template component="${field.errorsField}"/>
+    <krad:template component="${field.errorsField}"/>
 </c:if>

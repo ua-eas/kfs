@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -22,19 +22,18 @@
  */
 package org.kuali.kfs.pdp.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 import org.kuali.kfs.pdp.PdpConstants;
 import org.kuali.kfs.pdp.PdpPropertyConstants;
 import org.kuali.kfs.pdp.service.PaymentGroupService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 
+import java.util.LinkedHashMap;
 
 
 public class FormatResult extends TransientBusinessObjectBase implements Comparable {
@@ -162,12 +161,10 @@ public class FormatResult extends TransientBusinessObjectBase implements Compara
         if (getDisbursementType() != null) {
             if (PdpConstants.DisbursementTypeCodes.CHECK.equals(getDisbursementType().getCode())) {
                 sb.append("B");
-            }
-            else {
+            } else {
                 sb.append("A");
             }
-        }
-        else {
+        } else {
             sb.append("A");
         }
         sb.append(getSortGroupId());
@@ -208,13 +205,13 @@ public class FormatResult extends TransientBusinessObjectBase implements Compara
         return m;
     }
 
-    public String getSortGroupName(){
+    public String getSortGroupName() {
         PaymentGroupService paymentGroupService = SpringContext.getBean(PaymentGroupService.class);
         String sortGroupName = paymentGroupService.getSortGroupName(sortGroup.intValue());
         return sortGroupName;
-     }
+    }
 
-     public void setSortGroupName(){
+    public void setSortGroupName() {
 
-     }
+    }
 }

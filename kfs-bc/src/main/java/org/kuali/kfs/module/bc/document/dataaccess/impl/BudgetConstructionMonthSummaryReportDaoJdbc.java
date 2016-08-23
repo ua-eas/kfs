@@ -1,29 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.document.dataaccess.impl;
 
-import java.util.ArrayList;
-import java.util.UUID;
-
 import org.kuali.kfs.module.bc.batch.dataaccess.impl.SQLForStep;
 import org.kuali.kfs.module.bc.document.dataaccess.BudgetConstructionMonthSummaryReportDao;
 import org.kuali.kfs.sys.KFSConstants;
+
+import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * report general ledger and monthly summaries from the budget by organization, subfund group, and object code
@@ -294,9 +294,9 @@ public class BudgetConstructionMonthSummaryReportDaoJdbc extends BudgetConstruct
      * sums general ledger and montly budgets by subfund and organization to the object-code level
      *
      * @param principalName--the user requesting the report
-     * @param idForSession--the session id for the user
-     * @param revenueINList a SQL IN list containing the budget construction revenue object types
-     * @param expenditureINList a SQL IN list containing the budget construction expenditure object types
+     * @param idForSession--the  session id for the user
+     * @param revenueINList      a SQL IN list containing the budget construction revenue object types
+     * @param expenditureINList  a SQL IN list containing the budget construction expenditure object types
      */
     protected void consolidateMonthSummaryReportToObjectCodeLevel(String principalName, String idForSession, String revenueINList, String expenditureINList) {
 
@@ -322,9 +322,9 @@ public class BudgetConstructionMonthSummaryReportDaoJdbc extends BudgetConstruct
      * sums general ledger and monthly amounts by organization and subfund group to the sub-object level
      *
      * @param principalName--the user requesting the report
-     * @param idForSession--the ID for the user's session
-     * @param revenueINList a SQL IN list containing the budget construction revenue object types
-     * @param expenditureINList a SQL IN list containing the budget construction expenditure object types
+     * @param idForSession--the  ID for the user's session
+     * @param revenueINList      a SQL IN list containing the budget construction revenue object types
+     * @param expenditureINList  a SQL IN list containing the budget construction expenditure object types
      */
     protected void detailedMonthSummaryTableReport(String principalName, String idForSession, String revenueINList, String expenditureINList) {
 
@@ -347,7 +347,7 @@ public class BudgetConstructionMonthSummaryReportDaoJdbc extends BudgetConstruct
 
     /**
      * @see org.kuali.kfs.module.bc.document.dataaccess.BudgetConstructionMonthSummaryReportDao#updateReportsMonthSummaryTable(java.lang.String,
-     *      boolean, java.lang.String, java.lang.String)
+     * boolean, java.lang.String, java.lang.String)
      */
     @Override
     public void updateReportsMonthSummaryTable(String principalName, boolean consolidateToObjectCodeLevel, String revenueINList, String expenditureINList) {
@@ -358,8 +358,7 @@ public class BudgetConstructionMonthSummaryReportDaoJdbc extends BudgetConstruct
 
         if (consolidateToObjectCodeLevel) {
             consolidateMonthSummaryReportToObjectCodeLevel(principalName, idForSession, revenueINList, expenditureINList);
-        }
-        else {
+        } else {
             detailedMonthSummaryTableReport(principalName, idForSession, revenueINList, expenditureINList);
         }
         // join monthly budgets and general ledger to build the final table for the report

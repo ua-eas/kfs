@@ -1,31 +1,32 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cab.document.validation.impl;
 
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.maintenance.MaintenanceDocumentAuthorizer;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.cab.CabKeyConstants;
 import org.kuali.kfs.module.cab.CabPropertyConstants;
 import org.kuali.kfs.module.cab.businessobject.Pretag;
@@ -44,13 +45,12 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.maintenance.MaintenanceDocumentAuthorizer;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -83,7 +83,7 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Does not fail on rules failure
-     * 
+     *
      * @see org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomSaveDocumentBusinessRules(org.kuali.kfs.kns.document.MaintenanceDocument)
      */
     @Override
@@ -98,14 +98,14 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
      */
     @Override
     protected boolean processCustomRouteDocumentBusinessRules(MaintenanceDocument document) {
-        
+
         // get the documentAuthorizer for this document
         MaintenanceDocumentAuthorizer documentAuthorizer = (MaintenanceDocumentAuthorizer) getDocumentHelperService().getDocumentAuthorizer(document);
-        
+
         WorkflowDocument workflowDocument = document.getDocumentHeader().getWorkflowDocument();
         boolean success = true;
-        if (workflowDocument.isInitiated() || workflowDocument.isSaved()){
-            success &= documentAuthorizer.canCreateOrMaintain((MaintenanceDocument)document, GlobalVariables.getUserSession().getPerson());
+        if (workflowDocument.isInitiated() || workflowDocument.isSaved()) {
+            success &= documentAuthorizer.canCreateOrMaintain((MaintenanceDocument) document, GlobalVariables.getUserSession().getPerson());
             if (!success) {
                 putFieldError(CabPropertyConstants.Pretag.CHART_OF_ACCOUNTS_CODE, CabKeyConstants.CHART_ORG_DISALLOWED_BY_CURRENT_USER);
             }
@@ -116,7 +116,7 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Validates Pretag and its PretagDetail.
-     * 
+     *
      * @return boolean false or true
      */
     public boolean processPretagValidation() {
@@ -126,12 +126,11 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
         setupConvenienceObjects();
         success &= checkPurchaseOrderItemExists();
         success &= checkAssetRepresentativePrincipalNameExists();
-        
+
         if (newPretag.isActive()) {
             success &= checkTotalDetailCount(newPretag, newDetailLine);
             success &= isAllCampusBuildingRoomValid(newPretag.getPretagDetails());
-        }
-        else {
+        } else {
             deactivePretagDetails(newPretag);
         }
 
@@ -140,7 +139,7 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
 
     /**
      * validate the asset representative principal name.
-     * 
+     *
      * @return boolean false or true
      */
     protected boolean checkAssetRepresentativePrincipalNameExists() {
@@ -151,8 +150,7 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
             if (person != null) {
                 newPretag.setPersonUniversal(person);
                 newPretag.setRepresentativeUniversalIdentifier(person.getPrincipalId());
-            }
-            else {
+            } else {
                 putFieldError(CabPropertyConstants.Pretag.REPRESENTATIVE_ID, CamsKeyConstants.PreTag.ERROR_PRE_TAG_INVALID_REPRESENTATIVE_ID, newPretag.getPersonUniversal().getPrincipalName());
                 newPretag.setPersonUniversal(null);
                 newPretag.setRepresentativeUniversalIdentifier(null);
@@ -161,10 +159,10 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
         }
         return valid;
     }
-    
+
     /**
      * validate the purchase order item existence in PurAp.
-     * 
+     *
      * @return boolean false or true
      */
     protected boolean checkPurchaseOrderItemExists() {
@@ -175,8 +173,7 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
                 String label = SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getBusinessObjectEntry(Pretag.class.getName()).getAttributeDefinition(CabPropertyConstants.Pretag.PURCHASE_ORDER_NUMBER).getLabel();
                 putFieldError(CabPropertyConstants.Pretag.PURCHASE_ORDER_NUMBER, RiceKeyConstants.ERROR_EXISTENCE, label);
                 valid = false;
-            }
-            else if (getItemByLineNumber(purchaseOrderDoc, newPretag.getItemLineNumber()) == null) {
+            } else if (getItemByLineNumber(purchaseOrderDoc, newPretag.getItemLineNumber()) == null) {
                 String label = SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getBusinessObjectEntry(Pretag.class.getName()).getAttributeDefinition(CabPropertyConstants.Pretag.ITEM_LINE_NUMBER).getLabel();
                 putFieldError(CabPropertyConstants.Pretag.ITEM_LINE_NUMBER, RiceKeyConstants.ERROR_EXISTENCE, label);
                 valid = false;
@@ -187,14 +184,14 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Get PurchaseOrderItem by given item line number
-     * 
+     *
      * @param items
      * @param lineNumber
      * @return
      */
     protected PurApItem getItemByLineNumber(PurchaseOrderDocument purchaseOrderDocument, int lineNumber) {
         List items = purchaseOrderDocument.getItems();
-        for (Iterator iter = items.iterator(); iter.hasNext();) {
+        for (Iterator iter = items.iterator(); iter.hasNext(); ) {
             PurApItem item = (PurApItem) iter.next();
             if (item.getItemLineNumber() != null && item.getItemLineNumber().intValue() == lineNumber) {
                 return item;
@@ -206,7 +203,7 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
     /**
      * This method loops through the list of {@link pretagDetail}s and passes them off to isAllCampusBuildingRoomValid for further
      * rule analysis
-     * 
+     *
      * @param document
      * @param details
      * @return true if the collection of {@link pretagDetail}s passes the sub-rules
@@ -233,9 +230,9 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
 
     /**
      * This method calls isCampusTagNumberValid whenever a new {@link PretagDetail} is added to Pretag
-     * 
+     *
      * @see org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomAddCollectionLineBusinessRules(org.kuali.kfs.kns.document.MaintenanceDocument,
-     *      java.lang.String, org.kuali.kfs.krad.bo.PersistableBusinessObject)
+     * java.lang.String, org.kuali.kfs.krad.bo.PersistableBusinessObject)
      */
     @Override
     public boolean processCustomAddCollectionLineBusinessRules(MaintenanceDocument document, String collectionName, PersistableBusinessObject bo) {
@@ -262,7 +259,7 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
 
     /**
      * This method check to see if duplicate tag exists
-     * 
+     *
      * @return boolean indicating if validation succeeded
      */
     protected boolean checkDuplicateTagNumber(Pretag pretag, String tagNumber) {
@@ -270,7 +267,7 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
 
         for (PretagDetail dtl : pretag.getPretagDetails()) {
             if (dtl.getCampusTagNumber().equals(tagNumber) && dtl.isActive()) {
-                GlobalVariables.getMessageMap().putError(CabPropertyConstants.Pretag.CAMPUS_TAG_NUMBER, CamsKeyConstants.ERROR_TAG_NUMBER_DUPLICATE, new String[] { tagNumber });
+                GlobalVariables.getMessageMap().putError(CabPropertyConstants.Pretag.CAMPUS_TAG_NUMBER, CamsKeyConstants.ERROR_TAG_NUMBER_DUPLICATE, new String[]{tagNumber});
                 success &= false;
             }
         }
@@ -280,7 +277,7 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
 
     /**
      * This method ensures that total {@link pretagDetail} tag details does not excees in quantity invoiced
-     * 
+     *
      * @param dtl
      * @return true if the detail tag doesn't exist in Asset
      */
@@ -291,7 +288,7 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
             KualiDecimal totalNumerOfDetails = new KualiDecimal(totalActiveDetails);
 
             if (pretag.getQuantityInvoiced().compareTo(totalNumerOfDetails) < 0) {
-                GlobalVariables.getMessageMap().putError(CabPropertyConstants.Pretag.CAMPUS_TAG_NUMBER, CamsKeyConstants.PreTag.ERROR_PRE_TAG_DETAIL_EXCESS, new String[] { pretag.getQuantityInvoiced().toString() + "" + " Total number of detail lines " + totalNumerOfDetails.toString() });
+                GlobalVariables.getMessageMap().putError(CabPropertyConstants.Pretag.CAMPUS_TAG_NUMBER, CamsKeyConstants.PreTag.ERROR_PRE_TAG_DETAIL_EXCESS, new String[]{pretag.getQuantityInvoiced().toString() + "" + " Total number of detail lines " + totalNumerOfDetails.toString()});
                 success &= false;
             }
         }
@@ -301,7 +298,7 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
 
     /**
      * This method reply that total active detail in {@link pretag}
-     * 
+     *
      * @param pretag and newDetailLine
      * @return total number of active pretagDetails
      */
@@ -310,15 +307,14 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
         Collection<PretagDetail> pretagDetails = pretag.getPretagDetails();
         if (newDetailLine) {
             return countActive(pretagDetails) + 1;
-        }
-        else {
+        } else {
             return countActive(pretagDetails);
         }
     }
 
     /**
      * This method ensures that each {@link pretagDetail} tag number does not exist in Asset table
-     * 
+     *
      * @param dtl
      * @return true if the detail tag doesn't exist in Asset
      */
@@ -330,7 +326,7 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
             tagMap.put(CabPropertyConstants.Pretag.CAMPUS_TAG_NUMBER, dtl.getCampusTagNumber());
             int matchDetailCount = getMatchDetailCount(tagMap);
             if ((getBoService().countMatching(Asset.class, tagMap) != 0) || (matchDetailCount > 0)) {
-                GlobalVariables.getMessageMap().putError(CabPropertyConstants.Pretag.CAMPUS_TAG_NUMBER, CamsKeyConstants.PreTag.ERROR_PRE_TAG_NUMBER, new String[] { dtl.getCampusTagNumber() });
+                GlobalVariables.getMessageMap().putError(CabPropertyConstants.Pretag.CAMPUS_TAG_NUMBER, CamsKeyConstants.PreTag.ERROR_PRE_TAG_NUMBER, new String[]{dtl.getCampusTagNumber()});
                 success &= false;
             }
         }
@@ -340,7 +336,7 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
 
     /**
      * This method ensures that each {@link pretagDetail} buildingCode and buildingRoomNumber does exist in bulding and room tables
-     * 
+     *
      * @param dtl
      * @return true if the detail buildingCode and buildingRoomNumber does exist in building and room
      */
@@ -357,14 +353,14 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
 
             bo = (Building) SpringContext.getBean(BusinessObjectService.class).findByPrimaryKey(Building.class, preTagMap);
             if (bo == null) {
-                GlobalVariables.getMessageMap().putError(KFSPropertyConstants.BUILDING_CODE, CamsKeyConstants.ERROR_INVALID_BUILDING_CODE, new String[] { dtl.getCampusCode(), dtl.getBuildingCode() });
+                GlobalVariables.getMessageMap().putError(KFSPropertyConstants.BUILDING_CODE, CamsKeyConstants.ERROR_INVALID_BUILDING_CODE, new String[]{dtl.getCampusCode(), dtl.getBuildingCode()});
             }
 
             if (StringUtils.isNotBlank(dtl.getBuildingRoomNumber())) {
                 preTagMap.put(KFSPropertyConstants.BUILDING_ROOM_NUMBER, dtl.getBuildingRoomNumber());
                 bo = (Room) SpringContext.getBean(BusinessObjectService.class).findByPrimaryKey(Room.class, preTagMap);
                 if (bo == null) {
-                    GlobalVariables.getMessageMap().putError(KFSPropertyConstants.BUILDING_ROOM_NUMBER, CamsKeyConstants.ERROR_INVALID_ROOM_NUMBER, new String[] { dtl.getCampusCode(), dtl.getBuildingCode(), dtl.getBuildingRoomNumber() });
+                    GlobalVariables.getMessageMap().putError(KFSPropertyConstants.BUILDING_ROOM_NUMBER, CamsKeyConstants.ERROR_INVALID_ROOM_NUMBER, new String[]{dtl.getCampusCode(), dtl.getBuildingCode(), dtl.getBuildingRoomNumber()});
                 }
             }
         }
@@ -375,7 +371,7 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
 
     /**
      * This method returns number of matched active campusTagNumber
-     * 
+     *
      * @param map
      * @return active pretagDetail with same campusTagNumber
      */
@@ -389,7 +385,7 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
 
     /**
      * This method ensures that count {@link pretagDetail} active detail lines
-     * 
+     *
      * @param collection
      * @return active pretagDetail count
      */
@@ -407,7 +403,7 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
 
     /**
      * This method ensures that all {@link pretag} detail lines deactivated
-     * 
+     *
      * @param pretag
      * @return deactive pretagDetails
      */
@@ -421,7 +417,7 @@ public class PretagRule extends MaintenanceDocumentRuleBase {
 
     /**
      * Gets the purchaseOrderService attribute.
-     * 
+     *
      * @return Returns the purchaseOrderService.
      */
     protected PurApInfoService getPurApInfoService() {

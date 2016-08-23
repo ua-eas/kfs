@@ -1,25 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.batch.service.impl;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.kuali.kfs.module.bc.batch.dataaccess.GenesisDao;
@@ -27,6 +24,9 @@ import org.kuali.kfs.module.bc.batch.service.BudgetConstructionHumanResourcesPay
 import org.kuali.kfs.module.bc.batch.service.GenesisService;
 import org.kuali.kfs.sys.KFSConstants.BudgetConstructionConstants;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Transactional
 public class GenesisServiceImpl implements GenesisService {
@@ -47,7 +47,7 @@ public class GenesisServiceImpl implements GenesisService {
         boolean ReturnValue = (genesisDao.getBudgetConstructionControlFlag(RequestYear, BudgetConstructionConstants.BUDGET_CONSTRUCTION_GENESIS_RUNNING)) || ((genesisDao.getBudgetConstructionControlFlag(RequestYear, BudgetConstructionConstants.BUDGET_CONSTRUCTION_ACTIVE)) && (genesisDao.getBudgetConstructionControlFlag(RequestYear, BudgetConstructionConstants.BUDGET_BATCH_SYNCHRONIZATION_OK)));
         return ReturnValue;
     }
-    
+
     public boolean CSFUpdatesAllowed(Integer BaseYear) {
         Integer RequestYear = BaseYear + 1;
         boolean ReturnValue = (genesisDao.getBudgetConstructionControlFlag(RequestYear, BudgetConstructionConstants.BUDGET_CONSTRUCTION_GENESIS_RUNNING)) || ((genesisDao.getBudgetConstructionControlFlag(RequestYear, BudgetConstructionConstants.BUDGET_CONSTRUCTION_ACTIVE)) && (genesisDao.getBudgetConstructionControlFlag(RequestYear, BudgetConstructionConstants.CSF_UPDATES_OK)));
@@ -59,9 +59,8 @@ public class GenesisServiceImpl implements GenesisService {
         boolean ReturnValue = (genesisDao.getBudgetConstructionControlFlag(RequestYear, BudgetConstructionConstants.BUDGET_CONSTRUCTION_GENESIS_RUNNING)) || ((genesisDao.getBudgetConstructionControlFlag(RequestYear, BudgetConstructionConstants.BUDGET_CONSTRUCTION_ACTIVE)) && (genesisDao.getBudgetConstructionControlFlag(BaseYear, BudgetConstructionConstants.BASE_BUDGET_UPDATES_OK)));
         return ReturnValue;
     }
-    
-    public boolean IsBudgetConstructionInUpdateMode(Integer baseYear)
-    {
+
+    public boolean IsBudgetConstructionInUpdateMode(Integer baseYear) {
         Integer requestYear = baseYear + 1;
         return genesisDao.getBudgetConstructionControlFlag(requestYear, BudgetConstructionConstants.BUDGET_CONSTRUCTION_GENESIS_RUNNING) || ((genesisDao.getBudgetConstructionControlFlag(requestYear, BudgetConstructionConstants.BUDGET_CONSTRUCTION_ACTIVE)) && (genesisDao.getBudgetConstructionControlFlag(requestYear, BudgetConstructionConstants.BUDGET_CONSTRUCTION_UPDATES_OK)));
     }
@@ -98,9 +97,9 @@ public class GenesisServiceImpl implements GenesisService {
         boolean PSSynchOK = BatchPositionSynchAllowed(BaseYear);
         boolean BCUpdatesAllowed = IsBudgetConstructionInUpdateMode(BaseYear);
         LOG.warn(String.format("\n  update Budget Construction Position\n"));
-        budgetConstructionHumanResourcesPayrollInterfaceService.refreshBudgetConstructionPosition(BaseYear,PSSynchOK,CSFOK);
+        budgetConstructionHumanResourcesPayrollInterfaceService.refreshBudgetConstructionPosition(BaseYear, PSSynchOK, CSFOK);
         LOG.warn(String.format("\n  intended incumbent"));
-        budgetConstructionHumanResourcesPayrollInterfaceService.refreshBudgetConstructionIntendedIncumbent(BaseYear,PSSynchOK,CSFOK,BCUpdatesAllowed);
+        budgetConstructionHumanResourcesPayrollInterfaceService.refreshBudgetConstructionIntendedIncumbent(BaseYear, PSSynchOK, CSFOK, BCUpdatesAllowed);
         if (CSFOK) {
             LOG.warn(String.format("\n  build appointment funding\n"));
             genesisDao.buildAppointmentFundingAndBCSF(BaseYear);
@@ -110,9 +109,8 @@ public class GenesisServiceImpl implements GenesisService {
         // look for accounts coming from payroll or GL that have not been entered into the Budget Construction Accounting table
         Integer requestFiscalYear = BaseYear + 1;
         LOG.warn(String.format("\n  look for accounts missing from Budget Construction Accounting\n"));
-        HashMap<String,String[]> missingAccounts = (HashMap<String,String[]>) genesisDao.verifyAccountsAreAccessible(requestFiscalYear);
-        for (Map.Entry<String,String[]> missingAccount : missingAccounts.entrySet())
-        {
+        HashMap<String, String[]> missingAccounts = (HashMap<String, String[]>) genesisDao.verifyAccountsAreAccessible(requestFiscalYear);
+        for (Map.Entry<String, String[]> missingAccount : missingAccounts.entrySet()) {
             String[] missingValues = missingAccount.getValue();
             LOG.warn(String.format("    (chart: %s, account: %s) not found in Budget Construction Accounting\n", missingValues[0], missingValues[1]));
         }
@@ -141,9 +139,9 @@ public class GenesisServiceImpl implements GenesisService {
         boolean CSFOK = CSFUpdatesAllowed(BaseYear);
         boolean PSSynchOK = BatchPositionSynchAllowed(BaseYear);
         boolean BCUpdatesAllowed = IsBudgetConstructionInUpdateMode(BaseYear);
-        budgetConstructionHumanResourcesPayrollInterfaceService.refreshBudgetConstructionPosition(BaseYear,PSSynchOK,CSFOK);
+        budgetConstructionHumanResourcesPayrollInterfaceService.refreshBudgetConstructionPosition(BaseYear, PSSynchOK, CSFOK);
         LOG.warn(String.format("\n  intended incumbent"));
-        budgetConstructionHumanResourcesPayrollInterfaceService.refreshBudgetConstructionIntendedIncumbent(BaseYear,PSSynchOK,CSFOK,BCUpdatesAllowed);
+        budgetConstructionHumanResourcesPayrollInterfaceService.refreshBudgetConstructionIntendedIncumbent(BaseYear, PSSynchOK, CSFOK, BCUpdatesAllowed);
         if (CSFOK) {
             LOG.warn("\n  appointment funding/BCSF");
             genesisDao.buildAppointmentFundingAndBCSF(BaseYear);
@@ -154,24 +152,22 @@ public class GenesisServiceImpl implements GenesisService {
         genesisDao.setControlFlagsAtTheEndOfGenesis(BaseYear);
         LOG.warn("\n  end of genesis");
     }
-    
+
     /*
      *   look of accounts from the payroll (CSF) or GL that came into budget construction but are *not* in the budget construction accounting table.
      *   this can be due to an oversight on the part of the chart manager, or to problems with the current year's budget control.
      *   such accounts will not appear in the pull-up list, since they can't be added to the reporting hierarchy, which is built from budget construction accounting.
      *   this method is provided for use by a report an institution might want to write.  such accounts will always appear in the log from bCUpdateStep above, whether this method is used or not.
      */
-    public Map verifyAccountsAreAccessible(Integer requestFiscalYear)
-    {
+    public Map verifyAccountsAreAccessible(Integer requestFiscalYear) {
         return genesisDao.verifyAccountsAreAccessible(requestFiscalYear);
     }
 
     public void setGenesisDao(GenesisDao genesisDao) {
         this.genesisDao = genesisDao;
     }
-    
-    public void setBudgetConstructionHumanResourcesPayrollInterfaceService(BudgetConstructionHumanResourcesPayrollInterfaceService budgetConstructionHumanResourcesPayrollInterfaceService)
-    {
-        this.budgetConstructionHumanResourcesPayrollInterfaceService = budgetConstructionHumanResourcesPayrollInterfaceService; 
+
+    public void setBudgetConstructionHumanResourcesPayrollInterfaceService(BudgetConstructionHumanResourcesPayrollInterfaceService budgetConstructionHumanResourcesPayrollInterfaceService) {
+        this.budgetConstructionHumanResourcesPayrollInterfaceService = budgetConstructionHumanResourcesPayrollInterfaceService;
     }
 }

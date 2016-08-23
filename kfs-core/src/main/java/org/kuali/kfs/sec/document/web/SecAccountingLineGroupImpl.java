@@ -1,34 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sec.document.web;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.tagext.Tag;
-
 import org.apache.struts.Globals;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sec.SecConstants;
 import org.kuali.kfs.sec.SecKeyConstants;
 import org.kuali.kfs.sec.service.AccessSecurityService;
@@ -39,7 +32,13 @@ import org.kuali.kfs.sys.document.web.DefaultAccountingLineGroupImpl;
 import org.kuali.kfs.sys.document.web.RenderableAccountingLineContainer;
 import org.kuali.kfs.sys.document.web.renderers.GroupErrorsRenderer;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.tagext.Tag;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -62,8 +61,8 @@ public class SecAccountingLineGroupImpl extends DefaultAccountingLineGroupImpl {
      * container if view is not allowed
      *
      * @see org.kuali.kfs.sys.document.web.DefaultAccountingLineGroupImpl#initialize(org.kuali.kfs.sys.document.datadictionary.AccountingLineGroupDefinition,
-     *      org.kuali.kfs.sys.document.AccountingDocument, java.util.List, java.lang.String, java.lang.String, java.util.Map,
-     *      java.util.Map, java.util.Map, boolean)
+     * org.kuali.kfs.sys.document.AccountingDocument, java.util.List, java.lang.String, java.lang.String, java.util.Map,
+     * java.util.Map, java.util.Map, boolean)
      */
     @Override
     public void initialize(AccountingLineGroupDefinition groupDefinition, AccountingDocument accountingDocument, List<RenderableAccountingLineContainer> containers, String collectionPropertyName, String collectionItemPropertyName, Map<String, Object> displayedErrors, Map<String, Object> displayedWarnings, Map<String, Object> displayedInfo, boolean canEdit) {
@@ -74,7 +73,7 @@ public class SecAccountingLineGroupImpl extends DefaultAccountingLineGroupImpl {
         List<RenderableAccountingLineContainer> unviewableContainers = new ArrayList<RenderableAccountingLineContainer>();
         for (RenderableAccountingLineContainer container : containers) {
             boolean lineHasError = false;
-            for (Object errorKeyAsObject : GlobalVariables.getMessageMap().getErrorMessages().keySet() ) {
+            for (Object errorKeyAsObject : GlobalVariables.getMessageMap().getErrorMessages().keySet()) {
                 if (((String) errorKeyAsObject).startsWith(collectionItemPropertyName)) {
                     lineHasError = true;
                 }
@@ -88,8 +87,7 @@ public class SecAccountingLineGroupImpl extends DefaultAccountingLineGroupImpl {
             if (!viewAllowed) {
                 unviewableContainers.add(container);
                 hasViewRestrictions = true;
-            }
-            else {
+            } else {
                 boolean editAllowed = accessSecurityService.canEditDocumentAccountingLine(accountingDocument, container.getAccountingLine(), currentUser);
 
                 if (container.isEditableLine() && !editAllowed) {
@@ -111,7 +109,7 @@ public class SecAccountingLineGroupImpl extends DefaultAccountingLineGroupImpl {
      * Adds info message if we have restricted view of any accounting lines and adds an additional key to match on
      *
      * @see org.kuali.kfs.sys.document.web.DefaultAccountingLineGroupImpl#renderErrors(javax.servlet.jsp.PageContext,
-     *      javax.servlet.jsp.tagext.Tag)
+     * javax.servlet.jsp.tagext.Tag)
      */
     @Override
     protected void renderErrors(PageContext pageContext, Tag parentTag) throws JspException {
@@ -125,7 +123,7 @@ public class SecAccountingLineGroupImpl extends DefaultAccountingLineGroupImpl {
      *
      * @param pageContext
      * @param parentTag
-     * @param messageKey - key for messages to display
+     * @param messageKey  - key for messages to display
      * @throws JspException
      */
     protected void renderMessages(PageContext pageContext, Tag parentTag, String messageKey) throws JspException {
@@ -167,8 +165,7 @@ public class SecAccountingLineGroupImpl extends DefaultAccountingLineGroupImpl {
 
             if (hasViewRestrictions) {
                 requestErrors.add(secErrorKey, new ActionMessage(SecKeyConstants.MESSAGE_ACCOUNTING_LINE_VIEW_RESTRICTED));
-            }
-            else {
+            } else {
                 requestErrors.add(secErrorKey, new ActionMessage(SecKeyConstants.MESSAGE_ACCOUNTING_LINE_EDIT_RESTRICTED));
             }
 

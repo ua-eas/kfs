@@ -1,35 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.document;
 
-import java.text.SimpleDateFormat;
-import java.util.List;
-import java.util.Map;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.Table;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemConstants.TravelParameters;
 import org.kuali.kfs.module.tem.TemConstants.TravelRelocationStatusCodeKeys;
@@ -44,15 +37,20 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.Table;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Travel Relocation Document
- *
  */
 @Entity
-@Table(name="TEM_RELO_DOC_T")
+@Table(name = "TEM_RELO_DOC_T")
 public class TravelRelocationDocument extends TEMReimbursementDocument implements AmountTotaling {
 
     protected static Logger LOG = Logger.getLogger(TravelRelocationDocument.class);
@@ -77,146 +75,147 @@ public class TravelRelocationDocument extends TEMReimbursementDocument implement
     public TravelRelocationDocument() {
     }
 
-    public void setFromAddress1(String fromAddress1){
+    public void setFromAddress1(String fromAddress1) {
         this.fromAddress1 = fromAddress1;
     }
 
     @Column(name = "FRM_ADDR_LINE1", length = 50, nullable = true)
-    public String getFromAddress1(){
+    public String getFromAddress1() {
         return this.fromAddress1;
     }
 
-    public void setFromAddress2(String fromAddress2){
+    public void setFromAddress2(String fromAddress2) {
         this.fromAddress2 = fromAddress2;
     }
 
     @Column(name = "FRM_ADDR_LINE2", length = 50, nullable = true)
-    public String getFromAddress2(){
+    public String getFromAddress2() {
         return this.fromAddress2;
     }
 
-    public void setFromCity(String fromCity){
+    public void setFromCity(String fromCity) {
         this.fromCity = fromCity;
     }
 
     @Column(name = "FRM_CITY_NM", length = 30, nullable = true)
-    public String getFromCity(){
+    public String getFromCity() {
         return this.fromCity;
     }
 
-    public void setFromStateCode(String fromStateCode){
+    public void setFromStateCode(String fromStateCode) {
         this.fromStateCode = fromStateCode;
     }
 
     @Column(name = "FRM_STATE_CD", length = 40, nullable = true)
-    public String getFromStateCode(){
+    public String getFromStateCode() {
         return this.fromStateCode;
     }
 
-    public void setFromCountryCode(String fromCountryCode){
+    public void setFromCountryCode(String fromCountryCode) {
         this.fromCountryCode = fromCountryCode;
     }
 
     @Column(name = "FRM_COUNTRY_CD", length = 40, nullable = true)
-    public String getFromCountryCode(){
+    public String getFromCountryCode() {
         return this.fromCountryCode;
     }
 
-    public void setToAddress1(String toAddress1){
+    public void setToAddress1(String toAddress1) {
         this.toAddress1 = toAddress1;
     }
 
     @Column(name = "TO_ADDR_LINE1", length = 50, nullable = true)
-    public String getToAddress1(){
+    public String getToAddress1() {
         return this.toAddress1;
     }
 
-    public void setToAddress2(String toAddress2){
+    public void setToAddress2(String toAddress2) {
         this.toAddress2 = toAddress2;
     }
 
     @Column(name = "TO_ADDR_LINE2", length = 50, nullable = true)
-    public String getToAddress2(){
+    public String getToAddress2() {
         return this.toAddress2;
     }
 
-    public void setToCity(String toCity){
+    public void setToCity(String toCity) {
         this.toCity = toCity;
     }
 
     @Column(name = "TO_CITY_NM", length = 30, nullable = true)
-    public String getToCity(){
+    public String getToCity() {
         return this.toCity;
     }
 
-    public void setToStateCode(String toStateCode){
+    public void setToStateCode(String toStateCode) {
         this.toStateCode = toStateCode;
     }
 
     @Column(name = "TO_STATE_CD", length = 40, nullable = true)
-    public String getToStateCode(){
+    public String getToStateCode() {
         return this.toStateCode;
     }
 
-    public void setToCountryCode(String toCountryCode){
+    public void setToCountryCode(String toCountryCode) {
         this.toCountryCode = toCountryCode;
     }
 
     @Column(name = "TO_COUNTRY_CD", length = 40, nullable = true)
-    public String getToCountryCode(){
+    public String getToCountryCode() {
         return this.toCountryCode;
     }
 
-    public void setReasonCode(String reasonCode){
+    public void setReasonCode(String reasonCode) {
         this.reasonCode = reasonCode;
     }
 
     @Column(name = "REASON_CD", length = 255, nullable = true)
-    public String getReasonCode(){
+    public String getReasonCode() {
         return this.reasonCode;
     }
 
-    public void setReason(RelocationReason reason){
+    public void setReason(RelocationReason reason) {
         this.reason = reason;
     }
-    @JoinColumn(name="REASON_CD",nullable=true)
-    public RelocationReason getReason(){
+
+    @JoinColumn(name = "REASON_CD", nullable = true)
+    public RelocationReason getReason() {
         return this.reason;
     }
 
-    public void setJobClsCode(String jobClsCode){
+    public void setJobClsCode(String jobClsCode) {
         this.jobClsCode = jobClsCode;
     }
 
     @Column(name = "JOB_CLS_CD", length = 255, nullable = true)
-    public String getJobClsCode(){
+    public String getJobClsCode() {
         return this.jobClsCode;
     }
 
-    public void setJobClassification(JobClassification jobClassification){
+    public void setJobClassification(JobClassification jobClassification) {
         this.jobClassification = jobClassification;
     }
 
-    @JoinColumn(name="JOB_CLS_CD",nullable=true)
-    public JobClassification getJobClassification(){
+    @JoinColumn(name = "JOB_CLS_CD", nullable = true)
+    public JobClassification getJobClassification() {
         return this.jobClassification;
     }
 
-    public void setTitleCode(String titleCode){
+    public void setTitleCode(String titleCode) {
         this.titleCode = titleCode;
     }
 
     @Column(name = "TITLE_CD", length = 3, nullable = true)
-    public String getTitleCode(){
+    public String getTitleCode() {
         return this.titleCode;
     }
 
-    public void setComments(String comments){
+    public void setComments(String comments) {
         this.comments = comments;
     }
 
     @Column(name = "COMMENTS", length = 255, nullable = true)
-    public String getComments(){
+    public String getComments() {
         return this.comments;
     }
 
@@ -226,7 +225,7 @@ public class TravelRelocationDocument extends TEMReimbursementDocument implement
     @Override
     public void prepareForSave(KualiDocumentEvent event) {
 
-        if(getFromCity() != null){
+        if (getFromCity() != null) {
             getPrimaryDestination().setPrimaryDestinationName(getFromCity());
         }
         super.prepareForSave(event);
@@ -264,7 +263,7 @@ public class TravelRelocationDocument extends TEMReimbursementDocument implement
         setTripEnd(null);
         setApplicationDocumentStatus(TravelRelocationStatusCodeKeys.IN_PROCESS);
         getTravelPayment().setDocumentationLocationCode(getParameterService().getParameterValueAsString(TravelRelocationDocument.class, TravelParameters.DOCUMENTATION_LOCATION_CODE,
-                getParameterService().getParameterValueAsString(TemParameterConstants.TEM_DOCUMENT.class,TravelParameters.DOCUMENTATION_LOCATION_CODE)));
+            getParameterService().getParameterValueAsString(TemParameterConstants.TEM_DOCUMENT.class, TravelParameters.DOCUMENTATION_LOCATION_CODE)));
     }
 
     /**
@@ -279,8 +278,7 @@ public class TravelRelocationDocument extends TEMReimbursementDocument implement
             LOG.debug("New route status is: " + statusChangeEvent.getNewRouteStatus());
             try {
                 updateAndSaveAppDocStatus(TravelRelocationStatusCodeKeys.RELO_MANAGER_APPROVED);
-            }
-            catch (WorkflowException ex) {
+            } catch (WorkflowException ex) {
                 // TODO Auto-generated catch block
                 ex.printStackTrace();
             }
@@ -311,11 +309,11 @@ public class TravelRelocationDocument extends TEMReimbursementDocument implement
     }
 
     /**
-     *
      * This method returns the preparer
+     *
      * @return
      */
-    public String getPreparer(){
+    public String getPreparer() {
         return GlobalVariables.getUserSession().getPerson().getPrincipalName();
     }
 
@@ -347,7 +345,7 @@ public class TravelRelocationDocument extends TEMReimbursementDocument implement
      */
     @Override
     public String getReportPurpose() {
-        return reason != null? reason.getReloReasonName() : null;
+        return reason != null ? reason.getReloReasonName() : null;
     }
 
     /**
@@ -357,7 +355,7 @@ public class TravelRelocationDocument extends TEMReimbursementDocument implement
     public void populateVendorPayment(DisbursementVoucherDocument disbursementVoucherDocument) {
         super.populateVendorPayment(disbursementVoucherDocument);
 
-        String locationCode = getParameterService().getParameterValueAsString(TravelRelocationDocument.class, TravelParameters.DOCUMENTATION_LOCATION_CODE, getParameterService().getParameterValueAsString(TemParameterConstants.TEM_DOCUMENT.class,TravelParameters.DOCUMENTATION_LOCATION_CODE));
+        String locationCode = getParameterService().getParameterValueAsString(TravelRelocationDocument.class, TravelParameters.DOCUMENTATION_LOCATION_CODE, getParameterService().getParameterValueAsString(TemParameterConstants.TEM_DOCUMENT.class, TravelParameters.DOCUMENTATION_LOCATION_CODE));
         String startDate = new SimpleDateFormat("MM/dd/yyyy").format(getTripBegin());
         String endDate = new SimpleDateFormat("MM/dd/yyyy").format(getTripEnd());
         String checkStubText = getTravelDocumentIdentifier() + ", " + startDate + " - " + endDate + ", " + getToCity() + ", " + getToStateCode();
@@ -374,7 +372,7 @@ public class TravelRelocationDocument extends TEMReimbursementDocument implement
      */
     @Override
     protected boolean requiresTaxManagerApprovalRouting() {
-        boolean requiresTaxManagerApprovalRouting =  super.requiresTaxManagerApprovalRouting();
+        boolean requiresTaxManagerApprovalRouting = super.requiresTaxManagerApprovalRouting();
 
         return requiresTaxManagerApprovalRouting || getTraveler().getNonResidentAlien();
     }
@@ -389,6 +387,7 @@ public class TravelRelocationDocument extends TEMReimbursementDocument implement
 
     /**
      * Returns RECA
+     *
      * @see org.kuali.kfs.module.tem.document.TEMReimbursementDocument#getAchCheckDocumentType()
      */
     @Override
@@ -398,6 +397,7 @@ public class TravelRelocationDocument extends TEMReimbursementDocument implement
 
     /**
      * Returns REWF
+     *
      * @see org.kuali.kfs.module.tem.document.TEMReimbursementDocument#getWireTransferOrForeignDraftDocumentType()
      */
     @Override
@@ -407,6 +407,7 @@ public class TravelRelocationDocument extends TEMReimbursementDocument implement
 
     /**
      * Returns "R-"
+     *
      * @see org.kuali.kfs.module.tem.document.TravelDocumentBase#getTripIdPrefix()
      */
     @Override
@@ -416,6 +417,7 @@ public class TravelRelocationDocument extends TEMReimbursementDocument implement
 
     /**
      * The trip type code for a RELO is always "All"
+     *
      * @see org.kuali.kfs.module.tem.document.TravelDocumentBase#getTripTypeCode()
      */
     @Override

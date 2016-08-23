@@ -1,28 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.module.purap.document;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.purap.PurapParameterConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.PurapWorkflowConstants;
@@ -32,14 +31,15 @@ import org.kuali.kfs.module.purap.document.service.RequisitionService;
 import org.kuali.kfs.sys.DynamicCollectionComparator;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocumentBase;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.action.ActionRequestType;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.DocumentService;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class ContractManagerAssignmentDocument extends FinancialSystemTransactionalDocumentBase {
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ContractManagerAssignmentDocument.class);
@@ -79,31 +79,30 @@ public class ContractManagerAssignmentDocument extends FinancialSystemTransactio
      */
     public void populateDocumentWithRequisitions() {
         LOG.debug("populateDocumentWithRequisitions() Entering method.");
-        
+
         List<RequisitionDocument> unassignedRequisitions = new ArrayList(SpringContext.getBean(RequisitionService.class).getRequisitionsAwaitingContractManagerAssignment());
-        List<String>documentHeaderIds = new ArrayList();
+        List<String> documentHeaderIds = new ArrayList();
         for (RequisitionDocument req : unassignedRequisitions) {
             documentHeaderIds.add(req.getDocumentNumber());
         }
-        
+
         List<Document> requisitionDocumentsFromDocService = new ArrayList();
         try {
-            if ( documentHeaderIds.size() > 0 )
+            if (documentHeaderIds.size() > 0)
                 requisitionDocumentsFromDocService = SpringContext.getBean(DocumentService.class).getDocumentsByListOfDocumentHeaderIds(RequisitionDocument.class, documentHeaderIds);
-        }
-        catch (WorkflowException we) {
+        } catch (WorkflowException we) {
             String errorMsg = "Workflow Exception caught: " + we.getLocalizedMessage();
             LOG.error(errorMsg, we);
             throw new RuntimeException(errorMsg, we);
         }
-  
+
         for (Document req : requisitionDocumentsFromDocService) {
             contractManagerAssignmentDetails.add(new ContractManagerAssignmentDetail(this, (RequisitionDocument) req));
         }
 
         String[] fieldNames = {PurapPropertyConstants.DELIVERY_CAMPUS_CODE, PurapPropertyConstants.VENDOR_NAME, PurapPropertyConstants.REQUISITION_IDENTIFIER};
         DynamicCollectionComparator.sort(contractManagerAssignmentDetails, fieldNames);
-        LOG.debug("populateDocumentWithRequisitions() Leaving method.");   
+        LOG.debug("populateDocumentWithRequisitions() Leaving method.");
     }
 
     @Override
@@ -128,9 +127,8 @@ public class ContractManagerAssignmentDocument extends FinancialSystemTransactio
                             currentNodeName = this.getCurrentRouteNodeName(workflowDoc);
                         }
                     }
-                    workflowDoc.adHocToPrincipal( ActionRequestType.FYI, currentNodeName, PurapWorkflowConstants.ContractManagerAssignmentDocument.ASSIGN_CONTRACT_DOC_ERROR_COMPLETING_POST_PROCESSING + failedReqs, workflowDoc.getInitiatorPrincipalId(), "Initiator", true);
-                }
-                catch (WorkflowException e) {
+                    workflowDoc.adHocToPrincipal(ActionRequestType.FYI, currentNodeName, PurapWorkflowConstants.ContractManagerAssignmentDocument.ASSIGN_CONTRACT_DOC_ERROR_COMPLETING_POST_PROCESSING + failedReqs, workflowDoc.getInitiatorPrincipalId(), "Initiator", true);
+                } catch (WorkflowException e) {
                     // do nothing; document should have processed successfully and problem is with sending FYI
                 }
             }
@@ -139,7 +137,6 @@ public class ContractManagerAssignmentDocument extends FinancialSystemTransactio
     }
 
     /**
-     * 
      * @param wd
      * @return
      * @throws WorkflowException
@@ -148,8 +145,7 @@ public class ContractManagerAssignmentDocument extends FinancialSystemTransactio
         Set<String> nodeNames = wd.getCurrentNodeNames();
         if (nodeNames == null || nodeNames.isEmpty()) {
             return null;
-        }
-        else {
+        } else {
             return nodeNames.iterator().next();
         }
     }
@@ -162,8 +158,7 @@ public class ContractManagerAssignmentDocument extends FinancialSystemTransactio
         String title = "";
         if (SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(ContractManagerAssignmentDocument.class, PurapParameterConstants.PURAP_OVERRIDE_ASSIGN_CONTRACT_MGR_DOC_TITLE)) {
             title = PurapWorkflowConstants.ContractManagerAssignmentDocument.WORKFLOW_DOCUMENT_TITLE;
-        }
-        else {
+        } else {
             title = super.getDocumentTitle();
         }
         return title;
@@ -179,7 +174,7 @@ public class ContractManagerAssignmentDocument extends FinancialSystemTransactio
 
     /**
      * Gets the firstObjectCode attribute.
-     * 
+     *
      * @return Returns the firstObjectCode.
      */
     public String getFirstObjectCode() {
@@ -188,7 +183,7 @@ public class ContractManagerAssignmentDocument extends FinancialSystemTransactio
 
     /**
      * Gets the deliveryCampusCode attribute.
-     * 
+     *
      * @return Returns the deliveryCampusCode.
      */
     public String getDeliveryCampusCode() {
@@ -197,25 +192,25 @@ public class ContractManagerAssignmentDocument extends FinancialSystemTransactio
 
     /**
      * Gets the firstItemDescription attribute.
-     * 
+     *
      * @return Returns the firstItemDescription.
      */
     public String getFirstItemDescription() {
         return firstItemDescription;
     }
 
-   /**
-    * Gets the firstItemCommodityCode attribute.
-    * 
-    * @return Returns the firstItemCommodityCode.
-    */
+    /**
+     * Gets the firstItemCommodityCode attribute.
+     *
+     * @return Returns the firstItemCommodityCode.
+     */
     public String getFirstItemCommodityCode() {
         return firstItemCommodityCode;
     }
 
     /**
      * Gets the generalDescription attribute.
-     * 
+     *
      * @return Returns the generalDescription.
      */
     public String getGeneralDescription() {
@@ -224,7 +219,7 @@ public class ContractManagerAssignmentDocument extends FinancialSystemTransactio
 
     /**
      * Gets the requisitionCreateDate attribute.
-     * 
+     *
      * @return Returns the requisitionCreateDate.
      */
     public String getRequisitionCreateDate() {
@@ -233,7 +228,7 @@ public class ContractManagerAssignmentDocument extends FinancialSystemTransactio
 
     /**
      * Gets the requisitionNumber attribute.
-     * 
+     *
      * @return Returns the requisitionNumber.
      */
     public String getRequisitionNumber() {
@@ -242,7 +237,7 @@ public class ContractManagerAssignmentDocument extends FinancialSystemTransactio
 
     /**
      * Gets the requisitionTotalAmount attribute.
-     * 
+     *
      * @return Returns the requisitionTotalAmount.
      */
     public String getRequisitionTotalAmount() {
@@ -251,7 +246,7 @@ public class ContractManagerAssignmentDocument extends FinancialSystemTransactio
 
     /**
      * Gets the vendorName attribute.
-     * 
+     *
      * @return Returns the vendorName.
      */
     public String getVendorName() {
@@ -261,5 +256,5 @@ public class ContractManagerAssignmentDocument extends FinancialSystemTransactio
     public String getUniversityFiscalYear() {
         return universityFiscalYear;
     }
-    
+
 }

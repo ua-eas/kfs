@@ -1,30 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.batch.service.impl;
-
-import java.util.Iterator;
 
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.iterators.FilterIterator;
 import org.kuali.kfs.gl.batch.service.BalancePredicate;
 import org.kuali.kfs.gl.batch.service.FilteringBalanceIterator;
 import org.kuali.kfs.gl.businessobject.Balance;
+
+import java.util.Iterator;
 
 /**
  * An implementation of FilteringBalanceIterator that only selects balances that should be selected, according to the predicate that
@@ -38,7 +38,7 @@ public class FilteringBalanceIteratorImpl implements FilteringBalanceIterator {
 
     /**
      * Are there any more balances left in this iterator?
-     * 
+     *
      * @return true if there are more balances, false otherwise
      * @see java.util.Iterator#hasNext()
      */
@@ -51,7 +51,7 @@ public class FilteringBalanceIteratorImpl implements FilteringBalanceIterator {
 
     /**
      * Retrieves the next balance in the iterator
-     * 
+     *
      * @return the next balance in the iterator
      * @see java.util.Iterator#next()
      */
@@ -64,7 +64,7 @@ public class FilteringBalanceIteratorImpl implements FilteringBalanceIterator {
 
     /**
      * Removes the next balance in the iterator.
-     * 
+     *
      * @see java.util.Iterator#remove()
      */
     public void remove() {
@@ -76,7 +76,7 @@ public class FilteringBalanceIteratorImpl implements FilteringBalanceIterator {
 
     /**
      * A convenience method to get the enhanced for loops to work with this thing, this simply returns this iterator
-     * 
+     *
      * @return an iterator of Balances...which is this Iterator
      * @see java.lang.Iterable#iterator()
      */
@@ -100,7 +100,7 @@ public class FilteringBalanceIteratorImpl implements FilteringBalanceIterator {
 
     /**
      * Sets the balancePredicate attribute value.
-     * 
+     *
      * @param balancePredicate The balancePredicate to set.
      */
     public void setBalancePredicate(BalancePredicate balancePredicate) {
@@ -109,7 +109,7 @@ public class FilteringBalanceIteratorImpl implements FilteringBalanceIterator {
 
     /**
      * Sets the balancesSource attribute value.
-     * 
+     *
      * @param balancesSource The balancesSource to set.
      */
     public void setBalancesSource(Iterator<Balance> balancesSource) {

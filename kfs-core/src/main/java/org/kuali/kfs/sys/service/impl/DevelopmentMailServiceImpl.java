@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -20,8 +20,8 @@ package org.kuali.kfs.sys.service.impl;
 
 import org.kuali.kfs.krad.exception.InvalidAddressException;
 import org.kuali.kfs.krad.service.MailService;
-import org.kuali.rice.core.api.mail.MailMessage;
 import org.kuali.kfs.sys.KFSConstants.DevelopmentMailServerConstants;
+import org.kuali.rice.core.api.mail.MailMessage;
 
 import javax.mail.MessagingException;
 
@@ -31,12 +31,12 @@ public class DevelopmentMailServiceImpl implements MailService {
     @Override
     public void sendMessage(MailMessage message) throws InvalidAddressException, MessagingException {
         LOG.info(DevelopmentMailServerConstants.EMAIL_INFO_START_LINE);
-        LOG.info(DevelopmentMailServerConstants.FROM + message.getFromAddress() );
-        LOG.info(DevelopmentMailServerConstants.TO + message.getToAddresses() );
-        LOG.info(DevelopmentMailServerConstants.CC + message.getCcAddresses() );
-        LOG.info(DevelopmentMailServerConstants.BCC + message.getBccAddresses() );
-        LOG.info(DevelopmentMailServerConstants.SUBJECT + message.getSubject() );
-        LOG.info(DevelopmentMailServerConstants.MESSAGE + message.getMessage() );
+        LOG.info(DevelopmentMailServerConstants.FROM + message.getFromAddress());
+        LOG.info(DevelopmentMailServerConstants.TO + message.getToAddresses());
+        LOG.info(DevelopmentMailServerConstants.CC + message.getCcAddresses());
+        LOG.info(DevelopmentMailServerConstants.BCC + message.getBccAddresses());
+        LOG.info(DevelopmentMailServerConstants.SUBJECT + message.getSubject());
+        LOG.info(DevelopmentMailServerConstants.MESSAGE + message.getMessage());
         LOG.info(DevelopmentMailServerConstants.EMAIL_INFO_END_LINE);
     }
 

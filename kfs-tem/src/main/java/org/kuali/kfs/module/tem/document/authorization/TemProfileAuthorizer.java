@@ -1,38 +1,38 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.document.authorization;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
+import org.kuali.kfs.kns.document.authorization.MaintenanceDocumentAuthorizer;
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.businessobject.TemProfile;
 import org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocumentAuthorizerBase;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
-import org.kuali.kfs.kns.document.authorization.MaintenanceDocumentAuthorizer;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.document.Document;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * This authorizer needs to override the canCreate and canMaintain methods...which are final on the base MaintDocAuthorizer class that every other authorizer simply extends.  Therefore,
@@ -44,6 +44,7 @@ public class TemProfileAuthorizer implements MaintenanceDocumentAuthorizer, Docu
 
     /**
      * Not overridden; we'll just rely on the Create / Maintain Document check for this one
+     *
      * @see org.kuali.rice.krad.maintenance.MaintenanceDocumentAuthorizer#canCreate(java.lang.Class, org.kuali.rice.kim.api.identity.Person)
      */
     @Override
@@ -53,6 +54,7 @@ public class TemProfileAuthorizer implements MaintenanceDocumentAuthorizer, Docu
 
     /**
      * Overridden to verify that the user has KFS-TEM Edit Own Tem Profile permission before maintaining their own record, and that the user
+     *
      * @see org.kuali.rice.krad.maintenance.MaintenanceDocumentAuthorizer#canMaintain(java.lang.Object, org.kuali.rice.kim.api.identity.Person)
      */
     @Override
@@ -61,11 +63,11 @@ public class TemProfileAuthorizer implements MaintenanceDocumentAuthorizer, Docu
 
         TemProfile profile = null;
         if (dataObject instanceof TemProfile) {
-            profile = (TemProfile)dataObject;
+            profile = (TemProfile) dataObject;
         } else if (dataObject instanceof MaintenanceDocument) {
-            profile = (TemProfile)((MaintenanceDocument)dataObject).getNewMaintainableObject().getBusinessObject();
+            profile = (TemProfile) ((MaintenanceDocument) dataObject).getNewMaintainableObject().getBusinessObject();
         }
-        result &= ((doesProfileMatchUser(profile, user) && canEditOwnProfile((BusinessObject)dataObject, user)) || canEditAllProfiles((BusinessObject)dataObject, user));
+        result &= ((doesProfileMatchUser(profile, user) && canEditOwnProfile((BusinessObject) dataObject, user)) || canEditAllProfiles((BusinessObject) dataObject, user));
 
         return result;
     }
@@ -73,13 +75,14 @@ public class TemProfileAuthorizer implements MaintenanceDocumentAuthorizer, Docu
     /**
      * Overridden to check that the user has the normal Create / Maintain permission and also, if it's their own profile, the ability to edit their own profile; if it's not their own profile,
      * it checks if they can edit anyone's profile
+     *
      * @see org.kuali.kfs.krad.maintenance.MaintenanceDocumentAuthorizer#canCreateOrMaintain(org.kuali.kfs.krad.maintenance.MaintenanceDocument, org.kuali.rice.kim.api.identity.Person)
      */
     @Override
     public boolean canCreateOrMaintain(org.kuali.kfs.krad.maintenance.MaintenanceDocument maintenanceDocument, Person user) {
         boolean result = getRootDocumentAuthorizer().canCreateOrMaintain(maintenanceDocument, user);
 
-        final TemProfile profile = (TemProfile)maintenanceDocument.getNewMaintainableObject().getDataObject();
+        final TemProfile profile = (TemProfile) maintenanceDocument.getNewMaintainableObject().getDataObject();
         result &= ((doesProfileMatchUser(profile, user) && canEditOwnProfile(maintenanceDocument, user)) || canEditAllProfiles(maintenanceDocument, user));
 
         return result;
@@ -87,6 +90,7 @@ public class TemProfileAuthorizer implements MaintenanceDocumentAuthorizer, Docu
 
     /**
      * Determines if the given profile matches the given user
+     *
      * @param profile the profile to check
      * @return true if the profile is for the current user, false otherwise
      */
@@ -100,8 +104,9 @@ public class TemProfileAuthorizer implements MaintenanceDocumentAuthorizer, Docu
 
     /**
      * Determines if the given user is allowed to create or maintain their own profile
+     *
      * @param profileOrDoc the maintenance document maintaining the profile to check, or the profile itself
-     * @param user the user asking for permission
+     * @param user         the user asking for permission
      * @return true if the user has permission, false otherwise
      */
     public boolean canEditOwnProfile(BusinessObject profileOrDoc, Person user) {
@@ -110,13 +115,14 @@ public class TemProfileAuthorizer implements MaintenanceDocumentAuthorizer, Docu
             getRootDocumentAuthorizer().addRoleQualification(profileOrDoc, roleQualifications);
         }
 
-        return this.isAuthorized(profileOrDoc, TemConstants.NAMESPACE, TemConstants.Permission.EDIT_OWN_PROFILE, user.getPrincipalId(), Collections.<String,String>emptyMap(), roleQualifications);
+        return this.isAuthorized(profileOrDoc, TemConstants.NAMESPACE, TemConstants.Permission.EDIT_OWN_PROFILE, user.getPrincipalId(), Collections.<String, String>emptyMap(), roleQualifications);
     }
 
     /**
      * Determines if the given user is allowed to maintain a profile for any user or customer
+     *
      * @param profileOrDoc the maintenance document maintaining the profile to check, or the profile itself
-     * @param user the user asking for permission
+     * @param user         the user asking for permission
      * @return true if the user has permission, false otherwise
      */
     public boolean canEditAllProfiles(BusinessObject profileOrDoc, Person user) {
@@ -125,13 +131,14 @@ public class TemProfileAuthorizer implements MaintenanceDocumentAuthorizer, Docu
             getRootDocumentAuthorizer().addRoleQualification(profileOrDoc, roleQualifications);
         }
 
-        return this.isAuthorized(profileOrDoc, TemConstants.NAMESPACE, TemConstants.Permission.EDIT_ANY_PROFILE, user.getPrincipalId(), Collections.<String,String>emptyMap(), roleQualifications);
+        return this.isAuthorized(profileOrDoc, TemConstants.NAMESPACE, TemConstants.Permission.EDIT_ANY_PROFILE, user.getPrincipalId(), Collections.<String, String>emptyMap(), roleQualifications);
     }
 
     /**
      * Determines if the given user is allowed to create a profile for any user or customer
+     *
      * @param profileOrDoc the maintenance document maintaining the profile to check, or the profile itself
-     * @param user the user asking for permission
+     * @param user         the user asking for permission
      * @return true if the user has permission, false otherwise
      */
     public boolean canCreateAnyProfile(BusinessObject profileOrDoc, Person user) {
@@ -140,7 +147,7 @@ public class TemProfileAuthorizer implements MaintenanceDocumentAuthorizer, Docu
             getRootDocumentAuthorizer().addRoleQualification(profileOrDoc, roleQualifications);
         }
 
-        return this.isAuthorized(profileOrDoc, TemConstants.NAMESPACE, TemConstants.Permission.CREATE_ANY_PROFILE, user.getPrincipalId(), Collections.<String,String>emptyMap(), roleQualifications);
+        return this.isAuthorized(profileOrDoc, TemConstants.NAMESPACE, TemConstants.Permission.CREATE_ANY_PROFILE, user.getPrincipalId(), Collections.<String, String>emptyMap(), roleQualifications);
     }
 
     @Override
@@ -340,6 +347,7 @@ public class TemProfileAuthorizer implements MaintenanceDocumentAuthorizer, Docu
 
     /**
      * This is what actually uses the TemProfileAuthorizerAssistant to use as the logic we defer calls to
+     *
      * @return a document authorizer composed in, to defer to when we can
      */
     protected TemProfileAuthorizerAssistant getRootDocumentAuthorizer() {
@@ -347,12 +355,10 @@ public class TemProfileAuthorizer implements MaintenanceDocumentAuthorizer, Docu
             if (rootDocumentAuthorizer == null) {
                 rootDocumentAuthorizer = TemProfileAuthorizerAssistant.class.newInstance();
             }
-        }
-        catch (InstantiationException ie) {
-            throw new RuntimeException("Could not instantiate instance of "+FinancialSystemMaintenanceDocumentAuthorizerBase.class.getName(), ie);
-        }
-        catch (IllegalAccessException iae) {
-            throw new RuntimeException("Access issues while instantiating instance of "+FinancialSystemMaintenanceDocumentAuthorizerBase.class.getName(), iae);
+        } catch (InstantiationException ie) {
+            throw new RuntimeException("Could not instantiate instance of " + FinancialSystemMaintenanceDocumentAuthorizerBase.class.getName(), ie);
+        } catch (IllegalAccessException iae) {
+            throw new RuntimeException("Access issues while instantiating instance of " + FinancialSystemMaintenanceDocumentAuthorizerBase.class.getName(), iae);
         }
         return rootDocumentAuthorizer;
     }

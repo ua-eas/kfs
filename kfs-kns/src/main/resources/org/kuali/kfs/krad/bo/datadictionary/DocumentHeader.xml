@@ -1,131 +1,132 @@
-<?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
-<!--
-   - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
-   - This program is free software: you can redistribute it and/or modify
-   - it under the terms of the GNU Affero General Public License as
-   - published by the Free Software Foundation, either version 3 of the
-   - License, or (at your option) any later version.
-   - 
-   - This program is distributed in the hope that it will be useful,
-   - but WITHOUT ANY WARRANTY; without even the implied warranty of
-   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   - GNU Affero General Public License for more details.
-   - 
-   - You should have received a copy of the GNU Affero General Public License
-   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
- -->
-  <bean id="DocumentHeader" parent="DocumentHeader-parentBean"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+    <!--
+       - The Kuali Financial System, a comprehensive financial management system for higher education.
+       -
+       - Copyright 2005-2016 The Kuali Foundation
+       -
+       - This program is free software: you can redistribute it and/or modify
+       - it under the terms of the GNU Affero General Public License as
+       - published by the Free Software Foundation, either version 3 of the
+       - License, or (at your option) any later version.
+       -
+       - This program is distributed in the hope that it will be useful,
+       - but WITHOUT ANY WARRANTY; without even the implied warranty of
+       - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+       - GNU Affero General Public License for more details.
+       -
+       - You should have received a copy of the GNU Affero General Public License
+       - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+     -->
+    <bean id="DocumentHeader" parent="DocumentHeader-parentBean"/>
 
-  <bean id="DocumentHeader-parentBean" abstract="true" parent="BusinessObjectEntry">
-    <property name="businessObjectClass" value="org.kuali.kfs.krad.bo.DocumentHeader"/>
-    <property name="boNotesEnabled" value="true"/>
-    <property name="attributes">
-      <list>
-        <ref bean="DocumentHeader-documentDescription"/>
-        <ref bean="DocumentHeader-organizationDocumentNumber"/>
-        <ref bean="DocumentHeader-documentNumber"/>
-        <ref bean="DocumentHeader-documentTemplateNumber"/>
-        <ref bean="DocumentHeader-explanation"/>
-        <ref bean="DocumentHeader-objectId"/>
-      </list>
-    </property>
-    <property name="objectLabel" value="Document Header"/>
-  </bean>
+    <bean id="DocumentHeader-parentBean" abstract="true" parent="BusinessObjectEntry">
+        <property name="businessObjectClass" value="org.kuali.kfs.krad.bo.DocumentHeader"/>
+        <property name="boNotesEnabled" value="true"/>
+        <property name="attributes">
+            <list>
+                <ref bean="DocumentHeader-documentDescription"/>
+                <ref bean="DocumentHeader-organizationDocumentNumber"/>
+                <ref bean="DocumentHeader-documentNumber"/>
+                <ref bean="DocumentHeader-documentTemplateNumber"/>
+                <ref bean="DocumentHeader-explanation"/>
+                <ref bean="DocumentHeader-objectId"/>
+            </list>
+        </property>
+        <property name="objectLabel" value="Document Header"/>
+    </bean>
 
-<!-- Attribute Definitions -->
+    <!-- Attribute Definitions -->
 
 
-  <bean id="DocumentHeader-documentDescription" parent="DocumentHeader-documentDescription-parentBean"/>
+    <bean id="DocumentHeader-documentDescription" parent="DocumentHeader-documentDescription-parentBean"/>
 
-  <bean id="DocumentHeader-documentDescription-parentBean" abstract="true" parent="AttributeDefinition">
-    <property name="forceUppercase" value="true"/>
-    <property name="shortLabel" value="Description"/>
-    <property name="maxLength" value="255"/>
-    <property name="required" value="true"/>
-    <property name="control">
-      <bean parent="TextControlDefinition" p:size="45"/>
-    </property>
-    <property name="controlField">
-      <bean parent="Uif-TextControl" p:size="45"/>
-    </property>      
-    <property name="summary" value="&amp;nbsp;"/>
-    <property name="name" value="documentDescription"/>
-    <property name="label" value="Document Description"/>
-    <property name="description" value="A free-form text field that describes the purpose or function of the document."/>
-  </bean>
-  <bean id="DocumentHeader-organizationDocumentNumber" parent="DocumentHeader-organizationDocumentNumber-parentBean"/>
+    <bean id="DocumentHeader-documentDescription-parentBean" abstract="true" parent="AttributeDefinition">
+        <property name="forceUppercase" value="true"/>
+        <property name="shortLabel" value="Description"/>
+        <property name="maxLength" value="255"/>
+        <property name="required" value="true"/>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="45"/>
+        </property>
+        <property name="controlField">
+            <bean parent="Uif-TextControl" p:size="45"/>
+        </property>
+        <property name="summary" value="&amp;nbsp;"/>
+        <property name="name" value="documentDescription"/>
+        <property name="label" value="Document Description"/>
+        <property name="description" value="A free-form text field that describes the purpose or function of the document."/>
+    </bean>
+    <bean id="DocumentHeader-organizationDocumentNumber" parent="DocumentHeader-organizationDocumentNumber-parentBean"/>
 
-  <bean id="DocumentHeader-organizationDocumentNumber-parentBean" abstract="true" parent="AttributeDefinition">
-    <property name="forceUppercase" value="true"/>
-    <property name="shortLabel" value="Organization Document Number"/>
-    <property name="maxLength" value="10"/>
-    <property name="control">
-      <bean parent="TextControlDefinition" p:size="12"/>
-    </property>
-    <property name="controlField">
-      <bean parent="Uif-TextControl" p:size="12"/>
-    </property>      
-    <property name="summary" value="&amp;nbsp;"/>
-    <property name="name" value="organizationDocumentNumber"/>
-    <property name="label" value="Organization Document Number"/>
-    <property name="description" value="The numeric document identification that may include departmental or organizational information. This number is not the same as the Document Number assigned by the Kuali System."/>
-  </bean>
-  <bean id="DocumentHeader-documentNumber" parent="DocumentHeader-documentNumber-parentBean"/>
+    <bean id="DocumentHeader-organizationDocumentNumber-parentBean" abstract="true" parent="AttributeDefinition">
+        <property name="forceUppercase" value="true"/>
+        <property name="shortLabel" value="Organization Document Number"/>
+        <property name="maxLength" value="10"/>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="12"/>
+        </property>
+        <property name="controlField">
+            <bean parent="Uif-TextControl" p:size="12"/>
+        </property>
+        <property name="summary" value="&amp;nbsp;"/>
+        <property name="name" value="organizationDocumentNumber"/>
+        <property name="label" value="Organization Document Number"/>
+        <property name="description" value="The numeric document identification that may include departmental or organizational information. This number is not the same as the Document Number assigned by the Kuali System."/>
+    </bean>
+    <bean id="DocumentHeader-documentNumber" parent="DocumentHeader-documentNumber-parentBean"/>
 
-  <bean id="DocumentHeader-documentNumber-parentBean" abstract="true" parent="AttributeDefinition">
-    <property name="forceUppercase" value="true"/>
-    <property name="shortLabel" value="Doc Nbr"/>
-    <property name="maxLength" value="14"/>
-    <property name="control">
-      <bean parent="TextControlDefinition" p:size="16"/>
-    </property>
-    <property name="controlField">
-      <bean parent="Uif-TextControl" p:size="16"/>
-    </property>     
-    <property name="summary" value="Document Number"/>
-    <property name="name" value="documentNumber"/>
-    <property name="label" value="Document Number"/>
-    <property name="description" value="The document id is generated by the workflow environment and is unique to each installation of Kuali..."/>
-  </bean>
-  <bean id="DocumentHeader-documentTemplateNumber" parent="DocumentHeader-documentTemplateNumber-parentBean"/>
+    <bean id="DocumentHeader-documentNumber-parentBean" abstract="true" parent="AttributeDefinition">
+        <property name="forceUppercase" value="true"/>
+        <property name="shortLabel" value="Doc Nbr"/>
+        <property name="maxLength" value="14"/>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="16"/>
+        </property>
+        <property name="controlField">
+            <bean parent="Uif-TextControl" p:size="16"/>
+        </property>
+        <property name="summary" value="Document Number"/>
+        <property name="name" value="documentNumber"/>
+        <property name="label" value="Document Number"/>
+        <property name="description" value="The document id is generated by the workflow environment and is unique to each installation of Kuali..."/>
+    </bean>
+    <bean id="DocumentHeader-documentTemplateNumber" parent="DocumentHeader-documentTemplateNumber-parentBean"/>
 
-  <bean id="DocumentHeader-documentTemplateNumber-parentBean" abstract="true" parent="AttributeDefinition">
-    <property name="forceUppercase" value="true"/>
-    <property name="shortLabel" value="Copied from Document Id"/>
-    <property name="maxLength" value="14"/>
-    <property name="control">
-      <bean parent="HiddenControlDefinition"/>
-    </property>
-    <property name="summary" value="&amp;nbsp;"/>
-    <property name="name" value="documentTemplateNumber"/>
-    <property name="label" value="Copied from Document Header Id"/>
-    <property name="description" value="The document id is generated by the workflow environment and is unique to each installation of Kuali..."/>
-  </bean>
-  <bean id="DocumentHeader-explanation" parent="DocumentHeader-explanation-parentBean"/>
+    <bean id="DocumentHeader-documentTemplateNumber-parentBean" abstract="true" parent="AttributeDefinition">
+        <property name="forceUppercase" value="true"/>
+        <property name="shortLabel" value="Copied from Document Id"/>
+        <property name="maxLength" value="14"/>
+        <property name="control">
+            <bean parent="HiddenControlDefinition"/>
+        </property>
+        <property name="summary" value="&amp;nbsp;"/>
+        <property name="name" value="documentTemplateNumber"/>
+        <property name="label" value="Copied from Document Header Id"/>
+        <property name="description" value="The document id is generated by the workflow environment and is unique to each installation of Kuali..."/>
+    </bean>
+    <bean id="DocumentHeader-explanation" parent="DocumentHeader-explanation-parentBean"/>
 
-  <bean id="DocumentHeader-explanation-parentBean" abstract="true" parent="AttributeDefinition">
-    <property name="forceUppercase" value="false"/>
-    <property name="shortLabel" value="Explanation"/>
-    <property name="maxLength" value="400"/>
-    <property name="validationPattern">
-      <bean parent="AnyCharacterValidationPattern" p:allowWhitespace="true" p:maxLength="400"/>
-    </property>
-    <property name="control">
-      <bean parent="TextareaControlDefinition" p:cols="40" p:rows="3"/>
-    </property>
-    <property name="controlField">
-      <bean parent="Uif-TextAreaControl" p:cols="40" p:rows="3"/>
-    </property>        
-    <property name="summary" value="&amp;nbsp;"/>
-    <property name="name" value="explanation"/>
-    <property name="label" value="Explanation"/>
-    <property name="description" value="A free-form text field that explains the purpose of the document in more detail than the Description."/>
-  </bean>
-  <bean id="DocumentHeader-objectId" parent="DocumentHeader-objectId-parentBean"/>
+    <bean id="DocumentHeader-explanation-parentBean" abstract="true" parent="AttributeDefinition">
+        <property name="forceUppercase" value="false"/>
+        <property name="shortLabel" value="Explanation"/>
+        <property name="maxLength" value="400"/>
+        <property name="validationPattern">
+            <bean parent="AnyCharacterValidationPattern" p:allowWhitespace="true" p:maxLength="400"/>
+        </property>
+        <property name="control">
+            <bean parent="TextareaControlDefinition" p:cols="40" p:rows="3"/>
+        </property>
+        <property name="controlField">
+            <bean parent="Uif-TextAreaControl" p:cols="40" p:rows="3"/>
+        </property>
+        <property name="summary" value="&amp;nbsp;"/>
+        <property name="name" value="explanation"/>
+        <property name="label" value="Explanation"/>
+        <property name="description" value="A free-form text field that explains the purpose of the document in more detail than the Description."/>
+    </bean>
+    <bean id="DocumentHeader-objectId" parent="DocumentHeader-objectId-parentBean"/>
 
-  <bean id="DocumentHeader-objectId-parentBean" abstract="true" parent="AttributeReferenceDummy-objectId">
-  </bean>
+    <bean id="DocumentHeader-objectId-parentBean" abstract="true" parent="AttributeReferenceDummy-objectId">
+    </bean>
 </beans>

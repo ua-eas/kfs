@@ -1,31 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.krad.config;
 
+import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.kuali.kfs.krad.service.KRADServiceLocatorInternal;
+import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.rice.core.api.config.module.RunMode;
 import org.kuali.rice.core.api.config.property.ConfigContext;
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
 import org.kuali.rice.core.framework.config.module.ModuleConfigurer;
-import org.kuali.kfs.krad.service.DataDictionaryService;
-import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
-import org.kuali.kfs.krad.util.KRADConstants;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.SmartApplicationListener;
@@ -97,7 +97,7 @@ public class KRADConfigurer extends ModuleConfigurer implements SmartApplication
     /**
      * Used to "poke" the Data Dictionary again after the Spring Context is initialized.  This is to
      * allow for modules loaded with KualiModule after the KNS has already been initialized to work.
-     *
+     * <p>
      * Also initializes the DateTimeService
      */
     protected void loadDataDictionary() {
@@ -106,14 +106,14 @@ public class KRADConfigurer extends ModuleConfigurer implements SmartApplication
             DataDictionaryService dds = KRADServiceLocatorWeb.getDataDictionaryService();
             if (dds == null) {
                 dds = (DataDictionaryService) GlobalResourceLoader
-                        .getService(KRADServiceLocatorWeb.DATA_DICTIONARY_SERVICE);
+                    .getService(KRADServiceLocatorWeb.DATA_DICTIONARY_SERVICE);
             }
             dds.getDataDictionary().parseDataDictionaryConfigurationFiles(false);
 
             if (isValidateDataDictionary()) {
                 LOG.info("KRAD Configurer - Validating DD");
                 //TODO: Fix via config when we can.
-               // dds.getDataDictionary().validateDD(isValidateDataDictionaryEboReferences());
+                // dds.getDataDictionary().validateDD(isValidateDataDictionaryEboReferences());
                 dds.getDataDictionary().validateDD();
             }
 
@@ -140,7 +140,7 @@ public class KRADConfigurer extends ModuleConfigurer implements SmartApplication
                             throw e;
                         } finally {
                             long end = System.currentTimeMillis();
-                            LOG.info("... finished scheduled execution of Data Dictionary component publishing.  Took " + (end-start) + " milliseconds");
+                            LOG.info("... finished scheduled execution of Data Dictionary component publishing.  Took " + (end - start) + " milliseconds");
                         }
                     }
                 }, delay, TimeUnit.MILLISECONDS);
@@ -166,7 +166,6 @@ public class KRADConfigurer extends ModuleConfigurer implements SmartApplication
     }
 
 
-
     public boolean isLoadDataDictionary() {
         return ConfigContext.getCurrentContextConfig().getBooleanProperty("load.data.dictionary", true);
     }
@@ -177,12 +176,12 @@ public class KRADConfigurer extends ModuleConfigurer implements SmartApplication
 
     public boolean isValidateDataDictionaryEboReferences() {
         return ConfigContext.getCurrentContextConfig().getBooleanProperty("validate.data.dictionary.ebo.references",
-                false);
+            false);
     }
 
     public boolean isComponentPublishingEnabled() {
         return ConfigContext.getCurrentContextConfig().getBooleanProperty(
-                KRADConstants.Config.COMPONENT_PUBLISHING_ENABLED, false);
+            KRADConstants.Config.COMPONENT_PUBLISHING_ENABLED, false);
     }
 
     public long getComponentPublishingDelay() {
@@ -192,13 +191,13 @@ public class KRADConfigurer extends ModuleConfigurer implements SmartApplication
     /**
      * Used to "poke" the Data Dictionary again after the Spring Context is initialized.  This is to
      * allow for modules loaded with KualiModule after the KNS has already been initialized to work.
-     *
+     * <p>
      * Also initializes the DateTimeService
      */
     protected void configureDataSource() {
         if (getApplicationDataSource() != null) {
             ConfigContext.getCurrentContextConfig()
-                    .putObject(KRADConstants.KRAD_APPLICATION_DATASOURCE, getApplicationDataSource());
+                .putObject(KRADConstants.KRAD_APPLICATION_DATASOURCE, getApplicationDataSource());
         }
     }
 

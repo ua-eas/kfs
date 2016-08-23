@@ -1,26 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document.web.struts;
 
-import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
+import org.kuali.kfs.kns.web.ui.HeaderField;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapAuthorizationConstants.CreditMemoEditMode;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.document.VendorCreditMemoDocument;
@@ -29,10 +30,8 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.kns.web.ui.ExtraButton;
-import org.kuali.kfs.kns.web.ui.HeaderField;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.List;
 
 /**
  * Struts Action Form for Credit Memo document.
@@ -53,7 +52,7 @@ public class VendorCreditMemoForm extends AccountsPayableFormBase {
 
     /**
      * KRAD Conversion: Performs customization of an header fields.
-     * 
+     * <p>
      * Use of data dictionary for bo RequisitionDocument.
      */
     @Override
@@ -61,27 +60,26 @@ public class VendorCreditMemoForm extends AccountsPayableFormBase {
         super.populateHeaderFields(workflowDocument);
         if (ObjectUtils.isNotNull(((VendorCreditMemoDocument) getDocument()).getPurapDocumentIdentifier())) {
             getDocInfo().add(new HeaderField("DataDictionary.VendorCreditMemoDocument.attributes.purapDocumentIdentifier", ((VendorCreditMemoDocument) getDocument()).getPurapDocumentIdentifier().toString()));
-        }
-        else {
+        } else {
             getDocInfo().add(new HeaderField("DataDictionary.VendorCreditMemoDocument.attributes.purapDocumentIdentifier", PurapConstants.PURAP_APPLICATION_DOCUMENT_ID_NOT_AVAILABLE));
         }
-        
+
         String applicationDocumentStatus = PurapConstants.PURAP_APPLICATION_DOCUMENT_STATUS_NOT_AVAILABLE;
-        
+
         if (ObjectUtils.isNotNull(((VendorCreditMemoDocument) getDocument()).getApplicationDocumentStatus())) {
             applicationDocumentStatus = workflowDocument.getApplicationDocumentStatus();
         }
-        
+
         getDocInfo().add(new HeaderField("DataDictionary.VendorCreditMemoDocument.attributes.applicationDocumentStatus", applicationDocumentStatus));
-        
+
     }
 
     /**
      * Build additional credit memo specific buttons and set extraButtons list.
-     * 
+     *
      * @return - list of extra buttons to be displayed to the user
      * KRAD Conversion: Performs customization of extra buttons.
-     * 
+     * <p>
      * No data dictionary is involved.
      */
     @Override
@@ -94,8 +92,7 @@ public class VendorCreditMemoForm extends AccountsPayableFormBase {
         if (getEditingMode().containsKey(CreditMemoEditMode.DISPLAY_INIT_TAB)) {
             addExtraButton("methodToCall.continueCreditMemo", externalImageURL + "buttonsmall_continue.gif", "Continue");
             addExtraButton("methodToCall.clearInitFields", externalImageURL + "buttonsmall_clear.gif", "Clear");
-        }
-        else {
+        } else {
             if (getEditingMode().containsKey(CreditMemoEditMode.HOLD)) {
                 addExtraButton("methodToCall.addHoldOnCreditMemo", appExternalImageURL + "buttonsmall_hold.gif", "Hold");
             }
@@ -116,12 +113,10 @@ public class VendorCreditMemoForm extends AccountsPayableFormBase {
                         if (!cmDocument.getPurchaseOrderDocument().isPendingActionIndicator()) {
                             addExtraButton("methodToCall.reopenPo", appExternalImageURL + "buttonsmall_openorder.gif", "Reopen PO");
                         }
-                    }
-                    else {
+                    } else {
                         addExtraButton("methodToCall.cancel", externalImageURL + "buttonsmall_cancel.gif", "Cancel");
                     }
-                }
-                else {
+                } else {
                     //if the source is Vendor, no need to check the PO status
                     addExtraButton("methodToCall.cancel", externalImageURL + "buttonsmall_cancel.gif", "Cancel");
                 }

@@ -1,39 +1,39 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.kns.lookup;
 
-import org.kuali.kfs.kns.web.ui.Field;
 import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
+import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
 import org.kuali.kfs.kns.web.struts.form.LookupForm;
 import org.kuali.kfs.kns.web.ui.Column;
+import org.kuali.kfs.kns.web.ui.Field;
 import org.kuali.kfs.kns.web.ui.ResultRow;
 import org.kuali.kfs.kns.web.ui.Row;
-import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
 import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-public interface LookupableHelperService extends Serializable{
+public interface LookupableHelperService extends Serializable {
 
     /**
      * Initializes the lookup with a business object class.  This is set
@@ -111,37 +111,36 @@ public interface LookupableHelperService extends Serializable{
     /**
      * Builds the return value url.
      *
-     * @param businessObject - Instance of a business object containing the return values
+     * @param businessObject   - Instance of a business object containing the return values
      * @param fieldConversions - Map of conversions mapping bo names to caller field names.
-     * @param lookupImpl - Current lookup impl name
-     * @param returnKeys - Keys to return
+     * @param lookupImpl       - Current lookup impl name
+     * @param returnKeys       - Keys to return
      * @return String url called when selecting a row from the result set
      */
     public HtmlData getReturnUrl(BusinessObject businessObject, Map fieldConversions, String lookupImpl, List returnKeys, BusinessObjectRestrictions businessObjectRestrictions);
 
     /**
      * This method builds the return url
-     * 
+     *
      * @param businessObject
      * @param lookupForm
      * @param returnKeys
      * @return
      */
     public HtmlData getReturnUrl(BusinessObject businessObject, LookupForm lookupForm, List returnKeys, BusinessObjectRestrictions businessObjectRestrictions);
-    
+
     /**
      * Builds string of action urls that can take place for a result row
      *
      * @param businessObject - Instance of a business object containing the return values
-     * @param pkNames - List of primary key names
+     * @param pkNames        - List of primary key names
      * @return String rendered in actions column of result set
      */
     public String getActionUrls(BusinessObject businessObject, List pkNames, BusinessObjectRestrictions businessObjectRestrictions);
 
     /**
-     * 
      * This method is a template method that allows child classes to return their own custom action html data.
-     * 
+     *
      * @param businessObject
      * @param pkNames
      * @return
@@ -152,7 +151,7 @@ public interface LookupableHelperService extends Serializable{
      * Builds string an inquiry url for drill down on a result field
      *
      * @param businessObject - Instance of a business object containing the return values
-     * @param propertyName - Name of the property in the business object
+     * @param propertyName   - Name of the property in the business object
      * @return String url called on selection of the result field
      */
     public HtmlData getInquiryUrl(BusinessObject businessObject, String propertyName);
@@ -166,6 +165,7 @@ public interface LookupableHelperService extends Serializable{
 
     /**
      * Gets the readOnlyFieldsList attribute.
+     *
      * @return Returns the readOnlyFieldsList.
      */
     public List<String> getReadOnlyFieldsList();
@@ -193,9 +193,8 @@ public interface LookupableHelperService extends Serializable{
     public void setDocNum(String docNum);
 
     /**
-     * 
      * This method builds a maintenance url.
-     * 
+     *
      * @param businessObject
      * @param htmlData
      * @param pkNames
@@ -219,8 +218,9 @@ public interface LookupableHelperService extends Serializable{
 
     /**
      * Returns a list of Row objects to be used to generate the search query screen
-     *
+     * <p>
      * Generally, setDataObjectClass needs to be called with a non-null value for proper operation
+     *
      * @return
      */
     public List<Row> getRows();
@@ -246,8 +246,8 @@ public interface LookupableHelperService extends Serializable{
     public String getBackLocation();
 
     /**
-     *
      * This method performs the lookup and returns a collection of BO items
+     *
      * @param lookupForm
      * @param resultTable
      * @param bounded
@@ -282,7 +282,7 @@ public interface LookupableHelperService extends Serializable{
     /**
      * Determines whether a given BusinessObject that's returned as one of the lookup's results is considered returnable, which means that for
      * single-value lookups, a "return value" link may be rendered, and for multiple value lookups, a checkbox is rendered.
-     *
+     * <p>
      * Note that this can be part of an authorization mechanism, but not the complete authorization mechanism.  The component that invoked the lookup/
      * lookup caller (e.g. document, nesting lookup, etc.) needs to check that the object that was passed to it was returnable as well because there
      * are ways around this method (e.g. crafting a custom return URL).
@@ -291,47 +291,45 @@ public interface LookupableHelperService extends Serializable{
      * @return
      */
     public boolean isResultReturnable(BusinessObject object);
-    
+
     /**
-     * 
      * This method allows for overriding the clear behavior
-     *
      */
     public void performClear(LookupForm lookupForm);
-    
+
     public boolean shouldDisplayHeaderNonMaintActions();
-    
+
     public boolean shouldDisplayLookupCriteria();
 
-	/**
-	 * This method gets the supplemental lookup menu if any
-	 * 
-	 * @return supplemental menu bar
-	 */
-	public String getSupplementalMenuBar();
-    
+    /**
+     * This method gets the supplemental lookup menu if any
+     *
+     * @return supplemental menu bar
+     */
+    public String getSupplementalMenuBar();
+
     /**
      * @return String displayed as title for the lookup
      */
     public String getTitle();
-    
+
     /**
-     * 
      * performs custom actions.  return true to reperform search
-     * 
+     *
      * @param ignoreErrors
      * @return boolean to reperform search
      */
     public boolean performCustomAction(boolean ignoreErrors);
-    
+
     /**
      * get an extra field
+     *
      * @return
      */
     public Field getExtraField();
-    
+
     public void applyFieldAuthorizationsFromNestedLookups(Field field);
-    
+
     /**
      * Performs conditional logic (based on current search values or other parameters) to
      * override field hidden, read-only, and required attributes previously set.

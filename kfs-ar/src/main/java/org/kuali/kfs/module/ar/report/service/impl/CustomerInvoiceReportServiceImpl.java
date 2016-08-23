@@ -1,38 +1,37 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.report.service.impl;
 
-import java.io.File;
-import java.util.Date;
-import java.util.Map;
-import java.util.ResourceBundle;
-
 import net.sf.jasperreports.engine.JRParameter;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.report.service.CustomerInvoiceReportService;
 import org.kuali.kfs.module.ar.report.util.CustomerInvoiceReportDataHolder;
 import org.kuali.kfs.sys.KFSConstants.ReportGeneration;
 import org.kuali.kfs.sys.report.ReportInfo;
 import org.kuali.kfs.sys.service.ReportGenerationService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.File;
+import java.util.Date;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 /**
  * To generate the working progress reports for the effort certification
@@ -58,8 +57,8 @@ public class CustomerInvoiceReportServiceImpl implements CustomerInvoiceReportSe
         String reportTemplateName;
         ResourceBundle resourceBundle;
         String subReportTemplateClassPath;
-        Map<String, String> subReports; 
-        
+        Map<String, String> subReports;
+
         if (parameterService.getParameterValueAsBoolean("KFS-AR", "Document", ArConstants.ENABLE_SALES_TAX_IND)) {
             reportFileName = customerInvoiceReportInfo.getReportFileName();
             reportDirectory = customerInvoiceReportInfo.getReportsDirectory();
@@ -76,7 +75,7 @@ public class CustomerInvoiceReportServiceImpl implements CustomerInvoiceReportSe
             resourceBundle = customerInvoiceReportInfoNoTax.getResourceBundle();
             subReportTemplateClassPath = customerInvoiceReportInfoNoTax.getSubReportTemplateClassPath();
             subReports = customerInvoiceReportInfoNoTax.getSubReports();
-            
+
         }
         Map<String, Object> reportData = reportDataHolder.getReportData();
         reportData.put(JRParameter.REPORT_RESOURCE_BUNDLE, resourceBundle);
@@ -85,13 +84,13 @@ public class CustomerInvoiceReportServiceImpl implements CustomerInvoiceReportSe
         String template = reportTemplateClassPath + reportTemplateName;
         String fullReportFileName = reportGenerationService.buildFullFileName(runDate, reportDirectory, reportFileName, "");
         reportGenerationService.generateReportToPdfFile(reportData, template, fullReportFileName);
-        File report = new File(fullReportFileName+".pdf");
+        File report = new File(fullReportFileName + ".pdf");
         return report;
     }
-    
+
     /**
      * Sets the customerInvoiceReportInfo attribute value.
-     * 
+     *
      * @param customerInvoiceReportInfo The customerInvoiceReportInfo to set.
      */
     public void setCustomerInvoiceReportInfo(ReportInfo customerInvoiceReportInfo) {
@@ -100,15 +99,16 @@ public class CustomerInvoiceReportServiceImpl implements CustomerInvoiceReportSe
 
     /**
      * Sets the reportGenerationService attribute value.
-     * 
+     *
      * @param reportGenerationService The reportGenerationService to set.
      */
     public void setReportGenerationService(ReportGenerationService reportGenerationService) {
         this.reportGenerationService = reportGenerationService;
     }
-    
+
     /**
      * Sets the parameterService attribute value.
+     *
      * @param parameterService The parameterService to set.
      */
     public void setParameterService(ParameterService parameterService) {
@@ -116,7 +116,8 @@ public class CustomerInvoiceReportServiceImpl implements CustomerInvoiceReportSe
     }
 
     /**
-     * Gets the customerInvoiceReportInfo attribute. 
+     * Gets the customerInvoiceReportInfo attribute.
+     *
      * @return Returns the customerInvoiceReportInfo.
      */
     public ReportInfo getCustomerInvoiceReportInfo() {
@@ -124,7 +125,8 @@ public class CustomerInvoiceReportServiceImpl implements CustomerInvoiceReportSe
     }
 
     /**
-     * Gets the customerInvoiceReportInfoNoTax attribute. 
+     * Gets the customerInvoiceReportInfoNoTax attribute.
+     *
      * @return Returns the customerInvoiceReportInfoNoTax.
      */
     public ReportInfo getCustomerInvoiceReportInfoNoTax() {
@@ -133,11 +135,12 @@ public class CustomerInvoiceReportServiceImpl implements CustomerInvoiceReportSe
 
     /**
      * Sets the customerInvoiceReportInfoNoTax attribute value.
+     *
      * @param customerInvoiceReportInfoNoTax The customerInvoiceReportInfoNoTax to set.
      */
     public void setCustomerInvoiceReportInfoNoTax(ReportInfo customerInvoiceReportInfoNoTax) {
         this.customerInvoiceReportInfoNoTax = customerInvoiceReportInfoNoTax;
     }
-    
-    
+
+
 }

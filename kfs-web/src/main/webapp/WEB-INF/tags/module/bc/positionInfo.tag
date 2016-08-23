@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -31,23 +31,23 @@
 	<tr>
         <td colspan="6" class="subhead">Position</td>
    	</tr>
-   	
+
     <tr>
         <kul:htmlAttributeHeaderCell
         	attributeEntry="${positionAttributes.universityFiscalYear}"
             horizontal="true" />
-            
+
         <bc:pbglLineDataCell dataCellCssClass="datacell"
         	accountingLine="${budgetConstructionPosition}"
             cellProperty="budgetConstructionPosition.universityFiscalYear"
             field="universityFiscalYear"
             attributes="${positionAttributes}"
             readOnly="true"
-            displayHidden="false" />            
-        
+            displayHidden="false" />
+
         <kul:htmlAttributeHeaderCell
         	attributeEntry="${positionAttributes.positionNumber}"
-            horizontal="true" />    
+            horizontal="true" />
         <bc:pbglLineDataCell dataCellCssClass="datacell"
             accountingLine="${budgetConstructionPosition}"
             cellProperty="budgetConstructionPosition.positionNumber"
@@ -59,10 +59,10 @@
             displayHidden="false"
             lookupOrInquiryKeys="positionNumber,universityFiscalYear"
             accountingLineValuesMap="${KualiForm.budgetConstructionPosition.valuesMap}"/>
-            
+
         <kul:htmlAttributeHeaderCell
         	attributeEntry="${positionAttributes.positionDescription}"
-            horizontal="true" />    
+            horizontal="true" />
         <bc:pbglLineDataCell dataCellCssClass="datacell"
             accountingLine="${budgetConstructionPosition}"
             cellProperty="budgetConstructionPosition.positionDescription"
@@ -71,9 +71,9 @@
             boClassSimpleName="BudgetConstructionPosition"
             boPackageName="org.kuali.kfs.module.bc.businessobject"
             readOnly="true"
-            displayHidden="false"/>            
+            displayHidden="false"/>
     </tr>
-    
+
     <tr>
         <kul:htmlAttributeHeaderCell
         	attributeEntry="${positionAttributes.iuDefaultObjectCode}"
@@ -95,7 +95,7 @@
             attributes="${positionAttributes}"
             readOnly="true"
             displayHidden="false"/>
-            
+
         <kul:htmlAttributeHeaderCell
         	attributeEntry="${positionAttributes.setidJobCode}"
             horizontal="true" />
@@ -106,8 +106,8 @@
             readOnly="true"
             displayHidden="false" />
     </tr>
-    
-    <tr>            
+
+    <tr>
         <kul:htmlAttributeHeaderCell
         	attributeEntry="${positionAttributes.jobCode}"
             horizontal="true" />
@@ -127,10 +127,10 @@
             attributes="${positionAttributes}"
             readOnly="true"
             displayHidden="false" />
-        
+
         <kul:htmlAttributeHeaderCell
         	attributeEntry="${positionAttributes.positionGradeDefault}"
-            horizontal="true" />    
+            horizontal="true" />
         <bc:pbglLineDataCell dataCellCssClass="datacell"
             cellProperty="budgetConstructionPosition.positionGradeDefault"
             field="positionGradeDefault"
@@ -138,31 +138,31 @@
             readOnly="true"
             displayHidden="false" />
     </tr>
-    
-    <tr>            
+
+    <tr>
         <kul:htmlAttributeHeaderCell
         	attributeEntry="${positionAttributes.iuNormalWorkMonths}"
-            horizontal="true" /> 
+            horizontal="true" />
         <bc:pbglLineDataCell dataCellCssClass="datacell"
             cellProperty="budgetConstructionPosition.iuNormalWorkMonths"
             field="iuNormalWorkMonths"
             attributes="${positionAttributes}"
             readOnly="true"
             displayHidden="false" />
-       
+
         <kul:htmlAttributeHeaderCell
         	attributeEntry="${positionAttributes.iuPayMonths}"
-            horizontal="true" />             
+            horizontal="true" />
         <bc:pbglLineDataCell dataCellCssClass="datacell"
             cellProperty="budgetConstructionPosition.iuPayMonths"
             field="iuPayMonths"
             attributes="${positionAttributes}"
             readOnly="true"
             displayHidden="false" />
-            
+
         <kul:htmlAttributeHeaderCell
         	attributeEntry="${positionAttributes.positionStandardHoursDefault}"
-            horizontal="true" />  
+            horizontal="true" />
         <fmt:formatNumber value="${budgetConstructionPosition.positionStandardHoursDefault}" var="formattedNumber" type="number" groupingUsed="true" minFractionDigits="2" />
         <bc:pbglLineDataCell dataCellCssClass="datacell"
             cellProperty="budgetConstructionPosition.positionStandardHoursDefault"
@@ -172,8 +172,8 @@
             formattedNumberValue="${formattedNumber}"
             displayHidden="false" dataFieldCssClass="amount" />
     </tr>
-    
-    <tr>            
+
+    <tr>
         <kul:htmlAttributeHeaderCell
         	attributeEntry="${positionAttributes.positionFullTimeEquivalency}"
             horizontal="true" />
@@ -192,15 +192,15 @@
 --%>
         <kul:htmlAttributeHeaderCell
         	attributeEntry="${positionAttributes.positionEffectiveDate}"
-            horizontal="true" />    
+            horizontal="true" />
         <bc:pbglLineDataCell dataCellCssClass="datacell"
             cellProperty="budgetConstructionPosition.positionEffectiveDate"
             field="positionEffectiveDate"
             attributes="${positionAttributes}"
             readOnly="true"
             displayHidden="false" />
-	    
+
 		<kul:htmlAttributeHeaderCell literalLabel=" " horizontal="true" />
-	    <td>&nbsp;</td>	     
+	    <td>&nbsp;</td>
     </tr>
 </table>

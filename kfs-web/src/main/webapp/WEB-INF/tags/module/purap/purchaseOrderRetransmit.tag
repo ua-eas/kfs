@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -24,11 +24,11 @@
               description="The DataDictionary entry containing attributes for item's fields." %>
 <%@ attribute name="displayPurchaseOrderFields" required="false"
               description="Boolean to indicate if PO specific fields should be displayed" %>
-             
-     
+
+
 
 <kul:tab tabTitle="Purchase Order Retransmit" defaultOpen="true" tabErrorKey="${PurapConstants.PO_RETRANSMIT_SELECT_TAB_ERRORS}" >
-	
+
     <div class="tab-container" align=center>
             <h3>Purchase Order Retransmit</h3>
 
@@ -59,7 +59,7 @@
                 </td>
             </tr>
 
-		</table> 
+		</table>
 
         <table width="100%" border=0 align=center cellpadding=0 cellspacing=0 class="bord-r-t" id="itemsTable">
             <tbody>
@@ -100,13 +100,13 @@
                 <logic:iterate indexId="ctr" name="KualiForm" property="document.items" id="itemLine">
                     <c:if test="${ ((itemLine.itemType.additionalChargeIndicator and (not empty itemLine.itemDescription)) or (itemLine.itemType.lineItemIndicator and itemLine.itemActiveIndicator)) }" >
                         <tr>
-			
+
                             <kul:htmlAttributeHeaderCell scope="row">
                                 <div align="center"><kul:htmlControlAttribute attributeEntry="${itemAttributes.itemSelectedForRetransmitIndicator}" property="document.item[${ctr}].itemSelectedForRetransmitIndicator" /></div>
                             </kul:htmlAttributeHeaderCell>
 
                             <td class="datacell"><kul:htmlControlAttribute readOnly="true" attributeEntry="${itemAttributes.itemTypeCode}" property="document.item[${ctr}].itemTypeCode" /></td>
-                            <td class="datacell"><kul:htmlControlAttribute readOnly="true" attributeEntry="${itemAttributes.itemQuantity}" property="document.item[${ctr}].itemQuantity" /></td>			
+                            <td class="datacell"><kul:htmlControlAttribute readOnly="true" attributeEntry="${itemAttributes.itemQuantity}" property="document.item[${ctr}].itemQuantity" /></td>
  				            <td class="datacell"><kul:htmlControlAttribute readOnly="true" attributeEntry="${itemAttributes.itemUnitOfMeasureCode}" property="document.item[${ctr}].itemUnitOfMeasureCode" /></td>
  				            <td class="datacell"><kul:htmlControlAttribute readOnly="true" attributeEntry="${itemAttributes.itemCatalogNumber}" property="document.item[${ctr}].itemCatalogNumber" /></td>
  				            <td class="datacell"><kul:htmlControlAttribute readOnly="true" attributeEntry="${itemAttributes.itemDescription}" property="document.item[${ctr}].itemDescription" /></td>

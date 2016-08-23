@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -37,29 +37,29 @@ import javax.persistence.Table;
 
 @IdClass(ComponentId.class)
 @Entity
-@Table(name="KRCR_CMPNT_T")
+@Table(name = "KRCR_CMPNT_T")
 public class ComponentBo extends PersistableBusinessObjectBase implements ComponentEbo {
 
     private static final long serialVersionUID = 1L;
 
     private static transient NamespaceService namespaceService;
 
-	@Id
-	@Column(name="NMSPC_CD")
-	private String namespaceCode;
+    @Id
+    @Column(name = "NMSPC_CD")
+    private String namespaceCode;
 
-	@Id
-	@Column(name="CMPNT_CD")
+    @Id
+    @Column(name = "CMPNT_CD")
     private String code;
 
-	@Column(name="NM")
+    @Column(name = "NM")
     private String name;
 
-	@Column(name="ACTV_IND")
+    @Column(name = "ACTV_IND")
     private boolean active = true;
 
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="NMSPC_CD", insertable=false, updatable=false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "NMSPC_CD", insertable = false, updatable = false)
     private NamespaceBo namespace;
 
     public String getComponentSetId() {
@@ -68,6 +68,7 @@ public class ComponentBo extends PersistableBusinessObjectBase implements Compon
 
     /**
      * Converts a mutable bo to its immutable counterpart
+     *
      * @param bo the mutable business object
      * @return the immutable object
      */
@@ -81,6 +82,7 @@ public class ComponentBo extends PersistableBusinessObjectBase implements Compon
 
     /**
      * Converts a immutable object to its mutable counterpart
+     *
      * @param im immutable object
      * @return the mutable bo
      */
@@ -94,8 +96,8 @@ public class ComponentBo extends PersistableBusinessObjectBase implements Compon
         bo.setName(im.getName());
         bo.setActive(im.isActive());
         bo.setNamespaceCode(im.getNamespaceCode());
-		bo.setVersionNumber(im.getVersionNumber());
-		bo.setObjectId(im.getObjectId());
+        bo.setVersionNumber(im.getVersionNumber());
+        bo.setObjectId(im.getObjectId());
 
         bo.setNamespace(NamespaceBo.from(namespaceService.getNamespace(bo.namespaceCode)));
         return bo;

@@ -1,35 +1,35 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.ProjectCode;
 import org.kuali.kfs.coa.businessobject.SubAccount;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
@@ -45,15 +45,15 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
-public class TemProfileRule extends MaintenanceDocumentRuleBase{
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+public class TemProfileRule extends MaintenanceDocumentRuleBase {
     protected static final String TRAVEL_ARRANGERS_SECTION_ID = "TemProfileArrangers";
     protected volatile static TemProfileService temProfileService;
     protected volatile static DataDictionaryService dataDictionaryService;
@@ -69,84 +69,80 @@ public class TemProfileRule extends MaintenanceDocumentRuleBase{
 
         boolean success = true;
         List<String> paths = GlobalVariables.getMessageMap().getErrorPath();
-        Map<String,Object> fieldValues = new HashMap<String,Object>();
+        Map<String, Object> fieldValues = new HashMap<String, Object>();
         paths.add("document");
         paths.add("newMaintainableObject");
 
 
-        if (!StringUtils.isEmpty(profile.getPhoneNumber())){
+        if (!StringUtils.isEmpty(profile.getPhoneNumber())) {
             String errorMessage = travelService.validatePhoneNumber(profile.getCountryCode(), profile.getPhoneNumber(), TemKeyConstants.ERROR_PHONE_NUMBER);
             if (!StringUtils.isBlank(errorMessage)) {
-                GlobalVariables.getMessageMap().putError(TemProfileProperties.PHONE_NUMBER, errorMessage, new String[] { "Phone Number"});
+                GlobalVariables.getMessageMap().putError(TemProfileProperties.PHONE_NUMBER, errorMessage, new String[]{"Phone Number"});
                 success = false;
             }
         }
 
-        if (!StringUtils.isEmpty(profile.getDefaultChartCode())){
+        if (!StringUtils.isEmpty(profile.getDefaultChartCode())) {
             fieldValues.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, profile.getDefaultChartCode());
             List<Chart> chartList = (List<Chart>) businessObjectService.findMatching(Chart.class, fieldValues);
-            if (chartList.size() == 0){
+            if (chartList.size() == 0) {
                 GlobalVariables.getMessageMap().putError(TemPropertyConstants.TemProfileProperties.DEFAULT_CHART_CODE,
-                        TemKeyConstants.ERROR_TEM_PROFILE_CHART_NOT_EXIST, profile.getDefaultChartCode());
+                    TemKeyConstants.ERROR_TEM_PROFILE_CHART_NOT_EXIST, profile.getDefaultChartCode());
                 success = false;
             }
-        }
-        else{
+        } else {
             profile.setChart(null);
         }
 
-        if (success && !StringUtils.isEmpty(profile.getDefaultAccount())){
+        if (success && !StringUtils.isEmpty(profile.getDefaultAccount())) {
             fieldValues.put(KFSPropertyConstants.ACCOUNT_NUMBER, profile.getDefaultAccount());
             List<Account> accountList = (List<Account>) businessObjectService.findMatching(Account.class, fieldValues);
-            if (accountList.size() == 0){
+            if (accountList.size() == 0) {
                 GlobalVariables.getMessageMap().putError(TemPropertyConstants.TemProfileProperties.DEFAULT_ACCOUNT_NUMBER,
-                        TemKeyConstants.ERROR_TEM_PROFILE_ACCOUNT_NOT_EXIST, profile.getDefaultAccount());
+                    TemKeyConstants.ERROR_TEM_PROFILE_ACCOUNT_NOT_EXIST, profile.getDefaultAccount());
                 success = false;
             }
-        }
-        else{
+        } else {
             profile.setAccount(null);
         }
 
-        if (success && !StringUtils.isEmpty(profile.getDefaultSubAccount())){
+        if (success && !StringUtils.isEmpty(profile.getDefaultSubAccount())) {
             fieldValues.put(KFSPropertyConstants.SUB_ACCOUNT_NUMBER, profile.getDefaultSubAccount());
             List<SubAccount> subAccountList = (List<SubAccount>) businessObjectService.findMatching(SubAccount.class, fieldValues);
-            if (subAccountList.size() == 0){
+            if (subAccountList.size() == 0) {
                 GlobalVariables.getMessageMap().putError(TemPropertyConstants.TemProfileProperties.DEFAULT_SUB_ACCOUNT_NUMBER,
-                        TemKeyConstants.ERROR_TEM_PROFILE_SUB_ACCOUNT_NOT_EXIST, profile.getDefaultSubAccount());
+                    TemKeyConstants.ERROR_TEM_PROFILE_SUB_ACCOUNT_NOT_EXIST, profile.getDefaultSubAccount());
                 success = false;
             }
-        }
-        else{
+        } else {
             profile.setSubAccount(null);
         }
 
-        if (!StringUtils.isEmpty(profile.getDefaultProjectCode())){
+        if (!StringUtils.isEmpty(profile.getDefaultProjectCode())) {
             fieldValues.clear();
             fieldValues.put(KFSConstants.GENERIC_CODE_PROPERTY_NAME, profile.getDefaultProjectCode());
             List<ProjectCode> subAccountList = (List<ProjectCode>) businessObjectService.findMatching(ProjectCode.class, fieldValues);
-            if (subAccountList.size() == 0){
+            if (subAccountList.size() == 0) {
                 GlobalVariables.getMessageMap().putError(TemPropertyConstants.TemProfileProperties.DEFAULT_PROJECT_CODE,
-                        TemKeyConstants.ERROR_TEM_PROFILE_PROJECT_CODE_NOT_EXIST, profile.getDefaultProjectCode());
+                    TemKeyConstants.ERROR_TEM_PROFILE_PROJECT_CODE_NOT_EXIST, profile.getDefaultProjectCode());
                 success = false;
             }
-        }
-        else{
+        } else {
             profile.setProject(null);
         }
 
-        for (int i=0;i<profile.getAccounts().size();i++){
+        for (int i = 0; i < profile.getAccounts().size(); i++) {
             paths.add(TemPropertyConstants.TemProfileProperties.ACCOUNTS + "[" + i + "]");
             TemProfileAccount account = profile.getAccounts().get(i);
-            paths.remove(paths.size()-1);
+            paths.remove(paths.size() - 1);
         }
 
         //Arranger section validation
-        if(profile.getArrangers() != null){
+        if (profile.getArrangers() != null) {
             int arrangerPrimaryCount = 0;
             Set<String> arrangerId = new HashSet<String>();
-            for (TemProfileArranger arranger : profile.getArrangers()){
-                if(arranger.getPrimary()){
+            for (TemProfileArranger arranger : profile.getArrangers()) {
+                if (arranger.getPrimary()) {
                     arrangerPrimaryCount++;
                 }
 
@@ -154,20 +150,20 @@ public class TemProfileRule extends MaintenanceDocumentRuleBase{
 
                 paths.add(TemPropertyConstants.TemProfileProperties.ARRANGERS);
 
-                paths.remove(paths.size()-1);
+                paths.remove(paths.size() - 1);
             }
 
             //check for multiple primary arrangers; only 1 primary allowed.
-            if(arrangerPrimaryCount > 1){
+            if (arrangerPrimaryCount > 1) {
                 GlobalVariables.getMessageMap().putError(TemPropertyConstants.TemProfileProperties.ARRANGERS,
-                        TemKeyConstants.ERROR_TEM_PROFILE_ARRANGER_PRIMARY);
+                    TemKeyConstants.ERROR_TEM_PROFILE_ARRANGER_PRIMARY);
                 success = false;
             }
 
             //check for duplicate arrangers
-            if(profile.getArrangers().size() != arrangerId.size()){
+            if (profile.getArrangers().size() != arrangerId.size()) {
                 GlobalVariables.getMessageMap().putError(TemPropertyConstants.TemProfileProperties.ARRANGERS,
-                        TemKeyConstants.ERROR_TEM_PROFILE_ARRANGER_DUPLICATE);
+                    TemKeyConstants.ERROR_TEM_PROFILE_ARRANGER_DUPLICATE);
                 success = false;
             }
 
@@ -175,7 +171,7 @@ public class TemProfileRule extends MaintenanceDocumentRuleBase{
 
         paths.clear();
         success = success && super.dataDictionaryValidate(document);
-        if(success){
+        if (success) {
             Person user = GlobalVariables.getUserSession().getPerson();
             profile.setUpdatedBy(user.getPrincipalName());
             Date current = new Date();
@@ -190,11 +186,11 @@ public class TemProfileRule extends MaintenanceDocumentRuleBase{
      */
     @Override
     public boolean processCustomAddCollectionLineBusinessRules(MaintenanceDocument document, String collectionName, PersistableBusinessObject line) {
-        TemProfile profile = (TemProfile)document.getNewMaintainableObject().getBusinessObject();
+        TemProfile profile = (TemProfile) document.getNewMaintainableObject().getBusinessObject();
 
         //set other arranger as primary false if the new arranger is the primary
-        if (line instanceof TemProfileArranger){
-            TemProfileArranger arranger = (TemProfileArranger)line;
+        if (line instanceof TemProfileArranger) {
+            TemProfileArranger arranger = (TemProfileArranger) line;
 
             //check that the arranger's org is under the initiator's
             if (TemConstants.NONEMP_TRAVELER_TYP_CD.equals(profile.getTravelerTypeCode())) {
@@ -204,8 +200,8 @@ public class TemProfileRule extends MaintenanceDocumentRuleBase{
 
             }
 
-            if (arranger.getPrimary()){
-                for (TemProfileArranger tempArranger : ((TemProfile)document.getNewMaintainableObject().getBusinessObject()).getArrangers()){
+            if (arranger.getPrimary()) {
+                for (TemProfileArranger tempArranger : ((TemProfile) document.getNewMaintainableObject().getBusinessObject()).getArrangers()) {
                     tempArranger.setPrimary(false);
                 }
 
@@ -215,7 +211,7 @@ public class TemProfileRule extends MaintenanceDocumentRuleBase{
 
                     final Person arrangerPerson = SpringContext.getBean(PersonService.class).getPerson(arranger.getPrincipalId());
                     String primaryDeptCode[] = arrangerPerson.getPrimaryDepartmentCode().split("-");
-                    if(primaryDeptCode != null && primaryDeptCode.length == 2){
+                    if (primaryDeptCode != null && primaryDeptCode.length == 2) {
                         profile.setHomeDeptChartOfAccountsCode(primaryDeptCode[0]);
                         profile.setHomeDeptOrgCode(primaryDeptCode[1]);
                     }
@@ -224,7 +220,7 @@ public class TemProfileRule extends MaintenanceDocumentRuleBase{
             }
         }
         // check for CreditCardAgency accounts
-        else if (line instanceof TemProfileAccount){
+        else if (line instanceof TemProfileAccount) {
             TemProfileAccount account = (TemProfileAccount) line;
             return checkNewTemProfileAccount(profile, account);
         }
@@ -241,23 +237,23 @@ public class TemProfileRule extends MaintenanceDocumentRuleBase{
     protected boolean checkNewTemProfileAccount(TemProfile temProfile, TemProfileAccount account) {
         boolean success = true;
         //minimum length
-        if (!StringUtils.isBlank(account.getAccountNumber())){
+        if (!StringUtils.isBlank(account.getAccountNumber())) {
             final Integer minLength = getDataDictionaryService().getAttributeMaxLength(TemProfile.class, TemPropertyConstants.TemProfileProperties.ACCOUNT_NUMBER);
             if (minLength != null && account.getAccountNumber().length() < minLength.intValue()) {
                 final String label = getDataDictionaryService().getAttributeLabel(TemProfile.class, TemPropertyConstants.TemProfileProperties.ACCOUNT_NUMBER);
 
                 String errorMessage[] = null;
-                errorMessage = new String[] { label, minLength.toString() };
+                errorMessage = new String[]{label, minLength.toString()};
                 GlobalVariables.getMessageMap().putError(TemPropertyConstants.TemProfileProperties.ACCOUNT_NUMBER, KFSKeyConstants.ERROR_MIN_LENGTH, errorMessage);
                 success = false;
             }
 
             //do not duplicate an existing account in the system
-            if (doesProfileAccountMatchExisting(temProfile, account)){
+            if (doesProfileAccountMatchExisting(temProfile, account)) {
                 if (account.getCreditCardOrAgencyCode() != null) {
                     account.refreshReferenceObject(TemPropertyConstants.CREDIT_CARD_AGENCY);
                 }
-                GlobalVariables.getMessageMap().putError(TemPropertyConstants.TemProfileProperties.ACCOUNT_NUMBER, TemKeyConstants.ERROR_TEM_PROFILE_ACCOUNT_ID_DUPLICATE, new String[] { account.getCreditCardAgency().getCreditCardOrAgencyName(), account.getAccountNumber() });
+                GlobalVariables.getMessageMap().putError(TemPropertyConstants.TemProfileProperties.ACCOUNT_NUMBER, TemKeyConstants.ERROR_TEM_PROFILE_ACCOUNT_ID_DUPLICATE, new String[]{account.getCreditCardAgency().getCreditCardOrAgencyName(), account.getAccountNumber()});
                 success = false;
             }
         }
@@ -267,7 +263,8 @@ public class TemProfileRule extends MaintenanceDocumentRuleBase{
 
     /**
      * Checks if the given newAccount matches - by account number and credit card agency - an already existing profile account on the profile
-     * @param profile the profile with existing profile accounts
+     *
+     * @param profile    the profile with existing profile accounts
      * @param newAccount the account to see if it exists among the existing accounts
      * @return true if the newAccount is already on the profile; false otherwise
      */
@@ -285,6 +282,7 @@ public class TemProfileRule extends MaintenanceDocumentRuleBase{
 
     /**
      * Checks that, if the profile represents a non-employee, the profile has an active arranger
+     *
      * @param profile the profile to check
      * @return true if the profile passed the validation, false otherwise
      */
@@ -302,6 +300,7 @@ public class TemProfileRule extends MaintenanceDocumentRuleBase{
 
     /**
      * Checks that, if the profile represents a non-employee, the profile has an email address
+     *
      * @param profile the profile to check
      * @return true if the profile passed the validation, false otherwise
      */
@@ -310,7 +309,7 @@ public class TemProfileRule extends MaintenanceDocumentRuleBase{
         if (profile != null && getTemProfileService().isProfileNonEmploye(profile)) {
             // we've got a non-employee.  let's see if they have an email address
             if (StringUtils.isBlank(profile.getEmailAddress())) {
-                GlobalVariables.getMessageMap().putError("document.newMaintainableObject."+TemPropertyConstants.TemProfileProperties.EMAIL_ADDRESS, TemKeyConstants.ERROR_TEM_PROFILE_NONEMPLOYEE_MUST_HAVE_EMAIL);
+                GlobalVariables.getMessageMap().putError("document.newMaintainableObject." + TemPropertyConstants.TemProfileProperties.EMAIL_ADDRESS, TemKeyConstants.ERROR_TEM_PROFILE_NONEMPLOYEE_MUST_HAVE_EMAIL);
                 success = false;
             }
         }
@@ -321,9 +320,9 @@ public class TemProfileRule extends MaintenanceDocumentRuleBase{
     protected boolean processCustomRouteDocumentBusinessRules(MaintenanceDocument document) {
         boolean success = true;
         TemProfile profile = (TemProfile) document.getNewMaintainableObject().getBusinessObject();
-        if (ObjectUtils.isNotNull(profile.getHomeDeptOrg())){
+        if (ObjectUtils.isNotNull(profile.getHomeDeptOrg())) {
             if (!profile.getHomeDeptOrg().isActive()) {
-                putFieldError(TemProfileProperties.HOME_DEPARTMENT, TemKeyConstants.ERROR_TEM_PROFILE_ORGANIZATION_INACTIVE, profile.getHomeDeptChartOfAccountsCode()+"-"+profile.getHomeDeptOrgCode());
+                putFieldError(TemProfileProperties.HOME_DEPARTMENT, TemKeyConstants.ERROR_TEM_PROFILE_ORGANIZATION_INACTIVE, profile.getHomeDeptChartOfAccountsCode() + "-" + profile.getHomeDeptOrgCode());
                 success = false;
             }
         }

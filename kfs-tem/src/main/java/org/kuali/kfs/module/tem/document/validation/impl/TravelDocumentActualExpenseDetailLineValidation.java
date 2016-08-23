@@ -1,25 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
-import java.math.BigDecimal;
-
+import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants.PerDiemType;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
@@ -27,9 +28,8 @@ import org.kuali.kfs.module.tem.businessobject.ActualExpense;
 import org.kuali.kfs.module.tem.document.TravelDocument;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.service.DataDictionaryService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
 
 public class TravelDocumentActualExpenseDetailLineValidation extends TemDocumentExpenseLineValidation implements ActualExpenseDetailValidation {
     protected ActualExpense actualExpenseForValidation;
@@ -49,7 +49,7 @@ public class TravelDocumentActualExpenseDetailLineValidation extends TemDocument
 
     /**
      * Validate expense detail rules
-     *
+     * <p>
      * 1. expense detail mileage rule
      * 2. expense detail amount is non-zero
      * 3. expense detail does not exceed parent (threshold) for non-mileage expense
@@ -59,7 +59,7 @@ public class TravelDocumentActualExpenseDetailLineValidation extends TemDocument
      * @param travelDocument
      * @return
      */
-    public boolean validateDetail(TravelDocument travelDocument){
+    public boolean validateDetail(TravelDocument travelDocument) {
         boolean success = getDictionaryValidationService().isBusinessObjectValid(getActualExpenseDetailForValidation(), "");
 
         if (success) {
@@ -75,7 +75,7 @@ public class TravelDocumentActualExpenseDetailLineValidation extends TemDocument
             }
 
             //for non-mileage expense detail
-            if (!getActualExpenseDetailForValidation().isMileage()){
+            if (!getActualExpenseDetailForValidation().isMileage()) {
                 // Determine if the detail is an amount that doesn't go over the threshold
                 if (getActualExpenseForValidation().getExpenseAmount().isLessThan(getActualExpenseForValidation().getTotalDetailExpenseAmount())) {
                     GlobalVariables.getMessageMap().putError(TemPropertyConstants.EXPENSE_AMOUNT, TemKeyConstants.ERROR_TEM_DETAIL_GREATER_THAN_EXPENSE);
@@ -94,7 +94,7 @@ public class TravelDocumentActualExpenseDetailLineValidation extends TemDocument
 
     /**
      * This method validates following rules
-     *
+     * <p>
      * 1.Validates whether miles & mileage rate / other mileage rate is entered
      * 2.Validates other mileage rate with the max rate configured in mileage table, if other mileage rate is specified
      *
@@ -117,8 +117,7 @@ public class TravelDocumentActualExpenseDetailLineValidation extends TemDocument
                     }
                 }
 
-            }
-            else {
+            } else {
                 String label = getDataDictionaryService().getAttributeLabel(ActualExpense.class, TemPropertyConstants.TEM_ACTUAL_EXPENSE_MILES) + ", " + getDataDictionaryService().getAttributeLabel(ActualExpense.class, TemPropertyConstants.TEM_ACTUAL_EXPENSE_MILE_RATE) + " or " + getDataDictionaryService().getAttributeLabel(ActualExpense.class, TemPropertyConstants.TEM_ACTUAL_EXPENSE_MILE_OTHER_RATE);
                 GlobalVariables.getMessageMap().putError(TemPropertyConstants.TEM_ACTUAL_EXPENSE_MILES, KFSKeyConstants.ERROR_REQUIRED, label);
             }
@@ -132,6 +131,7 @@ public class TravelDocumentActualExpenseDetailLineValidation extends TemDocument
 
     /**
      * If the actual expense detail line being validated is lodging, checks rules upon that
+     *
      * @param document the travel document that the actual expense detail is being added to
      * @return true if validation succeeded, false otherwise
      */

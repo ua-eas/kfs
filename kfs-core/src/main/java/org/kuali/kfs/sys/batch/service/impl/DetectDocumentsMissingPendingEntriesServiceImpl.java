@@ -1,3 +1,21 @@
+/*
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.kuali.kfs.sys.batch.service.impl;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -41,8 +59,8 @@ public class DetectDocumentsMissingPendingEntriesServiceImpl implements DetectDo
 
         // Deal with exceptions before returning
         return docs.stream()
-                .filter(this::includeCtrlDocument)
-                .collect(Collectors.toList());
+            .filter(this::includeCtrlDocument)
+            .collect(Collectors.toList());
     }
 
     @Override
@@ -63,16 +81,16 @@ public class DetectDocumentsMissingPendingEntriesServiceImpl implements DetectDo
      * @return
      */
     protected boolean includeCtrlDocument(DocumentHeaderData doc) {
-        if (! "CTRL".equals(doc.getWorkflowDocumentTypeName())) {
+        if (!"CTRL".equals(doc.getWorkflowDocumentTypeName())) {
             return true;
         }
 
         return detectDocumentsMissingPendingEntriesDao.getCustomerPaymentMediumCodeFromCashControlDocument(doc.getDocumentNumber())
-                .map(code -> PAYMENT_MEDIUM_CODE_CHECK.equals(code))
-                .orElseThrow(() -> {
-                    LOG.error("includeCtrlDocument() " + doc.getDocumentNumber() + " is not a CTRL document");
-                    return new RuntimeException(doc.getDocumentNumber() + " is not a CTRL document");
-                });
+            .map(code -> PAYMENT_MEDIUM_CODE_CHECK.equals(code))
+            .orElseThrow(() -> {
+                LOG.error("includeCtrlDocument() " + doc.getDocumentNumber() + " is not a CTRL document");
+                return new RuntimeException(doc.getDocumentNumber() + " is not a CTRL document");
+            });
     }
 
     protected List<String> getSearchByDocumentTypes() {
@@ -85,14 +103,13 @@ public class DetectDocumentsMissingPendingEntriesServiceImpl implements DetectDo
     }
 
     protected void logDocumentHeaders(List<DocumentHeaderData> documentHeaders) {
-        LOG.warn("\n"+buildReportMessage(documentHeaders));
+        LOG.warn("\n" + buildReportMessage(documentHeaders));
     }
 
     protected void emailDocumentHeaders(List<DocumentHeaderData> documentHeaders, Collection<String> notificationEmailAddresses) {
         try {
             mailService.sendMessage(buildNotificationMessage(documentHeaders, notificationEmailAddresses));
-        }
-        catch (InvalidAddressException | MessagingException e) {
+        } catch (InvalidAddressException | MessagingException e) {
             throw new RuntimeException("Could not send e-mail message for Detect Documents Missing PLEs Job", e);
         }
     }
@@ -117,9 +134,9 @@ public class DetectDocumentsMissingPendingEntriesServiceImpl implements DetectDo
         reportMessage.append(configurationService.getPropertyValueAsString(KFSKeyConstants.DetectMissingPendingEntriesMessages.FAILURE_HEADER));
         reportMessage.append("\n");
         final String documentHeadersReport =
-                documentHeaders.stream()
-                        .map(documentHeader -> MessageFormat.format(configurationService.getPropertyValueAsString(KFSKeyConstants.DetectMissingPendingEntriesMessages.FAILURE_ENTRY), documentHeader.getDocumentNumber(), documentHeader.getWorkflowDocumentTypeName()))
-                        .collect(Collectors.joining("\n"));
+            documentHeaders.stream()
+                .map(documentHeader -> MessageFormat.format(configurationService.getPropertyValueAsString(KFSKeyConstants.DetectMissingPendingEntriesMessages.FAILURE_ENTRY), documentHeader.getDocumentNumber(), documentHeader.getWorkflowDocumentTypeName()))
+                .collect(Collectors.joining("\n"));
         reportMessage.append(documentHeadersReport);
         return reportMessage.toString();
     }

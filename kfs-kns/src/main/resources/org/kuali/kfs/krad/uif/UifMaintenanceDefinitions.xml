@@ -1,144 +1,144 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
                     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-  <bean id="Uif-MaintenanceView" abstract="true" parent="Uif-MaintenanceView-parentBean"/>
-  <bean id="Uif-MaintenanceView-parentBean" abstract="true"
-        class="org.kuali.kfs.krad.uif.view.MaintenanceView" parent="Uif-DocumentView">
-    <property name="styleClasses">
-      <list merge="true">
-        <value>uif-maintenanceView</value>
-      </list>
-    </property>
-    <property name="viewTypeName" value="MAINTENANCE"/>
-    <property name="viewName" value="default"/>
-    <property name="viewHelperServiceClassName" value="org.kuali.kfs.krad.maintenance.MaintainableImpl"/>
-    <property name="presentationControllerClass"
-              value="org.kuali.kfs.krad.maintenance.MaintenanceViewPresentationControllerBase"/>
-    <property name="authorizerClass" value="org.kuali.kfs.krad.maintenance.MaintenanceViewAuthorizerBase"/>
-    <property name="formClass" value="org.kuali.kfs.krad.web.form.MaintenanceForm"/>
-    <property name="defaultBindingObjectPath" value="document.newMaintainableObject.dataObject"/>
-    <property name="oldObjectBindingPath" value="document.oldMaintainableObject.dataObject"/>
-    <property name="page">
-      <bean parent="Uif-MaintenancePage"/>
-    </property>
-  </bean>
+    <bean id="Uif-MaintenanceView" abstract="true" parent="Uif-MaintenanceView-parentBean"/>
+    <bean id="Uif-MaintenanceView-parentBean" abstract="true"
+          class="org.kuali.kfs.krad.uif.view.MaintenanceView" parent="Uif-DocumentView">
+        <property name="styleClasses">
+            <list merge="true">
+                <value>uif-maintenanceView</value>
+            </list>
+        </property>
+        <property name="viewTypeName" value="MAINTENANCE"/>
+        <property name="viewName" value="default"/>
+        <property name="viewHelperServiceClassName" value="org.kuali.kfs.krad.maintenance.MaintainableImpl"/>
+        <property name="presentationControllerClass"
+                  value="org.kuali.kfs.krad.maintenance.MaintenanceViewPresentationControllerBase"/>
+        <property name="authorizerClass" value="org.kuali.kfs.krad.maintenance.MaintenanceViewAuthorizerBase"/>
+        <property name="formClass" value="org.kuali.kfs.krad.web.form.MaintenanceForm"/>
+        <property name="defaultBindingObjectPath" value="document.newMaintainableObject.dataObject"/>
+        <property name="oldObjectBindingPath" value="document.oldMaintainableObject.dataObject"/>
+        <property name="page">
+            <bean parent="Uif-MaintenancePage"/>
+        </property>
+    </bean>
 
-  <bean id="Uif-MaintenancePage" abstract="true" parent="Uif-MaintenancePage-parentBean"/>
-  <bean id="Uif-MaintenancePage-parentBean" abstract="true" parent="Uif-DocumentPage">
-    <property name="styleClasses">
-      <list merge="true">
-        <value>uif-maintenancePage</value>
-      </list>
-    </property>
-  </bean>
+    <bean id="Uif-MaintenancePage" abstract="true" parent="Uif-MaintenancePage-parentBean"/>
+    <bean id="Uif-MaintenancePage-parentBean" abstract="true" parent="Uif-DocumentPage">
+        <property name="styleClasses">
+            <list merge="true">
+                <value>uif-maintenancePage</value>
+            </list>
+        </property>
+    </bean>
 
-  <bean id="Uif-MaintenanceGridGroup" abstract="true" parent="Uif-MaintenanceGridGroup-parentBean"/>
-  <bean id="Uif-MaintenanceGridGroup-parentBean" abstract="true" parent="Uif-GridGroup"/>
+    <bean id="Uif-MaintenanceGridGroup" abstract="true" parent="Uif-MaintenanceGridGroup-parentBean"/>
+    <bean id="Uif-MaintenanceGridGroup-parentBean" abstract="true" parent="Uif-GridGroup"/>
 
-  <bean id="Uif-MaintenanceHorizontalBoxGroup" abstract="true" parent="Uif-MaintenanceHorizontalBoxGroup-parentBean"/>
-  <bean id="Uif-MaintenanceHorizontalBoxGroup-parentBean" abstract="true" parent="Uif-HorizontalBoxGroup"/>
+    <bean id="Uif-MaintenanceHorizontalBoxGroup" abstract="true" parent="Uif-MaintenanceHorizontalBoxGroup-parentBean"/>
+    <bean id="Uif-MaintenanceHorizontalBoxGroup-parentBean" abstract="true" parent="Uif-HorizontalBoxGroup"/>
 
-  <bean id="Uif-MaintenanceVerticalBoxGroup" abstract="true" parent="Uif-MaintenanceVerticalBoxGroup-parentBean"/>
-  <bean id="Uif-MaintenanceVerticalBoxGroup-parentBean" abstract="true" parent="Uif-VerticalBoxGroup"/>
+    <bean id="Uif-MaintenanceVerticalBoxGroup" abstract="true" parent="Uif-MaintenanceVerticalBoxGroup-parentBean"/>
+    <bean id="Uif-MaintenanceVerticalBoxGroup-parentBean" abstract="true" parent="Uif-VerticalBoxGroup"/>
 
-  <bean id="Uif-MaintenanceGridSection" abstract="true" parent="Uif-MaintenanceGridSection-parentBean"/>
-  <bean id="Uif-MaintenanceGridSection-parentBean" abstract="true" parent="Uif-Disclosure-GridSection">
-    <property name="layoutManager.numberOfColumns" value="@{maintenanceAction eq 'Edit' ? 4 : 2}"/>
-    <property name="componentModifiers">
-      <list merge="true">
-        <bean parent="Uif-MaintenanceCompare-Modifier" p:runPhase="APPLY_MODEL"
-              p:runCondition="maintenanceAction eq 'Edit'"/>
-      </list>
-    </property>
-  </bean>
-
-  <bean id="Uif-MaintenanceGridSubSection" abstract="true" parent="Uif-MaintenanceGridSubSection-parentBean"/>
-  <bean id="Uif-MaintenanceGridSubSection-parentBean" abstract="true" parent="Uif-Disclosure-GridSubSection"/>
-
-  <bean id="Uif-MaintenanceHorizontalBoxSection" abstract="true" parent="Uif-MaintenanceHorizontalBoxSection-parentBean"/>
-  <bean id="Uif-MaintenanceHorizontalBoxSection-parentBean" abstract="true" parent="Uif-Disclosure-HorizontalBoxSection"/>
-
-  <bean id="Uif-MaintenanceVerticalBoxSection" abstract="true" parent="Uif-MaintenanceVerticalBoxSection-parentBean"/>
-  <bean id="Uif-MaintenanceVerticalBoxSection-parentBean" abstract="true" parent="Uif-Disclosure-VerticalBoxSection"/>
-
-  <bean id="Uif-MaintenanceHorizontalBoxSubSection" abstract="true" parent="Uif-MaintenanceHorizontalBoxSubSection-parentBean"/>
-  <bean id="Uif-MaintenanceHorizontalBoxSubSection-parentBean" abstract="true" parent="Uif-Disclosure-HorizontalBoxSubSection"/>
-
-  <bean id="Uif-MaintenanceVerticalBoxSubSection" abstract="true" parent="Uif-MaintenanceVerticalBoxSubSection-parentBean"/>
-  <bean id="Uif-MaintenanceVerticalBoxSubSection-parentBean" abstract="true" parent="Uif-Disclosure-VerticalBoxSubSection"/>
-
-  <bean id="Uif-MaintenanceStackedCollectionSection" abstract="true" parent="Uif-MaintenanceStackedCollectionSection-parentBean"/>
-  <bean id="Uif-MaintenanceStackedCollectionSection-parentBean" abstract="true" parent="Uif-Disclosure-StackedCollectionSection">
-    <property name="layoutManager.lineGroupPrototype">
-      <bean parent="Uif-CollectionGridItem">
+    <bean id="Uif-MaintenanceGridSection" abstract="true" parent="Uif-MaintenanceGridSection-parentBean"/>
+    <bean id="Uif-MaintenanceGridSection-parentBean" abstract="true" parent="Uif-Disclosure-GridSection">
         <property name="layoutManager.numberOfColumns" value="@{maintenanceAction eq 'Edit' ? 4 : 2}"/>
         <property name="componentModifiers">
-          <list merge="true">
-            <bean parent="Uif-MaintenanceCompare-Modifier" p:runPhase="APPLY_MODEL"
-                  p:runCondition="maintenanceAction eq 'Edit'"/>
-          </list>
+            <list merge="true">
+                <bean parent="Uif-MaintenanceCompare-Modifier" p:runPhase="APPLY_MODEL"
+                      p:runCondition="maintenanceAction eq 'Edit'"/>
+            </list>
         </property>
-      </bean>
-    </property>
-    <property name="activeCollectionFilter">
-      <bean class="org.kuali.kfs.krad.uif.container.MaintenanceActiveCollectionFilter"
-            p:oldBindingObjectPath="document.oldMaintainableObject.dataObject"/>
-    </property>
-  </bean>
+    </bean>
 
-  <bean id="Uif-MaintenanceStackedSubCollection-WithinSection" abstract="true" parent="Uif-MaintenanceStackedSubCollection-WithinSection-parentBean"/>
-  <bean id="Uif-MaintenanceStackedSubCollection-WithinSection-parentBean" abstract="true" parent="Uif-Disclosure-StackedSubCollection-WithinSection">
-    <property name="layoutManager.lineGroupPrototype">
-      <bean parent="Uif-CollectionGridItem">
-        <property name="layoutManager.numberOfColumns" value="@{maintenanceAction eq 'Edit' ? 4 : 2}"/>
-        <property name="componentModifiers">
-          <list merge="true">
-            <bean parent="Uif-MaintenanceCompare-Modifier" p:runPhase="APPLY_MODEL"
-                  p:runCondition="maintenanceAction eq 'Edit'"/>
-          </list>
+    <bean id="Uif-MaintenanceGridSubSection" abstract="true" parent="Uif-MaintenanceGridSubSection-parentBean"/>
+    <bean id="Uif-MaintenanceGridSubSection-parentBean" abstract="true" parent="Uif-Disclosure-GridSubSection"/>
+
+    <bean id="Uif-MaintenanceHorizontalBoxSection" abstract="true" parent="Uif-MaintenanceHorizontalBoxSection-parentBean"/>
+    <bean id="Uif-MaintenanceHorizontalBoxSection-parentBean" abstract="true" parent="Uif-Disclosure-HorizontalBoxSection"/>
+
+    <bean id="Uif-MaintenanceVerticalBoxSection" abstract="true" parent="Uif-MaintenanceVerticalBoxSection-parentBean"/>
+    <bean id="Uif-MaintenanceVerticalBoxSection-parentBean" abstract="true" parent="Uif-Disclosure-VerticalBoxSection"/>
+
+    <bean id="Uif-MaintenanceHorizontalBoxSubSection" abstract="true" parent="Uif-MaintenanceHorizontalBoxSubSection-parentBean"/>
+    <bean id="Uif-MaintenanceHorizontalBoxSubSection-parentBean" abstract="true" parent="Uif-Disclosure-HorizontalBoxSubSection"/>
+
+    <bean id="Uif-MaintenanceVerticalBoxSubSection" abstract="true" parent="Uif-MaintenanceVerticalBoxSubSection-parentBean"/>
+    <bean id="Uif-MaintenanceVerticalBoxSubSection-parentBean" abstract="true" parent="Uif-Disclosure-VerticalBoxSubSection"/>
+
+    <bean id="Uif-MaintenanceStackedCollectionSection" abstract="true" parent="Uif-MaintenanceStackedCollectionSection-parentBean"/>
+    <bean id="Uif-MaintenanceStackedCollectionSection-parentBean" abstract="true" parent="Uif-Disclosure-StackedCollectionSection">
+        <property name="layoutManager.lineGroupPrototype">
+            <bean parent="Uif-CollectionGridItem">
+                <property name="layoutManager.numberOfColumns" value="@{maintenanceAction eq 'Edit' ? 4 : 2}"/>
+                <property name="componentModifiers">
+                    <list merge="true">
+                        <bean parent="Uif-MaintenanceCompare-Modifier" p:runPhase="APPLY_MODEL"
+                              p:runCondition="maintenanceAction eq 'Edit'"/>
+                    </list>
+                </property>
+            </bean>
         </property>
-      </bean>
-    </property>
-    <property name="activeCollectionFilter">
-      <bean class="org.kuali.kfs.krad.uif.container.MaintenanceActiveCollectionFilter"
-            p:oldBindingObjectPath="document.oldMaintainableObject.dataObject"/>
-    </property>
-  </bean>
+        <property name="activeCollectionFilter">
+            <bean class="org.kuali.kfs.krad.uif.container.MaintenanceActiveCollectionFilter"
+                  p:oldBindingObjectPath="document.oldMaintainableObject.dataObject"/>
+        </property>
+    </bean>
 
-  <bean id="Uif-MaintenanceTableCollectionSection" abstract="true" parent="Uif-MaintenanceTableSubCollection-withinSection-parentBean"/>
-  <bean id="Uif-MaintenanceTableCollectionSection-parentBean" abstract="true" parent="Uif-Disclosure-TableCollectionSection">
-    <property name="activeCollectionFilter">
-      <bean class="org.kuali.kfs.krad.uif.container.MaintenanceActiveCollectionFilter"
-            p:oldBindingObjectPath="document.oldMaintainableObject.dataObject"/>
-    </property>
-  </bean>
+    <bean id="Uif-MaintenanceStackedSubCollection-WithinSection" abstract="true" parent="Uif-MaintenanceStackedSubCollection-WithinSection-parentBean"/>
+    <bean id="Uif-MaintenanceStackedSubCollection-WithinSection-parentBean" abstract="true" parent="Uif-Disclosure-StackedSubCollection-WithinSection">
+        <property name="layoutManager.lineGroupPrototype">
+            <bean parent="Uif-CollectionGridItem">
+                <property name="layoutManager.numberOfColumns" value="@{maintenanceAction eq 'Edit' ? 4 : 2}"/>
+                <property name="componentModifiers">
+                    <list merge="true">
+                        <bean parent="Uif-MaintenanceCompare-Modifier" p:runPhase="APPLY_MODEL"
+                              p:runCondition="maintenanceAction eq 'Edit'"/>
+                    </list>
+                </property>
+            </bean>
+        </property>
+        <property name="activeCollectionFilter">
+            <bean class="org.kuali.kfs.krad.uif.container.MaintenanceActiveCollectionFilter"
+                  p:oldBindingObjectPath="document.oldMaintainableObject.dataObject"/>
+        </property>
+    </bean>
 
-  <bean id="Uif-MaintenanceTableSubCollection-withinSection" abstract="true" parent="Uif-MaintenanceTableSubCollection-withinSection-parentBean"/>
-  <bean id="Uif-MaintenanceTableSubCollection-withinSection-parentBean" abstract="true" parent="Uif-Disclosure-TableSubCollection-WithinSection">
-    <property name="activeCollectionFilter">
-      <bean class="org.kuali.kfs.krad.uif.container.MaintenanceActiveCollectionFilter"
-            p:oldBindingObjectPath="document.oldMaintainableObject.dataObject"/>
-    </property>
-  </bean>
+    <bean id="Uif-MaintenanceTableCollectionSection" abstract="true" parent="Uif-MaintenanceTableSubCollection-withinSection-parentBean"/>
+    <bean id="Uif-MaintenanceTableCollectionSection-parentBean" abstract="true" parent="Uif-Disclosure-TableCollectionSection">
+        <property name="activeCollectionFilter">
+            <bean class="org.kuali.kfs.krad.uif.container.MaintenanceActiveCollectionFilter"
+                  p:oldBindingObjectPath="document.oldMaintainableObject.dataObject"/>
+        </property>
+    </bean>
+
+    <bean id="Uif-MaintenanceTableSubCollection-withinSection" abstract="true" parent="Uif-MaintenanceTableSubCollection-withinSection-parentBean"/>
+    <bean id="Uif-MaintenanceTableSubCollection-withinSection-parentBean" abstract="true" parent="Uif-Disclosure-TableSubCollection-WithinSection">
+        <property name="activeCollectionFilter">
+            <bean class="org.kuali.kfs.krad.uif.container.MaintenanceActiveCollectionFilter"
+                  p:oldBindingObjectPath="document.oldMaintainableObject.dataObject"/>
+        </property>
+    </bean>
 
 </beans>

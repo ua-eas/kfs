@@ -1,34 +1,34 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.pdp.web.struts;
 
-import java.text.MessageFormat;
-import java.util.List;
-import java.util.Properties;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.question.ConfirmationQuestion;
+import org.kuali.kfs.kns.web.struts.action.KualiAction;
+import org.kuali.kfs.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.pdp.PdpKeyConstants;
 import org.kuali.kfs.pdp.PdpParameterConstants;
 import org.kuali.kfs.pdp.PdpPropertyConstants;
@@ -39,13 +39,12 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.question.ConfirmationQuestion;
-import org.kuali.kfs.kns.web.struts.action.KualiAction;
-import org.kuali.kfs.krad.util.ErrorMessage;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.MessageMap;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.text.MessageFormat;
+import java.util.List;
+import java.util.Properties;
 
 /**
  * This class defines actions for Batch (cancel, hold, remove hold).
@@ -64,7 +63,7 @@ public class BatchAction extends KualiAction {
 
     /**
      * This method confirms and performs batch cancel.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -85,17 +84,16 @@ public class BatchAction extends KualiAction {
 
     /**
      * This method cancels a batch.
-     * 
+     *
      * @param batchIdString a string representing the batch id
-     * @param cancelNote the cancelation note entered by the user
-     * @param user the current user
+     * @param cancelNote    the cancelation note entered by the user
+     * @param user          the current user
      */
     private boolean performCancel(String batchIdString, String cancelNote, Person user) {
         try {
             Integer batchId = Integer.parseInt(batchIdString);
             return batchMaintenanceService.cancelPendingBatch(batchId, cancelNote, user);
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             GlobalVariables.getMessageMap().putError(PdpPropertyConstants.BatchConstants.BATCH_ID, PdpKeyConstants.BatchConstants.ErrorMessages.ERROR_BATCH_ID_IS_NOT_NUMERIC);
             return false;
         }
@@ -104,7 +102,7 @@ public class BatchAction extends KualiAction {
 
     /**
      * This method confirms and performs batch hold.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -124,7 +122,7 @@ public class BatchAction extends KualiAction {
 
     /**
      * This method holds a batch
-     * 
+     *
      * @param batchIdString
      * @param holdNote
      * @param user
@@ -134,8 +132,7 @@ public class BatchAction extends KualiAction {
         try {
             Integer batchId = Integer.parseInt(batchIdString);
             return batchMaintenanceService.holdPendingBatch(batchId, holdNote, user);
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             GlobalVariables.getMessageMap().putError(PdpPropertyConstants.BatchConstants.BATCH_ID, PdpKeyConstants.BatchConstants.ErrorMessages.ERROR_BATCH_ID_IS_NOT_NUMERIC);
             return false;
         }
@@ -144,7 +141,7 @@ public class BatchAction extends KualiAction {
 
     /**
      * This method confirms and peforms remove hold on batch action.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -163,7 +160,7 @@ public class BatchAction extends KualiAction {
 
     /**
      * This method removes a batch hold.
-     * 
+     *
      * @param batchIdString
      * @param changeText
      * @param user
@@ -173,8 +170,7 @@ public class BatchAction extends KualiAction {
         try {
             Integer batchId = Integer.parseInt(batchIdString);
             return batchMaintenanceService.removeBatchHold(batchId, changeText, user);
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             GlobalVariables.getMessageMap().putError(PdpPropertyConstants.BatchConstants.BATCH_ID, PdpKeyConstants.BatchConstants.ErrorMessages.ERROR_BATCH_ID_IS_NOT_NUMERIC);
             return false;
         }
@@ -183,7 +179,7 @@ public class BatchAction extends KualiAction {
 
     /**
      * This method prompts for a reason to perfomr an action on a batch (cancel, hold, remove hold).
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -215,13 +211,11 @@ public class BatchAction extends KualiAction {
         if (question == null) {
             // ask question if not already asked
             return this.performQuestionWithInput(mapping, form, request, response, confirmationQuestion, confirmationText, KRADConstants.CONFIRMATION_QUESTION, caller, batchId);
-        }
-        else {
+        } else {
             Object buttonClicked = request.getParameter(KRADConstants.QUESTION_CLICKED_BUTTON);
             if ((confirmationQuestion.equals(question)) && ConfirmationQuestion.NO.equals(buttonClicked)) {
                 actionStatus = false;
-            }
-            else {
+            } else {
                 noteText = reason;
                 int noteTextLength = (reason == null) ? 0 : noteText.length();
                 int noteTextMaxLength = PdpKeyConstants.BatchConstants.Confirmation.NOTE_TEXT_MAX_LENGTH;
@@ -233,8 +227,7 @@ public class BatchAction extends KualiAction {
                         reason = KFSConstants.EMPTY_STRING;
                     }
                     return this.performQuestionWithInputAgainBecauseOfErrors(mapping, form, request, response, confirmationQuestion, confirmationText, KRADConstants.CONFIRMATION_QUESTION, KFSConstants.MAPPING_BASIC, batchId, reason, PdpKeyConstants.BatchConstants.ErrorMessages.ERROR_NOTE_EMPTY, KRADConstants.QUESTION_REASON_ATTRIBUTE_NAME, "");
-                }
-                else if (noteTextLength > noteTextMaxLength) {
+                } else if (noteTextLength > noteTextMaxLength) {
                     return this.performQuestionWithInputAgainBecauseOfErrors(mapping, form, request, response, confirmationQuestion, confirmationText, KRADConstants.CONFIRMATION_QUESTION, KFSConstants.MAPPING_BASIC, batchId, reason, PdpKeyConstants.BatchConstants.ErrorMessages.ERROR_NOTE_TOO_LONG, KRADConstants.QUESTION_REASON_ATTRIBUTE_NAME, "");
                 }
 
@@ -252,7 +245,7 @@ public class BatchAction extends KualiAction {
 
     /**
      * This method builds the forward url.
-     * 
+     *
      * @param batchId the batch id
      * @param success action status: true if success, false otherwise
      * @param message the message for the user
@@ -285,7 +278,7 @@ public class BatchAction extends KualiAction {
 
     /**
      * This method build a string list of error message keys out of the error map in GlobalVariables
-     * 
+     *
      * @return a String representing the list of error message keys
      */
     private String buildErrorMesageKeyList() {
@@ -308,7 +301,7 @@ public class BatchAction extends KualiAction {
 
     /**
      * This method gets the batch maintenance service.
-     * 
+     *
      * @return the BatchMaintenanceService
      */
     public BatchMaintenanceService getBatchMaintenanceService() {
@@ -317,7 +310,7 @@ public class BatchAction extends KualiAction {
 
     /**
      * This method sets the batch maintenance service.
-     * 
+     *
      * @param batchMaintenanceService
      */
     public void setBatchMaintenanceService(BatchMaintenanceService batchMaintenanceService) {

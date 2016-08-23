@@ -1,25 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document;
-
-import java.sql.Date;
-import java.util.List;
 
 import org.kuali.kfs.module.purap.businessobject.PurApItem;
 import org.kuali.kfs.sys.document.AccountingDocument;
@@ -27,6 +24,9 @@ import org.kuali.kfs.vnd.businessobject.VendorAddress;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.location.framework.country.CountryEbo;
+
+import java.sql.Date;
+import java.util.List;
 
 
 /**
@@ -162,6 +162,7 @@ public interface PurchasingAccountsPayableDocument extends AccountingDocument, P
     public KualiDecimal getTotalDollarAmountAllItems(String[] excludedTypes);
 
     public KualiDecimal getTotalDollarAmountAboveLineItems();
+
     /**
      * Computes the pre tax total dollar amount of all items.
      *
@@ -294,30 +295,35 @@ public interface PurchasingAccountsPayableDocument extends AccountingDocument, P
     /**
      * Always returns true.
      * This method is needed here because it's called by some tag files shared with PurAp documents.
+     *
      * @return true.
      */
     public boolean getIsATypeOfPurAPRecDoc();
 
     /**
      * Determines whether the document is a type of PurchasingDocument.
+     *
      * @return true if the document is a type of PurchasingDocument.
      */
     public boolean getIsATypeOfPurDoc();
 
     /**
      * Determines whether the document is a type of PurchseOrderDocument (including its subclass documents).
+     *
      * @return true if the document is a type of PurchseOrderDocument.
      */
     public boolean getIsATypeOfPODoc();
 
     /**
      * Determines whether the document is a PurchaseOrderDocument (excluding its subclass documents).
+     *
      * @return true if the document is a PurchaseOrderDocument.
      */
     public boolean getIsPODoc();
 
     /**
      * Determines whether the document is a RequisitionDocument.
+     *
      * @return true if the document is a RequisitionDocument.
      */
     public boolean getIsReqsDoc();
@@ -331,7 +337,8 @@ public interface PurchasingAccountsPayableDocument extends AccountingDocument, P
     public boolean isInquiryRendered();
 
     public boolean shouldGiveErrorForEmptyAccountsProration();
-    
+
     public boolean isCalculated();
+
     public void setCalculated(boolean calculated);
 }

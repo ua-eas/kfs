@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.gl.businessobject;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
 import java.sql.Date;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
-
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 public class OriginEntryGroup extends PersistableBusinessObjectBase {
 

@@ -1,22 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.mail;
+
+import org.kuali.rice.core.mail.MailerImpl;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMailMessage;
 
 import javax.activation.DataHandler;
 import javax.mail.MessagingException;
@@ -25,10 +29,6 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.util.ByteArrayDataSource;
-
-import org.kuali.rice.core.mail.MailerImpl;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.mail.javamail.MimeMailMessage;
 
 /**
  * This class extends the Rice MailerImpl to add attachment support.
@@ -65,19 +65,18 @@ public class AttachmentMailerImpl extends MailerImpl implements AttachmentMailer
 
         MimeMailMessage mmm = new MimeMailMessage(mimeMessage);
 
-        mmm.setTo( (String[])message.getToAddresses().toArray(new String[message.getToAddresses().size()]) );
-        mmm.setBcc( (String[])message.getBccAddresses().toArray(new String[message.getBccAddresses().size()]) );
-        mmm.setCc( (String[])message.getCcAddresses().toArray(new String[message.getCcAddresses().size()]) );
+        mmm.setTo((String[]) message.getToAddresses().toArray(new String[message.getToAddresses().size()]));
+        mmm.setBcc((String[]) message.getBccAddresses().toArray(new String[message.getBccAddresses().size()]));
+        mmm.setCc((String[]) message.getCcAddresses().toArray(new String[message.getCcAddresses().size()]));
         mmm.setSubject(message.getSubject());
         mmm.setFrom(message.getFromAddress());
 
         try {
-            if ( LOG.isDebugEnabled() ) {
-                LOG.debug( "sendEmail() - Sending message: " + mmm.toString() );
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("sendEmail() - Sending message: " + mmm.toString());
             }
             mailSender.send(mmm.getMimeMessage());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("sendEmail() - Error sending email.", e);
             throw new RuntimeException(e);
         }

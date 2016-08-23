@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -36,14 +36,17 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 public class PojoPluginTest {
 
     /**
      * <p>Testing scenario that was not working in the linked issue off of
      * KULRICE-6877: KualiMaintainbleImpl#performCollectionForceUpperCase blowing up</p>
-     * 
+     *
      * @throws Exception
      */
     @Test
@@ -54,9 +57,9 @@ public class PojoPluginTest {
 
         TestCollectionHolderHolder tchh = new TestCollectionHolderHolder();
         tchh.setTch(new TestCollectionHolder());
-        
-        // this simulates a situation in which the property (tch) is a proxied object 
-        // that can't be fetched, so getting it works (returns the proxy) but trying 
+
+        // this simulates a situation in which the property (tch) is a proxied object
+        // that can't be fetched, so getting it works (returns the proxy) but trying
         // to access the collection underneath it throws a NestedNullException
         Object result = ObjectUtils.getPropertyValue(tchh, "tch.collection");
 
@@ -89,7 +92,7 @@ public class PojoPluginTest {
      * Tests that original IndexOutOfBoundsException is thrown when the bean is not a PersistableBusinessObject
      */
     @Test
-    public void testGenerateIndexedPropertyNonPBO() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException  {
+    public void testGenerateIndexedPropertyNonPBO() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         IndexOutOfBoundsException ioobe = new IndexOutOfBoundsException("test exception");
         try {
             new PojoPropertyUtilsBean().generateIndexedProperty(new TestCollectionHolder(), "collection", 0, ioobe);
@@ -103,7 +106,7 @@ public class PojoPluginTest {
      * Tests that original IndexOutOfBoundsException is thrown when the property is not a List
      */
     @Test
-    public void testGenerateIndexedPropertyNonList() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException  {
+    public void testGenerateIndexedPropertyNonList() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         IndexOutOfBoundsException ioobe = new IndexOutOfBoundsException("test exception");
         try {
             new PojoPropertyUtilsBean().generateIndexedProperty(new DocumentAttachment(), "attachmentContent", 0, ioobe);
@@ -118,16 +121,16 @@ public class PojoPluginTest {
         final Object notAnOjbObject = new HashMap();
         // stub out the persistence service
         PojoPropertyUtilsBean.PersistenceStructureServiceProvider.persistenceStructureService =
-                (PersistenceStructureService) Proxy.newProxyInstance(this.getClass().getClassLoader(),
-                        new Class[] { PersistenceStructureService.class },
-                        new InvocationHandler() {
-                            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                                if ("listCollectionObjectTypes".equals(method.getName())) {
-                                    return new HashMap();
-                                }
-                                return null;
-                            }
-                        });
+            (PersistenceStructureService) Proxy.newProxyInstance(this.getClass().getClassLoader(),
+                new Class[]{PersistenceStructureService.class},
+                new InvocationHandler() {
+                    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                        if ("listCollectionObjectTypes".equals(method.getName())) {
+                            return new HashMap();
+                        }
+                        return null;
+                    }
+                });
         assertNull(new PojoPropertyUtilsBean.PersistenceStructureServiceProvider().getCollectionItemClass(notAnOjbObject, "abcd"));
     }
 
@@ -158,6 +161,7 @@ public class PojoPluginTest {
     /**
      * Test class that holds a collection, but trying to get it results in a
      * NestedNullException.
+     *
      * @throws NestedNullException
      */
     public static class TestCollectionHolder extends PersistableBusinessObjectBase {
@@ -175,6 +179,7 @@ public class PojoPluginTest {
     /**
      * Test class that holds a collection, but trying to get it results in a
      * NestedNullException.
+     *
      * @throws NestedNullException
      */
     public static class TestCollectionHolder2 extends PersistableBusinessObjectBase {

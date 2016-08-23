@@ -1,28 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.service;
 
-import java.sql.Date;
-import java.util.HashMap;
-import java.util.List;
-
 import org.junit.Test;
+import org.kuali.kfs.kns.datadictionary.validation.fieldlevel.PhoneNumberValidationPattern;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.SequenceAccessorService;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.businessobject.TemProfile;
@@ -31,16 +30,16 @@ import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.kns.datadictionary.validation.fieldlevel.PhoneNumberValidationPattern;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.SequenceAccessorService;
+
+import java.sql.Date;
+import java.util.HashMap;
+import java.util.List;
 
 /**
- *
  * This class tests the TravelService class
  */
 @ConfigureContext
-public class TravelServiceTest extends KualiTestBase{
+public class TravelServiceTest extends KualiTestBase {
 
     private TravelService travelService;
     private DateTimeService dateTimeService;
@@ -59,7 +58,6 @@ public class TravelServiceTest extends KualiTestBase{
     }
 
     /**
-     *
      * This method tests {@link TravelService#validatePhoneNumber(String)}
      */
     @Test
@@ -70,25 +68,23 @@ public class TravelServiceTest extends KualiTestBase{
     }
 
     /**
-     *
      * This method tests {@link TravelService#validatePhoneNumber(String, String)}
      */
     @Test
     public void testValidatePhoneNumber_byCountryCodeAndPhoneNumber() {
         // validate International phone numbers
-        assertTrue(TemKeyConstants.ERROR_PHONE_NUMBER.equals(travelService.validatePhoneNumber(null,null,TemKeyConstants.ERROR_PHONE_NUMBER)));
-        assertFalse(TemKeyConstants.ERROR_PHONE_NUMBER.equals(travelService.validatePhoneNumber("UK","555-1234",TemKeyConstants.ERROR_PHONE_NUMBER)));
-        assertFalse(TemKeyConstants.ERROR_PHONE_NUMBER.equals(travelService.validatePhoneNumber("UK","555-1234 x1234",TemKeyConstants.ERROR_PHONE_NUMBER)));
+        assertTrue(TemKeyConstants.ERROR_PHONE_NUMBER.equals(travelService.validatePhoneNumber(null, null, TemKeyConstants.ERROR_PHONE_NUMBER)));
+        assertFalse(TemKeyConstants.ERROR_PHONE_NUMBER.equals(travelService.validatePhoneNumber("UK", "555-1234", TemKeyConstants.ERROR_PHONE_NUMBER)));
+        assertFalse(TemKeyConstants.ERROR_PHONE_NUMBER.equals(travelService.validatePhoneNumber("UK", "555-1234 x1234", TemKeyConstants.ERROR_PHONE_NUMBER)));
 
         // validate US phone numbers
         PhoneNumberValidationPattern pattern = new PhoneNumberValidationPattern();
-        assertTrue(TemKeyConstants.ERROR_PHONE_NUMBER.equals(travelService.validatePhoneNumber("US","1",TemKeyConstants.ERROR_PHONE_NUMBER)));
-        assertFalse(TemKeyConstants.ERROR_PHONE_NUMBER.equals(travelService.validatePhoneNumber("US","123-555-1234",TemKeyConstants.ERROR_PHONE_NUMBER)));
-        assertFalse(TemKeyConstants.ERROR_PHONE_NUMBER.equals(travelService.validatePhoneNumber("US","123-555-1234 x1234",TemKeyConstants.ERROR_PHONE_NUMBER)));
+        assertTrue(TemKeyConstants.ERROR_PHONE_NUMBER.equals(travelService.validatePhoneNumber("US", "1", TemKeyConstants.ERROR_PHONE_NUMBER)));
+        assertFalse(TemKeyConstants.ERROR_PHONE_NUMBER.equals(travelService.validatePhoneNumber("US", "123-555-1234", TemKeyConstants.ERROR_PHONE_NUMBER)));
+        assertFalse(TemKeyConstants.ERROR_PHONE_NUMBER.equals(travelService.validatePhoneNumber("US", "123-555-1234 x1234", TemKeyConstants.ERROR_PHONE_NUMBER)));
     }
 
     /**
-     *
      * This method tests {@link TravelService#findTemProfileByPrincipalId(String)}
      */
     @Test

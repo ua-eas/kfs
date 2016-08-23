@@ -1,34 +1,24 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.krad.web.controller;
 
-import java.util.Collection;
-import java.util.Properties;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.krad.web.form.LookupForm;
-import org.kuali.kfs.krad.web.form.UifFormBase;
-import org.kuali.rice.core.api.exception.RiceRuntimeException;
 import org.kuali.kfs.krad.lookup.CollectionIncomplete;
 import org.kuali.kfs.krad.lookup.Lookupable;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
@@ -39,16 +29,23 @@ import org.kuali.kfs.krad.uif.UifPropertyPaths;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.KRADUtils;
+import org.kuali.kfs.krad.web.form.LookupForm;
+import org.kuali.kfs.krad.web.form.UifFormBase;
+import org.kuali.rice.core.api.exception.RiceRuntimeException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Collection;
+import java.util.Properties;
+import java.util.Set;
+
 /**
  * Controller that handles requests coming from a <code>LookupView</code>
- *
- * 
  */
 @Controller
 @RequestMapping(value = "/lookup")
@@ -65,7 +62,7 @@ public class LookupController extends UifControllerBase {
 
     /**
      * Invoked to request an lookup view for a data object class
-     *
+     * <p>
      * <p>
      * Checks if the data object is externalizable and we need to redirect to the appropriate lookup URL, else
      * continues with the lookup view display
@@ -74,7 +71,7 @@ public class LookupController extends UifControllerBase {
     @RequestMapping(params = "methodToCall=start")
     @Override
     public ModelAndView start(@ModelAttribute("KualiForm") UifFormBase form, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) {
+                              HttpServletRequest request, HttpServletResponse response) {
         LookupForm lookupForm = (LookupForm) form;
 
         Lookupable lookupable = lookupForm.getLookupable();
@@ -94,10 +91,10 @@ public class LookupController extends UifControllerBase {
             }
 
             ModuleService responsibleModuleService =
-                    KRADServiceLocatorWeb.getKualiModuleService().getResponsibleModuleService(lookupObjectClass);
+                KRADServiceLocatorWeb.getKualiModuleService().getResponsibleModuleService(lookupObjectClass);
             if (responsibleModuleService != null && responsibleModuleService.isExternalizable(lookupObjectClass)) {
                 String lookupUrl = responsibleModuleService.getExternalizableDataObjectLookupUrl(lookupObjectClass,
-                        KRADUtils.convertRequestMapToProperties(request.getParameterMap()));
+                    KRADUtils.convertRequestMapToProperties(request.getParameterMap()));
 
                 Properties redirectUrlProps = new Properties();
                 redirectUrlProps.put(UifParameters.REDIRECTED_LOOKUP, "true");
@@ -118,7 +115,7 @@ public class LookupController extends UifControllerBase {
     @Override
     @RequestMapping(params = "methodToCall=cancel")
     public ModelAndView cancel(@ModelAttribute("KualiForm") UifFormBase form, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) {
+                               HttpServletRequest request, HttpServletResponse response) {
         LookupForm lookupForm = (LookupForm) form;
 
         Lookupable lookupable = lookupForm.getLookupable();
@@ -148,7 +145,7 @@ public class LookupController extends UifControllerBase {
      */
     @RequestMapping(params = "methodToCall=clearValues")
     public ModelAndView clearValues(@ModelAttribute("KualiForm") LookupForm lookupForm, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) {
+                                    HttpServletRequest request, HttpServletResponse response) {
 
         Lookupable lookupable = lookupForm.getLookupable();
         if (lookupable == null) {
@@ -167,7 +164,7 @@ public class LookupController extends UifControllerBase {
      */
     @RequestMapping(params = "methodToCall=search")
     public ModelAndView search(@ModelAttribute("KualiForm") LookupForm lookupForm, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) {
+                               HttpServletRequest request, HttpServletResponse response) {
 
         Lookupable lookupable = lookupForm.getLookupable();
         if (lookupable == null) {
@@ -180,11 +177,11 @@ public class LookupController extends UifControllerBase {
         lookupable.validateSearchParameters(lookupForm, lookupForm.getCriteriaFields());
 
         Collection<?> displayList =
-                lookupable.performSearch(lookupForm, lookupForm.getCriteriaFields(), true);
+            lookupable.performSearch(lookupForm, lookupForm.getCriteriaFields(), true);
 
         if (displayList instanceof CollectionIncomplete<?>) {
             request.setAttribute("reqSearchResultsActualSize",
-                    ((CollectionIncomplete<?>) displayList).getActualSizeIfTruncated());
+                ((CollectionIncomplete<?>) displayList).getActualSizeIfTruncated());
         } else {
             request.setAttribute("reqSearchResultsActualSize", new Integer(displayList.size()));
         }
@@ -202,7 +199,7 @@ public class LookupController extends UifControllerBase {
      */
     @RequestMapping(params = "methodToCall=returnSelected")
     public ModelAndView returnSelected(@ModelAttribute("KualiForm") LookupForm lookupForm, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) {
+                                       HttpServletRequest request, HttpServletResponse response) {
         Properties parameters = new Properties();
         parameters.put(KRADConstants.DISPATCH_REQUEST_PARAMETER, KRADConstants.RETURN_METHOD_TO_CALL);
 

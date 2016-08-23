@@ -1,34 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.report.service.impl;
 
-import static org.kuali.kfs.module.tem.TemConstants.TravelReimbursementParameters.DISPLAY_TRAVEL_AUTHORIZATION_ESTIMATE_IN_SUMMARY_REPORT_IND;
-import static org.kuali.kfs.module.tem.TemConstants.TravelReimbursementParameters.LODGING_TYPE_CODES;
-import static org.kuali.kfs.module.tem.TemConstants.TravelReimbursementParameters.TRANSPORTATION_TYPE_CODES;
-
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-
 import org.apache.log4j.Logger;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.businessobject.AccountingDistribution;
@@ -46,11 +38,19 @@ import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+
+import static org.kuali.kfs.module.tem.TemConstants.TravelReimbursementParameters.DISPLAY_TRAVEL_AUTHORIZATION_ESTIMATE_IN_SUMMARY_REPORT_IND;
+import static org.kuali.kfs.module.tem.TemConstants.TravelReimbursementParameters.LODGING_TYPE_CODES;
+import static org.kuali.kfs.module.tem.TemConstants.TravelReimbursementParameters.TRANSPORTATION_TYPE_CODES;
 
 /**
  * Service implementation of ExpenseSummaryReportService.
@@ -99,10 +99,10 @@ public class ExpenseSummaryReportServiceImpl implements ExpenseSummaryReportServ
         final Person initiator = getPersonService().getPerson(initiatorId);
         retval.setInitiator(initiator.getFirstName() + " " + initiator.getLastName());
         try {
-            retval.setBeginDate(travelDocument.getTripBegin() != null ? dateTimeService.convertToSqlDate (travelDocument.getTripBegin()) : new Date());
-            retval.setEndDate(travelDocument.getTripEnd() != null ? dateTimeService.convertToSqlDate (travelDocument.getTripEnd()) : new Date());
+            retval.setBeginDate(travelDocument.getTripBegin() != null ? dateTimeService.convertToSqlDate(travelDocument.getTripBegin()) : new Date());
+            retval.setEndDate(travelDocument.getTripEnd() != null ? dateTimeService.convertToSqlDate(travelDocument.getTripEnd()) : new Date());
 
-        }catch (ParseException pe) {
+        } catch (ParseException pe) {
             LOG.error("error while parsing date " + pe);
         }
 
@@ -118,7 +118,7 @@ public class ExpenseSummaryReportServiceImpl implements ExpenseSummaryReportServ
         List<ExpenseSummaryReport.Detail> perDiemLodgingList = new ArrayList<ExpenseSummaryReport.Detail>();
         List<ExpenseSummaryReport.Detail> perDiemMealList = new ArrayList<ExpenseSummaryReport.Detail>();
 
-        for (final PerDiemExpense perDiemExpense: travelDocument.getPerDiemExpenses()){
+        for (final PerDiemExpense perDiemExpense : travelDocument.getPerDiemExpenses()) {
             if (perDiemExpense.getMileageTotal().isGreaterThan(KualiDecimal.ZERO)) {
                 ExpenseSummaryReport.Detail perDiemMilage = new ExpenseSummaryReport.Detail("Per Diem Milage", "TRANSPORTATION", perDiemExpense.getMileageTotal(), perDiemExpense.getMileageDate());
                 perDiemMilageList.add(perDiemMilage);
@@ -148,7 +148,7 @@ public class ExpenseSummaryReportServiceImpl implements ExpenseSummaryReportServ
         }
 
         LOG.info("Adding details from other expenses");
-        LOG.debug("There are "+ travelDocument.getActualExpenses().size() + " other expenses");
+        LOG.debug("There are " + travelDocument.getActualExpenses().size() + " other expenses");
         for (final ActualExpense expense : travelDocument.getActualExpenses()) {
             expense.refreshReferenceObject(TemPropertyConstants.EXPENSE_TYPE_OBJECT_CODE);
 
@@ -160,11 +160,9 @@ public class ExpenseSummaryReportServiceImpl implements ExpenseSummaryReportServ
             String expenseType = "OTHER";
             if (isTransportationExpense(expense)) {
                 expenseType = "TRANSPORTATION";
-            }
-            else if (isLodgingExpense(expense)) {
+            } else if (isLodgingExpense(expense)) {
                 expenseType = "LODGING";
-            }
-            else if (isMealsExpense(expense)) {
+            } else if (isMealsExpense(expense)) {
                 expenseType = "MEALS";
             }
 
@@ -173,12 +171,11 @@ public class ExpenseSummaryReportServiceImpl implements ExpenseSummaryReportServ
 
         final KualiDecimal expenseLimit = travelDocument.getExpenseLimit() == null ? KualiDecimal.ZERO : travelDocument.getExpenseLimit();
         final KualiDecimal manualPerDiemAdjustment = travelDocument.getPerDiemAdjustment();
-        final KualiDecimal ctsTotal  = travelDocument.getCTSTotal();
-        final KualiDecimal corporateCardTotal  = travelDocument.getCorporateCardTotal();
-        final KualiDecimal maxExpense =  travelDocument.getReimbursableTotal();
+        final KualiDecimal ctsTotal = travelDocument.getCTSTotal();
+        final KualiDecimal corporateCardTotal = travelDocument.getCorporateCardTotal();
+        final KualiDecimal maxExpense = travelDocument.getReimbursableTotal();
         String totalExpenseName = "Owed to Payee";
         KualiDecimal owed = maxExpense;
-
 
 
         boolean isTR = travelDocument.getDocumentHeader().getWorkflowDocument().getDocumentTypeName().equals(TemConstants.TravelDocTypes.TRAVEL_REIMBURSEMENT_DOCUMENT);
@@ -194,7 +191,7 @@ public class ExpenseSummaryReportServiceImpl implements ExpenseSummaryReportServ
         }
 
         summary.add(new ExpenseSummaryReport.Detail("Expense Total", "SUMMARY", travelDocument.getDocumentGrandTotal(), travelDocument.getTripBegin()));
-        summary.add (new ExpenseSummaryReport.Detail("Manual Per Diem Adj", "SUMMARY",manualPerDiemAdjustment, travelDocument.getTripBegin()));
+        summary.add(new ExpenseSummaryReport.Detail("Manual Per Diem Adj", "SUMMARY", manualPerDiemAdjustment, travelDocument.getTripBegin()));
         summary.add(new ExpenseSummaryReport.Detail("Expense Limit", "SUMMARY", travelDocument.getExpenseLimit(), travelDocument.getTripBegin()));
         summary.add(new ExpenseSummaryReport.Detail("Less CTS Charges", "SUMMARY", ctsTotal, travelDocument.getTripBegin()));
         summary.add(new ExpenseSummaryReport.Detail("Corp Credit Card Charges", "SUMMARY", corporateCardTotal, travelDocument.getTripBegin()));
@@ -215,20 +212,20 @@ public class ExpenseSummaryReportServiceImpl implements ExpenseSummaryReportServ
         }
 
         List<AccountingDistribution> accountingDistributions = getAccountingDistributionService().buildDistributionFrom(travelDocument);
-        if(accountingDistributions != null){
-            for(AccountingDistribution ad : accountingDistributions){
-                summary.add(new ExpenseSummaryReport.Detail("Distribution: "+ad.getObjectCode(), "OTHER", ad.getSubTotal().abs(), travelDocument.getTripBegin()));
+        if (accountingDistributions != null) {
+            for (AccountingDistribution ad : accountingDistributions) {
+                summary.add(new ExpenseSummaryReport.Detail("Distribution: " + ad.getObjectCode(), "OTHER", ad.getSubTotal().abs(), travelDocument.getTripBegin()));
             }
         }
 
         travelDocument.refreshReferenceObject("sourceAccountingLines");
 
-       List<TemSourceAccountingLine> sourceAccountingLines = travelDocument.getSourceAccountingLines();
+        List<TemSourceAccountingLine> sourceAccountingLines = travelDocument.getSourceAccountingLines();
 
-       for(TemSourceAccountingLine account : sourceAccountingLines){
-           String accountDetails = account.getAccountNumber() + "-" + account.getFinancialObjectCode();
-           summary.add(new ExpenseSummaryReport.Detail("Account: "+ accountDetails, "OTHER", account.getAmount(), travelDocument.getTripBegin()));
-       }
+        for (TemSourceAccountingLine account : sourceAccountingLines) {
+            String accountDetails = account.getAccountNumber() + "-" + account.getFinancialObjectCode();
+            summary.add(new ExpenseSummaryReport.Detail("Account: " + accountDetails, "OTHER", account.getAmount(), travelDocument.getTripBegin()));
+        }
 
         if (summary.size() > 0) {
             retval.setSummary(summary);
@@ -241,7 +238,7 @@ public class ExpenseSummaryReportServiceImpl implements ExpenseSummaryReportServ
     }
 
     protected boolean isTransportationExpense(final ActualExpense expense) {
-        LOG.debug("Checking if " + expense+ " is a transportation ");
+        LOG.debug("Checking if " + expense + " is a transportation ");
         return expenseTypeCodeMatchesParameter(expense.getExpenseTypeCode(), TRANSPORTATION_TYPE_CODES);
     }
 
@@ -260,6 +257,7 @@ public class ExpenseSummaryReportServiceImpl implements ExpenseSummaryReportServ
 
     /**
      * Gets the parameterService attribute.
+     *
      * @return Returns the parameterService.
      */
     public ParameterService getParameterService() {
@@ -268,6 +266,7 @@ public class ExpenseSummaryReportServiceImpl implements ExpenseSummaryReportServ
 
     /**
      * Sets the parameterService attribute value.
+     *
      * @param parameterService The parameterService to set.
      */
     public void setParameterService(ParameterService parameterService) {
@@ -276,6 +275,7 @@ public class ExpenseSummaryReportServiceImpl implements ExpenseSummaryReportServ
 
     /**
      * Gets the travelAuthorizationService attribute.
+     *
      * @return Returns the travelAuthorizationService.
      */
     public TravelAuthorizationService getTravelAuthorizationService() {
@@ -284,6 +284,7 @@ public class ExpenseSummaryReportServiceImpl implements ExpenseSummaryReportServ
 
     /**
      * Sets the travelAuthorizationService attribute value.
+     *
      * @param travelAuthorizationService The travelAuthorizationService to set.
      */
     public void setTravelAuthorizationService(TravelAuthorizationService travelAuthorizationService) {
@@ -292,6 +293,7 @@ public class ExpenseSummaryReportServiceImpl implements ExpenseSummaryReportServ
 
     /**
      * Gets the travelAuthorizationService attribute.
+     *
      * @return Returns the travelAuthorizationService.
      */
     public TravelDocumentService getTravelDocumentService() {
@@ -300,6 +302,7 @@ public class ExpenseSummaryReportServiceImpl implements ExpenseSummaryReportServ
 
     /**
      * Sets the travelDocumentService attribute value.
+     *
      * @param travelDocumentService The travelDocumentService to set.
      */
     public void setTravelDocumentService(TravelDocumentService travelDocumentService) {

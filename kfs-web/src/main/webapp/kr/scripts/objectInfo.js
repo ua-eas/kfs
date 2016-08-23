@@ -1,66 +1,69 @@
 /*
- * Copyright 2005-2015 The Kuali Foundation
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Licensed under the Educational Community License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Copyright 2005-2016 The Kuali Foundation
  *
- * http://www.opensource.org/licenses/ecl2.php
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-function loadUserInfo( userIdFieldName, universalIdFieldName, userNameFieldName ) {
-	var userId = dwr.util.getValue( userIdFieldName );
+function loadUserInfo(userIdFieldName, universalIdFieldName, userNameFieldName) {
+    var userId = dwr.util.getValue(userIdFieldName);
 
-	if (userId == "") {
-		clearRecipients( universalIdFieldName, "" );
-		clearRecipients( userNameFieldName, "" );
-	} else {
-		var dwrReply = {
-			callback:function(data) {
-				if ( data != null && typeof data == 'object' ) {
-					if ( universalIdFieldName != null && universalIdFieldName != "" ) {
-						setRecipientValue( universalIdFieldName, data.principalId );
-					}
-					if ( userNameFieldName != null && userNameFieldName != "" ) {
-						setRecipientValue( userNameFieldName, data.name );
-					} else {
-						// guess the DIV name
-						divName = userIdFieldName.replace( ".principalName", ".name.div" );
-						dwr.util.setValue( divName, data.name );
-					}
-				} else {
-					if ( universalIdFieldName != null && universalIdFieldName != "" ) {
-						setRecipientValue( universalIdFieldName, "" );
-					}
-					if ( userNameFieldName != null && userNameFieldName != "" ) {
-						setRecipientValue( userNameFieldName, wrapError( "person not found" ), true );
-					} else {
-						// guess the DIV name
-						divName = userIdFieldName.replace( ".principalName", ".name.div" );
-						dwr.util.setValue( divName, wrapError( "person not found" ), { escapeHtml:false} );
-					}
-				}
-			},
-			errorHandler:function( errorMessage ) {
-				window.status = errorMessage;
-				if ( universalIdFieldName != null && universalIdFieldName != "" ) {
-					setRecipientValue( universalIdFieldName, "" );
-				}
-				if ( userNameFieldName != null && userNameFieldName != "" ) {
-					setRecipientValue( userNameFieldName, wrapError( "person not found" ), true );
-				} else {
-					// guess the DIV name
-					divName = userIdFieldName.replace( ".principalName", ".name.div" );
-					dwr.util.setValue( divName, wrapError( "person not found" ), { escapeHtml:false} );
-				}
-			}
-		};
-		PersonService.getPersonByPrincipalName( userId, dwrReply );
-	}
+    if (userId == "") {
+        clearRecipients(universalIdFieldName, "");
+        clearRecipients(userNameFieldName, "");
+    } else {
+        var dwrReply = {
+            callback: function (data) {
+                if (data != null && typeof data == 'object') {
+                    if (universalIdFieldName != null && universalIdFieldName != "") {
+                        setRecipientValue(universalIdFieldName, data.principalId);
+                    }
+                    if (userNameFieldName != null && userNameFieldName != "") {
+                        setRecipientValue(userNameFieldName, data.name);
+                    } else {
+                        // guess the DIV name
+                        divName = userIdFieldName.replace(".principalName", ".name.div");
+                        dwr.util.setValue(divName, data.name);
+                    }
+                } else {
+                    if (universalIdFieldName != null && universalIdFieldName != "") {
+                        setRecipientValue(universalIdFieldName, "");
+                    }
+                    if (userNameFieldName != null && userNameFieldName != "") {
+                        setRecipientValue(userNameFieldName, wrapError("person not found"), true);
+                    } else {
+                        // guess the DIV name
+                        divName = userIdFieldName.replace(".principalName", ".name.div");
+                        dwr.util.setValue(divName, wrapError("person not found"), {escapeHtml: false});
+                    }
+                }
+            },
+            errorHandler: function (errorMessage) {
+                window.status = errorMessage;
+                if (universalIdFieldName != null && universalIdFieldName != "") {
+                    setRecipientValue(universalIdFieldName, "");
+                }
+                if (userNameFieldName != null && userNameFieldName != "") {
+                    setRecipientValue(userNameFieldName, wrapError("person not found"), true);
+                } else {
+                    // guess the DIV name
+                    divName = userIdFieldName.replace(".principalName", ".name.div");
+                    dwr.util.setValue(divName, wrapError("person not found"), {escapeHtml: false});
+                }
+            }
+        };
+        PersonService.getPersonByPrincipalName(userId, dwrReply);
+    }
 }
 

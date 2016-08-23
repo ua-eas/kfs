@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -32,8 +32,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public class BulkReceivingForm extends FinancialSystemTransactionalDocumentFormBase {
-    
-    protected static final Logger LOG = Logger.getLogger(BulkReceivingForm.class); 
+
+    protected static final Logger LOG = Logger.getLogger(BulkReceivingForm.class);
     protected Integer purchaseOrderId;
 
     public BulkReceivingForm() {
@@ -44,7 +44,7 @@ public class BulkReceivingForm extends FinancialSystemTransactionalDocumentFormB
     protected String getDefaultDocumentTypeName() {
         return "RCVB";
     }
-    
+
     public BulkReceivingDocument getBulkReceivingDocument() {
         return (BulkReceivingDocument) getDocument();
     }
@@ -64,63 +64,62 @@ public class BulkReceivingForm extends FinancialSystemTransactionalDocumentFormB
     /**
      * Override the superclass method to add appropriate buttons for
      * BulkReceivingDocument.
-     * 
+     *
      * @see org.kuali.rice.kns.web.struts.form.KualiForm#getExtraButtons()
-     * 
+     * <p>
      * KRAD Conversion: Performs customization of extra buttons.
-     * 
+     * <p>
      * No data dictionary is involved.
      */
     @Override
     public List<ExtraButton> getExtraButtons() {
         extraButtons.clear();
-        
-        String displayInitTab = (String)getEditingMode().get(PurapAuthorizationConstants.BulkReceivingEditMode.DISPLAY_INIT_TAB);
+
+        String displayInitTab = (String) getEditingMode().get(PurapAuthorizationConstants.BulkReceivingEditMode.DISPLAY_INIT_TAB);
         if (ObjectUtils.isNotNull(displayInitTab) && displayInitTab.equalsIgnoreCase("true")) {
             extraButtons.add(createBulkReceivingContinueButton());
             extraButtons.add(createClearInitFieldsButton());
-        }
-        else if (getBulkReceivingDocument().getDocumentHeader().getWorkflowDocument().isEnroute() || 
-                getBulkReceivingDocument().getDocumentHeader().getWorkflowDocument().isProcessed() || 
-                getBulkReceivingDocument().getDocumentHeader().getWorkflowDocument().isFinal()) {
+        } else if (getBulkReceivingDocument().getDocumentHeader().getWorkflowDocument().isEnroute() ||
+            getBulkReceivingDocument().getDocumentHeader().getWorkflowDocument().isProcessed() ||
+            getBulkReceivingDocument().getDocumentHeader().getWorkflowDocument().isFinal()) {
             extraButtons.add(createPrintReceivingTicketButton());
         }
-            
+
         return extraButtons;
-    }        
+    }
 
     /**
-    * KRAD Conversion: Performs customization of an extra button.
-    * 
-    * No data dictionary is involved.
-    */
-    protected ExtraButton createBulkReceivingContinueButton(){
+     * KRAD Conversion: Performs customization of an extra button.
+     * <p>
+     * No data dictionary is involved.
+     */
+    protected ExtraButton createBulkReceivingContinueButton() {
         ExtraButton continueButton = new ExtraButton();
         continueButton.setExtraButtonProperty("methodToCall.continueBulkReceiving");
         continueButton.setExtraButtonSource("${" + KFSConstants.RICE_EXTERNALIZABLE_IMAGES_URL_KEY + "}buttonsmall_continue.gif");
         continueButton.setExtraButtonAltText("Continue");
         return continueButton;
     }
-    
+
     /**
      * KRAD Conversion: Performs customization of an extra button.
-     * 
+     * <p>
      * No data dictionary is involved.
      */
-    protected ExtraButton createClearInitFieldsButton(){
+    protected ExtraButton createClearInitFieldsButton() {
         ExtraButton clearButton = new ExtraButton();
         clearButton.setExtraButtonProperty("methodToCall.clearInitFields");
         clearButton.setExtraButtonSource("${" + KFSConstants.RICE_EXTERNALIZABLE_IMAGES_URL_KEY + "}buttonsmall_clear.gif");
         clearButton.setExtraButtonAltText("Clear");
         return clearButton;
     }
-    
+
     /**
      * KRAD Conversion: Performs customization of an extra button.
-     * 
+     * <p>
      * No data dictionary is involved.
      */
-    protected ExtraButton createPrintReceivingTicketButton(){
+    protected ExtraButton createPrintReceivingTicketButton() {
         ExtraButton printButton = new ExtraButton();
         printButton.setExtraButtonOnclick("excludeSubmitRestriction=true");
         printButton.setExtraButtonProperty("methodToCall.printReceivingTicketPDF");
@@ -129,11 +128,11 @@ public class BulkReceivingForm extends FinancialSystemTransactionalDocumentFormB
         return printButton;
     }
 
-    public String getGoodsDeliveredByLabel(){
+    public String getGoodsDeliveredByLabel() {
         return PurapKeyConstants.MESSAGE_BULK_RECEIVING_GOODSDELIVEREDBY_LABEL;
     }
 
-    
+
     @Override
     public boolean shouldMethodToCallParameterBeUsed(String methodToCallParameterName, String methodToCallParameterValue, HttpServletRequest request) {
         if (KRADConstants.DISPATCH_REQUEST_PARAMETER.equals(methodToCallParameterName) && "printReceivingTicket".equals(methodToCallParameterValue)) {

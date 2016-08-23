@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -21,16 +21,14 @@ package org.kuali.kfs.krad.datadictionary;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.krad.bo.Exporter;
 import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
-import org.kuali.kfs.krad.datadictionary.validation.constraint.MustOccurConstraint;
 import org.kuali.kfs.krad.datadictionary.validation.capability.MustOccurConstrainable;
+import org.kuali.kfs.krad.datadictionary.validation.constraint.MustOccurConstraint;
 
 import java.util.List;
 
 /**
  * Generic dictionary entry for an object that does not have to implement BusinessObject. It provides support
  * for general objects.
- *
- * 
  */
 public class DataObjectEntry extends DataDictionaryEntryBase implements MustOccurConstrainable {
 
@@ -54,7 +52,7 @@ public class DataObjectEntry extends DataDictionaryEntryBase implements MustOccu
     protected boolean boNotesEnabled = false;
 
     protected List<InactivationBlockingDefinition> inactivationBlockingDefinitions;
-    
+
     @Override
     public void completeValidation() {
         //KFSMI-1340 - Object label should never be blank
@@ -166,10 +164,10 @@ public class DataObjectEntry extends DataDictionaryEntryBase implements MustOccu
 
     /**
      * Sets the helpDefinition attribute value.
-     *
+     * <p>
      * The objectHelp element provides the keys to
      * obtain a help description from the system parameters table.
-     *
+     * <p>
      * parameterNamespace the namespace of the parameter containing help information
      * parameterName the name of the parameter containing help information
      * parameterDetailType the detail type of the parameter containing help information
@@ -213,7 +211,7 @@ public class DataObjectEntry extends DataDictionaryEntryBase implements MustOccu
      * The titleAttribute element is the name of the attribute that
      * will be used as an inquiry field when the lookup search results
      * fields are displayed.
-     *
+     * <p>
      * For some business objects, there is no obvious field to serve
      * as the inquiry field. in that case a special field may be required
      * for inquiry purposes.
@@ -262,40 +260,40 @@ public class DataObjectEntry extends DataDictionaryEntryBase implements MustOccu
     public void setGroupByAttributesForEffectiveDating(List<String> groupByAttributesForEffectiveDating) {
         this.groupByAttributesForEffectiveDating = groupByAttributesForEffectiveDating;
     }
-    
-    
+
+
     /**
      * Gets the boNotesEnabled flag for the Data object
-     *
+     * <p>
      * <p>
      * true indicates that notes and attachments will be permanently
      * associated with the business object
      * false indicates that notes and attachments are associated
      * with the document used to create or edit the business object.
      * </p>
-     * 
+     *
      * @return the boNotesEnabled flag
-     */    
+     */
     public boolean isBoNotesEnabled() {
         return boNotesEnabled;
     }
 
     /**
      * Setter for the boNotesEnabled flag
-     */    
+     */
     public void setBoNotesEnabled(boolean boNotesEnabled) {
         this.boNotesEnabled = boNotesEnabled;
     }
-    
+
     /**
      * Gets the inactivationBlockingDefinitions for the Data object
-     *
      * <p>
-     * 
+     * <p>
+     * <p>
      * </p>
-     * 
-     * @return the list of <code>InactivationBlockingDefinition</code> 
-     */ 
+     *
+     * @return the list of <code>InactivationBlockingDefinition</code>
+     */
     public List<InactivationBlockingDefinition> getInactivationBlockingDefinitions() {
         return this.inactivationBlockingDefinitions;
     }
@@ -304,7 +302,7 @@ public class DataObjectEntry extends DataDictionaryEntryBase implements MustOccu
      * Setter for the inactivationBlockingDefinitions
      */
     public void setInactivationBlockingDefinitions(
-            List<InactivationBlockingDefinition> inactivationBlockingDefinitions) {
+        List<InactivationBlockingDefinition> inactivationBlockingDefinitions) {
         this.inactivationBlockingDefinitions = inactivationBlockingDefinitions;
-    }    
+    }
 }

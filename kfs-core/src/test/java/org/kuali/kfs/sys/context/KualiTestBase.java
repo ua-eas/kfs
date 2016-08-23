@@ -1,36 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.context;
 
-import java.io.File;
-import java.lang.reflect.Method;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.sql.DataSource;
-
 import junit.framework.TestCase;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.ojb.broker.OptimisticLockException;
+import org.kuali.kfs.krad.UserSession;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KualiTestConstants;
 import org.kuali.kfs.sys.batch.service.CacheService;
@@ -39,10 +34,6 @@ import org.kuali.kfs.sys.fixture.UserNameFixture;
 import org.kuali.kfs.sys.service.ConfigurableDateService;
 import org.kuali.rice.core.api.config.property.ConfigContext;
 import org.kuali.rice.core.framework.persistence.jdbc.datasource.XAPoolDataSource;
-import org.kuali.kfs.krad.UserSession;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.util.ErrorMessage;
-import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.rice.ksb.util.KSBConstants;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
@@ -50,6 +41,13 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springmodules.orm.ojb.OjbOperationException;
+
+import javax.sql.DataSource;
+import java.io.File;
+import java.lang.reflect.Method;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * This class should be extended by all Kuali unit tests.
@@ -87,7 +85,7 @@ public abstract class KualiTestBase extends TestCase implements KualiTestConstan
         if (contextConfiguration != null) {
             configure(contextConfiguration);
             SpringContext.getBean(ConfigurableDateService.class).setCurrentDate(new java.util.Date());
-            ConfigContext.getCurrentContextConfig().putProperty(KSBConstants.Config.MESSAGE_DELIVERY, KSBConstants.MESSAGING_SYNCHRONOUS );
+            ConfigContext.getCurrentContextConfig().putProperty(KSBConstants.Config.MESSAGE_DELIVERY, KSBConstants.MESSAGING_SYNCHRONOUS);
         }
 
         if (!log4jConfigured) {
@@ -95,15 +93,14 @@ public abstract class KualiTestBase extends TestCase implements KualiTestConstan
             log4jConfigured = true;
         }
 
-        if ( LOG.isInfoEnabled() ) {
+        if (LOG.isInfoEnabled()) {
             LOG.info("Entering test '" + testName + "'");
         }
         try {
             setUp();
             try {
                 runTest();
-            }
-            catch (OjbOperationException e) {
+            } catch (OjbOperationException e) {
                 // log more detail for OptimisticLockExceptions
                 OjbOperationException ooe = e;
                 Throwable cause = ooe.getCause();
@@ -115,8 +112,7 @@ public abstract class KualiTestBase extends TestCase implements KualiTestConstan
                     try {
                         // try to add instance details
                         suffix = sourceObject.toString();
-                    }
-                    catch (Exception e2) {
+                    } catch (Exception e2) {
                         // just use the class name
                         suffix = sourceObject.getClass().getName();
                     }
@@ -124,25 +120,24 @@ public abstract class KualiTestBase extends TestCase implements KualiTestConstan
                     LOG.error(message.toString());
                 }
                 throw e;
-            }
-            finally {
+            } finally {
                 tearDown();
-                if ( springContextInitialized ) {
-                    LOG.info( "clearing caches" );
+                if (springContextInitialized) {
+                    LOG.info("clearing caches");
                     clearAllCaches();
                 }
             }
-        } catch ( ValidationException ex ) {
-            fail( "Test threw an unexpected ValidationException: " + dumpMessageMapErrors() );
+        } catch (ValidationException ex) {
+            fail("Test threw an unexpected ValidationException: " + dumpMessageMapErrors());
         } catch (Throwable ex) {
-            if ( ex instanceof CannotGetJdbcConnectionException || StringUtils.contains(ex.getMessage(), "GenericPool:checkOut" ) || StringUtils.contains( ex.getMessage(), "no connection available" ) ) {
-                LOG.fatal( "UNABLE TO OBTAIN DATABASE CONNECTION!  THIS AND MANY OTHER TESTS WILL LIKELY FAIL!", ex );
+            if (ex instanceof CannotGetJdbcConnectionException || StringUtils.contains(ex.getMessage(), "GenericPool:checkOut") || StringUtils.contains(ex.getMessage(), "no connection available")) {
+                LOG.fatal("UNABLE TO OBTAIN DATABASE CONNECTION!  THIS AND MANY OTHER TESTS WILL LIKELY FAIL!", ex);
                 DataSource ds = (DataSource) SpringContext.getBean("datasource");
-                if ( ds != null && ds instanceof XAPoolDataSource ) {
-                    LOG.fatal( "Datasource Information:" );
-                    LOG.fatal( ((XAPoolDataSource)ds).getDataSource().toString() );
+                if (ds != null && ds instanceof XAPoolDataSource) {
+                    LOG.fatal("Datasource Information:");
+                    LOG.fatal(((XAPoolDataSource) ds).getDataSource().toString());
                 }
-                fail( "CONFIGURATION ERROR: UNABLE TO OBTAIN DATABASE CONNECTION!" );
+                fail("CONFIGURATION ERROR: UNABLE TO OBTAIN DATABASE CONNECTION!");
             }
             throw ex;
         } finally {
@@ -155,26 +150,25 @@ public abstract class KualiTestBase extends TestCase implements KualiTestConstan
                     if (file.exists()) {
                         file.delete();
                     }
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     LOG.warn("Unable to delete file: " + filePath, e);
                 }
             }
             generatedFiles.clear();
             GlobalVariables.setUserSession(null);
             GlobalVariables.clear();
-            if ( LOG.isInfoEnabled() ) {
+            if (LOG.isInfoEnabled()) {
                 LOG.info("Leaving test '" + testName + "'");
             }
         }
     }
 
-    @CacheEvict(allEntries=true, value = { "" })
+    @CacheEvict(allEntries = true, value = {""})
     protected void clearAllCaches() {
         SpringContext.getBean(CacheService.class).clearSystemCaches();
     }
 
-    protected void clearBoCache( Class boClass ) {
+    protected void clearBoCache(Class boClass) {
         SpringContext.getBean(CacheService.class).clearKfsBusinessObjectCache(boClass);
     }
 
@@ -187,11 +181,11 @@ public abstract class KualiTestBase extends TestCase implements KualiTestConstan
     }
 
     /**
-     *  Do not call this method!  It is used by the ContinuousIntegrationShutdown "test" to stop the context and clear its state.
-     *  Any other use will likely break the CI environment.
+     * Do not call this method!  It is used by the ContinuousIntegrationShutdown "test" to stop the context and clear its state.
+     * Any other use will likely break the CI environment.
      */
     protected void stopSpringContext() {
-        if ( springContextInitialized ) {
+        if (springContextInitialized) {
             try {
                 SpringContext.close();
             } catch (Exception e) {
@@ -209,8 +203,7 @@ public abstract class KualiTestBase extends TestCase implements KualiTestConstan
             try {
                 KFSTestStartup.initializeKfsTestContext();
                 springContextInitialized = true;
-            }
-            catch (RuntimeException e) {
+            } catch (RuntimeException e) {
                 configurationFailure = e;
                 throw e;
             }
@@ -226,10 +219,9 @@ public abstract class KualiTestBase extends TestCase implements KualiTestConstan
 //            defaultTransactionDefinition.setReadOnly(true);
             transactionStatus = getTransactionManager().getTransaction(defaultTransactionDefinition);
             transactionStatus.setRollbackOnly();
-        }
-        else {
+        } else {
             LOG.info("Test transaction not used");
-            LOG.info("Starting transaction which will COMMIT at the end of the test" );
+            LOG.info("Starting transaction which will COMMIT at the end of the test");
             DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
             defaultTransactionDefinition.setTimeout(3600);
             transactionStatus = getTransactionManager().getTransaction(defaultTransactionDefinition);
@@ -243,20 +235,19 @@ public abstract class KualiTestBase extends TestCase implements KualiTestConstan
 
     private void endTestTransaction() {
         if (transactionStatus != null) {
-            if ( transactionStatus.isRollbackOnly() ) {
+            if (transactionStatus.isRollbackOnly()) {
                 LOG.info("rolling back transaction");
                 try {
                     getTransactionManager().rollback(transactionStatus);
-                }
-                catch (Exception ex) {
-                    LOG.warn( "Error rolling back transaction", ex );
+                } catch (Exception ex) {
+                    LOG.warn("Error rolling back transaction", ex);
                 }
             } else {
                 LOG.info("committing test transaction");
                 try {
                     getTransactionManager().commit(transactionStatus);
                 } catch (Exception ex) {
-                    LOG.warn( "Error committing transaction", ex );
+                    LOG.warn("Error committing transaction", ex);
                 }
             }
         }
@@ -271,8 +262,7 @@ public abstract class KualiTestBase extends TestCase implements KualiTestConstan
         while (clazz != null) {
             try {
                 return clazz.getDeclaredMethod(methodName);
-            }
-            catch (NoSuchMethodException e) {
+            } catch (NoSuchMethodException e) {
                 clazz = clazz.getSuperclass();
             }
         }
@@ -289,15 +279,15 @@ public abstract class KualiTestBase extends TestCase implements KualiTestConstan
         }
 
         StringBuilder message = new StringBuilder();
-        for ( String key : GlobalVariables.getMessageMap().getErrorMessages().keySet() ) {
+        for (String key : GlobalVariables.getMessageMap().getErrorMessages().keySet()) {
             List<ErrorMessage> errorList = GlobalVariables.getMessageMap().getErrorMessages().get(key);
 
-            for ( ErrorMessage em : errorList ) {
-                message.append(key).append(" = ").append( em.getErrorKey() );
+            for (ErrorMessage em : errorList) {
+                message.append(key).append(" = ").append(em.getErrorKey());
                 if (em.getMessageParameters() != null) {
-                    message.append( " : " );
+                    message.append(" : ");
                     String delim = "";
-                    for ( String parm : em.getMessageParameters() ) {
+                    for (String parm : em.getMessageParameters()) {
                         message.append(delim).append("'").append(parm).append("'");
                         if ("".equals(delim)) {
                             delim = ", ";
@@ -305,7 +295,7 @@ public abstract class KualiTestBase extends TestCase implements KualiTestConstan
                     }
                 }
             }
-            message.append( '\n' );
+            message.append('\n');
         }
         return message.toString();
     }

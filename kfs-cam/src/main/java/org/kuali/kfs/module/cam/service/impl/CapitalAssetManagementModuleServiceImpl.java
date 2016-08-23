@@ -1,32 +1,32 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cam.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.businessobject.CapitalAssetInformation;
 import org.kuali.kfs.fp.document.CapitalAssetEditable;
 import org.kuali.kfs.fp.document.CapitalAssetInformationDocumentBase;
 import org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService;
 import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.exception.ValidationException;
 import org.kuali.kfs.module.cab.CabConstants;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.businessobject.AssetLock;
@@ -37,12 +37,10 @@ import org.kuali.kfs.sys.businessobject.TargetAccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CapitalAssetManagementModuleServiceImpl implements CapitalAssetManagementModuleService {
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CapitalAssetManagementModuleServiceImpl.class);
@@ -51,7 +49,7 @@ public class CapitalAssetManagementModuleServiceImpl implements CapitalAssetMana
 
     /**
      * @see org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService#storeAssetLocks(java.util.List, java.lang.String,
-     *      java.lang.String, java.lang.String)
+     * java.lang.String, java.lang.String)
      */
     @Override
     public boolean storeAssetLocks(List<Long> capitalAssetNumbers, String documentNumber, String documentType, String lockingInformation) {
@@ -77,7 +75,7 @@ public class CapitalAssetManagementModuleServiceImpl implements CapitalAssetMana
 
     /**
      * @see org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService#isAssetLockedByDocument(java.lang.String,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     public boolean isAssetLockedByCurrentDocument(String documentNumber, String lockingInformation) {
@@ -87,7 +85,7 @@ public class CapitalAssetManagementModuleServiceImpl implements CapitalAssetMana
 
     /**
      * @see org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService#isAssetLocked(java.util.List, java.lang.String,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     public boolean isAssetLocked(List<Long> assetNumbers, String documentTypeName, String excludingDocumentNumber) {
@@ -98,7 +96,7 @@ public class CapitalAssetManagementModuleServiceImpl implements CapitalAssetMana
      * Generate asset locks for FP document if it collects capital
      * asset number(s) and has capital asset transactions eligible for CAB
      * batch.
-     *
+     * <p>
      * Creating asset lock is based on each capital asset line rather
      * than the whole FP document.
      *
@@ -120,8 +118,8 @@ public class CapitalAssetManagementModuleServiceImpl implements CapitalAssetMana
                     // Can skip asset locking if it's creating new asset instead
                     Long capitalAssetNumber = assetLine.getCapitalAssetNumber();
                     if (capitalAssetNumber != null) {
-                        if (capitalAssetBuilderModuleService.isAssetLineEligibleForCABBatch(assetLine, ((CapitalAssetInformationDocumentBase)document).getPostingYear(), includedObjectSubTypeCodes, excludedChartCodes, excludedSubFundCodes)) {
-                            AssetLock newLock = new AssetLock(document.getDocumentNumber(), capitalAssetNumber, assetLine.getCapitalAssetLineNumber() == null? CamsConstants.defaultLockingInformation : assetLine.getCapitalAssetLineNumber().toString(), documentTypeName);
+                        if (capitalAssetBuilderModuleService.isAssetLineEligibleForCABBatch(assetLine, ((CapitalAssetInformationDocumentBase) document).getPostingYear(), includedObjectSubTypeCodes, excludedChartCodes, excludedSubFundCodes)) {
+                            AssetLock newLock = new AssetLock(document.getDocumentNumber(), capitalAssetNumber, assetLine.getCapitalAssetLineNumber() == null ? CamsConstants.defaultLockingInformation : assetLine.getCapitalAssetLineNumber().toString(), documentTypeName);
                             assetLocks.add(newLock);
                             if (!capitalAssetToBeLocked.toString().isEmpty()) {
                                 capitalAssetToBeLocked.append(",");
@@ -131,7 +129,7 @@ public class CapitalAssetManagementModuleServiceImpl implements CapitalAssetMana
                     }
                 }
 
-                if (!getAssetLockService().checkAndSetAssetLocks(assetLocks, true) ) {
+                if (!getAssetLockService().checkAndSetAssetLocks(assetLocks, true)) {
                     throw new ValidationException("Asset " + capitalAssetToBeLocked.toString() + " is being locked by other documents.");
                 }
             }
@@ -149,15 +147,15 @@ public class CapitalAssetManagementModuleServiceImpl implements CapitalAssetMana
         // get the system parameter values first so we don't need to repeat this step for each accounting line check
         ParameterService parameterService = SpringContext.getBean(ParameterService.class);
 
-        List<String> excludedDocTypeCodes = new ArrayList<String>( parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSET_BUILDER_BATCH.class, CabConstants.Parameters.DOCUMENT_TYPES) );
+        List<String> excludedDocTypeCodes = new ArrayList<String>(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSET_BUILDER_BATCH.class, CabConstants.Parameters.DOCUMENT_TYPES));
         // check with the docTypeCodes system parameter
         if (!excludedDocTypeCodes.isEmpty() && excludedDocTypeCodes.contains(documentType)) {
             return false;
         }
 
-        List<String> includedFinancialObjectSubTypeCodes = new ArrayList<String>( parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSET_BUILDER_BATCH.class, CabConstants.Parameters.OBJECT_SUB_TYPES) );
-        List<String> excludedChartCodes = new ArrayList<String>( parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSET_BUILDER_BATCH.class, CabConstants.Parameters.CHARTS) );
-        List<String> excludedSubFundCodes = new ArrayList<String>( parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSET_BUILDER_BATCH.class, CabConstants.Parameters.SUB_FUND_GROUPS) );
+        List<String> includedFinancialObjectSubTypeCodes = new ArrayList<String>(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSET_BUILDER_BATCH.class, CabConstants.Parameters.OBJECT_SUB_TYPES));
+        List<String> excludedChartCodes = new ArrayList<String>(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSET_BUILDER_BATCH.class, CabConstants.Parameters.CHARTS));
+        List<String> excludedSubFundCodes = new ArrayList<String>(parameterService.getParameterValuesAsString(KfsParameterConstants.CAPITAL_ASSET_BUILDER_BATCH.class, CabConstants.Parameters.SUB_FUND_GROUPS));
 
         List<SourceAccountingLine> sAccountingLines = accountingDocument.getSourceAccountingLines();
         for (SourceAccountingLine sourceAccountingLine : sAccountingLines) {
@@ -233,7 +231,7 @@ public class CapitalAssetManagementModuleServiceImpl implements CapitalAssetMana
      * @param capitalAssetBuilderModuleService the capitalAssetBuilderModuleService to set
      */
     public void setCapitalAssetBuilderModuleService(
-            CapitalAssetBuilderModuleService capitalAssetBuilderModuleService) {
+        CapitalAssetBuilderModuleService capitalAssetBuilderModuleService) {
         this.capitalAssetBuilderModuleService = capitalAssetBuilderModuleService;
     }
 }

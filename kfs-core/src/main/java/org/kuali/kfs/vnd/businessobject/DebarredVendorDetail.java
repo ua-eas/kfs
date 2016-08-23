@@ -1,26 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.vnd.businessobject;
 
-import java.util.Date;
-
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.Date;
 
 public class DebarredVendorDetail extends PersistableBusinessObjectBase {
     private int debarredVendorId;
@@ -37,6 +37,7 @@ public class DebarredVendorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Gets the debarredVendorId attribute.
+     *
      * @return Returns the debarredVendorId.
      */
     public int getDebarredVendorId() {
@@ -45,6 +46,7 @@ public class DebarredVendorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Sets the debarredVendorId attribute value.
+     *
      * @param debarredVendorId The debarredVendorId to set.
      */
     public void setDebarredVendorId(int debarredVendorId) {
@@ -53,6 +55,7 @@ public class DebarredVendorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Gets the loadDate attribute.
+     *
      * @return Returns the loadDate.
      */
     public Date getLoadDate() {
@@ -61,6 +64,7 @@ public class DebarredVendorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Sets the loadDate attribute value.
+     *
      * @param loadDate The loadDate to set.
      */
     public void setLoadDate(Date loadDate) {
@@ -69,6 +73,7 @@ public class DebarredVendorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Gets the name attribute.
+     *
      * @return Returns the name.
      */
     public String getName() {
@@ -77,6 +82,7 @@ public class DebarredVendorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Sets the name attribute value.
+     *
      * @param name The name to set.
      */
     public void setName(String name) {
@@ -85,6 +91,7 @@ public class DebarredVendorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Gets the address1 attribute.
+     *
      * @return Returns the address1.
      */
     public String getAddress1() {
@@ -93,6 +100,7 @@ public class DebarredVendorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Sets the address1 attribute value.
+     *
      * @param address1 The address1 to set.
      */
     public void setAddress1(String address1) {
@@ -101,6 +109,7 @@ public class DebarredVendorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Gets the address2 attribute.
+     *
      * @return Returns the address2.
      */
     public String getAddress2() {
@@ -109,6 +118,7 @@ public class DebarredVendorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Sets the address2 attribute value.
+     *
      * @param address2 The address2 to set.
      */
     public void setAddress2(String address2) {
@@ -117,6 +127,7 @@ public class DebarredVendorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Gets the city attribute.
+     *
      * @return Returns the city.
      */
     public String getCity() {
@@ -125,6 +136,7 @@ public class DebarredVendorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Sets the city attribute value.
+     *
      * @param city The city to set.
      */
     public void setCity(String city) {
@@ -133,6 +145,7 @@ public class DebarredVendorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Gets the stateOrCountry attribute.
+     *
      * @return Returns the stateOrCountry.
      */
     public String getState() {
@@ -141,6 +154,7 @@ public class DebarredVendorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Sets the stateOrCountry attribute value.
+     *
      * @param stateOrCountry The stateOrCountry to set.
      */
     public void setState(String state) {
@@ -149,6 +163,7 @@ public class DebarredVendorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Gets the province attribute.
+     *
      * @return Returns the province.
      */
     public String getProvince() {
@@ -157,6 +172,7 @@ public class DebarredVendorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Sets the province attribute value.
+     *
      * @param country The province to set.
      */
     public void setProvince(String province) {
@@ -165,6 +181,7 @@ public class DebarredVendorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Gets the zip attribute.
+     *
      * @return Returns the zip.
      */
     public String getZip() {
@@ -173,6 +190,7 @@ public class DebarredVendorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Sets the zip attribute value.
+     *
      * @param zip The zip to set.
      */
     public void setZip(String zip) {
@@ -181,6 +199,7 @@ public class DebarredVendorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Gets the alias attribute.
+     *
      * @return Returns the alias.
      */
     public String getAliases() {
@@ -189,6 +208,7 @@ public class DebarredVendorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Sets the alias attribute value.
+     *
      * @param alias The alias to set.
      */
     public void setAliases(String aliases) {
@@ -197,6 +217,7 @@ public class DebarredVendorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Gets the description attribute.
+     *
      * @return Returns the description.
      */
     public String getDescription() {
@@ -205,6 +226,7 @@ public class DebarredVendorDetail extends PersistableBusinessObjectBase {
 
     /**
      * Sets the description attribute value.
+     *
      * @param description The description to set.
      */
     public void setDescription(String description) {

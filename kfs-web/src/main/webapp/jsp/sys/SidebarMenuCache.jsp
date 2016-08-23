@@ -1,7 +1,7 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
    -
-   - Copyright 2005-2014 The Kuali Foundation
+   - Copyright 2005-2016 The Kuali Foundation
    -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
@@ -16,7 +16,7 @@
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
-<%@ include file="/jsp/sys/kfsTldHeader.jsp"%>
+<%@ include file="/jsp/sys/kfsTldHeader.jsp" %>
 
 <kul:page lookup="true"
           showDocumentInfo="false"
@@ -29,7 +29,7 @@
 
     <div class="msg-excol">
         <div class="left-errmsg">
-            <kul:errors errorTitle="Errors found:" />
+            <kul:errors errorTitle="Errors found:"/>
         </div>
     </div>
     <table width="100%">
@@ -61,7 +61,7 @@
                             </td>
                         </tr>
                         <tr align="center">
-                            <td height="30" colspan="4"  class="infoline">
+                            <td height="30" colspan="4" class="infoline">
                                 <input type="submit" name="methodToCall.save" value="Save" class="tinybutton btn btn-default" title="Search" alt="Search">
                                 <!-- KULRICE-8092: Enter key won't return values in Parameter Component in IE-->
                                 <input name="" type="t" value="" style="display:none"/>
@@ -76,7 +76,7 @@
 
 </kul:page>
 <script type="application/javascript">
-    $(function() {
+    $(function () {
         $(".left-errmsg:last").hide();
     });
 </script>

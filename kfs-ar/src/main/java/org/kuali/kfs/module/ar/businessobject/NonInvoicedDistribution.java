@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,135 +18,126 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.LinkedHashMap;
 
 
 public class NonInvoicedDistribution extends PersistableBusinessObjectBase {
 
-	private String documentNumber; // ??? It's not the payment application document number
-	private Integer financialDocumentLineNumber;
-	private String referenceFinancialDocumentNumber;
-	private KualiDecimal financialDocumentLineAmount;
+    private String documentNumber; // ??? It's not the payment application document number
+    private Integer financialDocumentLineNumber;
+    private String referenceFinancialDocumentNumber;
+    private KualiDecimal financialDocumentLineAmount;
 
     private NonAppliedHolding nonAppliedHolding;
 
-	/**
-	 * Gets the documentNumber attribute.
-	 *
-	 * @return Returns the documentNumber
-	 *
-	 */
-	public String getDocumentNumber() {
-		return documentNumber;
-	}
+    /**
+     * Gets the documentNumber attribute.
+     *
+     * @return Returns the documentNumber
+     */
+    public String getDocumentNumber() {
+        return documentNumber;
+    }
 
-	/**
-	 * Sets the documentNumber attribute.
-	 *
-	 * @param documentNumber The documentNumber to set.
-	 *
-	 */
-	public void setDocumentNumber(String documentNumber) {
-		this.documentNumber = documentNumber;
-	}
+    /**
+     * Sets the documentNumber attribute.
+     *
+     * @param documentNumber The documentNumber to set.
+     */
+    public void setDocumentNumber(String documentNumber) {
+        this.documentNumber = documentNumber;
+    }
 
 
-	/**
-	 * Gets the financialDocumentLineNumber attribute.
-	 *
-	 * @return Returns the financialDocumentLineNumber
-	 *
-	 */
-	public Integer getFinancialDocumentLineNumber() {
-		return financialDocumentLineNumber;
-	}
+    /**
+     * Gets the financialDocumentLineNumber attribute.
+     *
+     * @return Returns the financialDocumentLineNumber
+     */
+    public Integer getFinancialDocumentLineNumber() {
+        return financialDocumentLineNumber;
+    }
 
-	/**
-	 * Sets the financialDocumentLineNumber attribute.
-	 *
-	 * @param financialDocumentLineNumber The financialDocumentLineNumber to set.
-	 *
-	 */
-	public void setFinancialDocumentLineNumber(Integer financialDocumentLineNumber) {
-		this.financialDocumentLineNumber = financialDocumentLineNumber;
-	}
+    /**
+     * Sets the financialDocumentLineNumber attribute.
+     *
+     * @param financialDocumentLineNumber The financialDocumentLineNumber to set.
+     */
+    public void setFinancialDocumentLineNumber(Integer financialDocumentLineNumber) {
+        this.financialDocumentLineNumber = financialDocumentLineNumber;
+    }
 
 
-	/**
-	 * Gets the referenceFinancialDocumentNumber attribute.
-	 *
-	 * @return Returns the referenceFinancialDocumentNumber
-	 *
-	 */
-	public String getReferenceFinancialDocumentNumber() {
-		return referenceFinancialDocumentNumber;
-	}
+    /**
+     * Gets the referenceFinancialDocumentNumber attribute.
+     *
+     * @return Returns the referenceFinancialDocumentNumber
+     */
+    public String getReferenceFinancialDocumentNumber() {
+        return referenceFinancialDocumentNumber;
+    }
 
-	/**
-	 * Sets the referenceFinancialDocumentNumber attribute.
-	 *
-	 * @param referenceFinancialDocumentNumber The referenceFinancialDocumentNumber to set.
-	 *
-	 */
-	public void setReferenceFinancialDocumentNumber(String referenceFinancialDocumentNumber) {
-		this.referenceFinancialDocumentNumber = referenceFinancialDocumentNumber;
-	}
+    /**
+     * Sets the referenceFinancialDocumentNumber attribute.
+     *
+     * @param referenceFinancialDocumentNumber The referenceFinancialDocumentNumber to set.
+     */
+    public void setReferenceFinancialDocumentNumber(String referenceFinancialDocumentNumber) {
+        this.referenceFinancialDocumentNumber = referenceFinancialDocumentNumber;
+    }
 
 
-	/**
-	 * Gets the financialDocumentLineAmount attribute.
-	 *
-	 * @return Returns the financialDocumentLineAmount
-	 *
-	 */
-	public KualiDecimal getFinancialDocumentLineAmount() {
-		return financialDocumentLineAmount;
-	}
+    /**
+     * Gets the financialDocumentLineAmount attribute.
+     *
+     * @return Returns the financialDocumentLineAmount
+     */
+    public KualiDecimal getFinancialDocumentLineAmount() {
+        return financialDocumentLineAmount;
+    }
 
-	/**
-	 * Sets the financialDocumentLineAmount attribute.
-	 *
-	 * @param financialDocumentLineAmount The financialDocumentLineAmount to set.
-	 *
-	 */
-	public void setFinancialDocumentLineAmount(KualiDecimal financialDocumentLineAmount) {
-		this.financialDocumentLineAmount = financialDocumentLineAmount;
-	}
+    /**
+     * Sets the financialDocumentLineAmount attribute.
+     *
+     * @param financialDocumentLineAmount The financialDocumentLineAmount to set.
+     */
+    public void setFinancialDocumentLineAmount(KualiDecimal financialDocumentLineAmount) {
+        this.financialDocumentLineAmount = financialDocumentLineAmount;
+    }
 
 
-	/**
-	 * Gets the nonAppliedHolding attribute.
-	 *
-	 * @return Returns the nonAppliedHolding
-	 *
-	 */
-	public NonAppliedHolding getNonAppliedHolding() {
-		return nonAppliedHolding;
-	}
+    /**
+     * Gets the nonAppliedHolding attribute.
+     *
+     * @return Returns the nonAppliedHolding
+     */
+    public NonAppliedHolding getNonAppliedHolding() {
+        return nonAppliedHolding;
+    }
 
-	/**
-	 * Sets the nonAppliedHolding attribute.
-	 *
-	 * @param nonAppliedHolding The nonAppliedHolding to set.
-	 */
-	public void setNonAppliedHolding(NonAppliedHolding nonAppliedHolding) {
-		this.nonAppliedHolding = nonAppliedHolding;
-	}
+    /**
+     * Sets the nonAppliedHolding attribute.
+     *
+     * @param nonAppliedHolding The nonAppliedHolding to set.
+     */
+    public void setNonAppliedHolding(NonAppliedHolding nonAppliedHolding) {
+        this.nonAppliedHolding = nonAppliedHolding;
+    }
 
-	/**
-	 * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
-	 */
-	protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
-	    LinkedHashMap m = new LinkedHashMap();
+    /**
+     * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
+     */
+    protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
+        LinkedHashMap m = new LinkedHashMap();
         m.put("documentNumber", this.documentNumber);
         if (this.financialDocumentLineNumber != null) {
             m.put("financialDocumentLineNumber", this.financialDocumentLineNumber.toString());
         }
         m.put("referenceFinancialDocumentNumber", this.referenceFinancialDocumentNumber);
-	    return m;
+        return m;
     }
 
 }

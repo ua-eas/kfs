@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,30 +18,27 @@
  */
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.integration.purap.CapitalAssetLocation;
 import org.kuali.kfs.integration.purap.CapitalAssetSystem;
 import org.kuali.kfs.integration.purap.ItemCapitalAsset;
 
-
-
+import java.util.LinkedHashMap;
 
 
 public class PurchaseOrderCapitalAssetSystem extends PurchasingCapitalAssetSystemBase {
 
-	private String documentNumber;
+    private String documentNumber;
 
-	/**
-	 * Default constructor.
-	 */
-	public PurchaseOrderCapitalAssetSystem() {
-       super();
-	}
+    /**
+     * Default constructor.
+     */
+    public PurchaseOrderCapitalAssetSystem() {
+        super();
+    }
 
-	public PurchaseOrderCapitalAssetSystem(CapitalAssetSystem originalSystem) {
-	    super();
-	    if (originalSystem != null) {
+    public PurchaseOrderCapitalAssetSystem(CapitalAssetSystem originalSystem) {
+        super();
+        if (originalSystem != null) {
             this.setCapitalAssetSystemDescription(originalSystem.getCapitalAssetSystemDescription());
             this.setCapitalAssetNotReceivedCurrentFiscalYearIndicator(originalSystem.isCapitalAssetNotReceivedCurrentFiscalYearIndicator());
             this.setCapitalAssetTypeCode(originalSystem.getCapitalAssetTypeCode());
@@ -52,33 +49,33 @@ public class PurchaseOrderCapitalAssetSystem extends PurchasingCapitalAssetSyste
             populateCapitalAssetLocations(originalSystem);
             this.setCapitalAssetCountAssetNumber(originalSystem.getCapitalAssetCountAssetNumber());
         }
-	}
+    }
 
-	private void populatePurchaseOrderItemCapitalAssets(CapitalAssetSystem originalSystem) {
-	    for (ItemCapitalAsset reqAsset : originalSystem.getItemCapitalAssets()) {
-	        PurchaseOrderItemCapitalAsset poAsset = new PurchaseOrderItemCapitalAsset(reqAsset.getCapitalAssetNumber());
-	        this.getItemCapitalAssets().add(poAsset);
-	    }
-	}
+    private void populatePurchaseOrderItemCapitalAssets(CapitalAssetSystem originalSystem) {
+        for (ItemCapitalAsset reqAsset : originalSystem.getItemCapitalAssets()) {
+            PurchaseOrderItemCapitalAsset poAsset = new PurchaseOrderItemCapitalAsset(reqAsset.getCapitalAssetNumber());
+            this.getItemCapitalAssets().add(poAsset);
+        }
+    }
 
-	private void populateCapitalAssetLocations(CapitalAssetSystem originalSystem) {
-	    for (CapitalAssetLocation reqLocation : originalSystem.getCapitalAssetLocations()) {
-	        PurchaseOrderCapitalAssetLocation poLocation = new PurchaseOrderCapitalAssetLocation();
-	        poLocation.setItemQuantity(reqLocation.getItemQuantity());
-	        poLocation.setCampusCode(reqLocation.getCampusCode());
-	        poLocation.setOffCampusIndicator(reqLocation.isOffCampusIndicator());
-	        poLocation.setBuildingCode(reqLocation.getBuildingCode());
-	        poLocation.setBuildingRoomNumber(reqLocation.getBuildingRoomNumber());
-	        poLocation.setCapitalAssetLine1Address(reqLocation.getCapitalAssetLine1Address());
-	        poLocation.setCapitalAssetCityName(reqLocation.getCapitalAssetCityName());
-	        poLocation.setCapitalAssetStateCode(reqLocation.getCapitalAssetStateCode());
-	        poLocation.setCapitalAssetPostalCode(reqLocation.getCapitalAssetPostalCode());
-	        poLocation.setCapitalAssetCountryCode(reqLocation.getCapitalAssetCountryCode());
-	        this.getCapitalAssetLocations().add(poLocation);
-	    }
-	}
+    private void populateCapitalAssetLocations(CapitalAssetSystem originalSystem) {
+        for (CapitalAssetLocation reqLocation : originalSystem.getCapitalAssetLocations()) {
+            PurchaseOrderCapitalAssetLocation poLocation = new PurchaseOrderCapitalAssetLocation();
+            poLocation.setItemQuantity(reqLocation.getItemQuantity());
+            poLocation.setCampusCode(reqLocation.getCampusCode());
+            poLocation.setOffCampusIndicator(reqLocation.isOffCampusIndicator());
+            poLocation.setBuildingCode(reqLocation.getBuildingCode());
+            poLocation.setBuildingRoomNumber(reqLocation.getBuildingRoomNumber());
+            poLocation.setCapitalAssetLine1Address(reqLocation.getCapitalAssetLine1Address());
+            poLocation.setCapitalAssetCityName(reqLocation.getCapitalAssetCityName());
+            poLocation.setCapitalAssetStateCode(reqLocation.getCapitalAssetStateCode());
+            poLocation.setCapitalAssetPostalCode(reqLocation.getCapitalAssetPostalCode());
+            poLocation.setCapitalAssetCountryCode(reqLocation.getCapitalAssetCountryCode());
+            this.getCapitalAssetLocations().add(poLocation);
+        }
+    }
 
-	public String getDocumentNumber() {
+    public String getDocumentNumber() {
         return documentNumber;
     }
 

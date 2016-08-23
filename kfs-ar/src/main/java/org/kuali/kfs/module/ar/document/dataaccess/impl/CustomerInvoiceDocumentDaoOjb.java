@@ -1,30 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.document.dataaccess.impl;
-
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.ojb.broker.query.Criteria;
@@ -32,6 +24,7 @@ import org.apache.ojb.broker.query.Query;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.apache.ojb.broker.query.QueryFactory;
 import org.apache.ojb.broker.query.ReportQueryByCriteria;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
@@ -40,7 +33,14 @@ import org.kuali.kfs.module.ar.document.dataaccess.CustomerInvoiceDocumentDao;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 public class CustomerInvoiceDocumentDaoOjb extends PlatformAwareDaoBaseOjb implements CustomerInvoiceDocumentDao {
 
@@ -64,12 +64,12 @@ public class CustomerInvoiceDocumentDaoOjb extends PlatformAwareDaoBaseOjb imple
         // OJB, this is how you get just a collection of a single column's value out.  Given the performance issues associated
         // with live reporting like this, the attempt was made to minimize the resource usage.
 
-        ReportQueryByCriteria rqbc = QueryFactory.newReportQuery(CustomerInvoiceDocument.class, new String[] { "documentNumber" }, criteria, false);
+        ReportQueryByCriteria rqbc = QueryFactory.newReportQuery(CustomerInvoiceDocument.class, new String[]{"documentNumber"}, criteria, false);
 
         Iterator<Object[]> iter = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(rqbc);
         List<String> invoiceNumbers = new ArrayList<String>();
         while (iter.hasNext()) {
-            invoiceNumbers.add((String)iter.next()[0]);
+            invoiceNumbers.add((String) iter.next()[0]);
         }
         return invoiceNumbers;
     }
@@ -104,12 +104,12 @@ public class CustomerInvoiceDocumentDaoOjb extends PlatformAwareDaoBaseOjb imple
         criteria.addIsNull("printDate");
         criteria.addEqualTo("documentHeader.financialDocumentStatusCode", KFSConstants.DocumentStatusCodes.APPROVED);
 
-        ReportQueryByCriteria rqbc = QueryFactory.newReportQuery(CustomerInvoiceDocument.class, new String[] { "documentNumber" }, criteria, false);
+        ReportQueryByCriteria rqbc = QueryFactory.newReportQuery(CustomerInvoiceDocument.class, new String[]{"documentNumber"}, criteria, false);
 
         Iterator<Object[]> iter = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(rqbc);
         List<String> invoiceNumbers = new ArrayList<String>();
         while (iter.hasNext()) {
-            invoiceNumbers.add((String)iter.next()[0]);
+            invoiceNumbers.add((String) iter.next()[0]);
         }
         return new ArrayList<String>(invoiceNumbers);
     }
@@ -139,12 +139,12 @@ public class CustomerInvoiceDocumentDaoOjb extends PlatformAwareDaoBaseOjb imple
         criteria.addIsNull("printDate");
         criteria.addEqualTo("documentHeader.financialDocumentStatusCode", KFSConstants.DocumentStatusCodes.APPROVED);
 
-        ReportQueryByCriteria rqbc = QueryFactory.newReportQuery(CustomerInvoiceDocument.class, new String[] { "documentNumber" }, criteria, false);
+        ReportQueryByCriteria rqbc = QueryFactory.newReportQuery(CustomerInvoiceDocument.class, new String[]{"documentNumber"}, criteria, false);
 
         Iterator<Object[]> iter = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(rqbc);
         List<String> invoiceNumbers = new ArrayList<String>();
         while (iter.hasNext()) {
-            invoiceNumbers.add((String)iter.next()[0]);
+            invoiceNumbers.add((String) iter.next()[0]);
         }
         return new ArrayList<String>(invoiceNumbers);
     }
@@ -177,12 +177,12 @@ public class CustomerInvoiceDocumentDaoOjb extends PlatformAwareDaoBaseOjb imple
         criteria.addEqualTo("billedByOrganizationCode", organizationCode);
         criteria.addEqualTo("documentHeader.financialDocumentStatusCode", KFSConstants.DocumentStatusCodes.APPROVED);
 
-        ReportQueryByCriteria rqbc = QueryFactory.newReportQuery(CustomerInvoiceDocument.class, new String[] { "documentNumber" }, criteria, false);
+        ReportQueryByCriteria rqbc = QueryFactory.newReportQuery(CustomerInvoiceDocument.class, new String[]{"documentNumber"}, criteria, false);
 
         Iterator<Object[]> iter = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(rqbc);
         List<String> invoiceNumbers = new ArrayList<String>();
         while (iter.hasNext()) {
-            invoiceNumbers.add((String)iter.next()[0]);
+            invoiceNumbers.add((String) iter.next()[0]);
         }
         return new ArrayList<String>(invoiceNumbers);
     }
@@ -214,12 +214,12 @@ public class CustomerInvoiceDocumentDaoOjb extends PlatformAwareDaoBaseOjb imple
         criteria.addEqualTo("accountsReceivableDocumentHeader.processingChartOfAccountCode", chartOfAccountsCode);
         criteria.addEqualTo("accountsReceivableDocumentHeader.processingOrganizationCode", organizationCode);
 
-        ReportQueryByCriteria rqbc = QueryFactory.newReportQuery(CustomerInvoiceDocument.class, new String[] { "documentNumber" }, criteria, false);
+        ReportQueryByCriteria rqbc = QueryFactory.newReportQuery(CustomerInvoiceDocument.class, new String[]{"documentNumber"}, criteria, false);
 
         Iterator<Object[]> iter = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(rqbc);
         List<String> invoiceNumbers = new ArrayList<String>();
         while (iter.hasNext()) {
-            invoiceNumbers.add((String)iter.next()[0]);
+            invoiceNumbers.add((String) iter.next()[0]);
         }
         return new ArrayList<String>(invoiceNumbers);
     }
@@ -246,12 +246,12 @@ public class CustomerInvoiceDocumentDaoOjb extends PlatformAwareDaoBaseOjb imple
         criteria.addEqualTo("billByChartOfAccountCode", chartOfAccountsCode);
         criteria.addEqualTo("billedByOrganizationCode", organizationCode);
 
-        ReportQueryByCriteria rqbc = QueryFactory.newReportQuery(CustomerInvoiceDocument.class, new String[] { "documentNumber" }, criteria, false);
+        ReportQueryByCriteria rqbc = QueryFactory.newReportQuery(CustomerInvoiceDocument.class, new String[]{"documentNumber"}, criteria, false);
 
         Iterator<Object[]> iter = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(rqbc);
         List<String> invoiceNumbers = new ArrayList<String>();
         while (iter.hasNext()) {
-            invoiceNumbers.add((String)iter.next()[0]);
+            invoiceNumbers.add((String) iter.next()[0]);
         }
         return new ArrayList<String>(invoiceNumbers);
     }
@@ -279,7 +279,7 @@ public class CustomerInvoiceDocumentDaoOjb extends PlatformAwareDaoBaseOjb imple
         //  OJB deals with the inner join automatically, because we have it setup with
         // accountsReceivableDocumentHeader as a ReferenceDescriptor to Invoice.
         Criteria criteria = new Criteria();
-        criteria.addEqualTo("accountsReceivableDocumentHeader.customerNumber", customerNumber==null?customerNumber:customerNumber.toUpperCase());
+        criteria.addEqualTo("accountsReceivableDocumentHeader.customerNumber", customerNumber == null ? customerNumber : customerNumber.toUpperCase());
         criteria.addEqualTo("openInvoiceIndicator", "true");
         criteria.addEqualTo("documentHeader.financialDocumentStatusCode", KFSConstants.DocumentStatusCodes.APPROVED);
 
@@ -390,11 +390,11 @@ public class CustomerInvoiceDocumentDaoOjb extends PlatformAwareDaoBaseOjb imple
     public Collection<CustomerInvoiceDocument> getAllAgingInvoiceDocumentsByBilling(List<String> charts, List<String> organizations, Date invoiceBillingDateFrom, Date invoiceBillingDateTo) {
         Criteria criteria = this.getAllAgingInvoiceDocumentsCriteria(StringUtils.EMPTY, invoiceBillingDateFrom, invoiceBillingDateTo);
 
-        if(ObjectUtils.isNotNull(charts)){
+        if (ObjectUtils.isNotNull(charts)) {
             criteria.addIn(ArPropertyConstants.CustomerInvoiceDocumentFields.BILL_BY_CHART_OF_ACCOUNT_CODE, charts);
         }
 
-        if(ObjectUtils.isNotNull(organizations)){
+        if (ObjectUtils.isNotNull(organizations)) {
             criteria.addIn(ArPropertyConstants.CustomerInvoiceDocumentFields.BILLED_BY_ORGANIZATION_CODE, organizations);
         }
 
@@ -412,11 +412,11 @@ public class CustomerInvoiceDocumentDaoOjb extends PlatformAwareDaoBaseOjb imple
     public Collection<CustomerInvoiceDocument> getAllAgingInvoiceDocumentsByProcessing(List<String> charts, List<String> organizations, Date invoiceBillingDateFrom, Date invoiceBillingDateTo) {
         Criteria criteria = this.getAllAgingInvoiceDocumentsCriteria(StringUtils.EMPTY, invoiceBillingDateFrom, invoiceBillingDateTo);
 
-        if(ObjectUtils.isNotNull(charts) && !charts.isEmpty()){
+        if (ObjectUtils.isNotNull(charts) && !charts.isEmpty()) {
             criteria.addIn(ArPropertyConstants.CustomerInvoiceDocumentFields.PROCESSING_CHART_OF_ACCOUNT_CODE, charts);
         }
 
-        if(ObjectUtils.isNotNull(organizations) && !organizations.isEmpty()){
+        if (ObjectUtils.isNotNull(organizations) && !organizations.isEmpty()) {
             criteria.addIn(ArPropertyConstants.CustomerInvoiceDocumentFields.PROCESSING_ORGANIZATION_CODE, organizations);
         }
 
@@ -437,11 +437,11 @@ public class CustomerInvoiceDocumentDaoOjb extends PlatformAwareDaoBaseOjb imple
 
         Criteria criteria = this.getAllAgingInvoiceDocumentsCriteria(ArPropertyConstants.CUSTOMER_INVOICE_DOCUMENT + ".", invoiceBillingDateFrom, invoiceBillingDateTo);
 
-        if(ObjectUtils.isNotNull(charts)){
+        if (ObjectUtils.isNotNull(charts)) {
             criteria.addIn(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, charts);
         }
 
-        if(ObjectUtils.isNotNull(accounts)){
+        if (ObjectUtils.isNotNull(accounts)) {
             criteria.addIn(KFSPropertyConstants.ACCOUNT_NUMBER, accounts);
         }
 
@@ -451,11 +451,11 @@ public class CustomerInvoiceDocumentDaoOjb extends PlatformAwareDaoBaseOjb imple
         Collection<CustomerInvoiceDetail> customerInvoiceDetails = getPersistenceBrokerTemplate().getCollectionByQuery(query);
 
         Set<String> invoiceDocumentNumbers = new HashSet<String>();
-        for(CustomerInvoiceDetail detail : customerInvoiceDetails){
+        for (CustomerInvoiceDetail detail : customerInvoiceDetails) {
             CustomerInvoiceDocument customerInvoiceDocument = detail.getCustomerInvoiceDocument();
             String documentNumber = customerInvoiceDocument.getDocumentNumber();
 
-            if(!invoiceDocumentNumbers.contains(documentNumber)){
+            if (!invoiceDocumentNumbers.contains(documentNumber)) {
                 customerInvoiceDocuments.add(customerInvoiceDocument);
 
                 invoiceDocumentNumbers.add(documentNumber);
@@ -470,11 +470,11 @@ public class CustomerInvoiceDocumentDaoOjb extends PlatformAwareDaoBaseOjb imple
      */
     protected Criteria getAllAgingInvoiceDocumentsCriteria(String prefix, Date invoiceDueDateFrom, Date invoiceDueDateTo) {
         Criteria criteria = new Criteria();
-        if(ObjectUtils.isNotNull(invoiceDueDateFrom)){
+        if (ObjectUtils.isNotNull(invoiceDueDateFrom)) {
             criteria.addGreaterOrEqualThan(ArPropertyConstants.CustomerInvoiceDocumentFields.INVOICE_DUE_DATE, invoiceDueDateFrom);
         }
 
-        if(ObjectUtils.isNotNull(invoiceDueDateTo)){
+        if (ObjectUtils.isNotNull(invoiceDueDateTo)) {
             criteria.addLessThan(ArPropertyConstants.CustomerInvoiceDocumentFields.INVOICE_DUE_DATE, invoiceDueDateTo);
         }
 
@@ -490,7 +490,7 @@ public class CustomerInvoiceDocumentDaoOjb extends PlatformAwareDaoBaseOjb imple
         LOG.info("invoiceDueDateTo ::::::::" + invoiceDueDateTo);
         Criteria criteria = this.getAllAgingInvoiceDocumentsCriteria(StringUtils.EMPTY, invoiceDueDateFrom, invoiceDueDateTo);
 
-        if(ObjectUtils.isNotNull(customerTypes)){
+        if (ObjectUtils.isNotNull(customerTypes)) {
             criteria.addIn(ArPropertyConstants.CustomerInvoiceDocumentFields.CUSTOMER_TYPE_CODE, customerTypes);
         }
 

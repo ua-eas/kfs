@@ -1,29 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.document;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.CostCategory;
 import org.kuali.kfs.module.ar.businessobject.CostCategoryObjectCode;
@@ -31,10 +30,11 @@ import org.kuali.kfs.module.ar.businessobject.CostCategoryObjectConsolidation;
 import org.kuali.kfs.module.ar.businessobject.CostCategoryObjectLevel;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
 
 /**
  * Overridden to add informative help message
@@ -61,16 +61,17 @@ public class CostCategoryMaintainableImpl extends FinancialSystemMaintainable {
 
     /**
      * Overridden to push the cost category code to all child objects
+     *
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#refresh(java.lang.String, java.util.Map, org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
     public void refresh(String refreshCaller, Map fieldValues, MaintenanceDocument document) {
         super.refresh(refreshCaller, fieldValues, document);
         if (StringUtils.equals(KFSConstants.MULTIPLE_VALUE, refreshCaller)) {
-            final String collectionName = (String)fieldValues.get(KFSConstants.LOOKED_UP_COLLECTION_NAME);
-            CostCategory costCategory = (CostCategory)document.getNewMaintainableObject().getBusinessObject();
+            final String collectionName = (String) fieldValues.get(KFSConstants.LOOKED_UP_COLLECTION_NAME);
+            CostCategory costCategory = (CostCategory) document.getNewMaintainableObject().getBusinessObject();
 
-            if (StringUtils.equals(collectionName, ArPropertyConstants.OBJECT_CODES) &&!CollectionUtils.isEmpty(costCategory.getObjectCodes())) {
+            if (StringUtils.equals(collectionName, ArPropertyConstants.OBJECT_CODES) && !CollectionUtils.isEmpty(costCategory.getObjectCodes())) {
                 for (CostCategoryObjectCode objectCode : costCategory.getObjectCodes()) {
                     if (StringUtils.isBlank(objectCode.getCategoryCode())) {
                         objectCode.setCategoryCode(costCategory.getCategoryCode());
@@ -93,7 +94,7 @@ public class CostCategoryMaintainableImpl extends FinancialSystemMaintainable {
             }
 
             if (!ObjectUtils.isNull(document.getOldMaintainableObject()) && !ObjectUtils.isNull(document.getOldMaintainableObject().getBusinessObject())) {
-                CostCategory oldCostCategory = (CostCategory)document.getOldMaintainableObject().getBusinessObject();
+                CostCategory oldCostCategory = (CostCategory) document.getOldMaintainableObject().getBusinessObject();
                 if (!sameSize(oldCostCategory.getObjectCodes(), costCategory.getObjectCodes())) {
                     if (oldCostCategory.getObjectCodes() == null) {
                         oldCostCategory.setObjectCodes(new ArrayList<CostCategoryObjectCode>());
@@ -132,6 +133,7 @@ public class CostCategoryMaintainableImpl extends FinancialSystemMaintainable {
 
     /**
      * Determines if two collections are the same size.  Being null and having no elements are treated as equivalent
+     *
      * @param a the first collection to check
      * @param b the second collection to check
      * @return true if the two Collections are the same size, false otherwise
@@ -148,17 +150,18 @@ public class CostCategoryMaintainableImpl extends FinancialSystemMaintainable {
 
     /**
      * Overridden to filter down category code before cost category detail makes it to rules checking
+     *
      * @see org.kuali.kfs.sys.document.FinancialSystemMaintainable#processBeforeAddLine(java.lang.String, java.lang.Class, org.kuali.rice.krad.bo.BusinessObject)
      */
     @Override
     public void processBeforeAddLine(String colName, Class colClass, BusinessObject bo) {
         super.processBeforeAddLine(colName, colClass, bo);
         if (bo instanceof CostCategoryObjectCode) {
-            ((CostCategoryObjectCode)bo).setCategoryCode(((CostCategory)getBusinessObject()).getCategoryCode());
+            ((CostCategoryObjectCode) bo).setCategoryCode(((CostCategory) getBusinessObject()).getCategoryCode());
         } else if (bo instanceof CostCategoryObjectLevel) {
-            ((CostCategoryObjectLevel)bo).setCategoryCode(((CostCategory)getBusinessObject()).getCategoryCode());
+            ((CostCategoryObjectLevel) bo).setCategoryCode(((CostCategory) getBusinessObject()).getCategoryCode());
         } else if (bo instanceof CostCategoryObjectConsolidation) {
-            ((CostCategoryObjectConsolidation)bo).setCategoryCode(((CostCategory)getBusinessObject()).getCategoryCode());
+            ((CostCategoryObjectConsolidation) bo).setCategoryCode(((CostCategory) getBusinessObject()).getCategoryCode());
         }
     }
 }

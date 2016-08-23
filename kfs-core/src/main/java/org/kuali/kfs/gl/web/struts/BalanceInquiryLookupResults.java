@@ -1,39 +1,37 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.web.struts;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.lookup.LookupUtils;
+import org.kuali.kfs.kns.web.struts.form.KualiTableRenderFormMetadata;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.sys.KFSConstants;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.kns.lookup.LookupUtils;
-import org.kuali.kfs.kns.web.struts.form.KualiTableRenderFormMetadata;
-import org.kuali.kfs.kns.web.struts.form.LookupForm;
-
 /**
  * This class is the action form for balance inquiry lookup results
- * 
  */
 public class BalanceInquiryLookupResults extends LookupForm implements LookupResultsSelectable {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(BalanceInquiryLookupResults.class);
@@ -98,7 +96,7 @@ public class BalanceInquiryLookupResults extends LookupForm implements LookupRes
 
     /**
      * Named appropriately as it is intended to be called from a <code>{@link LookupForm}</code>
-     * 
+     *
      * @param request HttpServletRequest
      */
     public void populate(HttpServletRequest request) {
@@ -106,8 +104,7 @@ public class BalanceInquiryLookupResults extends LookupForm implements LookupRes
 
         if (StringUtils.isNotBlank(request.getParameter(KFSConstants.TableRenderConstants.VIEWED_PAGE_NUMBER))) {
             setViewedPageNumber(Integer.parseInt(request.getParameter(KFSConstants.TableRenderConstants.VIEWED_PAGE_NUMBER)));
-        }
-        else {
+        } else {
             setViewedPageNumber(0); // first page is page 0
         }
 
@@ -117,7 +114,7 @@ public class BalanceInquiryLookupResults extends LookupForm implements LookupRes
 
             // the param we're looking for looks like: methodToCall.switchToPage.1.x , where 1 is the page nbr
             String paramPrefix = KFSConstants.DISPATCH_REQUEST_PARAMETER + "." + KFSConstants.TableRenderConstants.SWITCH_TO_PAGE_METHOD + ".";
-            for (Enumeration i = request.getParameterNames(); i.hasMoreElements();) {
+            for (Enumeration i = request.getParameterNames(); i.hasMoreElements(); ) {
                 String parameterName = (String) i.nextElement();
                 if (parameterName.startsWith(paramPrefix) && parameterName.endsWith(".x")) {
                     String switchToPageNumberStr = StringUtils.substringBetween(parameterName, paramPrefix, ".");
@@ -134,7 +131,7 @@ public class BalanceInquiryLookupResults extends LookupForm implements LookupRes
 
             // the param we're looking for looks like: methodToCall.sort.1.x , where 1 is the column to sort on
             String paramPrefix = KFSConstants.DISPATCH_REQUEST_PARAMETER + "." + KFSConstants.TableRenderConstants.SORT_METHOD + ".";
-            for (Enumeration i = request.getParameterNames(); i.hasMoreElements();) {
+            for (Enumeration i = request.getParameterNames(); i.hasMoreElements(); ) {
                 String parameterName = (String) i.nextElement();
                 if (parameterName.startsWith(paramPrefix) && parameterName.endsWith(".x")) {
                     String columnToSortStr = StringUtils.substringBetween(parameterName, paramPrefix, ".");
@@ -158,7 +155,7 @@ public class BalanceInquiryLookupResults extends LookupForm implements LookupRes
 
     /**
      * This method converts the composite object IDs into a String
-     * 
+     *
      * @return String for composite list of selected object IDs
      */
     public String getCompositeSelectedObjectIds() {
@@ -167,7 +164,7 @@ public class BalanceInquiryLookupResults extends LookupForm implements LookupRes
 
     /**
      * Parses a list of previously selected object IDs
-     * 
+     *
      * @param request
      * @return Set containing list of previously selected object IDs
      */
@@ -178,7 +175,7 @@ public class BalanceInquiryLookupResults extends LookupForm implements LookupRes
 
     /**
      * Parses a list of selected object IDs
-     * 
+     *
      * @param request
      * @return Set containing list of selected object IDs
      */
@@ -197,7 +194,7 @@ public class BalanceInquiryLookupResults extends LookupForm implements LookupRes
 
     /**
      * Parses a list of displayed object IDs
-     * 
+     *
      * @param request
      * @return Set containing list of displayed object IDs
      */
@@ -217,15 +214,15 @@ public class BalanceInquiryLookupResults extends LookupForm implements LookupRes
     /**
      * Iterates through the request params, looks for the parameter representing the method to call in the format like
      * methodToCall.sort.1.(::;true;::).x, and returns the boolean value in the (::; and ;::) delimiters.
-     * 
-     * @see MultipleValueLookupForm#parseSearchUsingOnlyPrimaryKeyValues(String)
+     *
      * @param request
      * @return
+     * @see MultipleValueLookupForm#parseSearchUsingOnlyPrimaryKeyValues(String)
      */
     protected boolean parseSearchUsingOnlyPrimaryKeyValues(HttpServletRequest request) {
         // the param we're looking for looks like: methodToCall.sort.1.(::;true;::).x , we want to parse out the "true" component
         String paramPrefix = KFSConstants.DISPATCH_REQUEST_PARAMETER + "." + getMethodToCall(request) + ".";
-        for (Enumeration i = request.getParameterNames(); i.hasMoreElements();) {
+        for (Enumeration i = request.getParameterNames(); i.hasMoreElements(); ) {
             String parameterName = (String) i.nextElement();
             if (parameterName.startsWith(paramPrefix) && parameterName.endsWith(".x")) {
                 return parseSearchUsingOnlyPrimaryKeyValues(parameterName);
@@ -238,7 +235,7 @@ public class BalanceInquiryLookupResults extends LookupForm implements LookupRes
     /**
      * Parses the method to call parameter passed in as a post parameter The parameter should be something like
      * methodToCall.sort.1.(::;true;::).x, this method will return the value between (::; and ;::) as a boolean
-     * 
+     *
      * @param methodToCallParam the method to call in a format described above
      * @return the value between the delimiters, false if there are no delimiters
      */
@@ -329,7 +326,7 @@ public class BalanceInquiryLookupResults extends LookupForm implements LookupRes
 
     /**
      * This method sets the switchToPageNumber attribute for the metadata
-     * 
+     *
      * @param switchToPageNumber
      */
     protected void setSwitchToPageNumber(int switchToPageNumber) {
@@ -424,7 +421,7 @@ public class BalanceInquiryLookupResults extends LookupForm implements LookupRes
      * gets the name of the collection being looked up by the calling page. This value will be returned unmodified to the calling
      * page (indicated by super.getBackLocation()), which should use it to determine in which collection the selected results will
      * be returned.
-     * 
+     *
      * @return
      */
     public String getLookedUpCollectionName() {
@@ -435,7 +432,7 @@ public class BalanceInquiryLookupResults extends LookupForm implements LookupRes
      * sets the name of the collection being looked up by the calling page. This value will be returned unmodified to the calling
      * page (indicated by super.getBackLocation()), which should use it to determine in which collection the selected results will
      * be returned
-     * 
+     *
      * @param lookedUpCollectionName
      */
     public void setLookedUpCollectionName(String lookedUpCollectionName) {

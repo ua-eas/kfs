@@ -1,24 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl;
-
-import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.A21SubAccount;
@@ -28,11 +26,13 @@ import org.kuali.kfs.gl.batch.CollectorBatch;
 import org.kuali.kfs.gl.businessobject.CollectorDetailFieldUtil;
 import org.kuali.kfs.gl.businessobject.OriginEntryFieldUtil;
 import org.kuali.kfs.gl.businessobject.OriginEntryFull;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.OriginationCode;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
+
+import java.util.List;
 
 
 /**
@@ -132,6 +132,7 @@ public class GeneralLedgerConstants {
         static final public String REPORTING_SORT_CODE = "financialObject.financialObjectLevel.financialReportingSortCode";
         static final public String CONSOLIDATION_OBJECT_CODE = "financialObject.financialObjectLevel.financialConsolidationObject.finConsolidationObjectCode";
     }
+
     public static final String BASIC_ACCOUNTING_CATEGORY_REPRESENTING_EXPENSES = "BASIC_ACCOUNTING_CATEGORY_REPRESENTING_EXPENSES";
 
     public static class LookupableBeanKeys {
@@ -209,7 +210,7 @@ public class GeneralLedgerConstants {
         static final public String CONTINUATION_ACCOUNT_BYPASS_BALANCE_TYPE_CODES = "CONTINUATION_ACCOUNT_BYPASS_BALANCE_TYPE_CODES";
         static final public String CONTINUATION_ACCOUNT_BYPASS_DOCUMENT_TYPE_CODES = "CONTINUATION_ACCOUNT_BYPASS_DOCUMENT_TYPES";
 
-        static final public String OBJECT_TYPE_BYPASS_ORIGINATIONS =  "OBJECT_TYPE_BYPASS_ORIGINATIONS";
+        static final public String OBJECT_TYPE_BYPASS_ORIGINATIONS = "OBJECT_TYPE_BYPASS_ORIGINATIONS";
     }
 
     public static class GlSummaryReport {
@@ -258,7 +259,7 @@ public class GeneralLedgerConstants {
 
         static final public String BACKUP_FILE = "gl_glbackup";
 
-        static final public String  COLLECTOR_BACKUP_FILE = "col_glbackup";
+        static final public String COLLECTOR_BACKUP_FILE = "col_glbackup";
 
         static final public String COLLECTOR_PRE_SCRUBBER = "col_prescrub";
         static final public String COLLECTOR_SCRUBBER_INPUT_FILE = "col_sortscrb";
@@ -293,18 +294,18 @@ public class GeneralLedgerConstants {
         static final public String ICR_ENCUMBRANCE_OUTPUT_FILE = "gl_icrencmb";
         static final public String ICR_ENCUMBRANCE_POSTER_INPUT_FILE = "gl_sorticrencmb";
         static final public String ICR_ENCUMBRANCE_POSTER_ERROR_OUTPUT_FILE = "gl_icrencmberrs";
-		static final public String NIGHTLY_OUT_FILE = "gl_glentry_kfs";
-		static final public String EXTRACT_TRANSACTION_FILE = "gl_glentry_pdp";
+        static final public String NIGHTLY_OUT_FILE = "gl_glentry_kfs";
+        static final public String EXTRACT_TRANSACTION_FILE = "gl_glentry_pdp";
 
-		//year end part
-		static final public String ORGANIZATION_REVERSION_PRE_CLOSING_FILE = "gl_org_reversion_pre_closing";
-		static final public String ORGANIZATION_REVERSION_CLOSING_FILE = "gl_org_reversion_closing";
-		static final public String ENCUMBRANCE_FORWARD_FILE = "gl_encumbrance_forward";
-		static final public String CLOSE_NOMINAL_ACTIVITY_FILE = "gl_close_nominal_activity";
-		static final public String BALANCE_FORWARDS_FILE = "gl_balance_forwards";
-		static final public String BALANCE_FORWARDS_CLOSED_FILE = "gl_balance_forwards_closed";
+        //year end part
+        static final public String ORGANIZATION_REVERSION_PRE_CLOSING_FILE = "gl_org_reversion_pre_closing";
+        static final public String ORGANIZATION_REVERSION_CLOSING_FILE = "gl_org_reversion_closing";
+        static final public String ENCUMBRANCE_FORWARD_FILE = "gl_encumbrance_forward";
+        static final public String CLOSE_NOMINAL_ACTIVITY_FILE = "gl_close_nominal_activity";
+        static final public String BALANCE_FORWARDS_FILE = "gl_balance_forwards";
+        static final public String BALANCE_FORWARDS_CLOSED_FILE = "gl_balance_forwards_closed";
 
-		static final public String LABOR_GL_ENTRY_FILE = "gl_glentry_lab";
+        static final public String LABOR_GL_ENTRY_FILE = "gl_glentry_lab";
     }
 
     public static class PosterOutputSummaryEntry {
@@ -436,7 +437,7 @@ public class GeneralLedgerConstants {
 
             int totalLength = 0;
 
-            for ( AttributeDefinition attributeDefinition : attributes ) {
+            for (AttributeDefinition attributeDefinition : attributes) {
 
                 if (!(KFSPropertyConstants.ENTRY_GROUP_ID.equals(attributeDefinition.getName()) || KFSPropertyConstants.ENTRY_ID.equals(attributeDefinition.getName()))) {
                     totalLength += attributeDefinition.getMaxLength();
@@ -457,7 +458,7 @@ public class GeneralLedgerConstants {
 
             int totalLength = 0;
 
-            for ( AttributeDefinition attributeDefinition : attributes ) {
+            for (AttributeDefinition attributeDefinition : attributes) {
                 if (!(KFSPropertyConstants.TRAILER_RECORD_FIRST_EMPTY_FIELD.equals(attributeDefinition.getName()) ||
                     KFSPropertyConstants.TOTAL_RECORDS.equals(attributeDefinition.getName()) ||
                     KFSPropertyConstants.TRAILER_RECORD_SECOND_EMPTY_FIELD.equals(attributeDefinition.getName()) ||
@@ -480,17 +481,17 @@ public class GeneralLedgerConstants {
 
             int totalLength = 0;
 
-            for ( AttributeDefinition attributeDefinition : attributes ) {
+            for (AttributeDefinition attributeDefinition : attributes) {
                 if ((KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR.equals(attributeDefinition.getName()) ||
-                     KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE.equals(attributeDefinition.getName()) ||
-                     KFSPropertyConstants.ORGANIZATION_CODE.equals(attributeDefinition.getName()) ||
-                     KFSPropertyConstants.TRANSMISSION_DATE.equals(attributeDefinition.getName()) ||
-                     KFSPropertyConstants.COLLECTOR_BATCH_RECORD_TYPE.equals(attributeDefinition.getName()) ||
-                     KFSPropertyConstants.TRAILER_RECORD_FIRST_EMPTY_FIELD.equals(attributeDefinition.getName()) ||
-                     KFSPropertyConstants.TOTAL_RECORDS.equals(attributeDefinition.getName()) ||
-                     KFSPropertyConstants.TRAILER_RECORD_SECOND_EMPTY_FIELD.equals(attributeDefinition.getName()) ||
-                     KFSPropertyConstants.TOTAL_AMOUNT.equals(attributeDefinition.getName()))) {
-                     totalLength += attributeDefinition.getMaxLength();
+                    KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE.equals(attributeDefinition.getName()) ||
+                    KFSPropertyConstants.ORGANIZATION_CODE.equals(attributeDefinition.getName()) ||
+                    KFSPropertyConstants.TRANSMISSION_DATE.equals(attributeDefinition.getName()) ||
+                    KFSPropertyConstants.COLLECTOR_BATCH_RECORD_TYPE.equals(attributeDefinition.getName()) ||
+                    KFSPropertyConstants.TRAILER_RECORD_FIRST_EMPTY_FIELD.equals(attributeDefinition.getName()) ||
+                    KFSPropertyConstants.TOTAL_RECORDS.equals(attributeDefinition.getName()) ||
+                    KFSPropertyConstants.TRAILER_RECORD_SECOND_EMPTY_FIELD.equals(attributeDefinition.getName()) ||
+                    KFSPropertyConstants.TOTAL_AMOUNT.equals(attributeDefinition.getName()))) {
+                    totalLength += attributeDefinition.getMaxLength();
                 }
             }
 
@@ -505,7 +506,7 @@ public class GeneralLedgerConstants {
     public static String getSpaceAllCollectorDetailFields() {
         if (SPACE_ALL_COLLECTOR_DETAIL_FIELDS == null) {
             CollectorDetailFieldUtil collectorDetailFieldUtil = new CollectorDetailFieldUtil();
-            int totalLength = collectorDetailFieldUtil .getDetailLineTotalLength();
+            int totalLength = collectorDetailFieldUtil.getDetailLineTotalLength();
 
             SPACE_ALL_COLLECTOR_DETAIL_FIELDS = StringUtils.rightPad("", totalLength, ' ');
         }
@@ -523,7 +524,7 @@ public class GeneralLedgerConstants {
         return ZERO_TRANSACTION_ENTRY_SEQUENCE_NUMBER;
     }
 
-    public static String getZeroTransactionLedgerEntryAmount(){
+    public static String getZeroTransactionLedgerEntryAmount() {
         OriginEntryFieldUtil oefu = new OriginEntryFieldUtil();
         int length = oefu.getFieldLengthMap().get(KFSPropertyConstants.TRANSACTION_LEDGER_ENTRY_AMOUNT);
 
@@ -550,8 +551,9 @@ public class GeneralLedgerConstants {
         }
         return SPACE_CHART_OF_ACCOUNTS_CODE;
     }
+
     public static final String INCOME_OR_EXPENSE_TRANSFER_CONSOLIDATION_CODE = "TRSF";
 
     public static final String GL_BALANCE_TOTAL_NOT_ZERO_ITERATOR = "glBalanceTotalNotZeroIterator";
-    public static final String GL_BALANCE_ANNUAL_AND_CG_TOTAL_NOT_ZERO_ITERATOR  = "glBalanceAnnualAndCGTotalNotZeroIterator";
+    public static final String GL_BALANCE_ANNUAL_AND_CG_TOTAL_NOT_ZERO_ITERATOR = "glBalanceAnnualAndCGTotalNotZeroIterator";
 }

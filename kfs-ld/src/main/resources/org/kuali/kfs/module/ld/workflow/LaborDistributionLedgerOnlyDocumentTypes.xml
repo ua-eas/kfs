@@ -1,114 +1,114 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <data xmlns="ns:workflow" xsi:schemaLocation="ns:workflow resource:WorkflowData" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <documentTypes xmlns="ns:workflow/DocumentType" xsi:schemaLocation="ns:workflow/DocumentType resource:DocumentType">
-    <documentType>
-      <name>LJVA</name>
-      <parent>FSLO</parent>
-      <label>Labor Journal Voucher - Accrual</label>
-      <active>true</active>
-      <routingVersion>2</routingVersion>
-    </documentType>
-    <documentType>
-      <name>LJVC</name>
-      <parent>FSLO</parent>
-      <label>Labor Journal Voucher - Cash</label>
-      <active>true</active>
-      <routingVersion>2</routingVersion>
-    </documentType>
-    <documentType>
-      <name>LJVE</name>
-      <parent>FSLO</parent>
-      <label>Labor Journal Voucher - Encumbrance</label>
-      <active>true</active>
-      <routingVersion>2</routingVersion>
-    </documentType>
+    <documentTypes xmlns="ns:workflow/DocumentType" xsi:schemaLocation="ns:workflow/DocumentType resource:DocumentType">
+        <documentType>
+            <name>LJVA</name>
+            <parent>FSLO</parent>
+            <label>Labor Journal Voucher - Accrual</label>
+            <active>true</active>
+            <routingVersion>2</routingVersion>
+        </documentType>
+        <documentType>
+            <name>LJVC</name>
+            <parent>FSLO</parent>
+            <label>Labor Journal Voucher - Cash</label>
+            <active>true</active>
+            <routingVersion>2</routingVersion>
+        </documentType>
+        <documentType>
+            <name>LJVE</name>
+            <parent>FSLO</parent>
+            <label>Labor Journal Voucher - Encumbrance</label>
+            <active>true</active>
+            <routingVersion>2</routingVersion>
+        </documentType>
 
-    <documentType>
-      <name>PAY</name>
-      <parent>FSLO</parent>
-      <label>Labor - Normal Payroll Activity</label>
-      <active>true</active>
-      <routingVersion>2</routingVersion>
-    </documentType>
-    <documentType>
-      <name>PAYN</name>
-      <parent>FSLO</parent>
-      <label>Labor - Payroll Accrual Reversal</label>
-      <active>true</active>
-      <routingVersion>2</routingVersion>
-    </documentType>
-    <documentType>
-      <name>PAYA</name>
-      <parent>FSLO</parent>
-      <label>Labor - Payroll Accrual</label>
-      <active>true</active>
-      <routingVersion>2</routingVersion>
-    </documentType>
-    <documentType>
-      <name>PAYC</name>
-      <parent>FSLO</parent>
-      <label>Labor - Payroll Check Cancellation</label>
-      <active>true</active>
-      <routingVersion>2</routingVersion>
-    </documentType>
-    <documentType>
-      <name>PAYE</name>
-      <parent>FSLO</parent>
-      <label>Labor - Payroll Encumbrances</label>
-      <active>true</active>
-      <routingVersion>2</routingVersion>
-    </documentType>
-    <documentType>
-      <name>ET</name>
-      <parent>FSLO</parent>
-      <label>Labor - Payroll Expense Transfer</label>
-      <active>true</active>
-      <routingVersion>2</routingVersion>
-    </documentType>
-    <documentType>
-      <name>SACH</name>
-      <parent>FSLO</parent>
-      <label>Labor - Payroll Expense Transfer</label>
-      <active>true</active>
-      <routingVersion>2</routingVersion>
-    </documentType>
-    <documentType>
-      <name>HDRW</name>
-      <parent>FSLO</parent>
-      <label>Labor - Payroll Hand Drawn Check Payment</label>
-      <active>true</active>
-      <routingVersion>2</routingVersion>
-    </documentType>
-    <documentType>
-      <name>OPAY</name>
-      <parent>FSLO</parent>
-      <label>Labor - Payroll Overpayment Collection</label>
-      <active>true</active>
-      <routingVersion>2</routingVersion>
-    </documentType>
-    <documentType>
-      <name>RETR</name>
-      <parent>FSLO</parent>
-      <label>Labor - Payroll Retroactive Adjustment</label>
-      <active>true</active>
-      <routingVersion>2</routingVersion>
-    </documentType>
-  </documentTypes>
+        <documentType>
+            <name>PAY</name>
+            <parent>FSLO</parent>
+            <label>Labor - Normal Payroll Activity</label>
+            <active>true</active>
+            <routingVersion>2</routingVersion>
+        </documentType>
+        <documentType>
+            <name>PAYN</name>
+            <parent>FSLO</parent>
+            <label>Labor - Payroll Accrual Reversal</label>
+            <active>true</active>
+            <routingVersion>2</routingVersion>
+        </documentType>
+        <documentType>
+            <name>PAYA</name>
+            <parent>FSLO</parent>
+            <label>Labor - Payroll Accrual</label>
+            <active>true</active>
+            <routingVersion>2</routingVersion>
+        </documentType>
+        <documentType>
+            <name>PAYC</name>
+            <parent>FSLO</parent>
+            <label>Labor - Payroll Check Cancellation</label>
+            <active>true</active>
+            <routingVersion>2</routingVersion>
+        </documentType>
+        <documentType>
+            <name>PAYE</name>
+            <parent>FSLO</parent>
+            <label>Labor - Payroll Encumbrances</label>
+            <active>true</active>
+            <routingVersion>2</routingVersion>
+        </documentType>
+        <documentType>
+            <name>ET</name>
+            <parent>FSLO</parent>
+            <label>Labor - Payroll Expense Transfer</label>
+            <active>true</active>
+            <routingVersion>2</routingVersion>
+        </documentType>
+        <documentType>
+            <name>SACH</name>
+            <parent>FSLO</parent>
+            <label>Labor - Payroll Expense Transfer</label>
+            <active>true</active>
+            <routingVersion>2</routingVersion>
+        </documentType>
+        <documentType>
+            <name>HDRW</name>
+            <parent>FSLO</parent>
+            <label>Labor - Payroll Hand Drawn Check Payment</label>
+            <active>true</active>
+            <routingVersion>2</routingVersion>
+        </documentType>
+        <documentType>
+            <name>OPAY</name>
+            <parent>FSLO</parent>
+            <label>Labor - Payroll Overpayment Collection</label>
+            <active>true</active>
+            <routingVersion>2</routingVersion>
+        </documentType>
+        <documentType>
+            <name>RETR</name>
+            <parent>FSLO</parent>
+            <label>Labor - Payroll Retroactive Adjustment</label>
+            <active>true</active>
+            <routingVersion>2</routingVersion>
+        </documentType>
+    </documentTypes>
 </data>

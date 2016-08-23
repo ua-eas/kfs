@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -31,8 +31,6 @@ import java.util.Set;
 
 /**
  * Implementation of {@link ViewPresentationController} that implements no logic by default
- *
- * 
  */
 public class ViewPresentationControllerBase implements ViewPresentationController, Serializable {
     private static final long serialVersionUID = -3199587372204398503L;
@@ -122,7 +120,7 @@ public class ViewPresentationControllerBase implements ViewPresentationControlle
      * java.lang.String)
      */
     public boolean canPerformAction(View view, ViewModel model, ActionField actionField, String actionEvent,
-            String actionId) {
+                                    String actionId) {
         return true;
     }
 
@@ -132,7 +130,7 @@ public class ViewPresentationControllerBase implements ViewPresentationControlle
      * java.lang.String, java.lang.Object)
      */
     public boolean canEditLine(View view, ViewModel model, CollectionGroup collectionGroup,
-            String collectionPropertyName, Object line) {
+                               String collectionPropertyName, Object line) {
         return true;
     }
 
@@ -142,7 +140,7 @@ public class ViewPresentationControllerBase implements ViewPresentationControlle
      * java.lang.String, java.lang.Object)
      */
     public boolean canViewLine(View view, ViewModel model, CollectionGroup collectionGroup,
-            String collectionPropertyName, Object line) {
+                               String collectionPropertyName, Object line) {
         return true;
     }
 
@@ -152,7 +150,7 @@ public class ViewPresentationControllerBase implements ViewPresentationControlle
      * java.lang.String, java.lang.Object, Field, java.lang.String)
      */
     public boolean canEditLineField(View view, ViewModel model, CollectionGroup collectionGroup,
-            String collectionPropertyName, Object line, Field field, String propertyName) {
+                                    String collectionPropertyName, Object line, Field field, String propertyName) {
         return true;
     }
 
@@ -162,7 +160,7 @@ public class ViewPresentationControllerBase implements ViewPresentationControlle
      * java.lang.String, java.lang.Object, Field, java.lang.String)
      */
     public boolean canViewLineField(View view, ViewModel model, CollectionGroup collectionGroup,
-            String collectionPropertyName, Object line, Field field, String propertyName) {
+                                    String collectionPropertyName, Object line, Field field, String propertyName) {
         return true;
     }
 
@@ -173,7 +171,7 @@ public class ViewPresentationControllerBase implements ViewPresentationControlle
      * java.lang.String)
      */
     public boolean canPerformLineAction(View view, ViewModel model, CollectionGroup collectionGroup,
-            String collectionPropertyName, Object line, ActionField actionField, String actionEvent, String actionId) {
+                                        String collectionPropertyName, Object line, ActionField actionField, String actionEvent, String actionId) {
         return true;
     }
 

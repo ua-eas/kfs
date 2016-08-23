@@ -1,33 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.document.web.struts;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanComparator;
 import org.apache.commons.collections.comparators.ReverseComparator;
@@ -35,6 +24,14 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.web.struts.action.KualiDocumentActionBase;
+import org.kuali.kfs.kns.web.struts.action.KualiTableRenderAction;
+import org.kuali.kfs.kns.web.struts.form.KualiTableRenderFormMetadata;
+import org.kuali.kfs.kns.web.ui.Column;
+import org.kuali.kfs.krad.comparator.NumericValueComparator;
+import org.kuali.kfs.krad.comparator.TemporalValueComparator;
+import org.kuali.kfs.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.batch.service.ExpenseImportByTripService;
@@ -51,14 +48,16 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.web.struts.action.KualiDocumentActionBase;
-import org.kuali.kfs.kns.web.struts.action.KualiTableRenderAction;
-import org.kuali.kfs.kns.web.struts.form.KualiTableRenderFormMetadata;
-import org.kuali.kfs.kns.web.ui.Column;
-import org.kuali.kfs.krad.comparator.NumericValueComparator;
-import org.kuali.kfs.krad.comparator.TemporalValueComparator;
-import org.kuali.kfs.krad.util.ErrorMessage;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class TemCorrectionAction extends KualiDocumentActionBase implements KualiTableRenderAction {
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(TemCorrectionAction.class);
@@ -146,8 +145,7 @@ public class TemCorrectionAction extends KualiDocumentActionBase implements Kual
             if (newestAgencyMatchingErrorFileName != null) {
                 document.setCorrectionInputFileName(newestAgencyMatchingErrorFileName);
             }
-        }
-        else {
+        } else {
             correctionForm.setEditMethod("");
         }
         correctionForm.setPreviousEditMethod(correctionForm.getEditMethod());
@@ -175,7 +173,7 @@ public class TemCorrectionAction extends KualiDocumentActionBase implements Kual
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#execute(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -201,7 +199,6 @@ public class TemCorrectionAction extends KualiDocumentActionBase implements Kual
             if (!rForm.isRestrictedFunctionalityMode()) {
                 loadAllEntries(correctionForm.getInputGroupId(), rForm);
                 rForm.setDisplayEntries(new ArrayList<AgencyEntryFull>(rForm.getAllEntries()));
-
 
 
                 if (!KFSConstants.TableRenderConstants.SORT_METHOD.equals(rForm.getMethodToCall())) {
@@ -295,7 +292,7 @@ public class TemCorrectionAction extends KualiDocumentActionBase implements Kual
         int entryId = Integer.parseInt(getImageContext(request, "entryId"));
 
         // Find it and remove it
-        for (Iterator iter = correctionForm.getAllEntries().iterator(); iter.hasNext();) {
+        for (Iterator iter = correctionForm.getAllEntries().iterator(); iter.hasNext(); ) {
             AgencyEntryFull element = (AgencyEntryFull) iter.next();
             if (element.getEntryId() == entryId) {
                 iter.remove();
@@ -330,7 +327,7 @@ public class TemCorrectionAction extends KualiDocumentActionBase implements Kual
             int entryId = correctionForm.getEntryForManualEdit().getEntryId();
 
             // Find it and replace it with the one from the edit spot
-            for (Iterator<AgencyEntryFull> iter = correctionForm.getAllEntries().iterator(); iter.hasNext();) {
+            for (Iterator<AgencyEntryFull> iter = correctionForm.getAllEntries().iterator(); iter.hasNext(); ) {
                 AgencyEntryFull element = iter.next();
                 if (element.getEntryId() == entryId) {
                     iter.remove();
@@ -359,7 +356,7 @@ public class TemCorrectionAction extends KualiDocumentActionBase implements Kual
     private boolean validAgencyEntry(AgencyEntryFull entryForManualEdit) {
         List<ErrorMessage> errors = expenseImportByTripService.validateMandatoryFieldsPresent(entryForManualEdit);
 
-        for(ErrorMessage error: errors) {
+        for (ErrorMessage error : errors) {
             GlobalVariables.getMessageMap().putError("searchResults", error.toString());
         }
 
@@ -394,8 +391,7 @@ public class TemCorrectionAction extends KualiDocumentActionBase implements Kual
                     correctionForm.setDeleteFileFlag(false);
                 }
                 correctionForm.setDataLoadedFlag(true);
-            }
-            else {
+            } else {
                 GlobalVariables.getMessageMap().putError("documentsInSystem", TemKeyConstants.ERROR_TMCP_NO_RECORDS);
             }
 
@@ -434,21 +430,20 @@ public class TemCorrectionAction extends KualiDocumentActionBase implements Kual
      * whether only the rows matching criteria are shown, and whether the output is being shown If the form is in restricted
      * functionality mode (and the override param is not set to true), then the summaries will be cleared out
      *
-     * @param document the document
-     * @param entries the entries to summarize
+     * @param document        the document
+     * @param entries         the entries to summarize
      * @param clearOutSummary whether to set the doc summary to 0s
      */
     protected void updateDocumentSummary(TemCorrectionProcessDocument document, List<AgencyEntryFull> entries, boolean clearOutSummary) {
         if (clearOutSummary) {
             document.setCorrectionTripTotalAmount(null);
             document.setCorrectionRowCount(null);
-        }
-        else {
+        } else {
             // update the summary section
             document.setCorrectionRowCount(entries.size());
             KualiDecimal tripTotal = KualiDecimal.ZERO;
-            for(AgencyEntryFull agency: entries) {
-                if(null != agency.getTripExpenseAmount()) {
+            for (AgencyEntryFull agency : entries) {
+                if (null != agency.getTripExpenseAmount()) {
                     tripTotal = tripTotal.add(agency.getTripExpenseAmount());
                 }
 
@@ -484,16 +479,14 @@ public class TemCorrectionAction extends KualiDocumentActionBase implements Kual
                     Integer lineNumber = (Integer) iter.next();
                     List<Message> messageList = (List<Message>) loadErrorMap.get(lineNumber);
                     for (Message errorMmessage : messageList) {
-                        GlobalVariables.getMessageMap().putError("fileUpload", KFSKeyConstants.ERROR_INVALID_FORMAT_ORIGIN_ENTRY_FROM_TEXT_FILE, new String[] { lineNumber.toString(), errorMmessage.toString() });
+                        GlobalVariables.getMessageMap().putError("fileUpload", KFSKeyConstants.ERROR_INVALID_FORMAT_ORIGIN_ENTRY_FROM_TEXT_FILE, new String[]{lineNumber.toString(), errorMmessage.toString()});
                     }
                 }
-            }
-            else {
+            } else {
                 try {
                     loadAllEntries(searchResults, correctionForm);
 
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
             }
@@ -580,7 +573,7 @@ public class TemCorrectionAction extends KualiDocumentActionBase implements Kual
      *
      * @param correctionForm
      * @return if the system and edit method were changed while not in read only mode and the selectSystemEditMethod method was not
-     *         being called if true, this is ususally not a good condition
+     * being called if true, this is ususally not a good condition
      */
     protected boolean restoreSystemAndEditMethod(TemCorrectionForm correctionForm) {
         boolean readOnly = correctionForm.getEditingMode().get(TemConstants.TravelEditMode.FULL_ENTRY) != null;
@@ -612,8 +605,7 @@ public class TemCorrectionAction extends KualiDocumentActionBase implements Kual
                 correctionForm.getAgencyEntrySearchResultTableMetadata().jumpToFirstPage(correctionForm.getDisplayEntries().size(), maxRowsPerPage);
             }
             return super.blanketApprove(mapping, form, request, response);
-        }
-        else {
+        } else {
             return mapping.findForward(KFSConstants.MAPPING_BASIC);
         }
     }
@@ -636,8 +628,7 @@ public class TemCorrectionAction extends KualiDocumentActionBase implements Kual
                 correctionForm.getAgencyEntrySearchResultTableMetadata().jumpToFirstPage(correctionForm.getDisplayEntries().size(), maxRowsPerPage);
             }
             return super.blanketApprove(mapping, form, request, response);
-        }
-        else {
+        } else {
             return mapping.findForward(KFSConstants.MAPPING_BASIC);
         }
     }

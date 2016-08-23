@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -20,18 +20,18 @@ package org.kuali.kfs.krad.uif.layout;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
-import org.kuali.kfs.krad.uif.container.Group;
-import org.kuali.kfs.krad.uif.field.Field;
-import org.kuali.kfs.krad.uif.util.ComponentUtils;
-import org.kuali.kfs.krad.uif.util.ObjectPropertyUtils;
+import org.kuali.kfs.krad.uif.component.Component;
+import org.kuali.kfs.krad.uif.component.DataBinding;
 import org.kuali.kfs.krad.uif.component.KeepExpression;
 import org.kuali.kfs.krad.uif.container.CollectionGroup;
 import org.kuali.kfs.krad.uif.container.Container;
-import org.kuali.kfs.krad.uif.field.FieldGroup;
-import org.kuali.kfs.krad.uif.view.View;
-import org.kuali.kfs.krad.uif.component.Component;
-import org.kuali.kfs.krad.uif.component.DataBinding;
+import org.kuali.kfs.krad.uif.container.Group;
 import org.kuali.kfs.krad.uif.field.ActionField;
+import org.kuali.kfs.krad.uif.field.Field;
+import org.kuali.kfs.krad.uif.field.FieldGroup;
+import org.kuali.kfs.krad.uif.util.ComponentUtils;
+import org.kuali.kfs.krad.uif.util.ObjectPropertyUtils;
+import org.kuali.kfs.krad.uif.view.View;
 import org.kuali.kfs.krad.web.form.UifFormBase;
 
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ import java.util.List;
 /**
  * Layout manager that works with <code>CollectionGroup</code> containers and
  * renders the collection lines in a vertical row
- *
+ * <p>
  * <p>
  * For each line of the collection, a <code>Group</code> instance is created.
  * The group header contains a label for the line (summary information), the
@@ -48,13 +48,11 @@ import java.util.List;
  * the line actions. All the groups are rendered using the
  * <code>BoxLayoutManager</code> with vertical orientation.
  * </p>
- *
+ * <p>
  * <p>
  * Modify the lineGroupPrototype to change header/footer styles or any other
  * customization for the line groups
  * </p>
- *
- * 
  */
 public class StackedLayoutManager extends LayoutManagerBase implements CollectionLayoutManager {
     private static final long serialVersionUID = 4602368505430238846L;
@@ -80,13 +78,13 @@ public class StackedLayoutManager extends LayoutManagerBase implements Collectio
 
     /**
      * The following actions are performed:
-     *
+     * <p>
      * <ul>
      * <li>Initializes the prototypes</li>
      * </ul>
      *
      * @see BoxLayoutManager#performInitialization(View,
-     *      java.lang.Object, Container)
+     * java.lang.Object, Container)
      */
     @Override
     public void performInitialization(View view, Object model, Container container) {
@@ -104,13 +102,13 @@ public class StackedLayoutManager extends LayoutManagerBase implements Collectio
 
     /**
      * The following actions are performed:
-     *
+     * <p>
      * <ul>
      * <li>If wrapper group is specified, places the stacked groups into the wrapper</li>
      * </ul>
      *
      * @see BoxLayoutManager#performApplyModel(View,
-     *      java.lang.Object, Container)
+     * java.lang.Object, Container)
      */
     @Override
     public void performApplyModel(View view, Object model, Container container) {
@@ -130,13 +128,13 @@ public class StackedLayoutManager extends LayoutManagerBase implements Collectio
      * group footer
      *
      * @see CollectionLayoutManager#buildLine(View,
-     *      java.lang.Object, CollectionGroup,
-     *      java.util.List, java.util.List, java.lang.String, java.util.List,
-     *      java.lang.String, java.lang.Object, int)
+     * java.lang.Object, CollectionGroup,
+     * java.util.List, java.util.List, java.lang.String, java.util.List,
+     * java.lang.String, java.lang.Object, int)
      */
     public void buildLine(View view, Object model, CollectionGroup collectionGroup, List<Field> lineFields,
-            List<FieldGroup> subCollectionFields, String bindingPath, List<ActionField> actions, String idSuffix,
-            Object currentLine, int lineIndex) {
+                          List<FieldGroup> subCollectionFields, String bindingPath, List<ActionField> actions, String idSuffix,
+                          Object currentLine, int lineIndex) {
         boolean isAddLine = lineIndex == -1;
 
         // construct new group
@@ -162,7 +160,7 @@ public class StackedLayoutManager extends LayoutManagerBase implements Collectio
         } else {
             // get the collection for this group from the model
             List<Object> modelCollection = ObjectPropertyUtils.getPropertyValue(model,
-                    ((DataBinding) collectionGroup).getBindingInfo().getBindingPath());
+                ((DataBinding) collectionGroup).getBindingInfo().getBindingPath());
 
             headerText = buildLineHeaderText(modelCollection.get(lineIndex), lineGroup);
         }
@@ -189,20 +187,20 @@ public class StackedLayoutManager extends LayoutManagerBase implements Collectio
 
     /**
      * Builds the header text for the collection line
-     *
+     * <p>
      * <p>
      * Header text is built up by first the collection label, either specified
      * on the collection definition or retrieved from the dictionary. Then for
      * each summary field defined, the value from the model is retrieved and
      * added to the header.
      * </p>
-     *
+     * <p>
      * <p>
      * Note the {@link #getSummaryTitle()} field may have expressions defined, in which cause it will be copied to the
      * property expressions map to set the title for the line group (which will have the item context variable set)
      * </p>
      *
-     * @param line - Collection line containing data
+     * @param line      - Collection line containing data
      * @param lineGroup - Group instance for rendering the line and whose title should be built
      * @return String header text for line
      */
@@ -319,7 +317,7 @@ public class StackedLayoutManager extends LayoutManagerBase implements Collectio
 
     /**
      * Group instance that will be used for the add line
-     *
+     * <p>
      * <p>
      * Add line fields and actions configured on the
      * <code>CollectionGroup</code> will be set onto the add line group (if add
@@ -382,7 +380,7 @@ public class StackedLayoutManager extends LayoutManagerBase implements Collectio
     /**
      * Field instance that serves as a prototype for creating the select field on each line when
      * {@link CollectionGroup#isRenderSelectField()} is true
-     *
+     * <p>
      * <p>
      * This prototype can be used to set the control used for the select field (generally will be a checkbox control)
      * in addition to styling and other setting. The binding path will be formed with using the
@@ -408,7 +406,7 @@ public class StackedLayoutManager extends LayoutManagerBase implements Collectio
     /**
      * Group that will 'wrap' the generated collection lines so that they have a different layout from the general
      * stacked layout
-     *
+     * <p>
      * <p>
      * By default (when the wrapper group is null), each collection line will become a group and the groups are
      * rendered one after another. If the wrapper group is configured, the generated groups will be inserted as the
@@ -418,7 +416,7 @@ public class StackedLayoutManager extends LayoutManagerBase implements Collectio
      * </p>
      *
      * @return Group instance whose items list should be populated with the generated groups, or null to use the
-     *         default layout
+     * default layout
      */
     public Group getWrapperGroup() {
         return wrapperGroup;

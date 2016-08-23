@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,17 +18,17 @@
  */
 package org.kuali.kfs.module.cam.businessobject;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.businessobject.ObjectSubType;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.FiscalYearBasedBusinessObject;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
+import java.util.List;
 
 
 public class AssetObjectCode extends PersistableBusinessObjectBase implements MutableInactivatable, FiscalYearBasedBusinessObject {

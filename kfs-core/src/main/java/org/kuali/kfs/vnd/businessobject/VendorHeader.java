@@ -1,23 +1,38 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.vnd.businessobject;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.log4j.Logger;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.datadictionary.AttributeSecurity;
+import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.krad.bo.BusinessObject;
+import org.kuali.rice.location.api.LocationConstants;
+import org.kuali.rice.location.framework.country.CountryEbo;
 
 import java.lang.reflect.Field;
 import java.sql.Date;
@@ -25,21 +40,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.ReflectionToStringBuilder;
-import org.apache.log4j.Logger;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.datadictionary.AttributeSecurity;
-import org.kuali.kfs.krad.service.DataDictionaryService;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.service.ModuleService;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.rice.location.api.LocationConstants;
-import org.kuali.rice.location.framework.country.CountryEbo;
 
 /**
  * Contains information specific to a parent Vendor, which may be shared by its division Vendors if it has any. Contained by a
@@ -498,17 +498,17 @@ public class VendorHeader extends PersistableBusinessObjectBase {
     }
 
     public CountryEbo getVendorCountry() {
-        if ( StringUtils.isBlank(vendorCorpCitizenCode) ) {
+        if (StringUtils.isBlank(vendorCorpCitizenCode)) {
             vendorCountry = null;
         } else {
-            if ( vendorCountry == null || !StringUtils.equals( vendorCountry.getCode(),vendorCorpCitizenCode) ) {
+            if (vendorCountry == null || !StringUtils.equals(vendorCountry.getCode(), vendorCorpCitizenCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(CountryEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(1);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(1);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, vendorCorpCitizenCode);
                     vendorCountry = moduleService.getExternalizableBusinessObject(CountryEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -538,7 +538,7 @@ public class VendorHeader extends PersistableBusinessObjectBase {
 
         boolean first = true;
         for (VendorSupplierDiversity vsd : vendorSupplierDiversities) {
-            if(vsd.isActive()){
+            if (vsd.isActive()) {
                 if (!first) {
                     sb.append(", ");
                 } else {
@@ -571,17 +571,17 @@ public class VendorHeader extends PersistableBusinessObjectBase {
     public boolean isEqualForRouting(VendorHeader vh) {
         LOG.debug("Entering isEqualForRouting.");
         return new EqualsBuilder()
-                .append(getVendorTypeCode(), vh.getVendorTypeCode())
-                .append(getVendorTaxNumber(), vh.getVendorTaxNumber())
-                .append(getVendorOwnershipCode(), vh.getVendorOwnershipCode())
-                .append(getVendorOwnershipCategoryCode(), vh.getVendorOwnershipCategoryCode())
-                .append(getVendorFederalWithholdingTaxBeginningDate(), vh.getVendorFederalWithholdingTaxBeginningDate())
-                .append(getVendorFederalWithholdingTaxEndDate(), vh.getVendorFederalWithholdingTaxEndDate())
-                .append(getVendorW9ReceivedIndicator(), vh.getVendorW9ReceivedIndicator())
-                .append(getVendorW8BenReceivedIndicator(), vh.getVendorW8BenReceivedIndicator())
-                .append(getVendorDebarredIndicator(), vh.getVendorDebarredIndicator())
-                .append(getVendorForeignIndicator(), vh.getVendorForeignIndicator())
-                .isEquals();
+            .append(getVendorTypeCode(), vh.getVendorTypeCode())
+            .append(getVendorTaxNumber(), vh.getVendorTaxNumber())
+            .append(getVendorOwnershipCode(), vh.getVendorOwnershipCode())
+            .append(getVendorOwnershipCategoryCode(), vh.getVendorOwnershipCategoryCode())
+            .append(getVendorFederalWithholdingTaxBeginningDate(), vh.getVendorFederalWithholdingTaxBeginningDate())
+            .append(getVendorFederalWithholdingTaxEndDate(), vh.getVendorFederalWithholdingTaxEndDate())
+            .append(getVendorW9ReceivedIndicator(), vh.getVendorW9ReceivedIndicator())
+            .append(getVendorW8BenReceivedIndicator(), vh.getVendorW8BenReceivedIndicator())
+            .append(getVendorDebarredIndicator(), vh.getVendorDebarredIndicator())
+            .append(getVendorForeignIndicator(), vh.getVendorForeignIndicator())
+            .isEquals();
     }
 
     @Override
@@ -600,13 +600,14 @@ public class VendorHeader extends PersistableBusinessObjectBase {
                 DataDictionaryService dataDictionaryService = SpringContext.getBean(DataDictionaryService.class);
                 AttributeSecurity attributeSecurity = dataDictionaryService.getAttributeSecurity(VendorHeader.class.getName(), field.getName());
                 if (ObjectUtils.isNotNull(attributeSecurity)
-                                && (attributeSecurity.isHide() || attributeSecurity.isMask() || attributeSecurity.isPartialMask())) {
+                    && (attributeSecurity.isHide() || attributeSecurity.isMask() || attributeSecurity.isPartialMask())) {
                     return false;
                 }
 
                 return super.accept(field);
             }
-        };
+        }
+        ;
         ReflectionToStringBuilder toStringBuilder = new VendorHeaderToStringBuilder(this);
         return toStringBuilder.toString();
     }

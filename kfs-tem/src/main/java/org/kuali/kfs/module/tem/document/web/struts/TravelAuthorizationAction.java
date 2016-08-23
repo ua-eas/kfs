@@ -1,45 +1,46 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.document.web.struts;
-
-import static org.kuali.kfs.module.tem.TemConstants.CERTIFICATION_STATEMENT_ATTRIBUTE;
-import static org.kuali.kfs.module.tem.TemConstants.EMPLOYEE_TEST_ATTRIBUTE;
-import static org.kuali.kfs.module.tem.TemConstants.SHOW_ACCOUNT_DISTRIBUTION_ATTRIBUTE;
-import static org.kuali.kfs.module.tem.TemConstants.TravelReimbursementParameters.DISPLAY_ACCOUNTING_DISTRIBUTION_TAB_IND;
-import static org.kuali.kfs.module.tem.TemPropertyConstants.NEW_EMERGENCY_CONTACT_LINE;
-import static org.kuali.kfs.sys.KFSPropertyConstants.FINANCIAL_OBJECT_CODE;
-import static org.kuali.kfs.sys.KFSPropertyConstants.NEW_SOURCE_LINE;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.question.ConfirmationQuestion;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.util.WebUtils;
+import org.kuali.kfs.kns.web.struts.form.BlankFormFile;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.dao.DocumentDao;
+import org.kuali.kfs.krad.document.Copyable;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.service.PersistenceService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.SingleConfirmationQuestion;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemConstants.TravelAuthorizationParameters;
@@ -69,24 +70,22 @@ import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.RiceConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.question.ConfirmationQuestion;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.kns.util.WebUtils;
-import org.kuali.kfs.kns.web.struts.form.BlankFormFile;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.kfs.kns.web.struts.form.KualiForm;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.dao.DocumentDao;
-import org.kuali.kfs.krad.document.Copyable;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.service.DataDictionaryService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.KualiRuleService;
-import org.kuali.kfs.krad.service.PersistenceService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+
+import static org.kuali.kfs.module.tem.TemConstants.CERTIFICATION_STATEMENT_ATTRIBUTE;
+import static org.kuali.kfs.module.tem.TemConstants.EMPLOYEE_TEST_ATTRIBUTE;
+import static org.kuali.kfs.module.tem.TemConstants.SHOW_ACCOUNT_DISTRIBUTION_ATTRIBUTE;
+import static org.kuali.kfs.module.tem.TemConstants.TravelReimbursementParameters.DISPLAY_ACCOUNTING_DISTRIBUTION_TAB_IND;
+import static org.kuali.kfs.module.tem.TemPropertyConstants.NEW_EMERGENCY_CONTACT_LINE;
+import static org.kuali.kfs.sys.KFSPropertyConstants.FINANCIAL_OBJECT_CODE;
+import static org.kuali.kfs.sys.KFSPropertyConstants.NEW_SOURCE_LINE;
 
 /**
  * Handles action events through the struts framework for the {@link TravelAuthorizationDocument}
@@ -101,7 +100,7 @@ public class TravelAuthorizationAction extends TravelActionBase {
 
     /**
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#execute(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -113,8 +112,7 @@ public class TravelAuthorizationAction extends TravelActionBase {
         TravelAuthorizationDocument travelAuthDocument = (TravelAuthorizationDocument) authForm.getDocument();
         if (transpoModes != null) {
             authForm.setSelectedTransportationModes(Arrays.asList(transpoModes));
-        }
-        else {
+        } else {
             authForm.setSelectedTransportationModes(authForm.getTravelAuthorizationDocument().getTransportationModeCodes());
         }
         refreshTransportationModesAfterButtonAction(travelAuthDocument, authForm);
@@ -140,11 +138,11 @@ public class TravelAuthorizationAction extends TravelActionBase {
 
         disablePerDiemExpenes(travelAuthDocument);
 
-        if(ObjectUtils.isNotNull(travelAuthDocument.getActualExpenses())){
+        if (ObjectUtils.isNotNull(travelAuthDocument.getActualExpenses())) {
             travelAuthDocument.enableExpenseTypeSpecificFields(travelAuthDocument.getActualExpenses());
         }
 
-        LOG.debug("Got "+ authForm.getRelatedDocuments().size()+ " related documents");
+        LOG.debug("Got " + authForm.getRelatedDocuments().size() + " related documents");
 
         if (!isReturnFromObjectCodeLookup(authForm, request)) {
             getTravelEncumbranceService().updateEncumbranceObjectCode(travelAuthDocument, authForm.getNewSourceLine());
@@ -155,8 +153,8 @@ public class TravelAuthorizationAction extends TravelActionBase {
         // update the list of related documents
         refreshRelatedDocuments(authForm);
 
-        if (((TravelFormBase) form).getMethodToCall().equalsIgnoreCase(KFSConstants.DOC_HANDLER_METHOD) && travelAuthDocument.getPrimaryDestinationId() != null){
-            if (travelAuthDocument.getPrimaryDestinationId().intValue() == TemConstants.CUSTOM_PRIMARY_DESTINATION_ID){
+        if (((TravelFormBase) form).getMethodToCall().equalsIgnoreCase(KFSConstants.DOC_HANDLER_METHOD) && travelAuthDocument.getPrimaryDestinationId() != null) {
+            if (travelAuthDocument.getPrimaryDestinationId().intValue() == TemConstants.CUSTOM_PRIMARY_DESTINATION_ID) {
                 travelAuthDocument.getPrimaryDestination().setPrimaryDestinationName(travelAuthDocument.getPrimaryDestinationName());
                 travelAuthDocument.getPrimaryDestination().setCounty(travelAuthDocument.getPrimaryDestinationCounty());
                 travelAuthDocument.getPrimaryDestination().getRegion().setRegionName(travelAuthDocument.getPrimaryDestinationCountryState());
@@ -167,7 +165,7 @@ public class TravelAuthorizationAction extends TravelActionBase {
         request.setAttribute(EMPLOYEE_TEST_ATTRIBUTE, isEmployee(travelAuthDocument.getTraveler()));
 
         // force recalculate
-        if(!getCalculateIgnoreList().contains(authForm.getMethodToCall())){
+        if (!getCalculateIgnoreList().contains(authForm.getMethodToCall())) {
             recalculateTripDetailTotalOnly(mapping, form, request, response);
         }
 
@@ -186,6 +184,7 @@ public class TravelAuthorizationAction extends TravelActionBase {
 
     /**
      * Decides whether to show the tab which allows the traveler to accept the rules with receiving a travel advance
+     *
      * @param form the form for the travel authorization
      */
     private void setupTravelAdvances(TravelAuthorizationForm form) {
@@ -194,13 +193,12 @@ public class TravelAuthorizationAction extends TravelActionBase {
         String initiator = document.getDocumentHeader().getWorkflowDocument().getInitiatorPrincipalId();
         String travelerID = "";
         boolean showPolicy = false;
-        if (document.getTraveler() != null){
+        if (document.getTraveler() != null) {
             travelerID = document.getTraveler().getPrincipalId();
-            if (travelerID != null){
+            if (travelerID != null) {
                 //traveler must accept policy, if initiator is arranger, the traveler will have to accept later.
                 showPolicy = initiator.equals(travelerID) || GlobalVariables.getUserSession().getPrincipalId().equals(travelerID);
-            }
-            else{ //Non-kim traveler, arranger accepts policy
+            } else { //Non-kim traveler, arranger accepts policy
                 showPolicy = true;
             }
         }
@@ -211,22 +209,24 @@ public class TravelAuthorizationAction extends TravelActionBase {
 
     /**
      * Extended to handle the overrides for the advances accounting lines
+     *
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#processAccountingLineOverrides(org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase)
      */
     @Override
     protected void processAccountingLineOverrides(KualiAccountingDocumentFormBase transForm) {
         super.processAccountingLineOverrides(transForm);
-        processAccountingLineOverrides(((TravelAuthorizationForm)transForm).getNewAdvanceAccountingLine());
+        processAccountingLineOverrides(((TravelAuthorizationForm) transForm).getNewAdvanceAccountingLine());
         if (transForm.hasDocumentId()) {
             TravelAuthorizationDocument authorizationDocument = (TravelAuthorizationDocument) transForm.getDocument();
             if (!ObjectUtils.isNull(authorizationDocument.getAdvanceAccountingLines()) && !authorizationDocument.getAdvanceAccountingLines().isEmpty()) {
-                processAccountingLineOverrides(authorizationDocument,authorizationDocument.getAdvanceAccountingLines());
+                processAccountingLineOverrides(authorizationDocument, authorizationDocument.getAdvanceAccountingLines());
             }
         }
     }
 
     /**
      * If the parameter KFS-TEM / TravelAuthorization / TRAVEL_ADVANCE_OBJECT_CODE is set and some of the advance accounting lines do not have object codes set, fill the object codes in
+     *
      * @param form the form with the document to update
      */
     protected void populateAnyMissingAdvanceAccountingLineObjectCodes(TravelAuthorizationForm form) {
@@ -246,9 +246,10 @@ public class TravelAuthorizationAction extends TravelActionBase {
 
     /**
      * This action executes an insert of an accounting line associated with an advance
-     * @param mapping this is the mapping
-     * @param form this is the form
-     * @param request we have to assume this is a "request" of some sort
+     *
+     * @param mapping  this is the mapping
+     * @param form     this is the form
+     * @param request  we have to assume this is a "request" of some sort
      * @param response is this used?  for...something?
      * @return ActionForward we promise to return one of these things
      * @throws Exception 'cause sometimes bad things happen
@@ -275,9 +276,10 @@ public class TravelAuthorizationAction extends TravelActionBase {
      * This method will remove an accounting line associated with the travel advance from a FinancialDocument. This assumes that the user presses the delete button
      * for a specific accounting line on the document and that the document is represented by a FinancialDocumentFormBase.  If these assumptions are not meant...wow.
      * That's trouble, isn't it?
-     * @param mapping a thing
-     * @param form another thing
-     * @param request I'm sure the Struts documentation covers this in detail
+     *
+     * @param mapping  a thing
+     * @param form     another thing
+     * @param request  I'm sure the Struts documentation covers this in detail
      * @param response for the remaining amount of time we're using Struts
      * @return ActionForward ah well...enjoy this, upcoming javadoc'ers
      * @throws Exception thrown if a bad thing happens
@@ -293,9 +295,8 @@ public class TravelAuthorizationAction extends TravelActionBase {
         if (rulePassed) {
             authorizationDocumentForm.setAnchor(TemConstants.SOURCE_ANCHOR);
             authorizationDocumentForm.getTravelAuthorizationDocument().getAdvanceAccountingLines().remove(deleteIndex);
-        }
-        else {
-            String[] errorParams = new String[] { "source", Integer.toString(deleteIndex + 1) };
+        } else {
+            String[] errorParams = new String[]{"source", Integer.toString(deleteIndex + 1)};
             GlobalVariables.getMessageMap().putError(errorPath, KFSKeyConstants.ERROR_ACCOUNTINGLINE_DELETERULE_INVALIDACCOUNT, errorParams);
         }
 
@@ -305,6 +306,7 @@ public class TravelAuthorizationAction extends TravelActionBase {
     /**
      * Takes care of storing the action form in the User session and forwarding to the balance inquiry report menu action for an accounting line
      * associated with a travel advance
+     *
      * @param mapping
      * @param form
      * @param request
@@ -339,7 +341,7 @@ public class TravelAuthorizationAction extends TravelActionBase {
      * from a lookup by checking the refreshCaller attribute. We know it's for an object code when an object code for a
      * newSourceLine is present in the request parameter.
      *
-     * @param form to get refresh caller from
+     * @param form    to get refresh caller from
      * @param request to get the object code parameter from
      * @return boolean true if return from an object code lookup or false otherwise
      */
@@ -352,12 +354,10 @@ public class TravelAuthorizationAction extends TravelActionBase {
 
         if (!StringUtils.isBlank(document.getAppDocStatus())) {
             if (document.getAppDocStatus().equals(TravelAuthorizationStatusCodeKeys.REIMB_HELD)) {
-                KNSGlobalVariables.getMessageList().add(TemKeyConstants.TA_MESSAGE_HOLD_DOCUMENT_TEXT, new String[] { document.getHoldRequestorPersonName() });
-            }
-            else if (document.getAppDocStatus().equals(TravelAuthorizationStatusCodeKeys.RETIRED_VERSION)) {
+                KNSGlobalVariables.getMessageList().add(TemKeyConstants.TA_MESSAGE_HOLD_DOCUMENT_TEXT, new String[]{document.getHoldRequestorPersonName()});
+            } else if (document.getAppDocStatus().equals(TravelAuthorizationStatusCodeKeys.RETIRED_VERSION)) {
                 KNSGlobalVariables.getMessageList().add(TemKeyConstants.TA_MESSAGE_RETIRED_DOCUMENT_TEXT);
-            }
-            else if (document.getAppDocStatus().equals(TravelAuthorizationStatusCodeKeys.PEND_AMENDMENT)) {
+            } else if (document.getAppDocStatus().equals(TravelAuthorizationStatusCodeKeys.PEND_AMENDMENT)) {
                 KNSGlobalVariables.getMessageList().add(TemKeyConstants.TA_MESSAGE_AMEND_DOCUMENT_TEXT);
             }
         }
@@ -379,7 +379,7 @@ public class TravelAuthorizationAction extends TravelActionBase {
 
         TravelAuthorizationAuthorizer documentAuthorizer = getDocumentAuthorizer(authForm);
         can = documentAuthorizer.hideButtons(authForm.getTravelAuthorizationDocument(), GlobalVariables.getUserSession().getPerson());
-        if (can){
+        if (can) {
             authForm.getDocumentActions().remove(KRADConstants.KUALI_ACTION_CAN_SAVE);
             authForm.getDocumentActions().remove(KRADConstants.KUALI_ACTION_CAN_CLOSE);
             authForm.getDocumentActions().remove(KRADConstants.KUALI_ACTION_CAN_SEND_ADHOC_REQUESTS);
@@ -395,19 +395,18 @@ public class TravelAuthorizationAction extends TravelActionBase {
             can = documentAuthorizer.canSave(authForm.getTravelAuthorizationDocument(), GlobalVariables.getUserSession().getPerson());
         }
 
-        if (!can){
+        if (!can) {
             boolean isTravelManager = getTravelDocumentService().isTravelManager(GlobalVariables.getUserSession().getPerson());
             boolean isDelinquent = authForm.getTravelAuthorizationDocument().getDelinquentAction() != null;
 
-            if (isTravelManager && isDelinquent){
+            if (isTravelManager && isDelinquent) {
                 can = true;
             }
         }
 
         if (can) {
-            authForm.getDocumentActions().put(KRADConstants.KUALI_ACTION_CAN_SAVE,true);
-        }
-        else{
+            authForm.getDocumentActions().put(KRADConstants.KUALI_ACTION_CAN_SAVE, true);
+        } else {
             authForm.getDocumentActions().remove(KRADConstants.KUALI_ACTION_CAN_SAVE);
         }
     }
@@ -416,7 +415,7 @@ public class TravelAuthorizationAction extends TravelActionBase {
      * Overriding this so that we can populate the transportation modes before a user leaves the page
      *
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#performLookup(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward performLookup(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -424,8 +423,7 @@ public class TravelAuthorizationAction extends TravelActionBase {
         List<String> selectedTransportationModes = authForm.getTempSelectedTransporationModes();
         if (selectedTransportationModes != null) {
             authForm.getTravelAuthorizationDocument().setTransportationModeCodes(selectedTransportationModes);
-        }
-        else {
+        } else {
             authForm.getTravelAuthorizationDocument().setTransportationModeCodes(new ArrayList<String>());
         }
 
@@ -434,7 +432,7 @@ public class TravelAuthorizationAction extends TravelActionBase {
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiAction#refresh(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward refresh(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -443,7 +441,7 @@ public class TravelAuthorizationAction extends TravelActionBase {
 
         String refreshCaller = authForm.getRefreshCaller();
 
-        LOG.debug("refresh call is: "+ refreshCaller);
+        LOG.debug("refresh call is: " + refreshCaller);
         String groupTravelerId = request.getParameter("newGroupTravelerLine.groupTravelerEmpId");
         // if a cancel occurred on address lookup we need to reset the payee id and type, rest of fields will still have correct
         // information
@@ -460,7 +458,6 @@ public class TravelAuthorizationAction extends TravelActionBase {
     }
 
     /**
-     *
      * @param travelReqDoc
      * @param request
      * @param authForm
@@ -468,10 +465,9 @@ public class TravelAuthorizationAction extends TravelActionBase {
     protected void refreshTransportationModesAfterButtonAction(TravelAuthorizationDocument travelReqDoc, TravelAuthorizationForm authForm) {
         List<String> selectedTransportationModes = authForm.getTempSelectedTransporationModes();
         if (selectedTransportationModes != null) {
-            LOG.debug("selected transportation modes are: "+ selectedTransportationModes.toString());
+            LOG.debug("selected transportation modes are: " + selectedTransportationModes.toString());
             travelReqDoc.setTransportationModeCodes(selectedTransportationModes);
-        }
-        else {
+        } else {
             LOG.debug("setting selected transportation modes to empty list");
             travelReqDoc.setTransportationModeCodes(new ArrayList<String>());
         }
@@ -479,17 +475,17 @@ public class TravelAuthorizationAction extends TravelActionBase {
 
     @Override
     protected void performRequesterRefresh(TravelDocument document, TravelFormBase travelForm, HttpServletRequest request) {
-        LOG.debug("Looking up customer with number "+ document.getTraveler().getCustomerNumber());
+        LOG.debug("Looking up customer with number " + document.getTraveler().getCustomerNumber());
         document.getTraveler().refreshReferenceObject(TemPropertyConstants.CUSTOMER);
         document.getTraveler().refreshReferenceObject(TemPropertyConstants.TRAVELER_TYPE);
-        LOG.debug("Got "+ document.getTraveler().getCustomer());
+        LOG.debug("Got " + document.getTraveler().getCustomer());
 
         if (document.getTraveler().getPrincipalId() != null) {
             final String principalName = getPersonService().getPerson(document.getTraveler().getPrincipalId()).getPrincipalName();
             document.getTraveler().setPrincipalName(principalName);
         }
 
-        ((TravelAuthorizationDocument)document).updatePayeeTypeForAuthorization();
+        ((TravelAuthorizationDocument) document).updatePayeeTypeForAuthorization();
         updateAccountsWithNewProfile(travelForm, document.getTemProfile());
     }
 
@@ -543,7 +539,7 @@ public class TravelAuthorizationAction extends TravelActionBase {
 
     /**
      * @see org.kuali.kfs.module.tem.document.web.struts.TravelActionBase#updatePerDiemExpenses(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward updatePerDiemExpenses(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -559,7 +555,7 @@ public class TravelAuthorizationAction extends TravelActionBase {
 
     /**
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#save(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward save(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -567,9 +563,9 @@ public class TravelAuthorizationAction extends TravelActionBase {
         TravelAuthorizationDocument travelReqDoc = authForm.getTravelAuthorizationDocument();
         String tripTypeCode = travelReqDoc.getTripTypeCode();
 
-        LOG.debug("Got special circumstances "+ authForm.getTravelAuthorizationDocument().getSpecialCircumstances());
-        LOG.debug("Save Called on "+ getClass().getSimpleName()+ " for "+ authForm.getDocument().getClass().getSimpleName());
-        LOG.debug("Saving document traveler detail "+ travelReqDoc.getTravelerDetailId());
+        LOG.debug("Got special circumstances " + authForm.getTravelAuthorizationDocument().getSpecialCircumstances());
+        LOG.debug("Save Called on " + getClass().getSimpleName() + " for " + authForm.getDocument().getClass().getSimpleName());
+        LOG.debug("Saving document traveler detail " + travelReqDoc.getTravelerDetailId());
 
         return super.save(mapping, form, request, response);
     }
@@ -588,6 +584,7 @@ public class TravelAuthorizationAction extends TravelActionBase {
     }
 
     // Custom button actions
+
     /**
      * For use with a specific set of methods of this class that create new purchase order-derived document types in response to
      * user actions, including <code>amendTa</code>. It employs the question framework to ask the user for a response before
@@ -595,16 +592,16 @@ public class TravelAuthorizationAction extends TravelActionBase {
      * method can be better understood if it is noted that it will be gone through twice (via the question framework); when each
      * question is originally asked, and again when the yes/no response is processed, for confirmation.
      *
-     * @param mapping These are boiler-plate.
-     * @param form "
-     * @param request "
-     * @param response "
+     * @param mapping      These are boiler-plate.
+     * @param form         "
+     * @param request      "
+     * @param response     "
      * @param questionType A string identifying the type of question being asked.
-     * @param confirmType A string identifying which type of question is being confirmed.
+     * @param confirmType  A string identifying which type of question is being confirmed.
      * @param documentType A string, the type of document to create
-     * @param notePrefix A string to appear before the note in the BO Notes tab
-     * @param messageType A string to appear on the PO once the question framework is done, describing the action taken
-     * @param operation A string, the verb to insert in the original question describing the action to be taken
+     * @param notePrefix   A string to appear before the note in the BO Notes tab
+     * @param messageType  A string to appear on the PO once the question framework is done, describing the action taken
+     * @param operation    A string, the verb to insert in the original question describing the action to be taken
      * @return An ActionForward
      * @throws Exception
      */
@@ -627,21 +624,18 @@ public class TravelAuthorizationAction extends TravelActionBase {
                 message = StringUtils.replace(key, "{0}", operation);
                 // Ask question if not already asked.
                 return this.performQuestionWithInput(mapping, form, request, response, questionType, message, KFSConstants.CONFIRMATION_QUESTION, questionType, "");
-            }
-            else {
+            } else {
                 Object buttonClicked = request.getParameter(KFSConstants.QUESTION_CLICKED_BUTTON);
                 if (question.equals(questionType) && buttonClicked.equals(ConfirmationQuestion.NO)) {
 
                     // If 'No' is the button clicked, just reload the doc
                     return returnToPreviousPage(mapping, taForm);
-                }
-                else if (question.equals(confirmType) && buttonClicked.equals(SingleConfirmationQuestion.OK)) {
+                } else if (question.equals(confirmType) && buttonClicked.equals(SingleConfirmationQuestion.OK)) {
 
                     // This is the case when the user clicks on "OK" in the end.
                     // After we inform the user that the close has been rerouted, we'll redirect to the portal page.
                     return mapping.findForward(KFSConstants.MAPPING_PORTAL);
-                }
-                else {
+                } else {
                     // Have to check length on value entered.
                     String introNoteMessage = notePrefix + KFSConstants.BLANK_SPACE;
 
@@ -672,11 +666,9 @@ public class TravelAuthorizationAction extends TravelActionBase {
                 newStatus = TemConstants.TravelAuthorizationStatusCodeKeys.PEND_AMENDMENT;
                 returnActionForward = mapping.findForward(KFSConstants.MAPPING_BASIC);
                 noteText = noteText + " (Previous Document Id is " + taForm.getDocId() + ")";
-            }
-            else if (questionType.equals(TemConstants.HOLD_TA_QUESTION)) {
+            } else if (questionType.equals(TemConstants.HOLD_TA_QUESTION)) {
                 newStatus = TemConstants.TravelAuthorizationStatusCodeKeys.REIMB_HELD;
-            }
-            else if (questionType.equals(TemConstants.REMOVE_HOLD_TA_QUESTION)) {
+            } else if (questionType.equals(TemConstants.REMOVE_HOLD_TA_QUESTION)) {
                 newStatus = TemConstants.TravelAuthorizationStatusCodeKeys.OPEN_REIMB;
             }
 
@@ -700,12 +692,10 @@ public class TravelAuthorizationAction extends TravelActionBase {
 
             if (ObjectUtils.isNotNull(returnActionForward)) {
                 return returnActionForward;
-            }
-            else {
+            } else {
                 return this.performQuestionWithoutInput(mapping, form, request, response, confirmType, kualiConfiguration.getPropertyValueAsString(messageType), "temSingleConfirmationQuestion", questionType, "");
             }
-        }
-        catch (ValidationException ve) {
+        } catch (ValidationException ve) {
             throw ve;
         }
     }
@@ -717,20 +707,20 @@ public class TravelAuthorizationAction extends TravelActionBase {
      * display a Single Confirmation page to inform the user that the <code>TravelAuthorizationAmendmentDocument</code> has been
      * routed.
      *
-     * @param mapping An ActionMapping
-     * @param form An ActionForm
-     * @param request The HttpServletRequest
+     * @param mapping  An ActionMapping
+     * @param form     An ActionForm
+     * @param request  The HttpServletRequest
      * @param response The HttpServletResponse
-     * @throws Exception
      * @return An ActionForward
+     * @throws Exception
      * @see org.kuali.kfs.module.tem.document.TravelAuthorizationAmendmentDocument
      */
     public ActionForward amendTa(final ActionMapping mapping, final ActionForm form, final HttpServletRequest request, final HttpServletResponse response) throws Exception {
         LOG.debug("Amend TA started");
         final Inquisitive<TravelAuthorizationDocument, ActionForward> inq = getInquisitive(mapping, form, request, response);
         if (inq.wasQuestionAsked()) {
-            if (request.getParameterMap().containsKey(KFSConstants.QUESTION_REASON_ATTRIBUTE_NAME)){
-                getDocumentService().saveDocument(((TravelAuthorizationForm)form).getDocument(), AccountingDocumentSaveWithNoLedgerEntryGenerationEvent.class);
+            if (request.getParameterMap().containsKey(KFSConstants.QUESTION_REASON_ATTRIBUTE_NAME)) {
+                getDocumentService().saveDocument(((TravelAuthorizationForm) form).getDocument(), AccountingDocumentSaveWithNoLedgerEntryGenerationEvent.class);
             }
         }
         ActionForward forward = askQuestionsAndPerformDocumentAction(inq, TemConstants.AMENDMENT_TA_QUESTION);
@@ -739,7 +729,6 @@ public class TravelAuthorizationAction extends TravelActionBase {
     }
 
     /**
-     *
      * @param mapping
      * @param form
      * @param request
@@ -754,7 +743,6 @@ public class TravelAuthorizationAction extends TravelActionBase {
     }
 
     /**
-     *
      * @param mapping
      * @param form
      * @param request
@@ -769,7 +757,6 @@ public class TravelAuthorizationAction extends TravelActionBase {
     }
 
     /**
-     *
      * @param mapping
      * @param form
      * @param request
@@ -784,7 +771,6 @@ public class TravelAuthorizationAction extends TravelActionBase {
     }
 
     /**
-     *
      * @param mapping
      * @param form
      * @param request
@@ -812,12 +798,11 @@ public class TravelAuthorizationAction extends TravelActionBase {
      * @throws Exception
      */
     public ActionForward newReimbursement(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        final TravelAuthorizationDocument travelAuth = ((TravelAuthorizationForm)form).getTravelAuthorizationDocument();
+        final TravelAuthorizationDocument travelAuth = ((TravelAuthorizationForm) form).getTravelAuthorizationDocument();
         return new ActionForward(buildNewReimbursementUrl(travelAuth), true);
     }
 
     /**
-     *
      * @param mapping
      * @param form
      * @param request
@@ -831,7 +816,6 @@ public class TravelAuthorizationAction extends TravelActionBase {
     }
 
     /**
-     *
      * @param inq
      * @param questionId
      * @return
@@ -875,11 +859,9 @@ public class TravelAuthorizationAction extends TravelActionBase {
 
         if (ObjectUtils.isNull(expenseTotal)) {
             amount = encTotal.subtract(accountingTotal);
-        }
-        else if (expenseTotal.isLessThan(encTotal)) {
+        } else if (expenseTotal.isLessThan(encTotal)) {
             amount = expenseTotal.subtract(accountingTotal);
-        }
-        else {
+        } else {
             amount = encTotal.subtract(accountingTotal);
         }
 
@@ -893,7 +875,7 @@ public class TravelAuthorizationAction extends TravelActionBase {
     public ActionForward insertSourceLine(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         TravelAuthorizationForm travelauthForm = (TravelAuthorizationForm) form;
         // before we try to insert - set the card type to encumbrance
-        TemSourceAccountingLine accountingLine = (TemSourceAccountingLine)(((TravelAuthorizationForm)form).getNewSourceLine());
+        TemSourceAccountingLine accountingLine = (TemSourceAccountingLine) (((TravelAuthorizationForm) form).getNewSourceLine());
         accountingLine.setCardType(TemConstants.ENCUMBRANCE);
 
         super.insertSourceLine(mapping, form, request, response);
@@ -965,9 +947,9 @@ public class TravelAuthorizationAction extends TravelActionBase {
      */
     @Override
     public ActionForward blanketApprove(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        if (((TravelAuthorizationForm)form).getTravelAuthorizationDocument().shouldProcessAdvanceForDocument()) {
-            ((TravelAuthorizationForm)form).getTravelAuthorizationDocument().propagateAdvanceInformationIfNeeded();
-            ((TravelAuthorizationForm)form).getTravelAuthorizationDocument().getTravelAdvance().setTravelAdvancePolicy(true);
+        if (((TravelAuthorizationForm) form).getTravelAuthorizationDocument().shouldProcessAdvanceForDocument()) {
+            ((TravelAuthorizationForm) form).getTravelAuthorizationDocument().propagateAdvanceInformationIfNeeded();
+            ((TravelAuthorizationForm) form).getTravelAuthorizationDocument().getTravelAdvance().setTravelAdvancePolicy(true);
         }
 
         return super.blanketApprove(mapping, form, request, response);
@@ -975,18 +957,20 @@ public class TravelAuthorizationAction extends TravelActionBase {
 
     /**
      * At PaymentMethod node, propogate the advance amount if needed
+     *
      * @see org.kuali.kfs.module.tem.document.web.struts.TravelActionBase#approve(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward approve(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        if (isAtApprovalPropagateAdvanceInfoNode(((TravelAuthorizationForm)form).getTravelAuthorizationDocument().getDocumentHeader().getWorkflowDocument().getCurrentNodeNames()) && ((TravelAuthorizationForm)form).getTravelAuthorizationDocument().shouldProcessAdvanceForDocument()) {
-            ((TravelAuthorizationForm)form).getTravelAuthorizationDocument().propagateAdvanceInformationIfNeeded();
+        if (isAtApprovalPropagateAdvanceInfoNode(((TravelAuthorizationForm) form).getTravelAuthorizationDocument().getDocumentHeader().getWorkflowDocument().getCurrentNodeNames()) && ((TravelAuthorizationForm) form).getTravelAuthorizationDocument().shouldProcessAdvanceForDocument()) {
+            ((TravelAuthorizationForm) form).getTravelAuthorizationDocument().propagateAdvanceInformationIfNeeded();
         }
         return super.approve(mapping, form, request, response);
     }
 
     /**
      * Determines if the approval request is coming from a node which should propagate advance information (specifically the amount of the advance)
+     *
      * @param nodeNames the Set of nodes where the document is currently at
      * @return true if the advance info should be propagated, false otherwise
      */
@@ -1001,8 +985,8 @@ public class TravelAuthorizationAction extends TravelActionBase {
      * action which clears out an advance - this allows travel managers to clear advance as needed
      */
     public ActionForward clearAdvance(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        if (((TravelAuthorizationForm)form).getTravelAuthorizationDocument().shouldProcessAdvanceForDocument()) {
-            final TravelAuthorizationDocument doc = ((TravelAuthorizationForm)form).getTravelAuthorizationDocument();
+        if (((TravelAuthorizationForm) form).getTravelAuthorizationDocument().shouldProcessAdvanceForDocument()) {
+            final TravelAuthorizationDocument doc = ((TravelAuthorizationForm) form).getTravelAuthorizationDocument();
             doc.getTravelAdvance().clear();
             // clean up due date and payment amount from travel payment
             if (!ObjectUtils.isNull(doc.getAdvanceTravelPayment())) {
@@ -1034,6 +1018,7 @@ public class TravelAuthorizationAction extends TravelActionBase {
 
     /**
      * Overridden to always return TravelAuthorizationDocument even if we're dealing with an amendment or a close
+     *
      * @see org.kuali.kfs.module.tem.document.web.struts.TravelActionBase#showAccountDistribution(javax.servlet.http.HttpServletRequest, org.kuali.rice.krad.document.Document)
      */
     @Override
@@ -1048,6 +1033,7 @@ public class TravelAuthorizationAction extends TravelActionBase {
 
     /**
      * Overridden so that if a TAA is copied, it actually generates a new TA
+     *
      * @see org.kuali.rice.kns.web.struts.action.KualiTransactionalDocumentActionBase#copy(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
@@ -1076,7 +1062,7 @@ public class TravelAuthorizationAction extends TravelActionBase {
         boolean openTab = false;
         Collection<String> internationalTrips = getParameterService().getParameterValuesAsString(TemParameterConstants.TEM_DOCUMENT.class, TravelParameters.INTERNATIONAL_TRIP_TYPES);
         if (travelAuthDocument.getTripTypeCode() != null) {
-            if (internationalTrips.contains(travelAuthDocument.getTripTypeCode())){
+            if (internationalTrips.contains(travelAuthDocument.getTripTypeCode())) {
                 openTab = true;
             }
 

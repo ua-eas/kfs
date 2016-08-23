@@ -1,28 +1,24 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.document.service;
 
-import java.io.ByteArrayOutputStream;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
+import com.lowagie.text.DocumentException;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionAdministrativePost;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionIntendedIncumbent;
@@ -32,7 +28,10 @@ import org.kuali.kfs.module.bc.businessobject.BudgetConstructionSalaryFunding;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionSalarySocialSecurityNumber;
 import org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding;
 
-import com.lowagie.text.DocumentException;
+import java.io.ByteArrayOutputStream;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -42,7 +41,7 @@ public interface BudgetConstructionReportsServiceHelper {
 
     /**
      * generates the data for an object representing the report data from temporary storage for a specific user
-     * 
+     *
      * @param clazz
      * @param principalName
      * @param orderList
@@ -52,7 +51,7 @@ public interface BudgetConstructionReportsServiceHelper {
 
     /**
      * generates the data for an object representing the report data
-     * 
+     *
      * @param clazz
      * @param searchCriteria
      * @param orderList
@@ -62,7 +61,7 @@ public interface BudgetConstructionReportsServiceHelper {
 
     /**
      * generates PFD file containing the errorMessages passed in
-     * 
+     *
      * @param errorMessages
      * @param baos
      * @throws DocumentException
@@ -71,7 +70,7 @@ public interface BudgetConstructionReportsServiceHelper {
 
     /**
      * get an object code
-     * 
+     *
      * @param universityFiscalYear
      * @param chartOfAccountsCode
      * @param financialObjectCode
@@ -81,7 +80,7 @@ public interface BudgetConstructionReportsServiceHelper {
 
     /**
      * get the selected object codes from the list displayed to the user
-     * 
+     *
      * @param principalName
      * @return
      */
@@ -89,7 +88,7 @@ public interface BudgetConstructionReportsServiceHelper {
 
     /**
      * get the selected reason codes from the list displayed to the user
-     * 
+     *
      * @param principalName
      * @return
      */
@@ -97,7 +96,7 @@ public interface BudgetConstructionReportsServiceHelper {
 
     /**
      * get a budget construction administrative post
-     * 
+     *
      * @param appointmentFundingEntry
      * @return
      */
@@ -105,7 +104,7 @@ public interface BudgetConstructionReportsServiceHelper {
 
     /**
      * get a budget construction position for an appointment funding
-     * 
+     *
      * @param universityFiscalYear
      * @param appointmentFundingEntry
      * @return
@@ -114,7 +113,7 @@ public interface BudgetConstructionReportsServiceHelper {
 
     /**
      * get a budget construction intended incumbent for an appointment funding
-     * 
+     *
      * @param appointmentFundingEntry
      * @return
      */
@@ -122,7 +121,7 @@ public interface BudgetConstructionReportsServiceHelper {
 
     /**
      * gets the budget construction appointment fundings for an object dump
-     * 
+     *
      * @param universityFiscalYear
      * @param budgetConstructionObjectDump
      * @return
@@ -131,7 +130,7 @@ public interface BudgetConstructionReportsServiceHelper {
 
     /**
      * gets a budget construction salary ssn for salary funding
-     * 
+     *
      * @param principalName
      * @param salaryFunding
      * @return
@@ -140,7 +139,7 @@ public interface BudgetConstructionReportsServiceHelper {
 
     /**
      * gets salary funding from temporary storage for a specific user
-     * 
+     *
      * @param principalName
      * @param emplid
      * @return

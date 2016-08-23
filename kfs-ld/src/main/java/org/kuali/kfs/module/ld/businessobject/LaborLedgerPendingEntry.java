@@ -1,33 +1,33 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.module.ld.businessobject;
 
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.sql.Timestamp;
-
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
 import org.kuali.kfs.integration.ld.LaborLedgerPendingEntryForSearching;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.businessobject.OriginationCode;
 import org.kuali.kfs.sys.businessobject.UniversityDate;
+
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * Labor business object for LaborLedgerPendingEntry.
@@ -69,7 +69,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Gets the positionNumber.
-     * 
+     *
      * @return Returns the positionNumber
      */
     public String getPositionNumber() {
@@ -78,7 +78,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Sets the positionNumber.
-     * 
+     *
      * @param positionNumber The positionNumber to set.
      */
     public void setPositionNumber(String positionNumber) {
@@ -87,7 +87,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Gets the transactionPostingDate.
-     * 
+     *
      * @return Returns the transactionPostingDate
      */
     public Date getTransactionPostingDate() {
@@ -96,7 +96,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Sets the transactionPostingDate.
-     * 
+     *
      * @param transactionPostingDate The transactionPostingDate to set.
      */
     public void setTransactionPostingDate(Date transactionPostingDate) {
@@ -105,7 +105,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Gets the payPeriodEndDate.
-     * 
+     *
      * @return Returns the payPeriodEndDate
      */
     public Date getPayPeriodEndDate() {
@@ -114,7 +114,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Sets the payPeriodEndDate.
-     * 
+     *
      * @param payPeriodEndDate The payPeriodEndDate to set.
      */
     public void setPayPeriodEndDate(Date payPeriodEndDate) {
@@ -123,7 +123,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Gets the transactionTotalHours.
-     * 
+     *
      * @return Returns the transactionTotalHours
      */
     public BigDecimal getTransactionTotalHours() {
@@ -132,7 +132,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Sets the transactionTotalHours.
-     * 
+     *
      * @param transactionTotalHours The transactionTotalHours to set.
      */
     public void setTransactionTotalHours(BigDecimal transactionTotalHours) {
@@ -141,7 +141,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Gets the payrollEndDateFiscalYear.
-     * 
+     *
      * @return Returns the payrollEndDateFiscalYear
      */
     public Integer getPayrollEndDateFiscalYear() {
@@ -150,7 +150,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Sets the payrollEndDateFiscalYear.
-     * 
+     *
      * @param payrollEndDateFiscalYear The payrollEndDateFiscalYear to set.
      */
     public void setPayrollEndDateFiscalYear(Integer payrollEndDateFiscalYear) {
@@ -159,7 +159,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Gets the payrollEndDateFiscalPeriodCode.
-     * 
+     *
      * @return Returns the payrollEndDateFiscalPeriodCode
      */
     public String getPayrollEndDateFiscalPeriodCode() {
@@ -168,7 +168,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Sets the payrollEndDateFiscalPeriodCode.
-     * 
+     *
      * @param payrollEndDateFiscalPeriodCode The payrollEndDateFiscalPeriodCode to set.
      */
     public void setPayrollEndDateFiscalPeriodCode(String payrollEndDateFiscalPeriodCode) {
@@ -177,7 +177,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Gets the emplid.
-     * 
+     *
      * @return Returns the emplid
      */
     public String getEmplid() {
@@ -186,7 +186,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Sets the emplid.
-     * 
+     *
      * @param emplid The emplid to set.
      */
     public void setEmplid(String emplid) {
@@ -195,7 +195,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Gets the employeeRecord.
-     * 
+     *
      * @return Returns the employeeRecord
      */
     public Integer getEmployeeRecord() {
@@ -204,7 +204,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Sets the employeeRecord.
-     * 
+     *
      * @param employeeRecord The employeeRecord to set.
      */
     public void setEmployeeRecord(Integer employeeRecord) {
@@ -213,7 +213,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Gets the earnCode.
-     * 
+     *
      * @return Returns the earnCode
      */
     public String getEarnCode() {
@@ -222,7 +222,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Sets the earnCode.
-     * 
+     *
      * @param earnCode The earnCode to set.
      */
     public void setEarnCode(String earnCode) {
@@ -231,7 +231,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Gets the payGroup.
-     * 
+     *
      * @return Returns the payGroup
      */
     public String getPayGroup() {
@@ -240,7 +240,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Sets the payGroup.
-     * 
+     *
      * @param payGroup The payGroup to set.
      */
     public void setPayGroup(String payGroup) {
@@ -249,7 +249,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Gets the salaryAdministrationPlan.
-     * 
+     *
      * @return Returns the salaryAdministrationPlan
      */
     public String getSalaryAdministrationPlan() {
@@ -258,7 +258,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Sets the salaryAdministrationPlan.
-     * 
+     *
      * @param salaryAdministrationPlan The salaryAdministrationPlan to set.
      */
     public void setSalaryAdministrationPlan(String salaryAdministrationPlan) {
@@ -267,7 +267,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Gets the grade.
-     * 
+     *
      * @return Returns the grade
      */
     public String getGrade() {
@@ -276,7 +276,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Sets the grade.
-     * 
+     *
      * @param grade The grade to set.
      */
     public void setGrade(String grade) {
@@ -285,7 +285,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Gets the runIdentifier.
-     * 
+     *
      * @return Returns the runIdentifier
      */
     public String getRunIdentifier() {
@@ -294,7 +294,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Sets the runIdentifier.
-     * 
+     *
      * @param runIdentifier The runIdentifier to set.
      */
     public void setRunIdentifier(String runIdentifier) {
@@ -303,7 +303,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Gets the laborLedgerOriginalChartOfAccountsCode.
-     * 
+     *
      * @return Returns the laborLedgerOriginalChartOfAccountsCode
      */
     public String getLaborLedgerOriginalChartOfAccountsCode() {
@@ -312,7 +312,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Sets the laborLedgerOriginalChartOfAccountsCode.
-     * 
+     *
      * @param laborLedgerOriginalChartOfAccountsCode The laborLedgerOriginalChartOfAccountsCode to set.
      */
     public void setLaborLedgerOriginalChartOfAccountsCode(String laborLedgerOriginalChartOfAccountsCode) {
@@ -321,7 +321,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Gets the laborLedgerOriginalAccountNumber.
-     * 
+     *
      * @return Returns the laborLedgerOriginalAccountNumber
      */
     public String getLaborLedgerOriginalAccountNumber() {
@@ -330,7 +330,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Sets the laborLedgerOriginalAccountNumber.
-     * 
+     *
      * @param laborLedgerOriginalAccountNumber The laborLedgerOriginalAccountNumber to set.
      */
     public void setLaborLedgerOriginalAccountNumber(String laborLedgerOriginalAccountNumber) {
@@ -339,7 +339,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Gets the laborLedgerOriginalSubAccountNumber.
-     * 
+     *
      * @return Returns the laborLedgerOriginalSubAccountNumber
      */
     public String getLaborLedgerOriginalSubAccountNumber() {
@@ -348,7 +348,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Sets the laborLedgerOriginalSubAccountNumber.
-     * 
+     *
      * @param laborLedgerOriginalSubAccountNumber The laborLedgerOriginalSubAccountNumber to set.
      */
     public void setLaborLedgerOriginalSubAccountNumber(String laborLedgerOriginalSubAccountNumber) {
@@ -357,7 +357,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Gets the laborLedgerOriginalFinancialObjectCode.
-     * 
+     *
      * @return Returns the laborLedgerOriginalFinancialObjectCode
      */
     public String getLaborLedgerOriginalFinancialObjectCode() {
@@ -366,7 +366,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Sets the laborLedgerOriginalFinancialObjectCode.
-     * 
+     *
      * @param laborLedgerOriginalFinancialObjectCode The laborLedgerOriginalFinancialObjectCode to set.
      */
     public void setLaborLedgerOriginalFinancialObjectCode(String laborLedgerOriginalFinancialObjectCode) {
@@ -375,7 +375,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Gets the laborLedgerOriginalFinancialSubObjectCode.
-     * 
+     *
      * @return Returns the laborLedgerOriginalFinancialSubObjectCode
      */
     public String getLaborLedgerOriginalFinancialSubObjectCode() {
@@ -384,7 +384,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Sets the laborLedgerOriginalFinancialSubObjectCode.
-     * 
+     *
      * @param laborLedgerOriginalFinancialSubObjectCode The laborLedgerOriginalFinancialSubObjectCode to set.
      */
     public void setLaborLedgerOriginalFinancialSubObjectCode(String laborLedgerOriginalFinancialSubObjectCode) {
@@ -393,7 +393,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Gets the hrmsCompany.
-     * 
+     *
      * @return Returns the hrmsCompany
      */
     public String getHrmsCompany() {
@@ -402,7 +402,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Sets the hrmsCompany.
-     * 
+     *
      * @param hrmsCompany The hrmsCompany to set.
      */
     public void setHrmsCompany(String hrmsCompany) {
@@ -411,7 +411,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Gets the setid.
-     * 
+     *
      * @return Returns the setid
      */
     public String getSetid() {
@@ -420,7 +420,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Sets the setid.
-     * 
+     *
      * @param setid The setid to set.
      */
     public void setSetid(String setid) {
@@ -429,7 +429,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Gets the transactionDateTimeStamp.
-     * 
+     *
      * @return Returns the transactionDateTimeStamp
      */
     public Timestamp getTransactionDateTimeStamp() {
@@ -438,7 +438,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Sets the transactionDateTimeStamp.
-     * 
+     *
      * @param transactionDateTimeStamp The transactionDateTimeStamp to set.
      */
     public void setTransactionDateTimeStamp(Timestamp transactionDateTimeStamp) {
@@ -447,7 +447,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Gets the payrollEndDateFiscalPeriod.
-     * 
+     *
      * @return Returns the payrollEndDateFiscalPeriod.
      */
     public AccountingPeriod getPayrollEndDateFiscalPeriod() {
@@ -456,7 +456,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Sets the payrollEndDateFiscalPeriod.
-     * 
+     *
      * @param payrollEndDateFiscalPeriod The payrollEndDateFiscalPeriod to set.
      */
     @Deprecated
@@ -466,7 +466,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Gets the reversalDate.
-     * 
+     *
      * @return Returns the reversalDate.
      */
     public UniversityDate getReversalDate() {
@@ -475,7 +475,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Sets the reversalDate.
-     * 
+     *
      * @param reversalDate The reversalDate to set.
      */
     @Deprecated
@@ -485,7 +485,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Gets the universityFiscalPeriod.
-     * 
+     *
      * @return Returns the universityFiscalPeriod.
      */
     public AccountingPeriod getUniversityFiscalPeriod() {
@@ -494,7 +494,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Sets the universityFiscalPeriod.
-     * 
+     *
      * @param universityFiscalPeriod The universityFiscalPeriod to set.
      */
     @Deprecated
@@ -504,7 +504,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Gets the positionData.
-     * 
+     *
      * @return Returns the positionData.
      */
     public PositionData getPositionData() {
@@ -513,7 +513,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Sets the positionData.
-     * 
+     *
      * @param positionData The positionData to set.
      */
     public void setPositionData(PositionData positionData) {
@@ -522,7 +522,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Gets the ReferenceOriginationCode.
-     * 
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LaborTransaction#getReferenceFinancialSystemOrigination()
      */
     public OriginationCode getReferenceFinancialSystemOrigination() {
@@ -531,7 +531,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Sets the transactionEntryOffsetCode.
-     * 
+     *
      * @param transactionEntryOffsetCode The transactionEntryOffsetCode to set.
      */
     public void setTransactionEntryOffsetCode(String transactionEntryOffsetCode) {
@@ -540,7 +540,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Gets the transactionEntryOffsetCode.
-     * 
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LaborTransaction#getTransactionEntryOffsetCode()
      */
     public String getTransactionEntryOffsetCode() {
@@ -549,7 +549,7 @@ public class LaborLedgerPendingEntry extends GeneralLedgerPendingEntry implement
 
     /**
      * Gets the TransactionEntryProcessedTs.
-     * 
+     *
      * @see org.kuali.kfs.module.ld.businessobject.LaborTransaction#getTransactionEntryProcessedTimestamp()
      */
     public Timestamp getTransactionEntryProcessedTimestamp() {

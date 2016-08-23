@@ -1,46 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.batch;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.util.List;
-
-import javax.xml.XMLConstants;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.validation.Validator;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -57,6 +33,29 @@ import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.springframework.core.io.UrlResource;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
+
+import javax.xml.XMLConstants;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.util.List;
 
 public class PerDiemXmlInputFileType extends XmlBatchInputFileTypeBase {
     private static Logger LOG = Logger.getLogger(PerDiemXmlInputFileType.class);
@@ -96,7 +95,7 @@ public class PerDiemXmlInputFileType extends XmlBatchInputFileTypeBase {
      */
     @Override
     public Object parse(byte[] fileByteContent) throws ParseException {
-        List<PerDiemForLoad> perDiemList = (List<PerDiemForLoad>)(super.parse(fileByteContent));
+        List<PerDiemForLoad> perDiemList = (List<PerDiemForLoad>) (super.parse(fileByteContent));
 
         PerDiemLoadService perDiemLoadService = SpringContext.getBean(PerDiemLoadService.class);
         perDiemList = perDiemLoadService.updatePerDiem(perDiemList);
@@ -110,7 +109,7 @@ public class PerDiemXmlInputFileType extends XmlBatchInputFileTypeBase {
     @Override
     public boolean validate(Object parsedFileContents) {
         PerDiemLoadValidationService perDiemLoadValidationService = SpringContext.getBean(PerDiemLoadValidationService.class);
-        List<PerDiemForLoad> perDiemList = (List<PerDiemForLoad>)parsedFileContents;
+        List<PerDiemForLoad> perDiemList = (List<PerDiemForLoad>) parsedFileContents;
 
         return perDiemLoadValidationService.validate(perDiemList);
     }
@@ -154,16 +153,13 @@ public class PerDiemXmlInputFileType extends XmlBatchInputFileTypeBase {
 
             Source source = this.transform(fileContents);
             validator.validate(source);
-        }
-        catch (MalformedURLException e2) {
+        } catch (MalformedURLException e2) {
             LOG.error("error getting schema url: " + e2.getMessage());
             throw new RuntimeException("error getting schema url:  " + e2.getMessage(), e2);
-        }
-        catch (SAXException e) {
+        } catch (SAXException e) {
             LOG.error("error encountered while parsing xml " + e.getMessage());
             throw new ParseException("Schema validation error occured while processing file: " + e.getMessage(), e);
-        }
-        catch (IOException e1) {
+        } catch (IOException e1) {
             LOG.error("error occured while validating file contents: " + e1.getMessage());
             throw new RuntimeException("error occurred while validating file contents: " + e1.getMessage(), e1);
         }
@@ -191,24 +187,19 @@ public class PerDiemXmlInputFileType extends XmlBatchInputFileTypeBase {
             InputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
 
             return new StreamSource(inputStream);
-        }
-        catch (TransformerConfigurationException ex) {
+        } catch (TransformerConfigurationException ex) {
             LOG.error("error occurred while validating file contents: " + ex.getMessage());
             throw new RuntimeException("error occurred while validating file contents: " + ex.getMessage(), ex);
-        }
-        catch (TransformerException ex) {
+        } catch (TransformerException ex) {
             LOG.error("error occurred while validating file contents: " + ex.getMessage());
             throw new RuntimeException("error occurred while validating file contents: " + ex.getMessage(), ex);
-        }
-        catch (SAXException e) {
+        } catch (SAXException e) {
             LOG.error("error encountered while parsing xml " + e.getMessage());
             throw new ParseException("Schema validation error occured while processing file: " + e.getMessage(), e);
-        }
-        catch (IOException e1) {
+        } catch (IOException e1) {
             LOG.error("error occured while validating file contents: " + e1.getMessage());
             throw new RuntimeException("error occurred while validating file contents: " + e1.getMessage(), e1);
-        }
-        catch (ParserConfigurationException ex) {
+        } catch (ParserConfigurationException ex) {
             LOG.error("error occurred while validating file contents: " + ex.getMessage());
             throw new RuntimeException("error occurred while validating file contents: " + ex.getMessage(), ex);
         }

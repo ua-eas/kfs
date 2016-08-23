@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -23,18 +23,18 @@ import org.apache.log4j.Logger;
 import org.kuali.kfs.coreservice.api.CoreServiceApiServiceLocator;
 import org.kuali.kfs.coreservice.api.component.Component;
 import org.kuali.kfs.coreservice.api.component.ComponentService;
-import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
-import org.kuali.rice.core.api.config.ConfigurationException;
 import org.kuali.kfs.coreservice.framework.parameter.ParameterConstants;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
 import org.kuali.kfs.krad.datadictionary.DocumentEntry;
 import org.kuali.kfs.krad.datadictionary.TransactionalDocumentEntry;
 import org.kuali.kfs.krad.document.TransactionalDocument;
 import org.kuali.kfs.krad.service.DataDictionaryComponentPublisherService;
 import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.util.KRADUtils;
+import org.kuali.rice.core.api.config.ConfigurationException;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,10 +43,8 @@ import java.util.Map;
 
 /**
  * Reference implementation of the {@code DataDictionaryComponentPublisherService}.
- *
+ * <p>
  * This implementation derives components from the DataDictionary for all BusinessObjects and Documents.
- *
- * 
  */
 public class DataDictionaryComponentPublisherServiceImpl implements DataDictionaryComponentPublisherService {
 
@@ -80,8 +78,7 @@ public class DataDictionaryComponentPublisherServiceImpl implements DataDictiona
             try {
                 Component component = deriveComponentFromBusinessObjectEntry(businessObjectEntry);
                 uniqueComponentMap.put(component.getCode(), component);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 LOG.error("An exception was encountered when attempting to publish all components for business object class: " + businessObjectEntry.getBusinessObjectClass(), e);
             }
         }
@@ -90,8 +87,7 @@ public class DataDictionaryComponentPublisherServiceImpl implements DataDictiona
                 try {
                     Component component = deriveComponentFromDocumentEntry(documentEntry);
                     uniqueComponentMap.put(component.getCode(), component);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     LOG.error("An exception was encountered when attempting to publish all components for transactional document class: " + documentEntry.getDocumentClass(), e);
                 }
             }
@@ -100,7 +96,7 @@ public class DataDictionaryComponentPublisherServiceImpl implements DataDictiona
         return components;
     }
 
-	protected Component deriveComponentFromClass(Class<?> componentSourceClass) {
+    protected Component deriveComponentFromClass(Class<?> componentSourceClass) {
         String componentCode = getKualiModuleService().getComponentCode(componentSourceClass);
         String componentName = deriveComponentName(componentSourceClass);
         String namespace = getKualiModuleService().getNamespaceCode(componentSourceClass);
@@ -127,11 +123,11 @@ public class DataDictionaryComponentPublisherServiceImpl implements DataDictiona
         return deriveComponentFromClass(documentClass);
     }
 
-	protected String deriveComponentName(Class<?> componentSourceClass) {
+    protected String deriveComponentName(Class<?> componentSourceClass) {
         if (componentSourceClass == null) {
             throw new IllegalArgumentException("The deriveComponentName method requires non-null componentSourceClass");
         }
-        
+
         /*
          * Some business objects have a Component annotation that sets the value
          * of the classes annotaion.  This if block will test to see if it is there, try to get the
@@ -142,8 +138,7 @@ public class DataDictionaryComponentPublisherServiceImpl implements DataDictiona
             BusinessObjectEntry boe = getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(componentSourceClass.getName());
             if (boe != null) {
                 return boe.getObjectLabel();
-            }
-            else {
+            } else {
                 return ((ParameterConstants.COMPONENT) componentSourceClass.getAnnotation(ParameterConstants.COMPONENT.class)).component();
             }
         }
@@ -156,17 +151,15 @@ public class DataDictionaryComponentPublisherServiceImpl implements DataDictiona
          */
         if (TransactionalDocument.class.isAssignableFrom(componentSourceClass)) {
             return getDataDictionaryService().getDocumentLabelByClass(componentSourceClass);
-        }
-        else if (BusinessObject.class.isAssignableFrom(componentSourceClass) ) {
+        } else if (BusinessObject.class.isAssignableFrom(componentSourceClass)) {
             BusinessObjectEntry boe = getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(componentSourceClass.getName());
             if (boe != null) {
                 return boe.getObjectLabel();
-            }
-            else {
+            } else {
                 return KRADUtils.getBusinessTitleForClass(componentSourceClass);
             }
         }
-        throw new IllegalArgumentException("The deriveComponentName method of requires TransactionalDocument or BusinessObject class. Was: " + componentSourceClass.getName() );
+        throw new IllegalArgumentException("The deriveComponentName method of requires TransactionalDocument or BusinessObject class. Was: " + componentSourceClass.getName());
     }
 
     public DataDictionaryService getDataDictionaryService() {
@@ -206,5 +199,5 @@ public class DataDictionaryComponentPublisherServiceImpl implements DataDictiona
     public void setApplicationId(String applicationId) {
         this.applicationId = applicationId;
     }
-    
+
 }

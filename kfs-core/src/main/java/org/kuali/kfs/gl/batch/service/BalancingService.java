@@ -1,28 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.batch.service;
 
-import java.io.File;
-
 import org.kuali.kfs.gl.businessobject.Balance;
 import org.kuali.kfs.gl.businessobject.LedgerBalanceHistory;
 import org.kuali.kfs.gl.businessobject.OriginEntryInformation;
+
+import java.io.File;
 
 
 /**
@@ -31,6 +31,7 @@ import org.kuali.kfs.gl.businessobject.OriginEntryInformation;
 public interface BalancingService {
     /**
      * Handle for batch processes to kick off balancing
+     *
      * @return boolean true when success
      */
     public boolean runBalancing();
@@ -95,7 +96,8 @@ public interface BalancingService {
      * Gets an OriginEntryInformation for the parsed line. This needs to be handled separately for GL and Labor because Labor is a special case
      * of GL (positionNumber + emplid). Could be done with an OriginEntryHistory interface but in the interest of not mucking with
      * OriginEntries the is done with delegation.
-     * @param inputLine line that was read from getPosterInputFilename
+     *
+     * @param inputLine  line that was read from getPosterInputFilename
      * @param lineNumber line number we are currently reading from getPosterInputFilename
      * @return parsed line into an object as per inputLine parameter
      */
@@ -103,13 +105,15 @@ public interface BalancingService {
 
     /**
      * Update the entry history table
-     * @param mode of post, e.g. MODE_REVERSAL
+     *
+     * @param mode        of post, e.g. MODE_REVERSAL
      * @param originEntry representing the update details
      */
     public abstract void updateEntryHistory(Integer postMode, OriginEntryInformation originEntry);
 
     /**
      * Updates the balance history table
+     *
      * @param originEntry representing the update details
      */
     public abstract void updateBalanceHistory(Integer postMode, OriginEntryInformation originEntry);
@@ -117,6 +121,7 @@ public interface BalancingService {
     /**
      * Returns a Balance object for the parameters of the passed in LedgerBalanceHistory. Necessary for generic amount comparision since
      * it may be either labor or gl.
+     *
      * @param ledgerBalanceHistory to retrieve the Balance object for
      * @return balance object adhereing to the Balance interface
      */

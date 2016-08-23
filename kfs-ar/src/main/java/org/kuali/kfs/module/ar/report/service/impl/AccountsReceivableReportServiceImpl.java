@@ -1,40 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.report.service.impl;
 
-import java.io.File;
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Organization;
 import org.kuali.kfs.coa.service.OrganizationService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.AppliedPayment;
 import org.kuali.kfs.module.ar.businessobject.Customer;
@@ -77,18 +68,27 @@ import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
 import org.kuali.rice.core.web.format.PhoneNumberFormatter;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.entity.Entity;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.rice.location.api.country.Country;
 import org.kuali.rice.location.api.country.CountryService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.File;
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 
 @Transactional
@@ -144,10 +144,9 @@ public class AccountsReceivableReportServiceImpl implements AccountsReceivableRe
 
         if (KFSConstants.COUNTRY_CODE_UNITED_STATES.equals(invoice.getBillingCountryCode())) {
             billCityStateZip = generateCityStateZipLine(invoice.getBillingCityName(), invoice.getBillingStateCode(), invoice.getBillingZipCode());
-        }
-        else {
+        } else {
             billCityStateZip = generateCityStateZipLine(invoice.getBillingCityName(), invoice.getBillingAddressInternationalProvinceName(), invoice.getBillingInternationalMailCode());
-            if ( StringUtils.isNotBlank(invoice.getBillingCountryCode())) {
+            if (StringUtils.isNotBlank(invoice.getBillingCountryCode())) {
                 Country country = countryService.getCountry(invoice.getBillingCountryCode());
                 if (ObjectUtils.isNotNull(country)) {
                     customerMap.put("billToCountry", country.getName());
@@ -263,8 +262,7 @@ public class AccountsReceivableReportServiceImpl implements AccountsReceivableRe
             String billCityStateZip = "";
             if (billToAddr.getCustomerCountryCode().equals("US")) {
                 billCityStateZip = generateCityStateZipLine(billToAddr.getCustomerCityName(), billToAddr.getCustomerStateCode(), billToAddr.getCustomerZipCode());
-            }
-            else {
+            } else {
                 billCityStateZip = generateCityStateZipLine(billToAddr.getCustomerCityName(), billToAddr.getCustomerAddressInternationalProvinceName(), billToAddr.getCustomerInternationalMailCode());
                 customerMap.put("billToCountry", billToAddr.getCustomerCountry().getName());
             }
@@ -277,8 +275,7 @@ public class AccountsReceivableReportServiceImpl implements AccountsReceivableRe
             String shipCityStateZip = "";
             if (shipToAddr.getCustomerCountryCode().equals("US")) {
                 shipCityStateZip = generateCityStateZipLine(shipToAddr.getCustomerCityName(), shipToAddr.getCustomerStateCode(), shipToAddr.getCustomerZipCode());
-            }
-            else {
+            } else {
                 shipCityStateZip = generateCityStateZipLine(shipToAddr.getCustomerCityName(), shipToAddr.getCustomerAddressInternationalProvinceName(), shipToAddr.getCustomerInternationalMailCode());
                 customerMap.put("shipToCountry", shipToAddr.getCustomerCountry().getName());
             }
@@ -397,8 +394,7 @@ public class AccountsReceivableReportServiceImpl implements AccountsReceivableRe
             String billCityStateZip = "";
             if (billToAddr.getCustomerCountryCode().equals("US")) {
                 billCityStateZip = generateCityStateZipLine(billToAddr.getCustomerCityName(), billToAddr.getCustomerStateCode(), billToAddr.getCustomerZipCode());
-            }
-            else {
+            } else {
                 billCityStateZip = generateCityStateZipLine(billToAddr.getCustomerCityName(), billToAddr.getCustomerAddressInternationalProvinceName(), billToAddr.getCustomerInternationalMailCode());
                 customerMap.put("billToCountry", billToAddr.getCustomerCountry().getName());
             }
@@ -481,7 +477,7 @@ public class AccountsReceivableReportServiceImpl implements AccountsReceivableRe
             sysinfoMap.put("FEIN", "FED ID #" + sysinfo.getUniversityFederalEmployerIdentificationNumber());
         }
 
-        KualiDecimal bal =  (statementFormat.equals(ArConstants.STATEMENT_FORMAT_DETAIL)) ?  previousBalance : KualiDecimal.ZERO;
+        KualiDecimal bal = (statementFormat.equals(ArConstants.STATEMENT_FORMAT_DETAIL)) ? previousBalance : KualiDecimal.ZERO;
         calculateAgingAmounts(details, invoiceMap, bal);
 
         reportDataHolder.setSysinfo(sysinfoMap);
@@ -496,7 +492,7 @@ public class AccountsReceivableReportServiceImpl implements AccountsReceivableRe
 
     /**
      * @see org.kuali.kfs.module.ar.report.service.AccountsReceivableReportService#generateInvoicesByBillingOrg(java.lang.String,
-     *      java.lang.String, java.sql.Date)
+     * java.lang.String, java.sql.Date)
      */
     @Override
     public List<File> generateInvoicesByBillingOrg(String chartCode, String orgCode, Date date) {
@@ -507,8 +503,7 @@ public class AccountsReceivableReportServiceImpl implements AccountsReceivableRe
         for (CustomerInvoiceDocument doc : invoices) {
             if (date == null) {
                 reports.add(generateInvoice(doc));
-            }
-            else if (dateTimeService.toDateString(doc.getDocumentHeader().getWorkflowDocument().getDateCreated().toDate()) != null) {
+            } else if (dateTimeService.toDateString(doc.getDocumentHeader().getWorkflowDocument().getDateCreated().toDate()) != null) {
                 if (dateTimeService.toDateString(doc.getDocumentHeader().getWorkflowDocument().getDateCreated().toDate()).equals(dateTimeService.toDateString(date))) {
                     reports.add(generateInvoice(doc));
                 }
@@ -519,7 +514,7 @@ public class AccountsReceivableReportServiceImpl implements AccountsReceivableRe
 
     /**
      * @see org.kuali.kfs.module.ar.report.service.AccountsReceivableReportService#generateInvoicesByProcessingOrg(java.lang.String,
-     *      java.lang.String, java.sql.Date)
+     * java.lang.String, java.sql.Date)
      */
     @Override
     public List<File> generateInvoicesByProcessingOrg(String chartCode, String orgCode, Date date) {
@@ -529,8 +524,7 @@ public class AccountsReceivableReportServiceImpl implements AccountsReceivableRe
         for (CustomerInvoiceDocument doc : invoices) {
             if (date == null) {
                 reports.add(generateInvoice(doc));
-            }
-            else if (dateTimeService.toDateString(doc.getDocumentHeader().getWorkflowDocument().getDateCreated().toDate()) != null) {
+            } else if (dateTimeService.toDateString(doc.getDocumentHeader().getWorkflowDocument().getDateCreated().toDate()) != null) {
                 if (dateTimeService.toDateString(doc.getDocumentHeader().getWorkflowDocument().getDateCreated().toDate()).equals(dateTimeService.toDateString(date))) {
                     reports.add(generateInvoice(doc));
                 }
@@ -549,8 +543,7 @@ public class AccountsReceivableReportServiceImpl implements AccountsReceivableRe
         for (CustomerInvoiceDocument invoice : invoices) {
             if (date == null) {
                 reports.add(generateInvoice(invoice));
-            }
-            else if (dateTimeService.toDateString(invoice.getDocumentHeader().getWorkflowDocument().getDateCreated().toDate()) != null) {
+            } else if (dateTimeService.toDateString(invoice.getDocumentHeader().getWorkflowDocument().getDateCreated().toDate()) != null) {
                 if (dateTimeService.toDateString(invoice.getDocumentHeader().getWorkflowDocument().getDateCreated().toDate()).equals(dateTimeService.toDateString(date))) {
                     reports.add(generateInvoice(invoice));
                 }
@@ -624,7 +617,7 @@ public class AccountsReceivableReportServiceImpl implements AccountsReceivableRe
 
     /**
      * @see org.kuali.kfs.module.ar.report.service.AccountsReceivableReportService#generateStatementByBillingOrg(java.lang.String,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     public List<CustomerStatementResultHolder> generateStatementByBillingOrg(String chartCode, String orgCode, String statementFormat, String incldueZeroBalanceCustomers) {
@@ -644,7 +637,7 @@ public class AccountsReceivableReportServiceImpl implements AccountsReceivableRe
      */
     @Override
     public List<CustomerStatementResultHolder> generateStatementByCustomer(String customerNumber, String statementFormat, String incldueZeroBalanceCustomers) {
-        if(StringUtils.equals(statementFormat, ArConstants.STATEMENT_FORMAT_SUMMARY)){
+        if (StringUtils.equals(statementFormat, ArConstants.STATEMENT_FORMAT_SUMMARY)) {
             return generateStatementReports(customerInvoiceDocumentService.getOpenInvoiceDocumentsByCustomerNumber(customerNumber), statementFormat, incldueZeroBalanceCustomers);
         } else {
             return generateStatementReports(customerInvoiceDocumentService.getCustomerInvoiceDocumentsByCustomerNumber(customerNumber), statementFormat, incldueZeroBalanceCustomers);
@@ -654,7 +647,7 @@ public class AccountsReceivableReportServiceImpl implements AccountsReceivableRe
 
     protected KualiDecimal creditTotalInList(Collection<CustomerStatementDetailReportDataHolder> holderList) {
         KualiDecimal totalCredit = KualiDecimal.ZERO;
-         for (CustomerStatementDetailReportDataHolder holder : holderList) {
+        for (CustomerStatementDetailReportDataHolder holder : holderList) {
             totalCredit = totalCredit.add(holder.getFinancialDocumentTotalAmountCredit());
         }
         return totalCredit;
@@ -669,15 +662,15 @@ public class AccountsReceivableReportServiceImpl implements AccountsReceivableRe
                 doc.populateCustomerCreditMemoDetailsAfterLoad();
                 WorkflowDocument workflowDoc = doc.getDocumentHeader().getWorkflowDocument();
                 if (workflowDoc.isFinal() || workflowDoc.isProcessed()) {
-                    CustomerCreditMemoDocument creditMemoDoc = (CustomerCreditMemoDocument)documentService.getByDocumentHeaderId(doc.getDocumentNumber());
+                    CustomerCreditMemoDocument creditMemoDoc = (CustomerCreditMemoDocument) documentService.getByDocumentHeaderId(doc.getDocumentNumber());
                     CustomerStatementDetailReportDataHolder detail = new CustomerStatementDetailReportDataHolder(creditMemoDoc.getFinancialSystemDocumentHeader(),
-                            invoice.getAccountsReceivableDocumentHeader().getProcessingOrganization(),
-                            ArConstants.CREDIT_MEMO_DOC_TYPE,doc.getTotalDollarAmount());
+                        invoice.getAccountsReceivableDocumentHeader().getProcessingOrganization(),
+                        ArConstants.CREDIT_MEMO_DOC_TYPE, doc.getTotalDollarAmount());
                     returnList.add(detail);
                 }
-            } catch(WorkflowException we) {
+            } catch (WorkflowException we) {
                 LOG.error(we.getMessage());
-                throw new RuntimeException("Problem retrieving full credit memo document for document #"+doc.getDocumentNumber(), we);
+                throw new RuntimeException("Problem retrieving full credit memo document for document #" + doc.getDocumentNumber(), we);
             }
         }
         return returnList;
@@ -692,24 +685,25 @@ public class AccountsReceivableReportServiceImpl implements AccountsReceivableRe
         for (InvoicePaidApplied doc : payments) {
             try {
                 Document payAppDoc = documentService.getByDocumentHeaderId(doc.getDocumentNumber());
-                if (payAppDoc instanceof PaymentApplicationDocument ){
+                if (payAppDoc instanceof PaymentApplicationDocument) {
                     WorkflowDocument workflowDoc = doc.getDocumentHeader().getWorkflowDocument();
                     if (workflowDoc.isFinal() || workflowDoc.isProcessed()) {
-                        PaymentApplicationDocument paymentApplicationDoc = (PaymentApplicationDocument)payAppDoc;
+                        PaymentApplicationDocument paymentApplicationDoc = (PaymentApplicationDocument) payAppDoc;
                         CustomerStatementDetailReportDataHolder detail = new CustomerStatementDetailReportDataHolder(paymentApplicationDoc.getFinancialSystemDocumentHeader(),
-                                invoice.getAccountsReceivableDocumentHeader().getProcessingOrganization(),
-                                ArConstants.PAYMENT_DOC_TYPE, doc.getInvoiceItemAppliedAmount());
+                            invoice.getAccountsReceivableDocumentHeader().getProcessingOrganization(),
+                            ArConstants.PAYMENT_DOC_TYPE, doc.getInvoiceItemAppliedAmount());
                         returnList.add(detail);
                     }
                 }
-            } catch(WorkflowException we) {
+            } catch (WorkflowException we) {
                 LOG.error(we.getMessage());
-                throw new RuntimeException("Could not load full payment application document #"+doc.getDocumentNumber(), we);
+                throw new RuntimeException("Could not load full payment application document #" + doc.getDocumentNumber(), we);
             }
         }
         return returnList;
     }
-     /**
+
+    /**
      * This method groups invoices according to processingOrg, billedByOrg, customerNumber
      *
      * @param invoiceList
@@ -756,19 +750,19 @@ public class AccountsReceivableReportServiceImpl implements AccountsReceivableRe
                     // for detail only
                     if (ArConstants.STATEMENT_FORMAT_DETAIL.equals(statementFormat)) {
                         // add credit memo
-                         statementDetailsByCustomer.addAll( creditMemosForInvoice(invoice));
+                        statementDetailsByCustomer.addAll(creditMemosForInvoice(invoice));
 
-                         // add payment
-                         statementDetailsByCustomer.addAll( paymentsForInvoice(invoice));
+                        // add payment
+                        statementDetailsByCustomer.addAll(paymentsForInvoice(invoice));
 
-                          // add writeoff
+                        // add writeoff
                         Collection<CustomerInvoiceWriteoffDocument> writeoffs = invoiceWriteoffDocumentService.getCustomerCreditMemoDocumentByInvoiceDocument(invoice.getDocumentNumber());
                         for (CustomerInvoiceWriteoffDocument doc : writeoffs) {
                             WorkflowDocument workflowDoc = doc.getDocumentHeader().getWorkflowDocument();
                             if (workflowDoc.isFinal() || workflowDoc.isProcessed()) {
                                 CustomerStatementDetailReportDataHolder detail = new CustomerStatementDetailReportDataHolder(doc.getFinancialSystemDocumentHeader(),
-                                        invoice.getAccountsReceivableDocumentHeader().getProcessingOrganization(),
-                                        ArConstants.WRITEOFF_DOC_TYPE, doc.getTotalDollarAmount());
+                                    invoice.getAccountsReceivableDocumentHeader().getProcessingOrganization(),
+                                    ArConstants.WRITEOFF_DOC_TYPE, doc.getTotalDollarAmount());
                                 statementDetailsByCustomer.add(detail);
                             }
                         }
@@ -787,7 +781,7 @@ public class AccountsReceivableReportServiceImpl implements AccountsReceivableRe
                         statementDetailsForGivenBillingOrg.put(customerNumber, statementDetailsByCustomer);
                         statementDetailsForGivenProcessingOrg.put(getChartAndOrgCodesCombined(billedByOrg), statementDetailsForGivenBillingOrg);
                         customerStatementDetailsSorted.put(getChartAndOrgCodesCombined(processingOrg), statementDetailsForGivenProcessingOrg);
-                          }
+                    }
                 }
             }
         }
@@ -803,7 +797,7 @@ public class AccountsReceivableReportServiceImpl implements AccountsReceivableRe
                     Map<String, List<CustomerStatementDetailReportDataHolder>> customerNumbers = billedByOrgs.get(billedOrg);
                     Set<String> customerNumberKeys = customerNumbers.keySet();
                     for (String customerNumber : customerNumberKeys) {
-                        List<CustomerStatementDetailReportDataHolder> transactions =  customerNumbers.get(customerNumber);
+                        List<CustomerStatementDetailReportDataHolder> transactions = customerNumbers.get(customerNumber);
                         if (ObjectUtils.isNotNull(transactions)) {
                             Collections.sort(transactions, new SortTransaction());
                         }
@@ -837,7 +831,7 @@ public class AccountsReceivableReportServiceImpl implements AccountsReceivableRe
      * @param details
      * @param invoiceMap
      */
-    protected void calculateAgingAmounts(List<CustomerStatementDetailReportDataHolder> details, Map<String, String> invoiceMap,KualiDecimal previousBalance) {
+    protected void calculateAgingAmounts(List<CustomerStatementDetailReportDataHolder> details, Map<String, String> invoiceMap, KualiDecimal previousBalance) {
         for (CustomerStatementDetailReportDataHolder csdrdh : details) {
             if (csdrdh.getDocType().equals(ArConstants.INVOICE_DOC_TYPE)) {
                 CustomerInvoiceDocument ci = customerInvoiceDocumentService.getInvoiceByInvoiceDocumentNumber(csdrdh.getDocumentNumber());
@@ -871,8 +865,7 @@ public class AccountsReceivableReportServiceImpl implements AccountsReceivableRe
         if (StringUtils.isNotEmpty(currentAmount)) {
             try {
                 amount = new BigDecimal(StringUtils.remove(currentAmount, ','));
-            }
-            catch (NumberFormatException nfe) {
+            } catch (NumberFormatException nfe) {
                 LOG.error(currentAmount + " is an invalid amount.", nfe);
             }
         }
@@ -885,6 +878,7 @@ public class AccountsReceivableReportServiceImpl implements AccountsReceivableRe
 
     /**
      * Gets a CustomerBillingStatement
+     *
      * @param customerNumber
      * @return
      */
@@ -902,10 +896,9 @@ public class AccountsReceivableReportServiceImpl implements AccountsReceivableRe
         Date dueDate = null;
         try {
             dueDate = dateTimeService.convertToSqlDate(new Timestamp(cal.getTime().getTime()));
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             // throw an error here, but don't die
-            LOG.error("Could not parse date for due date days",e);
+            LOG.error("Could not parse date for due date days", e);
         }
         return dateTimeService.toDateString(dueDate);
     }

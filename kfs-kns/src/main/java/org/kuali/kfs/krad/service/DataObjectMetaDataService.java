@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -26,14 +26,12 @@ import java.util.Map;
 
 /**
  * Provides metadata such as relationships and key fields for data objects
- *
+ * <p>
  * <p>
  * Service provides a facade to the various services for retrieving metadata
  * within the framework, such as the <code>DataDictionaryService</code> and
  * the <code>PersistenceService</code>
  * </p>
- *
- * 
  */
 public interface DataObjectMetaDataService {
 
@@ -53,7 +51,7 @@ public interface DataObjectMetaDataService {
      *
      * @param dataObject - object whose primary key field name,value pairs you want
      * @return a Map containing the names and values of fields for the given class which
-     *         are designated as key fields in the OJB repository file or DataDictionary
+     * are designated as key fields in the OJB repository file or DataDictionary
      * @throws IllegalArgumentException if the given Object is null
      */
     public Map<String, ?> getPrimaryKeyFieldValues(Object dataObject);
@@ -63,10 +61,10 @@ public interface DataObjectMetaDataService {
      * key field retrieves the value from the object instance and populates the return
      * map with the primary key name as the map key and the object value as the map value
      *
-     * @param dataObject - object whose primary key field name,value pairs you want
+     * @param dataObject     - object whose primary key field name,value pairs you want
      * @param sortFieldNames - if true, the returned Map will iterate through its entries sorted by fieldName
      * @return a Map containing the names and values of fields for the given class which
-     *         are designated as key fields in the OJB repository file or DataDictionary
+     * are designated as key fields in the OJB repository file or DataDictionary
      * @throws IllegalArgumentException if the given Object is null
      */
     public Map<String, ?> getPrimaryKeyFieldValues(Object dataObject, boolean sortFieldNames);
@@ -84,7 +82,7 @@ public interface DataObjectMetaDataService {
     /**
      * Attempts to find a relationship for the given attribute within the given
      * data object
-     *
+     * <p>
      * <p>
      * First the data dictionary is queried to find any relationship definitions
      * setup that include the attribute, if found the
@@ -95,24 +93,24 @@ public interface DataObjectMetaDataService {
      * that contains the least amount of joining keys is returned
      * </p>
      *
-     * @param dataObject - data object instance that contains the attribute
+     * @param dataObject      - data object instance that contains the attribute
      * @param dataObjectClass - class for the data object that contains the attribute
-     * @param attributeName - property name for the attribute
+     * @param attributeName   - property name for the attribute
      * @param attributePrefix - property prefix for the attribute
-     * @param keysOnly - indicates whether only primary key fields should be returned
-     * in the relationship
-     * @param supportsLookup - indicates whether the relationship should support lookup
+     * @param keysOnly        - indicates whether only primary key fields should be returned
+     *                        in the relationship
+     * @param supportsLookup  - indicates whether the relationship should support lookup
      * @param supportsInquiry - indicates whether the relationship should support inquiry
      * @return BusinessObjectRelationship for the attribute, or null if not
-     *         found
+     * found
      */
     public DataObjectRelationship getDataObjectRelationship(Object dataObject, Class<?> dataObjectClass,
-            String attributeName, String attributePrefix, boolean keysOnly, boolean supportsLookup,
-            boolean supportsInquiry);
+                                                            String attributeName, String attributePrefix, boolean keysOnly, boolean supportsLookup,
+                                                            boolean supportsInquiry);
 
     /**
      * Attempts to find relationships for the given data object class
-     *
+     * <p>
      * <p>
      * First the data dictionary is queried to find any relationship definitions
      * <code>BusinessObjectRetationship</code> is build from that. If not and
@@ -132,7 +130,7 @@ public interface DataObjectMetaDataService {
      * the given class
      *
      * @param dataObjectClass - data object class that contains the attribute
-     * @param attributeName - property name for the attribute
+     * @param attributeName   - property name for the attribute
      * @return RelationshipDefinition for the attribute, or null if not found
      */
     public RelationshipDefinition getDictionaryRelationship(Class<?> dataObjectClass, String attributeName);
@@ -158,7 +156,7 @@ public interface DataObjectMetaDataService {
 
     /**
      * Builds a string that uniquely identifiers the data object instance
-     *
+     * <p>
      * <p>
      * Based on the metadata available for the class of the data object, the values for fields that uniquely
      * identify an instance are concatenated together into one string. For general data objects these fields

@@ -1,30 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cab.document.web.struts;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cab.CabConstants;
 import org.kuali.kfs.module.cab.CabPropertyConstants;
 import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableDocument;
@@ -34,10 +33,10 @@ import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.web.struts.form.KualiForm;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PurApLineForm extends KualiForm {
     private static final Logger LOG = Logger.getLogger(PurApLineAction.class);
@@ -82,7 +81,7 @@ public class PurApLineForm extends KualiForm {
 
     /**
      * Gets the documentNumber attribute.
-     * 
+     *
      * @return Returns the documentNumber.
      */
     public String getDocumentNumber() {
@@ -92,7 +91,7 @@ public class PurApLineForm extends KualiForm {
 
     /**
      * Sets the documentNumber attribute value.
-     * 
+     *
      * @param documentNumber The documentNumber to set.
      */
     public void setDocumentNumber(String documentNumber) {
@@ -102,7 +101,7 @@ public class PurApLineForm extends KualiForm {
 
     /**
      * Gets the requisitionIdentifier attribute.
-     * 
+     *
      * @return Returns the requisitionIdentifier.
      */
     public Integer getRequisitionIdentifier() {
@@ -112,7 +111,7 @@ public class PurApLineForm extends KualiForm {
 
     /**
      * Sets the requisitionIdentifier attribute value.
-     * 
+     *
      * @param requisitionIdentifier The requisitionIdentifier to set.
      */
     public void setRequisitionIdentifier(Integer requisitionIdentifier) {
@@ -121,7 +120,7 @@ public class PurApLineForm extends KualiForm {
 
     /**
      * Gets the mergeQty attribute.
-     * 
+     *
      * @return Returns the mergeQty.
      */
     public KualiDecimal getMergeQty() {
@@ -131,7 +130,7 @@ public class PurApLineForm extends KualiForm {
 
     /**
      * Sets the mergeQty attribute value.
-     * 
+     *
      * @param mergeQty The mergeQty to set.
      */
     public void setMergeQty(KualiDecimal mergeQty) {
@@ -141,7 +140,7 @@ public class PurApLineForm extends KualiForm {
 
     /**
      * Gets the mergeDesc attribute.
-     * 
+     *
      * @return Returns the mergeDesc.
      */
     public String getMergeDesc() {
@@ -151,7 +150,7 @@ public class PurApLineForm extends KualiForm {
 
     /**
      * Sets the mergeDesc attribute value.
-     * 
+     *
      * @param mergeDesc The mergeDesc to set.
      */
     public void setMergeDesc(String mergeDesc) {
@@ -161,7 +160,7 @@ public class PurApLineForm extends KualiForm {
 
     /**
      * Gets the purApContactEmailAddress attribute.
-     * 
+     *
      * @return Returns the purApContactEmailAddress.
      */
     public String getPurApContactEmailAddress() {
@@ -171,7 +170,7 @@ public class PurApLineForm extends KualiForm {
 
     /**
      * Sets the purApContactEmailAddress attribute value.
-     * 
+     *
      * @param purApContactEmailAddress The purApContactEmailAddress to set.
      */
     public void setPurApContactEmailAddress(String purApContactEmailAddress) {
@@ -181,7 +180,7 @@ public class PurApLineForm extends KualiForm {
 
     /**
      * Gets the purApContactPhoneNumber attribute.
-     * 
+     *
      * @return Returns the purApContactPhoneNumber.
      */
     public String getPurApContactPhoneNumber() {
@@ -191,7 +190,7 @@ public class PurApLineForm extends KualiForm {
 
     /**
      * Sets the purApContactPhoneNumber attribute value.
-     * 
+     *
      * @param purApContactPhoneNumber The purApContactPhoneNumber to set.
      */
     public void setPurApContactPhoneNumber(String purApContactPhoneNumber) {
@@ -201,7 +200,7 @@ public class PurApLineForm extends KualiForm {
 
     /**
      * Gets the actionPurApDocIndex attribute.
-     * 
+     *
      * @return Returns the actionPurApDocIndex.
      */
     public int getActionPurApDocIndex() {
@@ -211,7 +210,7 @@ public class PurApLineForm extends KualiForm {
 
     /**
      * Sets the actionPurApDocIndex attribute value.
-     * 
+     *
      * @param actionPurApDocIndex The actionPurApDocIndex to set.
      */
     public void setActionPurApDocIndex(int actionPurApDocIndex) {
@@ -221,7 +220,7 @@ public class PurApLineForm extends KualiForm {
 
     /**
      * Gets the actionItemAssetIndex attribute.
-     * 
+     *
      * @return Returns the actionItemAssetIndex.
      */
     public int getActionItemAssetIndex() {
@@ -231,7 +230,7 @@ public class PurApLineForm extends KualiForm {
 
     /**
      * Sets the actionItemAssetIndex attribute value.
-     * 
+     *
      * @param actionItemAssetIndex The actionItemAssetIndex to set.
      */
     public void setActionItemAssetIndex(int actionItemAssetIndex) {
@@ -241,7 +240,7 @@ public class PurApLineForm extends KualiForm {
 
     /**
      * Gets the purchaseOrderIdentifier attribute.
-     * 
+     *
      * @return Returns the purchaseOrderIdentifier.
      */
     public Integer getPurchaseOrderIdentifier() {
@@ -251,7 +250,7 @@ public class PurApLineForm extends KualiForm {
 
     /**
      * Sets the purchaseOrderIdentifier attribute value.
-     * 
+     *
      * @param purchaseOrderIdentifier The purchaseOrderIdentifier to set.
      */
     public void setPurchaseOrderIdentifier(Integer purchaseOrderIdentifier) {
@@ -261,7 +260,7 @@ public class PurApLineForm extends KualiForm {
 
     /**
      * Gets the purApDocs attribute.
-     * 
+     *
      * @return Returns the purApDocs.
      */
     public List<PurchasingAccountsPayableDocument> getPurApDocs() {
@@ -271,7 +270,7 @@ public class PurApLineForm extends KualiForm {
 
     /**
      * Sets the purApDocs attribute value.
-     * 
+     *
      * @param purApDocs The purApDocs to set.
      */
     public void setPurApDocs(List<PurchasingAccountsPayableDocument> purApDocs) {
@@ -281,7 +280,7 @@ public class PurApLineForm extends KualiForm {
 
     /**
      * Gets the purchaseOrderInquiryUrl attribute.
-     * 
+     *
      * @return Returns the purchaseOrderInquiryUrl.
      */
     public String getPurchaseOrderInquiryUrl() {
@@ -333,7 +332,7 @@ public class PurApLineForm extends KualiForm {
 
     /**
      * Return Asset Global forwarding URL.
-     * 
+     *
      * @param request
      * @param documentNumber
      * @return
@@ -344,8 +343,7 @@ public class PurApLineForm extends KualiForm {
             try {
                 String docTypeName = SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(this.documentNumber).getDocumentHeader().getWorkflowDocument().getDocumentTypeName();
                 docHandlerLink = SpringContext.getBean(GlAndPurApHelperService.class).getDocHandlerUrl(this.documentNumber, docTypeName);
-            }
-            catch (WorkflowException e) {
+            } catch (WorkflowException e) {
                 throw new RuntimeException("Caught WorkflowException trying to get document type name from Workflow", e);
             }
         }

@@ -1,29 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cab.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.lookup.LookupUtils;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.module.cab.CabConstants;
 import org.kuali.kfs.module.cab.CabPropertyConstants;
 import org.kuali.kfs.module.cab.businessobject.GeneralLedgerEntry;
@@ -34,15 +36,13 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.search.SearchOperator;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.services.IdentityManagementService;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.kfs.kns.lookup.LookupUtils;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.lookup.CollectionIncomplete;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class overrides the base getActionUrls method
@@ -53,11 +53,11 @@ public class GeneralLedgerEntryLookupableHelperServiceImpl extends KualiLookupab
 
     /**
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#getCustomActionUrls(org.kuali.rice.krad.bo.BusinessObject,
-     *      java.util.List)
+     * java.util.List)
      */
     @Override
     public List<HtmlData> getCustomActionUrls(BusinessObject bo, List pkNames) {
-        Map<String,String> permissionDetails = new HashMap<String,String>();
+        Map<String, String> permissionDetails = new HashMap<String, String>();
         permissionDetails.put(KimConstants.AttributeConstants.NAMESPACE_CODE, "KFS-CAB");
         permissionDetails.put(KimConstants.AttributeConstants.ACTION_CLASS, "CapitalAssetInformationAction");
 
@@ -71,8 +71,7 @@ public class GeneralLedgerEntryLookupableHelperServiceImpl extends KualiLookupab
             AnchorHtmlData processLink = new AnchorHtmlData("../cabCapitalAssetInformation.do?methodToCall=process&" + CabPropertyConstants.GeneralLedgerEntry.GENERAL_LEDGER_ACCOUNT_IDENTIFIER + "=" + entry.getGeneralLedgerAccountIdentifier(), "process", "process");
             processLink.setTarget(entry.getGeneralLedgerAccountIdentifier().toString());
             anchorHtmlDataList.add(processLink);
-        }
-        else {
+        } else {
             List<GeneralLedgerEntryAsset> generalLedgerEntryAssets = entry.getGeneralLedgerEntryAssets();
             if (!generalLedgerEntryAssets.isEmpty()) {
                 for (GeneralLedgerEntryAsset generalLedgerEntryAsset : generalLedgerEntryAssets) {
@@ -80,8 +79,7 @@ public class GeneralLedgerEntryLookupableHelperServiceImpl extends KualiLookupab
                     viewDocLink.setTarget(generalLedgerEntryAssets.get(0).getCapitalAssetManagementDocumentNumber());
                     anchorHtmlDataList.add(viewDocLink);
                 }
-            }
-            else {
+            } else {
                 anchorHtmlDataList.add(new AnchorHtmlData("", "n/a", "n/a"));
             }
         }
@@ -90,7 +88,7 @@ public class GeneralLedgerEntryLookupableHelperServiceImpl extends KualiLookupab
 
     /**
      * This method will remove all PO related transactions from display on GL results
-     * 
+     *
      * @see org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl#getSearchResults(java.util.Map)
      */
     @Override
@@ -110,8 +108,7 @@ public class GeneralLedgerEntryLookupableHelperServiceImpl extends KualiLookupab
             if (!CabConstants.PREQ.equals(entry.getFinancialDocumentTypeCode())) {
                 if (!CabConstants.CM.equals(entry.getFinancialDocumentTypeCode())) {
                     newList.add(entry);
-                }
-                else if (CabConstants.CM.equals(entry.getFinancialDocumentTypeCode())) {
+                } else if (CabConstants.CM.equals(entry.getFinancialDocumentTypeCode())) {
                     Map<String, String> cmKeys = new HashMap<String, String>();
                     cmKeys.put(CabPropertyConstants.PurchasingAccountsPayableDocument.DOCUMENT_NUMBER, entry.getDocumentNumber());
                     // check if CAB PO document exists, if not included
@@ -133,7 +130,7 @@ public class GeneralLedgerEntryLookupableHelperServiceImpl extends KualiLookupab
     /**
      * Update activity status code to the value used in DB. The reason is the value from user input will be 'Y' or 'N'. However,
      * these two status code are now replaced by 'N','E' and 'P'.
-     * 
+     *
      * @param fieldValues
      */
     protected void updateStatusCodeCriteria(Map<String, String> fieldValues) {
@@ -145,8 +142,7 @@ public class GeneralLedgerEntryLookupableHelperServiceImpl extends KualiLookupab
         if (KFSConstants.NON_ACTIVE_INDICATOR.equalsIgnoreCase(activityStatusCode)) {
             // not processed in CAMs: 'N'
             fieldValues.put(CabPropertyConstants.GeneralLedgerEntry.ACTIVITY_STATUS_CODE, CabConstants.ActivityStatusCode.NEW);
-        }
-        else if (KFSConstants.ACTIVE_INDICATOR.equalsIgnoreCase(activityStatusCode)) {
+        } else if (KFSConstants.ACTIVE_INDICATOR.equalsIgnoreCase(activityStatusCode)) {
             // processed in CAMs: 'E' or 'P'
             fieldValues.put(CabPropertyConstants.GeneralLedgerEntry.ACTIVITY_STATUS_CODE, CabConstants.ActivityStatusCode.PROCESSED_IN_CAMS + SearchOperator.OR.op() + CabConstants.ActivityStatusCode.ENROUTE);
         }
@@ -155,7 +151,7 @@ public class GeneralLedgerEntryLookupableHelperServiceImpl extends KualiLookupab
 
     /**
      * Gets the businessObjectService attribute.
-     * 
+     *
      * @return Returns the businessObjectService.
      */
     public BusinessObjectService getBusinessObjectService() {
@@ -164,7 +160,7 @@ public class GeneralLedgerEntryLookupableHelperServiceImpl extends KualiLookupab
 
     /**
      * Sets the businessObjectService attribute value.
-     * 
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {

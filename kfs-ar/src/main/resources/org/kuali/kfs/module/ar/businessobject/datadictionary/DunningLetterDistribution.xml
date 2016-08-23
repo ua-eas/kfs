@@ -1,123 +1,121 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:dd="http://rice.kuali.org/dd"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd         http://rice.kuali.org/dd         http://rice.kuali.org/dd/dd.xsd">
-	
-	<bean id="DunningLetterDistribution" parent="DunningLetterDistribution-parentBean" />
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-	<bean id="DunningLetterDistribution-parentBean" abstract="true"
-		parent="BusinessObjectEntry">
-		<property name="businessObjectClass"
-			value="org.kuali.kfs.module.ar.businessobject.DunningLetterDistribution" />
-		<property name="objectLabel" value="Dunning Letter Distribution" />
-		<property name="attributes">
-			<list>
-				<ref bean="DunningLetterDistribution-campaignID" />
-				<ref bean="DunningLetterDistribution-dunningLetterDistributionID" />
-				<ref bean="DunningLetterDistribution-daysPastDue" />
-				<ref bean="DunningLetterDistribution-sendDunningLetterIndicator" />
-				<ref bean="DunningLetterDistribution-dunningLetterTemplate" />
-				<ref bean="DunningLetterDistribution-activeIndicator" />
-			</list>
-		</property>
-	</bean>
+    <bean id="DunningLetterDistribution" parent="DunningLetterDistribution-parentBean"/>
 
+    <bean id="DunningLetterDistribution-parentBean" abstract="true"
+          parent="BusinessObjectEntry">
+        <property name="businessObjectClass"
+                  value="org.kuali.kfs.module.ar.businessobject.DunningLetterDistribution"/>
+        <property name="objectLabel" value="Dunning Letter Distribution"/>
+        <property name="attributes">
+            <list>
+                <ref bean="DunningLetterDistribution-campaignID"/>
+                <ref bean="DunningLetterDistribution-dunningLetterDistributionID"/>
+                <ref bean="DunningLetterDistribution-daysPastDue"/>
+                <ref bean="DunningLetterDistribution-sendDunningLetterIndicator"/>
+                <ref bean="DunningLetterDistribution-dunningLetterTemplate"/>
+                <ref bean="DunningLetterDistribution-activeIndicator"/>
+            </list>
+        </property>
+    </bean>
 
 
-	<!-- Attribute Definitions -->
+    <!-- Attribute Definitions -->
 
 
-	<bean id="DunningLetterDistribution-campaignID" parent="DunningLetterDistribution-campaignID-parentBean" />
+    <bean id="DunningLetterDistribution-campaignID" parent="DunningLetterDistribution-campaignID-parentBean"/>
 
-	<bean id="DunningLetterDistribution-campaignID-parentBean"	abstract="true" parent="AttributeDefinition">
-		<property name="name" value="campaignID" />		
-		<property name="label" value="Campaign ID" />
-		<property name="shortLabel" value="CampaignID" />
-		<property name="maxLength" value="4" />
-		<property name="control">
-			<ref bean="HiddenControl" />
-		</property>
-	</bean>
-	
-	<bean id="DunningLetterDistribution-dunningLetterDistributionID" parent="DunningLetterDistribution-dunningLetterDistributionID-parentBean" />
+    <bean id="DunningLetterDistribution-campaignID-parentBean" abstract="true" parent="AttributeDefinition">
+        <property name="name" value="campaignID"/>
+        <property name="label" value="Campaign ID"/>
+        <property name="shortLabel" value="CampaignID"/>
+        <property name="maxLength" value="4"/>
+        <property name="control">
+            <ref bean="HiddenControl"/>
+        </property>
+    </bean>
 
-	<bean id="DunningLetterDistribution-dunningLetterDistributionID-parentBean"	abstract="true" parent="AttributeDefinition">
-		<property name="name" value="dunningLetterDistributionID" />		
-		<property name="label" value="Dunning Letter Distribution ID" />
-		<property name="maxLength" value="12" />
-		<property name="validationPattern">
-			<ref bean="NumericValidation" />
-		</property>
-		<property name="control">
-			<ref bean="HiddenControl" />
-		</property>
-	</bean>
-	
-		<bean id="DunningLetterDistribution-daysPastDue" parent="DunningLetterDistribution-daysPastDue-parentBean" />
+    <bean id="DunningLetterDistribution-dunningLetterDistributionID" parent="DunningLetterDistribution-dunningLetterDistributionID-parentBean"/>
 
-	<bean id="DunningLetterDistribution-daysPastDue-parentBean" abstract="true"
-		parent="AttributeDefinition">
-		<property name="name" value="daysPastDue" />
-		<property name="label" value="Days Past Due" />
-		<property name="shortLabel" value="daysPastDue" />
-		<property name="control">
-			<bean parent="SelectControlDefinition"
-				p:valuesFinderClass="org.kuali.kfs.module.ar.businessobject.options.DaysPastDueValuesFinder"
-				p:includeKeyInLabel="false" />
-		</property>
-	</bean>
-	
-	<bean id="DunningLetterDistribution-sendDunningLetterIndicator" parent="DunningLetterDistribution-sendDunningLetterIndicator-parentBean" />
+    <bean id="DunningLetterDistribution-dunningLetterDistributionID-parentBean" abstract="true" parent="AttributeDefinition">
+        <property name="name" value="dunningLetterDistributionID"/>
+        <property name="label" value="Dunning Letter Distribution ID"/>
+        <property name="maxLength" value="12"/>
+        <property name="validationPattern">
+            <ref bean="NumericValidation"/>
+        </property>
+        <property name="control">
+            <ref bean="HiddenControl"/>
+        </property>
+    </bean>
 
-	<bean id="DunningLetterDistribution-sendDunningLetterIndicator-parentBean" abstract="true"
-		parent="AttributeDefinition">
-		<property name="name" value="sendDunningLetterIndicator" />
-		<property name="label" value="Send Dunning Letter?" />
-		<property name="shortLabel" value="sendDunningLetterIndicator" />
-		<property name="maxLength" value="1" />
-		<property name="required" value="false" />
-		<property name="control">
-			<bean parent="CheckboxControlDefinition" />
-		</property>
-	</bean>
-	
-	<bean id="DunningLetterDistribution-dunningLetterTemplate" parent="DunningLetterDistribution-dunningLetterTemplate-parentBean" />
+    <bean id="DunningLetterDistribution-daysPastDue" parent="DunningLetterDistribution-daysPastDue-parentBean"/>
 
-	<bean id="DunningLetterDistribution-dunningLetterTemplate-parentBean" abstract="true"
-		parent="DunningLetterTemplate-dunningLetterTemplateCode">
-		<property name="name" value="dunningLetterTemplate" />
-		<property name="label" value="Dunning Letter Template" />
-		<property name="shortLabel" value="dunningLetterTemplate" />
-		<property name="control">
-			<bean parent="SelectControlDefinition"
-				p:valuesFinderClass="org.kuali.kfs.module.ar.businessobject.options.DunningLetterTemplateValuesFinder"
-				p:includeKeyInLabel="false" />
-		</property>
-	</bean>
+    <bean id="DunningLetterDistribution-daysPastDue-parentBean" abstract="true"
+          parent="AttributeDefinition">
+        <property name="name" value="daysPastDue"/>
+        <property name="label" value="Days Past Due"/>
+        <property name="shortLabel" value="daysPastDue"/>
+        <property name="control">
+            <bean parent="SelectControlDefinition"
+                  p:valuesFinderClass="org.kuali.kfs.module.ar.businessobject.options.DaysPastDueValuesFinder"
+                  p:includeKeyInLabel="false"/>
+        </property>
+    </bean>
 
-	<bean id="DunningLetterDistribution-activeIndicator" parent="DunningLetterDistribution-activeIndicator-parentBean" />
+    <bean id="DunningLetterDistribution-sendDunningLetterIndicator" parent="DunningLetterDistribution-sendDunningLetterIndicator-parentBean"/>
 
-	<bean id="DunningLetterDistribution-activeIndicator-parentBean" abstract="true"
-		parent="GenericAttributes-activeIndicator">
-		<property name="name" value="activeIndicator" />
-	</bean>
+    <bean id="DunningLetterDistribution-sendDunningLetterIndicator-parentBean" abstract="true"
+          parent="AttributeDefinition">
+        <property name="name" value="sendDunningLetterIndicator"/>
+        <property name="label" value="Send Dunning Letter?"/>
+        <property name="shortLabel" value="sendDunningLetterIndicator"/>
+        <property name="maxLength" value="1"/>
+        <property name="required" value="false"/>
+        <property name="control">
+            <bean parent="CheckboxControlDefinition"/>
+        </property>
+    </bean>
+
+    <bean id="DunningLetterDistribution-dunningLetterTemplate" parent="DunningLetterDistribution-dunningLetterTemplate-parentBean"/>
+
+    <bean id="DunningLetterDistribution-dunningLetterTemplate-parentBean" abstract="true"
+          parent="DunningLetterTemplate-dunningLetterTemplateCode">
+        <property name="name" value="dunningLetterTemplate"/>
+        <property name="label" value="Dunning Letter Template"/>
+        <property name="shortLabel" value="dunningLetterTemplate"/>
+        <property name="control">
+            <bean parent="SelectControlDefinition"
+                  p:valuesFinderClass="org.kuali.kfs.module.ar.businessobject.options.DunningLetterTemplateValuesFinder"
+                  p:includeKeyInLabel="false"/>
+        </property>
+    </bean>
+
+    <bean id="DunningLetterDistribution-activeIndicator" parent="DunningLetterDistribution-activeIndicator-parentBean"/>
+
+    <bean id="DunningLetterDistribution-activeIndicator-parentBean" abstract="true"
+          parent="GenericAttributes-activeIndicator">
+        <property name="name" value="activeIndicator"/>
+    </bean>
 </beans>

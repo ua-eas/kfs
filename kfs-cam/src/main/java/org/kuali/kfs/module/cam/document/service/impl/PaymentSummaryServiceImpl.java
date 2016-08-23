@@ -1,30 +1,25 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cam.document.service.impl;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.businessobject.Asset;
@@ -32,8 +27,12 @@ import org.kuali.kfs.module.cam.businessobject.AssetPayment;
 import org.kuali.kfs.module.cam.document.service.PaymentSummaryService;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.lang.reflect.Method;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class implements PaymentSummaryService
@@ -42,13 +41,14 @@ public class PaymentSummaryServiceImpl implements PaymentSummaryService {
 
 
     private static Map<Integer, Method> DEPR_AMT_FIELDS = new HashMap<Integer, Method>();
+
     /**
      * Map will store getter method mapped to each primary depreciation period column. Based on the current fiscal month, current
      * month depreciation column can be identified easily from this map
      */
     static {
         try {
-            Class<?>[] emptyParams = new Class[] {};
+            Class<?>[] emptyParams = new Class[]{};
             DEPR_AMT_FIELDS.put(1, AssetPayment.class.getMethod("getPeriod1Depreciation1Amount", emptyParams));
             DEPR_AMT_FIELDS.put(2, AssetPayment.class.getMethod("getPeriod2Depreciation1Amount", emptyParams));
             DEPR_AMT_FIELDS.put(3, AssetPayment.class.getMethod("getPeriod3Depreciation1Amount", emptyParams));
@@ -61,8 +61,7 @@ public class PaymentSummaryServiceImpl implements PaymentSummaryService {
             DEPR_AMT_FIELDS.put(10, AssetPayment.class.getMethod("getPeriod10Depreciation1Amount", emptyParams));
             DEPR_AMT_FIELDS.put(11, AssetPayment.class.getMethod("getPeriod11Depreciation1Amount", emptyParams));
             DEPR_AMT_FIELDS.put(12, AssetPayment.class.getMethod("getPeriod12Depreciation1Amount", emptyParams));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -110,8 +109,8 @@ public class PaymentSummaryServiceImpl implements PaymentSummaryService {
                 payment.refreshReferenceObject(CamsPropertyConstants.AssetPayment.OBJECT_CODE_CURRENT);
             }
             Collection<String> fedContrTypes = parameterService.getParameterValuesAsString(Asset.class, CamsConstants.Parameters.FEDERAL_CONTRIBUTIONS_OBJECT_SUB_TYPES);
-            if (!ObjectUtils.isNull(payment.getObjectCodeCurrent()) 
-                    && fedContrTypes.contains( payment.getObjectCodeCurrent().getFinancialObjectSubTypeCode())) {
+            if (!ObjectUtils.isNull(payment.getObjectCodeCurrent())
+                && fedContrTypes.contains(payment.getObjectCodeCurrent().getFinancialObjectSubTypeCode())) {
                 amount = addAmount(amount, payment.getAccountChargeAmount());
             }
         }
@@ -120,7 +119,7 @@ public class PaymentSummaryServiceImpl implements PaymentSummaryService {
 
     /**
      * Sums up total payment cost for an asset
-     * 
+     *
      * @param asset Asset
      * @return Total Payment Amount
      */
@@ -130,14 +129,14 @@ public class PaymentSummaryServiceImpl implements PaymentSummaryService {
             List<AssetPayment> payments = asset.getAssetPayments();
             for (AssetPayment payment : payments) {
                 totalCost = addAmount(totalCost, payment.getAccountChargeAmount());
-            }  
+            }
         }
         return totalCost;
     }
 
     /**
      * Sums up primary accumulated depreciation amount
-     * 
+     *
      * @param asset Asset
      * @return Accumulated Primary Depreciation Amount
      */
@@ -158,7 +157,7 @@ public class PaymentSummaryServiceImpl implements PaymentSummaryService {
 
     /**
      * Sums up primary base amount for an asset
-     * 
+     *
      * @param asset Asset
      * @return Base Amount
      */
@@ -177,7 +176,7 @@ public class PaymentSummaryServiceImpl implements PaymentSummaryService {
 
     /**
      * Sums up primary book value for an asset
-     * 
+     *
      * @param asset Asset
      * @return Book Value Amount
      */
@@ -195,14 +194,14 @@ public class PaymentSummaryServiceImpl implements PaymentSummaryService {
 
     /**
      * Sums current month depreciation amount for an asset
-     * 
+     *
      * @param asset Asset
      * @return Current month depreciation amount
      */
     protected KualiDecimal calculatePrimaryCurrentMonthDepreciation(Asset asset) {
         KualiDecimal amount = new KualiDecimal(0);
         if (ObjectUtils.isNotNull(asset)) {
-            List<AssetPayment> assetPayments = asset.getAssetPayments();   
+            List<AssetPayment> assetPayments = asset.getAssetPayments();
             if (assetPayments != null) {
                 for (AssetPayment assetPayment : assetPayments) {
                     amount = addAmount(amount, getCurrentMonthDepreciationAmount(assetPayment));
@@ -216,7 +215,7 @@ public class PaymentSummaryServiceImpl implements PaymentSummaryService {
 
     /**
      * Sums up previous year depreciation amount for an asset
-     * 
+     *
      * @param asset Asset
      * @return Previoud Year Depreciation Amount
      */
@@ -236,7 +235,7 @@ public class PaymentSummaryServiceImpl implements PaymentSummaryService {
 
     /**
      * Sums up year to date depreciation amount for an asset
-     * 
+     *
      * @param asset Asset
      * @return Year To Date Depreciation Amount
      */
@@ -266,18 +265,17 @@ public class PaymentSummaryServiceImpl implements PaymentSummaryService {
 
     /**
      * Helper methods uses university date service to identify the right depreciation month column for the current month
-     * 
+     *
      * @param assetPayment Asset Payment Record
      * @return Depreciation Amount for current month
      */
     protected KualiDecimal getCurrentMonthDepreciationAmount(AssetPayment assetPayment) {
-        Object[] emptyParams = new Object[] {};
+        Object[] emptyParams = new Object[]{};
         Integer currPeriod = Integer.valueOf(universityDateService.getCurrentUniversityDate().getUniversityFiscalAccountingPeriod());
         KualiDecimal amount = null;
         try {
             amount = (KualiDecimal) (DEPR_AMT_FIELDS.get(currPeriod).invoke(assetPayment, emptyParams));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
         return amount;
@@ -289,7 +287,7 @@ public class PaymentSummaryServiceImpl implements PaymentSummaryService {
 
     /**
      * Sets sum of depreciation for each asset payment record
-     * 
+     *
      * @param asset Asset
      */
     protected void setPaymentYearToDate(Asset asset) {

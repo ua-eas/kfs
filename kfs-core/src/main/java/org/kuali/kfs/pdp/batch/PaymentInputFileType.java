@@ -1,29 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.pdp.batch;
 
-import java.io.File;
-import java.sql.Timestamp;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.service.AccountService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.pdp.PdpConstants;
 import org.kuali.kfs.pdp.PdpKeyConstants;
 import org.kuali.kfs.pdp.businessobject.LoadPaymentStatus;
@@ -39,8 +38,9 @@ import org.kuali.kfs.sys.batch.XmlBatchInputFileTypeBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.exception.ParseException;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
+
+import java.io.File;
+import java.sql.Timestamp;
 
 /**
  * Batch input type for the PDP payment file.
@@ -54,13 +54,13 @@ public class PaymentInputFileType extends XmlBatchInputFileTypeBase {
 
     /**
      * @see org.kuali.kfs.sys.batch.BatchInputFileType#getFileName(org.kuali.rice.kim.api.identity.Person, java.lang.Object,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     public String getFileName(String principalName, Object parsedFileContents, String fileUserIdentifer) {
         Timestamp currentTimestamp = dateTimeService.getCurrentTimestamp();
 
-        String fileName = PdpConstants.PDP_FILE_UPLOAD_FILE_PREFIX  + "_" + principalName;
+        String fileName = PdpConstants.PDP_FILE_UPLOAD_FILE_PREFIX + "_" + principalName;
         if (StringUtils.isNotBlank(fileUserIdentifer)) {
             fileName += "_" + StringUtils.remove(fileUserIdentifer, " ");
         }
@@ -114,14 +114,12 @@ public class PaymentInputFileType extends XmlBatchInputFileTypeBase {
                             if (acctserv.accountsCanCrossCharts()) {
                                 GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.ERROR_BATCH_UPLOAD_FILE_EMPTY_CHART, acctDetail.getAccountNbr());
                                 validAccounts = false;
-                            }
-                            else {
+                            } else {
                                 // accountNumber shall not be empty, otherwise won't pass schema validation
                                 Account account = acctserv.getUniqueAccountForAccountNumber(acctDetail.getAccountNbr());
                                 if (account != null) {
                                     acctDetail.setFinChartCode(account.getChartOfAccountsCode());
-                                }
-                                else {
+                                } else {
                                     GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.ERROR_BATCH_UPLOAD_FILE_INVALID_ACCOUNT, acctDetail.getAccountNbr());
                                     validAccounts = false;
                                 }
@@ -175,7 +173,7 @@ public class PaymentInputFileType extends XmlBatchInputFileTypeBase {
         } catch (ParseException e1) {
             LOG.error("Error parsing xml contents: " + e1.getMessage());
             MessageMap errorMap = new MessageMap();
-            errorMap.putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.ERROR_BATCH_UPLOAD_PARSING_XML, new String[] { "Error parsing xml contents: " + e1.getMessage() });
+            errorMap.putError(KFSConstants.GLOBAL_ERRORS, KFSKeyConstants.ERROR_BATCH_UPLOAD_PARSING_XML, new String[]{"Error parsing xml contents: " + e1.getMessage()});
 
             // Send error email
             paymentFileEmailService.sendErrorEmail(paymentFile, errorMap);

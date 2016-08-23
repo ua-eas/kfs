@@ -1,27 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.coa.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
+import java.util.LinkedHashMap;
 
 public class BasicAccountingCategory extends PersistableBusinessObjectBase implements MutableInactivatable {
 
@@ -40,7 +40,7 @@ public class BasicAccountingCategory extends PersistableBusinessObjectBase imple
 
     /**
      * Gets the accountCategoryCode attribute.
-     * 
+     *
      * @return Returns the accountCategoryCode
      */
     public String getCode() {
@@ -49,7 +49,7 @@ public class BasicAccountingCategory extends PersistableBusinessObjectBase imple
 
     /**
      * Sets the accountCategoryCode attribute.
-     * 
+     *
      * @param accountCategoryCode The accountCategoryCode to set.
      */
     public void setCode(String basicAccountingCategoryCode) {
@@ -59,7 +59,7 @@ public class BasicAccountingCategory extends PersistableBusinessObjectBase imple
 
     /**
      * Gets the description attribute.
-     * 
+     *
      * @return Returns the description
      */
     public String getDescription() {
@@ -68,7 +68,7 @@ public class BasicAccountingCategory extends PersistableBusinessObjectBase imple
 
     /**
      * Sets the description attribute.
-     * 
+     *
      * @param description The description to set.
      */
     public void setDescription(String accountCategoryDescription) {
@@ -78,7 +78,7 @@ public class BasicAccountingCategory extends PersistableBusinessObjectBase imple
 
     /**
      * Gets the accountCategoryShortName attribute.
-     * 
+     *
      * @return Returns the accountCategoryShortName
      */
     public String getShortName() {
@@ -87,7 +87,7 @@ public class BasicAccountingCategory extends PersistableBusinessObjectBase imple
 
     /**
      * Sets the accountCategoryShortName attribute.
-     * 
+     *
      * @param accountCategoryShortName The accountCategoryShortName to set.
      */
     public void setShortName(String basicAccountingCategoryShortName) {
@@ -97,7 +97,7 @@ public class BasicAccountingCategory extends PersistableBusinessObjectBase imple
 
     /**
      * Gets the sortCode attribute.
-     * 
+     *
      * @return Returns the sortCode
      */
     public String getSortCode() {
@@ -106,7 +106,7 @@ public class BasicAccountingCategory extends PersistableBusinessObjectBase imple
 
     /**
      * Sets the sortCode attribute.
-     * 
+     *
      * @param sortCode The sortCode to set.
      */
     public void setSortCode(String financialReportingSortCode) {
@@ -115,7 +115,7 @@ public class BasicAccountingCategory extends PersistableBusinessObjectBase imple
 
     /**
      * Gets the active attribute.
-     * 
+     *
      * @return Returns the active.
      */
     public boolean isActive() {
@@ -124,7 +124,7 @@ public class BasicAccountingCategory extends PersistableBusinessObjectBase imple
 
     /**
      * Sets the active attribute.
-     * 
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {
@@ -142,7 +142,7 @@ public class BasicAccountingCategory extends PersistableBusinessObjectBase imple
 
     /**
      * This method generates a standard String of the code and description together
-     * 
+     *
      * @return string representation of the code and description for this Account Category.
      */
     public String getCodeAndDescription() {

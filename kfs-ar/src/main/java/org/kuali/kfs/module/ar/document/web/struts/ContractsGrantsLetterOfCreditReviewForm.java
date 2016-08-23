@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -86,8 +86,8 @@ public class ContractsGrantsLetterOfCreditReviewForm extends FinancialSystemTran
      * Adds a new button to the extra buttons collection.
      *
      * @param property - property for button
-     * @param source - location of image
-     * @param altText - alternate text for button if images don't appear
+     * @param source   - location of image
+     * @param altText  - alternate text for button if images don't appear
      */
     protected void addExtraButton(String property, String source, String altText) {
         addExtraButton(property, source, altText, StringUtils.EMPTY);
@@ -97,9 +97,9 @@ public class ContractsGrantsLetterOfCreditReviewForm extends FinancialSystemTran
      * Adds a new button to the extra buttons collection.
      *
      * @param property - property for button
-     * @param source - location of image
-     * @param altText - alternate text for button if images don't appear
-     * @param onClick - onclick property for the button
+     * @param source   - location of image
+     * @param altText  - alternate text for button if images don't appear
+     * @param onClick  - onclick property for the button
      */
     protected void addExtraButton(String property, String source, String altText, String onClick) {
         ExtraButton newButton = new ExtraButton();

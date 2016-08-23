@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -19,18 +19,18 @@
 
 package org.kuali.kfs.coa.businessobject;
 
-import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.location.api.LocationConstants;
 import org.kuali.rice.location.framework.campus.CampusEbo;
+
+import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class OrganizationExtension extends PersistableBusinessObjectBase {
@@ -943,17 +943,17 @@ public class OrganizationExtension extends PersistableBusinessObjectBase {
      * @return Returns the hrmsIuCampus
      */
     public CampusEbo getHrmsIuCampus() {
-        if ( StringUtils.isBlank(hrmsIuCampusCode) ) {
+        if (StringUtils.isBlank(hrmsIuCampusCode)) {
             hrmsIuCampus = null;
         } else {
-            if ( hrmsIuCampus == null || !StringUtils.equals( hrmsIuCampus.getCode(),hrmsIuCampusCode) ) {
+            if (hrmsIuCampus == null || !StringUtils.equals(hrmsIuCampus.getCode(), hrmsIuCampusCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(CampusEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(1);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(1);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, hrmsIuCampusCode);
                     hrmsIuCampus = moduleService.getExternalizableBusinessObject(CampusEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }

@@ -20,7 +20,6 @@ package org.kuali.kfs.sys.datatools.liquimongo.change;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.apache.commons.codec.binary.Hex;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -28,20 +27,18 @@ import org.springframework.data.mongodb.core.query.Query;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
 /**
  * Helpful methods for manipulating Json in the context of the Mongo database.
- *
  */
 public class JsonUtils {
-    
+
     /**
      * Convert a json string in the form of  { "field1": "value", "field2": "value2" }
      * into a Query object
-     * 
+     *
      * @param query
      * @return
      */
@@ -49,16 +46,16 @@ public class JsonUtils {
         Query q = new Query();
 
         Iterator<String> items = query.fieldNames();
-        while ( items.hasNext() ) {
+        while (items.hasNext()) {
             String key = items.next();
             q.addCriteria(Criteria.where(key).is(query.get(key).asText()));
         }
         return q;
     }
-    
+
     /**
      * Calculates a hash value for a JSON node.
-     *  
+     *
      * @param node
      * @return
      */
@@ -68,15 +65,15 @@ public class JsonUtils {
             MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] md5hash = md.digest(bytesOfMessage);
             return Hex.encodeHexString(md5hash);
-        } catch (NoSuchAlgorithmException|UnsupportedEncodingException e) {
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
             throw new UnsupportedOperationException("Unable to hash change", e);
         }
     }
-    
+
     /**
      * Convert a json string in the form of  { "field1": "value", "field2": "value2" }
      * into a Map
-     * 
+     *
      * @param query
      * @return
      */

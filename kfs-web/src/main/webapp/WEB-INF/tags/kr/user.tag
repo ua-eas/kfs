@@ -1,17 +1,20 @@
 <%--
- Copyright 2007 The Kuali Foundation
- 
- Licensed under the Educational Community License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
- 
- http://www.opensource.org/licenses/ecl2.php
- 
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
+   - The Kuali Financial System, a comprehensive financial management system for higher education.
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
+   - This program is free software: you can redistribute it and/or modify
+   - it under the terms of the GNU Affero General Public License as
+   - published by the Free Software Foundation, either version 3 of the
+   - License, or (at your option) any later version.
+   -
+   - This program is distributed in the hope that it will be useful,
+   - but WITHOUT ANY WARRANTY; without even the implied warranty of
+   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   - GNU Affero General Public License for more details.
+   -
+   - You should have received a copy of the GNU Affero General Public License
+   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
 <%@ include file="/kr/WEB-INF/jsp/tldHeader.jsp"%>
 
@@ -35,7 +38,7 @@
 <%@ attribute name="helpLink" required="false" description="HTML - not just a URL - to be displayed next to the input field, presumably linking to a help resource." %>
 
 <%@ attribute name="highlight" required="false"
-              description="boolean indicating if this field is rendered as highlighted (to indicate old/new value change)" %> 
+              description="boolean indicating if this field is rendered as highlighted (to indicate old/new value change)" %>
 <%@ attribute name="tabIndex" required="false" description="Tab index to use for next field" %>
 
 <%@ attribute name="hideEmptyCell" required="false" description="whether to hide the empty cell before the user name field" %>
@@ -52,16 +55,16 @@
     ${kfunc:registerEditableProperty(KualiForm, userIdFieldName)}
     <input type="text" id='<c:out value="${userIdFieldName}"/>' name='<c:out value="${userIdFieldName}"/>' value='<c:out value="${userId}"/>'
     title='${DataDictionary.PersonImpl.attributes.principalName.label}'
-    size='${DataDictionary.PersonImpl.attributes.principalName.control.size}' 
+    size='${DataDictionary.PersonImpl.attributes.principalName.control.size}'
     maxlength='${DataDictionary.PersonImpl.attributes.principalName.maxLength}' style="${textStyle}"
     onBlur="loadUserInfo( '${userIdFieldName}', '${universalIdFieldName}', '${userNameFieldName}' );${onblur}" onchange="${onchange}" tabIndex="${tabIndex}"/>
     <c:if test="${hasErrors}">
      <kul:fieldShowErrorIcon />
     </c:if>
     <kul:lookup boClassName="org.kuali.rice.kim.api.identity.Person"
-          fieldConversions="${fieldConversions}" 
-          lookupParameters="${lookupParameters}" 
-          fieldLabel="${label}" 
+          fieldConversions="${fieldConversions}"
+          lookupParameters="${lookupParameters}"
+          fieldLabel="${label}"
           referencesToRefresh="${referencesToRefresh}"
           anchor="${currentTabIndex}" />
   </c:otherwise>

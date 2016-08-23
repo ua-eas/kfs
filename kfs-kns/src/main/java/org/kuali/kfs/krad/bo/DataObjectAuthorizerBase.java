@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,11 +18,11 @@
  */
 package org.kuali.kfs.krad.bo;
 
+import org.kuali.kfs.krad.util.KRADUtils;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.permission.PermissionService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.krad.util.KRADUtils;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -36,9 +36,9 @@ public class DataObjectAuthorizerBase implements DataObjectAuthorizer, Serializa
      * @see DataObjectAuthorizer#isAuthorized(java.lang.Object, java.lang.String, java.lang.String, java.lang.String)
      */
     public final boolean isAuthorized(Object dataObject, String namespaceCode, String permissionName,
-            String principalId) {
+                                      String principalId) {
         return getPermissionService().isAuthorized(principalId, namespaceCode, permissionName,
-                new HashMap<String, String>(getRoleQualification(dataObject, principalId)));
+            new HashMap<String, String>(getRoleQualification(dataObject, principalId)));
     }
 
     /**
@@ -46,9 +46,9 @@ public class DataObjectAuthorizerBase implements DataObjectAuthorizer, Serializa
      * java.lang.String)
      */
     public final boolean isAuthorizedByTemplate(Object dataObject, String namespaceCode, String permissionTemplateName,
-            String principalId) {
+                                                String principalId) {
         return getPermissionService().isAuthorizedByTemplate(principalId, namespaceCode, permissionTemplateName,
-                new HashMap<String, String>(getPermissionDetailValues(dataObject)), new HashMap<String, String>(
+            new HashMap<String, String>(getPermissionDetailValues(dataObject)), new HashMap<String, String>(
                 (getRoleQualification(dataObject, principalId))));
     }
 
@@ -56,8 +56,8 @@ public class DataObjectAuthorizerBase implements DataObjectAuthorizer, Serializa
      * @see DataObjectAuthorizer#isAuthorized(java.lang.Object, java.lang.String, java.lang.String, java.lang.String)
      */
     public final boolean isAuthorized(Object dataObject, String namespaceCode, String permissionName,
-            String principalId, Map<String, String> collectionOrFieldLevelPermissionDetails,
-            Map<String, String> collectionOrFieldLevelRoleQualification) {
+                                      String principalId, Map<String, String> collectionOrFieldLevelPermissionDetails,
+                                      Map<String, String> collectionOrFieldLevelRoleQualification) {
         Map<String, String> roleQualifiers;
         Map<String, String> permissionDetails;
         if (collectionOrFieldLevelRoleQualification != null) {
@@ -82,8 +82,8 @@ public class DataObjectAuthorizerBase implements DataObjectAuthorizer, Serializa
      * java.lang.String)
      */
     public final boolean isAuthorizedByTemplate(Object dataObject, String namespaceCode, String permissionTemplateName,
-            String principalId, Map<String, String> collectionOrFieldLevelPermissionDetails,
-            Map<String, String> collectionOrFieldLevelRoleQualification) {
+                                                String principalId, Map<String, String> collectionOrFieldLevelPermissionDetails,
+                                                Map<String, String> collectionOrFieldLevelRoleQualification) {
         Map<String, String> roleQualifiers = new HashMap<String, String>(getRoleQualification(dataObject, principalId));
         Map<String, String> permissionDetails = new HashMap<String, String>(getPermissionDetailValues(dataObject));
 
@@ -96,7 +96,7 @@ public class DataObjectAuthorizerBase implements DataObjectAuthorizer, Serializa
         }
 
         return getPermissionService().isAuthorizedByTemplate(principalId, namespaceCode, permissionTemplateName,
-                permissionDetails, roleQualifiers);
+            permissionDetails, roleQualifiers);
     }
 
     /**
@@ -105,8 +105,8 @@ public class DataObjectAuthorizerBase implements DataObjectAuthorizer, Serializa
      * request.
      *
      * @param primaryDataObjectOrDocument - the primary data object (i.e. the main object instance
-     * behind the lookup result row or inquiry) or the document
-     * @param attributes - role qualifiers will be added to this map
+     *                                    behind the lookup result row or inquiry) or the document
+     * @param attributes                  - role qualifiers will be added to this map
      */
     protected void addRoleQualification(Object primaryDataObjectOrDocument, Map<String, String> attributes) {
         addStandardAttributes(primaryDataObjectOrDocument, attributes);
@@ -117,8 +117,8 @@ public class DataObjectAuthorizerBase implements DataObjectAuthorizer, Serializa
      * data object or document. This will only be called once per request.
      *
      * @param primaryDataObjectOrDocument - the primary data object (i.e. the main object instance
-     * behind the lookup result row or inquiry) or the document
-     * @param attributes - permission details will be added to this map
+     *                                    behind the lookup result row or inquiry) or the document
+     * @param attributes                  - permission details will be added to this map
      */
     protected void addPermissionDetails(Object primaryDataObjectOrDocument, Map<String, String> attributes) {
         addStandardAttributes(primaryDataObjectOrDocument, attributes);
@@ -126,34 +126,34 @@ public class DataObjectAuthorizerBase implements DataObjectAuthorizer, Serializa
 
     /**
      * @param primaryDataObjectOrDocument - the primary data object (i.e. the main object instance
-     * behind the lookup result row or inquiry) or the document
-     * @param attributes - attributes (i.e. role qualifications or permission details)
-     * will be added to this map
+     *                                    behind the lookup result row or inquiry) or the document
+     * @param attributes                  - attributes (i.e. role qualifications or permission details)
+     *                                    will be added to this map
      */
     private void addStandardAttributes(Object primaryDataObjectOrDocument, Map<String, String> attributes) {
         attributes.putAll(KRADUtils.getNamespaceAndComponentSimpleName(primaryDataObjectOrDocument.getClass()));
     }
 
     protected final boolean permissionExistsByTemplate(Object dataObject, String namespaceCode,
-            String permissionTemplateName) {
+                                                       String permissionTemplateName) {
         return getPermissionService().isPermissionDefinedByTemplate(namespaceCode, permissionTemplateName,
-                new HashMap<String, String>(getPermissionDetailValues(dataObject)));
+            new HashMap<String, String>(getPermissionDetailValues(dataObject)));
     }
 
     protected final boolean permissionExistsByTemplate(String namespaceCode, String permissionTemplateName,
-            Map<String, String> permissionDetails) {
+                                                       Map<String, String> permissionDetails) {
         return getPermissionService().isPermissionDefinedByTemplate(namespaceCode, permissionTemplateName,
-                new HashMap<String, String>(permissionDetails));
+            new HashMap<String, String>(permissionDetails));
     }
 
     protected final boolean permissionExistsByTemplate(Object dataObject, String namespaceCode,
-            String permissionTemplateName, Map<String, String> permissionDetails) {
+                                                       String permissionTemplateName, Map<String, String> permissionDetails) {
         Map<String, String> combinedPermissionDetails = new HashMap<String, String>(getPermissionDetailValues(
-                dataObject));
+            dataObject));
         combinedPermissionDetails.putAll(permissionDetails);
 
         return getPermissionService().isPermissionDefinedByTemplate(namespaceCode, permissionTemplateName,
-                combinedPermissionDetails);
+            combinedPermissionDetails);
     }
 
     /**
@@ -161,7 +161,7 @@ public class DataObjectAuthorizerBase implements DataObjectAuthorizer, Serializa
      * object or the document. DO NOT MODIFY THE MAP RETURNED BY THIS METHOD
      *
      * @param primaryDataObjectOrDocument the primary data object (i.e. the main object instance behind
-     * the lookup result row or inquiry) or the document
+     *                                    the lookup result row or inquiry) or the document
      * @return a Map containing role qualifications
      */
     protected final Map<String, String> getRoleQualification(Object primaryDataObjectOrDocument, String principalId) {
@@ -177,7 +177,7 @@ public class DataObjectAuthorizerBase implements DataObjectAuthorizer, Serializa
      * object or the document. DO NOT MODIFY THE MAP RETURNED BY THIS METHOD
      *
      * @param primaryDataObjectOrDocument the primary data object (i.e. the main object instance behind
-     * the lookup result row or inquiry) or the document
+     *                                    the lookup result row or inquiry) or the document
      * @return a Map containing permission details
      */
     protected final Map<String, String> getPermissionDetailValues(Object primaryDataObjectOrDocument) {

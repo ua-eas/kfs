@@ -1,36 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.document;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Map;
 
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.Organization;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.service.AccountService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.BCConstants.AccountSalarySettingOnlyCause;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionAccountReports;
@@ -44,8 +38,14 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Map;
 
 public class BudgetConstructionDocument extends FinancialSystemTransactionalDocumentBase {
 
@@ -176,24 +176,20 @@ public class BudgetConstructionDocument extends FinancialSystemTransactionalDocu
         ListIterator pbglLines;
         if (isRevenue) {
             pbglLines = this.getPendingBudgetConstructionGeneralLedgerRevenueLines().listIterator();
-        }
-        else {
+        } else {
             pbglLines = this.getPendingBudgetConstructionGeneralLedgerExpenditureLines().listIterator();
         }
         while (pbglLines.hasNext()) {
             PendingBudgetConstructionGeneralLedger pbglLine = (PendingBudgetConstructionGeneralLedger) pbglLines.next();
             if (pbglLine.getFinancialObjectCode().compareToIgnoreCase(line.getFinancialObjectCode()) < 0) {
                 insertPoint++;
-            }
-            else {
+            } else {
                 if (pbglLine.getFinancialObjectCode().compareToIgnoreCase(line.getFinancialObjectCode()) > 0) {
                     break;
-                }
-                else {
+                } else {
                     if ((pbglLine.getFinancialObjectCode().compareToIgnoreCase(line.getFinancialObjectCode()) == 0) && (pbglLine.getFinancialSubObjectCode().compareToIgnoreCase(line.getFinancialSubObjectCode()) < 0)) {
                         insertPoint++;
-                    }
-                    else {
+                    } else {
                         break;
                     }
                 }
@@ -201,8 +197,7 @@ public class BudgetConstructionDocument extends FinancialSystemTransactionalDocu
         }
         if (isRevenue) {
             this.pendingBudgetConstructionGeneralLedgerRevenueLines.add(insertPoint, line);
-        }
-        else {
+        } else {
             this.pendingBudgetConstructionGeneralLedgerExpenditureLines.add(insertPoint, line);
         }
         return insertPoint;
@@ -653,8 +648,7 @@ public class BudgetConstructionDocument extends FinancialSystemTransactionalDocu
     public KualiDecimal getExpenditurePercentChangeTotal() {
         if (expenditureFinancialBeginningBalanceLineAmountTotal == null || expenditureFinancialBeginningBalanceLineAmountTotal.isZero()) {
             this.expenditurePercentChangeTotal = null;
-        }
-        else {
+        } else {
             BigDecimal diffRslt = (expenditureAccountLineAnnualBalanceAmountTotal.bigDecimalValue().setScale(4)).subtract(expenditureFinancialBeginningBalanceLineAmountTotal.bigDecimalValue().setScale(4));
             BigDecimal divRslt = diffRslt.divide((expenditureFinancialBeginningBalanceLineAmountTotal.bigDecimalValue().setScale(4)), KualiDecimal.ROUND_BEHAVIOR);
             this.expenditurePercentChangeTotal = new KualiDecimal(divRslt.multiply(BigDecimal.valueOf(100)).setScale(2));
@@ -679,8 +673,7 @@ public class BudgetConstructionDocument extends FinancialSystemTransactionalDocu
     public KualiDecimal getRevenuePercentChangeTotal() {
         if (revenueFinancialBeginningBalanceLineAmountTotal == null || revenueFinancialBeginningBalanceLineAmountTotal.isZero()) {
             this.revenuePercentChangeTotal = null;
-        }
-        else {
+        } else {
             BigDecimal diffRslt = (revenueAccountLineAnnualBalanceAmountTotal.bigDecimalValue().setScale(4)).subtract(revenueFinancialBeginningBalanceLineAmountTotal.bigDecimalValue().setScale(4));
             BigDecimal divRslt = diffRslt.divide((revenueFinancialBeginningBalanceLineAmountTotal.bigDecimalValue().setScale(4)), KualiDecimal.ROUND_BEHAVIOR);
             this.revenuePercentChangeTotal = new KualiDecimal(divRslt.multiply(BigDecimal.valueOf(100)).setScale(2));
@@ -741,8 +734,7 @@ public class BudgetConstructionDocument extends FinancialSystemTransactionalDocu
     public boolean isSalarySettingOnly() {
         if (this.getAccountSalarySettingOnlyCause() == AccountSalarySettingOnlyCause.MISSING_PARAM || this.getAccountSalarySettingOnlyCause() == AccountSalarySettingOnlyCause.NONE) {
             isSalarySettingOnly = false;
-        }
-        else {
+        } else {
             isSalarySettingOnly = true;
         }
         return isSalarySettingOnly;

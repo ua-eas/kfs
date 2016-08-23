@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -48,13 +48,13 @@ import java.util.UUID;
 
 @MappedSuperclass
 public abstract class PersistableBusinessObjectBase extends org.kuali.kfs.krad.bo.BusinessObjectBase implements PersistableBusinessObject, PersistenceBrokerAware, Versioned, GloballyUnique {
-	private static final long serialVersionUID = 1451642350593233282L;
-	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PersistableBusinessObjectBase.class);
+    private static final long serialVersionUID = 1451642350593233282L;
+    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PersistableBusinessObjectBase.class);
 
-	@Version
-    @Column(name="VER_NBR")
+    @Version
+    @Column(name = "VER_NBR")
     protected Long versionNumber;
-    @Column(name="OBJ_ID")
+    @Column(name = "OBJ_ID")
     private String objectId;
     @Transient
     private boolean newCollectionRecord;
@@ -128,18 +128,18 @@ public abstract class PersistableBusinessObjectBase extends org.kuali.kfs.krad.b
      * @see org.apache.ojb.broker.PersistenceBrokerAware#afterDelete(org.apache.ojb.broker.PersistenceBroker)
      */
     public final void afterDelete(PersistenceBroker persistenceBroker) throws PersistenceBrokerException {
-    	postRemove();
+        postRemove();
     }
 
     /**
      * Default implementation of the JPA {@link PostRemove} hook.  This implementation currently does nothing,
      * however sub-classes can override and implement this method if needed.
-     *
+     * <p>
      * <p>This method is currently invoked by the corresponding OJB {@link #afterDelete(PersistenceBroker)} hook.
      */
     @PostRemove
     protected void postRemove() {
-    	// do nothing
+        // do nothing
     }
 
     /**
@@ -150,18 +150,18 @@ public abstract class PersistableBusinessObjectBase extends org.kuali.kfs.krad.b
      * @see org.apache.ojb.broker.PersistenceBrokerAware#afterInsert(org.apache.ojb.broker.PersistenceBroker)
      */
     public final void afterInsert(PersistenceBroker persistenceBroker) throws PersistenceBrokerException {
-    	postPersist();
+        postPersist();
     }
 
     /**
      * Default implementation of the JPA {@link PostPersist} hook.  This implementation currently does nothing,
      * however sub-classes can override and implement this method if needed.
-     *
+     * <p>
      * <p>This method is currently invoked by the corresponding OJB {@link #afterInsert(PersistenceBroker)} hook.
      */
     @PostPersist
     protected void postPersist() {
-    	// do nothing
+        // do nothing
     }
 
     /**
@@ -172,18 +172,18 @@ public abstract class PersistableBusinessObjectBase extends org.kuali.kfs.krad.b
      * @see org.apache.ojb.broker.PersistenceBrokerAware#afterLookup(org.apache.ojb.broker.PersistenceBroker)
      */
     public final void afterLookup(PersistenceBroker persistenceBroker) throws PersistenceBrokerException {
-    	postLoad();
+        postLoad();
     }
 
     /**
      * Default implementation of the JPA {@link PostLoad} hook.  This implementation currently does nothing,
      * however sub-classes can override and implement this method if needed.
-     *
+     * <p>
      * <p>This method is currently invoked by the corresponding OJB {@link #afterLookup(PersistenceBroker)} hook.
      */
     @PostLoad
     protected void postLoad() {
-    	// do nothing
+        // do nothing
     }
 
     /**
@@ -194,18 +194,18 @@ public abstract class PersistableBusinessObjectBase extends org.kuali.kfs.krad.b
      * @see org.apache.ojb.broker.PersistenceBrokerAware#afterUpdate(org.apache.ojb.broker.PersistenceBroker)
      */
     public final void afterUpdate(PersistenceBroker persistenceBroker) throws PersistenceBrokerException {
-    	postUpdate();
+        postUpdate();
     }
 
     /**
      * Default implementation of the JPA {@link PostUpdate} hook.  This implementation currently does nothing,
      * however sub-classes can override and implement this method if needed.
-     *
+     * <p>
      * <p>This method is currently invoked by the corresponding OJB {@link #afterUpdate(PersistenceBroker)} hook.
      */
     @PostUpdate
     protected void postUpdate() {
-    	// do nothing
+        // do nothing
     }
 
     /**
@@ -216,18 +216,18 @@ public abstract class PersistableBusinessObjectBase extends org.kuali.kfs.krad.b
      * @see org.apache.ojb.broker.PersistenceBrokerAware#beforeDelete(org.apache.ojb.broker.PersistenceBroker)
      */
     public final void beforeDelete(PersistenceBroker persistenceBroker) throws PersistenceBrokerException {
-    	preRemove();
+        preRemove();
     }
 
     /**
      * Default implementation of the JPA {@link PreRemove} hook.  This implementation currently does nothing,
      * however sub-classes can implement this method if needed.
-     *
+     * <p>
      * <p>This method is currently invoked by the corresponding OJB {@link #beforeDelete(PersistenceBroker)} hook.
      */
     @PreRemove
     protected void preRemove() {
-    	// do nothing
+        // do nothing
     }
 
     /**
@@ -248,12 +248,12 @@ public abstract class PersistableBusinessObjectBase extends org.kuali.kfs.krad.b
      * persistable business object if it does not already have one.  Any sub-class which overrides this method
      * should take care to invoke super.prePersist to ensure that the objectId for this persistable
      * business object is generated properly.
-     *
+     * <p>
      * <p>This method is currently invoked by the corresponding OJB {@link #beforeInsert(PersistenceBroker)} hook.
      */
     @PrePersist
     protected void prePersist() {
-    	generateAndSetObjectIdIfNeeded();
+        generateAndSetObjectIdIfNeeded();
     }
 
     /**
@@ -264,7 +264,7 @@ public abstract class PersistableBusinessObjectBase extends org.kuali.kfs.krad.b
      * @see org.apache.ojb.broker.PersistenceBrokerAware#beforeUpdate(org.apache.ojb.broker.PersistenceBroker)
      */
     public final void beforeUpdate(PersistenceBroker persistenceBroker) throws PersistenceBrokerException {
-    	preUpdate();
+        preUpdate();
     }
 
     /**
@@ -272,12 +272,12 @@ public abstract class PersistableBusinessObjectBase extends org.kuali.kfs.krad.b
      * persistable business object if it does not already have one.  Any sub-class which overrides this method
      * should take care to invoke super.preUpdate to ensure that the objectId for this persistable
      * business object is generated properly.
-     *
+     * <p>
      * <p>This method is currently invoked by the corresponding OJB {@link #beforeUpdate(PersistenceBroker)} hook.
      */
     @PreUpdate
     protected void preUpdate() {
-    	generateAndSetObjectIdIfNeeded();
+        generateAndSetObjectIdIfNeeded();
     }
 
     /**
@@ -285,7 +285,7 @@ public abstract class PersistableBusinessObjectBase extends org.kuali.kfs.krad.b
      * one and set it's value on this object.
      */
     private void generateAndSetObjectIdIfNeeded() {
-    	if (StringUtils.isEmpty(getObjectId())) {
+        if (StringUtils.isEmpty(getObjectId())) {
             setObjectId(UUID.randomUUID().toString());
         }
     }
@@ -306,16 +306,16 @@ public abstract class PersistableBusinessObjectBase extends org.kuali.kfs.krad.b
         getPersistenceService().refreshAllNonUpdatingReferences(this);
     }
 
-	public void refreshReferenceObject(String referenceObjectName) {
-		if ( StringUtils.isNotBlank(referenceObjectName) && !StringUtils.equals(referenceObjectName, "extension")) {
-			final PersistenceStructureService pss = getPersistenceStructureService();
-			if ( pss.hasReference(this.getClass(), referenceObjectName) || pss.hasCollection(this.getClass(), referenceObjectName)) {
-            	getPersistenceService().retrieveReferenceObject( this, referenceObjectName);
-			} else {
-                LOG.warn( "refreshReferenceObject() called with non-reference property: " + referenceObjectName );
-			}
-		}
-	}
+    public void refreshReferenceObject(String referenceObjectName) {
+        if (StringUtils.isNotBlank(referenceObjectName) && !StringUtils.equals(referenceObjectName, "extension")) {
+            final PersistenceStructureService pss = getPersistenceStructureService();
+            if (pss.hasReference(this.getClass(), referenceObjectName) || pss.hasCollection(this.getClass(), referenceObjectName)) {
+                getPersistenceService().retrieveReferenceObject(this, referenceObjectName);
+            } else {
+                LOG.warn("refreshReferenceObject() called with non-reference property: " + referenceObjectName);
+            }
+        }
+    }
 
     /**
      * @see PersistableBusinessObject#buildListOfDeletionAwareLists()
@@ -325,43 +325,43 @@ public abstract class PersistableBusinessObjectBase extends org.kuali.kfs.krad.b
     }
 
     public void linkEditableUserFields() {
-    	// do nothing
+        // do nothing
     }
 
-	public PersistableBusinessObjectExtension getExtension() {
-		if ( extension == null
-                && getPersistenceStructureService().isPersistable(this.getClass())) {
-			try {
-				Class<? extends PersistableBusinessObjectExtension> extensionClass = getPersistenceStructureService().getBusinessObjectAttributeClass( getClass(), "extension" );
-				if ( extensionClass != null ) {
-					extension = extensionClass.newInstance();
-				}
-			} catch ( Exception ex ) {
-				LOG.error( "unable to create extension object", ex );
-			}
-		}
-		return extension;
-	}
+    public PersistableBusinessObjectExtension getExtension() {
+        if (extension == null
+            && getPersistenceStructureService().isPersistable(this.getClass())) {
+            try {
+                Class<? extends PersistableBusinessObjectExtension> extensionClass = getPersistenceStructureService().getBusinessObjectAttributeClass(getClass(), "extension");
+                if (extensionClass != null) {
+                    extension = extensionClass.newInstance();
+                }
+            } catch (Exception ex) {
+                LOG.error("unable to create extension object", ex);
+            }
+        }
+        return extension;
+    }
 
-	public void setExtension(PersistableBusinessObjectExtension extension) {
-		this.extension = extension;
-	}
+    public void setExtension(PersistableBusinessObjectExtension extension) {
+        this.extension = extension;
+    }
 
-	/**
-	 * @return the persistenceService
-	 */
-	protected static PersistenceService getPersistenceService() {
-		if ( persistenceService == null ) {
-			persistenceService = KRADServiceLocator.getPersistenceService();
-		}
-		return persistenceService;
-	}
+    /**
+     * @return the persistenceService
+     */
+    protected static PersistenceService getPersistenceService() {
+        if (persistenceService == null) {
+            persistenceService = KRADServiceLocator.getPersistenceService();
+        }
+        return persistenceService;
+    }
 
-	protected static PersistenceStructureService getPersistenceStructureService() {
-		if ( persistenceStructureService == null ) {
-			persistenceStructureService = KRADServiceLocator.getPersistenceStructureService();
-		}
-		return persistenceStructureService;
-	}
+    protected static PersistenceStructureService getPersistenceStructureService() {
+        if (persistenceStructureService == null) {
+            persistenceStructureService = KRADServiceLocator.getPersistenceStructureService();
+        }
+        return persistenceStructureService;
+    }
 
 }

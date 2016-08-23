@@ -1,28 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.batch.dataaccess.impl;
-
-import java.lang.reflect.InvocationTargetException;
-import java.sql.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.log4j.Logger;
@@ -41,6 +35,12 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.rice.core.api.util.type.KualiInteger;
+
+import java.lang.reflect.InvocationTargetException;
+import java.sql.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 
 public class GeneralLedgerBudgetLoadDaoOjb extends BudgetConstructionBatchHelperDaoOjb implements GeneralLedgerBudgetLoadDao {
 
@@ -91,7 +91,7 @@ public class GeneralLedgerBudgetLoadDaoOjb extends BudgetConstructionBatchHelper
     /**
      * build a hashmap containing the next entry sequence number to use for each document (document number) to be loaded from budget
      * construction to the general ledger
-     * 
+     *
      * @param target fiscal year for the budget load
      * @return HashMapap keyed on document number containing the next entry sequence number to use for the key
      */
@@ -102,7 +102,7 @@ public class GeneralLedgerBudgetLoadDaoOjb extends BudgetConstructionBatchHelper
         Criteria criteriaID = new Criteria();
         criteriaID.addEqualTo(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, requestYear);
         ReportQueryByCriteria queryID = new ReportQueryByCriteria(BudgetConstructionHeader.class, criteriaID);
-        queryID.setAttributes(new String[] { KFSPropertyConstants.DOCUMENT_NUMBER });
+        queryID.setAttributes(new String[]{KFSPropertyConstants.DOCUMENT_NUMBER});
 
         nextEntrySequenceNumber = new HashMap<String, Integer>(hashCapacity(queryID));
 
@@ -120,7 +120,7 @@ public class GeneralLedgerBudgetLoadDaoOjb extends BudgetConstructionBatchHelper
     /**
      * This method creates a new generalLedgerPendingEntry object and initializes it with the default settings for the budget
      * construction general ledger load.
-     * 
+     *
      * @param requestYear
      * @param financialSystemOriginationCode
      * @return intiliazed GeneralLedgerPendingEntry business object
@@ -159,8 +159,7 @@ public class GeneralLedgerBudgetLoadDaoOjb extends BudgetConstructionBatchHelper
             if (daoGlobalVariables.shouldThisAccountLoad(monthlyBudgetIn.getAccountNumber() + monthlyBudgetIn.getChartOfAccountsCode())) {
                 GeneralLedgerPendingEntry newRow = getNewPendingEntryWithDefaults(daoGlobalVariables);
                 writeGeneralLedgerPendingEntryFromMonthly(newRow, monthlyBudgetIn, daoGlobalVariables, diagnosticCounters);
-            }
-            else {
+            } else {
                 diagnosticCounters.increaseBudgetConstructionMonthlyBudgetSkipped();
             }
         }
@@ -168,7 +167,7 @@ public class GeneralLedgerBudgetLoadDaoOjb extends BudgetConstructionBatchHelper
 
     /**
      * This method loads all the eligible pending budget construction general ledger rows
-     * 
+     *
      * @param daoGlobalVariables
      * @param diagnosticCounters
      */
@@ -181,8 +180,7 @@ public class GeneralLedgerBudgetLoadDaoOjb extends BudgetConstructionBatchHelper
             if (daoGlobalVariables.shouldThisAccountLoad(pbglIn.getAccountNumber() + pbglIn.getChartOfAccountsCode())) {
                 GeneralLedgerPendingEntry newRow = getNewPendingEntryWithDefaults(daoGlobalVariables);
                 writeGeneralLedgerPendingEntryFromAnnual(newRow, pbglIn, daoGlobalVariables, diagnosticCounters);
-            }
-            else {
+            } else {
                 diagnosticCounters.increaseBudgetConstructionPendingGeneralLedgerSkipped();
             }
         }
@@ -190,7 +188,7 @@ public class GeneralLedgerBudgetLoadDaoOjb extends BudgetConstructionBatchHelper
 
     /**
      * This method builds the query to fetch the monthly budget general ledger lines to be loaded
-     * 
+     *
      * @param fiscalYear : the year to be loaded
      * @return query for fetching monthly budget rows
      */
@@ -216,7 +214,7 @@ public class GeneralLedgerBudgetLoadDaoOjb extends BudgetConstructionBatchHelper
 
     /**
      * This method builds the query to fetch the pending budget construction general ledger rows to be loaded
-     * 
+     *
      * @param fiscalYear: the year to be loaded
      * @return query for fetching pending budget construction GL rows
      */
@@ -233,7 +231,7 @@ public class GeneralLedgerBudgetLoadDaoOjb extends BudgetConstructionBatchHelper
 
     /**
      * complete the pending entry row based on the data returned from the DB store it to the DB
-     * 
+     *
      * @param newRow
      * @param source annual budget construction GL row
      * @param object containing global constants
@@ -310,18 +308,15 @@ public class GeneralLedgerBudgetLoadDaoOjb extends BudgetConstructionBatchHelper
             KualiInteger monthlyAmount;
             try {
                 monthlyAmount = (KualiInteger) PropertyUtils.getSimpleProperty(pbglMonthly, monthlyPeriodProperties[0]);
-            }
-            catch (IllegalAccessException ex) {
+            } catch (IllegalAccessException ex) {
                 LOG.error(String.format("\nunable to use get method to access value of %s in %s\n", monthlyPeriodProperties[0], BudgetConstructionMonthly.class.getName()), ex);
                 diagnosticCounters.writeDiagnosticCounters();
                 throw new RuntimeException(ex);
-            }
-            catch (InvocationTargetException ex) {
+            } catch (InvocationTargetException ex) {
                 LOG.error(String.format("\nunable to invoke get method for %s in %s\n", monthlyPeriodProperties[0], BudgetConstructionMonthly.class.getName()), ex);
                 diagnosticCounters.writeDiagnosticCounters();
                 throw new RuntimeException(ex);
-            }
-            catch (NoSuchMethodException ex) {
+            } catch (NoSuchMethodException ex) {
                 LOG.error(String.format("\nNO get method found for %s in %s ???\n", monthlyPeriodProperties[0], BudgetConstructionMonthly.class.getName()), ex);
                 diagnosticCounters.writeDiagnosticCounters();
                 throw new RuntimeException(ex);
@@ -350,7 +345,7 @@ public class GeneralLedgerBudgetLoadDaoOjb extends BudgetConstructionBatchHelper
 
     /**
      * get a list of accounts that should not be loaded from the budget to the General Ledger
-     * 
+     *
      * @return hashset of accounts NOT to be loaded
      */
 
@@ -364,7 +359,7 @@ public class GeneralLedgerBudgetLoadDaoOjb extends BudgetConstructionBatchHelper
          * query for the subfund property for each account in the DB
          */
         ReportQueryByCriteria queryID = new ReportQueryByCriteria(Account.class, org.apache.ojb.broker.query.ReportQueryByCriteria.CRITERIA_SELECT_ALL);
-        queryID.setAttributes(new String[] { KFSPropertyConstants.ACCOUNT_NUMBER, KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, KFSPropertyConstants.SUB_FUND_GROUP_CODE });
+        queryID.setAttributes(new String[]{KFSPropertyConstants.ACCOUNT_NUMBER, KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, KFSPropertyConstants.SUB_FUND_GROUP_CODE});
         bannedAccounts = new HashSet<String>(hashCapacity(queryID));
         /**
          * use the results to build a hash set of accounts which should NOT be loaded (that is, their subfunds are in the list of
@@ -389,9 +384,9 @@ public class GeneralLedgerBudgetLoadDaoOjb extends BudgetConstructionBatchHelper
     /**
      * build a hash set of subfunds whose accounts should NOT be loaded this can be done by either a list of FUND groups and/or a
      * list of subfund groups
-     * 
-     * @see org.kuali.kfs.module.bc.BCConstants to initialize the String[] array(s) as desired
+     *
      * @return list of subfunds whose accounts will NOT be loaded
+     * @see org.kuali.kfs.module.bc.BCConstants to initialize the String[] array(s) as desired
      */
     protected HashSet<String> getSubFundsNotToBeLoaded() {
         HashSet<String> bannedSubFunds;
@@ -402,7 +397,7 @@ public class GeneralLedgerBudgetLoadDaoOjb extends BudgetConstructionBatchHelper
             Criteria criteriaID = new Criteria();
             criteriaID.addIn(KFSPropertyConstants.FUND_GROUP_CODE, BCConstants.NO_BC_GL_LOAD_FUND_GROUPS);
             ReportQueryByCriteria queryID = new ReportQueryByCriteria(SubFundGroup.class, criteriaID);
-            queryID.setAttributes(new String[] { KFSPropertyConstants.SUB_FUND_GROUP_CODE });
+            queryID.setAttributes(new String[]{KFSPropertyConstants.SUB_FUND_GROUP_CODE});
             /**
              * set the size of the hashset based on the number of rows the query will return
              */
@@ -414,8 +409,7 @@ public class GeneralLedgerBudgetLoadDaoOjb extends BudgetConstructionBatchHelper
             while (subfundsForBannedFunds.hasNext()) {
                 bannedSubFunds.add((String) ((Object[]) subfundsForBannedFunds.next())[0]);
             }
-        }
-        else {
+        } else {
             bannedSubFunds = new HashSet<String>(BCConstants.NO_BC_GL_LOAD_SUBFUND_GROUPS.size() + 1);
         }
         /**
@@ -439,7 +433,7 @@ public class GeneralLedgerBudgetLoadDaoOjb extends BudgetConstructionBatchHelper
 
     /**
      * this method makes sure all accounting periods inn the target fiscal year are open
-     * 
+     *
      * @param request fiscal year (or other fiscal period) which is the TARGET of the load
      */
     protected void openAllAccountingPeriods(Integer requestYear) {
@@ -521,11 +515,11 @@ public class GeneralLedgerBudgetLoadDaoOjb extends BudgetConstructionBatchHelper
      * This class allows us to create global variables and pass them around. This should make the code thread safe, in the unlikely
      * event it is called by more than one thread. it also allows us to fetch constants and build datas stuctures from the DB once
      * upon instantiation of this class, and make them available for the duration of the run
-     * 
+     *
      * @param requestYear
      * @param <documentNumber, ledger sequence number> HashMap
-     * @param current SQL Date (which will be the transaction date in the general ledger entry rows we create)
-     * @param the "financial system Origination Code" for this database
+     * @param current          SQL Date (which will be the transaction date in the general ledger entry rows we create)
+     * @param the              "financial system Origination Code" for this database
      */
     protected class DaoGlobalVariables {
         private Integer requestYear;

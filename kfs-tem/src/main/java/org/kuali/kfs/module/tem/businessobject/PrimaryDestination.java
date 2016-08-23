@@ -1,24 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.util.LinkedHashMap;
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,35 +30,32 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import java.util.LinkedHashMap;
 
 @Entity
-@Table(name="TEM_PRI_DEST_T")
+@Table(name = "TEM_PRI_DEST_T")
 public class PrimaryDestination extends PersistableBusinessObjectBase implements MutableInactivatable, Comparable<PrimaryDestination> {
 
     @Id
-    @GeneratedValue(generator="TEM_PRI_DEST_ID_SEQ")
-    @SequenceGenerator(name="TEM_PRI_DEST_ID_SEQ",sequenceName="TEM_PRI_DEST_ID_SEQ", allocationSize=5)
-    @Column(name="id",nullable=false)
+    @GeneratedValue(generator = "TEM_PRI_DEST_ID_SEQ")
+    @SequenceGenerator(name = "TEM_PRI_DEST_ID_SEQ", sequenceName = "TEM_PRI_DEST_ID_SEQ", allocationSize = 5)
+    @Column(name = "id", nullable = false)
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name="REGION_CD")
+    @JoinColumn(name = "REGION_CD")
     private TemRegion region;
 
-    @Column(name="REGION_CD",length=100, nullable=false)
+    @Column(name = "REGION_CD", length = 100, nullable = false)
     private String regionCode;
 
-    @Column(name="COUNTY",length=100, nullable=false)
+    @Column(name = "COUNTY", length = 100, nullable = false)
     private String county;
 
-    @Column(name="PRI_DEST",length=100, nullable=false)
+    @Column(name = "PRI_DEST", length = 100, nullable = false)
     private String primaryDestinationName;
 
-    @Column(name="ACTV_IND",nullable=false,length=1)
+    @Column(name = "ACTV_IND", nullable = false, length = 1)
     private Boolean active = Boolean.TRUE;
 
     public Integer getId() {
@@ -177,10 +176,9 @@ public class PrimaryDestination extends PersistableBusinessObjectBase implements
     public int compareTo(PrimaryDestination o) {
 
         PrimaryDestination pd = o;
-        if (this.getRegionCode() != null && pd.getRegionCode() != null){
+        if (this.getRegionCode() != null && pd.getRegionCode() != null) {
             return this.getRegionCode().compareTo(pd.getRegionCode());
-        }
-        else{
+        } else {
             return 0;
         }
 

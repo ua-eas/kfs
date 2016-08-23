@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -19,12 +19,10 @@
 package org.kuali.kfs.sys.businessobject;
 
 import java.io.Closeable;
-import java.io.IOException;
 import java.io.OutputStream;
-import java.io.PrintStream;
 
 
-public interface FileStorageFile extends Closeable,AutoCloseable {
+public interface FileStorageFile extends Closeable, AutoCloseable {
     /**
      * Get an output stream to the file
      *

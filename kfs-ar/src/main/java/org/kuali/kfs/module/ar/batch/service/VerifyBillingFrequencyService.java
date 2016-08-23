@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -17,9 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.batch.service;
-
-import java.sql.Date;
-import java.util.ArrayList;
 
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
@@ -51,7 +48,7 @@ public interface VerifyBillingFrequencyService {
     /**
      * This method returns the start and end date of previous billing period.
      *
-     * @param award ContractsAndGrantsBillingAward used to get dates and billing frequency for calculations
+     * @param award      ContractsAndGrantsBillingAward used to get dates and billing frequency for calculations
      * @param currPeriod accounting period used for calculations (typically the current period)
      * @return Date array containing start date and end date of previous billing period
      */

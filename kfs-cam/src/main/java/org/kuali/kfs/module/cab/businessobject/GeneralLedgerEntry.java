@@ -1,28 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cab.businessobject;
-
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
@@ -32,6 +26,7 @@ import org.kuali.kfs.coa.businessobject.ObjectType;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
 import org.kuali.kfs.gl.businessobject.Entry;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.module.cab.CabConstants;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -39,7 +34,12 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.KewApiServiceLocator;
 import org.kuali.rice.kew.api.doctype.DocumentType;
 import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 public class GeneralLedgerEntry extends PersistableBusinessObjectBase {
     private Long generalLedgerAccountIdentifier;
@@ -696,11 +696,11 @@ public class GeneralLedgerEntry extends PersistableBusinessObjectBase {
      * @return Returns the financialSystemDocumentTypeCode.
      */
     public DocumentTypeEBO getFinancialSystemDocumentTypeCode() {
-        if ( financialSystemDocumentTypeCode == null || !StringUtils.equals(financialSystemDocumentTypeCode.getName(), financialDocumentTypeCode) ) {
+        if (financialSystemDocumentTypeCode == null || !StringUtils.equals(financialSystemDocumentTypeCode.getName(), financialDocumentTypeCode)) {
             financialSystemDocumentTypeCode = null;
-            if ( StringUtils.isNotBlank(financialDocumentTypeCode) ) {
+            if (StringUtils.isNotBlank(financialDocumentTypeCode)) {
                 DocumentType docType = KewApiServiceLocator.getDocumentTypeService().getDocumentTypeByName(financialDocumentTypeCode);
-                if ( docType != null ) {
+                if (docType != null) {
                     financialSystemDocumentTypeCode = org.kuali.rice.kew.doctype.bo.DocumentType.from(docType);
                 }
             }
@@ -828,8 +828,7 @@ public class GeneralLedgerEntry extends PersistableBusinessObjectBase {
     public KualiDecimal getAmount() {
         if (getTransactionLedgerEntryAmount() != null && KFSConstants.GL_CREDIT_CODE.equals(getTransactionDebitCreditCode())) {
             setAmount(getTransactionLedgerEntryAmount().negated());
-        }
-        else {
+        } else {
             setAmount(getTransactionLedgerEntryAmount());
         }
         return amount;

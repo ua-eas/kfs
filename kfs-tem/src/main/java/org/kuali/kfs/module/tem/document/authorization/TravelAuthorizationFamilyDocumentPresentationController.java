@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -32,6 +32,7 @@ public abstract class TravelAuthorizationFamilyDocumentPresentationController ex
 
     /**
      * Determines if the vendor can be paid for this authorization
+     *
      * @param document the authorization to check
      * @return true if the vendor can be paid, false otherwise
      */
@@ -49,6 +50,7 @@ public abstract class TravelAuthorizationFamilyDocumentPresentationController ex
 
     /**
      * Determines if the travel authorization is open for reimbursement or amendment
+     *
      * @param document the authorization to check
      * @return true if the authorization is open, false otherwise
      */
@@ -58,6 +60,7 @@ public abstract class TravelAuthorizationFamilyDocumentPresentationController ex
 
     /**
      * Determines if the document is in processed workflow state
+     *
      * @param document the document to check
      * @return true if the document is in processed workflow state, false otherwise
      */
@@ -67,6 +70,7 @@ public abstract class TravelAuthorizationFamilyDocumentPresentationController ex
 
     /**
      * Determines if the document is in retired mode or not
+     *
      * @param document the document to check
      * @return true if the document is retired, false otherwise
      */
@@ -76,6 +80,7 @@ public abstract class TravelAuthorizationFamilyDocumentPresentationController ex
 
     /**
      * Determines if the document has been cancelled as a TA or not
+     *
      * @param document the document to check
      * @return true if the document is TA cancelled, false otherwise
      */

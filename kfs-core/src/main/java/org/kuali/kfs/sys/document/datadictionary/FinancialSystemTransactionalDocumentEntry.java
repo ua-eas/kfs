@@ -1,31 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.document.datadictionary;
 
-import java.util.Map;
-
-import org.kuali.kfs.sys.businessobject.AccountingLineParser;
 import org.kuali.kfs.kns.datadictionary.TransactionalDocumentEntry;
+import org.kuali.kfs.sys.businessobject.AccountingLineParser;
+
+import java.util.Map;
 
 /**
  * An extension of the Rice TransactionalDocumentEntry that allows for KFS-centric properties, such as
- * Accounting Document validations 
+ * Accounting Document validations
  */
 public class FinancialSystemTransactionalDocumentEntry extends TransactionalDocumentEntry {
     private Map<Class, String> validationMap;
@@ -36,7 +36,8 @@ public class FinancialSystemTransactionalDocumentEntry extends TransactionalDocu
     protected boolean potentiallySensitive = false;
 
     /**
-     * Gets the validationMap attribute. 
+     * Gets the validationMap attribute.
+     *
      * @return Returns the validationMap.
      */
     public Map<Class, String> getValidationMap() {
@@ -45,6 +46,7 @@ public class FinancialSystemTransactionalDocumentEntry extends TransactionalDocu
 
     /**
      * Sets the validationMap attribute value.
+     *
      * @param validationMap The validationMap to set.
      */
     public void setValidationMap(Map<Class, String> validationMap) {
@@ -52,7 +54,8 @@ public class FinancialSystemTransactionalDocumentEntry extends TransactionalDocu
     }
 
     /**
-     * Gets the accountingLineGroups attribute. 
+     * Gets the accountingLineGroups attribute.
+     *
      * @return Returns the accountingLineGroups.
      */
     public Map<String, AccountingLineGroupDefinition> getAccountingLineGroups() {
@@ -61,14 +64,16 @@ public class FinancialSystemTransactionalDocumentEntry extends TransactionalDocu
 
     /**
      * Sets the accountingLineGroups attribute value.
+     *
      * @param accountingLineGroups The accountingLineGroups to set.
      */
     public void setAccountingLineGroups(Map<String, AccountingLineGroupDefinition> accountingLineGroups) {
         this.accountingLineGroups = accountingLineGroups;
     }
-    
+
     /**
-     * Gets the importedLineParserClass attribute. 
+     * Gets the importedLineParserClass attribute.
+     *
      * @return Returns the importedLineParserClass.
      */
     public Class<? extends AccountingLineParser> getImportedLineParserClass() {
@@ -77,6 +82,7 @@ public class FinancialSystemTransactionalDocumentEntry extends TransactionalDocu
 
     /**
      * Sets the importedLineParserClass attribute value.
+     *
      * @param importedLineParserClass The importedLineParserClass to set.
      */
     public void setImportedLineParserClass(Class<? extends AccountingLineParser> importedLineParser) {
@@ -84,7 +90,8 @@ public class FinancialSystemTransactionalDocumentEntry extends TransactionalDocu
     }
 
     /**
-     * Gets the maxDictionaryValidationDepth attribute. 
+     * Gets the maxDictionaryValidationDepth attribute.
+     *
      * @return Returns the maxDictionaryValidationDepth.
      */
     public Integer getMaxDictionaryValidationDepth() {
@@ -93,22 +100,22 @@ public class FinancialSystemTransactionalDocumentEntry extends TransactionalDocu
 
     /**
      * Sets the maxDictionaryValidationDepth attribute value.
+     *
      * @param maxDictionaryValidationDepth The maxDictionaryValidationDepth to set.
      */
     public void setMaxDictionaryValidationDepth(Integer maxDictionaryValidationDepth) {
         this.maxDictionaryValidationDepth = maxDictionaryValidationDepth;
     }
-    
+
     /**
-        This field contains a value of true or false.
-        If true, then error correction is allowed for the document.
+     * This field contains a value of true or false.
+     * If true, then error correction is allowed for the document.
      */
     public void setAllowsErrorCorrection(boolean allowsErrorCorrection) {
         this.allowsErrorCorrection = allowsErrorCorrection;
     }
-    
+
     /**
-     * 
      * @see org.kuali.rice.kns.datadictionary.TransactionalDocumentEntry#getAllowsErrorCorrection()
      */
     public boolean getAllowsErrorCorrection() {
@@ -116,7 +123,8 @@ public class FinancialSystemTransactionalDocumentEntry extends TransactionalDocu
     }
 
     /**
-     * Gets the potentiallySensitive attribute. 
+     * Gets the potentiallySensitive attribute.
+     *
      * @return Returns the potentiallySensitive.
      */
     public boolean isPotentiallySensitive() {
@@ -125,11 +133,12 @@ public class FinancialSystemTransactionalDocumentEntry extends TransactionalDocu
 
     /**
      * Sets the potentiallySensitive attribute value.
+     *
      * @param potentiallySensitive The potentiallySensitive to set.
      */
     public void setPotentiallySensitive(boolean potentiallySensitive) {
         this.potentiallySensitive = potentiallySensitive;
     }
-    
-    
+
+
 }

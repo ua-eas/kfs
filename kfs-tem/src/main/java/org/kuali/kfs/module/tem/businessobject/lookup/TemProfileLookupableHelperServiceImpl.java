@@ -1,32 +1,36 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.kns.datadictionary.FieldDefinition;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.krad.UserSession;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants.TemProfileProperties;
@@ -49,18 +53,14 @@ import org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanCo
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.services.IdentityManagementService;
-import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
-import org.kuali.kfs.kns.datadictionary.FieldDefinition;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.kfs.kns.service.DocumentHelperService;
-import org.kuali.kfs.kns.web.struts.form.LookupForm;
-import org.kuali.kfs.krad.UserSession;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 public class TemProfileLookupableHelperServiceImpl extends KualiLookupableHelperServiceImpl {
 
@@ -73,7 +73,7 @@ public class TemProfileLookupableHelperServiceImpl extends KualiLookupableHelper
     private IdentityManagementService identityManagementService;
     private TravelArrangerDocumentService travelArrangerDocumentService;
 
-    private static final String[] addressLookupFields = { TemProfileProperties.ADDRESS_1, TemProfileProperties.ADDRESS_2, TemProfileProperties.CITY_NAME, TemProfileProperties.STATE_CODE, TemProfileProperties.ZIP_CODE, TemProfileProperties.COUNTRY_CODE };
+    private static final String[] addressLookupFields = {TemProfileProperties.ADDRESS_1, TemProfileProperties.ADDRESS_2, TemProfileProperties.CITY_NAME, TemProfileProperties.STATE_CODE, TemProfileProperties.ZIP_CODE, TemProfileProperties.COUNTRY_CODE};
 
     /**
      * @see org.kuali.rice.kns.lookup.KualiLookupableHelperServiceImpl#getSearchResults(java.util.Map)
@@ -102,7 +102,7 @@ public class TemProfileLookupableHelperServiceImpl extends KualiLookupableHelper
                 final String arrangeesOnlyValue = fieldValues.remove(TemPropertyConstants.TemProfileProperties.ONLY_ARRANGEES_IN_LOOKUP);
                 if (!StringUtils.isBlank(arrangeesOnlyValue)) {
                     OjbCharBooleanConversion booleanConverter = new OjbCharBooleanConversion();
-                    final Boolean arrangeesOnlyBool = (Boolean)booleanConverter.sqlToJava(arrangeesOnlyValue);
+                    final Boolean arrangeesOnlyBool = (Boolean) booleanConverter.sqlToJava(arrangeesOnlyValue);
                     arrangeesOnly = arrangeesOnlyBool.booleanValue();
                 }
             }
@@ -110,7 +110,7 @@ public class TemProfileLookupableHelperServiceImpl extends KualiLookupableHelper
 
         List<TemProfile> searchResults = (List<TemProfile>) super.getSearchResults(fieldValues);
         List<TemProfile> profiles = new ArrayList<TemProfile>();
-        for (TemProfile profile : searchResults){
+        for (TemProfile profile : searchResults) {
             //only repopulate kim based tem profiles
             if (!StringUtils.isBlank(profile.getPrincipalId())) {
                 getTravelerService().populateTemProfile(profile);
@@ -153,6 +153,7 @@ public class TemProfileLookupableHelperServiceImpl extends KualiLookupableHelper
 
     /**
      * Determines if the given possibleArranger is an arranger for the given possibleArrangee
+     *
      * @param possibleArranger the Person who could be the arranger of the given profile
      * @param possibleArrangee the profile, who could have trips arranged by the possibleArranger
      * @return true if possibleArranger is an arranger for possibleArrangee, false otherwise
@@ -202,7 +203,7 @@ public class TemProfileLookupableHelperServiceImpl extends KualiLookupableHelper
 
     /**
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#getReturnHref(java.util.Properties,
-     *      org.kuali.rice.kns.web.struts.form.LookupForm, java.util.List)
+     * org.kuali.rice.kns.web.struts.form.LookupForm, java.util.List)
      */
     @SuppressWarnings("rawtypes")
     @Override
@@ -226,7 +227,7 @@ public class TemProfileLookupableHelperServiceImpl extends KualiLookupableHelper
         // next we need to get the current user's info
         UserSession user = GlobalVariables.getUserSession();
 
-        final TemProfileAuthorizer authorizer = (TemProfileAuthorizer)SpringContext.getBean(DocumentHelperService.class).getDocumentAuthorizer(TemConstants.TravelDocTypes.TRAVEL_PROFILE_DOCUMENT);
+        final TemProfileAuthorizer authorizer = (TemProfileAuthorizer) SpringContext.getBean(DocumentHelperService.class).getDocumentAuthorizer(TemConstants.TravelDocTypes.TRAVEL_PROFILE_DOCUMENT);
 
         final TemProfile dummyProfile = new TemProfile();
         // fill the dummy profile with the user's org, so that org qualified roles will have qualifiers
@@ -241,7 +242,7 @@ public class TemProfileLookupableHelperServiceImpl extends KualiLookupableHelper
         criteria.put("principalId", user.getPrincipalId());
 
         // If a TEM Profile doesn't exist and user is granted KFS-TEM Edit My TEM Profile permission, allow the user to create their profile
-        if (getTemProfileService().findTemProfile(criteria) == null ) {
+        if (getTemProfileService().findTemProfile(criteria) == null) {
             canCreateMyProfile = authorizer.canEditOwnProfile(dummyProfile, user.getPerson());
         }
 
@@ -286,7 +287,6 @@ public class TemProfileLookupableHelperServiceImpl extends KualiLookupableHelper
     }
 
     /**
-     *
      * @param boClass
      * @param fieldValues
      * @param prefix
@@ -311,12 +311,10 @@ public class TemProfileLookupableHelperServiceImpl extends KualiLookupableHelper
                 }
                 if (key != null) {
                     retval.put(prefix + key, value);
-                }
-                else {
+                } else {
                     LOG.warn("Got a null key for attribute name " + attrName);
                 }
-            }
-            else if (containsAttribute(boClass, attrName)) {
+            } else if (containsAttribute(boClass, attrName)) {
                 retval.put(prefix + attrName, fieldValues.get(attrName));
             }
         }
@@ -325,7 +323,6 @@ public class TemProfileLookupableHelperServiceImpl extends KualiLookupableHelper
     }
 
     /**
-     *
      * @param boClass
      * @param attributeName
      * @return
@@ -336,12 +333,11 @@ public class TemProfileLookupableHelperServiceImpl extends KualiLookupableHelper
     }
 
     /**
-     *
      * @param className
      * @return
      */
     private Collection<FieldDefinition> getLookupFieldsFor(String className) {
-        BusinessObjectEntry businessObjectEntry = (BusinessObjectEntry)getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(className);
+        BusinessObjectEntry businessObjectEntry = (BusinessObjectEntry) getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(className);
         return businessObjectEntry.getLookupDefinition().getLookupFields();
     }
 

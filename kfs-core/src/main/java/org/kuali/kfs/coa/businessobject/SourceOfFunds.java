@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -19,11 +19,10 @@
 package org.kuali.kfs.coa.businessobject;
 
 
-import java.util.LinkedHashMap;
-
-import org.kuali.rice.core.api.mo.common.active.Inactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
+import java.util.LinkedHashMap;
 
 /**
  * This class represents the SourceOfFunds Business Object
@@ -31,50 +30,50 @@ import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 
 public class SourceOfFunds extends PersistableBusinessObjectBase implements MutableInactivatable {
 
-	private String typeCode;
-	private boolean active;
-	private String sourceOfFundsDescription;
-	private String sourceOfFundsName;
+    private String typeCode;
+    private boolean active;
+    private String sourceOfFundsDescription;
+    private String sourceOfFundsName;
 
-	public SourceOfFunds() {
+    public SourceOfFunds() {
 
-	}
+    }
 
-	public String getTypeCode() {
-		return typeCode;
-	}
+    public String getTypeCode() {
+        return typeCode;
+    }
 
-	public void setTypeCode(String typeCode) {
-		this.typeCode = typeCode;
-	}
+    public void setTypeCode(String typeCode) {
+        this.typeCode = typeCode;
+    }
 
-	public boolean isActive() {
-		return active;
-	}
+    public boolean isActive() {
+        return active;
+    }
 
-	public void setActive(boolean active) {
-		this.active = active;
-	}
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
-	public String getSourceOfFundsDescription() {
-		return sourceOfFundsDescription;
-	}
+    public String getSourceOfFundsDescription() {
+        return sourceOfFundsDescription;
+    }
 
-	public void setSourceOfFundsDescription(String sourceOfFundsDescription) {
-		this.sourceOfFundsDescription = sourceOfFundsDescription;
-	}
+    public void setSourceOfFundsDescription(String sourceOfFundsDescription) {
+        this.sourceOfFundsDescription = sourceOfFundsDescription;
+    }
 
-	public String getSourceOfFundsName() {
-		return sourceOfFundsName;
-	}
+    public String getSourceOfFundsName() {
+        return sourceOfFundsName;
+    }
 
-	public void setSourceOfFundsName(String sourceOfFundsName) {
-		this.sourceOfFundsName = sourceOfFundsName;
-	}
+    public void setSourceOfFundsName(String sourceOfFundsName) {
+        this.sourceOfFundsName = sourceOfFundsName;
+    }
 
-	protected LinkedHashMap<String, String> toStringMapper() {
-		LinkedHashMap<String, String> m = new LinkedHashMap<String, String>();
-		m.put("typeCode", this.typeCode);
-		return m;
-	}
+    protected LinkedHashMap<String, String> toStringMapper() {
+        LinkedHashMap<String, String> m = new LinkedHashMap<String, String>();
+        m.put("typeCode", this.typeCode);
+        return m;
+    }
 }

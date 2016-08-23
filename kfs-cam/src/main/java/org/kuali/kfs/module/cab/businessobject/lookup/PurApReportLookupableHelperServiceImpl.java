@@ -1,34 +1,34 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cab.businessobject.lookup;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.lookup.LookupUtils;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.module.cab.CabConstants;
 import org.kuali.kfs.module.cab.CabPropertyConstants;
 import org.kuali.kfs.module.cab.businessobject.GeneralLedgerEntry;
@@ -40,17 +40,17 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.services.IdentityManagementService;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.kfs.kns.lookup.LookupUtils;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.lookup.CollectionIncomplete;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * This class overrids the base getActionUrls method
@@ -64,11 +64,11 @@ public class PurApReportLookupableHelperServiceImpl extends KualiLookupableHelpe
      * Custom action urls for CAB PurAp lines.
      *
      * @see org.kuali.rice.kns.lookup.LookupableHelperService#getCustomActionUrls(org.kuali.rice.krad.bo.BusinessObject,
-     *      java.util.List, java.util.List pkNames)
+     * java.util.List, java.util.List pkNames)
      */
     @Override
     public List<HtmlData> getCustomActionUrls(BusinessObject bo, List pkNames) {
-        Map<String,String> permissionDetails = new HashMap<String,String>();
+        Map<String, String> permissionDetails = new HashMap<String, String>();
         permissionDetails.put(KimConstants.AttributeConstants.NAMESPACE_CODE, "KFS-CAB");
         permissionDetails.put(KimConstants.AttributeConstants.ACTION_CLASS, "PurApLineAction");
 
@@ -126,8 +126,7 @@ public class PurApReportLookupableHelperServiceImpl extends KualiLookupableHelpe
             Map<String, Integer> purApDocNumberMap = buildDocumentNumberMap(purApDocs);
 
             purApReportList = updatePurApReportListByPurApDocs(purApReportList, purApDocNumberMap);
-        }
-        else {
+        } else {
             purApReportList = updateResultList(purApReportList);
         }
 
@@ -188,7 +187,7 @@ public class PurApReportLookupableHelperServiceImpl extends KualiLookupableHelpe
      */
     private Map<String, Integer> buildDocumentNumberMap(Collection purApDocs) {
         Map<String, Integer> purApDocNumbers = new HashMap<String, Integer>();
-        for (Iterator iterator = purApDocs.iterator(); iterator.hasNext();) {
+        for (Iterator iterator = purApDocs.iterator(); iterator.hasNext(); ) {
             PurchasingAccountsPayableDocument purApdoc = (PurchasingAccountsPayableDocument) iterator.next();
             purApDocNumbers.put(purApdoc.getDocumentNumber(), purApdoc.getPurapDocumentIdentifier());
         }
@@ -272,8 +271,7 @@ public class PurApReportLookupableHelperServiceImpl extends KualiLookupableHelpe
                         if (newReport.getTransactionLedgerEntryAmount() != null) {
                             setReportAmount(activeSelection, newReport);
                         }
-                    }
-                    else {
+                    } else {
                         // set report amount by transactional Amount
                         newReport.setReportAmount(newReport.getAmount());
                     }
@@ -294,12 +292,10 @@ public class PurApReportLookupableHelperServiceImpl extends KualiLookupableHelpe
     private Date getDate(Object obj) {
         if (obj instanceof Date) {
             return (Date) obj;
-        }
-        else if (obj instanceof Timestamp) {
+        } else if (obj instanceof Timestamp) {
             Timestamp tsp = (Timestamp) obj;
             return new Date(tsp.getTime());
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -329,18 +325,15 @@ public class PurApReportLookupableHelperServiceImpl extends KualiLookupableHelpe
         if (KFSConstants.ACTIVE_INDICATOR.equalsIgnoreCase(active)) {
             // Processed in CAMS: set report amount as submitted amount
             newReport.setReportAmount(newReport.getTransactionLedgerSubmitAmount());
-        }
-        else if ((KFSConstants.NON_ACTIVE_INDICATOR.equalsIgnoreCase(active))) {
+        } else if ((KFSConstants.NON_ACTIVE_INDICATOR.equalsIgnoreCase(active))) {
             // Not Processed in CAMS: set report amount by transactionLedgerEntryAmount excluding submitted amount
             KualiDecimal reportAmount = newReport.getAmount();
             if (reportAmount != null && newReport.getTransactionLedgerSubmitAmount() != null) {
                 newReport.setReportAmount(reportAmount.subtract(newReport.getTransactionLedgerSubmitAmount()));
-            }
-            else {
+            } else {
                 newReport.setReportAmount(reportAmount);
             }
-        }
-        else {
+        } else {
             // both processed/non processed: set report amount by transactional amount
             newReport.setReportAmount(newReport.getAmount());
         }

@@ -2270,7 +2270,6 @@
                         "templateName": "Use Screen",
                         "details": {
                           "actionClass": "org.kuali.kfs.sys.web.struts.SidebarMenuCacheAction"
-
                         }
                       }
                     },

@@ -1,31 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.document.dataaccess.impl;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.UUID;
-
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.batch.dataaccess.impl.SQLForStep;
 import org.kuali.kfs.module.bc.document.dataaccess.BudgetConstructionSalarySummaryReportDao;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * builds the underlying data table for the salary summary report in budget construction
@@ -349,7 +349,7 @@ public class BudgetConstructionSalarySummaryReportDaoJdbc extends BudgetConstruc
      * runs SQL used by every report
      *
      * @param principalName--the user requesting the report
-     * @param idForSession--the session of the user
+     * @param idForSession--the  session of the user
      */
     protected void runCommonSQLForSalaryReports(String principalName, String idForSession) {
         getSimpleJdbcTemplate().update(updateReportsSalarySummaryCommon.get(0).getSQL(), principalName, principalName, idForSession);
@@ -359,7 +359,7 @@ public class BudgetConstructionSalarySummaryReportDaoJdbc extends BudgetConstruc
 
     /**
      * @see org.kuali.kfs.module.bc.document.dataaccess.BudgetConstructionSalarySummaryReportDao#salarySummaryReports(java.lang.String,
-     *      java.lang.Integer, boolean, org.kuali.rice.core.api.util.type.KualiDecimal)
+     * java.lang.Integer, boolean, org.kuali.rice.core.api.util.type.KualiDecimal)
      */
     @Override
     public void updateSalaryAndReasonSummaryReportsWithThreshold(String principalName, Integer previousFiscalYear, boolean reportGreaterThanOrEqualToThreshold, KualiDecimal threshold) {
@@ -397,8 +397,7 @@ public class BudgetConstructionSalarySummaryReportDaoJdbc extends BudgetConstruc
         BigDecimal thresholdValue = threshold.bigDecimalValue();
         if (reportGreaterThanOrEqualToThreshold) {
             getSimpleJdbcTemplate().update(salarySummaryAboveThreshold.get(0).getSQL(), idForSession, idForSession, thresholdValue);
-        }
-        else {
+        } else {
             getSimpleJdbcTemplate().update(salarySummaryBelowThreshold.get(0).getSQL(), idForSession, idForSession, thresholdValue);
         }
         // populate the holding table with the rows to be reported
@@ -417,7 +416,7 @@ public class BudgetConstructionSalarySummaryReportDaoJdbc extends BudgetConstruc
 
     /**
      * @see org.kuali.kfs.module.bc.document.dataaccess.BudgetConstructionSalarySummaryReportDao#reasonSummaryReports(java.lang.String,
-     *      boolean)
+     * boolean)
      */
     @Override
     public void updateSalaryAndReasonSummaryReportsWithoutThreshold(String principalName, boolean listSalariesWithReasonCodes) {
@@ -435,8 +434,7 @@ public class BudgetConstructionSalarySummaryReportDaoJdbc extends BudgetConstruc
         // the option exists to report only those people with a salary increase reason code, or to report everyone
         if (listSalariesWithReasonCodes) {
             getSimpleJdbcTemplate().update(updateReportsSalarySummaryNoThresholdReason.get(0).getSQL(vacantEmplid), idForSession, principalName);
-        }
-        else {
+        } else {
             getSimpleJdbcTemplate().update(updateReportsSalarySummaryNoThresholdNoReason.get(0).getSQL(vacantEmplid), idForSession, principalName);
         }
         // populate the holding table with the rows to be reported

@@ -1,44 +1,37 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.document.service.impl;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.zip.CRC32;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
-
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.pdf.PdfCopyFields;
+import com.lowagie.text.pdf.PdfReader;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
+import org.kuali.kfs.krad.bo.ModuleConfiguration;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.NoteService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.businessobject.CollectionActivityType;
@@ -59,20 +52,26 @@ import org.kuali.kfs.sys.PdfFormFillerUtil;
 import org.kuali.kfs.sys.businessobject.ChartOrgHolder;
 import org.kuali.kfs.sys.service.FinancialSystemUserService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.bo.ModuleConfiguration;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.service.NoteService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.pdf.PdfCopyFields;
-import com.lowagie.text.pdf.PdfReader;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.zip.CRC32;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 /**
  * Implementation class for DunningLetterDistributionService.
@@ -158,20 +157,18 @@ public class DunningLetterServiceImpl implements DunningLetterService {
                 replacementList.put("agency.fullAddressInline", contractsGrantsBillingUtilityService.buildFullAddress(address));
                 replacementList.put("agency.fullName", address.getCustomer().getCustomerName());
                 replacementList.put("agency.contactName", address.getCustomer().getCustomerContactName());
-                if(CollectionUtils.isNotEmpty(selectedInvoices)){
-                reportStream = PdfFormFillerUtil.populateTemplate(templateFile, replacementList);
+                if (CollectionUtils.isNotEmpty(selectedInvoices)) {
+                    reportStream = PdfFormFillerUtil.populateTemplate(templateFile, replacementList);
 
-                // Step3. attach each dunning letter to invoice pdfs.
-                finalReportStream = generateListOfInvoicesPdfToPrint(selectedInvoices, reportStream);
+                    // Step3. attach each dunning letter to invoice pdfs.
+                    finalReportStream = generateListOfInvoicesPdfToPrint(selectedInvoices, reportStream);
                 }
-            }
-            catch (DocumentException | IOException ex) {
+            } catch (DocumentException | IOException ex) {
                 // This means that the invoice pdfs were not generated properly. So get only the Dunning letters created.
                 LOG.error("An exception occurred while retrieving invoice pdfs." + ex.getMessage());
                 finalReportStream = reportStream;
             }
-        }
-        else {
+        } else {
             GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, ArKeyConstants.ERROR_FILE_UPLOAD_NO_PDF_FILE_SELECTED_FOR_SAVE, "test");
         }
 
@@ -180,6 +177,7 @@ public class DunningLetterServiceImpl implements DunningLetterService {
 
     /**
      * Loops through the collection of lookup results, creating pdfs for each and appending the bytes of the pdfs onto the returned "finalReport"
+     *
      * @see org.kuali.kfs.module.ar.document.service.DunningLetterDistributionService#createDunningLettersForAllResults(org.kuali.kfs.module.ar.businessobject.DunningLetterTemplate, java.util.Collection)
      */
     @Override
@@ -219,7 +217,7 @@ public class DunningLetterServiceImpl implements DunningLetterService {
 
         Map<String, String> parameterMap = new HashMap<String, String>();
 
-        if (CollectionUtils.isNotEmpty(invoices)){
+        if (CollectionUtils.isNotEmpty(invoices)) {
             ContractsAndGrantsBillingAward award = invoices.get(0).getInvoiceGeneralDetail().getAward();
             Map primaryKeys = new HashMap<String, Object>();
             contractsGrantsBillingUtilityService.putValueOrEmptyString(parameterMap, "award.proposalNumber", org.apache.commons.lang.ObjectUtils.toString(award.getProposalNumber()));
@@ -315,7 +313,6 @@ public class DunningLetterServiceImpl implements DunningLetterService {
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.ar.document.service.DunningLetterDistributionService#isValidOrganizationForTemplate(org.kuali.kfs.module.ar.businessobject.DunningLetterTemplate, org.kuali.rice.kim.api.identity.Person)
      */
     @Override
@@ -346,7 +343,7 @@ public class DunningLetterServiceImpl implements DunningLetterService {
             Map.Entry entry = (Map.Entry) iter.next();
             List<ContractsGrantsInvoiceDocument> list = (List<ContractsGrantsInvoiceDocument>) entry.getValue();
 
-            if (CollectionUtils.isNotEmpty(list)){
+            if (CollectionUtils.isNotEmpty(list)) {
                 // Get data from first award for agency data
                 ContractsGrantsInvoiceDocument document = list.get(0);
                 ContractsAndGrantsBillingAward award = document.getInvoiceGeneralDetail().getAward();
@@ -373,6 +370,7 @@ public class DunningLetterServiceImpl implements DunningLetterService {
 
     /**
      * Maps the given ContractsGrantsInvoiceDocuments by their agency number
+     *
      * @param invoices the invoices to Map to agency number
      * @return the Map of the invoices
      */
@@ -382,8 +380,7 @@ public class DunningLetterServiceImpl implements DunningLetterService {
             String proposalNumber = invoice.getInvoiceGeneralDetail().getProposalNumber();
             if (invoicesByAward.containsKey(proposalNumber)) {
                 invoicesByAward.get(proposalNumber).add(invoice);
-            }
-            else {
+            } else {
                 List<ContractsGrantsInvoiceDocument> invoicesByProposalNumber = new ArrayList<ContractsGrantsInvoiceDocument>();
                 invoicesByProposalNumber.add(invoice);
                 invoicesByAward.put(proposalNumber, invoicesByProposalNumber);
@@ -471,7 +468,8 @@ public class DunningLetterServiceImpl implements DunningLetterService {
 
     public ContractsGrantsInvoiceDocumentService getContractsGrantsInvoiceDocumentService() {
         return contractsGrantsInvoiceDocumentService;
-}
+    }
+
     public void setContractsGrantsInvoiceDocumentService(ContractsGrantsInvoiceDocumentService contractsGrantsInvoiceDocumentService) {
         this.contractsGrantsInvoiceDocumentService = contractsGrantsInvoiceDocumentService;
     }

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -30,7 +30,7 @@ import java.util.Map;
 /**
  * Provides methods for getting property values, types, and paths within the
  * context of a <code>View</code>
- *
+ * <p>
  * <p>
  * The view provides a special map named 'abstractTypeClasses' that indicates
  * concrete classes that should be used in place of abstract property types that
@@ -42,14 +42,12 @@ import java.util.Map;
  * type for name. Using the view map, we can replace document with a concrete
  * class and then use it to get the name property
  * </p>
- *
- * 
  */
 public class ViewModelUtils {
 
     /**
      * Determines the associated type for the property within the View context
-     *
+     * <p>
      * <p>
      * Property path is full path to property from the View Form class. The abstract type classes
      * map configured on the View will be consulted for any entries that match the property path. If the
@@ -58,7 +56,7 @@ public class ViewModelUtils {
      * of the path remaining. If no matching entry is found, standard reflection is used to get the type
      * </p>
      *
-     * @param view - view instance providing the context (abstract map)
+     * @param view         - view instance providing the context (abstract map)
      * @param propertyPath - full path to property to retrieve type for (relative to the form class)
      * @return Class<?> type of property in model, or Null if type could not be determined
      * @see View#getAbstractTypeClasses()
@@ -162,7 +160,7 @@ public class ViewModelUtils {
             // attempt to create new instance if parent is null or is a
             // collection or map
             if ((parentObject == null) || Collection.class.isAssignableFrom(parentObject.getClass()) ||
-                    Map.class.isAssignableFrom(parentObject.getClass())) {
+                Map.class.isAssignableFrom(parentObject.getClass())) {
                 try {
                     Class<?> parentObjectClass = getPropertyTypeByClassAndView(view, parentObjectPath);
                     if (parentObjectClass != null) {
@@ -183,7 +181,7 @@ public class ViewModelUtils {
      * Helper method for getting the string value of a property from a {@link PropertyValues}
      *
      * @param propertyValues - property values instance to pull from
-     * @param propertyName - name of property whose value should be retrieved
+     * @param propertyName   - name of property whose value should be retrieved
      * @return String value for property or null if property was not found
      */
     public static String getStringValFromPVs(PropertyValues propertyValues, String propertyName) {

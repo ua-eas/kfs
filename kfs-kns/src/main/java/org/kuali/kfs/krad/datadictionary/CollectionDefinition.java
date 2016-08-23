@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -26,27 +26,25 @@ import org.kuali.kfs.krad.datadictionary.validation.constraint.CollectionSizeCon
 /**
  * A single Collection attribute definition in the DataDictionary, which contains information relating to the display, validation,
  * and general maintenance of a specific Collection attribute of an entry.
- * 
- * 
  */
 public class CollectionDefinition extends DataDictionaryDefinitionBase implements CollectionSizeConstrainable {
     private static final long serialVersionUID = -2644072136271281041L;
-    
+
     protected String dataObjectClass;
     protected String name;
     protected String label;
     protected String shortLabel;
     protected String elementLabel;
-    
+
     protected String summary;
 
-	protected String description;
-    
-	protected Integer minOccurs;
-	protected Integer maxOccurs;
+    protected String description;
+
+    protected Integer minOccurs;
+    protected Integer maxOccurs;
 
     public CollectionDefinition() {
-    	//empty
+        //empty
     }
 
     public String getName() {
@@ -86,7 +84,8 @@ public class CollectionDefinition extends DataDictionaryDefinitionBase implement
     }
 
     /**
-     * Gets the elementLabel attribute. 
+     * Gets the elementLabel attribute.
+     *
      * @return Returns the elementLabel.
      */
     public String getElementLabel() {
@@ -94,7 +93,7 @@ public class CollectionDefinition extends DataDictionaryDefinitionBase implement
     }
 
     /**
- 	 * The elementLabel defines the name to be used for a single object
+     * The elementLabel defines the name to be used for a single object
      * within the collection.  For example: "Address" may be the name
      * of one object within the "Addresses" collection.
      */
@@ -107,7 +106,7 @@ public class CollectionDefinition extends DataDictionaryDefinitionBase implement
     }
 
     /**
-	 * The summary element is used to provide a short description of the
+     * The summary element is used to provide a short description of the
      * attribute or collection.  This is designed to be used for help purposes.
      */
     public void setSummary(String summary) {
@@ -119,31 +118,31 @@ public class CollectionDefinition extends DataDictionaryDefinitionBase implement
     }
 
     /**
-	 * The description element is used to provide a long description of the
-	 * attribute or collection.  This is designed to be used for help purposes.
+     * The description element is used to provide a long description of the
+     * attribute or collection.  This is designed to be used for help purposes.
      */
     public void setDescription(String description) {
         this.description = description;
     }
-    
-           
+
+
     /**
-	 * @return the dataObjectClass
-	 */
-	public String getDataObjectClass() {
-		return this.dataObjectClass;
-	}
+     * @return the dataObjectClass
+     */
+    public String getDataObjectClass() {
+        return this.dataObjectClass;
+    }
 
-	/**
-	 * @param objectClass the dataObjectClass to set
-	 */
-	public void setDataObjectClass(String dataObjectClass) {
-		this.dataObjectClass = dataObjectClass;
-	}
+    /**
+     * @param objectClass the dataObjectClass to set
+     */
+    public void setDataObjectClass(String dataObjectClass) {
+        this.dataObjectClass = dataObjectClass;
+    }
 
-	/**
+    /**
      * Directly validate simple fields, call completeValidation on Definition fields.
-     * 
+     *
      * @see DataDictionaryEntry#completeValidation()
      */
     public void completeValidation(Class rootBusinessObjectClass, Class otherBusinessObjectClass) {
@@ -161,48 +160,48 @@ public class CollectionDefinition extends DataDictionaryDefinitionBase implement
         return "CollectionDefinition for collection " + getName();
     }
 
-	/**
-	 * @see CollectionSizeConstraint#getMaximumNumberOfElements()
-	 */
-	@Override
-	public Integer getMaximumNumberOfElements() {
-		return this.maxOccurs;
-	}
-
-	/**
-	 * @see CollectionSizeConstraint#getMinimumNumberOfElements()
-	 */
-	@Override
-	public Integer getMinimumNumberOfElements() {
-		return this.minOccurs;
-	}
+    /**
+     * @see CollectionSizeConstraint#getMaximumNumberOfElements()
+     */
+    @Override
+    public Integer getMaximumNumberOfElements() {
+        return this.maxOccurs;
+    }
 
     /**
-	 * @return the minOccurs
-	 */
-	public Integer getMinOccurs() {
-		return this.minOccurs;
-	}
+     * @see CollectionSizeConstraint#getMinimumNumberOfElements()
+     */
+    @Override
+    public Integer getMinimumNumberOfElements() {
+        return this.minOccurs;
+    }
 
-	/**
-	 * @param minOccurs the minOccurs to set
-	 */
-	public void setMinOccurs(Integer minOccurs) {
-		this.minOccurs = minOccurs;
-	}
+    /**
+     * @return the minOccurs
+     */
+    public Integer getMinOccurs() {
+        return this.minOccurs;
+    }
 
-	/**
-	 * @return the maxOccurs
-	 */
-	public Integer getMaxOccurs() {
-		return this.maxOccurs;
-	}
+    /**
+     * @param minOccurs the minOccurs to set
+     */
+    public void setMinOccurs(Integer minOccurs) {
+        this.minOccurs = minOccurs;
+    }
 
-	/**
-	 * @param maxOccurs the maxOccurs to set
-	 */
-	public void setMaxOccurs(Integer maxOccurs) {
-		this.maxOccurs = maxOccurs;
-	}
+    /**
+     * @return the maxOccurs
+     */
+    public Integer getMaxOccurs() {
+        return this.maxOccurs;
+    }
+
+    /**
+     * @param maxOccurs the maxOccurs to set
+     */
+    public void setMaxOccurs(Integer maxOccurs) {
+        this.maxOccurs = maxOccurs;
+    }
 
 }

@@ -1,37 +1,41 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.vnd.document.validation.impl;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.Organization;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.datadictionary.validation.fieldlevel.FixedPointValidationPattern;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
 import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.krad.datadictionary.validation.ValidationPattern;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.PersistenceService;
+import org.kuali.kfs.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -60,21 +64,17 @@ import org.kuali.kfs.vnd.service.TaxNumberService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.kns.datadictionary.validation.fieldlevel.FixedPointValidationPattern;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
-import org.kuali.kfs.krad.datadictionary.validation.ValidationPattern;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.PersistenceService;
-import org.kuali.kfs.krad.util.ErrorMessage;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.util.AutoPopulatingList;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Business rules applicable to VendorDetail document.
@@ -133,8 +133,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
             vendor.refreshNonUpdateableReferences();
             vendor.getVendorHeader().refreshNonUpdateableReferences();
 
-        }
-        else {
+        } else {
             // Retrieve the references objects of the vendor header of this vendor.
             List<String> headerFieldNames = getObjectReferencesListFromBOClass(VendorHeader.class);
             vendor.getVendorHeader().refreshNonUpdateableReferences();
@@ -186,10 +185,10 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
         List<String> results = new ArrayList();
         for (Field theField : theClass.getDeclaredFields()) {
             // only get persistable business object references
-            if ( PersistableBusinessObject.class.isAssignableFrom( theField.getType() ) ) {
-                    results.add(theField.getName());
-                }
+            if (PersistableBusinessObject.class.isAssignableFrom(theField.getType())) {
+                results.add(theField.getName());
             }
+        }
         return results;
     }
 
@@ -287,28 +286,28 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
         for (VendorContract vendorContract : vendorContracts) {
             List<VendorContractOrganization> organizations = vendorContract.getVendorContractOrganizations();
             List<VendorContractOrganization> organizationCopy = new ArrayList<VendorContractOrganization>(organizations);
-            for (VendorContractOrganization organization :organizations ) {
-                 String chartCode = organization.getChartOfAccountsCode();
-                 String organizationCode = organization.getOrganizationCode();
-                 if (StringUtils.isNotEmpty(chartCode) && StringUtils.isNotEmpty(organizationCode)) {
-                     int counter = 0;
-                     int organizationPos = 0;
-                     for (VendorContractOrganization org : organizationCopy) {
-                         if (chartCode.equalsIgnoreCase(org.getChartOfAccountsCode()) && organizationCode.equalsIgnoreCase(org.getOrganizationCode())) {
-                             if (counter++ != 0) {
-                                 organizationCopy.remove(organization);
-                                 putFieldError(VendorPropertyConstants.VENDOR_CONTRACT + "[" + vendorPos + "]." +
-                                         VendorPropertyConstants.VENDOR_CONTRACT_ORGANIZATION + "[" + organizationPos + "]." +
-                                         VendorPropertyConstants.VENDOR_CUSTOMER_NUMBER_CHART_OF_ACCOUNTS_CODE,
-                                         VendorKeyConstants.ERROR_DUPLICATE_ENTRY_NOT_ALLOWED,chartCode + " " + organizationCode );
-                                 success = false;
-                                 break;
-                             }
-                         }
-                     }
-                     organizationPos++;
-                 }
-                 vendorPos++;
+            for (VendorContractOrganization organization : organizations) {
+                String chartCode = organization.getChartOfAccountsCode();
+                String organizationCode = organization.getOrganizationCode();
+                if (StringUtils.isNotEmpty(chartCode) && StringUtils.isNotEmpty(organizationCode)) {
+                    int counter = 0;
+                    int organizationPos = 0;
+                    for (VendorContractOrganization org : organizationCopy) {
+                        if (chartCode.equalsIgnoreCase(org.getChartOfAccountsCode()) && organizationCode.equalsIgnoreCase(org.getOrganizationCode())) {
+                            if (counter++ != 0) {
+                                organizationCopy.remove(organization);
+                                putFieldError(VendorPropertyConstants.VENDOR_CONTRACT + "[" + vendorPos + "]." +
+                                        VendorPropertyConstants.VENDOR_CONTRACT_ORGANIZATION + "[" + organizationPos + "]." +
+                                        VendorPropertyConstants.VENDOR_CUSTOMER_NUMBER_CHART_OF_ACCOUNTS_CODE,
+                                    VendorKeyConstants.ERROR_DUPLICATE_ENTRY_NOT_ALLOWED, chartCode + " " + organizationCode);
+                                success = false;
+                                break;
+                            }
+                        }
+                    }
+                    organizationPos++;
+                }
+                vendorPos++;
             }
         }
         return success;
@@ -321,21 +320,21 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
         List<VendorAlias> aliasList = new ArrayList<VendorAlias>(searchAliases);
         int pos = 0;
         for (VendorAlias searchAlias : searchAliases) {
-                String aliasName = searchAlias.getVendorAliasName();
-               if (aliasName != null) {
-                   int counter = 0;
-                   for (VendorAlias alias : aliasList) {
-                       if (aliasName.equals(alias.getVendorAliasName())) {
-                           if (counter++ != 0) {
-                               putFieldError(VendorPropertyConstants.VENDOR_SEARCH_ALIASES + "[" + pos + "]." + VendorPropertyConstants.VENDOR_ALIAS_NAME, VendorKeyConstants.ERROR_DUPLICATE_ENTRY_NOT_ALLOWED,aliasName);
-                               aliasList.remove(searchAlias);
-                               success = false;
-                               break;
-                           }
-                       }
-                   }
+            String aliasName = searchAlias.getVendorAliasName();
+            if (aliasName != null) {
+                int counter = 0;
+                for (VendorAlias alias : aliasList) {
+                    if (aliasName.equals(alias.getVendorAliasName())) {
+                        if (counter++ != 0) {
+                            putFieldError(VendorPropertyConstants.VENDOR_SEARCH_ALIASES + "[" + pos + "]." + VendorPropertyConstants.VENDOR_ALIAS_NAME, VendorKeyConstants.ERROR_DUPLICATE_ENTRY_NOT_ALLOWED, aliasName);
+                            aliasList.remove(searchAlias);
+                            success = false;
+                            break;
+                        }
+                    }
                 }
-               pos++;
+            }
+            pos++;
         }
         return success;
     }
@@ -375,8 +374,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
         if (!vendorDetail.getVendorHeader().getVendorForeignIndicator() && vendorDetail.getVendorHeader().getVendorType().isVendorTaxNumberRequiredIndicator() && StringUtils.isBlank(vendorDetail.getVendorHeader().getVendorTaxNumber())) {
             if (vendorDetail.isVendorParentIndicator()) {
                 putFieldError(VendorPropertyConstants.VENDOR_TAX_NUMBER, VendorKeyConstants.ERROR_VENDOR_TYPE_REQUIRES_TAX_NUMBER, vendorDetail.getVendorHeader().getVendorType().getVendorTypeDescription());
-            }
-            else {
+            } else {
                 putFieldError(VendorPropertyConstants.VENDOR_TAX_NUMBER, VendorKeyConstants.ERROR_VENDOR_PARENT_NEEDS_CHANGED);
             }
             return false;
@@ -412,7 +410,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
      * @param vendorDetail the VendorDetail object to be validated
      * @return boolean true if the vendorDetail passes the unique tax # and tax type validation.
      */
-   protected boolean validateParentVendorTaxNumber(VendorDetail vendorDetail) {
+    protected boolean validateParentVendorTaxNumber(VendorDetail vendorDetail) {
         boolean valid = true;
         boolean isParent = vendorDetail.isVendorParentIndicator();
 
@@ -429,8 +427,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
         if (ObjectUtils.isNotNull(vendorDetail.getVendorHeaderGeneratedIdentifier())) {
             negativeCriteria.put(VendorPropertyConstants.VENDOR_HEADER_GENERATED_ID, vendorDetail.getVendorHeaderGeneratedIdentifier());
             existingVendor = getBoService().countMatching(VendorDetail.class, criteria, negativeCriteria);
-        }
-        else {
+        } else {
             // If this is creating a new vendor, we can't include the header generated id
             // in the negative criteria because it's null, so we'll only look for existing
             // vendors with the same tax # and tax type regardless of the vendor header generated id.
@@ -440,8 +437,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
         if (existingVendor > 0) {
             if (isParent) {
                 putFieldError(VendorPropertyConstants.VENDOR_TAX_NUMBER, VendorKeyConstants.ERROR_VENDOR_TAX_TYPE_AND_NUMBER_COMBO_EXISTS);
-            }
-            else {
+            } else {
                 putFieldError(VendorPropertyConstants.VENDOR_TAX_NUMBER, VendorKeyConstants.ERROR_VENDOR_PARENT_NEEDS_CHANGED);
             }
             valid &= false;
@@ -468,8 +464,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
                 putFieldError(VendorPropertyConstants.VENDOR_TAX_TYPE_CODE, VendorKeyConstants.ERROR_VENDOR_TAX_TYPE_CANNOT_BE_BLANK);
             }
             valid &= false;
-        }
-        else if (StringUtils.isBlank(vendorDetail.getVendorHeader().getVendorTaxNumber()) && !StringUtils.isBlank(vendorDetail.getVendorHeader().getVendorTaxTypeCode())) {
+        } else if (StringUtils.isBlank(vendorDetail.getVendorHeader().getVendorTaxNumber()) && !StringUtils.isBlank(vendorDetail.getVendorHeader().getVendorTaxTypeCode())) {
             if (isParent) {
                 putFieldError(VendorPropertyConstants.VENDOR_TAX_TYPE_CODE, VendorKeyConstants.ERROR_VENDOR_TAX_TYPE_CANNOT_BE_SET);
             }
@@ -507,8 +502,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
 
                 putFieldError(VendorPropertyConstants.VENDOR_NAME, VendorKeyConstants.ERROR_VENDOR_BOTH_NAME_REQUIRED);
                 valid &= false;
-            }
-            else {
+            } else {
                 String vendorName = vendorDetail.getVendorLastName() + VendorConstants.NAME_DELIM + vendorDetail.getVendorFirstName();
                 if (vendorName.length() > VendorConstants.MAX_VENDOR_NAME_LENGTH) {
                     putFieldError(VendorPropertyConstants.VENDOR_LAST_NAME, VendorKeyConstants.ERROR_VENDOR_NAME_TOO_LONG);
@@ -516,8 +510,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
                 }
 
             }
-        }
-        else {
+        } else {
             // Both of the two ways of entering vendor name (One vendor name field vs VendorFirstName/VendorLastName) cannot be used
             if (!StringUtils.isBlank(vendorDetail.getVendorFirstName()) || !StringUtils.isBlank(vendorDetail.getVendorLastName())) {
 
@@ -556,8 +549,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
             vendorDetail.setVendorSoldToGeneratedIdentifier(vendorSoldTo.getVendorHeaderGeneratedIdentifier());
             vendorDetail.setVendorSoldToAssignedIdentifier(vendorSoldTo.getVendorDetailAssignedIdentifier());
             vendorDetail.setVendorSoldToName(vendorSoldTo.getVendorName());
-        }
-        else {
+        } else {
             // otherwise clear vendorSoldToName
             vendorDetail.setSoldToVendorDetail(null);
             vendorDetail.setVendorSoldToName(null);
@@ -588,17 +580,15 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
                 if (!/*REFACTORME*/SpringContext.getBean(ParameterEvaluatorService.class).getParameterEvaluator(VendorDetail.class, VendorParameterConstants.FEIN_ALLOWED_OWNERSHIP_TYPES, ownershipTypeCode).evaluationSucceeds()) {
                     valid &= false;
                 }
-            }
-            else if (VendorConstants.TAX_TYPE_SSN.equals(taxTypeCode)) {
+            } else if (VendorConstants.TAX_TYPE_SSN.equals(taxTypeCode)) {
                 if (!/*REFACTORME*/SpringContext.getBean(ParameterEvaluatorService.class).getParameterEvaluator(VendorDetail.class, VendorParameterConstants.SSN_ALLOWED_OWNERSHIP_TYPES, ownershipTypeCode).evaluationSucceeds()) {
                     valid &= false;
                 }
             }
         }
         if (!valid && isParent) {
-            putFieldError(VendorPropertyConstants.VENDOR_OWNERSHIP_CODE, VendorKeyConstants.ERROR_OWNERSHIP_TYPE_CODE_NOT_ALLOWED, new String[] { vendorDetail.getVendorHeader().getVendorOwnership().getVendorOwnershipDescription(), taxTypeCode });
-        }
-        else if (!valid && !isParent) {
+            putFieldError(VendorPropertyConstants.VENDOR_OWNERSHIP_CODE, VendorKeyConstants.ERROR_OWNERSHIP_TYPE_CODE_NOT_ALLOWED, new String[]{vendorDetail.getVendorHeader().getVendorOwnership().getVendorOwnershipDescription(), taxTypeCode});
+        } else if (!valid && !isParent) {
             putFieldError(VendorPropertyConstants.VENDOR_OWNERSHIP_CODE, VendorKeyConstants.ERROR_VENDOR_PARENT_NEEDS_CHANGED);
         }
         return valid;
@@ -643,9 +633,8 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
             }
         }
         if (!valid && isParent) {
-            putFieldError(VendorPropertyConstants.VENDOR_OWNERSHIP_CATEGORY_CODE, VendorKeyConstants.ERROR_OWNERSHIP_CATEGORY_CODE_NOT_ALLOWED, new String[] { vendorDetail.getVendorHeader().getVendorOwnershipCategory().getVendorOwnershipCategoryDescription(), vendorDetail.getVendorHeader().getVendorOwnership().getVendorOwnershipDescription() });
-        }
-        else if (!valid && !isParent) {
+            putFieldError(VendorPropertyConstants.VENDOR_OWNERSHIP_CATEGORY_CODE, VendorKeyConstants.ERROR_OWNERSHIP_CATEGORY_CODE_NOT_ALLOWED, new String[]{vendorDetail.getVendorHeader().getVendorOwnershipCategory().getVendorOwnershipCategoryDescription(), vendorDetail.getVendorHeader().getVendorOwnership().getVendorOwnershipDescription()});
+        } else if (!valid && !isParent) {
             putFieldError(VendorPropertyConstants.VENDOR_OWNERSHIP_CODE, VendorKeyConstants.ERROR_VENDOR_PARENT_NEEDS_CHANGED);
         }
         return valid;
@@ -704,15 +693,14 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
             else if (vendorCommodities.size() > 0) {
                 valid &= validateCommodityCodeDefaultIndicator(vendorCommodities);
             }
-        }
-        else if (vendorCommodities.size() > 0) {
+        } else if (vendorCommodities.size() > 0) {
             //If the commodity code is not required, but the vendor contains at least one commodity code,
             //we have to check that there is only one commodity code with default indicator = Y.
             int defaultCount = 0;
-            for (int i=0; i < vendorCommodities.size(); i++) {
+            for (int i = 0; i < vendorCommodities.size(); i++) {
                 VendorCommodityCode vcc = vendorCommodities.get(i);
                 if (vcc.isCommodityDefaultIndicator()) {
-                    defaultCount ++;
+                    defaultCount++;
                     if (defaultCount > 1) {
                         valid = false;
                         String propertyName = VendorPropertyConstants.VENDOR_COMMODITIES_CODE + "[" + i + "]." + VendorPropertyConstants.VENDOR_COMMODITIES_DEFAULT_INDICATOR;
@@ -737,13 +725,12 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
         boolean valid = true;
 
         boolean foundDefaultIndicator = false;
-        for (int i=0; i < vendorCommodities.size(); i++) {
+        for (int i = 0; i < vendorCommodities.size(); i++) {
             VendorCommodityCode vcc = vendorCommodities.get(i);
             if (vcc.isCommodityDefaultIndicator()) {
                 if (!foundDefaultIndicator) {
                     foundDefaultIndicator = true;
-                }
-                else {
+                } else {
                     //display error that there can only be 1 commodity code with default indicator = true.
                     String propertyName = VendorPropertyConstants.VENDOR_COMMODITIES_CODE + "[" + i + "]." + VendorPropertyConstants.VENDOR_COMMODITIES_DEFAULT_INDICATOR;
                     putFieldError(propertyName, VendorKeyConstants.ERROR_VENDOR_COMMODITY_CODE_REQUIRE_ONE_DEFAULT_IND);
@@ -797,7 +784,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
         // validate Address Type
         String vendorAddressTabPrefix = KFSConstants.ADD_PREFIX + "." + VendorPropertyConstants.VENDOR_ADDRESS + ".";
         if (!StringUtils.isBlank(vendorTypeCode) && !StringUtils.isBlank(vendorAddressTypeRequiredCode) && !validAddressType) {
-            String[] parameters = new String[] { vendorTypeCode, vendorAddressTypeRequiredCode };
+            String[] parameters = new String[]{vendorTypeCode, vendorAddressTypeRequiredCode};
             putFieldError(vendorAddressTabPrefix + VendorPropertyConstants.VENDOR_ADDRESS_TYPE_CODE, VendorKeyConstants.ERROR_ADDRESS_TYPE, parameters);
             String addressLine1Label = SpringContext.getBean(DataDictionaryService.class).getAttributeLabel(VendorAddress.class, VendorPropertyConstants.VENDOR_ADDRESS_LINE_1);
             String addressCityLabel = SpringContext.getBean(DataDictionaryService.class).getAttributeLabel(VendorAddress.class, VendorPropertyConstants.VENDOR_ADDRESS_CITY);
@@ -842,7 +829,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
                 value = (Integer) itr.next();
                 if (!vendorDivisionsIdsWithDesiredAddressType.contains(value)) {
                     vendorId = newVendor.getVendorHeaderGeneratedIdentifier().toString() + '-' + value.toString();
-                    String[] parameters = new String[] { vendorId, vendorTypeCode, vendorAddressTypeRequiredCode };
+                    String[] parameters = new String[]{vendorId, vendorTypeCode, vendorAddressTypeRequiredCode};
 
                     //divisions without the desired address type should only be an warning
                     GlobalVariables.getMessageMap().putWarningWithoutFullErrorPath(MAINTAINABLE_ERROR_PREFIX + vendorAddressTabPrefix + VendorPropertyConstants.VENDOR_ADDRESS_TYPE_CODE, VendorKeyConstants.ERROR_ADDRESS_TYPE_DIVISIONS, parameters);
@@ -862,7 +849,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
      */
     protected boolean checkAddressCountryEmptyStateZip(VendorAddress address) {
         boolean valid = SpringContext.getBean(PostalCodeValidationService.class).validateAddress(address.getVendorCountryCode(), address.getVendorStateCode(), address.getVendorZipCode(), VendorPropertyConstants.VENDOR_ADDRESS_STATE, VendorPropertyConstants.VENDOR_ADDRESS_ZIP);
-		return valid;
+        return valid;
     }
 
     /**
@@ -889,9 +876,9 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
      * then it does not allow user to select a default address for this address and if it is true then it allows only one campus to
      * be default for this address.
      *
-     * @param vendorDetail VendorDetail document
+     * @param vendorDetail        VendorDetail document
      * @param addedDefaultAddress VendorDefaultAddress which is being added
-     * @param parent The VendorAddress which we are adding a default address to it
+     * @param parent              The VendorAddress which we are adding a default address to it
      * @return boolean false or true
      */
     protected boolean checkDefaultAddressCampus(VendorDetail vendorDetail, VendorDefaultAddress addedDefaultAddress, VendorAddress parent) {
@@ -912,7 +899,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
         // if the selected address type does not allow defaults, then the user should not be allowed to
         // select the default indicator or add any campuses to the address
         if (allowDefaultAddressIndicator == false) {
-            String[] parameters = new String[] { addedAddressTypeCode };
+            String[] parameters = new String[]{addedAddressTypeCode};
             GlobalVariables.getMessageMap().putError(VendorPropertyConstants.VENDOR_DEFAULT_ADDRESS + "[" + 0 + "]." + VendorPropertyConstants.VENDOR_DEFAULT_ADDRESS_CAMPUS, VendorKeyConstants.ERROR_ADDRESS_DEFAULT_CAMPUS_NOT_ALLOWED, parameters);
             return false;
         }
@@ -923,7 +910,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
             if (vendorDefaultAddress.getVendorCampusCode().equalsIgnoreCase(addedAddressCampusCode)) {
                 GlobalVariables.getMessageMap().clearErrorPath();
                 GlobalVariables.getMessageMap().addToErrorPath(errorPath);
-                String[] parameters = new String[] { addedAddressCampusCode, addedAddressTypeCode };
+                String[] parameters = new String[]{addedAddressCampusCode, addedAddressTypeCode};
                 GlobalVariables.getMessageMap().putError(VendorPropertyConstants.VENDOR_DEFAULT_ADDRESS + "[" + i + "]." + VendorPropertyConstants.VENDOR_DEFAULT_ADDRESS_CAMPUS, VendorKeyConstants.ERROR_ADDRESS_DEFAULT_CAMPUS, parameters);
                 return false;
             }
@@ -963,7 +950,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
             addressTypeDesc = address.getVendorAddressType().getVendorAddressTypeDescription();
             String errorPath = MAINTAINABLE_ERROR_PREFIX + VendorPropertyConstants.VENDOR_ADDRESS + "[" + i + "]";
             GlobalVariables.getMessageMap().addToErrorPath(errorPath);
-            String[] parameters = new String[] { addressTypeCode };
+            String[] parameters = new String[]{addressTypeCode};
 
             // If "allow default indicator" is set to true/yes for address type, one address must have the default indicator set (no
             // more, no less).
@@ -980,7 +967,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
                 }
 
                 if (addressTypeCodeDefaultIndicator.put(addressTypeCode, address.isVendorDefaultAddressIndicator()) != null && previousValue && address.isVendorDefaultAddressIndicator()) {
-                    GlobalVariables.getMessageMap().putError(VendorPropertyConstants.VENDOR_DEFAULT_ADDRESS_INDICATOR, VendorKeyConstants.ERROR_ADDRESS_DEFAULT_INDICATOR,addressTypeDesc );
+                    GlobalVariables.getMessageMap().putError(VendorPropertyConstants.VENDOR_DEFAULT_ADDRESS_INDICATOR, VendorKeyConstants.ERROR_ADDRESS_DEFAULT_INDICATOR, addressTypeDesc);
                     valid = false;
                 }
 
@@ -1004,7 +991,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
             for (VendorDefaultAddress defaultAddress : vendorDefaultAddresses) {
                 campusCode = (String) addressTypeDefaultCampus.put(addressTypeCode, defaultAddress.getVendorCampusCode());
                 if (StringUtils.isNotBlank(campusCode) && campusCode.equalsIgnoreCase(defaultAddress.getVendorCampusCode())) {
-                    String[] newParameters = new String[] { defaultAddress.getVendorCampusCode(), addressTypeCode };
+                    String[] newParameters = new String[]{defaultAddress.getVendorCampusCode(), addressTypeCode};
                     GlobalVariables.getMessageMap().putError(VendorPropertyConstants.VENDOR_DEFAULT_ADDRESS + "[" + j + "]." + VendorPropertyConstants.VENDOR_DEFAULT_ADDRESS_CAMPUS, VendorKeyConstants.ERROR_ADDRESS_DEFAULT_CAMPUS, newParameters);
                     valid = false;
                 }
@@ -1023,7 +1010,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
 
                     int addressIndex = 0;
                     for (VendorAddress address : vendorAddresses) {
-                        String[] parameters = new String[] { address.getVendorAddressType().getVendorAddressTypeDescription() };
+                        String[] parameters = new String[]{address.getVendorAddressType().getVendorAddressTypeDescription()};
                         String propertyName = VendorPropertyConstants.VENDOR_ADDRESS + "[" + addressIndex + "]." + VendorPropertyConstants.VENDOR_DEFAULT_ADDRESS_INDICATOR;
                         if (address.getVendorAddressType().getVendorAddressTypeCode().equalsIgnoreCase(addressType)) {
                             putFieldError(propertyName, VendorKeyConstants.ERROR_ADDRESS_DEFAULT_INDICATOR, parameters);
@@ -1056,7 +1043,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
 
             this.getDictionaryValidationService().validateBusinessObject(contact);
             Map<String, AutoPopulatingList<ErrorMessage>> errors = GlobalVariables.getMessageMap().getErrorMessages();
-            if ((errors != null ) && (!errors.isEmpty())) {
+            if ((errors != null) && (!errors.isEmpty())) {
                 valid = false;
             }
             i++;
@@ -1223,7 +1210,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
      *
      * @param contract VendorContract
      * @return boolean true if the beginning date is before the end date, false if only one date is entered or the beginning date is
-     *         after the end date.
+     * after the end date.
      */
     protected boolean validateVendorContractBeginEndDates(VendorContract contract) {
         boolean valid = true;
@@ -1231,8 +1218,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
         if (ObjectUtils.isNotNull(contract.getVendorContractBeginningDate()) && ObjectUtils.isNull(contract.getVendorContractEndDate())) {
             GlobalVariables.getMessageMap().putError(VendorPropertyConstants.VENDOR_CONTRACT_END_DATE, VendorKeyConstants.ERROR_VENDOR_CONTRACT_BEGIN_DATE_NO_END_DATE);
             valid &= false;
-        }
-        else {
+        } else {
             if (ObjectUtils.isNull(contract.getVendorContractBeginningDate()) && ObjectUtils.isNotNull(contract.getVendorContractEndDate())) {
                 GlobalVariables.getMessageMap().putError(VendorPropertyConstants.VENDOR_CONTRACT_BEGIN_DATE, VendorKeyConstants.ERROR_VENDOR_CONTRACT_END_DATE_NO_BEGIN_DATE);
                 valid &= false;
@@ -1279,8 +1265,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
                 GlobalVariables.getMessageMap().putError(VendorPropertyConstants.VENDOR_CONTRACT_ORGANIZATION_APO_LIMIT, VendorKeyConstants.ERROR_VENDOR_CONTRACT_ORG_EXCLUDED_WITH_APO_LIMIT);
                 valid &= false;
             }
-        }
-        else { // isExcluded = false
+        } else { // isExcluded = false
             if (ObjectUtils.isNull(organization.getVendorContractPurchaseOrderLimitAmount())) {
                 // Rule #1 in the above java doc has been violated.
                 GlobalVariables.getMessageMap().putError(VendorPropertyConstants.VENDOR_CONTRACT_ORGANIZATION_APO_LIMIT, VendorKeyConstants.ERROR_VENDOR_CONTRACT_ORG_NOT_EXCLUDED_NO_APO_LIMIT);
@@ -1333,31 +1318,30 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
             return valid;
         }
         //find all b2b contracts for comparison
-        if(contractPos == -1){
-            if(contract.getVendorB2bIndicator()){
+        if (contractPos == -1) {
+            if (contract.getVendorB2bIndicator()) {
                 for (int i = 0; i < contracts.size(); i++) {
                     VendorContract vndrContract = contracts.get(i);
-                    if(vndrContract.getVendorB2bIndicator()){
+                    if (vndrContract.getVendorB2bIndicator()) {
                         //check for duplicate campus; vendor is implicitly the same
-                        if(contract.getVendorCampusCode().equals(vndrContract.getVendorCampusCode())){
+                        if (contract.getVendorCampusCode().equals(vndrContract.getVendorCampusCode())) {
                             valid &= false;
                             GlobalVariables.getMessageMap().putError(VendorPropertyConstants.VENDOR_CONTRACT_B2B_INDICATOR, VendorKeyConstants.ERROR_VENDOR_CONTRACT_B2B_LIMIT_EXCEEDED, contract.getVendorCampusCode());
                         }
                     }
                 }
             }
-        } else
-        {
-            if(contract.getVendorB2bIndicator()){
+        } else {
+            if (contract.getVendorB2bIndicator()) {
                 for (int i = 0; i < contracts.size(); i++) {
                     VendorContract vndrContract = contracts.get(i);
-                    if(vndrContract.getVendorB2bIndicator()){
+                    if (vndrContract.getVendorB2bIndicator()) {
                         //make sure we're not checking contracts against themselves
-                        if(i != contractPos){
+                        if (i != contractPos) {
                             //check for duplicate campus; vendor is implicitly the same
-                            if(contract.getVendorCampusCode().equals(vndrContract.getVendorCampusCode())){
+                            if (contract.getVendorCampusCode().equals(vndrContract.getVendorCampusCode())) {
                                 valid &= false;
-                                String [] errorArray = new String []{contract.getVendorContractName(), contract.getVendorCampusCode()};
+                                String[] errorArray = new String[]{contract.getVendorContractName(), contract.getVendorCampusCode()};
                                 GlobalVariables.getMessageMap().putError(VendorPropertyConstants.VENDOR_CONTRACT_B2B_INDICATOR, VendorKeyConstants.ERROR_VENDOR_CONTRACT_B2B_LIMIT_EXCEEDED_DB, errorArray);
                             }
                         }
@@ -1365,7 +1349,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
                 }
             }
         }
-       return valid;
+        return valid;
     }
 
     /**
@@ -1373,7 +1357,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
      * i.e. the ones next to the "Add" button
      *
      * @see org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomAddCollectionLineBusinessRules(org.kuali.kfs.kns.document.MaintenanceDocument,
-     *      java.lang.String, org.kuali.kfs.krad.bo.PersistableBusinessObject)
+     * java.lang.String, org.kuali.kfs.krad.bo.PersistableBusinessObject)
      */
     @Override
     public boolean processCustomAddCollectionLineBusinessRules(MaintenanceDocument document, String collectionName, PersistableBusinessObject bo) {
@@ -1390,7 +1374,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
         if (bo instanceof VendorContract) {
             VendorContract contract = (VendorContract) bo;
             success &= validateVendorContractBeginEndDates(contract);
-            success &= processContractB2BValidation(document,contract, -1);
+            success &= processContractB2BValidation(document, contract, -1);
         }
         if (bo instanceof VendorContractOrganization) {
             VendorContractOrganization contractOrg = (VendorContractOrganization) bo;
@@ -1627,7 +1611,7 @@ public class VendorRule extends MaintenanceDocumentRuleBase {
     @Override
     public boolean processAddCollectionLineBusinessRules(MaintenanceDocument document, String collectionName, PersistableBusinessObject bo) {
         if (collectionName.equals(VendorPropertyConstants.VENDOR_CONTRACT)) {
-            VendorDetail vendorDetail = (VendorDetail)document.getDocumentBusinessObject();
+            VendorDetail vendorDetail = (VendorDetail) document.getDocumentBusinessObject();
             vendorDetail.getVendorHeader().refreshReferenceObject("vendorType");
             VendorType vendorType = vendorDetail.getVendorHeader().getVendorType();
             if (!vendorType.isVendorContractAllowedIndicator()) {

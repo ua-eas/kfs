@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,15 +18,16 @@
  */
 package org.kuali.kfs.module.cg.document.validation.impl;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.integration.ar.AccountsReceivableBillingFrequency;
 import org.kuali.kfs.integration.ar.AccountsReceivableModuleBillingService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cg.CGConstants;
 import org.kuali.kfs.module.cg.CGKeyConstants;
 import org.kuali.kfs.module.cg.CGPropertyConstants;
@@ -41,11 +42,10 @@ import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 
 /**
  * Rules for the Award maintenance document.
@@ -90,7 +90,7 @@ public class AwardRule extends CGMaintenanceDocumentRuleBase {
         success &= checkExcludedFromInvoicing();
         success &= checkAgencyNotEqualToFederalPassThroughAgency(newAwardCopy.getAgency(), newAwardCopy.getFederalPassThroughAgency(), KFSPropertyConstants.AGENCY_NUMBER, KFSPropertyConstants.FEDERAL_PASS_THROUGH_AGENCY_NUMBER);
         success &= checkStopWorkReason();
-        if(contractsGrantsBillingEnhancementActive){
+        if (contractsGrantsBillingEnhancementActive) {
             success &= checkPrimary(newAwardCopy.getAwardFundManagers(), AwardFundManager.class, KFSPropertyConstants.AWARD_FUND_MANAGERS, Award.class);
             success &= checkInvoicingOption();
             success &= checkNumberOfAccountsForBillingFrequency();
@@ -109,8 +109,7 @@ public class AwardRule extends CGMaintenanceDocumentRuleBase {
         if (newAwardCopy.isExcludedFromInvoicing()) {
             if (ObjectUtils.isNotNull(newAwardCopy.getExcludedFromInvoicingReason())) {
                 return true;
-            }
-            else {
+            } else {
                 putFieldError(KFSPropertyConstants.EXCLUDED_FROM_INVOICING_REASON, KFSKeyConstants.ERROR_EXCLUDED_FROM_INVOICING_REASON_REQUIRED);
                 return false;
             }
@@ -191,7 +190,7 @@ public class AwardRule extends CGMaintenanceDocumentRuleBase {
 
     /**
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processCustomAddCollectionLineBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument,
-     *      java.lang.String, org.kuali.rice.krad.bo.PersistableBusinessObject)
+     * java.lang.String, org.kuali.rice.krad.bo.PersistableBusinessObject)
      */
     @Override
     public boolean processCustomAddCollectionLineBusinessRules(MaintenanceDocument document, String collectionName, PersistableBusinessObject bo) {
@@ -200,20 +199,16 @@ public class AwardRule extends CGMaintenanceDocumentRuleBase {
         if (bo instanceof AwardProjectDirector) {
             AwardProjectDirector awardProjectDirector = (AwardProjectDirector) bo;
             success = this.checkAwardProjectDirector(awardProjectDirector);
-        }
-        else if (bo instanceof AwardFundManager) {
+        } else if (bo instanceof AwardFundManager) {
             AwardFundManager awardFundManager = (AwardFundManager) bo;
             success = this.checkAwardFundManager(awardFundManager);
-        }
-        else if (bo instanceof AwardAccount) {
+        } else if (bo instanceof AwardAccount) {
             AwardAccount awardAccount = (AwardAccount) bo;
             success = this.checkAwardAccount(awardAccount);
-        }
-        else if (bo instanceof AwardSubcontractor) {
+        } else if (bo instanceof AwardSubcontractor) {
             AwardSubcontractor awardSubcontractor = (AwardSubcontractor) bo;
             success = this.checkAwardSubcontractor(awardSubcontractor);
-        }
-        else if (bo instanceof AwardOrganization) {
+        } else if (bo instanceof AwardOrganization) {
             AwardOrganization awardOrganization = (AwardOrganization) bo;
             success = this.checkAwardOrganization(awardOrganization);
         }
@@ -227,7 +222,7 @@ public class AwardRule extends CGMaintenanceDocumentRuleBase {
      * Primary Fund Managers. At most one Primary Fund Manager is allowed. contract.
      *
      * @see org.kuali.rice.kns.maintenance.rules.MaintenanceDocumentRuleBase#processAddCollectionLineBusinessRules(org.kuali.rice.kns.document.MaintenanceDocument,
-     *      java.lang.String, org.kuali.rice.krad.bo.PersistableBusinessObject)
+     * java.lang.String, org.kuali.rice.krad.bo.PersistableBusinessObject)
      */
     @Override
     public boolean processAddCollectionLineBusinessRules(MaintenanceDocument document, String collectionName, PersistableBusinessObject line) {
@@ -383,15 +378,15 @@ public class AwardRule extends CGMaintenanceDocumentRuleBase {
         HashSet<String> accountHash = new HashSet<String>();
 
         //validate if the newly entered award account is already on that award
-        for(AwardAccount account: awardAccounts){
-            if(account!=null && StringUtils.isNotEmpty(account.getAccountNumber())){
-                 accountNumber = account.getAccountNumber();
-                 accountChart  = account.getChartOfAccountsCode();
-                 if (!accountHash.add(accountChart+accountNumber)){
-                     putFieldError(KFSPropertyConstants.AWARD_ACCOUNTS, CGKeyConstants.ERROR_DUPLICATE_AWARD_ACCOUNT, accountChart + "-" + accountNumber);
-                     return false;
-                 }
-             }
+        for (AwardAccount account : awardAccounts) {
+            if (account != null && StringUtils.isNotEmpty(account.getAccountNumber())) {
+                accountNumber = account.getAccountNumber();
+                accountChart = account.getChartOfAccountsCode();
+                if (!accountHash.add(accountChart + accountNumber)) {
+                    putFieldError(KFSPropertyConstants.AWARD_ACCOUNTS, CGKeyConstants.ERROR_DUPLICATE_AWARD_ACCOUNT, accountChart + "-" + accountNumber);
+                    return false;
+                }
+            }
         }
         return success;
     }
@@ -403,10 +398,10 @@ public class AwardRule extends CGMaintenanceDocumentRuleBase {
         HashSet<String> principalIdHash = new HashSet<String>();
 
         //validate if the newly entered AwardProjectDirector is already on that award
-        for(AwardProjectDirector projectDirector: awardProjectDirectors){
-            if(projectDirector!=null && StringUtils.isNotEmpty(projectDirector.getPrincipalId())){
+        for (AwardProjectDirector projectDirector : awardProjectDirectors) {
+            if (projectDirector != null && StringUtils.isNotEmpty(projectDirector.getPrincipalId())) {
                 principalId = projectDirector.getPrincipalId();
-                if (!principalIdHash.add(principalId)){
+                if (!principalIdHash.add(principalId)) {
                     putFieldError(KFSPropertyConstants.AWARD_PROJECT_DIRECTORS, CGKeyConstants.ERROR_DUPLICATE_AWARD_PROJECT_DIRECTOR, principalId);
                     return false;
                 }
@@ -423,11 +418,11 @@ public class AwardRule extends CGMaintenanceDocumentRuleBase {
         HashSet<String> orgaizationHash = new HashSet<String>();
 
         //validate if the newly entered awardOrganization is already on that award
-        for(AwardOrganization awardOrganization: awardOrganizations){
-            if(awardOrganization!=null && StringUtils.isNotEmpty(awardOrganization.getOrganizationCode())){
+        for (AwardOrganization awardOrganization : awardOrganizations) {
+            if (awardOrganization != null && StringUtils.isNotEmpty(awardOrganization.getOrganizationCode())) {
                 organizationCode = awardOrganization.getOrganizationCode();
-                organizationChart  = awardOrganization.getChartOfAccountsCode();
-                if (!orgaizationHash.add(organizationChart+organizationCode)){
+                organizationChart = awardOrganization.getChartOfAccountsCode();
+                if (!orgaizationHash.add(organizationChart + organizationCode)) {
                     putFieldError(KFSPropertyConstants.AWARD_ORGRANIZATIONS, CGKeyConstants.ERROR_DUPLICATE_AWARD_ORGANIZATION, organizationChart + "-" + organizationCode);
                     return false;
                 }
@@ -446,7 +441,7 @@ public class AwardRule extends CGMaintenanceDocumentRuleBase {
         boolean success = true;
 
         Person fundManager = awardFundManager.getFundManager();
-        if(contractsGrantsBillingEnhancementActive){
+        if (contractsGrantsBillingEnhancementActive) {
             if (StringUtils.isBlank(awardFundManager.getPrincipalId()) || ObjectUtils.isNull(fundManager)) {
                 String errorPath = KFSConstants.MAINTENANCE_ADD_PREFIX + KFSPropertyConstants.AWARD_FUND_MANAGERS + "." + "fundManager.principalName";
                 String label = this.getDataDictionaryService().getAttributeLabel(AwardFundManager.class, "fundManager.principalName");
@@ -492,8 +487,8 @@ public class AwardRule extends CGMaintenanceDocumentRuleBase {
 
             // Check for Predetermined and Milestone billing schedules
             if (ObjectUtils.isNotNull(billingFrequencyCode) &&
-                    (CGConstants.MILESTONE_BILLING_SCHEDULE_CODE.equalsIgnoreCase(billingFrequencyCode) ||
-                            CGConstants.PREDETERMINED_BILLING_SCHEDULE_CODE.equalsIgnoreCase(billingFrequencyCode))){
+                (CGConstants.MILESTONE_BILLING_SCHEDULE_CODE.equalsIgnoreCase(billingFrequencyCode) ||
+                    CGConstants.PREDETERMINED_BILLING_SCHEDULE_CODE.equalsIgnoreCase(billingFrequencyCode))) {
 
                 // Get count of active accounts on Award
                 Collection<AwardAccount> awardAccounts = newAwardCopy.getAwardAccounts();
@@ -545,11 +540,11 @@ public class AwardRule extends CGMaintenanceDocumentRuleBase {
 
         if (!StringUtils.equals(newBillingFrequencyCode, oldBillingFrequencyCode)) {
             if (StringUtils.equals(oldBillingFrequencyCode, CGConstants.MILESTONE_BILLING_SCHEDULE_CODE) &&
-                    SpringContext.getBean(AccountsReceivableModuleBillingService.class).hasActiveMilestones(newAwardCopy.getProposalNumber())) {
+                SpringContext.getBean(AccountsReceivableModuleBillingService.class).hasActiveMilestones(newAwardCopy.getProposalNumber())) {
                 success = false;
                 putFieldError(CGPropertyConstants.AwardFields.BILLING_FREQUENCY_CODE, CGKeyConstants.AwardConstants.ERROR_CG_ACTIVE_MILESTONES_EXIST, newAwardCopy.getBillingFrequency().getFrequencyDescription());
             } else if (StringUtils.equals(oldBillingFrequencyCode, CGConstants.PREDETERMINED_BILLING_SCHEDULE_CODE) &&
-                    SpringContext.getBean(AccountsReceivableModuleBillingService.class).hasActiveBills(newAwardCopy.getProposalNumber())) {
+                SpringContext.getBean(AccountsReceivableModuleBillingService.class).hasActiveBills(newAwardCopy.getProposalNumber())) {
                 success = false;
                 putFieldError(CGPropertyConstants.AwardFields.BILLING_FREQUENCY_CODE, CGKeyConstants.AwardConstants.ERROR_CG_ACTIVE_BILLS_EXIST, newAwardCopy.getBillingFrequency().getFrequencyDescription());
             }

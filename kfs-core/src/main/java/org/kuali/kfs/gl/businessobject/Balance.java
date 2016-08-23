@@ -1,25 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.businessobject;
-
-import java.sql.Date;
-import java.util.LinkedHashMap;
 
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.BalanceType;
@@ -29,16 +26,18 @@ import org.kuali.kfs.coa.businessobject.ObjectType;
 import org.kuali.kfs.coa.businessobject.PriorYearAccount;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.sql.Date;
+import java.util.LinkedHashMap;
 
 /**
- * This class contains the monthly balance amounts for a specific fiscal year, chart of accounts code, account number, 
+ * This class contains the monthly balance amounts for a specific fiscal year, chart of accounts code, account number,
  * sub account number, object code, sub object code, balance type code, object type code
- * 
  */
 public class Balance extends PersistableBusinessObjectBase {
     static final long serialVersionUID = 6581797610149985575L;
@@ -52,7 +51,7 @@ public class Balance extends PersistableBusinessObjectBase {
     private String balanceTypeCode;
     private String objectTypeCode;
     private KualiDecimal accountLineAnnualBalanceAmount;
-   
+
     private KualiDecimal beginningBalanceLineAmount;
     private KualiDecimal contractsGrantsBeginningBalanceAmount;
     private KualiDecimal month1Amount;
@@ -131,7 +130,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Constructs a Balance.java.
-     * 
+     *
      * @param transaction
      */
     public Balance(BalanceHistory balanceHistory) {
@@ -145,7 +144,7 @@ public class Balance extends PersistableBusinessObjectBase {
         this.setUniversityFiscalYear(balanceHistory.getUniversityFiscalYear());
         this.setSubAccountNumber(balanceHistory.getSubAccountNumber());
     }
-    
+
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap map = new LinkedHashMap();
         map.put(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, getUniversityFiscalYear());
@@ -161,67 +160,51 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Returns an amount for a specific period
-     * 
+     *
      * @param period period to grab amount for
      * @return KualiDecimal amount for that specific period
      */
     public KualiDecimal getAmount(String period) {
         if (KFSConstants.PERIOD_CODE_ANNUAL_BALANCE.equals(period)) {
             return getAccountLineAnnualBalanceAmount();
-        }
-        else if (KFSConstants.PERIOD_CODE_BEGINNING_BALANCE.equals(period)) {
+        } else if (KFSConstants.PERIOD_CODE_BEGINNING_BALANCE.equals(period)) {
             return getBeginningBalanceLineAmount();
-        }
-        else if (KFSConstants.PERIOD_CODE_CG_BEGINNING_BALANCE.equals(period)) {
+        } else if (KFSConstants.PERIOD_CODE_CG_BEGINNING_BALANCE.equals(period)) {
             return getContractsGrantsBeginningBalanceAmount();
-        }
-        else if (KFSConstants.MONTH1.equals(period)) {
+        } else if (KFSConstants.MONTH1.equals(period)) {
             return getMonth1Amount();
-        }
-        else if (KFSConstants.MONTH2.equals(period)) {
+        } else if (KFSConstants.MONTH2.equals(period)) {
             return getMonth2Amount();
-        }
-        else if (KFSConstants.MONTH3.equals(period)) {
+        } else if (KFSConstants.MONTH3.equals(period)) {
             return getMonth3Amount();
-        }
-        else if (KFSConstants.MONTH4.equals(period)) {
+        } else if (KFSConstants.MONTH4.equals(period)) {
             return getMonth4Amount();
-        }
-        else if (KFSConstants.MONTH5.equals(period)) {
+        } else if (KFSConstants.MONTH5.equals(period)) {
             return getMonth5Amount();
-        }
-        else if (KFSConstants.MONTH6.equals(period)) {
+        } else if (KFSConstants.MONTH6.equals(period)) {
             return getMonth6Amount();
-        }
-        else if (KFSConstants.MONTH7.equals(period)) {
+        } else if (KFSConstants.MONTH7.equals(period)) {
             return getMonth7Amount();
-        }
-        else if (KFSConstants.MONTH8.equals(period)) {
+        } else if (KFSConstants.MONTH8.equals(period)) {
             return getMonth8Amount();
-        }
-        else if (KFSConstants.MONTH9.equals(period)) {
+        } else if (KFSConstants.MONTH9.equals(period)) {
             return getMonth9Amount();
-        }
-        else if (KFSConstants.MONTH10.equals(period)) {
+        } else if (KFSConstants.MONTH10.equals(period)) {
             return getMonth10Amount();
-        }
-        else if (KFSConstants.MONTH11.equals(period)) {
+        } else if (KFSConstants.MONTH11.equals(period)) {
             return getMonth11Amount();
-        }
-        else if (KFSConstants.MONTH12.equals(period)) {
+        } else if (KFSConstants.MONTH12.equals(period)) {
             return getMonth12Amount();
-        }
-        else if (KFSConstants.MONTH13.equals(period)) {
+        } else if (KFSConstants.MONTH13.equals(period)) {
             return getMonth13Amount();
-        }
-        else {
+        } else {
             return null;
         }
     }
 
     /**
      * Add an amount to a specific period
-     * 
+     *
      * @param period period to add amount to
      * @param amount amount to add to period
      */
@@ -229,62 +212,47 @@ public class Balance extends PersistableBusinessObjectBase {
 
         if (KFSConstants.PERIOD_CODE_ANNUAL_BALANCE.equals(period)) {
             accountLineAnnualBalanceAmount = accountLineAnnualBalanceAmount.add(amount);
-        }
-        else if (KFSConstants.PERIOD_CODE_BEGINNING_BALANCE.equals(period)) {
+        } else if (KFSConstants.PERIOD_CODE_BEGINNING_BALANCE.equals(period)) {
             beginningBalanceLineAmount = beginningBalanceLineAmount.add(amount);
-        }
-        else if (KFSConstants.PERIOD_CODE_CG_BEGINNING_BALANCE.equals(period)) {
+        } else if (KFSConstants.PERIOD_CODE_CG_BEGINNING_BALANCE.equals(period)) {
             contractsGrantsBeginningBalanceAmount = contractsGrantsBeginningBalanceAmount.add(amount);
-        }
-        else if (KFSConstants.MONTH1.equals(period)) {
+        } else if (KFSConstants.MONTH1.equals(period)) {
             month1Amount = month1Amount.add(amount);
             accountLineAnnualBalanceAmount = accountLineAnnualBalanceAmount.add(amount);
-        }
-        else if (KFSConstants.MONTH2.equals(period)) {
+        } else if (KFSConstants.MONTH2.equals(period)) {
             month2Amount = month2Amount.add(amount);
             accountLineAnnualBalanceAmount = accountLineAnnualBalanceAmount.add(amount);
-        }
-        else if (KFSConstants.MONTH3.equals(period)) {
+        } else if (KFSConstants.MONTH3.equals(period)) {
             month3Amount = month3Amount.add(amount);
             accountLineAnnualBalanceAmount = accountLineAnnualBalanceAmount.add(amount);
-        }
-        else if (KFSConstants.MONTH4.equals(period)) {
+        } else if (KFSConstants.MONTH4.equals(period)) {
             month4Amount = month4Amount.add(amount);
             accountLineAnnualBalanceAmount = accountLineAnnualBalanceAmount.add(amount);
-        }
-        else if (KFSConstants.MONTH5.equals(period)) {
+        } else if (KFSConstants.MONTH5.equals(period)) {
             month5Amount = month5Amount.add(amount);
             accountLineAnnualBalanceAmount = accountLineAnnualBalanceAmount.add(amount);
-        }
-        else if (KFSConstants.MONTH6.equals(period)) {
+        } else if (KFSConstants.MONTH6.equals(period)) {
             month6Amount = month6Amount.add(amount);
             accountLineAnnualBalanceAmount = accountLineAnnualBalanceAmount.add(amount);
-        }
-        else if (KFSConstants.MONTH7.equals(period)) {
+        } else if (KFSConstants.MONTH7.equals(period)) {
             month7Amount = month7Amount.add(amount);
             accountLineAnnualBalanceAmount = accountLineAnnualBalanceAmount.add(amount);
-        }
-        else if (KFSConstants.MONTH8.equals(period)) {
+        } else if (KFSConstants.MONTH8.equals(period)) {
             month8Amount = month8Amount.add(amount);
             accountLineAnnualBalanceAmount = accountLineAnnualBalanceAmount.add(amount);
-        }
-        else if (KFSConstants.MONTH9.equals(period)) {
+        } else if (KFSConstants.MONTH9.equals(period)) {
             month9Amount = month9Amount.add(amount);
             accountLineAnnualBalanceAmount = accountLineAnnualBalanceAmount.add(amount);
-        }
-        else if (KFSConstants.MONTH10.equals(period)) {
+        } else if (KFSConstants.MONTH10.equals(period)) {
             month10Amount = month10Amount.add(amount);
             accountLineAnnualBalanceAmount = accountLineAnnualBalanceAmount.add(amount);
-        }
-        else if (KFSConstants.MONTH11.equals(period)) {
+        } else if (KFSConstants.MONTH11.equals(period)) {
             month11Amount = month11Amount.add(amount);
             accountLineAnnualBalanceAmount = accountLineAnnualBalanceAmount.add(amount);
-        }
-        else if (KFSConstants.MONTH12.equals(period)) {
+        } else if (KFSConstants.MONTH12.equals(period)) {
             month12Amount = month12Amount.add(amount);
             accountLineAnnualBalanceAmount = accountLineAnnualBalanceAmount.add(amount);
-        }
-        else if (KFSConstants.MONTH13.equals(period)) {
+        } else if (KFSConstants.MONTH13.equals(period)) {
             month13Amount = month13Amount.add(amount);
             accountLineAnnualBalanceAmount = accountLineAnnualBalanceAmount.add(amount);
         }
@@ -642,7 +610,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Gets the chart attribute.
-     * 
+     *
      * @return Returns the chart.
      */
     public Chart getChart() {
@@ -651,7 +619,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Sets the chart attribute value.
-     * 
+     *
      * @param chart The chart to set.
      */
     public void setChart(Chart chart) {
@@ -660,7 +628,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Gets the account attribute.
-     * 
+     *
      * @return Returns the account.
      */
     public Account getAccount() {
@@ -669,7 +637,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Sets the account attribute value.
-     * 
+     *
      * @param account The account to set.
      */
     public void setAccount(Account account) {
@@ -678,7 +646,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Gets the dummyBusinessObject attribute.
-     * 
+     *
      * @return Returns the dummyBusinessObject.
      */
     public TransientBalanceInquiryAttributes getDummyBusinessObject() {
@@ -687,7 +655,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Sets the dummyBusinessObject attribute value.
-     * 
+     *
      * @param dummyBusinessObject The dummyBusinessObject to set.
      */
     public void setDummyBusinessObject(TransientBalanceInquiryAttributes dummyBusinessObject) {
@@ -696,7 +664,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Gets the financialObject attribute.
-     * 
+     *
      * @return Returns the financialObject.
      */
     public ObjectCode getFinancialObject() {
@@ -705,7 +673,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialObject attribute value.
-     * 
+     *
      * @param financialObject The financialObject to set.
      */
     public void setFinancialObject(ObjectCode financialObject) {
@@ -714,7 +682,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Gets the balanceType attribute.
-     * 
+     *
      * @return Returns the balanceType.
      */
     public BalanceType getBalanceType() {
@@ -723,7 +691,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Sets the balanceType attribute value.
-     * 
+     *
      * @param balanceType The balanceType to set.
      */
     public void setBalanceType(BalanceType balanceType) {
@@ -732,7 +700,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Gets the financialSubObject attribute.
-     * 
+     *
      * @return Returns the financialSubObject.
      */
     public SubObjectCode getFinancialSubObject() {
@@ -741,7 +709,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Sets the financialSubObject attribute value.
-     * 
+     *
      * @param financialSubObject The financialSubObject to set.
      */
     public void setFinancialSubObject(SubObjectCode financialSubObject) {
@@ -750,7 +718,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Gets the subAccount attribute.
-     * 
+     *
      * @return Returns the subAccount.
      */
     public SubAccount getSubAccount() {
@@ -759,7 +727,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Sets the subAccount attribute value.
-     * 
+     *
      * @param subAccount The subAccount to set.
      */
     public void setSubAccount(SubAccount subAccount) {
@@ -768,7 +736,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Gets the objectType attribute.
-     * 
+     *
      * @return Returns the objectType.
      */
     public ObjectType getObjectType() {
@@ -777,7 +745,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Sets the objectType attribute value.
-     * 
+     *
      * @param objectType The objectType to set.
      */
     public void setObjectType(ObjectType objectType) {
@@ -786,7 +754,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Gets the priorYearAccount attribute.
-     * 
+     *
      * @return Returns the priorYearAccount.
      */
     public PriorYearAccount getPriorYearAccount() {
@@ -795,19 +763,20 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Sets the priorYearAccount attribute value.
-     * 
+     *
      * @param priorYearAccount The priorYearAccount to set.
      */
     public void setPriorYearAccount(PriorYearAccount priorYearAccount) {
         this.priorYearAccount = priorYearAccount;
     }
-    
+
     private String fundGroup; // a transient attribute
     private KualiDecimal yearBalance = KualiDecimal.ZERO; // a transient attribute
     private KualiDecimal yearToDayBalance = KualiDecimal.ZERO; // a transient attribute
 
     /**
-     * Gets the fundGroup attribute. 
+     * Gets the fundGroup attribute.
+     *
      * @return Returns the fundGroup.
      */
     public String getFundGroup() {
@@ -816,6 +785,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Sets the fundGroup attribute value.
+     *
      * @param fundGroup The fundGroup to set.
      */
     public void setFundGroup(String fundGroup) {
@@ -823,7 +793,8 @@ public class Balance extends PersistableBusinessObjectBase {
     }
 
     /**
-     * Gets the yearBalance attribute. 
+     * Gets the yearBalance attribute.
+     *
      * @return Returns the yearBalance.
      */
     public KualiDecimal getYearBalance() {
@@ -832,6 +803,7 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Sets the yearBalance attribute value.
+     *
      * @param yearBalance The yearBalance to set.
      */
     public void setYearBalance(KualiDecimal yearBalance) {
@@ -839,7 +811,8 @@ public class Balance extends PersistableBusinessObjectBase {
     }
 
     /**
-     * Gets the yearToDayBalance attribute. 
+     * Gets the yearToDayBalance attribute.
+     *
      * @return Returns the yearToDayBalance.
      */
     public KualiDecimal getYearToDayBalance() {
@@ -848,12 +821,13 @@ public class Balance extends PersistableBusinessObjectBase {
 
     /**
      * Sets the yearToDayBalance attribute value.
+     *
      * @param yearToDayBalance The yearToDayBalance to set.
      */
     public void setYearToDayBalance(KualiDecimal yearToDayBalance) {
         this.yearToDayBalance = yearToDayBalance;
-    }    
- 
+    }
+
 
     public KualiDecimal getCombinedBeginningBalanceAmount() {
         KualiDecimal combinedBeginningBalanceAmount;

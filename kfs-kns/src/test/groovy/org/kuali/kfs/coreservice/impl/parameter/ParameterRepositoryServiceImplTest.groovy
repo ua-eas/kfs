@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -22,8 +22,8 @@ import groovy.mock.interceptor.MockFor
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import org.kuali.kfs.krad.service.BusinessObjectService
 import org.kuali.kfs.coreservice.api.parameter.*
+import org.kuali.kfs.krad.service.BusinessObjectService
 
 class ParameterRepositoryServiceImplTest {
     private MockFor mock
@@ -34,7 +34,7 @@ class ParameterRepositoryServiceImplTest {
 
     static final Parameter parameter = createParameter();
     static final ParameterKey key =
-    ParameterKey.create("BORG_HUNT", "TNG", "C", "SHIELDS_ON");
+            ParameterKey.create("BORG_HUNT", "TNG", "C", "SHIELDS_ON");
 
     ParameterRepositoryService pservice;
     ParameterRepositoryServiceImpl pserviceImpl;
@@ -83,7 +83,7 @@ class ParameterRepositoryServiceImplTest {
     @Test
     void test_create_parameter_does_not_exist() {
         mock.demand.findByPrimaryKey(2..2) { clazz, map -> null }
-        mock.demand.save { bo -> bo}
+        mock.demand.save { bo -> bo }
         injectBusinessObjectServiceIntoParameterRepositoryService()
         def p = pservice.createParameter(parameter)
         org.junit.Assert.assertNotNull p
@@ -209,7 +209,7 @@ class ParameterRepositoryServiceImplTest {
     void test_get_parameter_value_as_boolean_not_null_not_boolean() {
         bo.value = "not boolean"
 
-        mock.demand.findByPrimaryKey(1..1) { clazz, map ->  bo}
+        mock.demand.findByPrimaryKey(1..1) { clazz, map -> bo }
         injectBusinessObjectServiceIntoParameterRepositoryService()
         Assert.assertNull(pservice.getParameterValueAsBoolean(key))
         mock.verify(boService)
@@ -217,7 +217,7 @@ class ParameterRepositoryServiceImplTest {
 
     @Test
     void test_get_parameter_values_as_string_null() {
-        mock.demand.findByPrimaryKey(2..2) { clazz, map ->  null}
+        mock.demand.findByPrimaryKey(2..2) { clazz, map -> null }
         injectBusinessObjectServiceIntoParameterRepositoryService()
         def values = pservice.getParameterValuesAsString(key)
         Assert.assertTrue(values.isEmpty())
@@ -234,7 +234,7 @@ class ParameterRepositoryServiceImplTest {
         //adding whitespace
         bo.value = "foo; bar ; baz "
 
-        mock.demand.findByPrimaryKey(1..1) { clazz, map ->  bo}
+        mock.demand.findByPrimaryKey(1..1) { clazz, map -> bo }
         injectBusinessObjectServiceIntoParameterRepositoryService()
         def values = pservice.getParameterValuesAsString(key)
         Assert.assertTrue(values.size() == 3)
@@ -254,7 +254,7 @@ class ParameterRepositoryServiceImplTest {
         //adding whitespace
         bo.value = "a value "
 
-        mock.demand.findByPrimaryKey(1..1) { clazz, map ->  bo}
+        mock.demand.findByPrimaryKey(1..1) { clazz, map -> bo }
         injectBusinessObjectServiceIntoParameterRepositoryService()
         def values = pservice.getParameterValuesAsString(key)
         Assert.assertTrue(values.size() == 1)
@@ -290,7 +290,7 @@ class ParameterRepositoryServiceImplTest {
 
     @Test
     void test_get_sub_parameter_value_as_string_null() {
-        mock.demand.findByPrimaryKey(2..2) { clazz, map ->  null}
+        mock.demand.findByPrimaryKey(2..2) { clazz, map -> null }
         injectBusinessObjectServiceIntoParameterRepositoryService()
         Assert.assertNull(pservice.getSubParameterValueAsString(key, "foo"))
         mock.verify(boService)
@@ -301,7 +301,7 @@ class ParameterRepositoryServiceImplTest {
         //adding whitespace
         bo.value = "foo= f1; bar=b1; baz=z1"
 
-        mock.demand.findByPrimaryKey(1..1) { clazz, map ->  bo}
+        mock.demand.findByPrimaryKey(1..1) { clazz, map -> bo }
         injectBusinessObjectServiceIntoParameterRepositoryService()
 
         Assert.assertEquals("f1", pservice.getSubParameterValueAsString(key, "foo"))
@@ -312,7 +312,7 @@ class ParameterRepositoryServiceImplTest {
     void test_get_sub_parameter_value_as_string_multiple_match() {
         bo.value = "foo=f1; bar=b1; foo=f2"
 
-        mock.demand.findByPrimaryKey(1..1) { clazz, map ->  bo}
+        mock.demand.findByPrimaryKey(1..1) { clazz, map -> bo }
         injectBusinessObjectServiceIntoParameterRepositoryService()
 
         //should return first match
@@ -343,7 +343,7 @@ class ParameterRepositoryServiceImplTest {
 
     @Test
     void test_get_sub_parameter_values_as_string_null() {
-        mock.demand.findByPrimaryKey(2..2) { clazz, map ->  null}
+        mock.demand.findByPrimaryKey(2..2) { clazz, map -> null }
         injectBusinessObjectServiceIntoParameterRepositoryService()
         def values = pservice.getSubParameterValuesAsString(key, "foo")
         Assert.assertTrue(values.isEmpty())
@@ -360,7 +360,7 @@ class ParameterRepositoryServiceImplTest {
         //adding whitespace
         bo.value = "foo= f1, f2 , f3; bar=b1; baz=z1"
 
-        mock.demand.findByPrimaryKey(1..1) { clazz, map ->  bo}
+        mock.demand.findByPrimaryKey(1..1) { clazz, map -> bo }
         injectBusinessObjectServiceIntoParameterRepositoryService()
 
         def values = pservice.getSubParameterValuesAsString(key, "foo")
@@ -381,7 +381,7 @@ class ParameterRepositoryServiceImplTest {
         //adding whitespace
         bo.value = "foo= f1, f2 , f3; bar=b1; foo=f4,f5"
 
-        mock.demand.findByPrimaryKey(1..1) { clazz, map ->  bo}
+        mock.demand.findByPrimaryKey(1..1) { clazz, map -> bo }
         injectBusinessObjectServiceIntoParameterRepositoryService()
 
         def values = pservice.getSubParameterValuesAsString(key, "foo")

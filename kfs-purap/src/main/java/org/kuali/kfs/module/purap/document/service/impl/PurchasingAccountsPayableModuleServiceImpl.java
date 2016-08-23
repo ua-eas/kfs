@@ -1,32 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document.service.impl;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.integration.purap.PurchasingAccountsPayableModuleService;
 import org.kuali.kfs.integration.purap.PurchasingAccountsPayableSensitiveData;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.NoteService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapParameterConstants;
 import org.kuali.kfs.module.purap.businessobject.PaymentRequestView;
@@ -43,13 +42,14 @@ import org.kuali.kfs.module.purap.util.PurApRelatedViews;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.NoteService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PurchasingAccountsPayableModuleServiceImpl implements PurchasingAccountsPayableModuleService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PurchasingAccountsPayableModuleServiceImpl.class);
@@ -61,7 +61,7 @@ public class PurchasingAccountsPayableModuleServiceImpl implements PurchasingAcc
 
     /**
      * @see org.kuali.kfs.integration.service.PurchasingAccountsPayableModuleService#addAssignedAssetNumbers(java.lang.Integer,
-     *      java.util.List)
+     * java.util.List)
      */
     @Override
     public void addAssignedAssetNumbers(Integer purchaseOrderNumber, String principalId, String noteText) {
@@ -73,8 +73,7 @@ public class PurchasingAccountsPayableModuleServiceImpl implements PurchasingAcc
             assetNote.setAuthorUniversalIdentifier(principalId);
             document.addNote(assetNote);
             SpringContext.getBean(NoteService.class).save(assetNote);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -87,8 +86,7 @@ public class PurchasingAccountsPayableModuleServiceImpl implements PurchasingAcc
         PurchaseOrderDocument po = purchaseOrderService.getCurrentPurchaseOrder(purchaseOrderNumber);
         if (ObjectUtils.isNotNull(po)) {
             return "purapPurchaseOrder.do?methodToCall=docHandler&docId=" + po.getDocumentNumber() + "&command=displayDocSearchView";
-        }
-        else {
+        } else {
             return "";
         }
     }
@@ -148,26 +146,21 @@ public class PurchasingAccountsPayableModuleServiceImpl implements PurchasingAcc
             if (pr != null) {
                 if (disbursedPayment || primaryCancel) {
                     paymentRequestService.cancelExtractedPaymentRequest(pr, preqCancelNote);
-                }
-                else {
+                } else {
                     paymentRequestService.resetExtractedPaymentRequest(pr, preqResetNote);
                 }
-            }
-            else {
+            } else {
                 LOG.error("processPdpCancels() DOES NOT EXIST, CANNOT PROCESS - Payment Request with doc type of " + documentTypeCode + " with id " + documentNumber);
             }
-        }
-        else if (PurapConstants.PurapDocTypeCodes.CREDIT_MEMO_DOCUMENT.equals(documentTypeCode)) {
+        } else if (PurapConstants.PurapDocTypeCodes.CREDIT_MEMO_DOCUMENT.equals(documentTypeCode)) {
             VendorCreditMemoDocument cm = creditMemoService.getCreditMemoByDocumentNumber(documentNumber);
             if (cm != null) {
                 if (disbursedPayment || primaryCancel) {
                     creditMemoService.cancelExtractedCreditMemo(cm, cmCancelNote);
-                }
-                else {
+                } else {
                     creditMemoService.resetExtractedCreditMemo(cm, cmResetNote);
                 }
-            }
-            else {
+            } else {
                 LOG.error("processPdpCancels() DOES NOT EXIST, CANNOT PROCESS - Credit Memo with doc type of " + documentTypeCode + " with id " + documentNumber);
             }
         }
@@ -186,17 +179,14 @@ public class PurchasingAccountsPayableModuleServiceImpl implements PurchasingAcc
             PaymentRequestDocument pr = paymentRequestService.getPaymentRequestByDocumentNumber(documentNumber);
             if (pr != null) {
                 paymentRequestService.markPaid(pr, processDate);
-            }
-            else {
+            } else {
                 LOG.error("processPdpPaids() DOES NOT EXIST, CANNOT MARK - Payment Request with doc type of " + documentTypeCode + " with id " + documentNumber);
             }
-        }
-        else if (PurapConstants.PurapDocTypeCodes.CREDIT_MEMO_DOCUMENT.equals(documentTypeCode)) {
+        } else if (PurapConstants.PurapDocTypeCodes.CREDIT_MEMO_DOCUMENT.equals(documentTypeCode)) {
             VendorCreditMemoDocument cm = creditMemoService.getCreditMemoByDocumentNumber(documentNumber);
             if (cm != null) {
                 creditMemoService.markPaid(cm, processDate);
-            }
-            else {
+            } else {
                 LOG.error("processPdpPaids() DOES NOT EXIST, CANNOT PROCESS - Credit Memo with doc type of " + documentTypeCode + " with id " + documentNumber);
             }
         }
@@ -206,6 +196,7 @@ public class PurchasingAccountsPayableModuleServiceImpl implements PurchasingAcc
     /**
      * Retrieves the Requisition documents, pulls the PaymentRequestDocuments from their related document
      * views, and then adds up the total paid amount
+     *
      * @see org.kuali.kfs.integration.purap.PurchasingAccountsPayableModuleService#getTotalPaidAmountToRequisitions(java.util.List)
      */
     @Override
@@ -228,8 +219,7 @@ public class PurchasingAccountsPayableModuleServiceImpl implements PurchasingAcc
                         }
                     }
                 }
-            }
-            catch (WorkflowException we) {
+            } catch (WorkflowException we) {
                 throw new RuntimeException("Could not retrieve document to determine totals paid on Requisitions", we);
             }
         }

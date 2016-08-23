@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -27,7 +27,8 @@ public class ExtractionUnit {
 
     /**
      * Constructs a new ExtractionUnit object with the given unit and sub-unit
-     * @param unit the unit; see KFS-FP / Document / PRE_DISBURSEMENT_EXTRACT_ORGANIZATION
+     *
+     * @param unit    the unit; see KFS-FP / Document / PRE_DISBURSEMENT_EXTRACT_ORGANIZATION
      * @param subUnit the sub-unit; see KFS-FP / Document / PRE_DISBURSEMENT_EXTRACT_SUB_UNIT
      */
     public ExtractionUnit(String unit, String subUnit) {
@@ -68,16 +69,14 @@ public class ExtractionUnit {
             if (other.subUnit != null) {
                 return false;
             }
-        }
-        else if (!subUnit.equals(other.subUnit)) {
+        } else if (!subUnit.equals(other.subUnit)) {
             return false;
         }
         if (unit == null) {
             if (other.unit != null) {
                 return false;
             }
-        }
-        else if (!unit.equals(other.unit)) {
+        } else if (!unit.equals(other.unit)) {
             return false;
         }
         return true;

@@ -1,33 +1,24 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.pdp.document;
 
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.pdp.PdpConstants;
-import org.kuali.kfs.pdp.PdpConstants.PayeeIdTypeCodes;
-import org.kuali.kfs.pdp.businessobject.PayeeACHAccount;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
-import org.kuali.kfs.sys.document.FinancialSystemMaintenanceDocument;
-import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.maintenance.Maintainable;
 import org.kuali.kfs.kns.web.ui.Field;
@@ -36,6 +27,15 @@ import org.kuali.kfs.kns.web.ui.Section;
 import org.kuali.kfs.krad.maintenance.MaintenanceUtils;
 import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.pdp.PdpConstants;
+import org.kuali.kfs.pdp.PdpConstants.PayeeIdTypeCodes;
+import org.kuali.kfs.pdp.businessobject.PayeeACHAccount;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
+import org.kuali.kfs.sys.document.FinancialSystemMaintenanceDocument;
+import org.kuali.rice.kew.api.exception.WorkflowException;
+
+import java.util.List;
 
 public class PayeeACHAccountMaintainableImpl extends FinancialSystemMaintainable {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PayeeACHAccountMaintainableImpl.class);
@@ -52,14 +52,14 @@ public class PayeeACHAccountMaintainableImpl extends FinancialSystemMaintainable
                         if (field.getFieldLabel().equalsIgnoreCase(PdpConstants.PayeeACHAccountDocumentStrings.PAYEE_EMAIL_ADDRESS)) {
                             if (ObjectUtils.isNull(payeeIdTypeCode) || (!StringUtils.equalsIgnoreCase(payeeIdTypeCode, PayeeIdTypeCodes.EMPLOYEE) && !StringUtils.equalsIgnoreCase(payeeIdTypeCode, PayeeIdTypeCodes.ENTITY))) {
                                 field.setFieldRequired(true);
-                            }else{
+                            } else {
                                 field.setFieldRequired(false);
                             }
                         }
                         if (field.getFieldLabel().equalsIgnoreCase(PdpConstants.PayeeACHAccountDocumentStrings.PAYEE_NAME)) {
                             if (ObjectUtils.isNull(payeeIdTypeCode) || (!StringUtils.equalsIgnoreCase(payeeIdTypeCode, PayeeIdTypeCodes.EMPLOYEE) && !StringUtils.equalsIgnoreCase(payeeIdTypeCode, PayeeIdTypeCodes.ENTITY) && !StringUtils.equalsIgnoreCase(payeeIdTypeCode, PayeeIdTypeCodes.VENDOR_ID))) {
                                 field.setFieldRequired(true);
-                            }else{
+                            } else {
                                 field.setFieldRequired(false);
                             }
                         }
@@ -74,6 +74,7 @@ public class PayeeACHAccountMaintainableImpl extends FinancialSystemMaintainable
     /**
      * Updates and saves the lastUpdate timestamp, also clears and saves the autoInactivationIndicator
      * if creating a new record or the existing record is activated/inactivated during editing.
+     *
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#saveBusinessObject()
      */
     @Override
@@ -86,7 +87,7 @@ public class PayeeACHAccountMaintainableImpl extends FinancialSystemMaintainable
         // Note:
         // We need to refer to the businessObject contained in this maintainable when setting the field values,
         // dont't use the old or new businessObject retrieved from the document, as they have DIFFERENT references.
-        PayeeACHAccount payeeAchAccount = (PayeeACHAccount)getBusinessObject();
+        PayeeACHAccount payeeAchAccount = (PayeeACHAccount) getBusinessObject();
 
         // lastUpdate will be set by TimestampsBusinessObjectBase#prePersist called by OJB
 
@@ -97,7 +98,7 @@ public class PayeeACHAccountMaintainableImpl extends FinancialSystemMaintainable
 
             // if creating new record, or changed active indicator during editing, clear autoInactivationIndicator
             if (MaintenanceUtils.isMaintenanceDocumentCreatingNewRecord(getMaintenanceAction()) ||
-                    newPayeeAchAccount.isActive() != oldPayeeAchAccount.isActive()) {
+                newPayeeAchAccount.isActive() != oldPayeeAchAccount.isActive()) {
                 payeeAchAccount.setAutoInactivationIndicator(false);
             }
         } catch (WorkflowException e) {

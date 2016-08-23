@@ -1,53 +1,48 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.identity;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.kns.kim.role.RoleTypeServiceBase;
 import org.kuali.kfs.module.bc.BCPropertyConstants;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionAccountOrganizationHierarchy;
 import org.kuali.kfs.module.bc.document.service.BudgetDocumentService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.rice.kim.api.type.KimAttributeField;
-import org.kuali.kfs.kns.kim.role.RoleTypeServiceBase;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class AccountOrganizationHierarchyRoleTypeServiceImpl extends RoleTypeServiceBase {
     public static final String DESCEND_HIERARCHY_TRUE_VALUE = "Y";
     public static final String DESCEND_HIERARCHY_FALSE_VALUE = "N";
 
 
-
-
-
-
-
     protected BudgetDocumentService budgetDocumentService;
 
     /**
      * @see org.kuali.rice.kim.service.support.impl.KimTypeInfoServiceBase#performMatch(org.kuali.rice.kim.bo.types.dto.AttributeSet,
-     *      org.kuali.rice.kim.bo.types.dto.AttributeSet)
+     * org.kuali.rice.kim.bo.types.dto.AttributeSet)
      */
     @Override
-    protected boolean performMatch(Map<String,String> qualification, Map<String,String> roleQualifier) {
+    protected boolean performMatch(Map<String, String> qualification, Map<String, String> roleQualifier) {
         // if no qualification given but the user is assigned an organization then return they have the role
         if ((qualification == null || qualification.isEmpty()) && roleQualifier != null && !roleQualifier.isEmpty()) {
             return true;
@@ -113,9 +108,9 @@ public class AccountOrganizationHierarchyRoleTypeServiceImpl extends RoleTypeSer
     @Override
     public List<KimAttributeField> getAttributeDefinitions(String kimTypId) {
         List<KimAttributeField> fields = super.getAttributeDefinitions(kimTypId);
-        List<KimAttributeField> updatedFields = new ArrayList<KimAttributeField>( fields.size() );
+        List<KimAttributeField> updatedFields = new ArrayList<KimAttributeField>(fields.size());
 
-        for (KimAttributeField definition : fields ) {
+        for (KimAttributeField definition : fields) {
             if (KFSPropertyConstants.ORGANIZATION_CODE.equals(definition.getAttributeField().getName())) {
                 KimAttributeField.Builder updatedField = KimAttributeField.Builder.create(definition);
                 updatedField.getAttributeField().setRequired(false);

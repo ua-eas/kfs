@@ -18,13 +18,13 @@
  */
 package org.kuali.kfs.sys.datatools.service;
 
+import junit.framework.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.kuali.kfs.sys.datatools.liquimongo.change.DocumentStoreChangeHandler;
 import org.kuali.kfs.sys.datatools.liquimongo.service.impl.DocumentStoreSchemaUpdateServiceImpl;
 import org.kuali.kfs.sys.datatools.mock.MockDocumentStoreChangeHandler;
 import org.kuali.kfs.sys.datatools.mock.MockDocumentStoreUpdateProcessDao;
-import junit.framework.Assert;
-import org.junit.Before;
-import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,21 +62,21 @@ public class DocumentStoreSchemaUpdateServiceTest {
     public void testOneFile() throws Exception {
         documentStoreSchemaUpdateService.setUpdatesList("updates1.json");
         documentStoreSchemaUpdateService.updateDocumentStoreSchema();
-        Assert.assertEquals("3 change made",3,mongoChangeHandler.changesMade);
+        Assert.assertEquals("3 change made", 3, mongoChangeHandler.changesMade);
     }
 
     @Test
     public void testTwoFiles() throws Exception {
         documentStoreSchemaUpdateService.setUpdatesList("updates2.json");
         documentStoreSchemaUpdateService.updateDocumentStoreSchema();
-        Assert.assertEquals("6 change made",6,mongoChangeHandler.changesMade);
+        Assert.assertEquals("6 change made", 6, mongoChangeHandler.changesMade);
     }
 
     @Test
     public void testRunsOnTrueStartupProperty() throws Exception {
         documentStoreSchemaUpdateService.setUpdatesList("updates1.json");
         documentStoreSchemaUpdateService.updateDocumentStoreSchema();
-        Assert.assertEquals("3 change made",3,mongoChangeHandler.changesMade);
+        Assert.assertEquals("3 change made", 3, mongoChangeHandler.changesMade);
     }
 
     @Test
@@ -85,7 +85,7 @@ public class DocumentStoreSchemaUpdateServiceTest {
         mockMongoUpdateProcessDao.lockSchemaChange();
 
         documentStoreSchemaUpdateService.updateDocumentStoreSchema();
-        Assert.assertEquals("0 changes made",0,mongoChangeHandler.changesMade);
+        Assert.assertEquals("0 changes made", 0, mongoChangeHandler.changesMade);
     }
 
     @Test
@@ -94,8 +94,8 @@ public class DocumentStoreSchemaUpdateServiceTest {
         mockMongoUpdateProcessDao.unlockSchemaChange();
 
         documentStoreSchemaUpdateService.updateDocumentStoreSchema();
-        Assert.assertEquals("3 changes made",3,mongoChangeHandler.changesMade);
-        Assert.assertEquals("Lock should be unset after run",false,mockMongoUpdateProcessDao.isSchemaChangeLocked());
+        Assert.assertEquals("3 changes made", 3, mongoChangeHandler.changesMade);
+        Assert.assertEquals("Lock should be unset after run", false, mockMongoUpdateProcessDao.isSchemaChangeLocked());
     }
 
 }

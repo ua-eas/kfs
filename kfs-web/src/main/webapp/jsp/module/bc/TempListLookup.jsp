@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -262,7 +262,7 @@
                 </c:if>
 
                 <c:if test="${reqSearchResults != null and empty reqSearchResults}">
-                    <div class="search-message"><bean-el:message key="error.no.matching.invoice" /></div>
+                    <div class="search-message"><bean-el:message key="error.no.matching.invoice"/></div>
                 </c:if>
 
                 <c:if test="${reqSearchResultsActualSize>0}">
@@ -310,7 +310,7 @@
                                         <a href="<c:out value="${column.propertyURL}"/>" target="_blank"
                                            title="${column.propertyValue}"><c:out
                                                 value="${fn:substring(column.propertyValue, 0, column.maxLength)}"
-                                                /><c:if
+                                        /><c:if
                                                 test="${column.maxLength gt 0 && fn:length(column.propertyValue) gt column.maxLength}">...</c:if></a> &nbsp;
                                     </display:column>
                                 </c:when>

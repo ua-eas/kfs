@@ -1,23 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.gl.businessobject;
+
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.sys.KFSPropertyConstants;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,9 +28,6 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
-
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * This class represents a GLCP correction change group
@@ -63,7 +63,7 @@ public class CorrectionChangeGroup extends PersistableBusinessObjectBase impleme
 
     /**
      * Add correction change to this correction change group
-     * 
+     *
      * @param cc correction change to add
      */
     public void addCorrectionChange(CorrectionChange cc) {
@@ -77,7 +77,7 @@ public class CorrectionChangeGroup extends PersistableBusinessObjectBase impleme
 
     /**
      * Add correction criteria to this correction change group
-     * 
+     *
      * @param cc correction criteria to add to this correction change group
      */
     public void addCorrectionCriteria(CorrectionCriteria cc) {
@@ -89,11 +89,11 @@ public class CorrectionChangeGroup extends PersistableBusinessObjectBase impleme
 
     /**
      * Remove correction change item
-     * 
+     *
      * @param changeNumber correction change line number used to determine which correction change item to remove
      */
     public void removeCorrectionChangeItem(int changeNumber) {
-        for (Iterator iter = correctionChange.iterator(); iter.hasNext();) {
+        for (Iterator iter = correctionChange.iterator(); iter.hasNext(); ) {
             CorrectionChange element = (CorrectionChange) iter.next();
             if (changeNumber == element.getCorrectionChangeLineNumber().intValue()) {
                 iter.remove();
@@ -102,12 +102,12 @@ public class CorrectionChangeGroup extends PersistableBusinessObjectBase impleme
     }
 
     /**
-     * Remove correction criteria item 
-     * 
+     * Remove correction criteria item
+     *
      * @param criteriaNumber correction criteria line number used to determine which correction change to remove
      */
     public void removeCorrectionCriteriaItem(int criteriaNumber) {
-        for (Iterator iter = correctionCriteria.iterator(); iter.hasNext();) {
+        for (Iterator iter = correctionCriteria.iterator(); iter.hasNext(); ) {
             CorrectionCriteria element = (CorrectionCriteria) iter.next();
             if (criteriaNumber == element.getCorrectionCriteriaLineNumber().intValue()) {
                 iter.remove();
@@ -116,13 +116,13 @@ public class CorrectionChangeGroup extends PersistableBusinessObjectBase impleme
     }
 
     /**
-     * Get correction change item 
-     * 
+     * Get correction change item
+     *
      * @param changeNumber correction change line number of object to return
      * @return CorrectionChange correction change object with specified line number to return
      */
     public CorrectionChange getCorrectionChangeItem(int changeNumber) {
-        for (Iterator iter = correctionChange.iterator(); iter.hasNext();) {
+        for (Iterator iter = correctionChange.iterator(); iter.hasNext(); ) {
             CorrectionChange element = (CorrectionChange) iter.next();
             if (changeNumber == element.getCorrectionChangeLineNumber().intValue()) {
                 return element;
@@ -134,16 +134,16 @@ public class CorrectionChangeGroup extends PersistableBusinessObjectBase impleme
 
         return cc;
     }
-    
-    
+
+
     /**
-     * Get correction criteria item 
-     * 
+     * Get correction criteria item
+     *
      * @param criteriaNumber correction change line number of object to return
      * @return CorrectionChange correction change object with specified line number to return
      */
     public CorrectionCriteria getCorrectionCriteriaItem(int criteriaNumber) {
-        for (Iterator iter = correctionCriteria.iterator(); iter.hasNext();) {
+        for (Iterator iter = correctionCriteria.iterator(); iter.hasNext(); ) {
             CorrectionCriteria element = (CorrectionCriteria) iter.next();
             if (criteriaNumber == element.getCorrectionCriteriaLineNumber().intValue()) {
                 return element;
@@ -160,19 +160,19 @@ public class CorrectionChangeGroup extends PersistableBusinessObjectBase impleme
     }
 
     /**
-     * Set document number for this correction change group.  This also sets the document number for this correction change group's 
+     * Set document number for this correction change group.  This also sets the document number for this correction change group's
      * correction criteria and correction change
-     * 
+     *
      * @param documentNumber new document number
      */
     public void setDocumentNumber(String documentNumber) {
         this.documentNumber = documentNumber;
 
-        for (Iterator iter = correctionCriteria.iterator(); iter.hasNext();) {
+        for (Iterator iter = correctionCriteria.iterator(); iter.hasNext(); ) {
             CorrectionCriteria element = (CorrectionCriteria) iter.next();
             element.setDocumentNumber(documentNumber);
         }
-        for (Iterator iter = correctionChange.iterator(); iter.hasNext();) {
+        for (Iterator iter = correctionChange.iterator(); iter.hasNext(); ) {
             CorrectionChange element = (CorrectionChange) iter.next();
             element.setDocumentNumber(documentNumber);
         }
@@ -222,7 +222,7 @@ public class CorrectionChangeGroup extends PersistableBusinessObjectBase impleme
 
     /**
      * Compares this correction change group to another correction change group object by comparing document number and correction group line number
-     * 
+     *
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
     public int compareTo(Object o) {
@@ -236,8 +236,7 @@ public class CorrectionChangeGroup extends PersistableBusinessObjectBase impleme
             Integer thisNbr = correctionChangeGroupLineNumber == null ? 0 : correctionChangeGroupLineNumber;
             Integer thatNbr = other.correctionChangeGroupLineNumber == null ? 0 : other.correctionChangeGroupLineNumber;
             return thisNbr.compareTo(thatNbr);
-        }
-        else {
+        } else {
             return c;
         }
     }
@@ -253,7 +252,7 @@ public class CorrectionChangeGroup extends PersistableBusinessObjectBase impleme
         }
         return m;
     }
-    
+
     /**
      * A comparator that compares to GLCP correction change groups based on their group line numbers
      * within the GLCP document
@@ -271,7 +270,7 @@ public class CorrectionChangeGroup extends PersistableBusinessObjectBase impleme
          *
          * @param c1 a correction change group to compare
          * @param c2 another correction change group to compare the first one to
-         * @return a negative integer if c1 has a lower line number than c2, 0 if the two line numbers are equal, a positive number if c1 has a greater line number than c2 
+         * @return a negative integer if c1 has a lower line number than c2, 0 if the two line numbers are equal, a positive number if c1 has a greater line number than c2
          * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
          */
         public int compare(Object c1, Object c2) {

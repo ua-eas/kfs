@@ -1,36 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.batch.service.impl;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.businessobject.OriginEntryFull;
 import org.kuali.kfs.gl.businessobject.OriginEntryGroup;
 import org.kuali.kfs.gl.report.LedgerSummaryReport;
 import org.kuali.kfs.gl.service.OriginEntryGroupService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.kfs.module.ld.batch.service.LaborNightlyOutService;
 import org.kuali.kfs.module.ld.businessobject.LaborGeneralLedgerEntry;
@@ -43,8 +36,15 @@ import org.kuali.kfs.sys.ObjectUtil;
 import org.kuali.kfs.sys.batch.service.WrappingBatchService;
 import org.kuali.kfs.sys.service.ReportWriterService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * The class implements loading and cleanup methods for nightly batch jobs
@@ -85,9 +85,8 @@ public class LaborNightlyOutServiceImpl implements LaborNightlyOutService {
         PrintStream outputFilePs;
 
         try {
-            outputFilePs  = new PrintStream(outputFile);
-        }
-        catch (IOException e) {
+            outputFilePs = new PrintStream(outputFile);
+        } catch (IOException e) {
             // FIXME: do whatever is supposed to be done here
             throw new RuntimeException(e);
         }
@@ -102,8 +101,8 @@ public class LaborNightlyOutServiceImpl implements LaborNightlyOutService {
             LaborOriginEntry entry = new LaborOriginEntry(pendingEntry);
             // copy the pending entry to labor origin entry table
             // TODO:- do we need it???
-        //    boolean isSaved = saveAsLaborOriginEntry(pendingEntry, group);
-           boolean isSaved = true;
+            //    boolean isSaved = saveAsLaborOriginEntry(pendingEntry, group);
+            boolean isSaved = true;
 
             try {
                 outputFilePs.printf("%s\n", entry.getLine());
@@ -124,8 +123,8 @@ public class LaborNightlyOutServiceImpl implements LaborNightlyOutService {
 
         //create done file
         String doneFileName = outputFile.replace(GeneralLedgerConstants.BatchFileSystem.EXTENSION, GeneralLedgerConstants.BatchFileSystem.DONE_FILE_EXTENSION);
-        File doneFile = new File (doneFileName);
-        if (!doneFile.exists()){
+        File doneFile = new File(doneFileName);
+        if (!doneFile.exists()) {
             try {
                 doneFile.createNewFile();
             } catch (IOException e) {
@@ -134,10 +133,10 @@ public class LaborNightlyOutServiceImpl implements LaborNightlyOutService {
         }
 
         try {
-            ((WrappingBatchService)laborPendingEntryLedgerReportWriterService).initialize();
+            ((WrappingBatchService) laborPendingEntryLedgerReportWriterService).initialize();
             nightlyOutLedgerSummaryReport.writeReport(laborPendingEntryLedgerReportWriterService);
         } finally {
-            ((WrappingBatchService)laborPendingEntryLedgerReportWriterService).destroy();
+            ((WrappingBatchService) laborPendingEntryLedgerReportWriterService).destroy();
         }
     }
 
@@ -158,9 +157,8 @@ public class LaborNightlyOutServiceImpl implements LaborNightlyOutService {
         PrintStream outputFilePs;
 
         try {
-            outputFilePs  = new PrintStream(outputFile);
-        }
-        catch (IOException e) {
+            outputFilePs = new PrintStream(outputFile);
+        } catch (IOException e) {
             // FIXME: do whatever is supposed to be done here
             throw new RuntimeException(e);
         }
@@ -188,8 +186,8 @@ public class LaborNightlyOutServiceImpl implements LaborNightlyOutService {
 
         //create done file
         String doneFileName = outputFile.replace(GeneralLedgerConstants.BatchFileSystem.EXTENSION, GeneralLedgerConstants.BatchFileSystem.DONE_FILE_EXTENSION);
-        File doneFile = new File (doneFileName);
-        if (!doneFile.exists()){
+        File doneFile = new File(doneFileName);
+        if (!doneFile.exists()) {
             try {
                 doneFile.createNewFile();
             } catch (IOException e) {
@@ -198,10 +196,10 @@ public class LaborNightlyOutServiceImpl implements LaborNightlyOutService {
         }
 
         try {
-            ((WrappingBatchService)laborGLEntryReportWriterService).initialize();
+            ((WrappingBatchService) laborGLEntryReportWriterService).initialize();
             laborGLSummaryReport.writeReport(laborGLEntryReportWriterService);
         } finally {
-            ((WrappingBatchService)laborGLEntryReportWriterService).destroy();
+            ((WrappingBatchService) laborGLEntryReportWriterService).destroy();
         }
     }
 
@@ -217,8 +215,7 @@ public class LaborNightlyOutServiceImpl implements LaborNightlyOutService {
             originEntry.setEntryGroupId(group.getId());
 
             businessObjectService.save(originEntry);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Fail to copy the pending entry as origin entry" + e);
             }
@@ -239,8 +236,7 @@ public class LaborNightlyOutServiceImpl implements LaborNightlyOutService {
             //originEntry.setEntryGroupId(group.getId());
 
             businessObjectService.save(originEntry);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Fail to copy the pending entry as origin entry" + e);
             }
@@ -259,8 +255,7 @@ public class LaborNightlyOutServiceImpl implements LaborNightlyOutService {
 
             originEntry.setEntryGroupId(group.getId());
             businessObjectService.save(originEntry);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Fail to copy the labor GL entry as an origin entry" + e);
             }
@@ -315,6 +310,7 @@ public class LaborNightlyOutServiceImpl implements LaborNightlyOutService {
 
     /**
      * Sets the laborPendingEntryLedgerReportWriterService attribute value.
+     *
      * @param laborPendingEntryLedgerReportWriterService The laborPendingEntryLedgerReportWriterService to set.
      */
     public void setLaborPendingEntryLedgerReportWriterService(ReportWriterService laborPendingEntryLedgerReportWriterService) {
@@ -323,6 +319,7 @@ public class LaborNightlyOutServiceImpl implements LaborNightlyOutService {
 
     /**
      * Sets the laborGLEntryReportWriterService attribute value.
+     *
      * @param laborGLEntryReportWriterService The laborGLEntryReportWriterService to set.
      */
     public void setLaborGLEntryReportWriterService(ReportWriterService laborGLEntryReportWriterService) {

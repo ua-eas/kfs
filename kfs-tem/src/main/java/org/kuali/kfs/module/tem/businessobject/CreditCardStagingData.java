@@ -1,26 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.LinkedHashMap;
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.module.tem.TemConstants.ExpenseImport;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+import org.kuali.rice.core.api.util.type.KualiInteger;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,12 +30,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.module.tem.TemConstants.ExpenseImport;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.LinkedHashMap;
 
 @Entity
 @Table(name = "TEM_CREDIT_CARD_STAGING_T")
@@ -153,14 +152,15 @@ public class CreditCardStagingData extends PersistableBusinessObjectBase {
     }
 
     public void setCreationTimestamp(String creationTimestamp) {
-        if(creationTimestamp!=null) {
-            creationTimestamp=creationTimestamp.replace('T', ' ');
+        if (creationTimestamp != null) {
+            creationTimestamp = creationTimestamp.replace('T', ' ');
         }
-        this.creationTimestamp =java.sql.Timestamp.valueOf(creationTimestamp);
+        this.creationTimestamp = java.sql.Timestamp.valueOf(creationTimestamp);
     }
 
     /**
      * Gets the processingTimestamp attribute.
+     *
      * @return Returns the processingTimestamp.
      */
     @Column(name = "PROCESSING_TS", nullable = true)
@@ -170,6 +170,7 @@ public class CreditCardStagingData extends PersistableBusinessObjectBase {
 
     /**
      * Sets the processingTimestamp attribute value.
+     *
      * @param processingTimestamp The processingTimestamp to set.
      */
     public void setProcessingTimestamp(Timestamp processingTimestamp) {
@@ -281,8 +282,7 @@ public class CreditCardStagingData extends PersistableBusinessObjectBase {
     public void setTransactionAmount(String transactionAmount) {
         if (StringUtils.isNotBlank(transactionAmount)) {
             this.transactionAmount = new KualiDecimal(transactionAmount);
-        }
-        else {
+        } else {
             this.transactionAmount = KualiDecimal.ZERO;
         }
     }
@@ -382,6 +382,7 @@ public class CreditCardStagingData extends PersistableBusinessObjectBase {
 
     /**
      * Gets the moveToHistoryIndicator attribute.
+     *
      * @return Returns the moveToHistoryIndicator.
      */
     @Column(name = "MV_TO_HISTORY", length = 1, nullable = true)
@@ -391,6 +392,7 @@ public class CreditCardStagingData extends PersistableBusinessObjectBase {
 
     /**
      * Sets the moveToHistoryIndicator attribute value.
+     *
      * @param moveToHistoryIndicator The moveToHistoryIndicator to set.
      */
     public void setMoveToHistoryIndicator(boolean moveToHistoryIndicator) {
@@ -399,6 +401,7 @@ public class CreditCardStagingData extends PersistableBusinessObjectBase {
 
     /**
      * Gets the location attribute.
+     *
      * @return Returns the location.
      */
     @Column(name = "LOC", length = 20, nullable = true)
@@ -408,6 +411,7 @@ public class CreditCardStagingData extends PersistableBusinessObjectBase {
 
     /**
      * Sets the location attribute value.
+     *
      * @param location The location to set.
      */
     public void setLocation(String location) {
@@ -416,6 +420,7 @@ public class CreditCardStagingData extends PersistableBusinessObjectBase {
 
     /**
      * Gets the errorCode attribute.
+     *
      * @return Returns the errorCode.
      */
     @Column(name = "ERROR_CD", length = 40, nullable = true)
@@ -425,6 +430,7 @@ public class CreditCardStagingData extends PersistableBusinessObjectBase {
 
     /**
      * Sets the errorCode attribute value.
+     *
      * @param errorCode The errorCode to set.
      */
     public void setErrorCode(String errorCode) {
@@ -439,6 +445,7 @@ public class CreditCardStagingData extends PersistableBusinessObjectBase {
 
     /**
      * Gets the serviceFeeNumber attribute.
+     *
      * @return Returns the serviceFeeNumber.
      */
     @Column(name = "SRVC_FEE_NBR", length = 20, nullable = true)
@@ -449,6 +456,7 @@ public class CreditCardStagingData extends PersistableBusinessObjectBase {
 
     /**
      * Sets the serviceFeeNumber attribute value.
+     *
      * @param serviceFeeNumber The serviceFeeNumber to set.
      */
     public void setServiceFeeNumber(String serviceFeeNumber) {
@@ -458,6 +466,7 @@ public class CreditCardStagingData extends PersistableBusinessObjectBase {
 
     /**
      * Gets the itineraryNumber attribute.
+     *
      * @return Returns the itineraryNumber.
      */
     @Column(name = "ITN_NBR", length = 20, nullable = true)
@@ -468,6 +477,7 @@ public class CreditCardStagingData extends PersistableBusinessObjectBase {
 
     /**
      * Sets the itineraryNumber attribute value.
+     *
      * @param itineraryNumber The itineraryNumber to set.
      */
     public void setItineraryNumber(String itineraryNumber) {
@@ -476,6 +486,7 @@ public class CreditCardStagingData extends PersistableBusinessObjectBase {
 
     /**
      * Gets the importBy attribute.
+     *
      * @return Returns the importBy.
      */
     @Column(name = "IMPORT_BY", length = 3, nullable = true)
@@ -489,6 +500,7 @@ public class CreditCardStagingData extends PersistableBusinessObjectBase {
 
     /**
      * Sets the importBy attribute value.
+     *
      * @param importBy The importBy to set.
      */
     public void setImportBy(String importBy) {
@@ -498,6 +510,7 @@ public class CreditCardStagingData extends PersistableBusinessObjectBase {
 
     /**
      * Gets the temProfileId attribute.
+     *
      * @return Returns the temProfileId.
      */
     public Integer getTemProfileId() {
@@ -507,6 +520,7 @@ public class CreditCardStagingData extends PersistableBusinessObjectBase {
 
     /**
      * Sets the temProfileId attribute value.
+     *
      * @param temProfileId The temProfileId to set.
      */
     public void setTemProfileId(Integer temProfileId) {

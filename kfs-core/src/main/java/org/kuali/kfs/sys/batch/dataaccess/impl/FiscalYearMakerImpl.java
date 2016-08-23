@@ -1,34 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.batch.dataaccess.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.log4j.Logger;
 import org.apache.ojb.broker.core.proxy.ProxyHelper;
 import org.apache.ojb.broker.query.Criteria;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.PersistenceStructureService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.batch.dataaccess.FiscalYearMaker;
@@ -36,10 +33,13 @@ import org.kuali.kfs.sys.businessobject.FiscalYearBasedBusinessObject;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.PersistenceStructureService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Default implementation of fiscal year maker process for an entity. This implementation can be used for a table in the fiscal year
@@ -69,7 +69,7 @@ public class FiscalYearMakerImpl extends PlatformAwareDaoBaseOjb implements Fisc
     protected Map<String, Class> referenceObjects = null;
     @SuppressWarnings("rawtypes")
     protected Map<String, Class> collectionObjects = null;
-    protected Map<String,Map<String,String>> referenceForeignKeys = new HashMap<String, Map<String,String>>();
+    protected Map<String, Map<String, String>> referenceForeignKeys = new HashMap<String, Map<String, String>>();
 
     /**
      * Constructs a FiscalYearMakerImpl.java.
@@ -84,7 +84,7 @@ public class FiscalYearMakerImpl extends PlatformAwareDaoBaseOjb implements Fisc
     }
 
     protected boolean hasExtension() {
-        if ( hasExtension == null ) {
+        if (hasExtension == null) {
             hasExtension = persistenceStructureService.hasReference(businessObjectClass, KFSPropertyConstants.EXTENSION);
         }
         return hasExtension.booleanValue();
@@ -92,7 +92,7 @@ public class FiscalYearMakerImpl extends PlatformAwareDaoBaseOjb implements Fisc
 
     @Override
     public List<String> getPrimaryKeyPropertyNames() {
-        if ( primaryKeyPropertyNames == null ) {
+        if (primaryKeyPropertyNames == null) {
             primaryKeyPropertyNames = persistenceStructureService.listPrimaryKeyFieldNames(businessObjectClass);
         }
         return primaryKeyPropertyNames;
@@ -100,7 +100,7 @@ public class FiscalYearMakerImpl extends PlatformAwareDaoBaseOjb implements Fisc
 
     @Override
     public List<String> getPropertyNames() {
-        if ( propertyNames == null ) {
+        if (propertyNames == null) {
             propertyNames = persistenceStructureService.listFieldNames(businessObjectClass);
         }
         return propertyNames;
@@ -108,8 +108,8 @@ public class FiscalYearMakerImpl extends PlatformAwareDaoBaseOjb implements Fisc
 
     @Override
     @SuppressWarnings("rawtypes")
-    public Map<String,Class> getReferenceObjectProperties() {
-        if ( referenceObjects == null ) {
+    public Map<String, Class> getReferenceObjectProperties() {
+        if (referenceObjects == null) {
             referenceObjects = persistenceStructureService.listReferenceObjectFields(businessObjectClass);
         }
         return referenceObjects;
@@ -117,17 +117,17 @@ public class FiscalYearMakerImpl extends PlatformAwareDaoBaseOjb implements Fisc
 
     @Override
     @SuppressWarnings("rawtypes")
-    public Map<String,Class> getCollectionProperties() {
-        if ( collectionObjects == null ) {
+    public Map<String, Class> getCollectionProperties() {
+        if (collectionObjects == null) {
             collectionObjects = persistenceStructureService.listCollectionObjectTypes(businessObjectClass);
         }
         return collectionObjects;
     }
 
     @Override
-    public Map<String,String> getForeignKeyMappings( String referenceName ) {
-        if ( !referenceForeignKeys.containsKey(referenceName) ) {
-            referenceForeignKeys.put(referenceName, persistenceStructureService.getForeignKeysForReference(businessObjectClass, referenceName) );
+    public Map<String, String> getForeignKeyMappings(String referenceName) {
+        if (!referenceForeignKeys.containsKey(referenceName)) {
+            referenceForeignKeys.put(referenceName, persistenceStructureService.getForeignKeysForReference(businessObjectClass, referenceName));
         }
         return referenceForeignKeys.get(referenceName);
     }
@@ -136,11 +136,11 @@ public class FiscalYearMakerImpl extends PlatformAwareDaoBaseOjb implements Fisc
      * Sets fiscal year field up one, resets version number and assigns a new Guid for the object id
      *
      * @see org.kuali.kfs.coa.dataaccess.FiscalYearMaker#changeForNewYear(java.lang.Integer,
-     *      org.kuali.rice.krad.bo.PersistableBusinessObject)
+     * org.kuali.rice.krad.bo.PersistableBusinessObject)
      */
     @Override
     public void changeForNewYear(Integer baseFiscalYear, FiscalYearBasedBusinessObject currentRecord) {
-        if ( LOG.isDebugEnabled() ) {
+        if (LOG.isDebugEnabled()) {
             LOG.debug("starting changeForNewYear() for bo class " + businessObjectClass.getName());
         }
 
@@ -156,8 +156,7 @@ public class FiscalYearMakerImpl extends PlatformAwareDaoBaseOjb implements Fisc
 
             currentRecord.setVersionNumber(ONE);
             currentRecord.setObjectId(java.util.UUID.randomUUID().toString());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             String msg = String.format("Failed to set properties for class %s due to %s", businessObjectClass.getName(), e.getMessage());
             LOG.error(msg);
             throw new RuntimeException(msg, e);
@@ -173,7 +172,7 @@ public class FiscalYearMakerImpl extends PlatformAwareDaoBaseOjb implements Fisc
      */
     protected void updateExtensionRecord(Integer newFiscalYear, PersistableBusinessObject currentRecord) throws Exception {
         // check if reference is mapped up
-        if ( !hasExtension() ) {
+        if (!hasExtension()) {
             return;
         }
 
@@ -183,7 +182,7 @@ public class FiscalYearMakerImpl extends PlatformAwareDaoBaseOjb implements Fisc
 
         // if found then update fields
         if (ObjectUtils.isNotNull(extension)) {
-            extension = (PersistableBusinessObject)ProxyHelper.getRealObject(extension);
+            extension = (PersistableBusinessObject) ProxyHelper.getRealObject(extension);
             extension.setVersionNumber(ONE);
             extension.setObjectId(java.util.UUID.randomUUID().toString());
 
@@ -191,12 +190,12 @@ public class FiscalYearMakerImpl extends PlatformAwareDaoBaseOjb implements Fisc
             // we need to set the keys
             // But...we only need to do this if this was a truly new object, which we can tell by checking
             // the fiscal year field
-            if ( ((FiscalYearBasedBusinessObject)extension).getUniversityFiscalYear() == null ) {
-                for ( String pkField : getPrimaryKeyPropertyNames() ) {
+            if (((FiscalYearBasedBusinessObject) extension).getUniversityFiscalYear() == null) {
+                for (String pkField : getPrimaryKeyPropertyNames()) {
                     PropertyUtils.setSimpleProperty(extension, pkField, PropertyUtils.getSimpleProperty(currentRecord, pkField));
                 }
             }
-            ((FiscalYearBasedBusinessObject)extension).setUniversityFiscalYear(newFiscalYear);
+            ((FiscalYearBasedBusinessObject) extension).setUniversityFiscalYear(newFiscalYear);
         }
     }
 
@@ -206,7 +205,7 @@ public class FiscalYearMakerImpl extends PlatformAwareDaoBaseOjb implements Fisc
      */
     @Override
     public Criteria createNextYearSelectionCriteria(Integer baseFiscalYear) {
-        if ( LOG.isDebugEnabled() ) {
+        if (LOG.isDebugEnabled()) {
             LOG.debug("starting createNextYearSelectionCriteria() for bo class " + businessObjectClass.getName());
         }
 
@@ -226,7 +225,7 @@ public class FiscalYearMakerImpl extends PlatformAwareDaoBaseOjb implements Fisc
      */
     @Override
     public Criteria createSelectionCriteria(Integer baseFiscalYear) {
-        if ( LOG.isDebugEnabled() ) {
+        if (LOG.isDebugEnabled()) {
             LOG.debug("starting createSelectionCriteria() for bo class " + businessObjectClass.getName());
         }
 
@@ -249,7 +248,7 @@ public class FiscalYearMakerImpl extends PlatformAwareDaoBaseOjb implements Fisc
      */
     @Override
     public Criteria createDeleteCriteria(Integer baseFiscalYear) {
-        if ( LOG.isDebugEnabled() ) {
+        if (LOG.isDebugEnabled()) {
             LOG.debug("starting createDeleteCriteria() for bo class " + businessObjectClass.getName());
         }
 
@@ -262,15 +261,14 @@ public class FiscalYearMakerImpl extends PlatformAwareDaoBaseOjb implements Fisc
     /**
      * Adds fiscal year criteria based on the configuration (copy two years, lagging, or normal)
      *
-     * @param criteria OJB Criteria object
+     * @param criteria       OJB Criteria object
      * @param baseFiscalYear Fiscal year for critiera
      * @param createTwoYears indicates whether two years of fiscal year criteria should be added
      */
     protected void addYearCriteria(Criteria criteria, Integer baseFiscalYear, boolean createTwoYears) {
         if (fiscalYearOneBehind) {
             baseFiscalYear = baseFiscalYear - 1;
-        }
-        else if (fiscalYearOneAhead) {
+        } else if (fiscalYearOneAhead) {
             baseFiscalYear = baseFiscalYear + 1;
         }
 
@@ -280,8 +278,7 @@ public class FiscalYearMakerImpl extends PlatformAwareDaoBaseOjb implements Fisc
             copyYears.add(baseFiscalYear + 1);
 
             criteria.addIn(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, copyYears);
-        }
-        else {
+        } else {
             criteria.addEqualTo(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, baseFiscalYear);
         }
     }

@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,16 +18,12 @@
  */
 package org.kuali.kfs.module.ar.document.service;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.wklykins;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.ErrorMessage;
 import org.kuali.kfs.module.ar.businessobject.InvoiceAddressDetail;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
 import org.kuali.kfs.module.ar.fixture.ARAwardAccountFixture;
@@ -40,10 +36,14 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.krad.bo.DocumentHeader;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.ErrorMessage;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.wklykins;
 
 /**
  * Test file for ContractsGrantsAgingOpenInvoicesReport service.
@@ -107,8 +107,8 @@ public class ContractsGrantsAgingOpenInvoicesReportServiceTest extends KualiTest
      */
     public void testGetPopulatedReportDetails() {
         Map urlParameters = new HashMap();
-        urlParameters.put(KFSPropertyConstants.CUSTOMER_NUMBER, new String[] { CUSTOMER_NUMBER });
-        urlParameters.put(KFSPropertyConstants.CUSTOMER_NAME, new String[] { CUSTOMER_NAME });
+        urlParameters.put(KFSPropertyConstants.CUSTOMER_NUMBER, new String[]{CUSTOMER_NUMBER});
+        urlParameters.put(KFSPropertyConstants.CUSTOMER_NAME, new String[]{CUSTOMER_NAME});
         List openinvoicesList = contractsGrantsAgingOpenInvoicesReportService.getPopulatedReportDetails(urlParameters);
         assertNotNull(openinvoicesList);
     }

@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,11 +18,10 @@
  */
 package org.kuali.kfs.module.bc.document.dataaccess.impl;
 
-import java.util.ArrayList;
-
 import org.kuali.kfs.module.bc.batch.dataaccess.impl.SQLForStep;
 import org.kuali.kfs.module.bc.document.dataaccess.BudgetConstructionAccountFundingDetailReportDao;
 
+import java.util.ArrayList;
 
 
 public class BudgetConstructionAccountFundingDetailReportDaoJdbc extends BudgetConstructionDaoJdbcBase implements BudgetConstructionAccountFundingDetailReportDao {

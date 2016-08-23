@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -24,13 +24,11 @@ import java.util.Map;
 
 /**
  * Represents a relationship to another class that exists within a given parent class
- *
+ * <p>
  * <p>
  * In terms of relational db, this can be thought of as a foreign key relationship. That is one of the
  * properties (fields) of the parent class (parent table) has a relationship to another class (table)
  * </p>
- *
- * 
  */
 public class DataObjectRelationship implements Serializable {
     private Class<?> relatedClass;
@@ -71,7 +69,7 @@ public class DataObjectRelationship implements Serializable {
 
     /**
      * Returns the name of the attribute within the parent class that holds the related class object
-     *
+     * <p>
      * <p>
      * Note this attribute should be of type given by #getRelatedClass
      * </p>

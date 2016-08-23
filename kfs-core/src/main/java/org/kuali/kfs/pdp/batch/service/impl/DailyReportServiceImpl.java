@@ -1,27 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.pdp.batch.service.impl;
-
-import java.text.MessageFormat;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.pdp.PdpKeyConstants;
@@ -33,6 +28,11 @@ import org.kuali.kfs.sys.service.ReportWriterService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.text.MessageFormat;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 @Transactional
 public class DailyReportServiceImpl implements DailyReportService {
@@ -75,7 +75,7 @@ public class DailyReportServiceImpl implements DailyReportService {
 
         for (DailyReport dailyReport : data) {
             if (!first
-                    && this.paymentGroupService.getSortGroupId(dailyReportSortTotal.getPaymentGroup()) != this.paymentGroupService.getSortGroupId(dailyReport.getPaymentGroup())) {
+                && this.paymentGroupService.getSortGroupId(dailyReportSortTotal.getPaymentGroup()) != this.paymentGroupService.getSortGroupId(dailyReport.getPaymentGroup())) {
                 // Clause is for if the sort group changed which means we print a sortTotal. Unless this is the first element we print, then this doesn't apply
 
                 firstSortTotal = true;
@@ -105,7 +105,7 @@ public class DailyReportServiceImpl implements DailyReportService {
 
             // Set the sortTotal title if it hasn't been set yet. There are two scenarios this happens for: Only 1 element in list or we just reset dailyReportSortTotal
             if (StringUtils.isEmpty(dailyReportSortTotal.getSortOrder())) {
-                String newTotalForSubtitle = MessageFormat.format(DAILY_REPORT_SORT_TOTAL_PROPERTY_STRING, new Object[] { this.paymentGroupService.getSortGroupName(this.paymentGroupService.getSortGroupId(dailyReportSortTotal.getPaymentGroup())) });
+                String newTotalForSubtitle = MessageFormat.format(DAILY_REPORT_SORT_TOTAL_PROPERTY_STRING, new Object[]{this.paymentGroupService.getSortGroupName(this.paymentGroupService.getSortGroupId(dailyReportSortTotal.getPaymentGroup()))});
                 dailyReportSortTotal.setSortOrder(newTotalForSubtitle);
             }
         }

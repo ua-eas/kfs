@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -20,15 +20,6 @@ package org.kuali.kfs.krad.document;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.kuali.rice.kew.api.KewApiConstants;
-import org.kuali.rice.kew.api.KewApiServiceLocator;
-import org.kuali.rice.kew.api.action.ActionType;
-import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.kew.framework.postprocessor.ActionTakenEvent;
-import org.kuali.rice.kew.framework.postprocessor.DocumentRouteLevelChange;
-import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.kfs.krad.bo.AdHocRoutePerson;
 import org.kuali.kfs.krad.bo.AdHocRouteWorkgroup;
 import org.kuali.kfs.krad.bo.DocumentHeader;
@@ -58,6 +49,15 @@ import org.kuali.kfs.krad.util.documentserializer.PropertySerializabilityEvaluat
 import org.kuali.kfs.krad.workflow.DocumentInitiator;
 import org.kuali.kfs.krad.workflow.KualiDocumentXmlMaterializer;
 import org.kuali.kfs.krad.workflow.KualiTransactionalDocumentInformation;
+import org.kuali.rice.kew.api.KewApiConstants;
+import org.kuali.rice.kew.api.KewApiServiceLocator;
+import org.kuali.rice.kew.api.action.ActionType;
+import org.kuali.rice.kew.api.exception.WorkflowException;
+import org.kuali.rice.kew.framework.postprocessor.ActionTakenEvent;
+import org.kuali.rice.kew.framework.postprocessor.DocumentRouteLevelChange;
+import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
+import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.springframework.util.AutoPopulatingList;
 import org.springframework.util.CollectionUtils;
 
@@ -81,13 +81,13 @@ import java.util.Map;
 @MappedSuperclass
 public abstract class DocumentBase extends PersistableBusinessObjectBase implements Document {
     private static final Logger LOG = Logger.getLogger(DocumentBase.class);
-    
+
     @Id
-    @Column(name="DOC_HDR_ID")
+    @Column(name = "DOC_HDR_ID")
     protected String documentNumber;
-    @OneToOne(fetch=FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinColumn(name="DOC_HDR_ID", insertable=false, updatable=false)
-    protected DocumentHeader documentHeader;    
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "DOC_HDR_ID", insertable = false, updatable = false)
+    protected DocumentHeader documentHeader;
 
     @Transient
     private List<AdHocRoutePerson> adHocRoutePersons;
@@ -95,7 +95,7 @@ public abstract class DocumentBase extends PersistableBusinessObjectBase impleme
     private List<AdHocRouteWorkgroup> adHocRouteWorkgroups;
     @Transient
     private List<Note> notes;
-    
+
     private transient NoteService noteService;
     private transient AttachmentService attachmentService;
 
@@ -110,11 +110,9 @@ public abstract class DocumentBase extends PersistableBusinessObjectBase impleme
             adHocRoutePersons = new ArrayList<AdHocRoutePerson>();
             adHocRouteWorkgroups = new ArrayList<AdHocRouteWorkgroup>();
             notes = new ArrayList<Note>();
-        }
-        catch (IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             throw new RuntimeException("Error instantiating DocumentHeader", e);
-        }
-        catch (InstantiationException e) {
+        } catch (InstantiationException e) {
             throw new RuntimeException("Error instantiating DocumentHeader", e);
         }
     }
@@ -139,12 +137,12 @@ public abstract class DocumentBase extends PersistableBusinessObjectBase impleme
         if (null == documentTypeLabel) {
             documentTypeLabel = "";
         }
-    
+
         String description = this.getDocumentHeader().getDocumentDescription();
         if (null == description) {
             description = "";
         }
-    
+
         return documentTypeLabel + " - " + description;
     }
 
@@ -166,8 +164,7 @@ public abstract class DocumentBase extends PersistableBusinessObjectBase impleme
     public void refreshIfEmpty() {
         if (null == this.getDocumentHeader()) {
             this.refresh();
-        }
-        else if (StringUtils.isEmpty(this.getDocumentHeader().getObjectId())) {
+        } else if (StringUtils.isEmpty(this.getDocumentHeader().getObjectId())) {
             this.refresh();
         }
     }
@@ -193,7 +190,7 @@ public abstract class DocumentBase extends PersistableBusinessObjectBase impleme
      * @see Document#processAfterRetrieve()
      */
     public void processAfterRetrieve() {
-    	// do nothing
+        // do nothing
     }
 
     /**
@@ -205,7 +202,7 @@ public abstract class DocumentBase extends PersistableBusinessObjectBase impleme
     public void doRouteLevelChange(DocumentRouteLevelChange levelChangeEvent) {
         // do nothing
     }
-    
+
     /**
      * @see Document#doActionTaken(org.kuali.rice.kew.framework.postprocessor.ActionTakenEvent)
      */
@@ -219,7 +216,7 @@ public abstract class DocumentBase extends PersistableBusinessObjectBase impleme
     public void afterActionTaken(ActionType performed, ActionTakenEvent event) {
         // do nothing
     }
-    
+
     protected List<String> getNonLockingActionTakenCodes() {
         List<String> actionTakenStatusCodes = new ArrayList<String>();
         actionTakenStatusCodes.add(KewApiConstants.ACTION_TAKEN_SAVED_CD);
@@ -234,7 +231,7 @@ public abstract class DocumentBase extends PersistableBusinessObjectBase impleme
     /**
      * The the default implementation for afterWorkflowEngineProcess does nothing, but is meant to provide a hook for
      * documents to implement for other needs.
-     * 
+     *
      * @see Document#afterWorkflowEngineProcess(boolean)
      */
     public void afterWorkflowEngineProcess(boolean successfullyProcessed) {
@@ -244,25 +241,24 @@ public abstract class DocumentBase extends PersistableBusinessObjectBase impleme
     /**
      * The the default implementation for beforeWorkflowEngineProcess does nothing, but is meant to provide a hook for
      * documents to implement for other needs.
-     * 
+     *
      * @see Document#beforeWorkflowEngineProcess()
      */
     public void beforeWorkflowEngineProcess() {
-    // do nothing
+        // do nothing
     }
-    
-    
+
 
     /**
      * The default implementation returns no additional ids for the workflow engine to lock prior to processing.
-     * 
+     *
      * @see Document#getWorkflowEngineDocumentIdsToLock()
      */
     public List<String> getWorkflowEngineDocumentIdsToLock() {
-		return null;
-	}
+        return null;
+    }
 
-	/**
+    /**
      * @see Copyable#toCopy()
      */
     public void toCopy() throws WorkflowException, IllegalStateException {
@@ -271,7 +267,7 @@ public abstract class DocumentBase extends PersistableBusinessObjectBase impleme
         }
         String sourceDocumentHeaderId = getDocumentNumber();
         setNewDocumentHeader();
-                
+
         getDocumentHeader().setDocumentTemplateNumber(sourceDocumentHeaderId);
 
         //clear out notes from previous bo
@@ -281,7 +277,7 @@ public abstract class DocumentBase extends PersistableBusinessObjectBase impleme
 
     /**
      * Gets a new document header for this documents type and sets in the document instance.
-     * 
+     *
      * @throws WorkflowException
      */
     protected void setNewDocumentHeader() throws WorkflowException {
@@ -291,10 +287,9 @@ public abstract class DocumentBase extends PersistableBusinessObjectBase impleme
 
         try {
             ObjectUtils.setObjectPropertyDeep(this, KRADPropertyConstants.DOCUMENT_NUMBER, documentNumber.getClass(), newDoc.getDocumentNumber());
-        }
-        catch (Exception e) {
-            LOG.error("Unable to set document number property in copied document " + e.getMessage(),e);
-            throw new RuntimeException("Unable to set document number property in copied document " + e.getMessage(),e);
+        } catch (Exception e) {
+            LOG.error("Unable to set document number property in copied document " + e.getMessage(), e);
+            throw new RuntimeException("Unable to set document number property in copied document " + e.getMessage(), e);
         }
 
         // replace current documentHeader with new documentHeader
@@ -303,17 +298,16 @@ public abstract class DocumentBase extends PersistableBusinessObjectBase impleme
 
     /**
      * Adds a note to the document indicating it was created by a copy or error correction.
-     * 
+     *
      * @param noteText - text for note
      */
     protected void addCopyErrorDocumentNote(String noteText) {
         Note note = null;
         try {
-            note = KRADServiceLocatorWeb.getDocumentService().createNoteFromDocument(this,noteText);
-        }
-        catch (Exception e) {
-         logErrors();
-         throw new RuntimeException("Couldn't create note on copy or error",e);
+            note = KRADServiceLocatorWeb.getDocumentService().createNoteFromDocument(this, noteText);
+        } catch (Exception e) {
+            logErrors();
+            throw new RuntimeException("Couldn't create note on copy or error", e);
         }
         addNote(note);
     }
@@ -322,9 +316,9 @@ public abstract class DocumentBase extends PersistableBusinessObjectBase impleme
      * @see Document#getXmlForRouteReport()
      */
     public String getXmlForRouteReport() {
-	prepareForSave();
-	populateDocumentForRouting();
-	return getDocumentHeader().getWorkflowDocument().getApplicationContent();
+        prepareForSave();
+        populateDocumentForRouting();
+        return getDocumentHeader().getWorkflowDocument().getApplicationContent();
     }
 
     /**
@@ -333,7 +327,7 @@ public abstract class DocumentBase extends PersistableBusinessObjectBase impleme
     public void populateDocumentForRouting() {
         getDocumentHeader().getWorkflowDocument().setApplicationContent(serializeDocumentToXml());
     }
-    
+
     /**
      * @see Document#serializeDocumentToXml()
      */
@@ -345,7 +339,7 @@ public abstract class DocumentBase extends PersistableBusinessObjectBase impleme
 
     /**
      * Wraps a document in an instance of KualiDocumentXmlMaterializer, that provides additional metadata for serialization
-     * 
+     *
      * @see Document#wrapDocumentWithMetadataForXmlSerialization()
      */
     public KualiDocumentXmlMaterializer wrapDocumentWithMetadataForXmlSerialization() {
@@ -362,10 +356,10 @@ public abstract class DocumentBase extends PersistableBusinessObjectBase impleme
     }
 
     /**
-     * If workflowProperties have been defined within the data dictionary for this document, then it returns an instance of 
-     * {@link BusinessObjectPropertySerializibilityEvaluator} initialized with the properties.  If none have been defined, then returns 
+     * If workflowProperties have been defined within the data dictionary for this document, then it returns an instance of
+     * {@link BusinessObjectPropertySerializibilityEvaluator} initialized with the properties.  If none have been defined, then returns
      * {@link AlwaysTruePropertySerializibilityEvaluator}.
-     * 
+     *
      * @see Document#getDocumentPropertySerizabilityEvaluator()
      */
     public PropertySerializabilityEvaluator getDocumentPropertySerizabilityEvaluator() {
@@ -375,29 +369,29 @@ public abstract class DocumentBase extends PersistableBusinessObjectBase impleme
         WorkflowAttributes workflowAttributes = documentEntry.getWorkflowAttributes();
         return createPropertySerializabilityEvaluator(workflowProperties, workflowAttributes);
     }
-    
+
     protected PropertySerializabilityEvaluator createPropertySerializabilityEvaluator(WorkflowProperties workflowProperties, WorkflowAttributes workflowAttributes) {
-    	if (workflowAttributes != null) {
-    		return new AlwaysFalsePropertySerializabilityEvaluator();
-    	}
-    	if (workflowProperties == null) {
-    		return new AlwaysTruePropertySerializibilityEvaluator();
-    	}
-    	PropertySerializabilityEvaluator evaluator = new BusinessObjectPropertySerializibilityEvaluator();
-    	evaluator.initializeEvaluatorForDocument(this);
-    	return evaluator;
+        if (workflowAttributes != null) {
+            return new AlwaysFalsePropertySerializabilityEvaluator();
+        }
+        if (workflowProperties == null) {
+            return new AlwaysTruePropertySerializibilityEvaluator();
+        }
+        PropertySerializabilityEvaluator evaluator = new BusinessObjectPropertySerializibilityEvaluator();
+        evaluator.initializeEvaluatorForDocument(this);
+        return evaluator;
     }
-    
+
     /**
      * Returns the POJO property name of "this" document in the object returned by {@link #wrapDocumentWithMetadataForXmlSerialization()}
-     * 
+     *
      * @see Document#getBasePathToDocumentDuringSerialization()
      */
     public String getBasePathToDocumentDuringSerialization() {
         return "document";
     }
-    
-    
+
+
     /**
      * @see Document#getDocumentHeader()
      */
@@ -438,7 +432,8 @@ public abstract class DocumentBase extends PersistableBusinessObjectBase impleme
      */
     public void setAdHocRoutePersons(List<AdHocRoutePerson> adHocRoutePersons) {
         this.adHocRoutePersons = adHocRoutePersons;
-}
+    }
+
     /**
      * @see Document#getAdHocRouteWorkgroups()
      */
@@ -456,15 +451,15 @@ public abstract class DocumentBase extends PersistableBusinessObjectBase impleme
     public void postProcessSave(KualiDocumentEvent event) {
         // TODO Auto-generated method stub
 
-	}
+    }
 
     /**
      * Override this method with implementation specific prepareForSave logic
-     * 
+     *
      * @see Document#prepareForSave(KualiDocumentEvent)
      */
     public void prepareForSave(KualiDocumentEvent event) {
-    	// do nothing by default
+        // do nothing by default
     }
 
     public void validateBusinessRules(KualiDocumentEvent event) {
@@ -484,8 +479,7 @@ public abstract class DocumentBase extends PersistableBusinessObjectBase impleme
             // TODO: better error handling at the lower level and a better error message are
             // needed here
             throw new ValidationException("business rule evaluation failed");
-        }
-        else if (GlobalVariables.getMessageMap().hasErrors()) {
+        } else if (GlobalVariables.getMessageMap().hasErrors()) {
             logErrors();
             throw new ValidationException("Unreported errors occured during business rule evaluation (rule developer needs to put meaningful error messages into global ErrorMap)");
         }
@@ -497,38 +491,37 @@ public abstract class DocumentBase extends PersistableBusinessObjectBase impleme
      * This method logs errors.
      */
     protected void logErrors() {
-    	if ( LOG.isInfoEnabled() ) {
-	        if (GlobalVariables.getMessageMap().hasErrors()) {
-	
-	            for (Iterator<Map.Entry<String, AutoPopulatingList<ErrorMessage>>> i = GlobalVariables.getMessageMap().getAllPropertiesAndErrors().iterator(); i.hasNext();) {
-	                Map.Entry<String, AutoPopulatingList<ErrorMessage>> e = i.next();
-	
-	                StringBuffer logMessage = new StringBuffer();
-	                logMessage.append("[" + e.getKey() + "] ");
-	                boolean first = true;
-	
-	                AutoPopulatingList<ErrorMessage> errorList = e.getValue();
-	                for (Iterator<ErrorMessage> j = errorList.iterator(); j.hasNext();) {
-	                    ErrorMessage em = j.next();
-	
-	                    if (first) {
-	                        first = false;
-	                    }
-	                    else {
-	                        logMessage.append(";");
-	                    }
-	                    logMessage.append(em);
-	                }
-	
-	                LOG.info(logMessage);
-	            }
-	        }
-    	}
+        if (LOG.isInfoEnabled()) {
+            if (GlobalVariables.getMessageMap().hasErrors()) {
+
+                for (Iterator<Map.Entry<String, AutoPopulatingList<ErrorMessage>>> i = GlobalVariables.getMessageMap().getAllPropertiesAndErrors().iterator(); i.hasNext(); ) {
+                    Map.Entry<String, AutoPopulatingList<ErrorMessage>> e = i.next();
+
+                    StringBuffer logMessage = new StringBuffer();
+                    logMessage.append("[" + e.getKey() + "] ");
+                    boolean first = true;
+
+                    AutoPopulatingList<ErrorMessage> errorList = e.getValue();
+                    for (Iterator<ErrorMessage> j = errorList.iterator(); j.hasNext(); ) {
+                        ErrorMessage em = j.next();
+
+                        if (first) {
+                            first = false;
+                        } else {
+                            logMessage.append(";");
+                        }
+                        logMessage.append(em);
+                    }
+
+                    LOG.info(logMessage);
+                }
+            }
+        }
     }
 
     /**
      * Hook for override
-     * 
+     *
      * @see Document#generateSaveEvents()
      */
     public List<KualiDocumentEvent> generateSaveEvents() {
@@ -541,99 +534,98 @@ public abstract class DocumentBase extends PersistableBusinessObjectBase impleme
     public void doRouteStatusChange(DocumentRouteStatusChange statusChangeEvent) {
         // do nothing
     }
-    
+
     /**
      * Returns the business object with which notes related to this document should be associated.
      * By default, the {@link DocumentHeader} of this document will be returned as the note target.
-     * 
+     * <p>
      * <p>Sub classes can override this method if they want notes to be associated with something
      * other than the document header.  If this method is overridden, the {@link #getNoteType()}
      * method should be overridden to return {@link NoteType#BUSINESS_OBJECT}
-     * 
+     *
      * @return Returns the documentBusinessObject.
      */
     @Override
     public PersistableBusinessObject getNoteTarget() {
         return getDocumentHeader();
     }
-    
-    /**
-	 * Returns the {@link NoteType} to use for notes associated with this document.
-	 * By default this returns {@link NoteType#DOCUMENT_HEADER} since notes are
-	 * associated with the {@link DocumentHeader} record by default.
-	 * 
-	 * <p>The case in which this should be overridden is if {@link #getNoteTarget()} is
-	 * overridden to return an object other than the DocumentHeader.
-	 *
-	 * @return the note type to use for notes associated with this document
-	 * 
-	 * @see Document#getNoteType()
-	 */
-	@Override
-	public NoteType getNoteType() {
-		return NoteType.DOCUMENT_HEADER;
-	}
 
-	/**
-	 * @see Document#addNote(Note)
-	 */
+    /**
+     * Returns the {@link NoteType} to use for notes associated with this document.
+     * By default this returns {@link NoteType#DOCUMENT_HEADER} since notes are
+     * associated with the {@link DocumentHeader} record by default.
+     * <p>
+     * <p>The case in which this should be overridden is if {@link #getNoteTarget()} is
+     * overridden to return an object other than the DocumentHeader.
+     *
+     * @return the note type to use for notes associated with this document
+     * @see Document#getNoteType()
+     */
     @Override
-	public void addNote(Note note) {
-    	if (note == null) {
-    		throw new IllegalArgumentException("Note cannot be null.");
-    	}
-		notes.add(note);
-	}
+    public NoteType getNoteType() {
+        return NoteType.DOCUMENT_HEADER;
+    }
+
+    /**
+     * @see Document#addNote(Note)
+     */
+    @Override
+    public void addNote(Note note) {
+        if (note == null) {
+            throw new IllegalArgumentException("Note cannot be null.");
+        }
+        notes.add(note);
+    }
 
     /**
      * @see Document#removeNote(Note)
      */
-	@Override
-	public boolean removeNote(Note note) {
-		if (note == null) {
-    		throw new IllegalArgumentException("Note cannot be null.");
-    	}
-		return notes.remove(note);
-	}
+    @Override
+    public boolean removeNote(Note note) {
+        if (note == null) {
+            throw new IllegalArgumentException("Note cannot be null.");
+        }
+        return notes.remove(note);
+    }
 
-	/**
-	 * @see Document#getNote(int)
-	 */
-	@Override
-	public Note getNote(int index) {
-		return notes.get(index);
-	}
+    /**
+     * @see Document#getNote(int)
+     */
+    @Override
+    public Note getNote(int index) {
+        return notes.get(index);
+    }
 
-	/**
-	 * @see Document#getNotes()
-	 */
-	@Override
-	public List<Note> getNotes() {
+    /**
+     * @see Document#getNotes()
+     */
+    @Override
+    public List<Note> getNotes() {
         if (CollectionUtils.isEmpty(notes)
-                && getNoteType().equals(NoteType.BUSINESS_OBJECT)
-                && StringUtils.isNotBlank(getNoteTarget().getObjectId()) ) {
+            && getNoteType().equals(NoteType.BUSINESS_OBJECT)
+            && StringUtils.isNotBlank(getNoteTarget().getObjectId())) {
             notes = getNoteService().getByRemoteObjectId(getNoteTarget().getObjectId());
         }
 
-		return notes;
-	}
-	
-	/**
-	 * @see Document#setNotes(java.util.List)
-	 */
-	@Override
-	public void setNotes(List<Note> notes) {
-		if (notes == null) {
-			throw new IllegalArgumentException("List of notes must be non-null.");
-		}
-		this.notes = notes;
-	}
+        return notes;
+    }
+
+    /**
+     * @see Document#setNotes(java.util.List)
+     */
+    @Override
+    public void setNotes(List<Note> notes) {
+        if (notes == null) {
+            throw new IllegalArgumentException("List of notes must be non-null.");
+        }
+        this.notes = notes;
+    }
 
     @Override
     protected void postLoad() {
         super.postLoad();
     }
-       
+
     /**
      * @see Document#getLockClearningMethodNames()
      */
@@ -648,18 +640,18 @@ public abstract class DocumentBase extends PersistableBusinessObjectBase impleme
         methodToCalls.add(KRADConstants.ACKNOWLEDGE_METHOD);
         return methodToCalls;
     }
-    
+
     protected AttachmentService getAttachmentService() {
-		if ( attachmentService == null ) {
-			attachmentService = KRADServiceLocator.getAttachmentService();
-		}
-		return attachmentService;
-	}
-    
+        if (attachmentService == null) {
+            attachmentService = KRADServiceLocator.getAttachmentService();
+        }
+        return attachmentService;
+    }
+
     protected NoteService getNoteService() {
-		if ( noteService == null ) {
-			noteService = KRADServiceLocator.getNoteService();
-		}
-		return noteService;
-	}
+        if (noteService == null) {
+            noteService = KRADServiceLocator.getNoteService();
+        }
+        return noteService;
+    }
 }

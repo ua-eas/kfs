@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -29,38 +29,38 @@ import java.util.Map;
 
 
 public class DocumentTypeAndRelationshipToNoteAuthorPermissionTypeService
-		extends DocumentTypePermissionTypeServiceImpl {
+    extends DocumentTypePermissionTypeServiceImpl {
 
-	@Override
-	protected List<Permission> performPermissionMatches(
-			Map<String, String> requestedDetails,
-			List<Permission> permissionsList) {
+    @Override
+    protected List<Permission> performPermissionMatches(
+        Map<String, String> requestedDetails,
+        List<Permission> permissionsList) {
 
-		List<Permission> matchingPermissions = new ArrayList<Permission>();
-		if (requestedDetails == null) {
-			return matchingPermissions; // empty list
-		}
+        List<Permission> matchingPermissions = new ArrayList<Permission>();
+        if (requestedDetails == null) {
+            return matchingPermissions; // empty list
+        }
 
-		// loop over the permissions, checking the non-document-related ones
-		for (Permission permission : permissionsList) {
+        // loop over the permissions, checking the non-document-related ones
+        for (Permission permission : permissionsList) {
             PermissionBo bo = PermissionBo.from(permission);
-			if (Boolean.parseBoolean(requestedDetails
-					.get(KimConstants.AttributeConstants.CREATED_BY_SELF))) {
-				if(Boolean.parseBoolean(bo.getDetails().get(
-						KimConstants.AttributeConstants.CREATED_BY_SELF_ONLY))){
-					matchingPermissions.add(permission);
-				}
+            if (Boolean.parseBoolean(requestedDetails
+                .get(KimConstants.AttributeConstants.CREATED_BY_SELF))) {
+                if (Boolean.parseBoolean(bo.getDetails().get(
+                    KimConstants.AttributeConstants.CREATED_BY_SELF_ONLY))) {
+                    matchingPermissions.add(permission);
+                }
 
-			}else{
-				if (!Boolean.parseBoolean(bo.getDetails().get(
-						KimConstants.AttributeConstants.CREATED_BY_SELF_ONLY))) {
-					matchingPermissions.add(permission);
-				}
-			}
+            } else {
+                if (!Boolean.parseBoolean(bo.getDetails().get(
+                    KimConstants.AttributeConstants.CREATED_BY_SELF_ONLY))) {
+                    matchingPermissions.add(permission);
+                }
+            }
 
-		}
+        }
 
-		matchingPermissions = super.performPermissionMatches(requestedDetails, matchingPermissions);
-		return matchingPermissions;
-	}
+        matchingPermissions = super.performPermissionMatches(requestedDetails, matchingPermissions);
+        return matchingPermissions;
+    }
 }

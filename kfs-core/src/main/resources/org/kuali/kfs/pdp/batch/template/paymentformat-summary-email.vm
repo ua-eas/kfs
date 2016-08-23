@@ -1,3 +1,21 @@
+########################################
+# The Kuali Financial System, a comprehensive financial management system for higher education.
+#
+# Copyright 2005-2016 The Kuali Foundation
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+########################################
 <HTML>
 <HEAD><TITLE>$emailSubject on $docCreateDate</TITLE></HEAD>
 <BODY style="font-family:Tahoma;font-size:10px;">
@@ -12,14 +30,14 @@
 		<th style="padding: 2;text-align:right">Total Amount</th>
 
 		<tr style="background-color:#000000"><td colspan="6" height="1"></td></tr>
-		
+
 		#foreach( $achSummary in $achSummaryMap.keySet() )
 		<tr bgcolor="#if ($velocityCount % 2 == 0)#e8e8e8#{else}#ffffff#end">
 			<td style="padding: 2;text-align:center">$achSummary.chartCode</td>
 			<td style="padding: 2;text-align:center">$achSummary.unitCode</td>
 			<td style="padding: 2;text-align:center">$achSummary.subUnitCode</td>
 			<td style="padding: 2;text-align:center">ACH</td>
-			
+
 			#set ($achTotals = $achSummaryMap.get($achSummary))
 			#set ($count = $achTotals.get(0))
 			#set ($amount = $achTotals.get(1))
@@ -27,7 +45,7 @@
 			<td style="padding: 2;text-align:right">$numberTool.format("currency", $amount)</td>
 		</tr>
 		#end
-		
+
 		#if ( ! $achSummaryMap.isEmpty() )
 		<tr style="background-color:#000000"><td colspan="6" height="1"></td></tr>
 		#end
@@ -37,7 +55,7 @@
 			<td style="padding: 2;text-align:center">$checkSummary.unitCode</td>
 			<td style="padding: 2;text-align:center">$checkSummary.subUnitCode</td>
 			<td style="padding: 2;text-align:center">Check</td>
-			
+
 			#set ($checkTotals = $checkSummaryMap.get($checkSummary))
 			#set ($count = $checkTotals.get(0))
 			#set ($amount = $checkTotals.get(1))

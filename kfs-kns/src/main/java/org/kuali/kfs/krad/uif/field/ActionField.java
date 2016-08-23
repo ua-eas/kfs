@@ -1,34 +1,34 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.krad.uif.field;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.krad.uif.component.Component;
-import org.kuali.kfs.krad.uif.component.ComponentBase;
-import org.kuali.rice.core.api.exception.RiceRuntimeException;
 import org.kuali.kfs.krad.uif.UifConstants;
 import org.kuali.kfs.krad.uif.UifParameters;
 import org.kuali.kfs.krad.uif.UifPropertyPaths;
+import org.kuali.kfs.krad.uif.component.Component;
+import org.kuali.kfs.krad.uif.component.ComponentBase;
 import org.kuali.kfs.krad.uif.component.ComponentSecurity;
 import org.kuali.kfs.krad.uif.view.FormView;
 import org.kuali.kfs.krad.uif.view.View;
 import org.kuali.kfs.krad.uif.widget.LightBox;
+import org.kuali.rice.core.api.exception.RiceRuntimeException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -37,8 +37,6 @@ import java.util.Map;
 /**
  * Field that presents an action that can be taken on the UI such as submitting
  * the form or invoking a script
- * 
- * 
  */
 public class ActionField extends FieldBase {
     private static final long serialVersionUID = 1025672792657238829L;
@@ -77,11 +75,11 @@ public class ActionField extends FieldBase {
 
     /**
      * The following initialization is performed:
-     *
+     * <p>
      * <ul>
      * <li>Set the actionLabel if blank to the Field label</li>
      * </ul>
-     * 
+     *
      * @see ComponentBase#performInitialization(View, java.lang.Object)
      */
     @Override
@@ -95,20 +93,20 @@ public class ActionField extends FieldBase {
 
     /**
      * The following finalization is performed:
-     *
+     * <p>
      * <ul>
      * <li>Add methodToCall action parameter if set and setup event code for
      * setting action parameters</li>
      * </ul>
-     * 
+     *
      * @see ComponentBase#performFinalize(View,
-     *      java.lang.Object, Component)
+     * java.lang.Object, Component)
      */
     @Override
     public void performFinalize(View view, Object model, Component parent) {
         super.performFinalize(view, model, parent);
         //clear alt text to avoid screen reader confusion when using image in button with text
-        if(actionImage != null && StringUtils.isNotBlank(actionImageLocation) && StringUtils.isNotBlank(actionLabel)){
+        if (actionImage != null && StringUtils.isNotBlank(actionImageLocation) && StringUtils.isNotBlank(actionLabel)) {
             actionImage.setAltText("");
         }
 
@@ -123,12 +121,12 @@ public class ActionField extends FieldBase {
             actionParameters.put(UifParameters.NAVIGATE_TO_PAGE_ID, navigateToPageId);
             if (StringUtils.isBlank(methodToCall)) {
                 actionParameters.put(UifConstants.CONTROLLER_METHOD_DISPATCH_PARAMETER_NAME,
-                        UifConstants.MethodToCallNames.NAVIGATE);
+                    UifConstants.MethodToCallNames.NAVIGATE);
             }
         }
 
         if (!actionParameters.containsKey(UifConstants.CONTROLLER_METHOD_DISPATCH_PARAMETER_NAME)
-                && StringUtils.isNotBlank(methodToCall)) {
+            && StringUtils.isNotBlank(methodToCall)) {
             actionParameters.put(UifConstants.CONTROLLER_METHOD_DISPATCH_PARAMETER_NAME, methodToCall);
         }
 
@@ -154,17 +152,17 @@ public class ActionField extends FieldBase {
                     }
 
                     writeParamsScript = writeParamsScript + "writeHiddenToForm('" + parameterPath + "' , '"
-                            + actionParameters.get(key) + "'); ";
+                        + actionParameters.get(key) + "'); ";
 
                     // Include dirtycheck js function call if the method to call
                     // is refresh, navigate, cancel or close
                     if (validateFormDirty && !includeDirtyCheckScript
-                            && key.equals(UifConstants.CONTROLLER_METHOD_DISPATCH_PARAMETER_NAME)) {
+                        && key.equals(UifConstants.CONTROLLER_METHOD_DISPATCH_PARAMETER_NAME)) {
                         String keyValue = (String) actionParameters.get(key);
                         if (StringUtils.equals(keyValue, UifConstants.MethodToCallNames.REFRESH)
-                                || StringUtils.equals(keyValue, UifConstants.MethodToCallNames.NAVIGATE)
-                                || StringUtils.equals(keyValue, UifConstants.MethodToCallNames.CANCEL)
-                                || StringUtils.equals(keyValue, UifConstants.MethodToCallNames.CLOSE)) {
+                            || StringUtils.equals(keyValue, UifConstants.MethodToCallNames.NAVIGATE)
+                            || StringUtils.equals(keyValue, UifConstants.MethodToCallNames.CANCEL)
+                            || StringUtils.equals(keyValue, UifConstants.MethodToCallNames.CLOSE)) {
                             includeDirtyCheckScript = true;
                         }
                     }
@@ -175,9 +173,9 @@ public class ActionField extends FieldBase {
             // showing history and showing home again on actions which submit
             // the form
             writeParamsScript = writeParamsScript + "writeHiddenToForm('" + UifConstants.UrlParams.SHOW_HISTORY
-                    + "', '" + "false" + "'); ";
+                + "', '" + "false" + "'); ";
             writeParamsScript = writeParamsScript + "writeHiddenToForm('" + UifConstants.UrlParams.SHOW_HOME + "' , '"
-                    + "false" + "'); ";
+                + "false" + "'); ";
 
             if (StringUtils.isBlank(focusOnAfterSubmit)) {
                 // if this is blank focus this actionField by default
@@ -197,12 +195,12 @@ public class ActionField extends FieldBase {
                 writeParamsScript = writeParamsScript + "writeHiddenToForm('jumpToId' , '" + this.getId() + "'); ";
             } else if (StringUtils.isNotBlank(jumpToIdAfterSubmit)) {
                 writeParamsScript = writeParamsScript + "writeHiddenToForm('jumpToId' , '" + jumpToIdAfterSubmit
-                        + "'); ";
+                    + "'); ";
             } else {
                 writeParamsScript = writeParamsScript + "writeHiddenToForm('jumpToName' , '" + jumpToNameAfterSubmit
-                        + "'); ";
+                    + "'); ";
             }
-            
+
             String postScript = "";
             if (StringUtils.isNotBlank(clientSideJs)) {
                 postScript = clientSideJs;
@@ -216,7 +214,7 @@ public class ActionField extends FieldBase {
 
             if (includeDirtyCheckScript) {
                 this.setOnClickScript("e.preventDefault(); if (checkDirty(e) == false) { " + prefixScript
-                        + writeParamsScript + postScript + " ; } ");
+                    + writeParamsScript + postScript + " ; } ");
             } else {
                 this.setOnClickScript("e.preventDefault();" + prefixScript + writeParamsScript + postScript);
             }
@@ -268,7 +266,7 @@ public class ActionField extends FieldBase {
      * selected. For client side calls gives the name of the script function
      * that should be invoked when the action is selected
      * </p>
-     * 
+     *
      * @return String name of method to call
      */
     public String getMethodToCall() {
@@ -277,7 +275,7 @@ public class ActionField extends FieldBase {
 
     /**
      * Setter for the actions method to call
-     * 
+     *
      * @param methodToCall
      */
     public void setMethodToCall(String methodToCall) {
@@ -291,7 +289,7 @@ public class ActionField extends FieldBase {
      * label for the action. For buttons this generally is the button text,
      * while for an action link it would be the links displayed text
      * </p>
-     * 
+     *
      * @return String label for action
      */
     public String getActionLabel() {
@@ -300,7 +298,7 @@ public class ActionField extends FieldBase {
 
     /**
      * Setter for the actions label
-     * 
+     *
      * @param actionLabel
      */
     public void setActionLabel(String actionLabel) {
@@ -315,7 +313,7 @@ public class ActionField extends FieldBase {
      * action link templates the image is used for the link instead of the
      * action link text
      * </p>
-     * 
+     *
      * @return ImageField action image
      */
     public ImageField getActionImage() {
@@ -324,7 +322,7 @@ public class ActionField extends FieldBase {
 
     /**
      * Setter for the action image field
-     * 
+     *
      * @param actionImage
      */
     public void setActionImage(ImageField actionImage) {
@@ -340,9 +338,9 @@ public class ActionField extends FieldBase {
      * Support exists in the <code>UifControllerBase</code> for handling
      * navigation between pages
      * </p>
-     * 
+     *
      * @return String id of page that should be rendered when the action item is
-     *         selected
+     * selected
      */
     public String getNavigateToPageId() {
         return this.navigateToPageId;
@@ -350,7 +348,7 @@ public class ActionField extends FieldBase {
 
     /**
      * Setter for the navigate to page id
-     * 
+     *
      * @param navigateToPageId
      */
     public void setNavigateToPageId(String navigateToPageId) {
@@ -361,7 +359,7 @@ public class ActionField extends FieldBase {
 
     /**
      * Name of the event that will be set when the action is invoked
-     *
+     * <p>
      * <p>
      * Action events can be looked at by the view or components in order to render differently depending on
      * the action requested.
@@ -394,7 +392,7 @@ public class ActionField extends FieldBase {
      * to provide the context the action is in (such as the collection name and
      * line the action applies to)
      * </p>
-     * 
+     *
      * @return Map<String, String> action parameters
      */
     public Map<String, String> getActionParameters() {
@@ -403,7 +401,7 @@ public class ActionField extends FieldBase {
 
     /**
      * Setter for the action parameters
-     * 
+     *
      * @param actionParameters
      */
     public void setActionParameters(Map<String, String> actionParameters) {
@@ -412,11 +410,9 @@ public class ActionField extends FieldBase {
 
     /**
      * Convenience method to add a parameter to the action parameters Map
-     * 
-     * @param parameterName
-     *            - name of parameter to add
-     * @param parameterValue
-     *            - value of parameter to add
+     *
+     * @param parameterName  - name of parameter to add
+     * @param parameterValue - value of parameter to add
      */
     public void addActionParameter(String parameterName, String parameterValue) {
         if (actionParameters == null) {
@@ -451,7 +447,7 @@ public class ActionField extends FieldBase {
     public void setComponentSecurity(ComponentSecurity componentSecurity) {
         if (!(componentSecurity instanceof ActionFieldSecurity)) {
             throw new RiceRuntimeException(
-                    "Component security for ActionField should be instance of ActionFieldSecurity");
+                "Component security for ActionField should be instance of ActionFieldSecurity");
         }
 
         super.setComponentSecurity(componentSecurity);
@@ -472,9 +468,8 @@ public class ActionField extends FieldBase {
 
     /**
      * Setter for the light box lookup widget
-     * 
-     * @param lightBoxLookup
-     *            <code>LightBoxLookup</code> widget to set
+     *
+     * @param lightBoxLookup <code>LightBoxLookup</code> widget to set
      */
     public void setLightBoxLookup(LightBox lightBoxLookup) {
         this.lightBoxLookup = lightBoxLookup;
@@ -486,7 +481,7 @@ public class ActionField extends FieldBase {
      * The light box lookup widget will change the lookup behaviour to open the
      * lookup in a light box.
      * </p>
-     * 
+     *
      * @return the <code>DirectInquiry</code> field DirectInquiry
      */
     public LightBox getLightBoxLookup() {
@@ -508,9 +503,8 @@ public class ActionField extends FieldBase {
      * jumpToNameAfterSubmit will result in this ActionField being jumped to by
      * default if it is present on the new page. WARNING: jumpToIdAfterSubmit
      * always takes precedence over jumpToNameAfterSubmit, if set.
-     * 
-     * @param jumpToIdAfterSubmit
-     *            the jumpToIdAfterSubmit to set
+     *
+     * @param jumpToIdAfterSubmit the jumpToIdAfterSubmit to set
      */
     public void setJumpToIdAfterSubmit(String jumpToIdAfterSubmit) {
         this.jumpToIdAfterSubmit = jumpToIdAfterSubmit;
@@ -523,7 +517,7 @@ public class ActionField extends FieldBase {
      * will result in this ActionField being jumped to by default if it is
      * present on the new page. WARNING: jumpToIdAfterSubmit always takes
      * precedence over jumpToNameAfterSubmit, if set.
-     * 
+     *
      * @return the jumpToNameAfterSubmit
      */
     public String getJumpToNameAfterSubmit() {
@@ -531,8 +525,7 @@ public class ActionField extends FieldBase {
     }
 
     /**
-     * @param jumpToNameAfterSubmit
-     *            the jumpToNameAfterSubmit to set
+     * @param jumpToNameAfterSubmit the jumpToNameAfterSubmit to set
      */
     public void setJumpToNameAfterSubmit(String jumpToNameAfterSubmit) {
         this.jumpToNameAfterSubmit = jumpToNameAfterSubmit;
@@ -543,7 +536,7 @@ public class ActionField extends FieldBase {
      * is retrieved. Passing in "FIRST" will focus on the first visible input
      * element on the form. Passing in the empty string will result in this
      * ActionField being focused.
-     * 
+     *
      * @return the focusOnAfterSubmit
      */
     public String getFocusOnAfterSubmit() {
@@ -551,8 +544,7 @@ public class ActionField extends FieldBase {
     }
 
     /**
-     * @param focusOnAfterSubmit
-     *            the focusOnAfterSubmit to set
+     * @param focusOnAfterSubmit the focusOnAfterSubmit to set
      */
     public void setFocusOnAfterSubmit(String focusOnAfterSubmit) {
         this.focusOnAfterSubmit = focusOnAfterSubmit;
@@ -560,7 +552,7 @@ public class ActionField extends FieldBase {
 
     /**
      * Indicates whether the form data should be validated on the client side
-     *
+     * <p>
      * return true if validation should occur, false otherwise
      */
     public boolean isClientSideValidate() {
@@ -569,6 +561,7 @@ public class ActionField extends FieldBase {
 
     /**
      * Setter for the client side validation flag
+     *
      * @param clientSideValidate
      */
     public void setClientSideValidate(boolean clientSideValidate) {
@@ -583,7 +576,7 @@ public class ActionField extends FieldBase {
      * will be the last script executed by the click event. Sidenote: This js is
      * always called after hidden actionParameters and methodToCall methods are
      * written by the js to the html form.
-     * 
+     *
      * @return the clientSideJs
      */
     public String getClientSideJs() {
@@ -591,8 +584,7 @@ public class ActionField extends FieldBase {
     }
 
     /**
-     * @param clientSideJs
-     *            the clientSideJs to set
+     * @param clientSideJs the clientSideJs to set
      */
     public void setClientSideJs(String clientSideJs) {
         if (!StringUtils.endsWith(clientSideJs, ";")) {
@@ -603,9 +595,8 @@ public class ActionField extends FieldBase {
 
     /**
      * Setter for the light box direct inquiry widget
-     * 
-     * @param lightBoxDirectInquiry
-     *            <code>LightBox</code> widget to set
+     *
+     * @param lightBoxDirectInquiry <code>LightBox</code> widget to set
      */
     public void setLightBoxDirectInquiry(LightBox lightBoxDirectInquiry) {
         this.lightBoxDirectInquiry = lightBoxDirectInquiry;
@@ -617,7 +608,7 @@ public class ActionField extends FieldBase {
      * The light box widget will change the direct inquiry behaviour to open up
      * in a light box.
      * </p>
-     * 
+     *
      * @return the <code>LightBox</code> field LightBox
      */
     public LightBox getLightBoxDirectInquiry() {
@@ -625,8 +616,7 @@ public class ActionField extends FieldBase {
     }
 
     /**
-     * @param blockValidateDirty
-     *            the blockValidateDirty to set
+     * @param blockValidateDirty the blockValidateDirty to set
      */
     public void setBlockValidateDirty(boolean blockValidateDirty) {
         this.blockValidateDirty = blockValidateDirty;
@@ -686,6 +676,7 @@ public class ActionField extends FieldBase {
      * For the subclass ActionLinkField only LEFT and RIGHT are allowed.  When set to blank/null/IMAGE_ONLY, the image
      * itself will be the ActionField, if no value is set the default is ALWAYS LEFT, you must explicitly set
      * blank/null/IMAGE_ONLY to use ONLY the image as the ActionField.
+     *
      * @return
      */
     public void setActionImageLocation(String actionImageLocation) {

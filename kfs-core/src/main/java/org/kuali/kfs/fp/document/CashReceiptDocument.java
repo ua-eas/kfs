@@ -1,29 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 import org.kuali.kfs.fp.businessobject.Check;
 import org.kuali.kfs.fp.businessobject.CheckBase;
@@ -35,6 +28,13 @@ import org.kuali.kfs.fp.document.validation.event.AddCheckEvent;
 import org.kuali.kfs.fp.document.validation.event.DeleteCheckEvent;
 import org.kuali.kfs.fp.document.validation.event.UpdateCheckEvent;
 import org.kuali.kfs.fp.service.CheckService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.document.Copyable;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.rules.rule.event.SaveDocumentEvent;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSConstants.CurrencyCoinSources;
 import org.kuali.kfs.sys.KFSConstants.DocumentStatusCodes;
@@ -53,13 +53,13 @@ import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.document.Copyable;
-import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
-import org.kuali.kfs.krad.rules.rule.event.SaveDocumentEvent;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This is the business object that represents the CashReceiptDocument in Kuali. This is a transactional document that will
@@ -192,6 +192,7 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
 
     /**
      * Gets the total amount of depositable checks
+     *
      * @return
      */
     public KualiDecimal getTotalDepositableCheckAmount() {
@@ -199,7 +200,7 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
         List<Check> checks = getConfirmedChecks();
         if (checks != null && !checks.isEmpty()) {
             for (Check check : checks) {
-                if(check.getCashieringStatus().equals("C")) {
+                if (check.getCashieringStatus().equals("C")) {
                     totalDepositableCheckAmount = totalDepositableCheckAmount.add(check.getAmount());
                 }
             }
@@ -209,6 +210,7 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
 
     /**
      * Checks if there are checks to be deposited
+     *
      * @return
      */
     public boolean existDepositableChecks() {
@@ -603,6 +605,7 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
 
     /**
      * returns (confirmed currency + confirmed coin - change amount) as a currency formatted string
+     *
      * @return
      */
     public String getCurrencyFormattedGrandTotalConfirmedCashAmount() {
@@ -631,19 +634,20 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
      * Gets the overall total dollar amount of the document.
      * This is the amount displayed in the document header, and used as one of the document search criteria.
      * It is the net deposit total amount of the CR, and should equal to the accounting line total amount.
-     *  net deposit = money in - money out;
-     *  money in = check + currency + coin;
-     *  money out = change currency + change coin = change total.
+     * net deposit = money in - money out;
+     * money in = check + currency + coin;
+     * money out = change currency + change coin = change total.
      *
-     * @see org.kuali.kfs.sys.document.AccountingDocumentBase#getTotalDollarAmount()
      * @return KualiDecimal
+     * @see org.kuali.kfs.sys.document.AccountingDocumentBase#getTotalDollarAmount()
      */
     @Override
     public KualiDecimal getTotalDollarAmount() {
         // We should return the net deposit total, which doesn't match the accounting line total when change request is not zero.
         // if CR is preroute, use the original amount;
-        if(isPreRoute()) {
-            return getTotalNetAmount();        }
+        if (isPreRoute()) {
+            return getTotalNetAmount();
+        }
         // otherwise, otherwise use the confirmed amount
         else {
             return getTotalConfirmedNetAmount();
@@ -774,6 +778,7 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
 
     /**
      * Gets the recategorized attribute.
+     *
      * @return Returns the recategorized.
      */
     public boolean isRecategorized() {
@@ -782,6 +787,7 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
 
     /**
      * Sets the recategorized attribute value.
+     *
      * @param recategorized The recategorized to set.
      */
     public void setRecategorized(boolean recategorized) {
@@ -793,7 +799,7 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
      */
     public KualiDecimal calculateCheckTotal() {
         KualiDecimal total = KualiDecimal.ZERO;
-        for (Iterator<Check> i = getChecks().iterator(); i.hasNext();) {
+        for (Iterator<Check> i = getChecks().iterator(); i.hasNext(); ) {
             Check c = i.next();
             if (null != c.getAmount()) {
                 total = total.add(c.getAmount());
@@ -807,7 +813,7 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
      */
     public KualiDecimal calculateConfirmedCheckTotal() {
         KualiDecimal total = KualiDecimal.ZERO;
-        for (Iterator<Check> i = getConfirmedChecks().iterator(); i.hasNext();) {
+        for (Iterator<Check> i = getConfirmedChecks().iterator(); i.hasNext(); ) {
             Check c = i.next();
             if (null != c.getAmount()) {
                 total = total.add(c.getAmount());
@@ -974,7 +980,7 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
 
         if (!(event instanceof SaveDocumentEvent)) { // don't lock until they route
             String documentTypeName = SpringContext.getBean(DataDictionaryService.class).getDocumentTypeNameByClass(this.getClass());
-            this.getCapitalAssetManagementModuleService().generateCapitalAssetLock(this,documentTypeName);
+            this.getCapitalAssetManagementModuleService().generateCapitalAssetLock(this, documentTypeName);
         }
     }
 
@@ -994,52 +1000,44 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
         // If this method is called before the cash detail records are inserted into the DB, reset the detail to initial values.
         // In normal cases, when this happens, the details shall be in initial status anyways, since this method should only be called
         // as a post-process after retrieving CR from DB.
-        if(retrievedCurrencyDetail != null) {
+        if (retrievedCurrencyDetail != null) {
             currencyDetail = retrievedCurrencyDetail;
-        }
-        else {
+        } else {
             currencyDetail = new CurrencyDetail(getDocumentNumber(), CashReceiptDocument.DOCUMENT_TYPE, CurrencyCoinSources.CASH_RECEIPTS);
         }
-        if(retrievedCoinDetail != null) {
+        if (retrievedCoinDetail != null) {
             coinDetail = retrievedCoinDetail;
-        }
-        else {
+        } else {
             coinDetail = new CoinDetail(getDocumentNumber(), CashReceiptDocument.DOCUMENT_TYPE, CurrencyCoinSources.CASH_RECEIPTS);
         }
-        if(retrievedConfirmedCurrencyDetail != null) {
+        if (retrievedConfirmedCurrencyDetail != null) {
             confirmedCurrencyDetail = retrievedConfirmedCurrencyDetail;
-        }
-        else {
+        } else {
             confirmedCurrencyDetail = new CurrencyDetail(getDocumentNumber(), CashReceiptDocument.DOCUMENT_TYPE, CurrencyCoinSources.CASH_MANAGEMENT_IN);
         }
-        if(retrievedConfirmedCoinDetail != null) {
+        if (retrievedConfirmedCoinDetail != null) {
             confirmedCoinDetail = retrievedConfirmedCoinDetail;
-        }
-        else {
+        } else {
             confirmedCoinDetail = new CoinDetail(getDocumentNumber(), CashReceiptDocument.DOCUMENT_TYPE, CurrencyCoinSources.CASH_MANAGEMENT_IN);
         }
-        if(retrievedChangeCurrencyDetail != null) {
+        if (retrievedChangeCurrencyDetail != null) {
             changeCurrencyDetail = retrievedChangeCurrencyDetail;
-        }
-        else {
+        } else {
             changeCurrencyDetail = new CurrencyDetail(getDocumentNumber(), CashReceiptDocument.DOCUMENT_TYPE, CurrencyCoinSources.CASH_CHANGE_REQUEST);
         }
-        if(retrievedChangeCoinDetail != null) {
+        if (retrievedChangeCoinDetail != null) {
             changeCoinDetail = retrievedChangeCoinDetail;
-        }
-        else {
+        } else {
             changeCoinDetail = new CoinDetail(getDocumentNumber(), CashReceiptDocument.DOCUMENT_TYPE, CurrencyCoinSources.CASH_CHANGE_REQUEST);
         }
-        if(retrievedConfirmedChangeCurrencyDetail != null) {
+        if (retrievedConfirmedChangeCurrencyDetail != null) {
             confirmedChangeCurrencyDetail = retrievedConfirmedChangeCurrencyDetail;
-        }
-        else {
+        } else {
             confirmedChangeCurrencyDetail = new CurrencyDetail(getDocumentNumber(), CashReceiptDocument.DOCUMENT_TYPE, CurrencyCoinSources.CASH_CHANGE_GRANTED);
         }
-        if(retrievedConfirmedChangeCoinDetail != null) {
+        if (retrievedConfirmedChangeCoinDetail != null) {
             confirmedChangeCoinDetail = retrievedConfirmedChangeCoinDetail;
-        }
-        else {
+        } else {
             confirmedChangeCoinDetail = new CoinDetail(getDocumentNumber(), CashReceiptDocument.DOCUMENT_TYPE, CurrencyCoinSources.CASH_CHANGE_GRANTED);
         }
     }
@@ -1117,8 +1115,8 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
     }
 
     /**
-     *
      * This method...
+     *
      * @return
      */
     public String getCreateDate() {
@@ -1222,14 +1220,12 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
                 if (!currentCheck.isLike(persistedCheck)) {
                     UpdateCheckEvent updateEvent = new UpdateCheckEvent(errorPathPrefix, crdoc, currentCheck);
                     updateEvents.add(updateEvent);
-                }
-                else {
+                } else {
                     // do nothing, since this line hasn't changed
                 }
 
                 persistedCheckMap.remove(key);
-            }
-            else {
+            } else {
                 // it must be a new addition
                 AddCheckEvent addEvent = new AddCheckEvent(errorPathPrefix, crdoc, currentCheck);
                 addEvents.add(addEvent);
@@ -1237,7 +1233,7 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
         }
 
         // detect deletions
-        for (Iterator i = persistedCheckMap.entrySet().iterator(); i.hasNext();) {
+        for (Iterator i = persistedCheckMap.entrySet().iterator(); i.hasNext(); ) {
             Map.Entry e = (Map.Entry) i.next();
             Check persistedCheck = (Check) e.getValue();
             DeleteCheckEvent deleteEvent = new DeleteCheckEvent(errorPathPrefix, crdoc, persistedCheck);
@@ -1263,7 +1259,7 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
     protected Map buildCheckMap(Collection checks) {
         Map checkMap = new HashMap();
 
-        for (Iterator i = checks.iterator(); i.hasNext();) {
+        for (Iterator i = checks.iterator(); i.hasNext(); ) {
             Check check = (Check) i.next();
             Integer sequenceId = check.getSequenceId();
 
@@ -1294,6 +1290,7 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
 
     /**
      * Gets the depositCashReceiptControl attribute.
+     *
      * @return Returns the depositCashReceiptControl.
      */
     public List getDepositCashReceiptControl() {
@@ -1302,6 +1299,7 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
 
     /**
      * Sets the depositCashReceiptControl attribute value.
+     *
      * @param depositCashReceiptControl The depositCashReceiptControl to set.
      */
     public void setDepositCashReceiptControl(List depositCashReceiptControl) {
@@ -1310,6 +1308,7 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
 
     /**
      * Override the campus code on the copied document to whatever the campus of the copying user is
+     *
      * @see org.kuali.kfs.sys.document.AccountingDocumentBase#toCopy()
      */
     @Override
@@ -1341,7 +1340,7 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
     /**
      * Initializes the campus location code based on kfs user role chart org
      */
-    protected void initializeCampusLocationCode(){
+    protected void initializeCampusLocationCode() {
 
         if (GlobalVariables.getUserSession() != null && GlobalVariables.getUserSession().getPerson() != null) {
 
@@ -1362,7 +1361,8 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
         }
     }
 
-    /** Deprecated: never used
+    /**
+     * Deprecated: never used
      * Gets the sumTotalAmount attribute.
      *
      * @return Returns the sumTotalAmount
@@ -1372,7 +1372,8 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
         return sumTotalAmount;
     }
 
-    /** Deprecated: never used
+    /**
+     * Deprecated: never used
      * Sets the sumTotalAmount attribute.
      *
      * @param sumTotalAmount The sumTotalAmount to set.
@@ -1401,7 +1402,7 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
 
     /**
      * Gets the original (i.e. before Cash Manager adjustment) cash in total amount:
-     *  cash in = currency + coin;
+     * cash in = currency + coin;
      */
     public KualiDecimal getTotalCashInAmount() {
         return getTotalCurrencyAmount().add(getTotalCoinAmount());
@@ -1409,8 +1410,8 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
 
     /**
      * Gets the original (i.e. before Cash Manager adjustment) money in total amount:
-     *  money in = check + cash in;
-     *  cash in = currency + coin;
+     * money in = check + cash in;
+     * cash in = currency + coin;
      */
     public KualiDecimal getTotalMoneyInAmount() {
         return getTotalCheckAmount().add(getTotalCashInAmount());
@@ -1418,9 +1419,9 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
 
     /**
      * Gets the original (i.e. before Cash Manager adjustment) reconciliation net total amount:
-     *  recon net = money in - money out = net deposit;
-     *  money in = check + currency + coin;
-     *  money out = change currency + change coin = change total.
+     * recon net = money in - money out = net deposit;
+     * money in = check + currency + coin;
+     * money out = change currency + change coin = change total.
      */
     public KualiDecimal getTotalNetAmount() {
         return getTotalMoneyInAmount().subtract(getTotalChangeAmount());
@@ -1442,7 +1443,7 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
 
     /**
      * Gets the confirmed (i.e. after Cash Manager adjustment) change request (money out) total amount:
-     *  money out = change currency + change coin = change total.
+     * money out = change currency + change coin = change total.
      */
     public KualiDecimal getTotalConfirmedChangeAmount() {
         return getTotalConfirmedChangeCurrencyAmount().add(getTotalConfirmedChangeCoinAmount());
@@ -1450,7 +1451,7 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
 
     /**
      * Gets the confirmed (i.e. before Cash Manager adjustment) cash in total amount:
-     *  cash in = currency + coin;
+     * cash in = currency + coin;
      */
     public KualiDecimal getTotalConfirmedCashInAmount() {
         return getTotalConfirmedCurrencyAmount().add(getTotalConfirmedCoinAmount());
@@ -1458,8 +1459,8 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
 
     /**
      * Gets the confirmed (i.e. after Cash Manager adjustment) money in total amount:
-     *  money in = check + cash in;
-     *  cash in = currency + coin;
+     * money in = check + cash in;
+     * cash in = currency + coin;
      */
     public KualiDecimal getTotalConfirmedMoneyInAmount() {
         return getTotalConfirmedCheckAmount().add(getTotalConfirmedCashInAmount());
@@ -1467,7 +1468,7 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
 
     /**
      * Gets the confirmed (i.e. after Cash Manager adjustment) net currency total amount:
-     *  net currency = currency - change currency
+     * net currency = currency - change currency
      */
     public KualiDecimal getTotalConfirmedNetCurrencyAmount() {
         return getTotalConfirmedCurrencyAmount().subtract(getTotalConfirmedChangeCurrencyAmount());
@@ -1475,7 +1476,7 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
 
     /**
      * Gets the confirmed (i.e. after Cash Manager adjustment) net coin total amount:
-     *  net coin = coin - change coin
+     * net coin = coin - change coin
      */
     public KualiDecimal getTotalConfirmedNetCoinAmount() {
         return getTotalConfirmedCoinAmount().subtract(getTotalConfirmedChangeCoinAmount());
@@ -1483,13 +1484,13 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
 
     /**
      * Gets the confirmed (i.e. after Cash Manager adjustment) net cash total amount:
-     *  net cash = net currency + net coin
-     *  net currency = currency - change currency
-     *  net coin = coin - change coin
-     *  or:
-     *  net cash = cash in - cash out
-     *  cash in = currency + coin;
-     *  cash out = change currency + change coin = change total.
+     * net cash = net currency + net coin
+     * net currency = currency - change currency
+     * net coin = coin - change coin
+     * or:
+     * net cash = cash in - cash out
+     * cash in = currency + coin;
+     * cash out = change currency + change coin = change total.
      */
     public KualiDecimal getTotalConfirmedNetCashAmount() {
         return getTotalConfirmedNetCurrencyAmount().add(getTotalConfirmedNetCoinAmount());
@@ -1497,9 +1498,9 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
 
     /**
      * Gets the confirmed (i.e. after Cash Manager adjustment) reconciliation net total amount:
-     *  recon net = money in - money out = net deposit;
-     *  money in = check + currency + coin;
-     *  money out = change currency + change coin = change total.
+     * recon net = money in - money out = net deposit;
+     * money in = check + currency + coin;
+     * money out = change currency + change coin = change total.
      */
     public KualiDecimal getTotalConfirmedNetAmount() {
         return getTotalConfirmedMoneyInAmount().subtract(getTotalConfirmedChangeAmount());
@@ -1540,8 +1541,8 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
         // using the FinancialDocumentStatusCode won't be right.
         String statusCode = getFinancialSystemDocumentHeader().getWorkflowDocument().getStatus().getCode();
         boolean isPreRoute = DocumentStatus.INITIATED.getCode().equals(statusCode) ||
-                DocumentStatus.SAVED.getCode().equals(statusCode) ||
-                DocumentStatus.CANCELED.getCode().equals(statusCode);
+            DocumentStatus.SAVED.getCode().equals(statusCode) ||
+            DocumentStatus.CANCELED.getCode().equals(statusCode);
         return isPreRoute;
     }
 
@@ -1556,7 +1557,7 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
         // post CM approval status could be VERIFIED, INTERIM, FINAL, APPROVED
         String statusCode = getFinancialSystemDocumentHeader().getFinancialDocumentStatusCode();
         boolean isConfirmed = CashReceipt.VERIFIED.equals(statusCode) || CashReceipt.INTERIM.equals(statusCode) ||
-                CashReceipt.FINAL.equals(statusCode) || DocumentStatusCodes.APPROVED.equals(statusCode);
+            CashReceipt.FINAL.equals(statusCode) || DocumentStatusCodes.APPROVED.equals(statusCode);
         return isConfirmed;
     }
 
@@ -1565,10 +1566,10 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
      *
      * @param financialDocument
      * @param accountingLine
-     * @param true if accountline line
+     * @param true              if accountline line
      * @see IsDebitUtils#isDebitConsideringType(FinancialDocumentRuleBase, FinancialDocument, AccountingLine)
      * @see org.kuali.rice.krad.rule.AccountingLineRule#isDebit(org.kuali.rice.krad.document.FinancialDocument,
-     *      org.kuali.rice.krad.bo.AccountingLine)
+     * org.kuali.rice.krad.bo.AccountingLine)
      */
     @Override
     public boolean isDebit(GeneralLedgerPendingEntrySourceDetail postable) {
@@ -1579,6 +1580,7 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
 
     /**
      * Provides answers to the following splits: AcknowledgeChangeRequest
+     *
      * @returns true if change request is used, false otherwise.
      * @see org.kuali.kfs.sys.document.FinancialSystemTransactionalDocumentBase#answerSplitNodeQuestion(java.lang.String)
      */
@@ -1587,7 +1589,7 @@ public class CashReceiptDocument extends CashReceiptFamilyBase implements Copyab
         if (nodeName.equals(REQUIRE_REVIEW_SPLIT)) {
             return isChangeRequested();
         }
-        throw new UnsupportedOperationException("Cannot answer split question for this node you call \""+nodeName+"\"");
+        throw new UnsupportedOperationException("Cannot answer split question for this node you call \"" + nodeName + "\"");
     }
 }
 

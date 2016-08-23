@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -26,12 +26,19 @@ import org.kuali.kfs.kns.datadictionary.control.RadioControlDefinition;
 import org.kuali.kfs.kns.datadictionary.control.SelectControlDefinition;
 import org.kuali.kfs.kns.datadictionary.control.TextControlDefinition;
 import org.kuali.kfs.kns.datadictionary.control.TextareaControlDefinition;
-import org.kuali.rice.core.api.uif.RemotableControlContract;
+import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
+import org.kuali.kfs.krad.datadictionary.control.ControlDefinition;
+import org.kuali.kfs.krad.datadictionary.exporter.ExportMap;
+import org.kuali.kfs.krad.datadictionary.validation.ValidationPattern;
+import org.kuali.kfs.krad.keyvalues.KeyValuesFinder;
+import org.kuali.kfs.krad.keyvalues.KeyValuesFinderFactory;
+import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.rice.core.api.uif.RemotableAbstractControl;
 import org.kuali.rice.core.api.uif.RemotableAbstractWidget;
 import org.kuali.rice.core.api.uif.RemotableAttributeField;
 import org.kuali.rice.core.api.uif.RemotableCheckbox;
 import org.kuali.rice.core.api.uif.RemotableCheckboxGroup;
+import org.kuali.rice.core.api.uif.RemotableControlContract;
 import org.kuali.rice.core.api.uif.RemotableDatepicker;
 import org.kuali.rice.core.api.uif.RemotableHiddenInput;
 import org.kuali.rice.core.api.uif.RemotableQuickFinder;
@@ -42,13 +49,6 @@ import org.kuali.rice.core.api.uif.RemotableTextInput;
 import org.kuali.rice.core.api.uif.RemotableTextarea;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.type.KimAttributeField;
-import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
-import org.kuali.kfs.krad.datadictionary.control.ControlDefinition;
-import org.kuali.kfs.krad.datadictionary.exporter.ExportMap;
-import org.kuali.kfs.krad.datadictionary.validation.ValidationPattern;
-import org.kuali.kfs.krad.keyvalues.KeyValuesFinder;
-import org.kuali.kfs.krad.keyvalues.KeyValuesFinderFactory;
-import org.kuali.kfs.krad.service.KRADServiceLocator;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -68,42 +68,42 @@ public final class DataDictionaryTypeServiceHelper {
         throw new UnsupportedOperationException("do not call");
     }
 
-    public static String getKimBasePath(){
-	    String kimBaseUrl = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(KimConstants.KimUIConstants.KIM_URL_KEY);
-	    if (!kimBaseUrl.endsWith(KimConstants.KimUIConstants.URL_SEPARATOR)) {
-		    kimBaseUrl = kimBaseUrl + KimConstants.KimUIConstants.URL_SEPARATOR;
-	    }
-	    return kimBaseUrl;
-	}
+    public static String getKimBasePath() {
+        String kimBaseUrl = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(KimConstants.KimUIConstants.KIM_URL_KEY);
+        if (!kimBaseUrl.endsWith(KimConstants.KimUIConstants.URL_SEPARATOR)) {
+            kimBaseUrl = kimBaseUrl + KimConstants.KimUIConstants.URL_SEPARATOR;
+        }
+        return kimBaseUrl;
+    }
 
     public static RemotableAbstractControl.Builder toRemotableAbstractControlBuilder(AttributeDefinition attr) {
-            ControlDefinition control = attr.getControl();
+        ControlDefinition control = attr.getControl();
 
-            if (control.isCheckbox()) {
-                 return RemotableCheckbox.Builder.create();
-            } else if (control.isHidden()) {
-                return RemotableHiddenInput.Builder.create();
-            } else if (control.isMultiselect()) {
-                RemotableSelect.Builder b = RemotableSelect.Builder.create(getValues(attr));
-                b.setMultiple(true);
-                b.setSize(control.getSize());
-            } else if (control.isRadio()) {
-                return RemotableRadioButtonGroup.Builder.create(getValues(attr));
-            } else if (control.isSelect()) {
-                RemotableSelect.Builder b = RemotableSelect.Builder.create(getValues(attr));
-                b.setMultiple(false);
-                b.setSize(control.getSize());
-                return b;
-            } else if (control.isText() || control.isCurrency()) {
-                final RemotableTextInput.Builder b = RemotableTextInput.Builder.create();
-                b.setSize(control.getSize());
-                return b;
-            } else if (control.isTextarea()) {
-                final RemotableTextarea.Builder b = RemotableTextarea.Builder.create();
-                b.setCols(control.getCols());
-                b.setRows(control.getRows());
-                return b;
-            }
+        if (control.isCheckbox()) {
+            return RemotableCheckbox.Builder.create();
+        } else if (control.isHidden()) {
+            return RemotableHiddenInput.Builder.create();
+        } else if (control.isMultiselect()) {
+            RemotableSelect.Builder b = RemotableSelect.Builder.create(getValues(attr));
+            b.setMultiple(true);
+            b.setSize(control.getSize());
+        } else if (control.isRadio()) {
+            return RemotableRadioButtonGroup.Builder.create(getValues(attr));
+        } else if (control.isSelect()) {
+            RemotableSelect.Builder b = RemotableSelect.Builder.create(getValues(attr));
+            b.setMultiple(false);
+            b.setSize(control.getSize());
+            return b;
+        } else if (control.isText() || control.isCurrency()) {
+            final RemotableTextInput.Builder b = RemotableTextInput.Builder.create();
+            b.setSize(control.getSize());
+            return b;
+        } else if (control.isTextarea()) {
+            final RemotableTextarea.Builder b = RemotableTextarea.Builder.create();
+            b.setCols(control.getCols());
+            b.setRows(control.getRows());
+            return b;
+        }
         return null;
     }
 
@@ -122,9 +122,8 @@ public final class DataDictionaryTypeServiceHelper {
             final KeyValuesFinder finder = clazz.newInstance();
             final Map<String, String> values = finder.getKeyLabelMap();
             if ((values != null) && !values.isEmpty()) {
-               return values;
-            }
-            else if (attr.getOptionsFinder() != null) {
+                return values;
+            } else if (attr.getOptionsFinder() != null) {
                 return attr.getOptionsFinder().getKeyLabelMap();
             }
         } catch (ClassNotFoundException e) {
@@ -208,7 +207,7 @@ public final class DataDictionaryTypeServiceHelper {
         if (control != null) {
             ControlDefinition d = toControlDefinition(control, ad);
             for (RemotableAbstractWidget widget : field.getAttributeField().getWidgets()) {
-                if(widget instanceof RemotableQuickFinder) {
+                if (widget instanceof RemotableQuickFinder) {
                     ad.setLookupBoClass(((RemotableQuickFinder) widget).getDataObjectClass());
                     ad.setLookupInputPropertyConversions(((RemotableQuickFinder) widget).getLookupParameters());
                     ad.setLookupReturnPropertyConversions(((RemotableQuickFinder) widget).getFieldConversions());
@@ -224,7 +223,9 @@ public final class DataDictionaryTypeServiceHelper {
         return ad;
     }
 
-    /** WARNING HACK! this may set the OptionsFinder instance on the passed in KimAttributeDefinition! */
+    /**
+     * WARNING HACK! this may set the OptionsFinder instance on the passed in KimAttributeDefinition!
+     */
     private static ControlDefinition toControlDefinition(RemotableControlContract control, KimAttributeDefinition containingAttribute) {
         if (control instanceof RemotableCheckboxGroup) {
             containingAttribute.setOptionsFinder(KeyValuesFinderFactory.fromMap(((RemotableCheckboxGroup) control).getKeyLabels()));
@@ -265,13 +266,12 @@ public final class DataDictionaryTypeServiceHelper {
         return null;
     }
 
-        /**
+    /**
      * Utility method to search a collection of attribute fields and returns
      * a field for a give attribute name.
      *
      * @param attributeName the name of the attribute to search for.  Cannot be blank or null.
-     * @param fields cannot be null.
-     *
+     * @param fields        cannot be null.
      * @return the attribute field or null if not found.
      */
     public static <T extends KimAttributeField> T findAttributeField(String attributeName, Collection<? extends T> fields) {
@@ -295,11 +295,12 @@ public final class DataDictionaryTypeServiceHelper {
         return definition.getAttributeField().getRegexContraintMsg();
     }
 
-     /** will create a string like the following:
+    /**
+     * will create a string like the following:
      * errorKey:param1;param2;param3;
      *
      * @param errorKey the errorKey
-     * @param params the error params
+     * @param params   the error params
      * @return error string
      */
     public static String createErrorString(String errorKey, String... params) {

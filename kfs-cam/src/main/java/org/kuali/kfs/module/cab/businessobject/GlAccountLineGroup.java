@@ -1,31 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cab.businessobject;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.gl.businessobject.Entry;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.businessobject.PurApAccountingLineBase;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Accounting line grouped data for GL Line
@@ -37,7 +37,7 @@ public class GlAccountLineGroup extends AccountLineGroup {
 
     /**
      * Constructs a GlAccountLineGroup from a GL Line Entry
-     * 
+     *
      * @param entry GL Line
      */
     public GlAccountLineGroup(Entry entry) {
@@ -59,15 +59,14 @@ public class GlAccountLineGroup extends AccountLineGroup {
         if (KFSConstants.GL_CREDIT_CODE.equals(entry.getTransactionDebitCreditCode())) {
             // negate the amount
             setAmount(amount.negated());
-        }
-        else {
+        } else {
             setAmount(amount);
         }
     }
 
     /**
      * Returns true if input GL entry belongs to this account group
-     * 
+     *
      * @param entry Entry
      * @return true if Entry belongs to same account line group
      */
@@ -80,7 +79,7 @@ public class GlAccountLineGroup extends AccountLineGroup {
      * This method will combine multiple GL entries for the same account line group, so that m:n association is prevented in the
      * database. This could be a rare case that we need to address. First GL is used as the final target and rest of the GL entries
      * are adjusted.
-     * 
+     *
      * @param entry
      */
     public void combineEntry(Entry newEntry) {
@@ -94,14 +93,12 @@ public class GlAccountLineGroup extends AccountLineGroup {
         // if debit/credit code is same then just add the amount
         if (targetDebitCreditCode.equals(newDebitCreditCode)) {
             targetAmount = targetAmount.add(newAmt);
-        }
-        else {
+        } else {
             // if debit/credit code is not the same and new amount is greater, toggle the debit/credit code
             if (newAmt.isGreaterThan(targetAmount)) {
                 targetDebitCreditCode = newDebitCreditCode;
                 targetAmount = newAmt.subtract(targetAmount);
-            }
-            else {
+            } else {
                 // if debit/credit code is not the same and current amount is greater or equal
                 targetAmount = targetAmount.subtract(newAmt);
             }
@@ -111,15 +108,14 @@ public class GlAccountLineGroup extends AccountLineGroup {
         // re-compute the absolute value of amount
         if (KFSConstants.GL_CREDIT_CODE.equals(targetDebitCreditCode)) {
             setAmount(targetAmount.negated());
-        }
-        else {
+        } else {
             setAmount(targetAmount);
         }
     }
 
     /**
      * Gets the targetEntry attribute.
-     * 
+     *
      * @return Returns the targetEntry
      */
     public Entry getTargetEntry() {
@@ -128,7 +124,7 @@ public class GlAccountLineGroup extends AccountLineGroup {
 
     /**
      * Sets the targetEntry attribute.
-     * 
+     *
      * @param targetEntry The targetEntry to set.
      */
     public void setTargetEntry(Entry targetGlEntry) {
@@ -137,7 +133,7 @@ public class GlAccountLineGroup extends AccountLineGroup {
 
     /**
      * Gets the sourceEntries attribute.
-     * 
+     *
      * @return Returns the sourceEntries
      */
     public List<Entry> getSourceEntries() {
@@ -146,7 +142,7 @@ public class GlAccountLineGroup extends AccountLineGroup {
 
     /**
      * Sets the sourceEntries attribute.
-     * 
+     *
      * @param sourceEntries The sourceEntries to set.
      */
     public void setSourceEntries(List<Entry> sourceGlEntries) {
@@ -155,7 +151,7 @@ public class GlAccountLineGroup extends AccountLineGroup {
 
     /**
      * Gets the matchedPurApAcctLines attribute.
-     * 
+     *
      * @return Returns the matchedPurApAcctLines.
      */
     public List<PurApAccountingLineBase> getMatchedPurApAcctLines() {
@@ -164,7 +160,7 @@ public class GlAccountLineGroup extends AccountLineGroup {
 
     /**
      * Sets the matchedPurApAcctLines attribute value.
-     * 
+     *
      * @param matchedPurApAcctLines The matchedPurApAcctLines to set.
      */
     public void setMatchedPurApAcctLines(List<PurApAccountingLineBase> matchedPurApAcctLines) {

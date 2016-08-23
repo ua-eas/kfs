@@ -1,27 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.document.service.impl;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.BCKeyConstants;
@@ -44,6 +39,11 @@ import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 /**
  * Service implementation of BudgetConstructionPositionFundingDetailReportService.
  */
@@ -57,7 +57,7 @@ public class BudgetConstructionPositionFundingDetailReportServiceImpl implements
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetConstructionPositionFundingDetailReportService#updatePositionFundingDetailReport(java.lang.String,
-     *      org.kuali.kfs.module.bc.businessobject.BudgetConstructionReportThresholdSettings)
+     * org.kuali.kfs.module.bc.businessobject.BudgetConstructionReportThresholdSettings)
      */
     public void updatePositionFundingDetailReport(String principalName, BudgetConstructionReportThresholdSettings budgetConstructionReportThresholdSettings) {
         boolean applyAThreshold = budgetConstructionReportThresholdSettings.isUseThreshold();
@@ -68,7 +68,7 @@ public class BudgetConstructionPositionFundingDetailReportServiceImpl implements
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetConstructionPositionFundingDetailReportService#buildReports(java.lang.Integer,
-     *      java.lang.String)
+     * java.lang.String)
      */
     public Collection<BudgetConstructionOrgPositionFundingDetailReport> buildReports(Integer universityFiscalYear, String principalName) {
         Collection<BudgetConstructionOrgPositionFundingDetailReport> reportSet = new ArrayList();
@@ -96,7 +96,7 @@ public class BudgetConstructionPositionFundingDetailReportServiceImpl implements
 
     /**
      * builds report header
-     * 
+     *
      * @param universityFiscalYear
      * @param objectCodes
      * @param orgPositionFundingDetailReportEntry
@@ -111,16 +111,14 @@ public class BudgetConstructionPositionFundingDetailReportServiceImpl implements
 
         if (orgName == null) {
             orgPositionFundingDetailReportEntry.setOrganizationName(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_ORGANIZATION_NAME));
-        }
-        else {
+        } else {
             orgPositionFundingDetailReportEntry.setOrganizationName(orgName);
         }
 
         orgPositionFundingDetailReportEntry.setOrgChartOfAccountsCode(positionFundingDetail.getSelectedOrganizationChartOfAccountsCode());
         if (chartDesc == null) {
             orgPositionFundingDetailReportEntry.setOrgChartOfAccountDescription(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_CHART_DESCRIPTION));
-        }
-        else {
+        } else {
             orgPositionFundingDetailReportEntry.setOrgChartOfAccountDescription(chartDesc);
         }
         orgPositionFundingDetailReportEntry.setReqFy(prevFiscalyear.toString() + "-" + universityFiscalYear.toString().substring(2, 4));
@@ -130,7 +128,7 @@ public class BudgetConstructionPositionFundingDetailReportServiceImpl implements
 
     /**
      * builds report body
-     * 
+     *
      * @param universityFiscalYear
      * @param orgPositionFundingDetailReportEntry
      * @param positionFundingDetailEntry
@@ -153,13 +151,11 @@ public class BudgetConstructionPositionFundingDetailReportServiceImpl implements
             if (budgetConstructionIntendedIncumbent != null) {
                 if (budgetConstructionIntendedIncumbent.getIuClassificationLevel() == null) {
                     detailReportEntry.setCls(BCConstants.Report.UNDF);
-                }
-                else {
+                } else {
                     detailReportEntry.setCls(budgetConstructionIntendedIncumbent.getIuClassificationLevel());
                 }
             }
-        }
-        else {
+        } else {
             detailReportEntry.setName(BCConstants.Report.VACANT);
             detailReportEntry.setCls(BCConstants.Report.BLANK);
         }
@@ -205,7 +201,7 @@ public class BudgetConstructionPositionFundingDetailReportServiceImpl implements
             detailReportEntry.setAppointmentRequestedAmount(new Integer(appointmentFundingEntry.getAppointmentRequestedAmount().intValue()));
             detailReportEntry.setAppointmentRequestedTimePercent(BudgetConstructionReportHelper.setDecimalDigit(appointmentFundingEntry.getAppointmentRequestedTimePercent(), 2, false));
             detailReportEntry.setAppointmentRequestedFteQuantity(BudgetConstructionReportHelper.setDecimalDigit(appointmentFundingEntry.getAppointmentRequestedFteQuantity(), 5, false));
-            if (salarySettingService.isHourlyPaidObject(appointmentFundingEntry.getUniversityFiscalYear(), appointmentFundingEntry.getChartOfAccountsCode(), appointmentFundingEntry.getFinancialObjectCode())){
+            if (salarySettingService.isHourlyPaidObject(appointmentFundingEntry.getUniversityFiscalYear(), appointmentFundingEntry.getChartOfAccountsCode(), appointmentFundingEntry.getFinancialObjectCode())) {
                 detailReportEntry.setAppointmentRequestedPayRate(appointmentFundingEntry.getAppointmentRequestedPayRate());
             }
 
@@ -222,15 +218,14 @@ public class BudgetConstructionPositionFundingDetailReportServiceImpl implements
 
         if (appointmentFundingEntry.isAppointmentFundingDeleteIndicator()) {
             detailReportEntry.setDeleteBox(BCConstants.Report.DELETE_MARK);
-        }
-        else {
+        } else {
             detailReportEntry.setDeleteBox(BCConstants.Report.BLANK);
         }
     }
 
     /**
      * builds report total
-     * 
+     *
      * @param orgPositionFundingDetailReportEntry
      * @param positionFundingDetail
      * @param fundingDetailTotalPerson
@@ -283,7 +278,7 @@ public class BudgetConstructionPositionFundingDetailReportServiceImpl implements
 
     /**
      * calculates total part of person
-     * 
+     *
      * @param positionFundingDetailList
      * @param listForCalculateTotalPerson
      * @return
@@ -335,7 +330,7 @@ public class BudgetConstructionPositionFundingDetailReportServiceImpl implements
 
     /**
      * calculates total part of org
-     * 
+     *
      * @param positionFundingDetailList
      * @param listForCalculateTotalOrg
      * @return
@@ -380,7 +375,7 @@ public class BudgetConstructionPositionFundingDetailReportServiceImpl implements
 
     /**
      * builds orderByList for sort order.
-     * 
+     *
      * @return List<String> returnList
      */
     public List<String> buildOrderByList() {
@@ -401,7 +396,7 @@ public class BudgetConstructionPositionFundingDetailReportServiceImpl implements
 
     /**
      * builds list of fields for comparing entry of person total
-     * 
+     *
      * @return List<String>
      */
     protected List<String> fieldsForPerson() {
@@ -413,7 +408,7 @@ public class BudgetConstructionPositionFundingDetailReportServiceImpl implements
 
     /**
      * builds list of fields for comparing entry of org total
-     * 
+     *
      * @return List<String>
      */
     protected List<String> fieldsForOrg() {
@@ -437,6 +432,7 @@ public class BudgetConstructionPositionFundingDetailReportServiceImpl implements
 
     /**
      * Sets the salarySettingService attribute value.
+     *
      * @param salarySettingService The salarySettingService to set.
      */
     public void setSalarySettingService(SalarySettingService salarySettingService) {

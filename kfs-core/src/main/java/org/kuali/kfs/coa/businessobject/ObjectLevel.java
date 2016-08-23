@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,13 +18,11 @@
  */
 package org.kuali.kfs.coa.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.gl.businessobject.SufficientFundRebuild;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 
 
 public class ObjectLevel extends PersistableBusinessObjectBase implements MutableInactivatable {
@@ -205,7 +203,8 @@ public class ObjectLevel extends PersistableBusinessObjectBase implements Mutabl
         this.chartOfAccountsCode = chart;
     }
 
-    @Override protected void preUpdate() {
+    @Override
+    protected void preUpdate() {
         super.preUpdate();
         try {
             // KULCOA-549: update the sufficient funds table
@@ -231,8 +230,7 @@ public class ObjectLevel extends PersistableBusinessObjectBase implements Mutabl
                     }
                 }
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             LOG.error("Problem updating sufficient funds rebuild table: ", ex);
         }
     }

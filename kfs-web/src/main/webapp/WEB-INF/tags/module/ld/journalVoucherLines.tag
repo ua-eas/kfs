@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -24,8 +24,8 @@
               The optional columns appear in both source and target groups
               of accounting lines." %>
 <%@ attribute name="isOptionalFieldsInNewRow" required="false" type="java.lang.Boolean"
-	description="indicate if the oprtional fields are put in a new row under the default accouting line"%> 
-	              
+	description="indicate if the oprtional fields are put in a new row under the default accouting line"%>
+
 <%@ attribute name="sourceAccountingLinesOnly" required="false"
               description="A boolean controling whether the group of
               target accounting lines will be generated.
@@ -78,7 +78,7 @@
               description="map containing accounting line field names that should be marked as read only." %>
 
 <%@ attribute name="accountingLineAttributes" required="false" type="java.util.Map"
-              description="A parameter to specify an data dictionary entry for a sub-classed accounting line." %> 
+              description="A parameter to specify an data dictionary entry for a sub-classed accounting line." %>
 
 <%@ attribute name="inherit" required="false" type="java.lang.Boolean"
               description="Should the default Financial Transactions Accounting Line tags be used?" %>
@@ -95,7 +95,7 @@
 			  description="index for multiple add new source lines"%>
 <%@ attribute name="suppressBaseline" required="false" type="java.lang.Boolean"
               description="indicate if we should suppress the baseline account, this allows the accounting line to be used in places where
-              we don't need the baseline"%> 
+              we don't need the baseline"%>
 <%@ attribute name="customActions" required="false" fragment="true"
               description="For defines an attribute for invoking JSP/JSTL code to display custom actions on existing accounting lines" %>
 <%@ attribute name="newLineCustomActions" required="false" fragment="true"
@@ -119,7 +119,7 @@
 <c:set var="columnCountUntilAmount" value="${8
                                         + (includeObjectTypeCode ? 1 : 0)
                                         + (isOptionalFieldsInNewRow ? 0 : optionalFieldCount)}" />
-                                                                               
+
 <c:set var="arrHideFields" value="${fn:split(hideFields,',') }"/>
 <c:set var="numHideFields" value="${fn:length(numHideFields) }"/>
 <%-- add extra columns count for the "Action" button and/or dual amounts --%>

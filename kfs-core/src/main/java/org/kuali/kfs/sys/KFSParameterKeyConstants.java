@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -38,7 +38,7 @@ public class KFSParameterKeyConstants {
     }
 
     public static class FpParameterConstants {
-    	public static final String FP_BUDGET_BALANCE_TYPES = "BUDGET_BALANCE_TYPES";
+        public static final String FP_BUDGET_BALANCE_TYPES = "BUDGET_BALANCE_TYPES";
         public static final String NEGATIVE_ACCOUNTING_LINES_IND = "NEGATIVE_ACCOUNTING_LINES_IND";
         public static final String ALLOW_ADDITIONAL_FROM_LINE_IND = "ALLOW_ADDITIONAL_FROM_LINE_IND";
     }
@@ -79,7 +79,9 @@ public class KFSParameterKeyConstants {
 
     public static final class GeneralLedgerSysParmeterKeys {
         public static final String TRANSACTION_DATE_BYPASS_ORIGINATIONS = "TRANSACTION_DATE_BYPASS_ORIGINATIONS";
-    };
+    }
+
+    ;
 
     public static class InvalidSubFundsByObjCdParameterConstant {
         public static final String INVALID_SUBFUND_GROUPS_BY_OBJ_TYPE = "INVALID_SUBFUND_GROUPS_BY_OBJ_TYPE";

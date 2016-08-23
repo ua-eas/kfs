@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -19,23 +19,23 @@
 
 package org.kuali.kfs.module.bc.businessobject;
 
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.LinkedHashMap;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.FinancialSystemUserService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.LinkedHashMap;
 
 
 public class CalculatedSalaryFoundationTracker extends PersistableBusinessObjectBase {
@@ -604,7 +604,7 @@ public class CalculatedSalaryFoundationTracker extends PersistableBusinessObject
     }
 
     public String getPositionLookupPositionNumber() {
-        if ( isOverride() ) {
+        if (isOverride()) {
             return getCalculatedSalaryFoundationTrackerOverride().getPositionNumber();
         }
 
@@ -612,7 +612,7 @@ public class CalculatedSalaryFoundationTracker extends PersistableBusinessObject
     }
 
     public KualiDecimal getPositionLookupCsfAmount() {
-        if ( isOverride() ) {
+        if (isOverride()) {
             return getCalculatedSalaryFoundationTrackerOverride().getCsfAmount();
         }
 
@@ -620,7 +620,7 @@ public class CalculatedSalaryFoundationTracker extends PersistableBusinessObject
     }
 
     public BigDecimal getPositionLookupCsfFullTimeEmploymentQuantity() {
-        if ( isOverride() ) {
+        if (isOverride()) {
             return getCalculatedSalaryFoundationTrackerOverride().getCsfFullTimeEmploymentQuantity();
         }
 

@@ -1,34 +1,33 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.util.LinkedHashMap;
+import org.kuali.kfs.integration.ar.AccountsReceivableCustomerType;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.kuali.kfs.integration.ar.AccountsReceivableCustomerType;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import java.util.LinkedHashMap;
 
 @Entity
 @Table(name = "TEM_PROFILE_CUST_T")
@@ -58,15 +57,17 @@ public class TemProfileFromCustomer extends PersistableBusinessObjectBase implem
 
     /**
      * Gets the customerNumber attribute.
+     *
      * @return Returns the customerNumber.
      */
-    @Column(name = "cust_nbr", nullable = true, length=40)
+    @Column(name = "cust_nbr", nullable = true, length = 40)
     public String getCustomerNumber() {
         return customerNumber;
     }
 
     /**
      * Sets the customerNumber attribute value.
+     *
      * @param customerNumber The customerNumber to set.
      */
     public void setCustomerNumber(String customerNumber) {
@@ -75,6 +76,7 @@ public class TemProfileFromCustomer extends PersistableBusinessObjectBase implem
 
     /**
      * Gets the customerTypeCode attribute.
+     *
      * @return Returns the customerTypeCode.
      */
     @Column(name = "customer_typ_cd", length = 2, nullable = true)
@@ -84,6 +86,7 @@ public class TemProfileFromCustomer extends PersistableBusinessObjectBase implem
 
     /**
      * Sets the customerTypeCode attribute value.
+     *
      * @param customerTypeCode The customerTypeCode to set.
      */
     public void setCustomerTypeCode(String customerTypeCode) {
@@ -92,6 +95,7 @@ public class TemProfileFromCustomer extends PersistableBusinessObjectBase implem
 
     /**
      * Gets the customerType attribute.
+     *
      * @return Returns the customerType.
      */
     @ManyToOne
@@ -102,6 +106,7 @@ public class TemProfileFromCustomer extends PersistableBusinessObjectBase implem
 
     /**
      * Sets the customerType attribute value.
+     *
      * @param customerType The customerType to set.
      */
     public void setCustomerType(AccountsReceivableCustomerType customerType) {
@@ -110,15 +115,17 @@ public class TemProfileFromCustomer extends PersistableBusinessObjectBase implem
 
     /**
      * Gets the customerName attribute.
+     *
      * @return Returns the customerName.
      */
-    @Column(name = "cust_nm", nullable = true, length=19)
+    @Column(name = "cust_nm", nullable = true, length = 19)
     public String getCustomerName() {
         return customerName;
     }
 
     /**
      * Sets the customerName attribute value.
+     *
      * @param customerName The customerName to set.
      */
     public void setCustomerName(String customerName) {
@@ -127,6 +134,7 @@ public class TemProfileFromCustomer extends PersistableBusinessObjectBase implem
 
     /**
      * Gets the customerPhoneNumber attribute.
+     *
      * @return Returns the customerPhoneNumber.
      */
     @Column(name = "cust_phone_nbr", length = 40, nullable = true)
@@ -136,6 +144,7 @@ public class TemProfileFromCustomer extends PersistableBusinessObjectBase implem
 
     /**
      * Sets the customerPhoneNumber attribute value.
+     *
      * @param customerPhoneNumber The customerPhoneNumber to set.
      */
     public void setCustomerPhoneNumber(String customerPhoneNumber) {
@@ -144,6 +153,7 @@ public class TemProfileFromCustomer extends PersistableBusinessObjectBase implem
 
     /**
      * Gets the customerTaxNumber attribute.
+     *
      * @return Returns customerThe taxNumber.
      */
     @Column(name = "cust_tax_nbr", length = 40, nullable = true)
@@ -153,6 +163,7 @@ public class TemProfileFromCustomer extends PersistableBusinessObjectBase implem
 
     /**
      * Sets the customerTaxNumber attribute value.
+     *
      * @param customerTaxNumber The customerTaxNumber to set.
      */
     public void setCustomerTaxNbr(String customerTaxNbr) {
@@ -161,6 +172,7 @@ public class TemProfileFromCustomer extends PersistableBusinessObjectBase implem
 
     /**
      * Gets the customerTaxTypeCode attribute.
+     *
      * @return Returns the customerTaxTypeCode.
      */
     @Column(name = "cust_tax_typ_cd", length = 4, nullable = true)
@@ -170,6 +182,7 @@ public class TemProfileFromCustomer extends PersistableBusinessObjectBase implem
 
     /**
      * Sets the customerTaxTypeCode attribute value.
+     *
      * @param customerTaxNumberTypeCode The customerTaxTypeCode to set.
      */
     public void setCustomerTaxTypeCode(String customerTaxTypeCode) {
@@ -178,16 +191,18 @@ public class TemProfileFromCustomer extends PersistableBusinessObjectBase implem
 
     /**
      * Gets the active attribute.
+     *
      * @return Returns the active.
      */
     @Override
-    @Column(name="ACTV_IND",nullable=false,length=1)
+    @Column(name = "ACTV_IND", nullable = false, length = 1)
     public boolean isActive() {
         return active;
     }
 
     /**
      * Sets the active attribute value.
+     *
      * @param active The active to set.
      */
     @Override
@@ -197,6 +212,7 @@ public class TemProfileFromCustomer extends PersistableBusinessObjectBase implem
 
     /**
      * Gets the customerAddressName attribute.
+     *
      * @return Returns the customerAddressName.
      */
     @Column(name = "address_name", length = 40, nullable = true)
@@ -206,6 +222,7 @@ public class TemProfileFromCustomer extends PersistableBusinessObjectBase implem
 
     /**
      * Sets the customerAddressName attribute value.
+     *
      * @param customerAddressName The customerAddressName to set.
      */
     public void setCustomerAddressName(String customerAddressName) {
@@ -214,6 +231,7 @@ public class TemProfileFromCustomer extends PersistableBusinessObjectBase implem
 
     /**
      * Gets the customerLine1StreetAddress attribute.
+     *
      * @return Returns the customerLine1StreetAddress.
      */
     @Column(name = "addr_line_1", length = 50, nullable = true)
@@ -223,6 +241,7 @@ public class TemProfileFromCustomer extends PersistableBusinessObjectBase implem
 
     /**
      * Sets the customerLine1StreetAddress attribute value.
+     *
      * @param customerLine1StreetAddress The customerLine1StreetAddress to set.
      */
     public void setCustomerLine1StreetAddress(String customerLine1StreetAddress) {
@@ -231,6 +250,7 @@ public class TemProfileFromCustomer extends PersistableBusinessObjectBase implem
 
     /**
      * Gets the customerLine2StreetAddress attribute.
+     *
      * @return Returns the customerLine2StreetAddress.
      */
     @Column(name = "addr_line_2", length = 50, nullable = true)
@@ -240,6 +260,7 @@ public class TemProfileFromCustomer extends PersistableBusinessObjectBase implem
 
     /**
      * Sets the customerLine2StreetAddress attribute value.
+     *
      * @param customerLine2StreetAddress The customerLine2StreetAddress to set.
      */
     public void setCustomerLine2StreetAddress(String customerLine2StreetAddress) {
@@ -248,6 +269,7 @@ public class TemProfileFromCustomer extends PersistableBusinessObjectBase implem
 
     /**
      * Gets the customerCityName attribute.
+     *
      * @return Returns the customerCityName.
      */
     @Column(name = "city_nm", length = 30, nullable = true)
@@ -257,6 +279,7 @@ public class TemProfileFromCustomer extends PersistableBusinessObjectBase implem
 
     /**
      * Sets the customerCityName attribute value.
+     *
      * @param customerCityName The customerCityName to set.
      */
     public void setCustomerCityName(String customerCityName) {
@@ -265,6 +288,7 @@ public class TemProfileFromCustomer extends PersistableBusinessObjectBase implem
 
     /**
      * Gets the customerStateCode attribute.
+     *
      * @return Returns the customerStateCode.
      */
     @Column(name = "state_cd", length = 40, nullable = true)
@@ -274,6 +298,7 @@ public class TemProfileFromCustomer extends PersistableBusinessObjectBase implem
 
     /**
      * Sets the customerStateCode attribute value.
+     *
      * @param customerStateCode The customerStateCode to set.
      */
     public void setCustomerStateCode(String customerStateCode) {
@@ -282,6 +307,7 @@ public class TemProfileFromCustomer extends PersistableBusinessObjectBase implem
 
     /**
      * Gets the customerZipCode attribute.
+     *
      * @return Returns the customerZipCode.
      */
     @Column(name = "zip_cd", length = 10, nullable = true)
@@ -291,6 +317,7 @@ public class TemProfileFromCustomer extends PersistableBusinessObjectBase implem
 
     /**
      * Sets the customerZipCode attribute value.
+     *
      * @param customerZipCode The customerZipCode to set.
      */
     public void setCustomerZipCode(String customerZipCode) {
@@ -299,6 +326,7 @@ public class TemProfileFromCustomer extends PersistableBusinessObjectBase implem
 
     /**
      * Gets the customerAddressInternationalProvinceName attribute.
+     *
      * @return Returns the customerAddressInternationalProvinceName.
      */
     @Column(name = "intl_prov_nm", length = 45, nullable = true)
@@ -308,6 +336,7 @@ public class TemProfileFromCustomer extends PersistableBusinessObjectBase implem
 
     /**
      * Sets the customerAddressInternationalProvinceName attribute value.
+     *
      * @param customerAddressInternationalProvinceName The customerAddressInternationalProvinceName to set.
      */
     public void setCustomerAddressInternationalProvinceName(String customerAddressInternationalProvinceName) {
@@ -316,6 +345,7 @@ public class TemProfileFromCustomer extends PersistableBusinessObjectBase implem
 
     /**
      * Gets the customerEmailAddress attribute.
+     *
      * @return Returns the customerEmailAddress.
      */
     @Column(name = "cust_email_addr", length = 40, nullable = true)
@@ -325,6 +355,7 @@ public class TemProfileFromCustomer extends PersistableBusinessObjectBase implem
 
     /**
      * Sets the customerEmailAddress attribute value.
+     *
      * @param customerEmailAddress The customerEmailAddress to set.
      */
     public void setCustomerEmailAddress(String customerEmailAddress) {

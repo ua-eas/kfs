@@ -1,3 +1,21 @@
+/*
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.kuali.kfs.sys.batch.dataaccess.impl;
 
 import org.apache.commons.lang.StringUtils;
@@ -18,36 +36,36 @@ public abstract class DetectDocumentsMissingPendingEntriesDaoJdbc extends Platfo
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DetectDocumentsMissingPendingEntriesDaoJdbc.class);
 
     private static final String DETECTION_SQL_PREFIX = "select distinct fs_doc_header_t.fdoc_nbr as doc_hdr_nbr,\n" +
-            "       fs_doc_header_t.fdoc_typ_nm\n" +
-            "from fs_doc_header_t left join %1$s\n" +
-            "  on fs_doc_header_t.fdoc_nbr = %1$s.fdoc_nbr\n" +
-            "where fs_doc_header_t.fdoc_prcssd_dt is not null\n" +
-            "  and fs_doc_header_t.fdoc_prcssd_dt > ?\n" +
-            "  and fs_doc_header_t.FDOC_TYP_NM in (";
+        "       fs_doc_header_t.fdoc_typ_nm\n" +
+        "from fs_doc_header_t left join %1$s\n" +
+        "  on fs_doc_header_t.fdoc_nbr = %1$s.fdoc_nbr\n" +
+        "where fs_doc_header_t.fdoc_prcssd_dt is not null\n" +
+        "  and fs_doc_header_t.fdoc_prcssd_dt > ?\n" +
+        "  and fs_doc_header_t.FDOC_TYP_NM in (";
     private static final String DETECTION_SQL_SUFFIX = ")\n" +
-            "  and %1$s.fdoc_nbr is null";
+        "  and %1$s.fdoc_nbr is null";
 
     @Override
     public List<DocumentHeaderData> discoverLedgerDocumentsWithoutPendingEntries(Date startTime, List<String> documentTypesToSearch) {
         LOG.debug("Entered discoverLedgerDocumentsWithoutPendingEntries");
         final String sql = buildQuery(documentTypesToSearch);
-        LOG.debug("SQL statement = "+sql);
+        LOG.debug("SQL statement = " + sql);
         List<Object> sqlParameters = new ArrayList<>();
         sqlParameters.add(new java.sql.Timestamp(startTime.getTime()));
         sqlParameters.addAll(documentTypesToSearch);
         return getJdbcTemplate().query(sql,
-                sqlParameters.toArray(),
-                (resultSet, i) -> {
-                    final String documentNumber = resultSet.getString("doc_hdr_nbr");
-                    final String documentTypeName = resultSet.getString("fdoc_typ_nm");
-                    return new DocumentHeaderData(documentNumber, documentTypeName);
-                });
+            sqlParameters.toArray(),
+            (resultSet, i) -> {
+                final String documentNumber = resultSet.getString("doc_hdr_nbr");
+                final String documentTypeName = resultSet.getString("fdoc_typ_nm");
+                return new DocumentHeaderData(documentNumber, documentTypeName);
+            });
     }
 
     public Optional<String> getCustomerPaymentMediumCodeFromCashControlDocument(String documentNumber) {
         List<String> results = getJdbcTemplate().query("select CUST_PMT_MEDIUM_CD from AR_CSH_CTRL_T where FDOC_NBR = ?",
-                new Object[] { documentNumber },
-                (resultSet, i) -> resultSet.getString("CUST_PMT_MEDIUM_CD"));
+            new Object[]{documentNumber},
+            (resultSet, i) -> resultSet.getString("CUST_PMT_MEDIUM_CD"));
 
         return results.stream().findFirst();
     }

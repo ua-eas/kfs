@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -80,7 +80,7 @@ public class UserPreferencesServiceImpl implements UserPreferencesService {
         LOG.debug("saveUserPreferencesKey() started");
 
         Map<String, Object> userPrefs = getUserPreferences(principalName);
-        if ( userPrefs == null ) {
+        if (userPrefs == null) {
             userPrefs = new ConcurrentHashMap<>();
         }
         userPrefs.put(key, preferences);
@@ -89,7 +89,7 @@ public class UserPreferencesServiceImpl implements UserPreferencesService {
         try {
             saveUserPreferences(principalName, mapper.writeValueAsString(userPrefs));
         } catch (JsonProcessingException e) {
-            LOG.error("saveUserPreferencesKey() Error processing json",e);
+            LOG.error("saveUserPreferencesKey() Error processing json", e);
             throw new RuntimeException("Error processing json");
         }
     }

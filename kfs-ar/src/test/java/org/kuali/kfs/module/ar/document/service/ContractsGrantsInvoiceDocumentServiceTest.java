@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,16 +18,13 @@
  */
 package org.kuali.kfs.module.ar.document.service;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.wklykins;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.coa.service.ObjectCodeService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.businessobject.AccountsReceivableDocumentHeader;
 import org.kuali.kfs.module.ar.businessobject.AwardAccountObjectCodeTotalBilled;
 import org.kuali.kfs.module.ar.businessobject.ContractsGrantsInvoiceDetail;
@@ -71,11 +68,14 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.wklykins;
 
 /**
  * This class tests the ContractsGrantsInvoiceDocumentService
@@ -468,7 +468,7 @@ public class ContractsGrantsInvoiceDocumentServiceTest extends KualiTestBase {
         ContractsGrantsInvoiceDocument contractsGrantsInvoiceDocument = ContractsGrantsInvoiceDocumentFixture.CG_INV_DOC1.createContractsGrantsInvoiceDocument(documentService);
         assertNotNull(contractsGrantsInvoiceDocument);
         ContractsAndGrantsBillingAward award = ARAwardFixture.CG_AWARD4.createAward();
-        ((Award)award).setAdditionalFormsRequiredIndicator(true);
+        ((Award) award).setAdditionalFormsRequiredIndicator(true);
         ContractsAndGrantsBillingAgency agency = ARAgencyFixture.CG_AGENCY1.createAgency();
 
         InvoiceAccountDetail invoiceAccountDetail_1 = InvoiceAccountDetailFixture.INV_ACCT_DTL5.createInvoiceAccountDetail();
@@ -971,7 +971,7 @@ public class ContractsGrantsInvoiceDocumentServiceTest extends KualiTestBase {
         ContractsGrantsInvoiceDocument contractsGrantsInvoiceDocument = ContractsGrantsInvoiceDocumentFixture.CG_INV_DOC1.createContractsGrantsInvoiceDocument(documentService);
         assertNotNull(contractsGrantsInvoiceDocument);
         ContractsAndGrantsBillingAward award = ARAwardFixture.CG_AWARD10.createAward();
-        ((Award)award).setLetterOfCreditFund(LetterOfCreditFundFixture.CG_LOCF.createLetterOfCreditFund());
+        ((Award) award).setLetterOfCreditFund(LetterOfCreditFundFixture.CG_LOCF.createLetterOfCreditFund());
         ContractsAndGrantsBillingAgency agency = ARAgencyFixture.CG_AGENCY1.createAgency();
 
         InvoiceAccountDetail invoiceAccountDetail_1 = InvoiceAccountDetailFixture.INV_ACCT_DTL5.createInvoiceAccountDetail();
@@ -1014,7 +1014,7 @@ public class ContractsGrantsInvoiceDocumentServiceTest extends KualiTestBase {
 
         List<AwardAccount> awardAccounts = new ArrayList<AwardAccount>();
         awardAccounts.add(awardAccount_1);
-        ((Award)award).setAwardAccounts(awardAccounts);
+        ((Award) award).setAwardAccounts(awardAccounts);
 
         ContractsAndGrantsBillingAgency agency = ARAgencyFixture.CG_AGENCY1.createAgency();
 
@@ -1052,7 +1052,7 @@ public class ContractsGrantsInvoiceDocumentServiceTest extends KualiTestBase {
         ContractsGrantsInvoiceDocument contractsGrantsInvoiceDocument = ContractsGrantsInvoiceDocumentFixture.CG_INV_DOC1.createContractsGrantsInvoiceDocument(documentService);
         assertNotNull(contractsGrantsInvoiceDocument);
         ContractsAndGrantsBillingAward award = ARAwardFixture.CG_AWARD4.createAward();
-        ((Award)award).setExcludedFromInvoicing(true);
+        ((Award) award).setExcludedFromInvoicing(true);
 
         ContractsAndGrantsBillingAgency agency = ARAgencyFixture.CG_AGENCY1.createAgency();
 
@@ -1096,7 +1096,7 @@ public class ContractsGrantsInvoiceDocumentServiceTest extends KualiTestBase {
 
         List<AwardAccount> awardAccounts = new ArrayList<AwardAccount>();
         awardAccounts.add(awardAccount_1);
-        ((Award)award).setAwardAccounts(awardAccounts);
+        ((Award) award).setAwardAccounts(awardAccounts);
 
         ContractsAndGrantsBillingAgency agency = ARAgencyFixture.CG_AGENCY1.createAgency();
 
@@ -1140,7 +1140,7 @@ public class ContractsGrantsInvoiceDocumentServiceTest extends KualiTestBase {
         ContractsGrantsInvoiceDocument contractsGrantsInvoiceDocument = ContractsGrantsInvoiceDocumentFixture.CG_INV_DOC1.createContractsGrantsInvoiceDocument(documentService);
         assertNotNull(contractsGrantsInvoiceDocument);
         ContractsAndGrantsBillingAward award = ARAwardFixture.CG_AWARD4.createAward();
-        ((Award)award).setStopWorkIndicator(true);
+        ((Award) award).setStopWorkIndicator(true);
         ContractsAndGrantsBillingAgency agency = ARAgencyFixture.CG_AGENCY1.createAgency();
 
         InvoiceAccountDetail invoiceAccountDetail_1 = InvoiceAccountDetailFixture.INV_ACCT_DTL5.createInvoiceAccountDetail();
@@ -1375,7 +1375,7 @@ public class ContractsGrantsInvoiceDocumentServiceTest extends KualiTestBase {
      * This method compares the source accounting lines.
      *
      * @param contractsGrantsInvoiceDocument The invoice document object.
-     * @param customerInvoiceDetail The customer invoice detail object.
+     * @param customerInvoiceDetail          The customer invoice detail object.
      */
     public void compareSourceAccountingLines(ContractsGrantsInvoiceDocument contractsGrantsInvoiceDocument, CustomerInvoiceDetail customerInvoiceDetail) {
 

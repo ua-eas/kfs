@@ -1,31 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.document.service.impl;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.BCKeyConstants;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionAdministrativePost;
@@ -50,9 +45,14 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Service implementation of BudgetConstructionReasonSummaryReportService.
@@ -69,7 +69,7 @@ public class BudgetConstructionReasonSummaryReportServiceImpl implements BudgetC
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetConstructionReasonSummaryReportService#updateReasonSummaryReport(java.lang.String,
-     *      java.lang.Integer, org.kuali.kfs.module.bc.businessobject.BudgetConstructionReportThresholdSettings)
+     * java.lang.Integer, org.kuali.kfs.module.bc.businessobject.BudgetConstructionReportThresholdSettings)
      */
     @Override
     public void updateReasonSummaryReport(String principalId, Integer universityFiscalYear, BudgetConstructionReportThresholdSettings budgetConstructionReportThresholdSettings) {
@@ -79,15 +79,14 @@ public class BudgetConstructionReasonSummaryReportServiceImpl implements BudgetC
         boolean applyAThreshold = budgetConstructionReportThresholdSettings.isUseThreshold();
         if (applyAThreshold) {
             budgetConstructionSalarySummaryReportDao.updateSalaryAndReasonSummaryReportsWithThreshold(principalId, universityFiscalYear - 1, selectOnlyGreaterThanOrEqualToThreshold, thresholdPercent);
-        }
-        else {
+        } else {
             budgetConstructionSalarySummaryReportDao.updateSalaryAndReasonSummaryReportsWithoutThreshold(principalId, true);
         }
     }
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetConstructionReasonSummaryReportService#buildReports(java.lang.Integer,
-     *      java.lang.String, org.kuali.kfs.module.bc.businessobject.BudgetConstructionReportThresholdSettings)
+     * java.lang.String, org.kuali.kfs.module.bc.businessobject.BudgetConstructionReportThresholdSettings)
      */
     @Override
     public Collection<BudgetConstructionOrgReasonSummaryReport> buildReports(Integer universityFiscalYear, String principalId, BudgetConstructionReportThresholdSettings reportThresholdSettings) {
@@ -142,8 +141,7 @@ public class BudgetConstructionReasonSummaryReportServiceImpl implements BudgetC
         if (organizationName == null) {
             String wrongOrganizationName = kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_ORGANIZATION_NAME);
             reasonSummaryReport.setOrganizationName(wrongOrganizationName);
-        }
-        else {
+        } else {
             reasonSummaryReport.setOrganizationName(organizationName);
         }
 
@@ -152,8 +150,7 @@ public class BudgetConstructionReasonSummaryReportServiceImpl implements BudgetC
         if (chartDescription == null) {
             String wrongChartDescription = kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_CHART_DESCRIPTION);
             reasonSummaryReport.setOrgChartOfAccountDescription(wrongChartDescription);
-        }
-        else {
+        } else {
             reasonSummaryReport.setOrgChartOfAccountDescription(chartDescription);
         }
 
@@ -166,12 +163,10 @@ public class BudgetConstructionReasonSummaryReportServiceImpl implements BudgetC
         if (budgetConstructionReportThresholdSettings.isUseThreshold()) {
             if (budgetConstructionReportThresholdSettings.isUseGreaterThanOperator()) {
                 reasonSummaryReport.setThresholdOrReason(BCConstants.Report.THRESHOLD + BCConstants.Report.THRESHOLD_GREATER + budgetConstructionReportThresholdSettings.getThresholdPercent().toString() + BCConstants.Report.PERCENT);
-            }
-            else {
+            } else {
                 reasonSummaryReport.setThresholdOrReason(BCConstants.Report.THRESHOLD + BCConstants.Report.THRESHOLD_LESS + budgetConstructionReportThresholdSettings.getThresholdPercent().toString() + BCConstants.Report.PERCENT);
             }
-        }
-        else {
+        } else {
             reasonSummaryReport.setThresholdOrReason(BCConstants.Report.SELECTED_REASONS + reasonCodes);
         }
 
@@ -244,8 +239,7 @@ public class BudgetConstructionReasonSummaryReportServiceImpl implements BudgetC
 
         if (StringUtils.equals(appointmentFunding.getFinancialSubObjectCode(), KFSConstants.getDashFinancialSubObjectCode())) {
             reasonSummaryReport.setFinancialSubObjectCode(BCConstants.Report.BLANK);
-        }
-        else {
+        } else {
             reasonSummaryReport.setFinancialSubObjectCode(appointmentFunding.getFinancialSubObjectCode());
         }
 
@@ -260,8 +254,7 @@ public class BudgetConstructionReasonSummaryReportServiceImpl implements BudgetC
             reasonSummaryReport.setSalaryAmount(appointmentFunding.getAppointmentRequestedAmount().intValue());
             reasonSummaryReport.setPercentAmount(appointmentFunding.getAppointmentRequestedTimePercent());
             reasonSummaryReport.setSalaryMonths(appointmentFunding.getAppointmentFundingMonth());
-        }
-        else {
+        } else {
             reasonSummaryReport.setSalaryAmount(appointmentFunding.getAppointmentRequestedCsfAmount().intValue());
             reasonSummaryReport.setPercentAmount(appointmentFunding.getAppointmentRequestedCsfTimePercent());
 
@@ -272,8 +265,7 @@ public class BudgetConstructionReasonSummaryReportServiceImpl implements BudgetC
 
         if (appointmentFunding.isAppointmentFundingDeleteIndicator()) {
             reasonSummaryReport.setDeleteBox(BCConstants.Report.DELETE_MARK);
-        }
-        else {
+        } else {
             reasonSummaryReport.setDeleteBox(BCConstants.Report.BLANK);
         }
 
@@ -281,15 +273,13 @@ public class BudgetConstructionReasonSummaryReportServiceImpl implements BudgetC
         if (appointmentFunding.isAppointmentFundingDeleteIndicator()) {
             if (curToInt == -1) {
                 curToInt = appointmentFunding.getAppointmentTotalIntendedAmount().intValue();
-            }
-            else if (curToInt != appointmentFunding.getAppointmentTotalIntendedAmount().intValue()) {
+            } else if (curToInt != appointmentFunding.getAppointmentTotalIntendedAmount().intValue()) {
                 reasonSummaryReport.setTiFlag(BCConstants.Report.PLUS);
             }
 
             if (curFteInt == -1.00) {
                 curFteInt = appointmentFunding.getAppointmentTotalIntendedFteQuantity().doubleValue();
-            }
-            else if (curFteInt != appointmentFunding.getAppointmentTotalIntendedFteQuantity().doubleValue()) {
+            } else if (curFteInt != appointmentFunding.getAppointmentTotalIntendedFteQuantity().doubleValue()) {
                 reasonSummaryReport.setTiFlag(BCConstants.Report.PLUS);
             }
         }
@@ -359,8 +349,7 @@ public class BudgetConstructionReasonSummaryReportServiceImpl implements BudgetC
         Integer restatementCsfAmount = 0;
         if (totalsHolder.salaryPayMonth == 0 || totalsHolder.csfPayMonths == 0 || BigDecimal.ZERO.compareTo(totalsHolder.csfPercent) == 0 || totalsHolder.csfNormalMonths == 0) {
             restatementCsfAmount = 0;
-        }
-        else {
+        } else {
             BigDecimal salaryMonthPercent = new BigDecimal(totalsHolder.salaryNormalMonths * 1.0 / totalsHolder.salaryPayMonth);
             BigDecimal salaryFteQuantity = totalsHolder.salaryPercent.multiply(salaryMonthPercent);
 
@@ -374,8 +363,7 @@ public class BudgetConstructionReasonSummaryReportServiceImpl implements BudgetC
 
         if (totalsHolder.salaryPayMonth == 0) {
             totalsHolder.salaryFte = BigDecimal.ZERO;
-        }
-        else {
+        } else {
             BigDecimal salaryFte = totalsHolder.salaryPercent.multiply(new BigDecimal(totalsHolder.salaryNormalMonths * 1.0 / (totalsHolder.salaryPayMonth * 100.0)));
             totalsHolder.salaryFte = BudgetConstructionReportHelper.setDecimalDigit(salaryFte, 5, false);
         }
@@ -383,8 +371,7 @@ public class BudgetConstructionReasonSummaryReportServiceImpl implements BudgetC
         if (totalsHolder.salaryPayMonth != totalsHolder.csfPayMonths) {
             if (totalsHolder.csfPayMonths == 0) {
                 restatementCsfAmount = 0;
-            }
-            else {
+            } else {
                 BigDecimal amount = new BigDecimal(restatementCsfAmount * totalsHolder.salaryPayMonth * 1.0 / totalsHolder.csfPayMonths);
                 restatementCsfAmount = BudgetConstructionReportHelper.setDecimalDigit(amount, 0, false).intValue();
             }
@@ -395,15 +382,13 @@ public class BudgetConstructionReasonSummaryReportServiceImpl implements BudgetC
 
         if (totalsHolder.csfAmount != 0) {
             totalsHolder.percentChange = BudgetConstructionReportHelper.calculatePercent(totalsHolder.amountChange, totalsHolder.csfAmount);
-        }
-        else {
+        } else {
             totalsHolder.percentChange = BigDecimal.ZERO;
         }
 
         if (totalsHolder.curToInt != 0 && totalsHolder.curToInt != -1 && totalsHolder.curToInt != totalsHolder.salaryAmount.intValue() || totalsHolder.curFteInt != 0 && totalsHolder.curFteInt != -1.00 && totalsHolder.curFteInt != totalsHolder.salaryFte.doubleValue()) {
             totalsHolder.tiFlag = BCConstants.Report.PLUS;
-        }
-        else {
+        } else {
             totalsHolder.tiFlag = BCConstants.Report.BLANK;
         }
     }
@@ -426,8 +411,7 @@ public class BudgetConstructionReasonSummaryReportServiceImpl implements BudgetC
                 salaryAmount = appointmentFunding.getAppointmentRequestedAmount().intValue();
                 salaryMonths = appointmentFunding.getAppointmentFundingMonth();
                 salaryPercent = appointmentFunding.getAppointmentRequestedTimePercent();
-            }
-            else {
+            } else {
                 salaryAmount = appointmentFunding.getAppointmentRequestedCsfAmount().intValue();
                 salaryMonths = budgetConstructionPosition.getIuNormalWorkMonths();
 
@@ -495,8 +479,7 @@ public class BudgetConstructionReasonSummaryReportServiceImpl implements BudgetC
                     if (reportTotalPersonEntry.getPersonCsfAmount() == 0) {
                         totalsHolder.newFte = totalsHolder.newFte.add(reportTotalPersonEntry.getPersonSalaryFte());
                         totalsHolder.newTotalAmount += reportTotalPersonEntry.getPersonSalaryAmount();
-                    }
-                    else {
+                    } else {
                         totalsHolder.conTotalBaseAmount += reportTotalPersonEntry.getPersonCsfAmount();
                         totalsHolder.conFte = totalsHolder.conFte.add(reportTotalPersonEntry.getPersonSalaryFte());
                         totalsHolder.conTotalRequestAmount += reportTotalPersonEntry.getPersonSalaryAmount();
@@ -670,8 +653,7 @@ public class BudgetConstructionReasonSummaryReportServiceImpl implements BudgetC
     protected boolean isSameSsnEntryForTotalPerson(BudgetConstructionSalarySocialSecurityNumber firstSsn, BudgetConstructionSalarySocialSecurityNumber secondSsn) {
         if (firstSsn.getOrganizationChartOfAccountsCode().equals(secondSsn.getOrganizationChartOfAccountsCode()) && firstSsn.getOrganizationCode().equals(secondSsn.getOrganizationCode()) && firstSsn.getEmplid().equals(secondSsn.getEmplid())) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -679,8 +661,7 @@ public class BudgetConstructionReasonSummaryReportServiceImpl implements BudgetC
     protected boolean isSameSsnEntryForTotalOrg(BudgetConstructionSalarySocialSecurityNumber firstSsn, BudgetConstructionSalarySocialSecurityNumber secondSsn) {
         if (firstSsn.getOrganizationChartOfAccountsCode().equals(secondSsn.getOrganizationChartOfAccountsCode()) && firstSsn.getOrganizationCode().equals(secondSsn.getOrganizationCode())) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }

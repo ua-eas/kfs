@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -22,8 +22,6 @@
  */
 package org.kuali.kfs.pdp.dataaccess.impl;
 
-import java.util.List;
-
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.kuali.kfs.pdp.PdpPropertyConstants;
@@ -31,6 +29,7 @@ import org.kuali.kfs.pdp.businessobject.PaymentProcess;
 import org.kuali.kfs.pdp.dataaccess.ProcessDao;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 
+import java.util.List;
 
 
 public class ProcessDaoOjb extends PlatformAwareDaoBaseOjb implements ProcessDao {
@@ -57,8 +56,7 @@ public class ProcessDaoOjb extends PlatformAwareDaoBaseOjb implements ProcessDao
         if (p != null) {
 
             return p;
-        }
-        else {
+        } else {
             return null;
         }
     }

@@ -1,36 +1,36 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.web.struts;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.module.ld.businessobject.LedgerEntryGLSummary;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
 import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
 import org.kuali.kfs.kns.lookup.LookupableHelperService;
 import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.module.ld.businessobject.LedgerEntryGLSummary;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The form which holds values used in the GLLaborEntry Summarization Inquiry screen
@@ -64,72 +64,95 @@ public class GLLaborEntrySummarizationInquiryForm extends LookupForm {
     public Integer getUniversityFiscalYear() {
         return universityFiscalYear;
     }
+
     public void setUniversityFiscalYear(Integer universityFiscalYear) {
         this.universityFiscalYear = universityFiscalYear;
     }
+
     public String getUniversityFiscalPeriodCode() {
         return universityFiscalPeriodCode;
     }
+
     public void setUniversityFiscalPeriodCode(String universityFiscalPeriodCode) {
         this.universityFiscalPeriodCode = universityFiscalPeriodCode;
     }
+
     public String getChartOfAccountsCode() {
         return chartOfAccountsCode;
     }
+
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
         this.chartOfAccountsCode = chartOfAccountsCode;
     }
+
     public String getAccountNumber() {
         return accountNumber;
     }
+
     public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
     }
+
     public String getSubAccountNumber() {
         return subAccountNumber;
     }
+
     public void setSubAccountNumber(String subAccountNumber) {
         this.subAccountNumber = subAccountNumber;
     }
+
     public String getFinancialObjectCode() {
         return financialObjectCode;
     }
+
     public void setFinancialObjectCode(String financialObjectCode) {
         this.financialObjectCode = financialObjectCode;
     }
+
     public String getFinancialSubObjectCode() {
         return financialSubObjectCode;
     }
+
     public void setFinancialSubObjectCode(String financialSubObjectCode) {
         this.financialSubObjectCode = financialSubObjectCode;
     }
+
     public String getFinancialBalanceTypeCode() {
         return financialBalanceTypeCode;
     }
+
     public void setFinancialBalanceTypeCode(String financialBalanceTypeCode) {
         this.financialBalanceTypeCode = financialBalanceTypeCode;
     }
+
     public String getFinancialObjectTypeCode() {
         return financialObjectTypeCode;
     }
+
     public void setFinancialObjectTypeCode(String financialObjectTypeCode) {
         this.financialObjectTypeCode = financialObjectTypeCode;
     }
+
     public String getFinancialDocumentTypeCode() {
         return financialDocumentTypeCode;
     }
+
     public void setFinancialDocumentTypeCode(String financialDocumentTypeCode) {
         this.financialDocumentTypeCode = financialDocumentTypeCode;
     }
+
     public String getFinancialSystemOriginationCode() {
         return financialSystemOriginationCode;
     }
+
     public void setFinancialSystemOriginationCode(String financialSystemOriginationCode) {
         this.financialSystemOriginationCode = financialSystemOriginationCode;
     }
+
     public String getDocumentNumber() {
         return documentNumber;
     }
+
     public void setDocumentNumber(String documentNumber) {
         this.documentNumber = documentNumber;
     }
@@ -138,6 +161,7 @@ public class GLLaborEntrySummarizationInquiryForm extends LookupForm {
     public Collection getEntries() {
         return entries;
     }
+
     @SuppressWarnings("rawtypes")
     public void setEntries(Collection entries) {
         this.entries = entries;
@@ -157,42 +181,49 @@ public class GLLaborEntrySummarizationInquiryForm extends LookupForm {
     public String getUniversityFiscalYearInquiryUrl() {
         return universityFiscalYearInquiryUrl;
     }
+
     /**
      * @return the inquiry url for the fiscal period code property
      */
     public String getUniversityFiscalPeriodCodeInquiryUrl() {
         return universityFiscalPeriodCodeInquiryUrl;
     }
+
     /**
      * @return the inquiry url for the chart of accounts code property
      */
     public String getChartOfAccountsCodeInquiryUrl() {
         return chartOfAccountsCodeInquiryUrl;
     }
+
     /**
      * @return the inquiry url for the account number property
      */
     public String getAccountNumberInquiryUrl() {
         return accountNumberInquiryUrl;
     }
+
     /**
      * @return the inquiry url for the sub-account number property
      */
     public String getSubAccountNumberInquiryUrl() {
         return subAccountNumberInquiryUrl;
     }
+
     /**
      * @return the inquiry url for the object code property
      */
     public String getFinancialObjectCodeInquiryUrl() {
         return financialObjectCodeInquiryUrl;
     }
+
     /**
      * @return the inquiry url for the sub-object code property
      */
     public String getFinancialSubObjectCodeInquiryUrl() {
         return financialSubObjectCodeInquiryUrl;
     }
+
     /**
      * @return a Map of the field values for each searching
      */
@@ -216,6 +247,7 @@ public class GLLaborEntrySummarizationInquiryForm extends LookupForm {
 
     /**
      * Builds the inquiry urls for the set fields - fiscal year, fiscal period, chart, account, sub-account, object, and sub-object
+     *
      * @param lookupableHelperService the lookupable helper service which builds the related inquiry urls for us
      */
     protected void buildInquiryUrls(LookupableHelperService lookupableHelperService) {
@@ -246,13 +278,14 @@ public class GLLaborEntrySummarizationInquiryForm extends LookupForm {
 
     /**
      * Determines the inquiry url for the given property
-     * @param summary the LedgerEntryGLSummary populated with values to build inquiry links for
+     *
+     * @param summary                 the LedgerEntryGLSummary populated with values to build inquiry links for
      * @param lookupableHelperService the lookupable helper service to help us determine the inquiry url
-     * @param propertyName the property to build the inquiry url for
+     * @param propertyName            the property to build the inquiry url for
      * @return the inquiry url, or null if none was built
      */
     protected String retrieveInquiryUrlForProperty(LedgerEntryGLSummary summary, LookupableHelperService lookupableHelperService, String propertyName) {
-        final AnchorHtmlData inquiryHtmlData = (AnchorHtmlData)lookupableHelperService.getInquiryUrl(summary, propertyName);
+        final AnchorHtmlData inquiryHtmlData = (AnchorHtmlData) lookupableHelperService.getInquiryUrl(summary, propertyName);
         final String inquiryUrl = (inquiryHtmlData != null && !StringUtils.isBlank(inquiryHtmlData.getHref())) ? inquiryHtmlData.getHref() : null;
         return inquiryUrl;
     }

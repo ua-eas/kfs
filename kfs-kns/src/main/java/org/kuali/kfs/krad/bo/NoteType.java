@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -24,87 +24,80 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 
-
 @Entity
-@Table(name="KRNS_NTE_TYP_T")
+@Table(name = "KRNS_NTE_TYP_T")
 public class NoteType extends PersistableBusinessObjectBase {
 
-	@Id
-	@Column(name="NTE_TYP_CD")
-	private String noteTypeCode;
-	@Column(name="TYP_DESC_TXT")
-	private String noteTypeDescription;
-	@Column(name="ACTV_IND")
-	private boolean noteTypeActiveIndicator;
+    @Id
+    @Column(name = "NTE_TYP_CD")
+    private String noteTypeCode;
+    @Column(name = "TYP_DESC_TXT")
+    private String noteTypeDescription;
+    @Column(name = "ACTV_IND")
+    private boolean noteTypeActiveIndicator;
 
-	/**
-	 * Default constructor.
-	 */
-	public NoteType() {
+    /**
+     * Default constructor.
+     */
+    public NoteType() {
 
-	}
+    }
 
-	/**
-	 * Gets the noteTypeCode attribute.
-	 *
-	 * @return Returns the noteTypeCode
-	 *
-	 */
-	public String getNoteTypeCode() {
-		return noteTypeCode;
-	}
+    /**
+     * Gets the noteTypeCode attribute.
+     *
+     * @return Returns the noteTypeCode
+     */
+    public String getNoteTypeCode() {
+        return noteTypeCode;
+    }
 
-	/**
-	 * Sets the noteTypeCode attribute.
-	 *
-	 * @param noteTypeCode The noteTypeCode to set.
-	 *
-	 */
-	public void setNoteTypeCode(String noteTypeCode) {
-		this.noteTypeCode = noteTypeCode;
-	}
+    /**
+     * Sets the noteTypeCode attribute.
+     *
+     * @param noteTypeCode The noteTypeCode to set.
+     */
+    public void setNoteTypeCode(String noteTypeCode) {
+        this.noteTypeCode = noteTypeCode;
+    }
 
 
-	/**
-	 * Gets the noteTypeDescription attribute.
-	 *
-	 * @return Returns the noteTypeDescription
-	 *
-	 */
-	public String getNoteTypeDescription() {
-		return noteTypeDescription;
-	}
+    /**
+     * Gets the noteTypeDescription attribute.
+     *
+     * @return Returns the noteTypeDescription
+     */
+    public String getNoteTypeDescription() {
+        return noteTypeDescription;
+    }
 
-	/**
-	 * Sets the noteTypeDescription attribute.
-	 *
-	 * @param noteTypeDescription The noteTypeDescription to set.
-	 *
-	 */
-	public void setNoteTypeDescription(String noteTypeDescription) {
-		this.noteTypeDescription = noteTypeDescription;
-	}
+    /**
+     * Sets the noteTypeDescription attribute.
+     *
+     * @param noteTypeDescription The noteTypeDescription to set.
+     */
+    public void setNoteTypeDescription(String noteTypeDescription) {
+        this.noteTypeDescription = noteTypeDescription;
+    }
 
 
-	/**
-	 * Gets the noteTypeActiveIndicator attribute.
-	 *
-	 * @return Returns the noteTypeActiveIndicator
-	 *
-	 */
-	public boolean isNoteTypeActiveIndicator() {
-		return noteTypeActiveIndicator;
-	}
+    /**
+     * Gets the noteTypeActiveIndicator attribute.
+     *
+     * @return Returns the noteTypeActiveIndicator
+     */
+    public boolean isNoteTypeActiveIndicator() {
+        return noteTypeActiveIndicator;
+    }
 
 
-	/**
-	 * Sets the noteTypeActiveIndicator attribute.
-	 *
-	 * @param noteTypeActiveIndicator The noteTypeActiveIndicator to set.
-	 *
-	 */
-	public void setNoteTypeActiveIndicator(boolean noteTypeActiveIndicator) {
-		this.noteTypeActiveIndicator = noteTypeActiveIndicator;
-	}
+    /**
+     * Sets the noteTypeActiveIndicator attribute.
+     *
+     * @param noteTypeActiveIndicator The noteTypeActiveIndicator to set.
+     */
+    public void setNoteTypeActiveIndicator(boolean noteTypeActiveIndicator) {
+        this.noteTypeActiveIndicator = noteTypeActiveIndicator;
+    }
 }
 

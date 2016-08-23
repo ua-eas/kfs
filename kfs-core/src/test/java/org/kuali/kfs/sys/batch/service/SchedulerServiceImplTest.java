@@ -1,30 +1,23 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.batch.service;
 
-import java.io.File;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.batch.BatchJobStatus;
@@ -43,6 +36,12 @@ import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.Trigger;
 
+import java.io.File;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
 @ConfigureContext(session = UserNameFixture.kfs, initializeBatchSchedule = true)
 public class SchedulerServiceImplTest extends KualiTestBase {
 
@@ -50,6 +49,7 @@ public class SchedulerServiceImplTest extends KualiTestBase {
 
     /**
      * Creates the directory for the batch files to go in
+     *
      * @see junit.framework.TestCase#setUp()
      */
     @Override
@@ -62,8 +62,8 @@ public class SchedulerServiceImplTest extends KualiTestBase {
             scheduler.start();
         }
 
-        batchDirectory = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString("staging.directory")+"/gl/test_directory/originEntry";
-        File batchDirectoryFile = new File(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString("staging.directory")+"/gl/test_directory/");
+        batchDirectory = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString("staging.directory") + "/gl/test_directory/originEntry";
+        File batchDirectoryFile = new File(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString("staging.directory") + "/gl/test_directory/");
         batchDirectoryFile.mkdir();
         batchDirectoryFile = new File(batchDirectory);
         batchDirectoryFile.mkdir();
@@ -76,6 +76,7 @@ public class SchedulerServiceImplTest extends KualiTestBase {
 
     /**
      * Removes the directory for the batch files to go in
+     *
      * @see junit.framework.TestCase#tearDown()
      */
     @Override
@@ -85,7 +86,7 @@ public class SchedulerServiceImplTest extends KualiTestBase {
             f.delete();
         }
         batchDirectoryFile.delete();
-        batchDirectoryFile = new File(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString("staging.directory")+"/gl/test_directory");
+        batchDirectoryFile = new File(SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString("staging.directory") + "/gl/test_directory");
         batchDirectoryFile.delete();
     }
 
@@ -125,7 +126,7 @@ public class SchedulerServiceImplTest extends KualiTestBase {
         System.out.println(job);
         job.runJob(null);
 
-        System.err.println( "testRunJob: Waiting for it to enter running status" );
+        System.err.println("testRunJob: Waiting for it to enter running status");
         // provide an "out" in case things fail badly
         int waitCount = 0;
         while (!job.isRunning() && waitCount < 500) {
@@ -136,7 +137,7 @@ public class SchedulerServiceImplTest extends KualiTestBase {
         System.out.println(s.getRunningJobs());
         System.out.println(s.getJob(SchedulerService.UNSCHEDULED_GROUP, "scrubberJob"));
 
-        System.err.println( "testRunJob: Waiting for it to leave running status" );
+        System.err.println("testRunJob: Waiting for it to leave running status");
 
         waitCount = 0;
         while (job.isRunning() && waitCount < 500) {
@@ -191,31 +192,30 @@ public class SchedulerServiceImplTest extends KualiTestBase {
 
     }
 
-    protected void scheduleJob(String groupName, String jobName, int startStep, int endStep, Date startTime, String requestorEmailAddress, Map<String,String> additionalJobData ) {
+    protected void scheduleJob(String groupName, String jobName, int startStep, int endStep, Date startTime, String requestorEmailAddress, Map<String, String> additionalJobData) {
         Scheduler scheduler = (Scheduler) SpringContext.getService("scheduler");
         try {
             JobDetail jobDetail = scheduler.getJobDetail(jobName, groupName);
-            if ( jobDetail == null ) {
-                fail( "Unable to retrieve JobDetail object for " + groupName + " : " + jobName );
+            if (jobDetail == null) {
+                fail("Unable to retrieve JobDetail object for " + groupName + " : " + jobName);
             }
-            if ( jobDetail.getJobDataMap() == null ) {
-                jobDetail.setJobDataMap( new JobDataMap() );
+            if (jobDetail.getJobDataMap() == null) {
+                jobDetail.setJobDataMap(new JobDataMap());
             }
             jobDetail.getJobDataMap().put(SchedulerService.JOB_STATUS_PARAMETER, SchedulerService.SCHEDULED_JOB_STATUS_CODE);
             scheduler.addJob(jobDetail, true);
 
-            SimpleTriggerDescriptor trigger = new SimpleTriggerDescriptor(jobName+startTime, groupName, jobName, SpringContext.getBean(DateTimeService.class));
+            SimpleTriggerDescriptor trigger = new SimpleTriggerDescriptor(jobName + startTime, groupName, jobName, SpringContext.getBean(DateTimeService.class));
             trigger.setStartTime(startTime);
             Trigger qTrigger = trigger.getTrigger();
             qTrigger.getJobDataMap().put(JobListener.REQUESTOR_EMAIL_ADDRESS_KEY, requestorEmailAddress);
             qTrigger.getJobDataMap().put(Job.JOB_RUN_START_STEP, String.valueOf(startStep));
             qTrigger.getJobDataMap().put(Job.JOB_RUN_END_STEP, String.valueOf(endStep));
-            if ( additionalJobData != null ) {
+            if (additionalJobData != null) {
                 qTrigger.getJobDataMap().putAll(additionalJobData);
             }
             scheduler.scheduleJob(qTrigger);
-        }
-        catch (SchedulerException e) {
+        } catch (SchedulerException e) {
             throw new RuntimeException("Caught exception while scheduling job: " + jobName, e);
         }
     }
@@ -235,22 +235,22 @@ public class SchedulerServiceImplTest extends KualiTestBase {
         // need to ensure that the job does not already have a status (from prior tests)
 //        s.updateStatus(jd.getJobDetail(), null);
 
-        System.err.println( "About to run scrubber job in testJobInterrupt" );
+        System.err.println("About to run scrubber job in testJobInterrupt");
         scheduleJob(SchedulerService.SCHEDULED_GROUP, "scrubberJob", 0, 0, new Date(), null, null);
         BatchJobStatus job = s.getJob(SchedulerService.SCHEDULED_GROUP, "scrubberJob");
         // wait for job to enter running status
         int waitCount = 0;
-        System.err.println( "Waiting for it to enter running status" );
+        System.err.println("Waiting for it to enter running status");
         // provide an "out" in case things fail badly
         while (!job.isRunning() && waitCount < 500) {
             Thread.sleep(20);
             waitCount++;
         }
         // stop the job
-        System.err.println( "Interrupting the job" );
+        System.err.println("Interrupting the job");
         job.interrupt();
         waitCount = 0;
-        System.err.println( "Waiting for it to exit running status" );
+        System.err.println("Waiting for it to exit running status");
         while (job.isRunning() && waitCount < 500) {
             Thread.sleep(20);
             waitCount++;
@@ -259,7 +259,7 @@ public class SchedulerServiceImplTest extends KualiTestBase {
         job = s.getJob(SchedulerService.SCHEDULED_GROUP, "scrubberJob");
         List<BatchJobStatus> jobs = s.getJobs();
         for (BatchJobStatus b : jobs) {
-            if ( b.getName().equals( "scrubberJob" ) ) {
+            if (b.getName().equals("scrubberJob")) {
                 System.out.println(b);
             }
         }
@@ -270,6 +270,7 @@ public class SchedulerServiceImplTest extends KualiTestBase {
      * Verify that dropDependenciesNotScheduled drops unscheduled dependencies. It's worthwhile to note that spring-sys-test-xml was altered to include a fake
      * dependency of purgeReportsAndStagingJob on dailyEmailJob. This fake dependency was added to have a scheduled job dependend on an unscheduled one so that
      * we have something to test for.
+     *
      * @throws Exception
      */
     public void testDropDependenciesNotScheduled() throws Exception {

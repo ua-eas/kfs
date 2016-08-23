@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -27,42 +27,42 @@ import java.util.List;
 /**
  * A single Relationship definition in the DataDictionary, which contains information concerning which primitive attributes of this
  * class can be used to retrieve an instance of some related Object instance
- * 
-                The relationship element defines how primitive attributes of this
-                class can be used to retrieve an instance of some related Object instance
-                DD: See RelationshipDefinition.java.
-
-                JSTL: relationship is a Map which is accessed using a key which is the
-                objectAttributeName of a relationship.  The map contains a single entry
-                with a key of "primitiveAttributes" and value which is an attributesMap ExportMap.
-
-                The attributesMap ExportMap contains the following keys:
-                    * 0   (for first primitiveAttribute)
-                    * 1   (for second primitiveAttribute)
-                    etc.
-                The corresponding value for each entry is an primitiveAttribute ExportMap
-                which contains the following keys:
-                    * "sourceName"
-                    * "targetName"
- * 
+ * <p>
+ * The relationship element defines how primitive attributes of this
+ * class can be used to retrieve an instance of some related Object instance
+ * DD: See RelationshipDefinition.java.
+ * <p>
+ * JSTL: relationship is a Map which is accessed using a key which is the
+ * objectAttributeName of a relationship.  The map contains a single entry
+ * with a key of "primitiveAttributes" and value which is an attributesMap ExportMap.
+ * <p>
+ * The attributesMap ExportMap contains the following keys:
+ * 0   (for first primitiveAttribute)
+ * 1   (for second primitiveAttribute)
+ * etc.
+ * The corresponding value for each entry is an primitiveAttribute ExportMap
+ * which contains the following keys:
+ * "sourceName"
+ * "targetName"
  */
 public class RelationshipDefinition extends DataDictionaryDefinitionBase {
     private static final long serialVersionUID = 2946722646095412576L;
-    
-	protected String objectAttributeName; //Same as parentAttributeName of DataObjectRelationship
-	protected Class<?> sourceClass; //parentClass
-	
+
+    protected String objectAttributeName; //Same as parentAttributeName of DataObjectRelationship
+    protected Class<?> sourceClass; //parentClass
+
     /**
      * For 1:1 relationships, this class represents the type of the reference class.  For 1:n references, this class represents the type of the element
      * of the collection
      */
     protected Class<?> targetClass; //relatedClass
 
-	protected List<PrimitiveAttributeDefinition> primitiveAttributes = new ArrayList<PrimitiveAttributeDefinition>(); //parentToChildReferences
+    protected List<PrimitiveAttributeDefinition> primitiveAttributes = new ArrayList<PrimitiveAttributeDefinition>(); //parentToChildReferences
     protected List<SupportAttributeDefinition> supportAttributes = new ArrayList<SupportAttributeDefinition>(); //parentToChildReferences
 
 
-    public RelationshipDefinition() {}
+    public RelationshipDefinition() {
+    }
 
     public String getObjectAttributeName() {
         return objectAttributeName;
@@ -77,24 +77,24 @@ public class RelationshipDefinition extends DataDictionaryDefinitionBase {
      */
     public Class<?> getTargetClass() {
         if (targetClass == null) {
-	        Class propertyClass = DataDictionary.getAttributeClass(sourceClass, objectAttributeName);
-	        if (propertyClass == null) {
-	            throw new AttributeValidationException("cannot get valid class for property '" + objectAttributeName + "' as an attribute of '" + sourceClass + "'");
-	        }
-	
-	        targetClass = propertyClass;
+            Class propertyClass = DataDictionary.getAttributeClass(sourceClass, objectAttributeName);
+            if (propertyClass == null) {
+                throw new AttributeValidationException("cannot get valid class for property '" + objectAttributeName + "' as an attribute of '" + sourceClass + "'");
+            }
+
+            targetClass = propertyClass;
         }
         return targetClass;
     }
 
     /**
      * Sets the {@link #targetClass}
-     * 
+     *
      * @param targetClass
      */
     public void setTargetClass(Class<?> targetClass) {
-		this.targetClass = targetClass;
-	}
+        this.targetClass = targetClass;
+    }
 
     /**
      * Name of the business object property on the containing business object that is linked
@@ -110,7 +110,7 @@ public class RelationshipDefinition extends DataDictionaryDefinitionBase {
 
     public List<PrimitiveAttributeDefinition> getPrimitiveAttributes() {
         return primitiveAttributes;
-    }    
+    }
 
     public List<SupportAttributeDefinition> getSupportAttributes() {
         return supportAttributes;
@@ -118,25 +118,25 @@ public class RelationshipDefinition extends DataDictionaryDefinitionBase {
 
     public boolean hasIdentifier() {
         for (SupportAttributeDefinition supportAttributeDefinition : supportAttributes) {
-            if ( supportAttributeDefinition.isIdentifier() ) {
+            if (supportAttributeDefinition.isIdentifier()) {
                 return true;
             }
         }
         return false;
     }
-    
+
     public SupportAttributeDefinition getIdentifier() {
         for (SupportAttributeDefinition supportAttributeDefinition : supportAttributes) {
-            if ( supportAttributeDefinition.isIdentifier() ) {
+            if (supportAttributeDefinition.isIdentifier()) {
                 return supportAttributeDefinition;
             }
         }
         return null;
     }
-    
+
     /**
      * Directly validate simple fields, call completeValidation on Definition fields.
-     * 
+     *
      * @see DataDictionaryEntry#completeValidation()
      */
     public void completeValidation(Class rootBusinessObjectClass, Class otherBusinessObjectClass) {
@@ -165,48 +165,47 @@ public class RelationshipDefinition extends DataDictionaryDefinitionBase {
     }
 
     /**
-     * 
-                    The primitiveAttribute element identifies one pair of
-                    corresponding fields in the primary business object and
-                    the related business object.
-
-                    JSTL: primitiveAttribute is a Map which is accessed by the
-                    sequential key of "0", "1", etc.  Each entry contains the following
-                    keys:
-                        * sourceName (String)
-                        * targetName (String)
-                    The value corresponding to the sourceName key is the attribute name defined
-                    for the primary business object.
-                    The value corresponding to the targetName key is the attribute name for
-                    the object being referenced by objectAttributeName.
+     * The primitiveAttribute element identifies one pair of
+     * corresponding fields in the primary business object and
+     * the related business object.
+     * <p>
+     * JSTL: primitiveAttribute is a Map which is accessed by the
+     * sequential key of "0", "1", etc.  Each entry contains the following
+     * keys:
+     * sourceName (String)
+     * targetName (String)
+     * The value corresponding to the sourceName key is the attribute name defined
+     * for the primary business object.
+     * The value corresponding to the targetName key is the attribute name for
+     * the object being referenced by objectAttributeName.
      */
     public void setPrimitiveAttributes(List<PrimitiveAttributeDefinition> primitiveAttributes) {
         this.primitiveAttributes = primitiveAttributes;
     }
 
     /**
-                    Support attributes define additional attributes that can be used to generate
-                    lookup field conversions and lookup parameters.
-
-                    Field conversions and lookup parameters are normally generated using foreign key relationships
-                    defined within OJB and the DD.  Because Person objects are linked in a special way (i.e. they may
-                    come from an external data source and not from the DB, such as LDAP), it is often necessary to define
-                    extra fields that are related to each other, sort of like a supplemental foreign key.
-
-                    sourceName is the name of the POJO property of the business object
-                    targetName is the name of attribute that corresponds to the sourceName in the looked up BO
-                    identifier when true, only the field marked as an identifier will be passed in as a lookup parameter
-                               at most one supportAttribute for each relationship should be defined as identifier="true"
+     * Support attributes define additional attributes that can be used to generate
+     * lookup field conversions and lookup parameters.
+     * <p>
+     * Field conversions and lookup parameters are normally generated using foreign key relationships
+     * defined within OJB and the DD.  Because Person objects are linked in a special way (i.e. they may
+     * come from an external data source and not from the DB, such as LDAP), it is often necessary to define
+     * extra fields that are related to each other, sort of like a supplemental foreign key.
+     * <p>
+     * sourceName is the name of the POJO property of the business object
+     * targetName is the name of attribute that corresponds to the sourceName in the looked up BO
+     * identifier when true, only the field marked as an identifier will be passed in as a lookup parameter
+     * at most one supportAttribute for each relationship should be defined as identifier="true"
      */
     public void setSupportAttributes(List<SupportAttributeDefinition> supportAttributes) {
         this.supportAttributes = supportAttributes;
     }
 
-	/**
-	 * @param sourceClass the sourceClass to set
-	 */
-	public void setSourceClass(Class<?> sourceClass) {
-		this.sourceClass = sourceClass;
-	}
+    /**
+     * @param sourceClass the sourceClass to set
+     */
+    public void setSourceClass(Class<?> sourceClass) {
+        this.sourceClass = sourceClass;
+    }
 }
 

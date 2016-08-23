@@ -1,30 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.businessobject;
 
 
-import java.util.LinkedHashMap;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.LinkedHashMap;
 
 public abstract class PurApItemUseTaxBase extends PersistableBusinessObjectBase implements PurApItemUseTax {
 
@@ -110,10 +110,10 @@ public abstract class PurApItemUseTaxBase extends PersistableBusinessObjectBase 
         m.put("useTaxId", this.useTaxId);
         return m;
     }
-    
+
     /**
      * Override needed for PURAP GL entry creation (hjs) - please do not add "amount" to this method
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     public boolean equals(Object obj) {
@@ -121,15 +121,15 @@ public abstract class PurApItemUseTaxBase extends PersistableBusinessObjectBase 
             return false;
         }
         PurApItemUseTax purapItemUseTax = (PurApItemUseTax) obj;
-        return new EqualsBuilder().append(this.chartOfAccountsCode,purapItemUseTax.getChartOfAccountsCode()).
-        append(this.accountNumber,purapItemUseTax.getAccountNumber()).
-        append(this.getRateCode(),purapItemUseTax.getRateCode()).
-        append(this.financialObjectCode,purapItemUseTax.getFinancialObjectCode()).isEquals();
+        return new EqualsBuilder().append(this.chartOfAccountsCode, purapItemUseTax.getChartOfAccountsCode()).
+            append(this.accountNumber, purapItemUseTax.getAccountNumber()).
+            append(this.getRateCode(), purapItemUseTax.getRateCode()).
+            append(this.financialObjectCode, purapItemUseTax.getFinancialObjectCode()).isEquals();
     }
-    
+
     /**
      * Override needed for PURAP GL entry creation please do not add "taxAmount" to this method
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     public int hashCode() {
@@ -139,5 +139,5 @@ public abstract class PurApItemUseTaxBase extends PersistableBusinessObjectBase 
             append(this.getRateCode()).
             append(this.financialObjectCode).toHashCode();
     }
-    
+
 }

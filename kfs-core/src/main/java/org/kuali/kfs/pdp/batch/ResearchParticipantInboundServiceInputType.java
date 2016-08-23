@@ -1,34 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.pdp.batch;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+import au.com.bytecode.opencsv.bean.ColumnPositionMappingStrategy;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.gl.batch.CollectorBatch;
+import org.kuali.kfs.kns.service.DictionaryValidationService;
+import org.kuali.kfs.krad.service.SequenceAccessorService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.pdp.PdpConstants;
 import org.kuali.kfs.pdp.PdpKeyConstants;
 import org.kuali.kfs.pdp.batch.service.ExtractPaymentService;
@@ -50,14 +47,16 @@ import org.kuali.kfs.sys.businessobject.MappingCSVReader;
 import org.kuali.kfs.sys.exception.ParseException;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.kfs.kns.service.DictionaryValidationService;
-import org.kuali.kfs.krad.service.SequenceAccessorService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.rice.location.api.country.Country;
 import org.kuali.rice.location.api.country.CountryService;
 
-import au.com.bytecode.opencsv.bean.ColumnPositionMappingStrategy;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 // Created for Research Participant Upload
 public class ResearchParticipantInboundServiceInputType extends BatchInputFileTypeBase {
@@ -90,13 +89,12 @@ public class ResearchParticipantInboundServiceInputType extends BatchInputFileTy
      * research_participant_ append the username of the user who is uploading the file then the fileUserIdentifier
      * then the timestamp.
      *
-     * @param user who uploaded the file
+     * @param user               who uploaded the file
      * @param parsedFileContents represents collector batch object
-     * @param userIdentifier user identifier for user who uploaded file
+     * @param userIdentifier     user identifier for user who uploaded file
      * @return String returns file name using the convention mentioned in the description
-     *
      * @see org.kuali.kfs.sys.batch.BatchInputFileType#getFileName(org.kuali.rice.kim.bo.Person, java.lang.Object,
-     *      java.lang.String)
+     * java.lang.String)
      */
 
     @Override
@@ -116,7 +114,7 @@ public class ResearchParticipantInboundServiceInputType extends BatchInputFileTy
     public void process(String fileName, Object parsedFileContents) {
         LoadPaymentStatus status = new LoadPaymentStatus();
         status.setMessageMap(new MessageMap());
-        paymentFileService.loadPayments((PaymentFileLoad)parsedFileContents, status, getFileName(GlobalVariables.getUserSession().getPrincipalName(), null, null));
+        paymentFileService.loadPayments((PaymentFileLoad) parsedFileContents, status, getFileName(GlobalVariables.getUserSession().getPrincipalName(), null, null));
 
     }
 
@@ -201,8 +199,7 @@ public class ResearchParticipantInboundServiceInputType extends BatchInputFileTy
                     }
                     PaymentHeader ph = parsePaymentHeader(fileLine, reader, strat);
                     uploadFile.setPaymentHeader(ph);
-                }
-                else if (fileLine[0].equalsIgnoreCase(ACCOUNTING_LINE)) {
+                } else if (fileLine[0].equalsIgnoreCase(ACCOUNTING_LINE)) {
                     //If there's already an accounting line on the uploadFile,
                     //we'll give error message to the user that something's wrong
                     //with the file format because the file can only have 1
@@ -213,17 +210,14 @@ public class ResearchParticipantInboundServiceInputType extends BatchInputFileTy
                     }
                     PaymentAccountDetail ac = parseAccountingLine(fileLine, reader, strat);
                     uploadFile.setPaymentAccountDetail(ac);
-                }
-                else if (fileLine[0].equalsIgnoreCase(PAYMENT_DETAIL)) {
+                } else if (fileLine[0].equalsIgnoreCase(PAYMENT_DETAIL)) {
                     ResearchParticipantPaymentDetail pd = parsePaymentDetail(fileLine, reader, strat);
                     uploadFile.addPaymentDetail(pd);
-                }
-                else if (fileLine[0].equalsIgnoreCase(GL_DESCRIPTION)) {
+                } else if (fileLine[0].equalsIgnoreCase(GL_DESCRIPTION)) {
                     uploadFile.setGenericDescription(fileLine[1]);
                 }
             }
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             LOG.error("Error encountered reading from file content", ioe);
             throw new ParseException("Error encountered reading from file content", ioe);
         }
@@ -238,9 +232,9 @@ public class ResearchParticipantInboundServiceInputType extends BatchInputFileTy
     }
 
     /**
-     *
      * Converts the ResearchParticipantUpload which represents the spreadsheet
      * into the existing PaymentFileLoad.
+     *
      * @param uploadFile
      * @return
      */
@@ -309,20 +303,17 @@ public class ResearchParticipantInboundServiceInputType extends BatchInputFileTy
             // change nulls into ---'s for the fields that need it
             if (StringUtils.isBlank(uploadFile.getPaymentAccountDetail().getFinSubObjectCode())) {
                 ac.setFinSubObjectCode(KFSConstants.getDashFinancialSubObjectCode());
-            }
-            else {
+            } else {
                 ac.setFinSubObjectCode(uploadFile.getPaymentAccountDetail().getFinSubObjectCode());
             }
             if (StringUtils.isBlank(uploadFile.getPaymentAccountDetail().getSubAccountNbr())) {
                 ac.setSubAccountNbr(KFSConstants.getDashSubAccountNumber());
-            }
-            else {
+            } else {
                 ac.setSubAccountNbr(uploadFile.getPaymentAccountDetail().getSubAccountNbr());
             }
             if (StringUtils.isBlank(uploadFile.getPaymentAccountDetail().getProjectCode())) {
                 ac.setProjectCode(KFSConstants.getDashProjectCode());
-            }
-            else {
+            } else {
                 ac.setProjectCode(uploadFile.getPaymentAccountDetail().getProjectCode());
             }
 
@@ -344,10 +335,10 @@ public class ResearchParticipantInboundServiceInputType extends BatchInputFileTy
      */
     protected PaymentHeader parsePaymentHeader(String[] fileLine, MappingCSVReader reader, ColumnPositionMappingStrategy strat) {
         strat.setType(PaymentHeader.class);
-        String[] headerColumns = new String[] { PdpConstants.PaymentHeader.CHART,
-                PdpConstants.PaymentHeader.UNIT, PdpConstants.PaymentHeader.SUBUNIT,
-                PdpConstants.PaymentHeader.CREATION_DATE, PdpConstants.PaymentHeader.VENDOR_OR_EMPLOYEE,
-                PdpConstants.PaymentHeader.SOURCE_DOC_NUMBER, PdpConstants.PaymentHeader.PAYMENT_DATE};
+        String[] headerColumns = new String[]{PdpConstants.PaymentHeader.CHART,
+            PdpConstants.PaymentHeader.UNIT, PdpConstants.PaymentHeader.SUBUNIT,
+            PdpConstants.PaymentHeader.CREATION_DATE, PdpConstants.PaymentHeader.VENDOR_OR_EMPLOYEE,
+            PdpConstants.PaymentHeader.SOURCE_DOC_NUMBER, PdpConstants.PaymentHeader.PAYMENT_DATE};
         strat.setColumnMapping(headerColumns);
         String[] newNextLine = Arrays.copyOfRange(fileLine, 1, fileLine.length);
         PaymentHeader ph = (PaymentHeader) reader.processLine(strat, newNextLine);
@@ -364,14 +355,14 @@ public class ResearchParticipantInboundServiceInputType extends BatchInputFileTy
      */
     protected PaymentAccountDetail parseAccountingLine(String[] fileLine, MappingCSVReader reader, ColumnPositionMappingStrategy strat) {
         strat.setType(PaymentAccountDetail.class);
-        String[] headerColumns = new String[] { PdpConstants.PaymentAccountDetail.CHART,
-                PdpConstants.PaymentAccountDetail.ACCOUNT_NBR,
-                PdpConstants.PaymentAccountDetail.SUB_ACCOUNT_NBR, PdpConstants.PaymentAccountDetail.OBJECT_CODE,
-                PdpConstants.PaymentAccountDetail.SUB_OBJECT_CODE, PdpConstants.PaymentAccountDetail.PROJECT_CODE,
-                PdpConstants.PaymentAccountDetail.ORG_REF_ID };
+        String[] headerColumns = new String[]{PdpConstants.PaymentAccountDetail.CHART,
+            PdpConstants.PaymentAccountDetail.ACCOUNT_NBR,
+            PdpConstants.PaymentAccountDetail.SUB_ACCOUNT_NBR, PdpConstants.PaymentAccountDetail.OBJECT_CODE,
+            PdpConstants.PaymentAccountDetail.SUB_OBJECT_CODE, PdpConstants.PaymentAccountDetail.PROJECT_CODE,
+            PdpConstants.PaymentAccountDetail.ORG_REF_ID};
         strat.setColumnMapping(headerColumns);
         String[] newNextLine = Arrays.copyOfRange(fileLine, 1, fileLine.length);
-        PaymentAccountDetail ac = (PaymentAccountDetail)reader.processLine(strat, newNextLine);
+        PaymentAccountDetail ac = (PaymentAccountDetail) reader.processLine(strat, newNextLine);
         return ac;
 
     }
@@ -386,11 +377,11 @@ public class ResearchParticipantInboundServiceInputType extends BatchInputFileTy
      */
     protected ResearchParticipantPaymentDetail parsePaymentDetail(String[] fileLine, MappingCSVReader reader, ColumnPositionMappingStrategy strat) {
         strat.setType(ResearchParticipantPaymentDetail.class);
-        String[] headerColumns = new String[] { PdpConstants.PaymentDetail.PAYEE_NAME,
-                PdpConstants.PaymentDetail.ADDRESS_LINE_1, PdpConstants.PaymentDetail.ADDRESS_LINE_2,
-                PdpConstants.PaymentDetail.ADDRESS_LINE_3, PdpConstants.PaymentDetail.CITY,
-                PdpConstants.PaymentDetail.STATE, PdpConstants.PaymentDetail.ZIP,
-                PdpConstants.PaymentDetail.CHECK_STUB_TEXT, PdpConstants.PaymentDetail.AMOUNT };
+        String[] headerColumns = new String[]{PdpConstants.PaymentDetail.PAYEE_NAME,
+            PdpConstants.PaymentDetail.ADDRESS_LINE_1, PdpConstants.PaymentDetail.ADDRESS_LINE_2,
+            PdpConstants.PaymentDetail.ADDRESS_LINE_3, PdpConstants.PaymentDetail.CITY,
+            PdpConstants.PaymentDetail.STATE, PdpConstants.PaymentDetail.ZIP,
+            PdpConstants.PaymentDetail.CHECK_STUB_TEXT, PdpConstants.PaymentDetail.AMOUNT};
         strat.setColumnMapping(headerColumns);
         String[] newNextLine = Arrays.copyOfRange(fileLine, 1, fileLine.length);
         ResearchParticipantPaymentDetail pd = (ResearchParticipantPaymentDetail) reader.processLine(strat, newNextLine);
@@ -419,7 +410,7 @@ public class ResearchParticipantInboundServiceInputType extends BatchInputFileTy
      */
     @Override
     public boolean validate(Object parsedFileContents) {
-        PaymentFileLoad paymentFile = (PaymentFileLoad)parsedFileContents;
+        PaymentFileLoad paymentFile = (PaymentFileLoad) parsedFileContents;
 
         dictionaryValidationService.validateBusinessObject(paymentFile);
         for (PaymentGroup paymentGroup : paymentFile.getPaymentGroups()) {
@@ -435,7 +426,7 @@ public class ResearchParticipantInboundServiceInputType extends BatchInputFileTy
         MessageMap errorMessageMap = GlobalVariables.getMessageMap();
 
         boolean isAccountDetailValid = this.getResearchParticipantPaymentValidationService().validatePaymentAccount(paymentFile, errorMessageMap);
-        if(isAccountDetailValid){
+        if (isAccountDetailValid) {
             paymentFileService.doPaymentFileValidation(paymentFile, errorMessageMap);
         }
 
@@ -444,6 +435,7 @@ public class ResearchParticipantInboundServiceInputType extends BatchInputFileTy
 
     /**
      * Gets the researchParticipantPaymentValidationService attribute.
+     *
      * @return Returns the researchParticipantPaymentValidationService.
      */
     public ResearchParticipantPaymentValidationService getResearchParticipantPaymentValidationService() {
@@ -452,6 +444,7 @@ public class ResearchParticipantInboundServiceInputType extends BatchInputFileTy
 
     /**
      * Sets the researchParticipantPaymentValidationService attribute value.
+     *
      * @param researchParticipantPaymentValidationService The researchParticipantPaymentValidationService to set.
      */
     public void setResearchParticipantPaymentValidationService(ResearchParticipantPaymentValidationService researchParticipantPaymentValidationService) {

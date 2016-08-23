@@ -1,30 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemConstants.NotificationPreference;
 import org.kuali.kfs.module.tem.TemParameterConstants;
@@ -40,12 +37,15 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.KfsNotificationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.mail.MailMessage;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * implement the notification to the traveler based on the email preferences stored in the traveler profile
@@ -63,7 +63,7 @@ public class TravelDocumentNotificationServiceImpl implements TravelDocumentNoti
 
     /**
      * @see org.kuali.kfs.module.tem.service.TravelDocumentNotificationService#sendNotificationOnChange(org.kuali.kfs.module.tem.document.TravelDocument,
-     *      org.kuali.rice.kew.dto.DocumentRouteStatusChange)
+     * org.kuali.rice.kew.dto.DocumentRouteStatusChange)
      */
     @Override
     public void sendNotificationOnChange(TravelDocument travelDocument, DocumentRouteStatusChange statusChangeDTO) {
@@ -84,8 +84,7 @@ public class TravelDocumentNotificationServiceImpl implements TravelDocumentNoti
                 }
 
                 preference = getEmailNotificationPreference(preference, newRouteStatus, travelProfile.getNotifyTAFinal(), travelProfile.getNotifyTAStatusChange(), documentTypeCode);
-            }
-            else {
+            } else {
                 // TR/ENT/RELO
                 if (!verifyDocumentTypeCodes(documentTypeCode, this.getEligibleTravelExpenseDocumentTypeCodes())) {
                     return;
@@ -108,11 +107,10 @@ public class TravelDocumentNotificationServiceImpl implements TravelDocumentNoti
 
     private NotificationPreference getEmailNotificationPreference(NotificationPreference preference, String newRouteStatus, boolean notifyOnFinal, boolean notifyOnStatusChange, String documentTypeCode) {
         if (notifyOnFinal && (DocumentStatus.FINAL.getCode().equals(newRouteStatus) ||
-                DocumentStatus.PROCESSED.getCode().equals(newRouteStatus))) {
+            DocumentStatus.PROCESSED.getCode().equals(newRouteStatus))) {
             preference = TemConstants.TravelDocTypes.TRAVEL_AUTHORIZATION_DOCUMENT.equals(documentTypeCode) ? NotificationPreference.TA_ON_FINAL : NotificationPreference.TER_ON_FINAL;
 
-        }
-        else if (notifyOnStatusChange && !this.getNoNotificationRouteStatusList().contains(newRouteStatus)) {
+        } else if (notifyOnStatusChange && !this.getNoNotificationRouteStatusList().contains(newRouteStatus)) {
             preference = TemConstants.TravelDocTypes.TRAVEL_AUTHORIZATION_DOCUMENT.equals(documentTypeCode) ? NotificationPreference.TA_ON_CHANGE : NotificationPreference.TER_ON_CHANGE;
         }
 
@@ -142,8 +140,7 @@ public class TravelDocumentNotificationServiceImpl implements TravelDocumentNoti
 
         if (mailMessage != null) {
             this.getKfsNotificationService().sendNotificationByMail(mailMessage);
-        }
-        else {
+        } else {
             LOG.error("mailMessage is null.");
         }
     }
@@ -163,7 +160,7 @@ public class TravelDocumentNotificationServiceImpl implements TravelDocumentNoti
         if (!ObjectUtils.isNull(traveler) && !ObjectUtils.isNull(travelDocument.getProfileId())) {
             TemProfile profile = SpringContext.getBean(TemProfileService.class).findTemProfileById(travelDocument.getProfileId());
             travelerEmailAddress = profile.getEmailAddress();
-        }else{
+        } else {
             travelerEmailAddress = traveler.getEmailAddress();
         }
 
@@ -253,10 +250,11 @@ public class TravelDocumentNotificationServiceImpl implements TravelDocumentNoti
 
     /**
      * Gets the noNotificationRouteStatusList attribute.
+     *
      * @return Returns the noNotificationRouteStatusList.
      */
     protected List<String> getNoNotificationRouteStatusList() {
-        if(ObjectUtils.isNull(noNotificationRouteStatusList)){
+        if (ObjectUtils.isNull(noNotificationRouteStatusList)) {
             noNotificationRouteStatusList = new ArrayList<String>();
 
             noNotificationRouteStatusList.add(DocumentStatus.PROCESSED.getCode());
@@ -323,6 +321,7 @@ public class TravelDocumentNotificationServiceImpl implements TravelDocumentNoti
 
     /**
      * Gets the businessObjectService attribute.
+     *
      * @return Returns the businessObjectService.
      */
     public BusinessObjectService getBusinessObjectService() {
@@ -331,6 +330,7 @@ public class TravelDocumentNotificationServiceImpl implements TravelDocumentNoti
 
     /**
      * Sets the businessObjectService attribute value.
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
@@ -339,6 +339,7 @@ public class TravelDocumentNotificationServiceImpl implements TravelDocumentNoti
 
     /**
      * Gets the dateTimeService attribute.
+     *
      * @return Returns the dateTimeService.
      */
     public DateTimeService getDateTimeService() {
@@ -347,6 +348,7 @@ public class TravelDocumentNotificationServiceImpl implements TravelDocumentNoti
 
     /**
      * Sets the dateTimeService attribute value.
+     *
      * @param dateTimeService The dateTimeService to set.
      */
     public void setDateTimeService(DateTimeService dateTimeService) {

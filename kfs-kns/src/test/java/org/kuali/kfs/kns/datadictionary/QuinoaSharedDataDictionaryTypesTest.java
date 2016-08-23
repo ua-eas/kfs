@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -54,14 +54,14 @@ public class QuinoaSharedDataDictionaryTypesTest {
         Assert.assertTrue("Unable to find attributes for PersonImpl-parentBean", attributesBean.isPresent());
 
         List<Node> propertyChildren = getElementNodes(attributesBean.get().getChildNodes());
-        Assert.assertEquals("Should be one child under the attributes node",1,propertyChildren.size());
+        Assert.assertEquals("Should be one child under the attributes node", 1, propertyChildren.size());
         Node attributesList = propertyChildren.get(0);
 
         List<Node> attributeNodes = getElementNodes(attributesList.getChildNodes());
         List<String> attributes = attributeNodes
-                .stream()
-                .map(attrNode -> getBean(attrNode))
-                .collect(Collectors.toList());
+            .stream()
+            .map(attrNode -> getBean(attrNode))
+            .collect(Collectors.toList());
 
         Assert.assertTrue(attributes.contains("PersonImpl-emailAddress"));
         Assert.assertTrue(attributes.contains("PersonImpl-entityId"));
@@ -75,46 +75,47 @@ public class QuinoaSharedDataDictionaryTypesTest {
         Assert.assertTrue(attributes.contains("PersonImpl-primaryDepartmentCode"));
     }
 
-    private Optional<Node> getPropertyOfBean(Node bean,String name) {
+    private Optional<Node> getPropertyOfBean(Node bean, String name) {
         return getElementNodes(bean.getChildNodes())
-                .stream()
-                .filter(b -> name.equals(getName(b)))
-                .findFirst();
+            .stream()
+            .filter(b -> name.equals(getName(b)))
+            .findFirst();
     }
 
     private Optional<Node> getBeanOfName(String name) {
         List<Node> beans = getElementNodes(documentElement.getChildNodes());
 
         return beans
-                .stream()
-                .filter(b -> name.equals(getId(b)))
-                .findFirst();
+            .stream()
+            .filter(b -> name.equals(getId(b)))
+            .findFirst();
     }
 
     private String getBean(Node bean) {
-        return getAttributeValue(bean,"bean");
+        return getAttributeValue(bean, "bean");
     }
 
     private String getName(Node bean) {
-        return getAttributeValue(bean,"name");
+        return getAttributeValue(bean, "name");
     }
 
     private String getId(Node bean) {
-        return getAttributeValue(bean,"id");
+        return getAttributeValue(bean, "id");
     }
 
-    private String getAttributeValue(Node bean,String attribute) {
-        Element beanElement = (Element)bean;
+    private String getAttributeValue(Node bean, String attribute) {
+        Element beanElement = (Element) bean;
         return beanElement.getAttribute(attribute);
     }
 
     private List<Node> getElementNodes(NodeList nodes) {
         List<Node> outNodes = new ArrayList<Node>();
-        for ( int i = 0; i < nodes.getLength(); i++ ) {
+        for (int i = 0; i < nodes.getLength(); i++) {
             Node child = nodes.item(i);
-            if ( child.getNodeType() == Node.ELEMENT_NODE ) {
+            if (child.getNodeType() == Node.ELEMENT_NODE) {
                 outNodes.add(child);
             }
         }
         return outNodes;
-    }}
+    }
+}

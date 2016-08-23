@@ -2302,7 +2302,6 @@
                         "templateName": "Use Screen",
                         "details": {
                           "actionClass": "org.kuali.kfs.sys.web.struts.SidebarMenuCacheAction"
-
                         }
                       }
                     },
@@ -2616,7 +2615,7 @@
                     },
                     {
                       "label": "Vendor Tax Lookup",
-                      "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.vnd.businessobject.VendorTaxDetail&docFormKey=88888888&hideReturnLink=true", 
+                      "link": "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kfs.vnd.businessobject.VendorTaxDetail&docFormKey=88888888&hideReturnLink=true",
                       "linkType": "kfs",
                       "permission": {
                         "templateNamespace": "KR-NS",

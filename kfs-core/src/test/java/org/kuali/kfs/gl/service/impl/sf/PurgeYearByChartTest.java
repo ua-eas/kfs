@@ -39,9 +39,9 @@ public class PurgeYearByChartTest {
 
     @Test
     public void testPurgeYearByChart() {
-        sufficientFundsDao.purgeYearByChart("BL",2017);
+        sufficientFundsDao.purgeYearByChart("BL", 2017);
         EasyMock.replay(sufficientFundsDao);
 
-        sufficientFundsService.purgeYearByChart("BL",2017);
+        sufficientFundsService.purgeYearByChart("BL", 2017);
     }
 }

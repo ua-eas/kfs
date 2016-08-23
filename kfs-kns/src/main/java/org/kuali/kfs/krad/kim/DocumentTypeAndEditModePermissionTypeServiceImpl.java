@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -36,18 +36,18 @@ public class DocumentTypeAndEditModePermissionTypeServiceImpl extends DocumentTy
         return attrs;
     }
 
-	@Override
-	protected List<Permission> performPermissionMatches(
-			Map<String, String> requestedDetails,
-			List<Permission> permissionsList) {
+    @Override
+    protected List<Permission> performPermissionMatches(
+        Map<String, String> requestedDetails,
+        List<Permission> permissionsList) {
 
         List<Permission> matchingPermissions = new ArrayList<Permission>();
-		for (Permission permission : permissionsList) {
+        for (Permission permission : permissionsList) {
             PermissionBo bo = PermissionBo.from(permission);
-			if (requestedDetails.get(KimConstants.AttributeConstants.EDIT_MODE).equals(bo.getDetails().get(KimConstants.AttributeConstants.EDIT_MODE))) {
-				matchingPermissions.add(permission);
-			}
-		}
-		return super.performPermissionMatches(requestedDetails, matchingPermissions);
-	}
+            if (requestedDetails.get(KimConstants.AttributeConstants.EDIT_MODE).equals(bo.getDetails().get(KimConstants.AttributeConstants.EDIT_MODE))) {
+                matchingPermissions.add(permission);
+            }
+        }
+        return super.performPermissionMatches(requestedDetails, matchingPermissions);
+    }
 }

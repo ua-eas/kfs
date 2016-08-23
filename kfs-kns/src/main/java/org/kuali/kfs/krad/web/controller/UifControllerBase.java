@@ -1,29 +1,24 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.krad.web.controller;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.krad.uif.view.ViewAuthorizer;
-import org.kuali.kfs.krad.web.form.UifFormBase;
-import org.kuali.rice.core.api.config.property.ConfigContext;
-import org.kuali.rice.core.web.format.BooleanFormatter;
-import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.kfs.krad.exception.AuthorizationException;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.service.ModuleService;
@@ -41,10 +36,15 @@ import org.kuali.kfs.krad.uif.util.UifWebUtils;
 import org.kuali.kfs.krad.uif.view.History;
 import org.kuali.kfs.krad.uif.view.HistoryEntry;
 import org.kuali.kfs.krad.uif.view.View;
+import org.kuali.kfs.krad.uif.view.ViewAuthorizer;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.KRADUtils;
 import org.kuali.kfs.krad.util.UrlFactory;
+import org.kuali.kfs.krad.web.form.UifFormBase;
+import org.kuali.rice.core.api.config.property.ConfigContext;
+import org.kuali.rice.core.web.format.BooleanFormatter;
+import org.kuali.rice.kim.api.identity.Person;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,20 +62,18 @@ import java.util.Properties;
 
 /**
  * Base controller class for views within the KRAD User Interface Framework
- *
+ * <p>
  * Provides common methods such as:
- *
+ * <p>
  * <ul>
  * <li>Authorization methods such as method to call check</li>
  * <li>Preparing the View instance and setup in the returned
  * <code>ModelAndView</code></li>
  * </ul>
- *
+ * <p>
  * All subclass controller methods after processing should call one of the
  * #getUIFModelAndView methods to setup the <code>View</code> and return the
  * <code>ModelAndView</code> instance.
- *
- * 
  */
 public abstract class UifControllerBase {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(UifControllerBase.class);
@@ -95,7 +93,7 @@ public abstract class UifControllerBase {
 
         // get Uif form manager from session if exists or setup a new one for the session
         UifFormManager uifFormManager = (UifFormManager) request.getSession().getAttribute(
-                UifParameters.FORM_MANAGER);
+            UifParameters.FORM_MANAGER);
         if (uifFormManager == null) {
             uifFormManager = new UifFormManager();
             request.getSession().setAttribute(UifParameters.FORM_MANAGER, uifFormManager);
@@ -107,7 +105,7 @@ public abstract class UifControllerBase {
         String formKeyParam = request.getParameter(UifParameters.FORM_KEY);
         if (StringUtils.isNotBlank(formKeyParam)) {
             form = uifFormManager.getForm(formKeyParam);
-        } 
+        }
 
         // if form not in manager, create a new form
         if (form == null) {
@@ -134,7 +132,7 @@ public abstract class UifControllerBase {
      */
     @RequestMapping(params = "methodToCall=start")
     public ModelAndView start(@ModelAttribute("KualiForm") UifFormBase form, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) {
+                              HttpServletRequest request, HttpServletResponse response) {
 
         // check view authorization
         // TODO: this needs to be invoked for each request
@@ -149,14 +147,14 @@ public abstract class UifControllerBase {
     /**
      * Invokes the configured {@link ViewAuthorizer} to verify the user has access to
      * open the view. An exception is thrown if access has not been granted
-     *
+     * <p>
      * <p>
      * Note this method is invoked automatically by the controller interceptor for each request
      * </p>
      *
-     * @param form - form instance containing the request data
+     * @param form         - form instance containing the request data
      * @param methodToCall - the request parameter 'methodToCall' which is used to determine the controller
-     * method invoked
+     *                     method invoked
      */
     public void checkViewAuthorization(UifFormBase form, String methodToCall) throws AuthorizationException {
         Person user = GlobalVariables.getUserSession().getPerson();
@@ -164,8 +162,8 @@ public abstract class UifControllerBase {
         boolean canOpenView = form.getView().getAuthorizer().canOpenView(form.getView(), form, user);
         if (!canOpenView) {
             throw new AuthorizationException(user.getPrincipalName(), "open", form.getView().getId(),
-                    "User '" + user.getPrincipalName() + "' is not authorized to open view ID: " + form.getView()
-                            .getId(), null);
+                "User '" + user.getPrincipalName() + "' is not authorized to open view ID: " + form.getView()
+                    .getId(), null);
         }
     }
 
@@ -176,7 +174,7 @@ public abstract class UifControllerBase {
      */
     @RequestMapping(method = RequestMethod.POST, params = "methodToCall=addLine")
     public ModelAndView addLine(@ModelAttribute("KualiForm") UifFormBase uifForm, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) {
+                                HttpServletRequest request, HttpServletResponse response) {
 
         String selectedCollectionPath = uifForm.getActionParamaterValue(UifParameters.SELLECTED_COLLECTION_PATH);
         if (StringUtils.isBlank(selectedCollectionPath)) {
@@ -197,7 +195,7 @@ public abstract class UifControllerBase {
      */
     @RequestMapping(method = RequestMethod.POST, params = "methodToCall=deleteLine")
     public ModelAndView deleteLine(@ModelAttribute("KualiForm") UifFormBase uifForm, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) {
+                                   HttpServletRequest request, HttpServletResponse response) {
 
         String selectedCollectionPath = uifForm.getActionParamaterValue(UifParameters.SELLECTED_COLLECTION_PATH);
         if (StringUtils.isBlank(selectedCollectionPath)) {
@@ -216,7 +214,7 @@ public abstract class UifControllerBase {
 
         View view = uifForm.getPostedView();
         view.getViewHelperService().processCollectionDeleteLine(view, uifForm, selectedCollectionPath,
-                selectedLineIndex);
+            selectedLineIndex);
 
         return updateComponent(uifForm, result, request, response);
     }
@@ -226,15 +224,15 @@ public abstract class UifControllerBase {
      * rerun the component lifecycle and rendering based on the updated indicator and form data
      *
      * @param request - request object that should contain the request component id (for the collection group)
-     * and the show inactive indicator value
+     *                and the show inactive indicator value
      */
     @RequestMapping(method = RequestMethod.POST, params = "methodToCall=toggleInactiveRecordDisplay")
     public ModelAndView toggleInactiveRecordDisplay(@ModelAttribute("KualiForm") UifFormBase uifForm,
-            BindingResult result, HttpServletRequest request, HttpServletResponse response) {
+                                                    BindingResult result, HttpServletRequest request, HttpServletResponse response) {
         String collectionGroupId = request.getParameter(UifParameters.REQUESTED_COMPONENT_ID);
         if (StringUtils.isBlank(collectionGroupId)) {
             throw new RuntimeException(
-                    "Collection group id to update for inactive record display not found in request");
+                "Collection group id to update for inactive record display not found in request");
         }
 
         String showInactiveStr = request.getParameter(UifParameters.SHOW_INACTIVE_RECORDS);
@@ -247,14 +245,14 @@ public abstract class UifControllerBase {
         }
 
         CollectionGroup collectionGroup = (CollectionGroup) ComponentFactory.getNewInstanceForRefresh(
-                uifForm.getPostedView(), collectionGroupId);
+            uifForm.getPostedView(), collectionGroupId);
 
         // update inactive flag on group
         collectionGroup.setShowInactive(showInactive);
 
         // run lifecycle and update in view
         uifForm.getPostedView().getViewHelperService().performComponentLifecycle(uifForm.getPostedView(), uifForm,
-                collectionGroup, collectionGroupId);
+            collectionGroup, collectionGroupId);
 
         return UifWebUtils.getComponentModelAndView(collectionGroup, uifForm);
     }
@@ -264,7 +262,7 @@ public abstract class UifControllerBase {
      */
     @RequestMapping(params = "methodToCall=cancel")
     public ModelAndView cancel(@ModelAttribute("KualiForm") UifFormBase form, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) {
+                               HttpServletRequest request, HttpServletResponse response) {
         return close(form, result, request, response);
     }
 
@@ -273,7 +271,7 @@ public abstract class UifControllerBase {
      */
     @RequestMapping(params = "methodToCall=close")
     public ModelAndView close(@ModelAttribute("KualiForm") UifFormBase form, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) {
+                              HttpServletRequest request, HttpServletResponse response) {
         Properties props = new Properties();
         props.put(UifParameters.METHOD_TO_CALL, UifConstants.MethodToCallNames.REFRESH);
         if (StringUtils.isNotBlank(form.getReturnFormKey())) {
@@ -319,9 +317,9 @@ public abstract class UifControllerBase {
      * Invoked to navigate back to a history entry. The homeFlag will determine whether navigation
      * will be back to the first or last history entry.
      *
-     * @param form - form object that should contain the history object
+     * @param form     - form object that should contain the history object
      * @param homeFlag - if true will navigate back to first entry else will navigate to last entry
-     * in the history
+     *                 in the history
      */
     public ModelAndView returnToHistory(UifFormBase form, boolean homeFlag) {
         // Get the history from the form
@@ -360,7 +358,7 @@ public abstract class UifControllerBase {
      */
     @RequestMapping(method = RequestMethod.POST, params = "methodToCall=navigate")
     public ModelAndView navigate(@ModelAttribute("KualiForm") UifFormBase form, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) {
+                                 HttpServletRequest request, HttpServletResponse response) {
         String pageId = form.getActionParamaterValue(UifParameters.NAVIGATE_TO_PAGE_ID);
 
         // only refreshing page
@@ -370,21 +368,21 @@ public abstract class UifControllerBase {
     }
 
     /**
-     *  handles an ajax refresh
+     * handles an ajax refresh
+     * <p>
+     * <p>The query form plugin  activates this request via a form post, where on the JS side,
+     * {@code UifParameters#RENDER_FULL_VIEW} is set to false</p>
      *
-     *  <p>The query form plugin  activates this request via a form post, where on the JS side,
-     *  {@code UifParameters#RENDER_FULL_VIEW} is set to false</p>
-     *
-     * @param form  -  Holds properties necessary to determine the <code>View</code> instance that will be used to render the UI
-     * @param result  -   represents binding results
+     * @param form     -  Holds properties necessary to determine the <code>View</code> instance that will be used to render the UI
+     * @param result   -   represents binding results
      * @param request  - http servlet request data
-     * @param response   - http servlet response object
-     * @return  the  ModelAndView object
+     * @param response - http servlet response object
+     * @return the  ModelAndView object
      * @throws Exception
      */
     @RequestMapping(params = "methodToCall=refresh")
     public ModelAndView refresh(@ModelAttribute("KualiForm") UifFormBase form, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) throws Exception {
+                                HttpServletRequest request, HttpServletResponse response) throws Exception {
         // TODO: this code still needs to handle reference refreshes
         String refreshCallerType = "";
         if (request.getParameterMap().containsKey(KRADConstants.REFRESH_CALLER_TYPE)) {
@@ -400,7 +398,7 @@ public abstract class UifControllerBase {
 
             if (StringUtils.isBlank(lookupCollectionName)) {
                 throw new RuntimeException(
-                        "Lookup collection name is required for processing multi-value lookup results");
+                    "Lookup collection name is required for processing multi-value lookup results");
             }
 
             String selectedLineValues = "";
@@ -410,7 +408,7 @@ public abstract class UifControllerBase {
 
             // invoked view helper to populate the collection from lookup results
             form.getPostedView().getViewHelperService().processMultipleValueLookupResults(form.getPostedView(),
-                    form, lookupCollectionName, selectedLineValues);
+                form, lookupCollectionName, selectedLineValues);
         }
 
         if (request.getParameterMap().containsKey(UifParameters.RENDER_FULL_VIEW)) {
@@ -430,7 +428,7 @@ public abstract class UifControllerBase {
      */
     @RequestMapping(method = RequestMethod.POST, params = "methodToCall=updateComponent")
     public ModelAndView updateComponent(@ModelAttribute("KualiForm") UifFormBase form, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) {
+                                        HttpServletRequest request, HttpServletResponse response) {
         String requestedComponentId = request.getParameter(UifParameters.REQUESTED_COMPONENT_ID);
         if (StringUtils.isBlank(requestedComponentId)) {
             throw new RuntimeException("Requested component id for update not found in request");
@@ -438,17 +436,17 @@ public abstract class UifControllerBase {
 
         // get a new instance of the component
         Component comp = ComponentFactory.getNewInstanceForRefresh(form.getPostedView(), requestedComponentId);
-        
+
         View postedView = form.getPostedView();
 
         // run lifecycle and update in view
         postedView.getViewHelperService().performComponentLifecycle(postedView, form, comp,
-                requestedComponentId);
+            requestedComponentId);
 
         //Regenerate server message content for page
         postedView.getCurrentPage().getErrorsField().setDisplayNestedMessages(true);
         postedView.getCurrentPage().getErrorsField().generateMessages(false, postedView, form,
-                postedView.getCurrentPage());
+            postedView.getCurrentPage());
 
         return UifWebUtils.getComponentModelAndView(comp, form);
     }
@@ -459,7 +457,7 @@ public abstract class UifControllerBase {
      */
     @RequestMapping(method = RequestMethod.POST, params = "methodToCall=performLookup")
     public ModelAndView performLookup(@ModelAttribute("KualiForm") UifFormBase form, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) {
+                                      HttpServletRequest request, HttpServletResponse response) {
         Properties lookupParameters = form.getActionParametersAsProperties();
 
         String lookupObjectClassName = (String) lookupParameters.get(UifParameters.DATA_OBJECT_CLASS_NAME);
@@ -477,11 +475,11 @@ public abstract class UifControllerBase {
             Map<String, String> lookupParameterFields = KRADUtils.getMapFromParameterString(lookupParameterString);
             for (Entry<String, String> lookupParameter : lookupParameterFields.entrySet()) {
                 String lookupParameterValue = LookupInquiryUtils.retrieveLookupParameterValue(form, request,
-                        lookupObjectClass, lookupParameter.getValue(), lookupParameter.getKey());
+                    lookupObjectClass, lookupParameter.getValue(), lookupParameter.getKey());
 
                 if (StringUtils.isNotBlank(lookupParameterValue)) {
                     lookupParameters.put(UifPropertyPaths.CRITERIA_FIELDS + "['" + lookupParameter.getValue() + "']",
-                            lookupParameterValue);
+                        lookupParameterValue);
                 }
             }
         }
@@ -504,15 +502,15 @@ public abstract class UifControllerBase {
         // special check for external object classes
         if (lookupObjectClass != null) {
             ModuleService responsibleModuleService =
-                    KRADServiceLocatorWeb.getKualiModuleService().getResponsibleModuleService(lookupObjectClass);
+                KRADServiceLocatorWeb.getKualiModuleService().getResponsibleModuleService(lookupObjectClass);
             if (responsibleModuleService != null && responsibleModuleService.isExternalizable(lookupObjectClass)) {
                 String lookupUrl = responsibleModuleService.getExternalizableDataObjectLookupUrl(lookupObjectClass,
-                        lookupParameters);
+                    lookupParameters);
 
                 Properties externalInquiryProperties = new Properties();
                 if (lookupParameters.containsKey(UifParameters.LIGHTBOX_CALL)) {
                     externalInquiryProperties.put(UifParameters.LIGHTBOX_CALL, lookupParameters.get(
-                            UifParameters.LIGHTBOX_CALL));
+                        UifParameters.LIGHTBOX_CALL));
                 }
 
                 return performRedirect(form, lookupUrl, externalInquiryProperties);
@@ -532,14 +530,14 @@ public abstract class UifControllerBase {
     public
     @ResponseBody
     AttributeQueryResult performFieldSuggest(@ModelAttribute("KualiForm") UifFormBase form, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) {
+                                             HttpServletRequest request, HttpServletResponse response) {
 
         // retrieve query fields from request
         Map<String, String> queryParameters = new HashMap<String, String>();
         for (Object parameterName : request.getParameterMap().keySet()) {
             if (parameterName.toString().startsWith(UifParameters.QUERY_PARAMETER + ".")) {
                 String fieldName = StringUtils.substringAfter(parameterName.toString(),
-                        UifParameters.QUERY_PARAMETER + ".");
+                    UifParameters.QUERY_PARAMETER + ".");
                 String fieldValue = request.getParameter(parameterName.toString());
                 queryParameters.put(fieldName, fieldValue);
             }
@@ -549,20 +547,20 @@ public abstract class UifControllerBase {
         String queryFieldId = request.getParameter(UifParameters.QUERY_FIELD_ID);
         if (StringUtils.isBlank(queryFieldId)) {
             throw new RuntimeException("Unable to find id for field to perform query on under request parameter name: "
-                    + UifParameters.QUERY_FIELD_ID);
+                + UifParameters.QUERY_FIELD_ID);
         }
 
         // get the field term to match
         String queryTerm = request.getParameter(UifParameters.QUERY_TERM);
         if (StringUtils.isBlank(queryTerm)) {
             throw new RuntimeException(
-                    "Unable to find id for query term value for attribute query on under request parameter name: "
-                            + UifParameters.QUERY_TERM);
+                "Unable to find id for query term value for attribute query on under request parameter name: "
+                    + UifParameters.QUERY_TERM);
         }
 
         // invoke attribute query service to perform the query
         AttributeQueryResult queryResult = KRADServiceLocatorWeb.getAttributeQueryService().performFieldSuggestQuery(
-                form.getPostedView(), queryFieldId, queryTerm, queryParameters);
+            form.getPostedView(), queryFieldId, queryTerm, queryParameters);
 
         return queryResult;
     }
@@ -578,14 +576,14 @@ public abstract class UifControllerBase {
     public
     @ResponseBody
     AttributeQueryResult performFieldQuery(@ModelAttribute("KualiForm") UifFormBase form, BindingResult result,
-            HttpServletRequest request, HttpServletResponse response) {
+                                           HttpServletRequest request, HttpServletResponse response) {
 
         // retrieve query fields from request
         Map<String, String> queryParameters = new HashMap<String, String>();
         for (Object parameterName : request.getParameterMap().keySet()) {
             if (parameterName.toString().startsWith(UifParameters.QUERY_PARAMETER + ".")) {
                 String fieldName = StringUtils.substringAfter(parameterName.toString(),
-                        UifParameters.QUERY_PARAMETER + ".");
+                    UifParameters.QUERY_PARAMETER + ".");
                 String fieldValue = request.getParameter(parameterName.toString());
                 queryParameters.put(fieldName, fieldValue);
             }
@@ -595,12 +593,12 @@ public abstract class UifControllerBase {
         String queryFieldId = request.getParameter(UifParameters.QUERY_FIELD_ID);
         if (StringUtils.isBlank(queryFieldId)) {
             throw new RuntimeException("Unable to find id for field to perform query on under request parameter name: "
-                    + UifParameters.QUERY_FIELD_ID);
+                + UifParameters.QUERY_FIELD_ID);
         }
 
         // invoke attribute query service to perform the query
         AttributeQueryResult queryResult = KRADServiceLocatorWeb.getAttributeQueryService().performFieldQuery(
-                form.getPostedView(), queryFieldId, queryParameters);
+            form.getPostedView(), queryFieldId, queryParameters);
 
         return queryResult;
     }
@@ -609,10 +607,10 @@ public abstract class UifControllerBase {
      * Builds a <code>ModelAndView</code> instance configured to redirect to the
      * URL formed by joining the base URL with the given URL parameters
      *
-     * @param form - current form instance
-     * @param baseUrl - base url to redirect to
+     * @param form          - current form instance
+     * @param baseUrl       - base url to redirect to
      * @param urlParameters - properties containing key/value pairs for the url parameters, if null or empty,
-     * the baseUrl will be used as the full URL
+     *                      the baseUrl will be used as the full URL
      * @return ModelAndView configured to redirect to the given URL
      */
     protected ModelAndView performRedirect(UifFormBase form, String baseUrl, Properties urlParameters) {
@@ -625,7 +623,7 @@ public abstract class UifControllerBase {
         // If this is an Light Box call only return the redirectURL view with the URL
         // set this is to avoid automatic redirect when using light boxes
         if (urlParameters.get(UifParameters.LIGHTBOX_CALL) != null &&
-                urlParameters.get(UifParameters.LIGHTBOX_CALL).equals("true")) {
+            urlParameters.get(UifParameters.LIGHTBOX_CALL).equals("true")) {
             urlParameters.remove(UifParameters.LIGHTBOX_CALL);
             String redirectUrl = UrlFactory.parameterizeUrl(baseUrl, urlParameters);
 
@@ -648,9 +646,9 @@ public abstract class UifControllerBase {
      * Configures the <code>ModelAndView</code> instance containing the form
      * data and pointing to the UIF generic spring view
      *
-     * @param form - Form instance containing the model data
+     * @param form   - Form instance containing the model data
      * @param pageId - Id of the page within the view that should be rendered, can
-     * be left blank in which the current or default page is rendered
+     *               be left blank in which the current or default page is rendered
      * @return ModelAndView object with the contained form
      */
     protected ModelAndView getUIFModelAndView(UifFormBase form, String pageId) {

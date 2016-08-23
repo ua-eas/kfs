@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -20,10 +20,10 @@ package org.kuali.kfs.krad.web.bind;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
-import org.kuali.kfs.krad.uif.UifParameters;
-import org.kuali.kfs.krad.uif.view.View;
 import org.kuali.kfs.krad.uif.UifConstants.ViewType;
+import org.kuali.kfs.krad.uif.UifParameters;
 import org.kuali.kfs.krad.uif.service.ViewService;
+import org.kuali.kfs.krad.uif.view.View;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADUtils;
 import org.kuali.kfs.krad.web.form.UifFormBase;
@@ -39,12 +39,10 @@ import java.util.Map;
 /**
  * Override of ServletRequestDataBinder in order to hook in the UifBeanPropertyBindingResult
  * which instantiates a custom BeanWrapperImpl.
- *
- * 
  */
 public class UifServletRequestDataBinder extends ServletRequestDataBinder {
     protected static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(
-            UifServletRequestDataBinder.class);
+        UifServletRequestDataBinder.class);
 
     private UifBeanPropertyBindingResult bindingResult;
     private ConversionService conversionService;
@@ -67,9 +65,9 @@ public class UifServletRequestDataBinder extends ServletRequestDataBinder {
     @Override
     public void initBeanPropertyAccess() {
         Assert.state(this.bindingResult == null,
-                "DataBinder is already initialized - call initBeanPropertyAccess before other configuration methods");
+            "DataBinder is already initialized - call initBeanPropertyAccess before other configuration methods");
         this.bindingResult = new UifBeanPropertyBindingResult(getTarget(), getObjectName(), isAutoGrowNestedPaths(),
-                getAutoGrowCollectionLimit());
+            getAutoGrowCollectionLimit());
         if (this.conversionService != null) {
             this.bindingResult.initConversion(this.conversionService);
         }
@@ -124,7 +122,7 @@ public class UifServletRequestDataBinder extends ServletRequestDataBinder {
 
                 if (viewType != null) {
                     Map<String, String> parameterMap = KRADUtils.translateRequestParameterMap(
-                            request.getParameterMap());
+                        request.getParameterMap());
                     view = getViewService().getViewByType(viewType, parameterMap);
                 }
 

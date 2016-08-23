@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -35,10 +35,10 @@ public class Section implements java.io.Serializable {
     String extraButtonSource;
     boolean hidden = false;
     boolean readOnly = false;
-    String helpUrl="";
+    String helpUrl = "";
 
     boolean defaultOpen = true;
-    
+
     Class sectionClass;
     List<Row> rows;
     List<String> containedCollectionNames = new ArrayList();
@@ -51,7 +51,7 @@ public class Section implements java.io.Serializable {
 
     /**
      * Constructor which sets section rows
-     * 
+     *
      * @param rows the rows to be displayed in the section
      */
     public Section(List rows) {
@@ -151,10 +151,11 @@ public class Section implements java.io.Serializable {
     public void setNumberOfColumns(int numberOfColumns) {
         this.numberOfColumns = numberOfColumns;
     }
-    
+
 
     /**
-     * Gets the containedCollectionNames attribute. 
+     * Gets the containedCollectionNames attribute.
+     *
      * @return Returns the containedCollectionNames.
      */
     public List<String> getContainedCollectionNames() {
@@ -163,12 +164,13 @@ public class Section implements java.io.Serializable {
 
     /**
      * Sets the containedCollectionNames attribute value.
+     *
      * @param containedCollectionNames The containedCollectionNames to set.
      */
     public void setContainedCollectionNames(List<String> containedCollectionNames) {
         this.containedCollectionNames = containedCollectionNames;
     }
-    
+
     /**
      * @return the extraButtonSource
      */
@@ -199,8 +201,8 @@ public class Section implements java.io.Serializable {
             }
             if (rowFields.size() == 1) {
                 int i = 1;
-                while (i < rows.size() &&(Field.SUB_SECTION_SEPARATOR.equals(firstElement.getFieldType()) ||
-                                          Field.HIDDEN.equals(firstElement.getFieldType()))) {
+                while (i < rows.size() && (Field.SUB_SECTION_SEPARATOR.equals(firstElement.getFieldType()) ||
+                    Field.HIDDEN.equals(firstElement.getFieldType()))) {
                     Row aRow = rows.get(i);
                     rowFields = aRow.getFields();
                     firstElement = rowFields.get(0);
@@ -208,15 +210,14 @@ public class Section implements java.io.Serializable {
                 }
             }
             int cnt = 0;
-            for (Field element : rowFields ) {
+            for (Field element : rowFields) {
                 // all fields except image type have a label and control cell
                 if (!Field.IMAGE_SUBMIT.equals(element.getFieldType())) {
                     cnt += 2;
                 }
             }
             return cnt;
-        }
-        else {
+        } else {
             return 0;
         }
     }
@@ -237,40 +238,40 @@ public class Section implements java.io.Serializable {
         this.hidden = hidden;
     }
 
-	/**
-	 * @return the readOnly
-	 */
-	public boolean isReadOnly() {
-		return this.readOnly;
-	}
+    /**
+     * @return the readOnly
+     */
+    public boolean isReadOnly() {
+        return this.readOnly;
+    }
 
-	/**
-	 * @param readOnly the readOnly to set
-	 */
-	public void setReadOnly(boolean readOnly) {
-		this.readOnly = readOnly;
-	}
+    /**
+     * @param readOnly the readOnly to set
+     */
+    public void setReadOnly(boolean readOnly) {
+        this.readOnly = readOnly;
+    }
 
-	/**
-	 * @return whether the section should be open by default when rendered
-	 */
-	public boolean isDefaultOpen() {
-		return this.defaultOpen;
-	}
+    /**
+     * @return whether the section should be open by default when rendered
+     */
+    public boolean isDefaultOpen() {
+        return this.defaultOpen;
+    }
 
-	/**
-	 * @param defaultOpen the defaultOpen to set
-	 */
-	public void setDefaultOpen(boolean defaultOpen) {
-		this.defaultOpen = defaultOpen;
-	}
+    /**
+     * @param defaultOpen the defaultOpen to set
+     */
+    public void setDefaultOpen(boolean defaultOpen) {
+        this.defaultOpen = defaultOpen;
+    }
 
-	public String getHelpUrl() {
-		return helpUrl;
-	}
+    public String getHelpUrl() {
+        return helpUrl;
+    }
 
-	public void setHelpUrl(String helpUrl) {
-		this.helpUrl = helpUrl;
-	}
-	
+    public void setHelpUrl(String helpUrl) {
+        this.helpUrl = helpUrl;
+    }
+
 }

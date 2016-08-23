@@ -1,34 +1,36 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cam.document;
 
-import java.sql.Timestamp;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.Maintainable;
+import org.kuali.kfs.kns.web.ui.Section;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.maintenance.MaintenanceLock;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsKeyConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
@@ -45,23 +47,19 @@ import org.kuali.kfs.module.cam.util.MaintainableWorkflowUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
-import org.kuali.kfs.sys.service.BankService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.IdentityService;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.maintenance.Maintainable;
-import org.kuali.kfs.kns.web.ui.Section;
-import org.kuali.kfs.krad.bo.DocumentHeader;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.maintenance.MaintenanceLock;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.NoteService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import java.sql.Timestamp;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class implements custom data preparation for displaying asset edit screen.
@@ -76,9 +74,10 @@ public class AssetMaintainableImpl extends FinancialSystemMaintainable {
     private boolean fabricationOn;
     protected static volatile IdentityService identityService;
     protected static volatile DocumentService documentService;
-    
-    
+
+
     private static final Map<String, String> FINANCIAL_DOC_NAME_MAP = new HashMap<String, String>();
+
     static {
         FINANCIAL_DOC_NAME_MAP.put(KFSConstants.FinancialDocumentTypeCodes.CASH_RECEIPT, KFSConstants.FinancialDocumentTypeNames.CASH_RECEIPT);
         FINANCIAL_DOC_NAME_MAP.put(KFSConstants.FinancialDocumentTypeCodes.DISTRIBUTION_OF_INCOME_AND_EXPENSE, KFSConstants.FinancialDocumentTypeNames.DISTRIBUTION_OF_INCOME_AND_EXPENSE);
@@ -119,10 +118,10 @@ public class AssetMaintainableImpl extends FinancialSystemMaintainable {
     }
 
     /**
-     * @see org.kuali.rice.kns.maintenance.Maintainable#processAfterEdit(org.kuali.rice.kns.document.MaintenanceDocument,
-     *      java.util.Map)
-     * @param document Maintenance Document used for editing
+     * @param document   Maintenance Document used for editing
      * @param parameters Parameters available
+     * @see org.kuali.rice.kns.maintenance.Maintainable#processAfterEdit(org.kuali.rice.kns.document.MaintenanceDocument,
+     * java.util.Map)
      */
     @Override
     public void processAfterEdit(MaintenanceDocument document, Map parameters) {
@@ -158,10 +157,10 @@ public class AssetMaintainableImpl extends FinancialSystemMaintainable {
 
     /**
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#refresh(java.lang.String, java.util.Map,
-     *      org.kuali.rice.kns.document.MaintenanceDocument)
-     *
+     * org.kuali.rice.kns.document.MaintenanceDocument)
+     * <p>
      * KRAD Conversion: Performs customization of the core sections.
-     *
+     * <p>
      * Uses data dictionary for bo Asset to get the core section ids to set section titles.
      */
     @Override
@@ -209,7 +208,7 @@ public class AssetMaintainableImpl extends FinancialSystemMaintainable {
         //Asset only
         if (this.getBusinessObject() instanceof Asset && MaintainableWorkflowUtils.isDocumentSavedOrEnroute(getDocumentNumber())) {
 
-            Asset asset = (Asset)getBusinessObject();
+            Asset asset = (Asset) getBusinessObject();
             asset.refreshReferenceObject(CamsPropertyConstants.Asset.ASSET_PAYMENTS);
 
             PaymentSummaryService paymentSummaryService = SpringContext.getBean(PaymentSummaryService.class);
@@ -218,18 +217,18 @@ public class AssetMaintainableImpl extends FinancialSystemMaintainable {
     }
 
     /**
-    * @see  org.kuali.kfs.sys.document.FinancialSystemMaintainable.processAfterPost
-    */
+     * @see org.kuali.kfs.sys.document.FinancialSystemMaintainable.processAfterPost
+     */
     @Override
     public void processAfterPost(MaintenanceDocument document, Map<String, String[]> parameters) {
         String[] customAction = parameters.get(KRADConstants.CUSTOM_ACTION);
-        if (customAction != null && customAction.length > 0 && StringUtils.equals(CamsPropertyConstants.Asset.LAST_INVENTORY_DATE_UPDATE_BUTTON,customAction[0])) {
+        if (customAction != null && customAction.length > 0 && StringUtils.equals(CamsPropertyConstants.Asset.LAST_INVENTORY_DATE_UPDATE_BUTTON, customAction[0])) {
             WorkflowDocument workflowDoc = document.getDocumentHeader().getWorkflowDocument();
-            if(workflowDoc != null && workflowDoc.isInitiated()) {
-                asset.setLastInventoryDate(new Timestamp(SpringContext.getBean(DateTimeService.class).getCurrentSqlDate().getTime()));            
-                String userPrincipalName= GlobalVariables.getUserSession().getPrincipalName();
+            if (workflowDoc != null && workflowDoc.isInitiated()) {
+                asset.setLastInventoryDate(new Timestamp(SpringContext.getBean(DateTimeService.class).getCurrentSqlDate().getTime()));
+                String userPrincipalName = GlobalVariables.getUserSession().getPrincipalName();
                 final String noteTextPattern = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(CamsKeyConstants.Asset.LAST_INVENTORY_DATE_UPDATE_NOTE_TEXT);
-                Object[] arguments = { userPrincipalName, asset.getCapitalAssetNumber().toString() };
+                Object[] arguments = {userPrincipalName, asset.getCapitalAssetNumber().toString()};
                 String noteText = MessageFormat.format(noteTextPattern, arguments);
                 Note lastInventoryDateUpdatedNote = getDocumentService().createNoteFromDocument(document, noteText);
                 lastInventoryDateUpdatedNote.setAuthorUniversalIdentifier(getIdentityService().getPrincipalByPrincipalName(KFSConstants.SYSTEM_USER).getPrincipalId());
@@ -301,8 +300,7 @@ public class AssetMaintainableImpl extends FinancialSystemMaintainable {
             try {
                 String docTypeName = getDocumentService().getByDocumentHeaderId(aDocumentNumber).getDocumentHeader().getWorkflowDocument().getDocumentTypeName();
                 documentInfo.add(FINANCIAL_DOC_NAME_MAP.get(docTypeName) + "-" + aDocumentNumber);
-            }
-            catch (WorkflowException e) {
+            } catch (WorkflowException e) {
                 throw new RuntimeException("Caught WorkflowException trying to get document type name", e);
             }
         }

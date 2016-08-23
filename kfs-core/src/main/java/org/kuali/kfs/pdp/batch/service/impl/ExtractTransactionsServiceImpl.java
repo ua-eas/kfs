@@ -1,30 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.pdp.batch.service.impl;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.sql.Date;
-import java.text.MessageFormat;
-import java.util.Iterator;
 
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.report.LedgerSummaryReport;
@@ -38,6 +30,14 @@ import org.kuali.kfs.sys.service.ReportWriterService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.sql.Date;
+import java.text.MessageFormat;
+import java.util.Iterator;
 
 @Transactional
 public class ExtractTransactionsServiceImpl implements ExtractTransactionsService {
@@ -69,8 +69,7 @@ public class ExtractTransactionsServiceImpl implements ExtractTransactionsServic
 
         try {
             extractTGlTransactionPS = new PrintStream(extractTGlTransactionFile);
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             throw new RuntimeException("extract transaction file doesn't exist " + extractTGlTransactionFileName);
         }
 
@@ -81,9 +80,9 @@ public class ExtractTransactionsServiceImpl implements ExtractTransactionsServic
             GlPendingTransaction tran = (GlPendingTransaction) transactions.next();
             //write to file
             extractTGlTransactionPS.printf("%s\n", tran.getOriginEntry().getLine());
-            
+
             extractGlSummaryReport.summarizeEntry(tran.getOriginEntry());
-            
+
             tran.setProcessInd(true);
             glPendingTransactionService.save(tran);
         }
@@ -97,17 +96,16 @@ public class ExtractTransactionsServiceImpl implements ExtractTransactionsServic
             if (!extractTGlTransactionDoneFile.exists()) {
                 try {
                     extractTGlTransactionDoneFile.createNewFile();
-                }
-                catch (IOException e) {
+                } catch (IOException e) {
                     throw new RuntimeException();
                 }
             }
 
             String reportTitle = this.kualiConfigurationService.getPropertyValueAsString(PdpKeyConstants.EXTRACT_TRANSACTION_SERVICE_REPORT_TITLE);
-            reportTitle = MessageFormat.format(reportTitle, new Object[] { null });
+            reportTitle = MessageFormat.format(reportTitle, new Object[]{null});
 
             String reportFilename = this.kualiConfigurationService.getPropertyValueAsString(PdpKeyConstants.EXTRACT_TRANSACTION_SERVICE_REPORT_FILENAME);
-            reportFilename = MessageFormat.format(reportFilename, new Object[] { null });
+            reportFilename = MessageFormat.format(reportFilename, new Object[]{null});
 
             // Run a report
             extractGlSummaryReport.writeReport(reportWriterService);
@@ -142,5 +140,5 @@ public class ExtractTransactionsServiceImpl implements ExtractTransactionsServic
         this.reportWriterService = reportWriterService;
     }
 
-    
+
 }

@@ -33,13 +33,13 @@ public class JsonAppender extends RollingFileAppender {
         dateFormatter = new SimpleDateFormat("dd/MMM/yyyy:HH:mm:ss Z");
     }
 
-    protected void appendField(StringBuffer json,String field,String value,boolean last) {
+    protected void appendField(StringBuffer json, String field, String value, boolean last) {
         json.append("  \"");
         json.append(field);
         json.append("\": \"");
-        json.append(value.replaceAll("\"","'"));
+        json.append(value.replaceAll("\"", "'"));
         json.append("\"");
-        if ( ! last ) {
+        if (!last) {
             json.append(",");
         }
         json.append("\n");
@@ -51,17 +51,17 @@ public class JsonAppender extends RollingFileAppender {
             StringBuffer json = new StringBuffer();
             json.append("{\n");
 
-            appendField(json,"time","[" + dateFormatter.format(new Date(event.getTimeStamp())) + "]",false);
-            appendField(json,"level",event.getLevel().toString(),false);
-            appendField(json,"message",event.getMessage() == null ? "null" : event.getMessage().toString(),false);
-            appendField(json,"thread",event.getThreadName(),false);
+            appendField(json, "time", "[" + dateFormatter.format(new Date(event.getTimeStamp())) + "]", false);
+            appendField(json, "level", event.getLevel().toString(), false);
+            appendField(json, "message", event.getMessage() == null ? "null" : event.getMessage().toString(), false);
+            appendField(json, "thread", event.getThreadName(), false);
 
-            Map<String,String> props = event.getProperties();
+            Map<String, String> props = event.getProperties();
             for (String key : props.keySet()) {
-                appendField(json,key,event.getProperty(key),false);
+                appendField(json, key, event.getProperty(key), false);
             }
 
-            if ( event.getThrowableStrRep() != null ) {
+            if (event.getThrowableStrRep() != null) {
                 json.append("  \"exception\": \"");
                 for (int i = 0; i < event.getThrowableStrRep().length; i++) {
                     json.append(event.getThrowableStrRep()[i]);
@@ -69,20 +69,20 @@ public class JsonAppender extends RollingFileAppender {
                 }
                 json.append("\",\n");
             }
-            appendField(json,"class",event.getLoggerName(),true);
+            appendField(json, "class", event.getLoggerName(), true);
 
             json.append("}\n");
 
             this.qw.write(json.toString());
 
-            if(shouldFlush(event)) {
+            if (shouldFlush(event)) {
                 this.qw.flush();
             }
 
             // Roll over if necessary
             if (this.fileName != null && this.qw != null) {
-                long size = ((CountingQuietWriter)this.qw).getCount();
-                if (size >= this.maxFileSize ) {
+                long size = ((CountingQuietWriter) this.qw).getCount();
+                if (size >= this.maxFileSize) {
                     this.rollOver();
                 }
             }

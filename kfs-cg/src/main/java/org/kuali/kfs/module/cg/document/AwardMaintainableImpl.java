@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,22 +18,17 @@
  */
 package org.kuali.kfs.module.cg.document;
 
-import static org.kuali.kfs.sys.KFSPropertyConstants.AWARD_ACCOUNTS;
-import static org.kuali.kfs.sys.KFSPropertyConstants.AWARD_FUND_MANAGERS;
-import static org.kuali.kfs.sys.KFSPropertyConstants.AWARD_PROJECT_DIRECTORS;
-import static org.kuali.kfs.sys.KFSPropertyConstants.AWARD_SUBCONTRACTORS;
-import static org.kuali.kfs.sys.KFSPropertyConstants.DOCUMENT;
-import static org.kuali.kfs.sys.KFSPropertyConstants.NEW_MAINTAINABLE_OBJECT;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.ar.AccountsReceivableModuleBillingService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.Maintainable;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.maintenance.MaintenanceLock;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cg.CGConstants;
 import org.kuali.kfs.module.cg.CGPropertyConstants;
 import org.kuali.kfs.module.cg.businessobject.Award;
@@ -50,20 +45,24 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.identity.principal.Principal;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.maintenance.Maintainable;
-import org.kuali.kfs.krad.bo.DocumentHeader;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.maintenance.MaintenanceLock;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.kuali.kfs.sys.KFSPropertyConstants.AWARD_ACCOUNTS;
+import static org.kuali.kfs.sys.KFSPropertyConstants.AWARD_FUND_MANAGERS;
+import static org.kuali.kfs.sys.KFSPropertyConstants.AWARD_PROJECT_DIRECTORS;
+import static org.kuali.kfs.sys.KFSPropertyConstants.AWARD_SUBCONTRACTORS;
+import static org.kuali.kfs.sys.KFSPropertyConstants.DOCUMENT;
+import static org.kuali.kfs.sys.KFSPropertyConstants.NEW_MAINTAINABLE_OBJECT;
 
 /**
  * Methods for the Award maintenance document UI.
@@ -72,6 +71,7 @@ public class AwardMaintainableImpl extends ContractsGrantsBillingMaintainable {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AwardMaintainableImpl.class);
 
     protected static volatile AccountsReceivableModuleBillingService accountsReceivableModuleBillingService;
+
     /**
      * This method is called for refreshing the Agency before display to show the full name in case the agency number was changed by
      * hand before any submit that causes a redisplay.
@@ -82,7 +82,7 @@ public class AwardMaintainableImpl extends ContractsGrantsBillingMaintainable {
         super.processAfterRetrieve();
     }
 
-     /**
+    /**
      * Not to copy over the Accounts tab, Predetermined tab, Milestone schedule tab, award account tab and award budgets tab when
      * copying
      */
@@ -93,7 +93,7 @@ public class AwardMaintainableImpl extends ContractsGrantsBillingMaintainable {
         Award oldAward = (Award) document.getOldMaintainableObject().getBusinessObject();
         Award newAward = (Award) document.getNewMaintainableObject().getBusinessObject();
 
-        if (ObjectUtils.isNotNull(oldAward) && ObjectUtils.isNotNull(newAward)){
+        if (ObjectUtils.isNotNull(oldAward) && ObjectUtils.isNotNull(newAward)) {
             // Clear Accounts
             oldAward.getAwardAccounts().clear();
             newAward.getAwardAccounts().clear();
@@ -123,9 +123,8 @@ public class AwardMaintainableImpl extends ContractsGrantsBillingMaintainable {
         // Set Billing Schedule
         if (StringUtils.isNotBlank(defaultBillingScheduleParm)) {
             getAward().setBillingFrequencyCode(defaultBillingScheduleParm);
-        }
-        else {
-        	getAward().setBillingFrequencyCode(CGConstants.MONTHLY_BILLING_SCHEDULE_CODE);
+        } else {
+            getAward().setBillingFrequencyCode(CGConstants.MONTHLY_BILLING_SCHEDULE_CODE);
         }
     }
 
@@ -163,8 +162,7 @@ public class AwardMaintainableImpl extends ContractsGrantsBillingMaintainable {
                         subcontractorAwardMap.put(awardSubcontractor.getSubcontractorNumber(), new ArrayList<AwardSubcontractor>());
                     }
                     subcontractorAwardMap.get(awardSubcontractor.getSubcontractorNumber()).add(awardSubcontractor);
-                }
-                else {
+                } else {
                     // new record, add to new map
                     newSubcontractorRecords.add(awardSubcontractor);
                 }
@@ -183,8 +181,7 @@ public class AwardMaintainableImpl extends ContractsGrantsBillingMaintainable {
                     for (AwardSubcontractor oldSub : oldSubcontractors) {
                         try {
                             nums[Integer.valueOf(oldSub.getAwardSubcontractorNumber())][Integer.valueOf(oldSub.getAwardSubcontractorAmendmentNumber())] = true;
-                        }
-                        catch (NumberFormatException ex) {
+                        } catch (NumberFormatException ex) {
                             // do nothing
                             LOG.warn("Unexpected non-integer award subcontractor / amendment number: " + oldSub.getAwardSubcontractorNumber() + " / " + oldSub.getAwardSubcontractorAmendmentNumber());
                         }
@@ -227,10 +224,10 @@ public class AwardMaintainableImpl extends ContractsGrantsBillingMaintainable {
         Award newAward = (Award) document.getNewMaintainableObject().getBusinessObject();
 
         // KFSTP-16 Check for null proposal number before saving
-        if (ObjectUtils.isNotNull(newAward)){
+        if (ObjectUtils.isNotNull(newAward)) {
             Proposal proposal = newAward.getProposal();
 
-            if (ObjectUtils.isNotNull(proposal) && proposal.getProposalNumber() != null){
+            if (ObjectUtils.isNotNull(proposal) && proposal.getProposalNumber() != null) {
                 SpringContext.getBean(BusinessObjectService.class).save(newAward.getProposal());
             }
         }
@@ -240,7 +237,7 @@ public class AwardMaintainableImpl extends ContractsGrantsBillingMaintainable {
      * This method is called for refreshing the Agency after a lookup to display its full name without AJAX.
      *
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#refresh(java.lang.String, java.util.Map,
-     *      org.kuali.rice.kns.document.MaintenanceDocument)
+     * org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @SuppressWarnings("unchecked")
     @Override
@@ -251,7 +248,7 @@ public class AwardMaintainableImpl extends ContractsGrantsBillingMaintainable {
             if (isAwarded) {
                 String pathToMaintainable = DOCUMENT + "." + NEW_MAINTAINABLE_OBJECT;
                 GlobalVariables.getMessageMap().addToErrorPath(pathToMaintainable);
-                GlobalVariables.getMessageMap().putError(KFSPropertyConstants.PROPOSAL_NUMBER, KFSKeyConstants.ERROR_AWARD_PROPOSAL_AWARDED, new String[] { getAward().getProposalNumber().toString() });
+                GlobalVariables.getMessageMap().putError(KFSPropertyConstants.PROPOSAL_NUMBER, KFSKeyConstants.ERROR_AWARD_PROPOSAL_AWARDED, new String[]{getAward().getProposalNumber().toString()});
                 GlobalVariables.getMessageMap().removeFromErrorPath(pathToMaintainable);
             }
 
@@ -269,8 +266,7 @@ public class AwardMaintainableImpl extends ContractsGrantsBillingMaintainable {
                 getAward().populateFromProposal(getAward().getProposal());
                 refreshAward(true);
             }
-        }
-        else {
+        } else {
             refreshAward(KFSConstants.KUALI_LOOKUPABLE_IMPL.equals(fieldValues.get(KFSConstants.REFRESH_CALLER)));
             super.refresh(refreshCaller, fieldValues, document);
         }
@@ -311,8 +307,7 @@ public class AwardMaintainableImpl extends ContractsGrantsBillingMaintainable {
 
             getNewCollectionLine(AWARD_ACCOUNTS).refreshNonUpdateableReferences();
             refreshNonUpdateableReferences(getAward().getAwardAccounts());
-        }
-        else {
+        } else {
             refreshWithSecondaryKey((AwardProjectDirector) getNewCollectionLine(AWARD_PROJECT_DIRECTORS));
             for (AwardProjectDirector projectDirector : getAward().getAwardProjectDirectors()) {
                 refreshWithSecondaryKey(projectDirector);
@@ -337,8 +332,7 @@ public class AwardMaintainableImpl extends ContractsGrantsBillingMaintainable {
 
             getNewCollectionLine(AWARD_ACCOUNTS).refreshNonUpdateableReferences();
             refreshNonUpdateableReferences(getAward().getAwardAccounts());
-        }
-        else {
+        } else {
             refreshWithSecondaryKey((AwardFundManager) getNewCollectionLine(AWARD_FUND_MANAGERS));
             for (AwardFundManager fundManager : getAward().getAwardFundManagers()) {
                 refreshWithSecondaryKey(fundManager);
@@ -432,7 +426,7 @@ public class AwardMaintainableImpl extends ContractsGrantsBillingMaintainable {
      * Called to manipulate which sections are shown on the Award Maintenance document
      *
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#getSections(org.kuali.rice.kns.document.MaintenanceDocument,
-     *      org.kuali.rice.kns.maintenance.Maintainable)
+     * org.kuali.rice.kns.maintenance.Maintainable)
      */
     @Override
     public List getSections(MaintenanceDocument document, Maintainable oldMaintainable) {
@@ -442,7 +436,7 @@ public class AwardMaintainableImpl extends ContractsGrantsBillingMaintainable {
         // refreshed back to old values.
         // To be optimized if there is a better approach.
         if (StringUtils.isNotEmpty(award.getLetterOfCreditFundCode()) && StringUtils.isNotBlank(award.getLetterOfCreditFundCode())) {
-        	award.setBillingFrequencyCode(CGConstants.LOC_BILLING_SCHEDULE_CODE);
+            award.setBillingFrequencyCode(CGConstants.LOC_BILLING_SCHEDULE_CODE);
         }
 
         return super.getSections(document, oldMaintainable);

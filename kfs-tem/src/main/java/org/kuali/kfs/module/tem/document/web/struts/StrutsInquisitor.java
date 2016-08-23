@@ -1,41 +1,40 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.document.web.struts;
 
-import static org.kuali.kfs.module.purap.SingleConfirmationQuestion.OK;
-import static org.kuali.kfs.sys.KFSConstants.QUESTION_CLICKED_BUTTON;
-import static org.kuali.kfs.kns.question.ConfirmationQuestion.NO;
-import static org.kuali.kfs.krad.util.ObjectUtils.isNull;
-
-import java.lang.reflect.Method;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.web.struts.action.KualiAction;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.kns.web.struts.action.KualiAction;
 
-public class StrutsInquisitor<Document,StrutsF,StrutsA> implements Inquisitive<Document,ActionForward> {
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.Method;
+
+import static org.kuali.kfs.kns.question.ConfirmationQuestion.NO;
+import static org.kuali.kfs.krad.util.ObjectUtils.isNull;
+import static org.kuali.kfs.module.purap.SingleConfirmationQuestion.OK;
+import static org.kuali.kfs.sys.KFSConstants.QUESTION_CLICKED_BUTTON;
+
+public class StrutsInquisitor<Document, StrutsF, StrutsA> implements Inquisitive<Document, ActionForward> {
     private ActionMapping mapping;
     private StrutsF form;
     private StrutsA action;
@@ -155,8 +154,8 @@ public class StrutsInquisitor<Document,StrutsF,StrutsA> implements Inquisitive<D
 
     @Override
     public Document getDocument() {
-        if (document == null){
-            document =(Document) ((TravelFormBase)this.getForm()).getDocument();
+        if (document == null) {
+            document = (Document) ((TravelFormBase) this.getForm()).getDocument();
         }
         return document;
     }
@@ -164,7 +163,7 @@ public class StrutsInquisitor<Document,StrutsF,StrutsA> implements Inquisitive<D
     @Override
     public String getReason() {
         String reason = request.getParameter(KFSConstants.QUESTION_REASON_ATTRIBUTE_NAME);
-        return reason == null?"":reason;
+        return reason == null ? "" : reason;
     }
 
     @Override
@@ -212,32 +211,31 @@ public class StrutsInquisitor<Document,StrutsF,StrutsA> implements Inquisitive<D
                                             final String errorParameter) throws Exception {
         Method method = null;
         try {
-            method = KualiAction.class.getDeclaredMethod("performQuestion", new Class[] { ActionMapping.class,
-                                                                                          ActionForm.class,
-                                                                                          HttpServletRequest.class,
-                                                                                          HttpServletResponse.class,
-                                                                                          String.class,
-                                                                                          String.class,
-                                                                                          String.class,
-                                                                                          String.class,
-                                                                                          String.class,
-                                                                                          boolean.class,
-                                                                                          String.class,
-                                                                                          String.class,
-                                                                                          String.class,
-                                                                                          String.class});
+            method = KualiAction.class.getDeclaredMethod("performQuestion", new Class[]{ActionMapping.class,
+                ActionForm.class,
+                HttpServletRequest.class,
+                HttpServletResponse.class,
+                String.class,
+                String.class,
+                String.class,
+                String.class,
+                String.class,
+                boolean.class,
+                String.class,
+                String.class,
+                String.class,
+                String.class});
             method.setAccessible(true);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return (ActionForward) method.invoke(getAction(), getMapping(), getForm(), getRequest(), getResponse(),
-                                             questionId, questionText, questionType, caller, context, showReasonField, reason, errorKey, errorPropertyName, errorParameter);
+            questionId, questionText, questionType, caller, context, showReasonField, reason, errorKey, errorPropertyName, errorParameter);
     }
 
     @Override
-    public ActionForward confirm(final String questionType, final String message, final boolean showReasonField, final String ... errorArgs) throws Exception {
+    public ActionForward confirm(final String questionType, final String message, final boolean showReasonField, final String... errorArgs) throws Exception {
         if (errorArgs.length > 0) {
             return performQuestion(questionType, message, TemConstants.QUESTION_CONFIRMATION, questionType, "", showReasonField, getReason(), errorArgs[0], errorArgs[1], errorArgs[2]);
         }

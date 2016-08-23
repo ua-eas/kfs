@@ -1,25 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.service;
-
-import java.sql.Date;
-import java.util.List;
 
 import org.kuali.kfs.gl.businessobject.Encumbrance;
 import org.kuali.kfs.module.tem.businessobject.HeldEncumbranceEntry;
@@ -33,20 +30,22 @@ import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
 
+import java.sql.Date;
+import java.util.List;
+
 /**
  * Travel Encumbrance  Service
- *
  */
 public interface TravelEncumbranceService {
 
     /**
      * The disencumber logic takes the reimbursable AMOUNT from TR, and use that to calculate
      * either a faction of the TA's encumbrance line amount or the entire amount (liquidation)
-     *
+     * <p>
      * NOTE: it totally ignore the accounting line detail from the TR, ONLY the amount
-     *
+     * <p>
      * This method creates GLPE to disencumber the funds that had already been encumbered
-     *
+     * <p>
      * only disencumber up to the maximum encumbered from the TA/TAA doc, therefore
      * it will check for previous sucessful processed TR doc to determine what is the maximum
      * disencumber values.
@@ -58,7 +57,7 @@ public interface TravelEncumbranceService {
 
     /**
      * This method creates GLPE to disencumber the funds that had already been encumbered.
-     *
+     * <p>
      * For cancel TA document, there must not have any TR generated, therefore its saved to liquidate the entire
      * encumbrance
      *
@@ -68,7 +67,7 @@ public interface TravelEncumbranceService {
 
     /**
      * Update the source accounting line's object code to the trip type's encumbrance object code
-     *
+     * <p>
      * If trip type is not selected, default to blank
      *
      * @param taDoc
@@ -87,14 +86,14 @@ public interface TravelEncumbranceService {
 
     /**
      * This method is used for creating a TAC document.
-     *
+     * <p>
      * The process from TAC is to remove related document encumbrance from TA or TAA which has
      * already been processed.  These processed TA/TAA will have encumbrance GLPE waiting to be
      * scrubber.  By removing them from the GLPE document, TAC will directly liquidate the rest of
      * the open encumbrance.
      *
-     * @param document TAC to disencumber
-     * @param sequenceHelper the GLPE sequence helper
+     * @param document             TAC to disencumber
+     * @param sequenceHelper       the GLPE sequence helper
      * @param reimbursementEntries if not null, there will be an attempt to apply the TR's to encumbrances - these entries will come from final TR's spawning TAC's
      */
     public void disencumberTravelAuthorizationClose(TravelAuthorizationCloseDocument document, GeneralLedgerPendingEntrySequenceHelper sequenceHelper, List<GeneralLedgerPendingEntry> reimbursementPendingEntries);
@@ -104,12 +103,12 @@ public interface TravelEncumbranceService {
     /**
      * Find All related TA, TAA glpe's. Make sure they are not offsets(???) and not the current doc (this will be
      * previous document)
-     *
+     * <p>
      * Rather than deal with the complicated math of taking the old document's glpe's into account, just remove them
      * so they will never be picked up by the jobs and placed into encumbrance.  (Already processed document should
      * already have its GLPE scrubbed and
      *
-     * @param travelAuthDocument                The document being processed.  Should only be a TAA or TAC.
+     * @param travelAuthDocument The document being processed.  Should only be a TAA or TAC.
      */
     public void processRelatedDocuments(TravelAuthorizationDocument travelAuthDocument);
 
@@ -117,10 +116,10 @@ public interface TravelEncumbranceService {
     /**
      * This method removes the remaining encumbrance balance and brings the outstanding balance to zero.
      *
-     * @param encumbrance The encumbrance record that will be updated. This object never gets persisted, but is used for passing
-     *        info
-     * @param sequenceHelper The current sequence
-     * @param taDocument The document the entries are added to.
+     * @param encumbrance        The encumbrance record that will be updated. This object never gets persisted, but is used for passing
+     *                           info
+     * @param sequenceHelper     The current sequence
+     * @param taDocument         The document the entries are added to.
      * @param approveImmediately determines whether the generated GLPEs will be preset to approved or will wait until the document has routed to processed
      */
     public void liquidateEncumbrance(final Encumbrance encumbrance, GeneralLedgerPendingEntrySequenceHelper sequenceHelper, TravelDocument document, boolean approveImmediately);
@@ -137,10 +136,10 @@ public interface TravelEncumbranceService {
     /**
      * This method creates the pending entry based on the document and encumbrance
      *
-     * @param encumbrance The encumbrance record that will be updated. This object never gets persisted, but is used for passing
-     *        info
+     * @param encumbrance    The encumbrance record that will be updated. This object never gets persisted, but is used for passing
+     *                       info
      * @param sequenceHelper The current sequence
-     * @param taDocument The document the entries are added to.
+     * @param taDocument     The document the entries are added to.
      * @return pendingEntry The completed pending entry.
      */
     public GeneralLedgerPendingEntry setupPendingEntry(Encumbrance encumbrance, GeneralLedgerPendingEntrySequenceHelper sequenceHelper, TravelDocument document);
@@ -148,11 +147,11 @@ public interface TravelEncumbranceService {
     /**
      * This method creates the offset entry based on the pending entry, document, and encumbrance
      *
-     * @param encumbrance The encumbrance record that will be updated. This object never gets persisted, but is used for passing
-     *        info
+     * @param encumbrance    The encumbrance record that will be updated. This object never gets persisted, but is used for passing
+     *                       info
      * @param sequenceHelper The current sequence
-     * @param taDocument The document the entries are added to.
-     * @param pendingEntry The pending entry that will accompany the offset entry.
+     * @param taDocument     The document the entries are added to.
+     * @param pendingEntry   The pending entry that will accompany the offset entry.
      * @return offsetEntry The completed offset entry.
      */
     public GeneralLedgerPendingEntry setupOffsetEntry(Encumbrance encumbrance, GeneralLedgerPendingEntrySequenceHelper sequenceHelper, TravelDocument document, GeneralLedgerPendingEntry pendingEntry);
@@ -160,10 +159,10 @@ public interface TravelEncumbranceService {
     /**
      * This method creates the pending entry based on the document and encumbrance
      *
-     * @param encumbrance The encumbrance record that will be updated. This object never gets persisted, but is used for passing
-     *        LOG.info
+     * @param encumbrance    The encumbrance record that will be updated. This object never gets persisted, but is used for passing
+     *                       LOG.info
      * @param sequenceHelper The current sequence
-     * @param taDocument The document the entries are added to.
+     * @param taDocument     The document the entries are added to.
      * @return pendingEntry The completed pending entry.
      */
     public GeneralLedgerPendingEntry setupPendingEntry(GeneralLedgerPendingEntrySourceDetail line, GeneralLedgerPendingEntrySequenceHelper sequenceHelper, TravelDocument document);
@@ -171,30 +170,33 @@ public interface TravelEncumbranceService {
     /**
      * This method creates the offset entry based on the pending entry, document, and encumbrance
      *
-     * @param encumbrance The encumbrance record that will be updated. This object never gets persisted, but is used for passing info
+     * @param encumbrance    The encumbrance record that will be updated. This object never gets persisted, but is used for passing info
      * @param sequenceHelper The current sequence
-     * @param taDocument The document the entries are added to.
-     * @param pendingEntry The pending entry that will accompany the offset entry.
+     * @param taDocument     The document the entries are added to.
+     * @param pendingEntry   The pending entry that will accompany the offset entry.
      * @return offsetEntry The completed offset entry.
      */
     public GeneralLedgerPendingEntry setupOffsetEntry(GeneralLedgerPendingEntrySequenceHelper sequenceHelper, TravelDocument document, GeneralLedgerPendingEntry pendingEntry);
 
     /**
      * Method which will delete all general ledger pending entries associated with a trip
+     *
      * @param travelDocumentIdentifier the id of the trip to remove entries for
      */
     public void deletePendingEntriesForTripCancellation(String travelDocumentIdentifier);
 
     /**
      * Find both posted and pending encumbrances associated with a trip
+     *
      * @param travelDocumentIdentifier the trip id, which acts as the document id of the encumbrance
-     * @param skipDocumentNumber if not null, pending entries with the given document number will be skipped in the calculation
+     * @param skipDocumentNumber       if not null, pending entries with the given document number will be skipped in the calculation
      * @return an Iterator of encumbrances
      */
     public List<Encumbrance> getEncumbrancesForTrip(String travelDocumentIdentifier, String skipDocumentNumber);
 
     /**
      * Creates a held encumbrance entry from a general ledger pending entry
+     *
      * @param glpe the pending entry to convert
      * @return the converted held encumbrance entry
      */
@@ -202,6 +204,7 @@ public interface TravelEncumbranceService {
 
     /**
      * Creates a pending entry from a held encumbrance entry
+     *
      * @param hee the held encumbrance entry to convert
      * @return the converted pending entry
      */
@@ -215,12 +218,14 @@ public interface TravelEncumbranceService {
 
     /**
      * Removes, obliterates, destroys, forgets to the utter abyss, and otherwise deletes any held encumbrance entries associated with the given trip
+     *
      * @param tripId the trip id who's been burned by its own held encumbrance entries one too many times and now has revenge on its mind
      */
     public void deleteHeldEncumbranceEntriesForTrip(String tripId);
 
     /**
      * Determines if entries should be held for the given trip date
+     *
      * @param tripDate the trip date to determine if general ledger pending entries should be held for
      * @return true if entries should be held, false otherwise
      */

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -22,8 +22,8 @@ package org.kuali.kfs.krad.service.impl;
 import org.kuali.kfs.krad.datadictionary.MaintenanceDocumentEntry;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.service.BusinessObjectSerializerService;
-import org.kuali.kfs.krad.service.DocumentSerializerService;
 import org.kuali.kfs.krad.service.DocumentDictionaryService;
+import org.kuali.kfs.krad.service.DocumentSerializerService;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.util.documentserializer.AlwaysTruePropertySerializibilityEvaluator;
 import org.kuali.kfs.krad.util.documentserializer.PropertySerializabilityEvaluator;
@@ -40,7 +40,7 @@ public class BusinessObjectSerializerServiceImpl extends SerializerServiceBase i
      */
     public String serializeBusinessObjectToXml(Object businessObject) {
         PropertySerializabilityEvaluator propertySerizabilityEvaluator =
-                getPropertySerizabilityEvaluator(businessObject);
+            getPropertySerizabilityEvaluator(businessObject);
         evaluators.set(propertySerizabilityEvaluator);
         SerializationState state = new SerializationState(); //createNewDocumentSerializationState(document);
         serializationStates.set(state);
@@ -63,7 +63,7 @@ public class BusinessObjectSerializerServiceImpl extends SerializerServiceBase i
 
         String docTypeName = getDocumentDictionaryService().getMaintenanceDocumentTypeName(businessObject.getClass());
         MaintenanceDocumentEntry maintenanceDocumentEntry =
-                getDocumentDictionaryService().getMaintenanceDocumentEntry(docTypeName);
+            getDocumentDictionaryService().getMaintenanceDocumentEntry(docTypeName);
 
         // TODO: need to determine view properties to serialize
         evaluator = new AlwaysTruePropertySerializibilityEvaluator();

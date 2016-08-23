@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -59,8 +59,9 @@ public class FinancialProcessingAccountingLineAuthorizer extends AccountingLineA
 
     /**
      * Determines if the given line on the given document should not show any sales tax block it has
+     *
      * @param document the document the line lives on (or will live on)
-     * @param line the accounting line which perhaps should be hiding any sales tax information
+     * @param line     the accounting line which perhaps should be hiding any sales tax information
      * @return true if sales tax should not be seen for the line, false otherwise
      */
     protected boolean salesTaxUnviewable(AccountingDocument document, AccountingLine line) {
@@ -76,27 +77,28 @@ public class FinancialProcessingAccountingLineAuthorizer extends AccountingLineA
         }
         return true;
     }
-    
+
     /**
      * adds refresh method to the action map.
+     *
      * @see org.kuali.kfs.sys.document.authorization.AccountingLineAuthorizerBase#getActionMap(org.kuali.kfs.sys.document.web.AccountingLineRenderingContext, java.lang.String, java.lang.Integer, java.lang.String)
      */
     @Override
     protected Map<String, AccountingLineViewAction> getActionMap(AccountingLineRenderingContext accountingLineRenderingContext, String accountingLinePropertyName, Integer accountingLineIndex, String groupTitle) {
-    
+
         Map<String, AccountingLineViewAction> actionMap = super.getActionMap(accountingLineRenderingContext, accountingLinePropertyName, accountingLineIndex, groupTitle);
 
         if (accountingLineIndex != null) {
             AccountingLineViewAction refreshAction = this.getRefreshAction(accountingLineRenderingContext.getAccountingLine(), accountingLinePropertyName, accountingLineIndex, groupTitle);
             actionMap.put(KFSConstants.RETURN_METHOD_TO_CALL, refreshAction);
         }
-        
+
         return actionMap;
     }
-    
+
     /**
      * constructs a refresh action image and action
-     * 
+     *
      * @param accountingLine
      * @param accountingLinePropertyName
      * @param accountingLineIndex
@@ -109,10 +111,10 @@ public class FinancialProcessingAccountingLineAuthorizer extends AccountingLineA
 
         return new AccountingLineViewAction(actionMethod, actionLabel, "btn clean", "Refresh", "fa fa-refresh");
     }
-    
+
     /**
      * constructs a refresh line method
-     * 
+     *
      * @param accountingLine
      * @param accountingLineProperty
      * @param accountingLineIndex

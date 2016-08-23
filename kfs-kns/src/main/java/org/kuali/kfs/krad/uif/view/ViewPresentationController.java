@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -31,8 +31,6 @@ import java.util.Set;
  * Configured for a <code>View</code> instance to provide conditional logic
  * based on any variable (view configuration, system parameters, ...) that does
  * not depend on the current user
- *
- * 
  */
 public interface ViewPresentationController {
 
@@ -43,7 +41,7 @@ public interface ViewPresentationController {
     /**
      * Determines if the the given view and data is allowed to be edited
      *
-     * @param view - view instance to check whether editing is allowed
+     * @param view  - view instance to check whether editing is allowed
      * @param model - object containing the view data
      * @return boolean true if editing on the view is allowed, false otherwise
      */
@@ -64,21 +62,21 @@ public interface ViewPresentationController {
     public boolean canViewWidget(View view, ViewModel model, Widget widget, String widgetId);
 
     public boolean canPerformAction(View view, ViewModel model, ActionField actionField, String actionEvent,
-            String actionId);
+                                    String actionId);
 
     public boolean canEditLine(View view, ViewModel model, CollectionGroup collectionGroup,
-            String collectionPropertyName, Object line);
+                               String collectionPropertyName, Object line);
 
     public boolean canViewLine(View view, ViewModel model, CollectionGroup collectionGroup,
-            String collectionPropertyName, Object line);
+                               String collectionPropertyName, Object line);
 
     public boolean canEditLineField(View view, ViewModel model, CollectionGroup collectionGroup,
-            String collectionPropertyName, Object line, Field field, String propertyName);
+                                    String collectionPropertyName, Object line, Field field, String propertyName);
 
     public boolean canViewLineField(View view, ViewModel model, CollectionGroup collectionGroup,
-            String collectionPropertyName, Object line, Field field, String propertyName);
+                                    String collectionPropertyName, Object line, Field field, String propertyName);
 
     public boolean canPerformLineAction(View view, ViewModel model, CollectionGroup collectionGroup,
-            String collectionPropertyName, Object line, ActionField actionField, String actionEvent, String actionId);
+                                        String collectionPropertyName, Object line, ActionField actionField, String actionEvent, String actionId);
 
 }

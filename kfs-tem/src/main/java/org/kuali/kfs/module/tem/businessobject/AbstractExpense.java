@@ -1,29 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.lang.reflect.Field;
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
+import org.apache.log4j.Logger;
+import org.kuali.kfs.fp.businessobject.TravelCompanyCode;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.module.tem.service.TravelExpenseService;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,22 +33,21 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import org.apache.log4j.Logger;
-import org.kuali.kfs.fp.businessobject.TravelCompanyCode;
-import org.kuali.kfs.module.tem.service.TravelExpenseService;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import java.lang.reflect.Field;
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 @Entity
-@Table(name="tem_trvl_exp_t")
+@Table(name = "tem_trvl_exp_t")
 public abstract class AbstractExpense extends PersistableBusinessObjectBase implements TemExpense {
 
     public static Logger LOG = Logger.getLogger(AbstractExpense.class);
 
-    @GeneratedValue(generator="tem_trvl_exp_id_seq")
-    @SequenceGenerator(name="tem_trvl_exp_id_seq",sequenceName="tem_trvl_exp_id_seq", allocationSize=5)
+    @GeneratedValue(generator = "tem_trvl_exp_id_seq")
+    @SequenceGenerator(name = "tem_trvl_exp_id_seq", sequenceName = "tem_trvl_exp_id_seq", allocationSize = 5)
     private Long id;
     private String documentNumber;
     private Integer documentLineNumber;
@@ -71,7 +70,7 @@ public abstract class AbstractExpense extends PersistableBusinessObjectBase impl
 
     @Override
     @Id
-    @Column(name="id",nullable=false)
+    @Column(name = "id", nullable = false)
     public Long getId() {
         return id;
     }
@@ -82,7 +81,7 @@ public abstract class AbstractExpense extends PersistableBusinessObjectBase impl
     }
 
     @Override
-    @Column(name="fdoc_nbr",length=14,nullable=false)
+    @Column(name = "fdoc_nbr", length = 14, nullable = false)
     public String getDocumentNumber() {
         return documentNumber;
     }
@@ -93,7 +92,7 @@ public abstract class AbstractExpense extends PersistableBusinessObjectBase impl
     }
 
     @Override
-    @Column(name="fdoc_line_nbr",nullable=false)
+    @Column(name = "fdoc_line_nbr", nullable = false)
     public Integer getDocumentLineNumber() {
         return documentLineNumber;
     }
@@ -104,7 +103,7 @@ public abstract class AbstractExpense extends PersistableBusinessObjectBase impl
     }
 
     @Override
-    @Column(name="exp_parent_id",nullable=true)
+    @Column(name = "exp_parent_id", nullable = true)
     public Long getExpenseParentId() {
         return expenseParentId;
     }
@@ -115,7 +114,7 @@ public abstract class AbstractExpense extends PersistableBusinessObjectBase impl
     }
 
     @Override
-    @Column(name="exp_dt",nullable=true)
+    @Column(name = "exp_dt", nullable = true)
     public Date getExpenseDate() {
         return expenseDate;
     }
@@ -131,7 +130,7 @@ public abstract class AbstractExpense extends PersistableBusinessObjectBase impl
      * @return the value of nonReimbursable
      */
     @Override
-    @Column(name="NON_REIM_IND",nullable=true,length=1)
+    @Column(name = "NON_REIM_IND", nullable = true, length = 1)
     public Boolean getNonReimbursable() {
         return nonReimbursable != null ? nonReimbursable : false;
     }
@@ -152,7 +151,7 @@ public abstract class AbstractExpense extends PersistableBusinessObjectBase impl
      * @return the value of taxable
      */
     @Override
-    @Column(name="TAXABLE_IND",nullable=true,length=1)
+    @Column(name = "TAXABLE_IND", nullable = true, length = 1)
     public Boolean getTaxable() {
         return this.taxable;
     }
@@ -173,7 +172,7 @@ public abstract class AbstractExpense extends PersistableBusinessObjectBase impl
      * @return the value of missingReceipt
      */
     @Override
-    @Column(name="MISG_RCPT_IND",nullable=true,length=1)
+    @Column(name = "MISG_RCPT_IND", nullable = true, length = 1)
     public Boolean getMissingReceipt() {
         return this.missingReceipt;
     }
@@ -190,7 +189,7 @@ public abstract class AbstractExpense extends PersistableBusinessObjectBase impl
 
 
     @Override
-    @Column(name="EXP_AMT",precision=19,scale=2,nullable=false)
+    @Column(name = "EXP_AMT", precision = 19, scale = 2, nullable = false)
     public KualiDecimal getExpenseAmount() {
         return expenseAmount;
     }
@@ -222,6 +221,7 @@ public abstract class AbstractExpense extends PersistableBusinessObjectBase impl
 
     /**
      * Sets the value of the expense type object code
+     *
      * @param expenseTypeObjectCode the expense type object code value to set
      * @see org.kuali.kfs.module.tem.businessobject.TemExpense#setExpenseTypeObjectCode(org.kuali.kfs.module.tem.businessobject.ExpenseTypeObjectCode)
      */
@@ -246,7 +246,7 @@ public abstract class AbstractExpense extends PersistableBusinessObjectBase impl
      * @return the value of description
      */
     @Override
-    @Column(name="EXP_DESC",length=255,nullable=true)
+    @Column(name = "EXP_DESC", length = 255, nullable = true)
     public String getDescription() {
         return this.description;
     }
@@ -287,9 +287,9 @@ public abstract class AbstractExpense extends PersistableBusinessObjectBase impl
      * @return the value of currencyRate
      */
     @Override
-    @Column(name="CUR_RT",precision=4,scale=3,nullable=false)
+    @Column(name = "CUR_RT", precision = 4, scale = 3, nullable = false)
     public BigDecimal getCurrencyRate() {
-        if (currencyRate == null){
+        if (currencyRate == null) {
             this.currencyRate = new BigDecimal(1.00);
         }
         return this.currencyRate;
@@ -321,14 +321,14 @@ public abstract class AbstractExpense extends PersistableBusinessObjectBase impl
      * @return the value of convertedAmount
      */
     @Override
-    @Column(name="CONVERTED_AMT",precision=7,scale=2,nullable=true)
+    @Column(name = "CONVERTED_AMT", precision = 7, scale = 2, nullable = true)
     public KualiDecimal getConvertedAmount() {
         KualiDecimal calc = KualiDecimal.ZERO;
         if (getExpenseAmount() != null
-                && getCurrencyRate() != null){
+            && getCurrencyRate() != null) {
             calc = new KualiDecimal(getExpenseAmount().bigDecimalValue().multiply(getCurrencyRate()));
         }
-        if (!calc.equals(convertedAmount)){
+        if (!calc.equals(convertedAmount)) {
             this.convertedAmount = calc;
         }
         return this.convertedAmount;
@@ -340,7 +340,7 @@ public abstract class AbstractExpense extends PersistableBusinessObjectBase impl
      * @return the value of travelCompanyCodeName
      */
     @Override
-    @Column(name="DV_EXP_CO_NM",nullable=false)
+    @Column(name = "DV_EXP_CO_NM", nullable = false)
     public String getTravelCompanyCodeName() {
         return this.travelCompanyCodeName;
     }
@@ -362,7 +362,7 @@ public abstract class AbstractExpense extends PersistableBusinessObjectBase impl
      */
     @Override
     @ManyToOne
-    @JoinColumn(name="DV_EXP_CO_NM",nullable=false)
+    @JoinColumn(name = "DV_EXP_CO_NM", nullable = false)
     public TravelCompanyCode getTravelCompanyCode() {
         return this.travelCompanyCode;
     }
@@ -379,6 +379,7 @@ public abstract class AbstractExpense extends PersistableBusinessObjectBase impl
 
     /**
      * Gets the expenseTypeCode attribute.
+     *
      * @return Returns the expenseTypeCode.
      */
     @Override
@@ -388,6 +389,7 @@ public abstract class AbstractExpense extends PersistableBusinessObjectBase impl
 
     /**
      * Sets the expenseTypeCode attribute value.
+     *
      * @param expenseTypeCode The expenseTypeCode to set.
      */
     public void setExpenseTypeCode(String travelCompanyCodeCode) {
@@ -395,7 +397,6 @@ public abstract class AbstractExpense extends PersistableBusinessObjectBase impl
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.tem.businessobject.TemExpense#refreshExpenseTypeObjectCode(java.lang.String, java.lang.String)
      */
     @Override
@@ -415,11 +416,12 @@ public abstract class AbstractExpense extends PersistableBusinessObjectBase impl
 
     /**
      * Gets the expenseDetails attribute.
+     *
      * @return Returns the expenseDetails.
      */
     @Override
     public List<? extends TemExpense> getExpenseDetails() {
-        if (expenseDetails == null){
+        if (expenseDetails == null) {
             expenseDetails = new ArrayList<TemExpense>();
         }
         return expenseDetails;
@@ -427,6 +429,7 @@ public abstract class AbstractExpense extends PersistableBusinessObjectBase impl
 
     /**
      * Gets the expenseDetails attribute.
+     *
      * @return Returns the expenseDetails.
      */
     @Override
@@ -436,6 +439,7 @@ public abstract class AbstractExpense extends PersistableBusinessObjectBase impl
 
     /**
      * Sets the expenseDetails attribute value.
+     *
      * @param expenseDetails The expenseDetails to set.
      */
     @Override
@@ -460,16 +464,15 @@ public abstract class AbstractExpense extends PersistableBusinessObjectBase impl
             boolean rethrow = true;
             Exception e = null;
             while (rethrow) {
-                LOG.debug("Looking for id in "+ boClass.getName());
+                LOG.debug("Looking for id in " + boClass.getName());
                 try {
                     final Field idField = boClass.getDeclaredField("id");
                     final SequenceGenerator sequenceInfo = idField.getAnnotation(SequenceGenerator.class);
 
                     return sequenceInfo.sequenceName();
-                }
-                catch (Exception ee) {
+                } catch (Exception ee) {
                     // ignore and try again
-                    LOG.debug("Could not find id in "+ boClass.getName());
+                    LOG.debug("Could not find id in " + boClass.getName());
 
                     // At the end. Went all the way up the hierarchy until we got to Object
                     if (Object.class.equals(boClass)) {
@@ -485,8 +488,7 @@ public abstract class AbstractExpense extends PersistableBusinessObjectBase impl
             if (e != null) {
                 throw e;
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("Could not get the sequence name for business object " + getClass().getSimpleName());
             LOG.error(e.getMessage());
             if (LOG.isDebugEnabled()) {
@@ -507,7 +509,7 @@ public abstract class AbstractExpense extends PersistableBusinessObjectBase impl
     @Override
     public KualiDecimal getTotalDetailExpenseAmount() {
         KualiDecimal totalDetailExpenseAmount = KualiDecimal.ZERO;
-        for(TemExpense expense: getExpenseDetails()){
+        for (TemExpense expense : getExpenseDetails()) {
             totalDetailExpenseAmount = totalDetailExpenseAmount.add(expense.getExpenseAmount());
         }
         return totalDetailExpenseAmount;

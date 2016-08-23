@@ -1,47 +1,44 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.krad.service.impl;
 
-import org.kuali.rice.kim.api.group.Group;
-import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.kfs.krad.bo.AdHocRoutePerson;
 import org.kuali.kfs.krad.bo.AdHocRouteWorkgroup;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.service.DocumentAdHocService;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
+import org.kuali.rice.kim.api.group.Group;
+import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 
 import java.util.HashMap;
 import java.util.List;
 
 /**
  * Implementation for {@link DocumentAdHocService}.
- *
- * 
- *
  */
 public class DocumentAdHocServiceImpl implements DocumentAdHocService {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public void addAdHocs(Document document) {
+    /**
+     * {@inheritDoc}
+     */
+    public void addAdHocs(Document document) {
         /* Instead of reading the doc header to see if doc is in saved status
          * its probably easier and faster to just do this all the time and
          * store a null when appropriate.
@@ -66,10 +63,10 @@ public class DocumentAdHocServiceImpl implements DocumentAdHocService {
         }
         document.setAdHocRoutePersons(adHocRoutePersons);
         document.setAdHocRouteWorkgroups(adHocRouteWorkgroups);
-	}
+    }
 
     protected BusinessObjectService getBusinessObjectService() {
-    	return KRADServiceLocator.getBusinessObjectService();
+        return KRADServiceLocator.getBusinessObjectService();
     }
 
 }

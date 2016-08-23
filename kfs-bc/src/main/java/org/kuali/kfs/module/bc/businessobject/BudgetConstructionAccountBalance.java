@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -19,9 +19,6 @@
 
 package org.kuali.kfs.module.bc.businessobject;
 
-import java.math.BigDecimal;
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
@@ -30,8 +27,11 @@ import org.kuali.kfs.coa.businessobject.Organization;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubFundGroup;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
-import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.util.type.KualiInteger;
+
+import java.math.BigDecimal;
+import java.util.LinkedHashMap;
 
 
 public class BudgetConstructionAccountBalance extends PersistableBusinessObjectBase {

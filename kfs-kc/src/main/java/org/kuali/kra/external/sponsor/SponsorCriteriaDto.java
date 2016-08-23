@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,11 +18,10 @@
  */
 package org.kuali.kra.external.sponsor;
 
-import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "sponsorCriteriaDto", propOrder = {
@@ -34,42 +33,51 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class SponsorCriteriaDto implements Serializable {
 
-	private static final long serialVersionUID = -2460442390785148763L;
+    private static final long serialVersionUID = -2460442390785148763L;
 
-	private String sponsorCode;
-	private String customerNumber;
-	private String sponsorName;
-	private String dunsPlusFourNumber;
-	private String active;
+    private String sponsorCode;
+    private String customerNumber;
+    private String sponsorName;
+    private String dunsPlusFourNumber;
+    private String active;
 
-	public String getSponsorName() {
+    public String getSponsorName() {
         return sponsorName;
     }
+
     public void setSponsorName(String sponsorName) {
         this.sponsorName = sponsorName;
     }
+
     public String getDunsPlusFourNumber() {
         return dunsPlusFourNumber;
     }
+
     public void setDunsPlusFourNumber(String dunsPlusFourNumber) {
         this.dunsPlusFourNumber = dunsPlusFourNumber;
     }
+
     public String isActive() {
         return active;
     }
+
     public void setActive(String active) {
         this.active = active;
     }
+
     public String getSponsorCode() {
-		return sponsorCode;
-	}
-	public void setSponsorCode(String sponsorCode) {
-		this.sponsorCode = sponsorCode;
-	}
-	public String getCustomerNumber() {
-		return customerNumber;
-	}
-	public void setCustomerNumber(String customerNumber) {
-		this.customerNumber = customerNumber;
-	}
+        return sponsorCode;
+    }
+
+    public void setSponsorCode(String sponsorCode) {
+        this.sponsorCode = sponsorCode;
+    }
+
+    public String getCustomerNumber() {
+        return customerNumber;
+    }
+
+    public void setCustomerNumber(String customerNumber) {
+        this.customerNumber = customerNumber;
+    }
 }

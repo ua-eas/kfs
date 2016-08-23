@@ -1,24 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
@@ -33,8 +35,6 @@ import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.kfs.vnd.VendorUtils;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.kfs.vnd.document.service.VendorService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class VendorCreditMemoInitTabReferenceNumberValidation extends GenericValidation {
 
@@ -42,10 +42,10 @@ public class VendorCreditMemoInitTabReferenceNumberValidation extends GenericVal
     private PurapService purapService;
     private PurchaseOrderService purchaseOrderService;
     private VendorService vendorService;
-    
+
     /**
-     *  Validates only one of preq, po, or vendor number was given. Then validates the existence of that number.
-     */ 
+     * Validates only one of preq, po, or vendor number was given. Then validates the existence of that number.
+     */
     public boolean validate(AttributedDocumentEvent event) {
         boolean valid = true;
         VendorCreditMemoDocument cmDocument = (VendorCreditMemoDocument) event.getDocument();
@@ -53,8 +53,7 @@ public class VendorCreditMemoInitTabReferenceNumberValidation extends GenericVal
         if (!(ObjectUtils.isNotNull(cmDocument.getPaymentRequestIdentifier()) ^ StringUtils.isNotEmpty(cmDocument.getVendorNumber()) ^ ObjectUtils.isNotNull(cmDocument.getPurchaseOrderIdentifier())) || (ObjectUtils.isNotNull(cmDocument.getPaymentRequestIdentifier()) && StringUtils.isNotEmpty(cmDocument.getVendorNumber()) && ObjectUtils.isNotNull(cmDocument.getPurchaseOrderIdentifier()))) {
             GlobalVariables.getMessageMap().putErrorWithoutFullErrorPath(PurapPropertyConstants.PURCHASE_ORDER_IDENTIFIER, PurapKeyConstants.ERROR_CREDIT_MEMO_REQUIRED_FIELDS);
             valid = false;
-        }
-        else {
+        } else {
             // Make sure PREQ is valid if entered
             Integer preqNumber = cmDocument.getPaymentRequestIdentifier();
             if (ObjectUtils.isNotNull(preqNumber)) {
@@ -77,12 +76,10 @@ public class VendorCreditMemoInitTabReferenceNumberValidation extends GenericVal
                 if (ObjectUtils.isNull(purchaseOrder)) {
                     GlobalVariables.getMessageMap().putError(PurapPropertyConstants.PURCHASE_ORDER_IDENTIFIER, PurapKeyConstants.ERROR_CREDIT_MEMO_PURCHASE_ORDER_INVALID, purchaseOrderID.toString());
                     valid = false;
-                }
-                else if (purchaseOrder.isPendingActionIndicator()) {
+                } else if (purchaseOrder.isPendingActionIndicator()) {
                     GlobalVariables.getMessageMap().putError(PurapPropertyConstants.PURCHASE_ORDER_IDENTIFIER, PurapKeyConstants.ERROR_PURCHASE_PENDING_ACTION);
                     valid &= false;
-                }
-                else if (!(StringUtils.equals(purchaseOrder.getApplicationDocumentStatus(), PurapConstants.PurchaseOrderStatuses.APPDOC_OPEN) || StringUtils.equals(purchaseOrder.getApplicationDocumentStatus(), PurapConstants.PurchaseOrderStatuses.APPDOC_CLOSED))) {
+                } else if (!(StringUtils.equals(purchaseOrder.getApplicationDocumentStatus(), PurapConstants.PurchaseOrderStatuses.APPDOC_OPEN) || StringUtils.equals(purchaseOrder.getApplicationDocumentStatus(), PurapConstants.PurchaseOrderStatuses.APPDOC_CLOSED))) {
                     GlobalVariables.getMessageMap().putError(PurapPropertyConstants.PURCHASE_ORDER_IDENTIFIER, PurapKeyConstants.ERROR_CREDIT_MEMO_PURCAHSE_ORDER_INVALID_STATUS, purchaseOrderID.toString());
                     valid = false;
                 }

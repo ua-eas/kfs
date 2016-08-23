@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -25,10 +25,10 @@ import org.kuali.kfs.kns.web.ui.Column;
 import org.kuali.kfs.kns.web.ui.Field;
 import org.kuali.kfs.kns.web.ui.ResultRow;
 import org.kuali.kfs.kns.web.ui.Row;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.UrlFactory;
+import org.kuali.rice.krad.bo.BusinessObject;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
@@ -42,7 +42,7 @@ import java.util.Properties;
 @Transactional
 public class KualiLookupableImpl implements Lookupable {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(KualiLookupableImpl.class);
-    protected static final String[] IGNORE_LIST = { KRADConstants.DOC_FORM_KEY, KRADConstants.BACK_LOCATION };
+    protected static final String[] IGNORE_LIST = {KRADConstants.DOC_FORM_KEY, KRADConstants.BACK_LOCATION};
 
     protected Class businessObjectClass;
     protected LookupableHelperService lookupableHelperService;
@@ -106,7 +106,6 @@ public class KualiLookupableImpl implements Lookupable {
      * Uses Lookup Service to provide a basic unbounded search.
      *
      * @param fieldValues - Map containing prop name keys and search values
-     *
      * @return List found business objects
      */
     public List<? extends BusinessObject> getSearchResultsUnbounded(Map<String, String> fieldValues) {
@@ -117,7 +116,6 @@ public class KualiLookupableImpl implements Lookupable {
      * Uses Lookup Service to provide a basic search.
      *
      * @param fieldValues - Map containing prop name keys and search values
-     *
      * @return List found business objects
      */
     public List<? extends BusinessObject> getSearchResults(Map<String, String> fieldValues) {
@@ -251,6 +249,7 @@ public class KualiLookupableImpl implements Lookupable {
 
     /**
      * // this method is public because unit tests depend upon it
+     *
      * @param docFormKey The docFormKey to set.
      */
     public void setDocFormKey(String docFormKey) {
@@ -296,6 +295,7 @@ public class KualiLookupableImpl implements Lookupable {
 
     /**
      * Sets the lookupableHelperService attribute value.
+     *
      * @param lookupableHelperService The lookupableHelperService to set.
      */
     public void setLookupableHelperService(LookupableHelperService lookupableHelperService) {
@@ -304,6 +304,7 @@ public class KualiLookupableImpl implements Lookupable {
 
     /**
      * Performs a lookup that can only return one row.
+     *
      * @see Lookupable#performLookup(org.kuali.rice.krad.web.struts.form.LookupForm, java.util.List, boolean)
      */
     public Collection<? extends BusinessObject> performLookup(LookupForm lookupForm, List<ResultRow> resultTable, boolean bounded) {
@@ -326,7 +327,7 @@ public class KualiLookupableImpl implements Lookupable {
      * @see Lookupable#performClear()
      */
     public void performClear(LookupForm lookupForm) {
-         getLookupableHelperService().performClear(lookupForm);
+        getLookupableHelperService().performClear(lookupForm);
     }
 
     /**
@@ -347,7 +348,7 @@ public class KualiLookupableImpl implements Lookupable {
         return getLookupableHelperService().shouldDisplayLookupCriteria();
     }
 
-    protected String getCreateNewUrl(String url){
+    protected String getCreateNewUrl(String url) {
         return "<a title=\"Create a new record\" href=\"" + url + "\"><span class=\"tinybutton btn btn-default\">Create New</span></a>";
     }
 

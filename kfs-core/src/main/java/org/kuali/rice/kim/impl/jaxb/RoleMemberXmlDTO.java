@@ -1,35 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.rice.kim.impl.jaxb;
-
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.NormalizedStringAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
@@ -44,6 +31,18 @@ import org.kuali.rice.kim.api.role.RoleContract;
 import org.kuali.rice.kim.api.role.RoleMember;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 
+import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.NormalizedStringAdapter;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Base class representing an unmarshalled &lt;roleMember&gt; element.
  * Refer to the static inner classes for more information about the specific contexts.
@@ -53,39 +52,39 @@ public abstract class RoleMemberXmlDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @XmlElement(name="principalId")
+    @XmlElement(name = "principalId")
     @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
     private String principalId;
 
-    @XmlElement(name="principalName")
+    @XmlElement(name = "principalName")
     @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
     private String principalName;
 
-    @XmlElement(name="groupId")
+    @XmlElement(name = "groupId")
     @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
     private String groupId;
 
-    @XmlElement(name="groupName")
+    @XmlElement(name = "groupName")
     @XmlJavaTypeAdapter(NameAndNamespacePairValidatingAdapter.class)
     private NameAndNamespacePair groupName;
 
-    @XmlElement(name="roleIdAsMember")
+    @XmlElement(name = "roleIdAsMember")
     @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
     private String roleIdAsMember;
 
-    @XmlElement(name="roleNameAsMember")
+    @XmlElement(name = "roleNameAsMember")
     @XmlJavaTypeAdapter(NameAndNamespacePairValidatingAdapter.class)
     private NameAndNamespacePair roleNameAsMember;
 
-    @XmlElement(name="activeFromDate")
+    @XmlElement(name = "activeFromDate")
     @XmlJavaTypeAdapter(DateTimeAdapter.class)
     private DateTime activeFromDate;
 
-    @XmlElement(name="activeToDate")
+    @XmlElement(name = "activeToDate")
     @XmlJavaTypeAdapter(DateTimeAdapter.class)
     private DateTime activeToDate;
 
-    @XmlElement(name="qualifications")
+    @XmlElement(name = "qualifications")
     @XmlJavaTypeAdapter(QualificationListAdapter.class)
     private Map<String, String> qualifications;
 
@@ -95,14 +94,15 @@ public abstract class RoleMemberXmlDTO implements Serializable {
     /**
      * Constructs an empty RoleMemberXmlDTO instance.
      */
-    public RoleMemberXmlDTO() {}
+    public RoleMemberXmlDTO() {
+    }
 
     /**
      * Constructs a RoleMemberXmlDTO instance that is populated with the info from the given role member.
      *
-     * @param roleMember The role member that this DTO should populate its data from.
+     * @param roleMember       The role member that this DTO should populate its data from.
      * @param populateMemberId If true, the member principal/group/role ID will get populated; otherwise, only
-     * the member principal/group/role name and (if applicable) namespace will get populated.
+     *                         the member principal/group/role name and (if applicable) namespace will get populated.
      * @throws IllegalArgumentException if roleMember is null, has an invalid member type, or refers to a nonexistent principal/group/role.
      */
     public RoleMemberXmlDTO(RoleMember roleMember, boolean populateMemberId) {
@@ -119,9 +119,9 @@ public abstract class RoleMemberXmlDTO implements Serializable {
                 this.principalId = roleMember.getMemberId();
             }
             PrincipalContract principal = KimApiServiceLocator.getIdentityService().getPrincipal(
-                    roleMember.getMemberId());
+                roleMember.getMemberId());
             if (principal == null) {
-                throw new IllegalArgumentException("Cannot find principal with ID \"" +  roleMember.getMemberId() + "\"");
+                throw new IllegalArgumentException("Cannot find principal with ID \"" + roleMember.getMemberId() + "\"");
             }
             this.principalName = principal.getPrincipalName();
         } else if (MemberType.GROUP.equals(memberType)) {
@@ -144,7 +144,7 @@ public abstract class RoleMemberXmlDTO implements Serializable {
             this.roleNameAsMember = new NameAndNamespacePair(role.getNamespaceCode(), role.getName());
         } else {
             throw new IllegalArgumentException("Cannot construct a RoleMemberXmlDTO from a role member with an unrecognized member type code of \"" +
-                    memberType + "\"");
+                memberType + "\"");
         }
     }
 
@@ -276,7 +276,7 @@ public abstract class RoleMemberXmlDTO implements Serializable {
 
     /**
      * Retrieves the member type.
-     *
+     * <p>
      * <p>If the member type is null at the time that this method is invoked, an attempt will be made to set its
      * value based on any populated member principal/group/role ID/name information.
      *
@@ -315,7 +315,7 @@ public abstract class RoleMemberXmlDTO implements Serializable {
 
     /**
      * Retrieves the role member's ID, based on the member type and any populated member principal/group/role IDs.
-     *
+     * <p>
      * <p>If the member type is null at the time that this method is invoked, an attempt will be made to set its
      * value based on any populated member principal/group/role ID/name information.
      *
@@ -334,7 +334,7 @@ public abstract class RoleMemberXmlDTO implements Serializable {
 
     /**
      * Retrieves the role member's name, based on the member type and any populated member principal/group/role names.
-     *
+     * <p>
      * <p>If the member type is null at the time that this method is invoked, an attempt will be made to set its
      * value based on any populated member principal/group/role ID/name information.
      *
@@ -353,7 +353,7 @@ public abstract class RoleMemberXmlDTO implements Serializable {
 
     /**
      * Retrieves the role member's namespace code, based on the member type and any populated member principal/group/role names.
-     *
+     * <p>
      * <p>If the member type is null at the time that this method is invoked, an attempt will be made to set its
      * value based on any populated member principal/group/role ID/name information.
      *
@@ -385,19 +385,19 @@ public abstract class RoleMemberXmlDTO implements Serializable {
      * This class represents a &lt;roleMember&gt; element that is not a descendant of a &lt;role&gt; element.
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name="StandaloneRoleMemberType", propOrder={
-            "roleId", "roleNameAndNamespace", "principalId", "principalName", "groupId", "groupName", "roleIdAsMember",
-                    "roleNameAsMember", "activeFromDate", "activeToDate", "qualifications"
+    @XmlType(name = "StandaloneRoleMemberType", propOrder = {
+        "roleId", "roleNameAndNamespace", "principalId", "principalName", "groupId", "groupName", "roleIdAsMember",
+        "roleNameAsMember", "activeFromDate", "activeToDate", "qualifications"
     })
     public static class OutsideOfRole extends RoleMemberXmlDTO {
 
         private static final long serialVersionUID = 1L;
 
-        @XmlElement(name="roleId")
+        @XmlElement(name = "roleId")
         @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
         private String roleId;
 
-        @XmlElement(name="roleName")
+        @XmlElement(name = "roleName")
         @XmlJavaTypeAdapter(NameAndNamespacePairValidatingAdapter.class)
         private NameAndNamespacePair roleNameAndNamespace;
 
@@ -469,9 +469,9 @@ public abstract class RoleMemberXmlDTO implements Serializable {
      * This class represents a &lt;roleMember&gt; element that is a descendant of a &lt;role&gt; element.
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name="RoleMemberType", propOrder={
-            "principalId", "principalName", "groupId", "groupName", "roleIdAsMember",
-                    "roleNameAsMember", "activeFromDate", "activeToDate", "qualifications"
+    @XmlType(name = "RoleMemberType", propOrder = {
+        "principalId", "principalName", "groupId", "groupName", "roleIdAsMember",
+        "roleNameAsMember", "activeFromDate", "activeToDate", "qualifications"
     })
     public static class WithinRole extends RoleMemberXmlDTO {
 
@@ -491,7 +491,7 @@ public abstract class RoleMemberXmlDTO implements Serializable {
 
         void beforeUnmarshal(Unmarshaller unmarshaller, Object parent) {
             if (parent instanceof RoleMembersXmlDTO.WithinRole) {
-                this.roleId = ((RoleMembersXmlDTO.WithinRole)parent).getRoleId();
+                this.roleId = ((RoleMembersXmlDTO.WithinRole) parent).getRoleId();
             }
         }
 

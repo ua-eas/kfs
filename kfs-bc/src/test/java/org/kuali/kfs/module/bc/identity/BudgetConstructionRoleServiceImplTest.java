@@ -1,26 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.identity;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.bc.BCConstants;
@@ -32,6 +28,10 @@ import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.role.RoleService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @ConfigureContext
 public class BudgetConstructionRoleServiceImplTest extends KualiTestBase {
@@ -58,68 +58,68 @@ public class BudgetConstructionRoleServiceImplTest extends KualiTestBase {
 
 
     public void testRegionalBudgetManagerQualifications() {
-        Map<String,String> qualification = new HashMap<String,String>();
-        List<Map<String,String>> roleQualifiers =
-                roleService.getRoleQualifersForPrincipalByNamespaceAndRolename(
-                        regionalBudgetManager.getPrincipalId(),
-                        BCConstants.BUDGET_CONSTRUCTION_NAMESPACE,
-                        BCConstants.KimApiConstants.BC_PROCESSOR_ROLE_NAME,
-                        qualification);
-        assertNotNull( "roleQualifiers should not have returned null", roleQualifiers );
-        assertFalse( "roleQualifiers should not be empty", roleQualifiers.isEmpty() );
-        System.out.println( roleQualifiers );
-        assertTrue( "Org EA-EA was not in the list and should have been.", checkForChartOrg( roleQualifiers, "EA", "EA") );
-        assertFalse( "Org UA-UA was in the list and should not have been.", checkForChartOrg( roleQualifiers, "UA", "UA") );
+        Map<String, String> qualification = new HashMap<String, String>();
+        List<Map<String, String>> roleQualifiers =
+            roleService.getRoleQualifersForPrincipalByNamespaceAndRolename(
+                regionalBudgetManager.getPrincipalId(),
+                BCConstants.BUDGET_CONSTRUCTION_NAMESPACE,
+                BCConstants.KimApiConstants.BC_PROCESSOR_ROLE_NAME,
+                qualification);
+        assertNotNull("roleQualifiers should not have returned null", roleQualifiers);
+        assertFalse("roleQualifiers should not be empty", roleQualifiers.isEmpty());
+        System.out.println(roleQualifiers);
+        assertTrue("Org EA-EA was not in the list and should have been.", checkForChartOrg(roleQualifiers, "EA", "EA"));
+        assertFalse("Org UA-UA was in the list and should not have been.", checkForChartOrg(roleQualifiers, "UA", "UA"));
     }
 
     public void testUABudgetManagerQualifications() {
-        Map<String,String> qualification = new HashMap<String,String>();
-        List<Map<String,String>> roleQualifiers =
-                roleService.getRoleQualifersForPrincipalByNamespaceAndRolename(
-                        universityAdministrationBudgetManager.getPrincipalId(),
-                        BCConstants.BUDGET_CONSTRUCTION_NAMESPACE,
-                        BCConstants.KimApiConstants.BC_PROCESSOR_ROLE_NAME,
-                        qualification);
-        assertNotNull( "roleQualifiers should not have returned null", roleQualifiers );
-        assertFalse( "roleQualifiers should not be empty", roleQualifiers.isEmpty() );
-        System.out.println( roleQualifiers );
-        assertTrue( "Org UA-UA was not in the list and should have been.", checkForChartOrg( roleQualifiers, "UA", "UA") );
-        assertFalse( "Org EA-EA was in the list and should not have been.", checkForChartOrg( roleQualifiers, "EA", "EA") );
+        Map<String, String> qualification = new HashMap<String, String>();
+        List<Map<String, String>> roleQualifiers =
+            roleService.getRoleQualifersForPrincipalByNamespaceAndRolename(
+                universityAdministrationBudgetManager.getPrincipalId(),
+                BCConstants.BUDGET_CONSTRUCTION_NAMESPACE,
+                BCConstants.KimApiConstants.BC_PROCESSOR_ROLE_NAME,
+                qualification);
+        assertNotNull("roleQualifiers should not have returned null", roleQualifiers);
+        assertFalse("roleQualifiers should not be empty", roleQualifiers.isEmpty());
+        System.out.println(roleQualifiers);
+        assertTrue("Org UA-UA was not in the list and should have been.", checkForChartOrg(roleQualifiers, "UA", "UA"));
+        assertFalse("Org EA-EA was in the list and should not have been.", checkForChartOrg(roleQualifiers, "EA", "EA"));
     }
 
     public void testBothBudgetManagerQualifications() {
-        Map<String,String> qualification = new HashMap<String,String>();
-        List<Map<String,String>> roleQualifiers =
-                roleService.getRoleQualifersForPrincipalByNamespaceAndRolename(
-                        bothManager.getPrincipalId(),
-                        BCConstants.BUDGET_CONSTRUCTION_NAMESPACE,
-                        BCConstants.KimApiConstants.BC_PROCESSOR_ROLE_NAME,
-                        qualification);
-        assertNotNull( "roleQualifiers should not have returned null", roleQualifiers );
-        assertFalse( "roleQualifiers should not be empty", roleQualifiers.isEmpty() );
-        System.out.println( roleQualifiers );
-        assertTrue( "Org UA-UA was not in the list and should have been.", checkForChartOrg( roleQualifiers, "UA", "UA") );
-        assertTrue( "Org BL-BL was not in the list and should have been.", checkForChartOrg( roleQualifiers, "BL", "BL") );
+        Map<String, String> qualification = new HashMap<String, String>();
+        List<Map<String, String>> roleQualifiers =
+            roleService.getRoleQualifersForPrincipalByNamespaceAndRolename(
+                bothManager.getPrincipalId(),
+                BCConstants.BUDGET_CONSTRUCTION_NAMESPACE,
+                BCConstants.KimApiConstants.BC_PROCESSOR_ROLE_NAME,
+                qualification);
+        assertNotNull("roleQualifiers should not have returned null", roleQualifiers);
+        assertFalse("roleQualifiers should not be empty", roleQualifiers.isEmpty());
+        System.out.println(roleQualifiers);
+        assertTrue("Org UA-UA was not in the list and should have been.", checkForChartOrg(roleQualifiers, "UA", "UA"));
+        assertTrue("Org BL-BL was not in the list and should have been.", checkForChartOrg(roleQualifiers, "BL", "BL"));
     }
 
     public void testNonProcessorQualifications() {
-        Map<String,String> qualification = new HashMap<String,String>();
-        List<Map<String,String>> roleQualifiers =
-                roleService.getRoleQualifersForPrincipalByNamespaceAndRolename(
-                        nonProcessor.getPrincipalId(),
-                        BCConstants.BUDGET_CONSTRUCTION_NAMESPACE,
-                        BCConstants.KimApiConstants.BC_PROCESSOR_ROLE_NAME,
-                        qualification);
-        assertNotNull( "roleQualifiers should not have returned null", roleQualifiers );
-        System.out.println( roleQualifiers );
-        assertTrue( "roleQualifiers should have been empty", roleQualifiers.isEmpty() );
+        Map<String, String> qualification = new HashMap<String, String>();
+        List<Map<String, String>> roleQualifiers =
+            roleService.getRoleQualifersForPrincipalByNamespaceAndRolename(
+                nonProcessor.getPrincipalId(),
+                BCConstants.BUDGET_CONSTRUCTION_NAMESPACE,
+                BCConstants.KimApiConstants.BC_PROCESSOR_ROLE_NAME,
+                qualification);
+        assertNotNull("roleQualifiers should not have returned null", roleQualifiers);
+        System.out.println(roleQualifiers);
+        assertTrue("roleQualifiers should have been empty", roleQualifiers.isEmpty());
     }
 
-    private boolean checkForChartOrg( List<Map<String,String>> roleQualifiers, String chart, String org ) {
+    private boolean checkForChartOrg(List<Map<String, String>> roleQualifiers, String chart, String org) {
         boolean found = false;
-        for ( Map<String,String> q : roleQualifiers ) {
-            if ( StringUtils.equals( q.get(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE), chart )
-                    && StringUtils.equals( q.get(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE), org ) ) {
+        for (Map<String, String> q : roleQualifiers) {
+            if (StringUtils.equals(q.get(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE), chart)
+                && StringUtils.equals(q.get(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE), org)) {
                 found = true;
             }
         }

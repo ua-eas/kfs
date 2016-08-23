@@ -1,29 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.document.dataaccess.impl;
 
-import java.util.ArrayList;
-import java.util.UUID;
-
 import org.kuali.kfs.module.bc.batch.dataaccess.impl.SQLForStep;
 import org.kuali.kfs.module.bc.document.dataaccess.BudgetConstructionPositionFundingDetailReportDao;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.ArrayList;
+import java.util.UUID;
 
 
 /**
@@ -145,7 +145,7 @@ public class BudgetConstructionPositionFundingDetailReportDaoJdbc extends Budget
     /**
      * build a list of people with salaries at or above the threshold
      *
-     * @param principalName--the user requesting the list
+     * @param principalName--the    user requesting the list
      * @param thresholdPercent--the percent marking the threshold
      */
     protected void updateReportsPositionFundingDetailTableAboveThreshold(String principalName, KualiDecimal thresholdPercent) {
@@ -161,13 +161,13 @@ public class BudgetConstructionPositionFundingDetailReportDaoJdbc extends Budget
         Number thresholdValue = thresholdPercent.floatValue();
         getSimpleJdbcTemplate().update(updateReportsPositionFundingDetailTable.get(1).getSQL(), principalName, principalName, thresholdValue, idForSession);
         // remove the data for this user's session from the temporary table for total amounts and FTE
-        this.clearTempTableBySesId("LD_BCN_BUILD_POSLIST01_MT","SESID",idForSession);
+        this.clearTempTableBySesId("LD_BCN_BUILD_POSLIST01_MT", "SESID", idForSession);
     }
 
     /**
      * build a list of people with salaries at or below the threshhold
      *
-     * @param principalName--the user requesting the list
+     * @param principalName--the    user requesting the list
      * @param thresholdPercent--the percent marking the threshold
      */
     protected void updateReportsPositionFundingDetailTableBelowThreshold(String principalName, KualiDecimal thresholdPercent) {
@@ -183,7 +183,7 @@ public class BudgetConstructionPositionFundingDetailReportDaoJdbc extends Budget
         Number thresholdValue = thresholdPercent.floatValue();
         getSimpleJdbcTemplate().update(updateReportsPositionFundingDetailTable.get(2).getSQL(), principalName, principalName, thresholdValue, idForSession);
         // remove the data for this user's session from the temporary table for total amounts and FTE
-        this.clearTempTableBySesId("LD_BCN_BUILD_POSLIST01_MT","SESID",idForSession);
+        this.clearTempTableBySesId("LD_BCN_BUILD_POSLIST01_MT", "SESID", idForSession);
     }
 
     /**
@@ -200,7 +200,7 @@ public class BudgetConstructionPositionFundingDetailReportDaoJdbc extends Budget
 
     /**
      * @see org.kuali.kfs.module.bc.document.dataaccess.BudgetConstructionPositionFundingDetailReportDao#updateReportsPositionFundingDetailTable(java.lang.String,
-     *      boolean, boolean, java.lang.Number)
+     * boolean, boolean, java.lang.Number)
      */
     @Override
     public void updateReportsPositionFundingDetailTable(String principalName, boolean applyAThreshold, boolean selectOnlyGreaterThanOrEqualToThreshold, KualiDecimal thresholdPercent) {
@@ -212,8 +212,7 @@ public class BudgetConstructionPositionFundingDetailReportDaoJdbc extends Budget
         // the user wants a threshold--list above or below?
         if (selectOnlyGreaterThanOrEqualToThreshold) {
             updateReportsPositionFundingDetailTableAboveThreshold(principalName, thresholdPercent);
-        }
-        else {
+        } else {
             updateReportsPositionFundingDetailTableBelowThreshold(principalName, thresholdPercent);
         }
     }

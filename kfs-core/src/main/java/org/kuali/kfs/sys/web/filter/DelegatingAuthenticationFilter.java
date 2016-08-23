@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -46,7 +46,7 @@ public class DelegatingAuthenticationFilter implements Filter {
         LOG.debug("init() started");
 
         String filterClassName = getFilterClassName();
-        if ( filterClassName == null ) {
+        if (filterClassName == null) {
             LOG.error("init() login.filter.className is not defined in the properties file");
             throw new ServletException("login.filter.className is not defined in the properties file");
         }
@@ -54,21 +54,21 @@ public class DelegatingAuthenticationFilter implements Filter {
         try {
             Class c = Class.forName(filterClassName);
             Object o = c.newInstance();
-            if ( o instanceof Filter ) {
-                wrappedFilter = (Filter)o;
+            if (o instanceof Filter) {
+                wrappedFilter = (Filter) o;
             } else {
                 LOG.error("init() Filter class does not implement Filter interface: " + filterClassName);
                 throw new ServletException("Filter class does not implement Filter interface: " + filterClassName);
             }
         } catch (ClassNotFoundException e) {
-            LOG.error("init() Filter class not found: " + filterClassName,e);
+            LOG.error("init() Filter class not found: " + filterClassName, e);
             throw new ServletException("Filter class not found: " + filterClassName);
-        } catch (InstantiationException|IllegalAccessException e) {
-            LOG.error("init() Unable to create instance of Filter class: " + filterClassName,e);
+        } catch (InstantiationException | IllegalAccessException e) {
+            LOG.error("init() Unable to create instance of Filter class: " + filterClassName, e);
             throw new ServletException("Unable to create instance of Filter class: " + filterClassName);
         }
 
-        wrappedFilter.init(new WrappedFilterConfig(filterConfig.getServletContext(),getFilterInitParameters()));
+        wrappedFilter.init(new WrappedFilterConfig(filterConfig.getServletContext(), getFilterInitParameters()));
     }
 
     @Override
@@ -83,11 +83,11 @@ public class DelegatingAuthenticationFilter implements Filter {
         wrappedFilter.destroy();
     }
 
-    protected Map<String,String> getFilterInitParameters() {
+    protected Map<String, String> getFilterInitParameters() {
         return getAllConfigurationPropertyKeys()
-                .stream()
-                .filter(key -> key.startsWith("login.filter.param."))
-                .collect(Collectors.toMap(key -> getParameterName(key), key -> getConfigurationPropertyValue(key)));
+            .stream()
+            .filter(key -> key.startsWith("login.filter.param."))
+            .collect(Collectors.toMap(key -> getParameterName(key), key -> getConfigurationPropertyValue(key)));
     }
 
     protected String getParameterName(String key) {
@@ -107,7 +107,7 @@ public class DelegatingAuthenticationFilter implements Filter {
     }
 
     protected ConfigurationService getConfigurationService() {
-        if ( configurationService == null ) {
+        if (configurationService == null) {
             configurationService = SpringContext.getBean(ConfigurationService.class);
         }
         return configurationService;
@@ -115,9 +115,9 @@ public class DelegatingAuthenticationFilter implements Filter {
 
     class WrappedFilterConfig implements FilterConfig {
         private ServletContext servletContext;
-        private Map<String,String> initParameters;
+        private Map<String, String> initParameters;
 
-        public WrappedFilterConfig(ServletContext servletContext,Map<String,String> initParameters) {
+        public WrappedFilterConfig(ServletContext servletContext, Map<String, String> initParameters) {
             this.servletContext = servletContext;
             this.initParameters = initParameters;
         }

@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -46,7 +46,7 @@ public class LiquibaseTestBase {
             List<Node> changes = getChildNodes(changeSet);
             for (Node change : changes) {
                 if (changeContainsColumns(change) && changeContainsFieldOfType(change, "DATE")) {
-                    if ( isChangeSetMissingValidModifySql(changeSet) ) {
+                    if (isChangeSetMissingValidModifySql(changeSet)) {
                         System.out.println("Table missing a valid modifySql: " + getTableName(change));
                         found = true;
                     }
@@ -67,7 +67,7 @@ public class LiquibaseTestBase {
         for (Node changeSet : children) {
             List<Node> changes = getChildNodes(changeSet);
             for (Node change : changes) {
-                if ( changeContainsColumns(change) && changeContainsFieldOfType(change, "DATETIME")) {
+                if (changeContainsColumns(change) && changeContainsFieldOfType(change, "DATETIME")) {
                     System.out.println("Table contains DATETIME column instead of DATE: " + getTableName(change));
                     found = true;
                 }
@@ -82,7 +82,7 @@ public class LiquibaseTestBase {
     protected List<String> findLiquibaseFiles(String path) {
         try {
             InputStream is = this.getClass().getClassLoader().getResourceAsStream(path);
-            if ( is == null ) {
+            if (is == null) {
                 return Collections.emptyList();
             }
             List<String> files = IOUtils.readLines(is);
@@ -99,30 +99,30 @@ public class LiquibaseTestBase {
     }
 
     protected boolean isChangeSetMissingValidModifySql(Node changeSet) {
-        Node modifySql = getNodeByName(changeSet,"modifySql");
+        Node modifySql = getNodeByName(changeSet, "modifySql");
 
-        if ( modifySql == null ) {
+        if (modifySql == null) {
             return true;
         } else {
-            Element modifySqlElement = (Element)modifySql;
+            Element modifySqlElement = (Element) modifySql;
             String dbms = modifySqlElement.getAttribute("dbms");
-            if ( ! "mysql".equals(dbms) ) {
+            if (!"mysql".equals(dbms)) {
                 System.out.println("dbms=\"mysql\" attribute missing in modifySql node");
                 return true;
             }
-            Node replaceNode = getNodeByName(modifySql,"replace");
-            if ( replaceNode == null ) {
+            Node replaceNode = getNodeByName(modifySql, "replace");
+            if (replaceNode == null) {
                 System.out.println("replace node missing");
                 return false;
             }
-            Element replaceNodeElement = (Element)replaceNode;
+            Element replaceNodeElement = (Element) replaceNode;
             String replace = replaceNodeElement.getAttribute("replace");
             String with = replaceNodeElement.getAttribute("with");
-            if ( ! "date".equals(replace) ) {
+            if (!"date".equals(replace)) {
                 System.out.println("replace attribute value must be \"date\" (lower case)");
                 return true;
             }
-            if ( ! "datetime".equals(with) ) {
+            if (!"datetime".equals(with)) {
                 System.out.println("with attribute value must be \"datetime\" (lower case)");
                 return true;
             }
@@ -131,25 +131,25 @@ public class LiquibaseTestBase {
     }
 
     protected String getTableName(Node createTableNode) {
-        Element e = (Element)createTableNode;
+        Element e = (Element) createTableNode;
         return e.getAttribute("tableName");
     }
 
     protected boolean changeContainsFieldOfType(Node changeNode, String columnType) {
         List<Node> children = getChildNodes(changeNode);
         for (Node child : children) {
-            Element column = (Element)child;
-            if ( columnType.equals(column.getAttribute("type")) ) {
+            Element column = (Element) child;
+            if (columnType.equals(column.getAttribute("type"))) {
                 return true;
             }
         }
         return false;
     }
 
-    protected Node getNodeByName(Node parentNode,String name) {
+    protected Node getNodeByName(Node parentNode, String name) {
         List<Node> children = getChildNodes(parentNode);
         for (Node child : children) {
-            if ( name.equals(child.getNodeName()) ) {
+            if (name.equals(child.getNodeName())) {
                 return child;
             }
         }
@@ -160,7 +160,7 @@ public class LiquibaseTestBase {
         List<Node> children = new ArrayList<>();
 
         NodeList childrenNodes = parent.getChildNodes();
-        for ( int i = 0; i < childrenNodes.getLength(); i++ ) {
+        for (int i = 0; i < childrenNodes.getLength(); i++) {
             Node child = childrenNodes.item(i);
             if (child.getNodeType() == Node.ELEMENT_NODE) {
                 children.add(child);

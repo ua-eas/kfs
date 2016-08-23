@@ -1,27 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.document.validation.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.rules.rule.BusinessRule;
+import org.kuali.kfs.krad.rules.rule.SaveDocumentRule;
 import org.kuali.kfs.module.bc.BCConstants.MonthSpreadDeleteType;
 import org.kuali.kfs.module.bc.BCConstants.SynchronizationCheckType;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionMonthly;
@@ -36,9 +35,10 @@ import org.kuali.kfs.module.bc.document.validation.DeletePendingBudgetGeneralLed
 import org.kuali.kfs.module.bc.document.validation.SalarySettingRule;
 import org.kuali.kfs.module.bc.document.validation.SaveMonthlyBudgetRule;
 import org.kuali.kfs.module.bc.document.validation.event.BudgetExpansionEvent;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.rules.rule.BusinessRule;
-import org.kuali.kfs.krad.rules.rule.SaveDocumentRule;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Base rule class for Budget Construction. Handles calling other expansion rule classes and the core budget document rules.
@@ -60,11 +60,9 @@ public class BudgetConstructionRules implements BudgetExpansionRule, SalarySetti
 
             salarySettingRules = SalarySettingRules.class.newInstance();
             expansionRules.add(salarySettingRules);
-        }
-        catch (InstantiationException e) {
+        } catch (InstantiationException e) {
             throw new RuntimeException(e);
-        }
-        catch (IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
     }
@@ -101,7 +99,7 @@ public class BudgetConstructionRules implements BudgetExpansionRule, SalarySetti
 
     /**
      * @see org.kuali.kfs.module.bc.document.validation.AddPendingBudgetGeneralLedgerLineRule#processAddPendingBudgetGeneralLedgerLineRules(org.kuali.kfs.module.bc.document.BudgetConstructionDocument,
-     *      org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionGeneralLedger, boolean)
+     * org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionGeneralLedger, boolean)
      */
     public boolean processAddPendingBudgetGeneralLedgerLineRules(BudgetConstructionDocument budgetConstructionDocument, PendingBudgetConstructionGeneralLedger pendingBudgetConstructionGeneralLedger, boolean isRevenue) {
         return ((AddPendingBudgetGeneralLedgerLineRule<BudgetConstructionDocument, PendingBudgetConstructionGeneralLedger>) budgetConstructionDocumentRules).processAddPendingBudgetGeneralLedgerLineRules(budgetConstructionDocument, pendingBudgetConstructionGeneralLedger, isRevenue);
@@ -109,7 +107,7 @@ public class BudgetConstructionRules implements BudgetExpansionRule, SalarySetti
 
     /**
      * @see org.kuali.kfs.module.bc.document.validation.DeletePendingBudgetGeneralLedgerLineRule#processDeletePendingBudgetGeneralLedgerLineRules(org.kuali.kfs.module.bc.document.BudgetConstructionDocument,
-     *      org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionGeneralLedger, boolean)
+     * org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionGeneralLedger, boolean)
      */
     public boolean processDeletePendingBudgetGeneralLedgerLineRules(BudgetConstructionDocument budgetConstructionDocument, PendingBudgetConstructionGeneralLedger pendingBudgetConstructionGeneralLedger, boolean isRevenue) {
         return ((DeletePendingBudgetGeneralLedgerLineRule<BudgetConstructionDocument, PendingBudgetConstructionGeneralLedger>) budgetConstructionDocumentRules).processDeletePendingBudgetGeneralLedgerLineRules(budgetConstructionDocument, pendingBudgetConstructionGeneralLedger, isRevenue);
@@ -117,15 +115,16 @@ public class BudgetConstructionRules implements BudgetExpansionRule, SalarySetti
 
     /**
      * @see org.kuali.kfs.module.bc.document.validation.DeleteMonthlySpreadRule#processDeleteMonthlySpreadRules(org.kuali.kfs.module.bc.document.BudgetConstructionDocument,
-     *      org.kuali.kfs.module.bc.BCConstants.MonthSpreadDeleteType)
+     * org.kuali.kfs.module.bc.BCConstants.MonthSpreadDeleteType)
      */
     public boolean processDeleteMonthlySpreadRules(BudgetConstructionDocument budgetConstructionDocument, MonthSpreadDeleteType monthSpreadDeleteType) {
         return ((DeleteMonthlySpreadRule<BudgetConstructionDocument>) budgetConstructionDocumentRules).processDeleteMonthlySpreadRules(budgetConstructionDocument, monthSpreadDeleteType);
     }
 
-    public boolean processSaveMonthlyBudgetRules(BudgetConstructionDocument budgetConstructionDocument, BudgetConstructionMonthly budgetConstructionMonthly){
+    public boolean processSaveMonthlyBudgetRules(BudgetConstructionDocument budgetConstructionDocument, BudgetConstructionMonthly budgetConstructionMonthly) {
         return ((SaveMonthlyBudgetRule<BudgetConstructionDocument, BudgetConstructionMonthly>) budgetConstructionDocumentRules).processSaveMonthlyBudgetRules(budgetConstructionDocument, budgetConstructionMonthly);
     }
+
     /**
      * @see org.kuali.kfs.module.bc.document.validation.SalarySettingRule#processAddAppointmentFunding(org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding)
      */

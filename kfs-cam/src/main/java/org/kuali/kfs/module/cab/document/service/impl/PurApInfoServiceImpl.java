@@ -1,33 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cab.document.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.kuali.kfs.integration.purap.CapitalAssetSystem;
 import org.kuali.kfs.integration.purap.ItemCapitalAsset;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cab.CabConstants;
 import org.kuali.kfs.module.cab.CabPropertyConstants;
 import org.kuali.kfs.module.cab.businessobject.PurchasingAccountsPayableDocument;
@@ -52,8 +47,13 @@ import org.kuali.kfs.module.purap.document.service.PurapService;
 import org.kuali.kfs.module.purap.document.service.PurchaseOrderService;
 import org.kuali.kfs.module.purap.exception.PurError;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -96,16 +96,14 @@ public class PurApInfoServiceImpl implements PurApInfoService {
         // Set contact email address.
         if (purchaseOrderDocument.getInstitutionContactEmailAddress() != null) {
             purApLineForm.setPurApContactEmailAddress(purchaseOrderDocument.getInstitutionContactEmailAddress());
-        }
-        else if (purchaseOrderDocument.getRequestorPersonEmailAddress() != null) {
+        } else if (purchaseOrderDocument.getRequestorPersonEmailAddress() != null) {
             purApLineForm.setPurApContactEmailAddress(purchaseOrderDocument.getRequestorPersonEmailAddress());
         }
 
         // Set contact phone number.
         if (purchaseOrderDocument.getInstitutionContactPhoneNumber() != null) {
             purApLineForm.setPurApContactPhoneNumber(purchaseOrderDocument.getInstitutionContactPhoneNumber());
-        }
-        else if (purchaseOrderDocument.getRequestorPersonPhoneNumber() != null) {
+        } else if (purchaseOrderDocument.getRequestorPersonPhoneNumber() != null) {
             purApLineForm.setPurApContactPhoneNumber(purchaseOrderDocument.getRequestorPersonPhoneNumber());
         }
 
@@ -117,7 +115,7 @@ public class PurApInfoServiceImpl implements PurApInfoService {
 
     /**
      * Set CAMS transaction type code the user entered in PurAp
-     * 
+     *
      * @param poId
      */
     public void setCamsTransactionFromPurAp(List<PurchasingAccountsPayableDocument> purApDocs) {
@@ -138,13 +136,11 @@ public class PurApInfoServiceImpl implements PurApInfoService {
             // If PurAp sets the CAMS as INDIVIDUAL system
             setIndividualAssetsFromPurAp(poId, purApDocs, capitalAssetSystemStateCode);
             individualItemLock = true;
-        }
-        else if (PurapConstants.CapitalAssetTabStrings.ONE_SYSTEM.equalsIgnoreCase(capitalAssetSystemTypeCode)) {
+        } else if (PurapConstants.CapitalAssetTabStrings.ONE_SYSTEM.equalsIgnoreCase(capitalAssetSystemTypeCode)) {
             // If PurAp sets the CAMS as ONE system
             setOneSystemFromPurAp(poId, purApDocs, capitalAssetSystemStateCode);
 
-        }
-        else if (PurapConstants.CapitalAssetTabStrings.MULTIPLE_SYSTEMS.equalsIgnoreCase(capitalAssetSystemTypeCode)) {
+        } else if (PurapConstants.CapitalAssetTabStrings.MULTIPLE_SYSTEMS.equalsIgnoreCase(capitalAssetSystemTypeCode)) {
             // If PurAp sets the CAMS as MULTIPLE system
             setMultipleSystemFromPurAp(poId, purApDocs, capitalAssetSystemStateCode);
         }
@@ -160,7 +156,7 @@ public class PurApInfoServiceImpl implements PurApInfoService {
 
     /**
      * Set Multiple system capital asset transaction type code and asset numbers.
-     * 
+     *
      * @param poId
      * @param purApDocs
      */
@@ -187,7 +183,7 @@ public class PurApInfoServiceImpl implements PurApInfoService {
 
     /**
      * Set One System capital asset transaction type code and asset numbers.
-     * 
+     *
      * @param poId
      * @param purApDocs
      */
@@ -208,7 +204,7 @@ public class PurApInfoServiceImpl implements PurApInfoService {
 
     /**
      * Update item assets by PurAp Cams Transaction setting
-     * 
+     *
      * @param capitalAssetSystemIdentifier
      * @param capitRalAssetTransactionTypeCode
      * @param purApCapitalAssets
@@ -228,7 +224,7 @@ public class PurApInfoServiceImpl implements PurApInfoService {
 
     /**
      * Get capitalAssetTransactionTypeCode for one system from PurAp.
-     * 
+     *
      * @param poId
      * @return
      */
@@ -246,7 +242,7 @@ public class PurApInfoServiceImpl implements PurApInfoService {
 
     /**
      * Set Individual system asset transaction type and asset numbers.
-     * 
+     *
      * @param poId
      * @param purApDocs
      */
@@ -272,7 +268,7 @@ public class PurApInfoServiceImpl implements PurApInfoService {
 
     /**
      * Get asset number list from ItemCapitalAsset list.
-     * 
+     *
      * @param itemCapitalAssets
      * @return
      */
@@ -289,7 +285,7 @@ public class PurApInfoServiceImpl implements PurApInfoService {
 
     /**
      * Check if given capitalAssetNumber is an duplicate number in assetNumbers list.
-     * 
+     *
      * @param capitalAssetNumber
      * @param assetNumbers
      * @return
@@ -305,7 +301,7 @@ public class PurApInfoServiceImpl implements PurApInfoService {
 
     /**
      * Finding out the matching PREQ/CM items originating from the same PurchaseOrderItem.
-     * 
+     *
      * @param itemIdentifier
      * @param purApDocs
      * @return
@@ -328,7 +324,7 @@ public class PurApInfoServiceImpl implements PurApInfoService {
 
     /**
      * Set CAB line item information from PurAp PaymentRequestItem or CreditMemoItem.
-     * 
+     *
      * @param purchasingAccountsPayableItemAsset
      * @param docTypeCode
      */
@@ -356,8 +352,7 @@ public class PurApInfoServiceImpl implements PurApInfoService {
             if (poi != null) {
                 purchasingAccountsPayableItemAsset.setPurchaseOrderItemIdentifier(poi.getItemIdentifier());
             }
-        }
-        else {
+        } else {
             // for CM document
             CreditMemoItem item = (CreditMemoItem) businessObjectService.findByPrimaryKey(CreditMemoItem.class, pKeys);
             if (ObjectUtils.isNull(item)) {
@@ -388,7 +383,7 @@ public class PurApInfoServiceImpl implements PurApInfoService {
     /**
      * Retreives a purchase order item for a given CreditMemoItem by inspecting the item type to see if its above the line or below
      * the line and returns the appropriate type.
-     * 
+     *
      * @param item
      * @return
      */
@@ -408,23 +403,20 @@ public class PurApInfoServiceImpl implements PurApInfoService {
                     po.refreshReferenceObject("items");
                 }
                 poi = (PurchaseOrderItem) po.getItem(item.getItemLineNumber().intValue() - 1);
-            }
-            else {
+            } else {
                 // To get the purchaseOrderItem by given CreditMemoItem. Since the additional charge type may be different in CM and
                 // PO, there could be no PO Item for a given CM item.
                 poi = (PurchaseOrderItem) SpringContext.getBean(PurapService.class).getBelowTheLineByType(po, item.getItemType());
             }
             if (poi != null) {
                 return poi;
-            }
-            else {
+            } else {
                 if (LOG.isDebugEnabled()) {
                     LOG.debug("getPurchaseOrderItemfromCreditMemoItem() Returning null because PurchaseOrderItem object for line number" + item.getItemLineNumber() + "or itemType " + item.getItemTypeCode() + " is null");
                 }
                 return null;
             }
-        }
-        else {
+        } else {
 
             LOG.error("getPurchaseOrderItemfromCreditMemoItem() Returning null because paymentRequest object is null");
             throw new PurError("Credit Memo Object in Purchase Order item line number " + item.getItemLineNumber() + "or itemType " + item.getItemTypeCode() + " is null");
@@ -440,11 +432,9 @@ public class PurApInfoServiceImpl implements PurApInfoService {
             // If PurAp sets the CAMS as INDIVIDUAL system
             capitalAssetSystem = getCapitalAssetSystemForIndividual(poId, purApItem);
 
-        }
-        else if (PurapConstants.CapitalAssetTabStrings.ONE_SYSTEM.equalsIgnoreCase(capitalAssetSystemTypeCode)) {
+        } else if (PurapConstants.CapitalAssetTabStrings.ONE_SYSTEM.equalsIgnoreCase(capitalAssetSystemTypeCode)) {
             capitalAssetSystem = this.getPurchaseOrderService().retrieveCapitalAssetSystemForOneSystem(poId);
-        }
-        else if (PurapConstants.CapitalAssetTabStrings.MULTIPLE_SYSTEMS.equalsIgnoreCase(capitalAssetSystemTypeCode)) {
+        } else if (PurapConstants.CapitalAssetTabStrings.MULTIPLE_SYSTEMS.equalsIgnoreCase(capitalAssetSystemTypeCode)) {
             List<CapitalAssetSystem> capitalAssetSystems = this.getPurchaseOrderService().retrieveCapitalAssetSystemsForMultipleSystem(poId);
             if (ObjectUtils.isNotNull(capitalAssetSystems) && !capitalAssetSystems.isEmpty()) {
                 // PurAp doesn't support multiple system asset information for KFS3.0. It works as One system.
@@ -480,8 +470,7 @@ public class PurApInfoServiceImpl implements PurApInfoService {
         if (purApItem instanceof PaymentRequestItem) {
             poi = ((PaymentRequestItem) purApItem).getPurchaseOrderItem();
 
-        }
-        else if (purApItem instanceof CreditMemoItem) {
+        } else if (purApItem instanceof CreditMemoItem) {
             poi = getPurchaseOrderItemfromCreditMemoItem((CreditMemoItem) purApItem);
         }
 
@@ -502,7 +491,7 @@ public class PurApInfoServiceImpl implements PurApInfoService {
 
     /**
      * Gets the businessObjectService attribute.
-     * 
+     *
      * @return Returns the businessObjectService.
      */
     public BusinessObjectService getBusinessObjectService() {
@@ -512,7 +501,7 @@ public class PurApInfoServiceImpl implements PurApInfoService {
 
     /**
      * Sets the businessObjectService attribute value.
-     * 
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
@@ -522,7 +511,7 @@ public class PurApInfoServiceImpl implements PurApInfoService {
 
     /**
      * Gets the purchaseOrderService attribute.
-     * 
+     *
      * @return Returns the purchaseOrderService.
      */
     public PurchaseOrderService getPurchaseOrderService() {

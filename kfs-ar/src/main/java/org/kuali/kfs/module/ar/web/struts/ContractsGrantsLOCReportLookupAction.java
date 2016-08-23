@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,19 +18,18 @@
  */
 package org.kuali.kfs.module.ar.web.struts;
 
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.ContractsGrantsLOCReport;
 import org.kuali.kfs.sys.report.ReportInfoHolder;
-import org.kuali.kfs.kns.web.struts.form.LookupForm;
 import org.kuali.rice.krad.bo.BusinessObject;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 /**
  * Action Class for the Contracts & Grants LOC Draw Details Report Lookup.
@@ -38,6 +37,7 @@ import org.kuali.rice.krad.bo.BusinessObject;
 public class ContractsGrantsLOCReportLookupAction extends ContractsGrantsReportLookupAction {
     /**
      * This report does not have a title
+     *
      * @see org.kuali.kfs.module.ar.web.struts.ContractsGrantsReportLookupAction#generateReportTitle(org.kuali.rice.kns.web.struts.form.LookupForm)
      */
     @Override
@@ -47,6 +47,7 @@ public class ContractsGrantsLOCReportLookupAction extends ContractsGrantsReportL
 
     /**
      * Returns "contractsGrantsLOCReportBuilderService"
+     *
      * @see org.kuali.kfs.module.ar.web.struts.ContractsGrantsReportLookupAction#getReportBuilderServiceBeanName()
      */
     @Override
@@ -56,6 +57,7 @@ public class ContractsGrantsLOCReportLookupAction extends ContractsGrantsReportL
 
     /**
      * Returns the sort field for this report's pdf generation, "ContractsGrantsLOCReport"
+     *
      * @see org.kuali.kfs.module.ar.web.struts.ContractsGrantsReportLookupAction#getSortFieldName()
      */
     @Override
@@ -65,6 +67,7 @@ public class ContractsGrantsLOCReportLookupAction extends ContractsGrantsReportL
 
     /**
      * Returns the class for ContractsGrantsLOCReport
+     *
      * @see org.kuali.kfs.module.ar.web.struts.ContractsGrantsReportLookupAction#getPrintSearchCriteriaClass()
      */
     @Override
@@ -76,22 +79,21 @@ public class ContractsGrantsLOCReportLookupAction extends ContractsGrantsReportL
     public ActionForward print(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         String reportTitle = "Letter of Credit Draw Report";
-        LookupForm lookupForm = (LookupForm)form;
+        LookupForm lookupForm = (LookupForm) form;
         Map lookupFormFields = lookupForm.getFieldsForLookup();
 
-        String reportType = (String)lookupFormFields.get("reportType");
+        String reportType = (String) lookupFormFields.get("reportType");
 
         if (reportType.equals(ArConstants.LOCReportTypeFieldValues.AMOUNTS_NOT_DRAWN)) {
             reportTitle = "Letter of Credit Amounts Not Drawn Report";
-        } else if (reportType.equals(ArConstants.LOCReportTypeFieldValues.DRAW_DETAILS) ) {
+        } else if (reportType.equals(ArConstants.LOCReportTypeFieldValues.DRAW_DETAILS)) {
             reportTitle = "Letter of Credit Detail Report";
         }
 
-        ((ReportInfoHolder)getContractsGrantsReportDataBuilderService().getReportInfo()).setReportTitle(reportTitle);
+        ((ReportInfoHolder) getContractsGrantsReportDataBuilderService().getReportInfo()).setReportTitle(reportTitle);
 
         return super.print(mapping, form, request, response);
     }
-
 
 
 }

@@ -1,28 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.util;
-
-import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
-
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.sql.Date;
 
 import org.apache.commons.io.IOUtils;
 import org.kuali.kfs.module.purap.batch.ElectronicInvoiceInputFileType;
@@ -39,50 +33,56 @@ import org.kuali.kfs.sys.batch.service.BatchInputFileService;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 
-@ConfigureContext(session = parke, shouldCommitTransactions=false)
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.sql.Date;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
+
+@ConfigureContext(session = parke, shouldCommitTransactions = false)
 public class ElectronicInvoiceParserTest extends KualiTestBase {
 
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ElectronicInvoiceParserTest.class);
-    
+
     private ElectronicInvoice eInvoice;
     private final String eInvoiceXMLFile = ".." + File.separator + "fixture" + File.separator + "electronicInvoiceFixture.xml";
-    
+
     /**
      * TODO: Remove once other tests are fixed
      */
     public void testNothing() {
-        
+
     }
-    
+
     /**
      * TODO: Fix this test. It should not have a hard-coded URL for finding the schema.
      */
     public void PATCHFIX_testEInvoiceXMLParsing()
-    throws Exception{
-        
+        throws Exception {
+
         loadInvoiceXML();
         assertNotNull(eInvoice);
-        
+
         validateCXMLAttributes();
         validateHeaderElement();
         validateInvoiceDetailRequestElement();
-        
+
     }
-    
-    private void validateInvoiceDetailRequestElement(){
-        
+
+    private void validateInvoiceDetailRequestElement() {
+
         validateInvoiceDetailRequestHeader();
         validateInvoiceDetailOrder();
         validateInvoiceDetailSummary();
-        
+
     }
-    
+
     private void loadInvoiceXML()
-    throws Exception {
-        
+        throws Exception {
+
         ElectronicInvoiceInputFileType eInvoiceInputFileType = SpringContext.getBean(ElectronicInvoiceInputFileType.class);
         BatchInputFileService batchInputFileService = SpringContext.getBean(BatchInputFileService.class);
-        
+
         BufferedInputStream fileStream = new BufferedInputStream(getClass().getResourceAsStream(eInvoiceXMLFile));
 
         byte[] fileByteContent = IOUtils.toByteArray(fileStream);
@@ -94,171 +94,171 @@ public class ElectronicInvoiceParserTest extends KualiTestBase {
         String newSchemaLocation = "https://test.kuali.org/kfs-reg/" + schemaLocation.substring(beginIndex);
         eInvoiceInputFileType.setSchemaLocation(newSchemaLocation);
         eInvoice = (ElectronicInvoice) batchInputFileService.parse(eInvoiceInputFileType, fileByteContent);
-        
+
     }
-    
-    private void validateCXMLAttributes(){
+
+    private void validateCXMLAttributes() {
         assertEquals(ElectronicInvoiceParserFixture.payloadID, eInvoice.getPayloadID());
         assertEquals(ElectronicInvoiceParserFixture.timestamp, eInvoice.getTimestamp());
         assertEquals(ElectronicInvoiceParserFixture.version, eInvoice.getVersion());
         assertEquals(ElectronicInvoiceParserFixture.locale, eInvoice.getLocale());
         assertEquals(ElectronicInvoiceParserFixture.deploymentMode, eInvoice.getDeploymentMode());
     }
-    
-    private void validateHeaderElement(){
-        assertEquals(ElectronicInvoiceParserFixture.fromDomain,eInvoice.getCxmlHeader().getFromDomain());
-        assertEquals(ElectronicInvoiceParserFixture.fromIdentity,eInvoice.getCxmlHeader().getFromIdentity());
-        
-        assertEquals(ElectronicInvoiceParserFixture.toDomain,eInvoice.getCxmlHeader().getToDomain());
-        assertEquals(ElectronicInvoiceParserFixture.toIdentity,eInvoice.getCxmlHeader().getToIdentity());
-        
-        assertEquals(ElectronicInvoiceParserFixture.senderDomain,eInvoice.getCxmlHeader().getSenderDomain());
-        assertEquals(ElectronicInvoiceParserFixture.senderIdentity,eInvoice.getCxmlHeader().getSenderIdentity());
-        assertEquals(ElectronicInvoiceParserFixture.senderSharedSecret,eInvoice.getCxmlHeader().getSenderSharedSecret());
-        assertEquals(ElectronicInvoiceParserFixture.senderUserAgent,eInvoice.getCxmlHeader().getSenderUserAgent());
+
+    private void validateHeaderElement() {
+        assertEquals(ElectronicInvoiceParserFixture.fromDomain, eInvoice.getCxmlHeader().getFromDomain());
+        assertEquals(ElectronicInvoiceParserFixture.fromIdentity, eInvoice.getCxmlHeader().getFromIdentity());
+
+        assertEquals(ElectronicInvoiceParserFixture.toDomain, eInvoice.getCxmlHeader().getToDomain());
+        assertEquals(ElectronicInvoiceParserFixture.toIdentity, eInvoice.getCxmlHeader().getToIdentity());
+
+        assertEquals(ElectronicInvoiceParserFixture.senderDomain, eInvoice.getCxmlHeader().getSenderDomain());
+        assertEquals(ElectronicInvoiceParserFixture.senderIdentity, eInvoice.getCxmlHeader().getSenderIdentity());
+        assertEquals(ElectronicInvoiceParserFixture.senderSharedSecret, eInvoice.getCxmlHeader().getSenderSharedSecret());
+        assertEquals(ElectronicInvoiceParserFixture.senderUserAgent, eInvoice.getCxmlHeader().getSenderUserAgent());
     }
-    
-    private void validateInvoiceDetailRequestHeader(){
-        
+
+    private void validateInvoiceDetailRequestHeader() {
+
         String invoiceDate = eInvoice.getInvoiceDetailRequestHeader().getInvoiceDateString();
         Date date = ElectronicInvoiceUtils.getDate(invoiceDate);
-        
-        assertEquals(ElectronicInvoiceParserFixture.invoiceDate,invoiceDate);
-        assertEquals(date.toString(),eInvoice.getInvoiceDetailRequestHeader().getInvoiceDate().toString());
-        assertEquals(ElectronicInvoiceParserFixture.invoiceID,eInvoice.getInvoiceDetailRequestHeader().getInvoiceId());
-        assertEquals(ElectronicInvoiceParserFixture.operation,eInvoice.getInvoiceDetailRequestHeader().getOperation());
-        assertEquals(ElectronicInvoiceParserFixture.purpose,eInvoice.getInvoiceDetailRequestHeader().getPurpose());
-        
+
+        assertEquals(ElectronicInvoiceParserFixture.invoiceDate, invoiceDate);
+        assertEquals(date.toString(), eInvoice.getInvoiceDetailRequestHeader().getInvoiceDate().toString());
+        assertEquals(ElectronicInvoiceParserFixture.invoiceID, eInvoice.getInvoiceDetailRequestHeader().getInvoiceId());
+        assertEquals(ElectronicInvoiceParserFixture.operation, eInvoice.getInvoiceDetailRequestHeader().getOperation());
+        assertEquals(ElectronicInvoiceParserFixture.purpose, eInvoice.getInvoiceDetailRequestHeader().getPurpose());
+
         assertTrue(eInvoice.getInvoiceDetailRequestHeader().isInformationOnly());
         assertTrue(eInvoice.getInvoiceDetailRequestHeader().isHeaderInvoiceIndicator());
-        
+
         assertTrue(eInvoice.getInvoiceDetailRequestHeader().isTaxInLine());
         assertTrue(eInvoice.getInvoiceDetailRequestHeader().isSpecialHandlingInLine());
         assertTrue(eInvoice.getInvoiceDetailRequestHeader().isShippingInLine());
         assertTrue(eInvoice.getInvoiceDetailRequestHeader().isDiscountInLine());
-        
+
         validateInvoicePartners();
         validateShippingDetail();
         validatePaymentTermElement();
     }
-    
-    private void validateInvoicePartners(){
+
+    private void validateInvoicePartners() {
         validateBillToContact();
         validateRemitToContact();
     }
-    
-    private void validateBillToContact(){
-        
+
+    private void validateBillToContact() {
+
         ElectronicInvoiceDetailRequestHeader requestHeader = eInvoice.getInvoiceDetailRequestHeader();
         ElectronicInvoiceContact contact = requestHeader.getCxmlContactByRoleID(ElectronicInvoiceMappingService.CXML_ADDRESS_BILL_TO_ROLE_ID);
-        
+
         assertNotNull(contact);
-        
-        assertEquals(ElectronicInvoiceParserFixture.BillToContact.addressId,contact.getAddressID());
-        assertEquals(ElectronicInvoiceParserFixture.BillToContact.role,contact.getRole());
-        
-        assertEquals(1,contact.getPostalAddresses().size());
-        
-        assertEquals(ElectronicInvoiceParserFixture.BillToContact.street1,contact.getPostalAddresses().get(0).getLine1());
-        assertEquals(ElectronicInvoiceParserFixture.BillToContact.street2,contact.getPostalAddresses().get(0).getLine2());
-        assertEquals(ElectronicInvoiceParserFixture.BillToContact.street3,contact.getPostalAddresses().get(0).getLine3());
-        assertEquals(ElectronicInvoiceParserFixture.BillToContact.city,contact.getPostalAddresses().get(0).getCityName());
-        assertEquals(ElectronicInvoiceParserFixture.BillToContact.state,contact.getPostalAddresses().get(0).getStateCode());
-        assertEquals(ElectronicInvoiceParserFixture.BillToContact.country,contact.getPostalAddresses().get(0).getCountryName());
-        assertEquals(ElectronicInvoiceParserFixture.BillToContact.countryCode,contact.getPostalAddresses().get(0).getCountryCode());
-        
+
+        assertEquals(ElectronicInvoiceParserFixture.BillToContact.addressId, contact.getAddressID());
+        assertEquals(ElectronicInvoiceParserFixture.BillToContact.role, contact.getRole());
+
+        assertEquals(1, contact.getPostalAddresses().size());
+
+        assertEquals(ElectronicInvoiceParserFixture.BillToContact.street1, contact.getPostalAddresses().get(0).getLine1());
+        assertEquals(ElectronicInvoiceParserFixture.BillToContact.street2, contact.getPostalAddresses().get(0).getLine2());
+        assertEquals(ElectronicInvoiceParserFixture.BillToContact.street3, contact.getPostalAddresses().get(0).getLine3());
+        assertEquals(ElectronicInvoiceParserFixture.BillToContact.city, contact.getPostalAddresses().get(0).getCityName());
+        assertEquals(ElectronicInvoiceParserFixture.BillToContact.state, contact.getPostalAddresses().get(0).getStateCode());
+        assertEquals(ElectronicInvoiceParserFixture.BillToContact.country, contact.getPostalAddresses().get(0).getCountryName());
+        assertEquals(ElectronicInvoiceParserFixture.BillToContact.countryCode, contact.getPostalAddresses().get(0).getCountryCode());
+
     }
-    
-    private void validateRemitToContact(){
-        
+
+    private void validateRemitToContact() {
+
         ElectronicInvoiceDetailRequestHeader requestHeader = eInvoice.getInvoiceDetailRequestHeader();
         ElectronicInvoiceContact contact = requestHeader.getCxmlContactByRoleID(ElectronicInvoiceMappingService.CXML_ADDRESS_REMIT_TO_ROLE_ID);
 
         assertNotNull(contact);
-        
-        assertEquals(ElectronicInvoiceParserFixture.RemitToContact.addressId,contact.getAddressID());
-        assertEquals(ElectronicInvoiceParserFixture.RemitToContact.role,contact.getRole());
-        
-        assertEquals(1,contact.getPostalAddresses().size());
-        
-        assertEquals(ElectronicInvoiceParserFixture.RemitToContact.street1,contact.getPostalAddresses().get(0).getLine1());
-        assertEquals(ElectronicInvoiceParserFixture.RemitToContact.street2,contact.getPostalAddresses().get(0).getLine2());
-        assertEquals(ElectronicInvoiceParserFixture.RemitToContact.street3,contact.getPostalAddresses().get(0).getLine3());
-        assertEquals(ElectronicInvoiceParserFixture.RemitToContact.city,contact.getPostalAddresses().get(0).getCityName());
-        assertEquals(ElectronicInvoiceParserFixture.RemitToContact.state,contact.getPostalAddresses().get(0).getStateCode());
-        assertEquals(ElectronicInvoiceParserFixture.RemitToContact.country,contact.getPostalAddresses().get(0).getCountryName());
-        assertEquals(ElectronicInvoiceParserFixture.RemitToContact.countryCode,contact.getPostalAddresses().get(0).getCountryCode());
-        
+
+        assertEquals(ElectronicInvoiceParserFixture.RemitToContact.addressId, contact.getAddressID());
+        assertEquals(ElectronicInvoiceParserFixture.RemitToContact.role, contact.getRole());
+
+        assertEquals(1, contact.getPostalAddresses().size());
+
+        assertEquals(ElectronicInvoiceParserFixture.RemitToContact.street1, contact.getPostalAddresses().get(0).getLine1());
+        assertEquals(ElectronicInvoiceParserFixture.RemitToContact.street2, contact.getPostalAddresses().get(0).getLine2());
+        assertEquals(ElectronicInvoiceParserFixture.RemitToContact.street3, contact.getPostalAddresses().get(0).getLine3());
+        assertEquals(ElectronicInvoiceParserFixture.RemitToContact.city, contact.getPostalAddresses().get(0).getCityName());
+        assertEquals(ElectronicInvoiceParserFixture.RemitToContact.state, contact.getPostalAddresses().get(0).getStateCode());
+        assertEquals(ElectronicInvoiceParserFixture.RemitToContact.country, contact.getPostalAddresses().get(0).getCountryName());
+        assertEquals(ElectronicInvoiceParserFixture.RemitToContact.countryCode, contact.getPostalAddresses().get(0).getCountryCode());
+
     }
-    
-    private void validateShippingDetail(){
-        
+
+    private void validateShippingDetail() {
+
         ElectronicInvoiceDetailRequestHeader requestHeader = eInvoice.getInvoiceDetailRequestHeader();
-        
-        assertEquals(ElectronicInvoiceParserFixture.shippingDate,requestHeader.getShippingDateString());
-        
+
+        assertEquals(ElectronicInvoiceParserFixture.shippingDate, requestHeader.getShippingDateString());
+
         ElectronicInvoiceContact contact = requestHeader.getCxmlContactByRoleID(ElectronicInvoiceMappingService.CXML_ADDRESS_SHIP_TO_ROLE_ID);
-        
+
         assertNotNull(contact);
-        
-        assertEquals(ElectronicInvoiceParserFixture.ShipToContact.addressId,contact.getAddressID());
-        assertEquals(ElectronicInvoiceParserFixture.ShipToContact.role,contact.getRole());
-        
-        assertEquals(1,contact.getPostalAddresses().size());
-        
-        assertEquals(ElectronicInvoiceParserFixture.ShipToContact.street1,contact.getPostalAddresses().get(0).getLine1());
-        assertEquals(ElectronicInvoiceParserFixture.ShipToContact.street2,contact.getPostalAddresses().get(0).getLine2());
-        assertEquals(ElectronicInvoiceParserFixture.ShipToContact.street3,contact.getPostalAddresses().get(0).getLine3());
-        assertEquals(ElectronicInvoiceParserFixture.ShipToContact.city,contact.getPostalAddresses().get(0).getCityName());
-        assertEquals(ElectronicInvoiceParserFixture.ShipToContact.state,contact.getPostalAddresses().get(0).getStateCode());
-        assertEquals(ElectronicInvoiceParserFixture.ShipToContact.country,contact.getPostalAddresses().get(0).getCountryName());
-        assertEquals(ElectronicInvoiceParserFixture.ShipToContact.countryCode,contact.getPostalAddresses().get(0).getCountryCode());
-        
+
+        assertEquals(ElectronicInvoiceParserFixture.ShipToContact.addressId, contact.getAddressID());
+        assertEquals(ElectronicInvoiceParserFixture.ShipToContact.role, contact.getRole());
+
+        assertEquals(1, contact.getPostalAddresses().size());
+
+        assertEquals(ElectronicInvoiceParserFixture.ShipToContact.street1, contact.getPostalAddresses().get(0).getLine1());
+        assertEquals(ElectronicInvoiceParserFixture.ShipToContact.street2, contact.getPostalAddresses().get(0).getLine2());
+        assertEquals(ElectronicInvoiceParserFixture.ShipToContact.street3, contact.getPostalAddresses().get(0).getLine3());
+        assertEquals(ElectronicInvoiceParserFixture.ShipToContact.city, contact.getPostalAddresses().get(0).getCityName());
+        assertEquals(ElectronicInvoiceParserFixture.ShipToContact.state, contact.getPostalAddresses().get(0).getStateCode());
+        assertEquals(ElectronicInvoiceParserFixture.ShipToContact.country, contact.getPostalAddresses().get(0).getCountryName());
+        assertEquals(ElectronicInvoiceParserFixture.ShipToContact.countryCode, contact.getPostalAddresses().get(0).getCountryCode());
+
         String emailName1 = contact.getEmailAddresses().get(ElectronicInvoiceParserFixture.ShipToContact.emailName1);
         String emailName2 = contact.getEmailAddresses().get(ElectronicInvoiceParserFixture.ShipToContact.emailName2);
-        
+
         assertNotNull(emailName1);
         assertNotNull(emailName2);
-        
-        assertEquals(ElectronicInvoiceParserFixture.ShipToContact.emailValue1,emailName1);
-        assertEquals(ElectronicInvoiceParserFixture.ShipToContact.emailValue2,emailName2);
-        
+
+        assertEquals(ElectronicInvoiceParserFixture.ShipToContact.emailValue1, emailName1);
+        assertEquals(ElectronicInvoiceParserFixture.ShipToContact.emailValue2, emailName2);
+
         String phoneNumber = contact.getPhoneNumbers().get(ElectronicInvoiceParserFixture.ShipToContact.phoneName);
         assertNotNull(phoneNumber);
-        assertEquals(ElectronicInvoiceParserFixture.ShipToContact.phoneNumber,phoneNumber);
-        
+        assertEquals(ElectronicInvoiceParserFixture.ShipToContact.phoneNumber, phoneNumber);
+
         String faxNumber = contact.getPhoneNumbers().get(ElectronicInvoiceParserFixture.ShipToContact.faxName);
         assertNotNull(faxNumber);
-        assertEquals(ElectronicInvoiceParserFixture.ShipToContact.faxNumber,faxNumber);
-        
+        assertEquals(ElectronicInvoiceParserFixture.ShipToContact.faxNumber, faxNumber);
+
         String url = contact.getWebAddresses().get(0);
         assertNotNull(url);
-        assertEquals(ElectronicInvoiceParserFixture.ShipToContact.url,url);
-        
+        assertEquals(ElectronicInvoiceParserFixture.ShipToContact.url, url);
+
     }
-    
-    private void validatePaymentTermElement(){
-        assertEquals(ElectronicInvoiceParserFixture.payInNumberOfDays,eInvoice.getInvoiceDetailRequestHeader().getPayInNumberOfDays());
-        assertEquals(ElectronicInvoiceParserFixture.percentageRate,eInvoice.getInvoiceDetailRequestHeader().getPercentageRate());
+
+    private void validatePaymentTermElement() {
+        assertEquals(ElectronicInvoiceParserFixture.payInNumberOfDays, eInvoice.getInvoiceDetailRequestHeader().getPayInNumberOfDays());
+        assertEquals(ElectronicInvoiceParserFixture.percentageRate, eInvoice.getInvoiceDetailRequestHeader().getPercentageRate());
     }
-    
-    private void validateInvoiceDetailOrder(){
-        
-        assertEquals(1,eInvoice.getInvoiceDetailOrders().size());
-        
+
+    private void validateInvoiceDetailOrder() {
+
+        assertEquals(1, eInvoice.getInvoiceDetailOrders().size());
+
         ElectronicInvoiceOrder order = eInvoice.getInvoiceDetailOrders().get(0);
-        
-        assertEquals(ElectronicInvoiceParserFixture.orderDate,order.getOrderReferenceOrderDateString());
-        assertEquals(ElectronicInvoiceParserFixture.orderID,order.getOrderReferenceOrderID());
-        assertEquals(ElectronicInvoiceParserFixture.documentRefPayloadID,order.getOrderReferenceDocumentRefPayloadID());
-        
+
+        assertEquals(ElectronicInvoiceParserFixture.orderDate, order.getOrderReferenceOrderDateString());
+        assertEquals(ElectronicInvoiceParserFixture.orderID, order.getOrderReferenceOrderID());
+        assertEquals(ElectronicInvoiceParserFixture.documentRefPayloadID, order.getOrderReferenceDocumentRefPayloadID());
+
         /**
          * Validate item
          */
-        assertEquals(1,order.getInvoiceItems().size());
-        
+        assertEquals(1, order.getInvoiceItems().size());
+
         ElectronicInvoiceItem item = order.getInvoiceItems().get(0);
-        
+
         assertEquals(ElectronicInvoiceParserFixture.InvoiceItem.invoiceLineNumber, item.getInvoiceLineNumber());
         assertEquals(ElectronicInvoiceParserFixture.InvoiceItem.quantity, item.getQuantity());
         assertEquals(ElectronicInvoiceParserFixture.InvoiceItem.uom, item.getUnitOfMeasure());
@@ -271,15 +271,15 @@ public class ElectronicInvoiceParserTest extends KualiTestBase {
         assertEquals(ElectronicInvoiceParserFixture.InvoiceItem.lineTaxDesc, item.getTaxDescription());
         assertEquals(ElectronicInvoiceParserFixture.InvoiceItem.lineShippingAmt, item.getInvoiceLineShippingAmountBigDecimal().doubleValue());
         assertEquals(ElectronicInvoiceParserFixture.InvoiceItem.lineSpecialHandlingAmt, item.getInvoiceLineSpecialHandlingAmountBigDecimal().doubleValue());
-        
+
     }
-    
-    private void validateInvoiceDetailSummary(){
-        
+
+    private void validateInvoiceDetailSummary() {
+
         ElectronicInvoiceDetailRequestSummary summary = eInvoice.getInvoiceDetailRequestSummary();
-        
+
         assertNotNull(summary);
-        
+
         assertEquals(ElectronicInvoiceParserFixture.SummaryDetail.subTotalAmt, summary.getSubTotalAmount());
         assertEquals(ElectronicInvoiceParserFixture.SummaryDetail.taxAmount, summary.getTaxAmount());
         assertEquals(ElectronicInvoiceParserFixture.SummaryDetail.taxDescription, summary.getTaxDescription());
@@ -290,7 +290,7 @@ public class ElectronicInvoiceParserTest extends KualiTestBase {
         assertEquals(ElectronicInvoiceParserFixture.SummaryDetail.netAmt, summary.getNetAmount());
         assertEquals(ElectronicInvoiceParserFixture.SummaryDetail.depositAmt, summary.getDepositAmount());
         assertEquals(ElectronicInvoiceParserFixture.SummaryDetail.dueAmt, summary.getDueAmount());
-        
+
     }
 }
 

@@ -1,120 +1,121 @@
-<?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
-<!--
-   - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
-   - This program is free software: you can redistribute it and/or modify
-   - it under the terms of the GNU Affero General Public License as
-   - published by the Free Software Foundation, either version 3 of the
-   - License, or (at your option) any later version.
-   - 
-   - This program is distributed in the hope that it will be useful,
-   - but WITHOUT ANY WARRANTY; without even the implied warranty of
-   - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   - GNU Affero General Public License for more details.
-   - 
-   - You should have received a copy of the GNU Affero General Public License
-   - along with this program.  If not, see <http://www.gnu.org/licenses/>.
- -->
-	<bean id="InvoiceAccountDetail" parent="InvoiceAccountDetail-parentBean" />
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+    <!--
+       - The Kuali Financial System, a comprehensive financial management system for higher education.
+       -
+       - Copyright 2005-2016 The Kuali Foundation
+       -
+       - This program is free software: you can redistribute it and/or modify
+       - it under the terms of the GNU Affero General Public License as
+       - published by the Free Software Foundation, either version 3 of the
+       - License, or (at your option) any later version.
+       -
+       - This program is distributed in the hope that it will be useful,
+       - but WITHOUT ANY WARRANTY; without even the implied warranty of
+       - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+       - GNU Affero General Public License for more details.
+       -
+       - You should have received a copy of the GNU Affero General Public License
+       - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+     -->
+    <bean id="InvoiceAccountDetail" parent="InvoiceAccountDetail-parentBean"/>
 
-	<bean id="InvoiceAccountDetail-parentBean" abstract="true" parent="BusinessObjectEntry">
-		<property name="businessObjectClass" value="org.kuali.kfs.module.ar.businessobject.InvoiceAccountDetail" />
-		<property name="objectLabel" value="Invoice Account Detail" />
-		<property name="attributes">
-			<list>
-				<ref bean="InvoiceAccountDetail-documentNumber" />
-				<ref bean="InvoiceAccountDetail-proposalNumber" />
-				<ref bean="InvoiceAccountDetail-chartOfAccountsCode" />
-				<ref bean="InvoiceAccountDetail-accountNumber" />
-				<ref bean="InvoiceAccountDetail-totalBudget" />
-				<ref bean="InvoiceAccountDetail-invoiceAmount" />
-				<ref bean="InvoiceAccountDetail-cumulativeExpenditures" />
-				<ref bean="InvoiceAccountDetail-budgetRemaining" />
-				<ref bean="InvoiceAccountDetail-totalPreviouslyBilled" />
-				<ref bean="InvoiceAccountDetail-totalAmountBilledToDate" />
-			</list>
-		</property>
-	</bean>
+    <bean id="InvoiceAccountDetail-parentBean" abstract="true" parent="BusinessObjectEntry">
+        <property name="businessObjectClass" value="org.kuali.kfs.module.ar.businessobject.InvoiceAccountDetail"/>
+        <property name="objectLabel" value="Invoice Account Detail"/>
+        <property name="attributes">
+            <list>
+                <ref bean="InvoiceAccountDetail-documentNumber"/>
+                <ref bean="InvoiceAccountDetail-proposalNumber"/>
+                <ref bean="InvoiceAccountDetail-chartOfAccountsCode"/>
+                <ref bean="InvoiceAccountDetail-accountNumber"/>
+                <ref bean="InvoiceAccountDetail-totalBudget"/>
+                <ref bean="InvoiceAccountDetail-invoiceAmount"/>
+                <ref bean="InvoiceAccountDetail-cumulativeExpenditures"/>
+                <ref bean="InvoiceAccountDetail-budgetRemaining"/>
+                <ref bean="InvoiceAccountDetail-totalPreviouslyBilled"/>
+                <ref bean="InvoiceAccountDetail-totalAmountBilledToDate"/>
+            </list>
+        </property>
+    </bean>
 
-	<!-- Attribute Definitions -->
+    <!-- Attribute Definitions -->
 
-	<bean id="InvoiceAccountDetail-documentNumber" parent="InvoiceAccountDetail-documentNumber-parentBean" />
+    <bean id="InvoiceAccountDetail-documentNumber" parent="InvoiceAccountDetail-documentNumber-parentBean"/>
 
-	<bean id="InvoiceAccountDetail-documentNumber-parentBean" abstract="true" parent="DocumentHeader-documentNumber">
-		<property name="forceUppercase" value="true" />
-	</bean>
-	<bean id="InvoiceAccountDetail-proposalNumber" parent="InvoiceAccountDetail-proposalNumber-parentBean" />
+    <bean id="InvoiceAccountDetail-documentNumber-parentBean" abstract="true" parent="DocumentHeader-documentNumber">
+        <property name="forceUppercase" value="true"/>
+    </bean>
+    <bean id="InvoiceAccountDetail-proposalNumber" parent="InvoiceAccountDetail-proposalNumber-parentBean"/>
 
-	<bean id="InvoiceAccountDetail-proposalNumber-parentBean" abstract="true" parent="ExternalizableAttributeDefinitionProxy"
-		p:sourceExternalizableBusinessObjectInterface="org.kuali.kfs.integration.cg.ContractAndGrantsProposal" p:sourceAttributeName="proposalNumber">
-		<property name="name" value="proposalNumber" />
-		<property name="forceUppercase" value="true" />
-		<property name="maxLength" value="12" />
-		<property name="validationPattern">
-      <bean parent="AlphaNumericValidation" p:allowDash="true" />
-		</property>
-		<property name="control">
-			<bean parent="TextControlDefinition" p:size="14" />
-		</property>
-	</bean>
-	<bean id="InvoiceAccountDetail-chartOfAccountsCode" parent="InvoiceAccountDetail-chartOfAccountsCode-parentBean" />
+    <bean id="InvoiceAccountDetail-proposalNumber-parentBean" abstract="true" parent="ExternalizableAttributeDefinitionProxy"
+          p:sourceExternalizableBusinessObjectInterface="org.kuali.kfs.integration.cg.ContractAndGrantsProposal" p:sourceAttributeName="proposalNumber">
+        <property name="name" value="proposalNumber"/>
+        <property name="forceUppercase" value="true"/>
+        <property name="maxLength" value="12"/>
+        <property name="validationPattern">
+            <bean parent="AlphaNumericValidation" p:allowDash="true"/>
+        </property>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="14"/>
+        </property>
+    </bean>
+    <bean id="InvoiceAccountDetail-chartOfAccountsCode" parent="InvoiceAccountDetail-chartOfAccountsCode-parentBean"/>
 
-	<bean id="InvoiceAccountDetail-chartOfAccountsCode-parentBean" abstract="true" parent="ChartAttribute-SelectControl">
-		<property name="required" value="false" />
-	</bean>
-	<bean id="InvoiceAccountDetail-accountNumber" parent="InvoiceAccountDetail-accountNumber-parentBean" />
+    <bean id="InvoiceAccountDetail-chartOfAccountsCode-parentBean" abstract="true" parent="ChartAttribute-SelectControl">
+        <property name="required" value="false"/>
+    </bean>
+    <bean id="InvoiceAccountDetail-accountNumber" parent="InvoiceAccountDetail-accountNumber-parentBean"/>
 
-	<bean id="InvoiceAccountDetail-accountNumber-parentBean" abstract="true" parent="AccountAttribute">
-		<property name="control">
-      		<bean parent="TextControlDefinition" p:size="9"/>
-    	</property>
-	</bean>
+    <bean id="InvoiceAccountDetail-accountNumber-parentBean" abstract="true" parent="AccountAttribute">
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="9"/>
+        </property>
+    </bean>
 
-	<bean id="InvoiceAccountDetail-totalBudget" parent="InvoiceAccountDetail-totalBudget-parentBean" />
+    <bean id="InvoiceAccountDetail-totalBudget" parent="InvoiceAccountDetail-totalBudget-parentBean"/>
 
-	<bean id="InvoiceAccountDetail-totalBudget-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
-		<property name="name" value="totalBudget" />
-		<property name="label" value="Total Budget" />
-		<property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter" />
-	</bean>
+    <bean id="InvoiceAccountDetail-totalBudget-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
+        <property name="name" value="totalBudget"/>
+        <property name="label" value="Total Budget"/>
+        <property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>
+    </bean>
 
-	<bean id="InvoiceAccountDetail-invoiceAmount" parent="InvoiceAccountDetail-invoiceAmount-parentBean" />
+    <bean id="InvoiceAccountDetail-invoiceAmount" parent="InvoiceAccountDetail-invoiceAmount-parentBean"/>
 
-	<bean id="InvoiceAccountDetail-invoiceAmount-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
-		<property name="name" value="invoiceAmount" />
-		<property name="label" value="Invoice Amount" />
-		<property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter" />
-	</bean>
+    <bean id="InvoiceAccountDetail-invoiceAmount-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
+        <property name="name" value="invoiceAmount"/>
+        <property name="label" value="Invoice Amount"/>
+        <property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>
+    </bean>
 
-	<bean id="InvoiceAccountDetail-cumulativeExpenditures" parent="InvoiceAccountDetail-cumulativeExpenditures-parentBean" />
+    <bean id="InvoiceAccountDetail-cumulativeExpenditures" parent="InvoiceAccountDetail-cumulativeExpenditures-parentBean"/>
 
-	<bean id="InvoiceAccountDetail-cumulativeExpenditures-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
-		<property name="name" value="cumulativeExpenditures" />
-		<property name="label" value="Cumulative Expenditures" />
-		<property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter" />
-	</bean>
+    <bean id="InvoiceAccountDetail-cumulativeExpenditures-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
+        <property name="name" value="cumulativeExpenditures"/>
+        <property name="label" value="Cumulative Expenditures"/>
+        <property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>
+    </bean>
 
-	<bean id="InvoiceAccountDetail-budgetRemaining" parent="InvoiceAccountDetail-budgetRemaining-parentBean" />
+    <bean id="InvoiceAccountDetail-budgetRemaining" parent="InvoiceAccountDetail-budgetRemaining-parentBean"/>
 
-	<bean id="InvoiceAccountDetail-budgetRemaining-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
-		<property name="name" value="budgetRemaining" />
-		<property name="label" value="Budget Remaining" />
-		<property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter" />
-	</bean>
-	
-	<bean id="InvoiceAccountDetail-totalPreviouslyBilled" parent="InvoiceAccountDetail-totalPreviouslyBilled-parentBean" />
-	<bean id="InvoiceAccountDetail-totalPreviouslyBilled-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
-		<property name="name" value="totalPreviouslyBilled" />
-		<property name="label" value="Total Previously Billed" />
-		<property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter" />
-	</bean>
+    <bean id="InvoiceAccountDetail-budgetRemaining-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
+        <property name="name" value="budgetRemaining"/>
+        <property name="label" value="Budget Remaining"/>
+        <property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>
+    </bean>
 
-	<bean id="InvoiceAccountDetail-totalAmountBilledToDate" parent="InvoiceAccountDetail-totalAmountBilledToDate-parentBean" />
-	<bean id="InvoiceAccountDetail-totalAmountBilledToDate-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
-		<property name="name" value="totalAmountBilledToDate" />
-		<property name="label" value="Total Amount Billed To Date" />
-		<property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter" />
-	</bean>
+    <bean id="InvoiceAccountDetail-totalPreviouslyBilled" parent="InvoiceAccountDetail-totalPreviouslyBilled-parentBean"/>
+    <bean id="InvoiceAccountDetail-totalPreviouslyBilled-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
+        <property name="name" value="totalPreviouslyBilled"/>
+        <property name="label" value="Total Previously Billed"/>
+        <property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>
+    </bean>
+
+    <bean id="InvoiceAccountDetail-totalAmountBilledToDate" parent="InvoiceAccountDetail-totalAmountBilledToDate-parentBean"/>
+    <bean id="InvoiceAccountDetail-totalAmountBilledToDate-parentBean" abstract="true" parent="GenericAttributes-genericAmount">
+        <property name="name" value="totalAmountBilledToDate"/>
+        <property name="label" value="Total Amount Billed To Date"/>
+        <property name="formatterClass" value="org.kuali.rice.core.web.format.CurrencyFormatter"/>
+    </bean>
 </beans>

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -23,7 +23,6 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 /**
  * This service interface defines methods that a CashDrawerService implementation must provide.
- *
  */
 public interface CashDrawerService {
     /**
@@ -41,7 +40,6 @@ public interface CashDrawerService {
     public void closeCashDrawer(CashDrawer cd);
 
     /**
-     *
      * Opens the CashDrawer instance associated with the given campus, creating one if necessary. Records the given
      * documentId as the document which opened the cashdrawer.
      *
@@ -54,7 +52,7 @@ public interface CashDrawerService {
     /**
      * Opens the given cash drawer
      *
-     * @param cd The cash drawer to open
+     * @param cd         The cash drawer to open
      * @param documentId the document number which is opening the cash drawer
      * @return The opened version of the cash drawer
      */
@@ -73,7 +71,7 @@ public interface CashDrawerService {
     /**
      * Locks the given cash drawer, if it is open
      *
-     * @param cd The cash drawer to open
+     * @param cd         The cash drawer to open
      * @param documentId The document id which is locking the cash drawer
      */
     public void lockCashDrawer(CashDrawer cd, String documentId);
@@ -91,7 +89,7 @@ public interface CashDrawerService {
     /**
      * Unlocks the given cash drawer, if it is open and locked
      *
-     * @param cd The cash drawer to unlock
+     * @param cd         The cash drawer to unlock
      * @param documentId The document which is unlocking the cash drawer
      */
     public void unlockCashDrawer(CashDrawer cd, String documentId);

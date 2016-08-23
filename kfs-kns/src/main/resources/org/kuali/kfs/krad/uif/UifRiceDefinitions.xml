@@ -1,60 +1,59 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-  <bean id="Uif-View-KnsTheme" abstract="true" parent="Uif-View-KnsTheme-parentBean" />
-	<bean id="Uif-View-KnsTheme-parentBean" abstract="true" parent="Uif-View">
-    <property name="theme">
-      <bean parent="Uif-ClassicKnsTheme"/>
-    </property>
-  </bean>
+    <bean id="Uif-View-KnsTheme" abstract="true" parent="Uif-View-KnsTheme-parentBean"/>
+    <bean id="Uif-View-KnsTheme-parentBean" abstract="true" parent="Uif-View">
+        <property name="theme">
+            <bean parent="Uif-ClassicKnsTheme"/>
+        </property>
+    </bean>
 
-  <bean id="Uif-FormView-KnsTheme" abstract="true" parent="Uif-FormView-KnsTheme-parentBean" />
-	<bean id="Uif-FormView-KnsTheme-parentBean" abstract="true" parent="Uif-FormView">
-    <property name="theme">
-      <bean parent="Uif-ClassicKnsTheme"/>
-    </property>
-  </bean>
+    <bean id="Uif-FormView-KnsTheme" abstract="true" parent="Uif-FormView-KnsTheme-parentBean"/>
+    <bean id="Uif-FormView-KnsTheme-parentBean" abstract="true" parent="Uif-FormView">
+        <property name="theme">
+            <bean parent="Uif-ClassicKnsTheme"/>
+        </property>
+    </bean>
 
-  <bean id="Uif-KimPersonControl" parent="Uif-KimPersonControl-parentBean"/>
-  <bean id="Uif-KimPersonControl-parentBean" abstract="true" class="org.kuali.kfs.krad.uif.control.UserControl"
-        scope="prototype"
-        parent="Uif-SmallTextControl">
-    <property name="styleClasses">
-      <list merge="true">
-        <value>uif-kimPersonControl</value>
-      </list>
-    </property>
-  </bean>
+    <bean id="Uif-KimPersonControl" parent="Uif-KimPersonControl-parentBean"/>
+    <bean id="Uif-KimPersonControl-parentBean" abstract="true" class="org.kuali.kfs.krad.uif.control.UserControl"
+          scope="prototype"
+          parent="Uif-SmallTextControl">
+        <property name="styleClasses">
+            <list merge="true">
+                <value>uif-kimPersonControl</value>
+            </list>
+        </property>
+    </bean>
 
-  <bean id="Uif-KimGroupControl" parent="Uif-KimGroupControl-parentBean"/>
-  <bean id="Uif-KimGroupControl-parentBean" abstract="true" class="org.kuali.kfs.krad.uif.control.GroupControl"
-        scope="prototype"
-        parent="Uif-SmallTextControl">
-    <property name="styleClasses">
-      <list merge="true">
-        <value>uif-kimGroupControl</value>
-      </list>
-    </property>
-  </bean>
+    <bean id="Uif-KimGroupControl" parent="Uif-KimGroupControl-parentBean"/>
+    <bean id="Uif-KimGroupControl-parentBean" abstract="true" class="org.kuali.kfs.krad.uif.control.GroupControl"
+          scope="prototype"
+          parent="Uif-SmallTextControl">
+        <property name="styleClasses">
+            <list merge="true">
+                <value>uif-kimGroupControl</value>
+            </list>
+        </property>
+    </bean>
 
 </beans>

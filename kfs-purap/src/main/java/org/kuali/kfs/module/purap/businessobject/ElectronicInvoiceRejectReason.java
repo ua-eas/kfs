@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -22,148 +22,149 @@
  */
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.kfs.module.purap.document.ElectronicInvoiceRejectDocument;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.module.purap.document.ElectronicInvoiceRejectDocument;
+
+import java.util.LinkedHashMap;
 
 public class ElectronicInvoiceRejectReason extends PersistableBusinessObjectBase {
 
-  private Integer invoiceRejectReasonIdentifier;
-  private Integer purapDocumentIdentifier;
-  private String invoiceFileName;
-  private String invoiceRejectReasonTypeCode;
-  private String invoiceRejectReasonDescription;
-  private ElectronicInvoiceRejectDocument electronicInvoiceRejectDocument;
-  private ElectronicInvoiceRejectReasonType invoiceRejectReasonType;
+    private Integer invoiceRejectReasonIdentifier;
+    private Integer purapDocumentIdentifier;
+    private String invoiceFileName;
+    private String invoiceRejectReasonTypeCode;
+    private String invoiceRejectReasonDescription;
+    private ElectronicInvoiceRejectDocument electronicInvoiceRejectDocument;
+    private ElectronicInvoiceRejectReasonType invoiceRejectReasonType;
 
 
+    public ElectronicInvoiceRejectReason() {
+        super();
+    }
 
-  public ElectronicInvoiceRejectReason() {
-    super();
-  }
+    public ElectronicInvoiceRejectReason(String electronicInvoiceRejectTypeCode, String invoiceFileName, String description) {
+        super();
+        this.invoiceRejectReasonTypeCode = electronicInvoiceRejectTypeCode;
+        this.invoiceFileName = invoiceFileName;
+        this.invoiceRejectReasonDescription = description;
+    }
 
-  public ElectronicInvoiceRejectReason(String electronicInvoiceRejectTypeCode, String invoiceFileName, String description) {
-    super();
-    this.invoiceRejectReasonTypeCode = electronicInvoiceRejectTypeCode;
-    this.invoiceFileName = invoiceFileName;
-    this.invoiceRejectReasonDescription = description;
-  }
+    public ElectronicInvoiceRejectReason(ElectronicInvoiceRejectDocument eir, String electronicInvoiceRejectTypeCode, String invoiceFileName, String description) {
+        super();
+        this.electronicInvoiceRejectDocument = eir;
+        this.invoiceRejectReasonTypeCode = electronicInvoiceRejectTypeCode;
+        this.invoiceFileName = invoiceFileName;
+        this.invoiceRejectReasonDescription = description;
+    }
 
-  public ElectronicInvoiceRejectReason(ElectronicInvoiceRejectDocument eir, String electronicInvoiceRejectTypeCode, String invoiceFileName, String description) {
-    super();
-    this.electronicInvoiceRejectDocument = eir;
-    this.invoiceRejectReasonTypeCode = electronicInvoiceRejectTypeCode;
-    this.invoiceFileName = invoiceFileName;
-    this.invoiceRejectReasonDescription = description;
-  }
+    public ElectronicInvoiceRejectReason(Integer purapDocumentIdentifier, String electronicInvoiceRejectTypeCode, String invoiceFileName, String description) {
+        super();
+        this.purapDocumentIdentifier = purapDocumentIdentifier;
+        this.invoiceRejectReasonTypeCode = electronicInvoiceRejectTypeCode;
+        this.invoiceFileName = invoiceFileName;
+        this.invoiceRejectReasonDescription = description;
+    }
 
-  public ElectronicInvoiceRejectReason(Integer purapDocumentIdentifier, String electronicInvoiceRejectTypeCode, String invoiceFileName, String description) {
-      super();
-      this.purapDocumentIdentifier = purapDocumentIdentifier;
-      this.invoiceRejectReasonTypeCode = electronicInvoiceRejectTypeCode;
-      this.invoiceFileName = invoiceFileName;
-      this.invoiceRejectReasonDescription = description;
-  }
+    /**
+     * @return Returns the electronicInvoiceRejectDocument.
+     */
+    public ElectronicInvoiceRejectDocument getElectronicInvoiceRejectDocument() {
+        return electronicInvoiceRejectDocument;
+    }
 
-  /**
-   * @return Returns the electronicInvoiceRejectDocument.
-   */
-  public ElectronicInvoiceRejectDocument getElectronicInvoiceRejectDocument() {
-    return electronicInvoiceRejectDocument;
-  }
+    /**
+     * @param electronicInvoiceRejectDocument The electronicInvoiceRejectDocument to set.
+     */
+    public void setElectronicInvoiceRejectDocument(ElectronicInvoiceRejectDocument electronicInvoiceRejectDocument) {
+        this.electronicInvoiceRejectDocument = electronicInvoiceRejectDocument;
+    }
 
-  /**
-   * @param electronicInvoiceRejectDocument The electronicInvoiceRejectDocument to set.
-   */
-  public void setElectronicInvoiceRejectDocument(ElectronicInvoiceRejectDocument electronicInvoiceRejectDocument) {
-    this.electronicInvoiceRejectDocument = electronicInvoiceRejectDocument;
-  }
+    /**
+     * @return Returns the invoiceRejectReasonTypeCode.
+     */
+    public String getInvoiceRejectReasonTypeCode() {
+        return invoiceRejectReasonTypeCode;
+    }
 
-  /**
-   * @return Returns the invoiceRejectReasonTypeCode.
-   */
-  public String getInvoiceRejectReasonTypeCode() {
-    return invoiceRejectReasonTypeCode;
-  }
-  /**
-   * @param invoiceRejectReasonTypeCode The invoiceRejectReasonTypeCode to set.
-   */
-  public void setInvoiceRejectReasonTypeCode(String electronicInvoiceRejectTypeCode) {
-    this.invoiceRejectReasonTypeCode = electronicInvoiceRejectTypeCode;
-  }
+    /**
+     * @param invoiceRejectReasonTypeCode The invoiceRejectReasonTypeCode to set.
+     */
+    public void setInvoiceRejectReasonTypeCode(String electronicInvoiceRejectTypeCode) {
+        this.invoiceRejectReasonTypeCode = electronicInvoiceRejectTypeCode;
+    }
 
-  /**
-   * @return Returns the invoiceRejectReasonIdentifier.
-   */
-  public Integer getInvoiceRejectReasonIdentifier() {
-    return invoiceRejectReasonIdentifier;
-  }
+    /**
+     * @return Returns the invoiceRejectReasonIdentifier.
+     */
+    public Integer getInvoiceRejectReasonIdentifier() {
+        return invoiceRejectReasonIdentifier;
+    }
 
-  /**
-   * @param invoiceRejectReasonIdentifier The invoiceRejectReasonIdentifier to set.
-   */
-  public void setInvoiceRejectReasonIdentifier(Integer id) {
-    this.invoiceRejectReasonIdentifier = id;
-  }
+    /**
+     * @param invoiceRejectReasonIdentifier The invoiceRejectReasonIdentifier to set.
+     */
+    public void setInvoiceRejectReasonIdentifier(Integer id) {
+        this.invoiceRejectReasonIdentifier = id;
+    }
 
-  /**
-   * @return Returns the invoiceFileName.
-   */
-  public String getInvoiceFileName() {
-    return invoiceFileName;
-  }
+    /**
+     * @return Returns the invoiceFileName.
+     */
+    public String getInvoiceFileName() {
+        return invoiceFileName;
+    }
 
-  /**
-   * @param invoiceFileName The invoiceFileName to set.
-   */
-  public void setInvoiceFileName(String invoiceFileName) {
-    this.invoiceFileName = invoiceFileName;
-  }
+    /**
+     * @param invoiceFileName The invoiceFileName to set.
+     */
+    public void setInvoiceFileName(String invoiceFileName) {
+        this.invoiceFileName = invoiceFileName;
+    }
 
-  /**
-   * @return Returns the invoiceRejectReasonDescription.
-   */
-  public String getInvoiceRejectReasonDescription() {
-    return invoiceRejectReasonDescription;
-  }
+    /**
+     * @return Returns the invoiceRejectReasonDescription.
+     */
+    public String getInvoiceRejectReasonDescription() {
+        return invoiceRejectReasonDescription;
+    }
 
-  /**
-   * @param invoiceRejectReasonDescription The invoiceRejectReasonDescription to set.
-   */
-  public void setInvoiceRejectReasonDescription(String invoiceRejectReasonDescription) {
-    this.invoiceRejectReasonDescription = invoiceRejectReasonDescription;
-  }
+    /**
+     * @param invoiceRejectReasonDescription The invoiceRejectReasonDescription to set.
+     */
+    public void setInvoiceRejectReasonDescription(String invoiceRejectReasonDescription) {
+        this.invoiceRejectReasonDescription = invoiceRejectReasonDescription;
+    }
 
-  public ElectronicInvoiceRejectReasonType getInvoiceRejectReasonType() {
-    return invoiceRejectReasonType;
-  }
+    public ElectronicInvoiceRejectReasonType getInvoiceRejectReasonType() {
+        return invoiceRejectReasonType;
+    }
 
-  public void setInvoiceRejectReasonType(ElectronicInvoiceRejectReasonType invoiceRejectReasonType) {
-    this.invoiceRejectReasonType = invoiceRejectReasonType;
-  }
+    public void setInvoiceRejectReasonType(ElectronicInvoiceRejectReasonType invoiceRejectReasonType) {
+        this.invoiceRejectReasonType = invoiceRejectReasonType;
+    }
 
-  /**
-   * @return Returns the purapDocumentIdentifier.
-   */
-  public Integer getPurapDocumentIdentifier() {
-    return purapDocumentIdentifier;
-  }
-  /**
-   * @param purapDocumentIdentifier The purapDocumentIdentifier to set.
-   */
-  public void setPurapDocumentIdentifier(Integer rejectHeaderId) {
-    this.purapDocumentIdentifier = rejectHeaderId;
-  }
+    /**
+     * @return Returns the purapDocumentIdentifier.
+     */
+    public Integer getPurapDocumentIdentifier() {
+        return purapDocumentIdentifier;
+    }
 
-  /**
-   * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
-   */
-  protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
+    /**
+     * @param purapDocumentIdentifier The purapDocumentIdentifier to set.
+     */
+    public void setPurapDocumentIdentifier(Integer rejectHeaderId) {
+        this.purapDocumentIdentifier = rejectHeaderId;
+    }
 
-      LinkedHashMap m = new LinkedHashMap();
-      m.put("invoiceRejectReasonIdentifier", this.invoiceRejectReasonIdentifier);
-      return m;
-  }
+    /**
+     * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
+     */
+    protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
+
+        LinkedHashMap m = new LinkedHashMap();
+        m.put("invoiceRejectReasonIdentifier", this.invoiceRejectReasonIdentifier);
+        return m;
+    }
 
 }

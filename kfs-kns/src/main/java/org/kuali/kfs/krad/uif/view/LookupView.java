@@ -1,32 +1,32 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.krad.uif.view;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.uif.UifConstants.ViewType;
 import org.kuali.kfs.krad.uif.UifPropertyPaths;
 import org.kuali.kfs.krad.uif.component.Component;
 import org.kuali.kfs.krad.uif.component.RequestParameter;
+import org.kuali.kfs.krad.uif.container.CollectionGroup;
 import org.kuali.kfs.krad.uif.container.ContainerBase;
 import org.kuali.kfs.krad.uif.container.Group;
 import org.kuali.kfs.krad.uif.field.Field;
-import org.kuali.kfs.krad.uif.UifConstants.ViewType;
-import org.kuali.kfs.krad.uif.container.CollectionGroup;
 import org.kuali.kfs.krad.web.form.LookupForm;
 
 import java.util.Arrays;
@@ -34,20 +34,18 @@ import java.util.List;
 
 /**
  * View type for Maintenance documents
- *
+ * <p>
  * <p>
  * Supports doing a search against a data object class or performing a more advanced query. The view
  * type is primarily made up of two groups, the search (or criteria) group and the results group. Many
  * options are supported on the view to enable/disable certain features, like what actions are available
  * on the search results.
  * </p>
- *
+ * <p>
  * <p>
  * Works in conjunction with <code>LookupableImpl</code> which customizes the view and carries out the
  * business functionality
  * </p>
- *
- * 
  */
 public class LookupView extends FormView {
     private static final long serialVersionUID = 716926008488403616L;
@@ -97,7 +95,7 @@ public class LookupView extends FormView {
 
     /**
      * The following initialization is performed:
-     *
+     * <p>
      * <ul>
      * <li>Set the abstractTypeClasses map for the lookup object path</li>
      * </ul>
@@ -139,7 +137,7 @@ public class LookupView extends FormView {
 
     /**
      * @see ContainerBase#performApplyModel(View,
-     *      java.lang.Object)
+     * java.lang.Object)
      */
     @Override
     public void performApplyModel(View view, Object model, Component parent) {
@@ -151,7 +149,7 @@ public class LookupView extends FormView {
         }
 
         if (StringUtils.isNotBlank(lookupForm.getReturnFormKey()) &&
-                StringUtils.isNotBlank(lookupForm.getReturnLocation()) && !isHideReturnLinks()) {
+            StringUtils.isNotBlank(lookupForm.getReturnLocation()) && !isHideReturnLinks()) {
             ((List<Field>) getResultsGroup().getItems()).add(0, getResultsReturnField());
         }
 
@@ -204,7 +202,7 @@ public class LookupView extends FormView {
 
     /**
      * Class name for the object the lookup applies to
-     *
+     * <p>
      * <p>
      * The object class name is used to pick up a dictionary entry which will
      * feed the attribute field definitions and other configuration. In addition
@@ -271,7 +269,7 @@ public class LookupView extends FormView {
 
     /**
      * Indicates whether multiple values select should be enabled for the lookup
-     *
+     * <p>
      * <p>
      * When set to true, the select field is enabled for the lookup results group that allows the user
      * to select one or more rows for returning
@@ -431,7 +429,7 @@ public class LookupView extends FormView {
     /**
      * String that maps to the maintenance controller for the maintenance document (if any) associated with the
      * lookup data object class
-     *
+     * <p>
      * <p>
      * Mapping will be used to build the maintenance action links (such as edit, copy, and new). If not given, the
      * default maintenance mapping will be used

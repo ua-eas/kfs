@@ -1,32 +1,32 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.fp.businessobject;
 
-import java.util.LinkedHashMap;
-
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 /**
- * This class is used to represent a disbursement voucher pre-conference registrant.  
+ * This class is used to represent a disbursement voucher pre-conference registrant.
  */
 public class DisbursementVoucherPreConferenceRegistrant extends PersistableBusinessObjectBase {
 
@@ -46,7 +46,7 @@ public class DisbursementVoucherPreConferenceRegistrant extends PersistableBusin
 
     /**
      * Gets the documentNumber attribute.
-     * 
+     *
      * @return Returns the documentNumber
      */
     public String getDocumentNumber() {
@@ -56,7 +56,7 @@ public class DisbursementVoucherPreConferenceRegistrant extends PersistableBusin
 
     /**
      * Sets the documentNumber attribute.
-     * 
+     *
      * @param documentNumber The documentNumber to set.
      */
     public void setDocumentNumber(String documentNumber) {
@@ -65,7 +65,7 @@ public class DisbursementVoucherPreConferenceRegistrant extends PersistableBusin
 
     /**
      * Gets the financialDocumentLineNumber attribute.
-     * 
+     *
      * @return Returns the financialDocumentLineNumber
      */
     public Integer getFinancialDocumentLineNumber() {
@@ -75,7 +75,7 @@ public class DisbursementVoucherPreConferenceRegistrant extends PersistableBusin
 
     /**
      * Sets the financialDocumentLineNumber attribute.
-     * 
+     *
      * @param financialDocumentLineNumber The financialDocumentLineNumber to set.
      */
     public void setFinancialDocumentLineNumber(Integer financialDocumentLineNumber) {
@@ -84,7 +84,7 @@ public class DisbursementVoucherPreConferenceRegistrant extends PersistableBusin
 
     /**
      * Gets the disbVchrPreConfDepartmentCd attribute.
-     * 
+     *
      * @return Returns the disbVchrPreConfDepartmentCd
      */
     public String getDisbVchrPreConfDepartmentCd() {
@@ -94,7 +94,7 @@ public class DisbursementVoucherPreConferenceRegistrant extends PersistableBusin
 
     /**
      * Sets the disbVchrPreConfDepartmentCd attribute.
-     * 
+     *
      * @param disbVchrPreConfDepartmentCd The disbVchrPreConfDepartmentCd to set.
      */
     public void setDisbVchrPreConfDepartmentCd(String disbVchrPreConfDepartmentCd) {
@@ -103,7 +103,7 @@ public class DisbursementVoucherPreConferenceRegistrant extends PersistableBusin
 
     /**
      * Gets the dvConferenceRegistrantName attribute.
-     * 
+     *
      * @return Returns the dvConferenceRegistrantName
      */
     public String getDvConferenceRegistrantName() {
@@ -113,7 +113,7 @@ public class DisbursementVoucherPreConferenceRegistrant extends PersistableBusin
 
     /**
      * Sets the dvConferenceRegistrantName attribute.
-     * 
+     *
      * @param dvConferenceRegistrantName The dvConferenceRegistrantName to set.
      */
     public void setDvConferenceRegistrantName(String dvConferenceRegistrantName) {
@@ -122,7 +122,7 @@ public class DisbursementVoucherPreConferenceRegistrant extends PersistableBusin
 
     /**
      * Gets the dvPreConferenceRequestNumber attribute.
-     * 
+     *
      * @return Returns the dvPreConferenceRequestNumber
      */
     public String getDvPreConferenceRequestNumber() {
@@ -132,7 +132,7 @@ public class DisbursementVoucherPreConferenceRegistrant extends PersistableBusin
 
     /**
      * Sets the dvPreConferenceRequestNumber attribute.
-     * 
+     *
      * @param dvPreConferenceRequestNumber The dvPreConferenceRequestNumber to set.
      */
     public void setDvPreConferenceRequestNumber(String dvPreConferenceRequestNumber) {
@@ -141,7 +141,7 @@ public class DisbursementVoucherPreConferenceRegistrant extends PersistableBusin
 
     /**
      * Gets the disbVchrExpenseAmount attribute.
-     * 
+     *
      * @return Returns the disbVchrExpenseAmount
      */
     public KualiDecimal getDisbVchrExpenseAmount() {
@@ -151,7 +151,7 @@ public class DisbursementVoucherPreConferenceRegistrant extends PersistableBusin
 
     /**
      * Sets the disbVchrExpenseAmount attribute.
-     * 
+     *
      * @param disbVchrExpenseAmount The disbVchrExpenseAmount to set.
      */
     public void setDisbVchrExpenseAmount(KualiDecimal disbVchrExpenseAmount) {

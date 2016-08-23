@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -19,23 +19,23 @@
 
 package org.kuali.kfs.coa.businessobject;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.businessobject.SystemOptions;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.DocumentHeader;
 import org.kuali.kfs.krad.bo.GlobalBusinessObject;
 import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetail;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.businessobject.SystemOptions;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class SubObjectCodeGlobal extends PersistableBusinessObjectBase implements GlobalBusinessObject, MutableInactivatable {
@@ -379,8 +379,8 @@ public class SubObjectCodeGlobal extends PersistableBusinessObjectBase implement
     public List buildListOfDeletionAwareLists() {
         List<Collection<PersistableBusinessObject>> managedLists = super.buildListOfDeletionAwareLists();
 
-        managedLists.add( new ArrayList<PersistableBusinessObject>( getAccountGlobalDetails() ) );
-        managedLists.add( new ArrayList<PersistableBusinessObject>( getSubObjCdGlobalDetails() ) );
+        managedLists.add(new ArrayList<PersistableBusinessObject>(getAccountGlobalDetails()));
+        managedLists.add(new ArrayList<PersistableBusinessObject>(getSubObjCdGlobalDetails()));
 
         return managedLists;
     }

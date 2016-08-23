@@ -1,33 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.collections.IteratorUtils;
 import org.kuali.kfs.gl.OJBUtility;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.ld.businessobject.EmployeeFunding;
 import org.kuali.kfs.module.ld.businessobject.LaborBalanceSummary;
 import org.kuali.kfs.module.ld.businessobject.LaborTransaction;
@@ -41,8 +34,15 @@ import org.kuali.kfs.sys.ObjectUtil;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.NonTransactional;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class LaborLedgerBalanceServiceImpl implements LaborLedgerBalanceService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(LaborLedgerBalanceServiceImpl.class);
@@ -66,7 +66,7 @@ public class LaborLedgerBalanceServiceImpl implements LaborLedgerBalanceService 
     @Override
     @NonTransactional
     public Iterator<LedgerBalance> findBalancesForFiscalYear(Integer fiscalYear, Map<String, String> fieldValues, List<String> encumbranceBalanceTypes) {
-      return laborLedgerBalanceDao.findBalancesForFiscalYear(fiscalYear, fieldValues, encumbranceBalanceTypes);
+        return laborLedgerBalanceDao.findBalancesForFiscalYear(fiscalYear, fieldValues, encumbranceBalanceTypes);
     }
 
     /**
@@ -86,7 +86,7 @@ public class LaborLedgerBalanceServiceImpl implements LaborLedgerBalanceService 
         LOG.debug("findBalance() started");
         return laborLedgerBalanceDao.findBalance(fieldValues, isConsolidated, encumbranceBalanceTypes);
     }
-    
+
     /**
      * @see org.kuali.kfs.module.ld.service.LaborLedgerBalanceService#getBalanceRecordCount(Map, boolean, List)
      */
@@ -98,8 +98,7 @@ public class LaborLedgerBalanceServiceImpl implements LaborLedgerBalanceService 
         Integer recordCount = null;
         if (!isConsolidated) {
             recordCount = OJBUtility.getResultSizeFromMap(fieldValues, new LedgerBalance()).intValue();
-        }
-        else {
+        } else {
             Iterator recordCountIterator = laborLedgerBalanceDao.getConsolidatedBalanceRecordCount(fieldValues, encumbranceBalanceTypes, noZeroAmounts);
             List recordCountList = IteratorUtils.toList(recordCountIterator);
             recordCount = recordCountList.size();
@@ -116,8 +115,7 @@ public class LaborLedgerBalanceServiceImpl implements LaborLedgerBalanceService 
         Integer recordCount = null;
         if (!isConsolidated) {
             recordCount = OJBUtility.getResultSizeFromMap(fieldValues, new LedgerBalance()).intValue();
-        }
-        else {
+        } else {
             Iterator recordCountIterator = laborLedgerBalanceDao.getConsolidatedBalanceRecordCount(fieldValues, encumbranceBalanceTypes);
             List recordCountList = IteratorUtils.toList(recordCountIterator);
             recordCount = recordCountList.size();
@@ -127,7 +125,7 @@ public class LaborLedgerBalanceServiceImpl implements LaborLedgerBalanceService 
 
     /**
      * @see org.kuali.kfs.module.ld.service.LaborLedgerBalanceService#findLedgerBalance(java.util.Collection,
-     *      org.kuali.kfs.module.ld.businessobject.LaborTransaction)
+     * org.kuali.kfs.module.ld.businessobject.LaborTransaction)
      */
     @Override
     @NonTransactional
@@ -143,7 +141,7 @@ public class LaborLedgerBalanceServiceImpl implements LaborLedgerBalanceService 
 
     /**
      * @see org.kuali.kfs.module.ld.service.LaborLedgerBalanceService#findLedgerBalance(java.util.Collection,
-     *      org.kuali.kfs.module.ld.businessobject.LaborTransaction)
+     * org.kuali.kfs.module.ld.businessobject.LaborTransaction)
      */
     @Override
     @NonTransactional
@@ -159,7 +157,7 @@ public class LaborLedgerBalanceServiceImpl implements LaborLedgerBalanceService 
 
     /**
      * @see org.kuali.kfs.module.ld.service.LaborLedgerBalanceService#updateLedgerBalance(org.kuali.kfs.module.ld.businessobject.LedgerBalance,
-     *      org.kuali.kfs.module.ld.businessobject.LaborTransaction)
+     * org.kuali.kfs.module.ld.businessobject.LaborTransaction)
      */
     @Override
     @Transactional
@@ -172,7 +170,7 @@ public class LaborLedgerBalanceServiceImpl implements LaborLedgerBalanceService 
 
     /**
      * @see org.kuali.kfs.module.ld.service.LaborLedgerBalanceService#addLedgerBalance(java.util.Collection,
-     *      org.kuali.kfs.module.ld.businessobject.LaborTransaction)
+     * org.kuali.kfs.module.ld.businessobject.LaborTransaction)
      */
     @Override
     @Transactional
@@ -207,8 +205,7 @@ public class LaborLedgerBalanceServiceImpl implements LaborLedgerBalanceService 
             if (currentFundsCollection.contains(encumbranceFunding)) {
                 int index = currentFundsCollection.indexOf(encumbranceFunding);
                 currentFundsCollection.get(index).setOutstandingEncumbrance(encumbrance);
-            }
-            else if (encumbrance != null && encumbrance.isNonZero()) {
+            } else if (encumbrance != null && encumbrance.isNonZero()) {
                 currentFundsCollection.add(encumbranceFunding);
             }
         }
@@ -242,7 +239,8 @@ public class LaborLedgerBalanceServiceImpl implements LaborLedgerBalanceService 
             } else {
                 /*KFSCNTRB-1534 It is possible for a CSF item to exist on its own without being related to
                   a current funds record.*/
-                currentFundsCollection.add(CSFTrackerAsEmployeeFunding);            }
+                currentFundsCollection.add(CSFTrackerAsEmployeeFunding);
+            }
         }
 
         return currentFundsCollection;
@@ -268,7 +266,7 @@ public class LaborLedgerBalanceServiceImpl implements LaborLedgerBalanceService 
 
     /**
      * @see org.kuali.kfs.module.ld.service.LaborLedgerBalanceService#findBalancesForFiscalYear(java.lang.Integer, java.util.Map,
-     *      java.util.List, java.util.List)
+     * java.util.List, java.util.List)
      */
     @NonTransactional
     @Override
@@ -282,7 +280,7 @@ public class LaborLedgerBalanceServiceImpl implements LaborLedgerBalanceService 
 
     /**
      * @see org.kuali.kfs.module.ld.service.LaborLedgerBalanceService#findAccountsInFundGroups(java.lang.Integer, java.util.Map,
-     *      java.util.List, java.util.List)
+     * java.util.List, java.util.List)
      */
     @Override
     @NonTransactional
@@ -292,7 +290,7 @@ public class LaborLedgerBalanceServiceImpl implements LaborLedgerBalanceService 
 
     /**
      * @see org.kuali.kfs.module.ld.service.LaborLedgerBalanceService#findLedgerBalances(java.util.Map, java.util.Map,
-     *      java.util.Set, java.util.List, java.util.List)
+     * java.util.Set, java.util.List, java.util.List)
      */
     @Override
     @NonTransactional
@@ -302,7 +300,7 @@ public class LaborLedgerBalanceServiceImpl implements LaborLedgerBalanceService 
 
     /**
      * @see org.kuali.kfs.module.ld.service.LaborLedgerBalanceService#deleteLedgerBalancesPriorToYear(java.lang.Integer,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     @Transactional

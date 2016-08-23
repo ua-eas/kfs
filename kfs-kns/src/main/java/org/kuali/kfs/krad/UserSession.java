@@ -1,28 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.krad;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.SessionTicket;
 import org.kuali.rice.core.api.config.property.ConfigContext;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.krad.util.SessionTicket;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -34,8 +34,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Holds info about the User Session
- *
- * 
  */
 public class UserSession implements Serializable {
     private static final long serialVersionUID = 4532616762540067557L;
@@ -50,6 +48,7 @@ public class UserSession implements Serializable {
 
     /**
      * Returns the session id. The session id is a unique identifier for the session.
+     *
      * @return the kualiSessionId
      */
     public String getKualiSessionId() {
@@ -58,6 +57,7 @@ public class UserSession implements Serializable {
 
     /**
      * Sets the session id.
+     *
      * @param kualiSessionId the kualiSessionId to set
      */
     public void setKualiSessionId(String kualiSessionId) {
@@ -78,18 +78,20 @@ public class UserSession implements Serializable {
 
     /**
      * Loads the Person object from KIM. Factored out for testability.
+     *
      * @param principalName the principalName
      */
     protected void initPerson(String principalName) {
         this.person = KimApiServiceLocator.getPersonService().getPersonByPrincipalName(principalName);
         if (this.person == null) {
             throw new IllegalArgumentException(
-                    "Failed to locate a principal with principal name '" + principalName + "'");
+                "Failed to locate a principal with principal name '" + principalName + "'");
         }
     }
 
     /**
      * Returns the id of the current user.
+     *
      * @return the principalId of the current user in the system, backdoor principalId if backdoor is set
      */
     public String getPrincipalId() {
@@ -101,6 +103,7 @@ public class UserSession implements Serializable {
 
     /**
      * Returns the name of the current user.
+     *
      * @return the principalName of the current user in the system, backdoor principalName if backdoor is set
      */
     public String getPrincipalName() {
@@ -138,6 +141,7 @@ public class UserSession implements Serializable {
 
     /**
      * Returns a Person object for the current user.
+     *
      * @return the KualiUser which is the current user in the system, backdoor if backdoor is set
      */
     public Person getPerson() {
@@ -149,6 +153,7 @@ public class UserSession implements Serializable {
 
     /**
      * Returns the actual current user even if the backdoor is in use.
+     *
      * @return the KualiUser which is the current user in the system
      */
     public Person getActualPerson() {
@@ -176,6 +181,7 @@ public class UserSession implements Serializable {
     public boolean isProductionEnvironment() {
         return ConfigContext.getCurrentContextConfig().isProductionEnvironment();
     }
+
     //KULRICE-12287:Add a banner to Rice screens to show which environment you are in
     public String getCurrentEnvironment() {
         return ConfigContext.getCurrentContextConfig().getEnvironment();
@@ -229,7 +235,7 @@ public class UserSession implements Serializable {
      * Allows adding an arbitrary object to the session with static a string key that can be used to later access this
      * object from the session using the retrieveObject method in this class.
      *
-     * @param key the mapping key
+     * @param key    the mapping key
      * @param object the object to store
      */
     public void addObject(String key, Object object) {
@@ -244,10 +250,9 @@ public class UserSession implements Serializable {
      * Either allows adding an arbitrary object to the session based on a key (if there is not currently an object
      * associated with that key) or returns the object already associated with that key.
      *
-     * @see ConcurrentHashMap#putIfAbsent(Object, Object)
-     *
-     * @param key the mapping key
+     * @param key    the mapping key
      * @param object the object to store
+     * @see ConcurrentHashMap#putIfAbsent(Object, Object)
      */
     public void addObjectIfAbsent(String key, Object object) {
         if (object != null) {
@@ -262,7 +267,6 @@ public class UserSession implements Serializable {
      * returned when adding the object.
      *
      * @param objectKey the mapping key
-     *
      * @return the stored object
      */
     public Object retrieveObject(String objectKey) {
@@ -370,7 +374,7 @@ public class UserSession implements Serializable {
      * contain all the same keys at the given context and the values must be equal with the exception of case
      *
      * @param ticketTypeName - Name of the ticket type to match
-     * @param matchContext - Map on context parameters to match on
+     * @param matchContext   - Map on context parameters to match on
      * @return true if a ticket was found in the UserSession that matches the request, false if one was not found
      */
     public boolean hasMatchingSessionTicket(String ticketTypeName, Map<String, String> matchContext) {

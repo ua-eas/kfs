@@ -1,34 +1,34 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.vnd.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
+import java.util.LinkedHashMap;
 
 /**
  * Major classification of Vendors according to whether they are sufficiently set up to provide for an interaction via Purchase
  * Orders.
  */
-public class VendorType extends PersistableBusinessObjectBase implements MutableInactivatable{
+public class VendorType extends PersistableBusinessObjectBase implements MutableInactivatable {
 
     private String vendorTypeCode;
     private String vendorTypeDescription;
@@ -40,7 +40,7 @@ public class VendorType extends PersistableBusinessObjectBase implements Mutable
     private boolean vendorShowReviewIndicator;
     private String vendorReviewText;
     private boolean commodityRequiredIndicator;
-    
+
     private AddressType addressType;
 
     /**
@@ -132,7 +132,8 @@ public class VendorType extends PersistableBusinessObjectBase implements Mutable
     }
 
     /**
-     * Gets the commodityRequiredIndicator attribute. 
+     * Gets the commodityRequiredIndicator attribute.
+     *
      * @return Returns the commodityRequiredIndicator.
      */
     public boolean isCommodityRequiredIndicator() {
@@ -141,6 +142,7 @@ public class VendorType extends PersistableBusinessObjectBase implements Mutable
 
     /**
      * Sets the commodityRequiredIndicator attribute value.
+     *
      * @param commodityRequiredIndicator The commodityRequiredIndicator to set.
      */
     public void setCommodityRequiredIndicator(boolean commodityRequiredIndicator) {

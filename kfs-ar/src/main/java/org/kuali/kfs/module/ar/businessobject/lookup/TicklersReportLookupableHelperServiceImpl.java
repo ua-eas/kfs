@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,15 +18,18 @@
  */
 package org.kuali.kfs.module.ar.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.kns.web.comparator.CellComparatorHelper;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.kns.web.ui.Column;
+import org.kuali.kfs.kns.web.ui.ResultRow;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.CollectionEvent;
@@ -39,17 +42,14 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.kfs.kns.web.comparator.CellComparatorHelper;
-import org.kuali.kfs.kns.web.struts.form.LookupForm;
-import org.kuali.kfs.kns.web.ui.Column;
-import org.kuali.kfs.kns.web.ui.ResultRow;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Helper class for Tickler Reports.
@@ -62,6 +62,7 @@ public class TicklersReportLookupableHelperServiceImpl extends CollectionsReport
 
     /**
      * Validates the follow up date fields
+     *
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#validateSearchParameters(java.util.Map)
      */
     @Override
@@ -69,11 +70,11 @@ public class TicklersReportLookupableHelperServiceImpl extends CollectionsReport
         super.validateSearchParameters(fieldValues);
         if (!ObjectUtils.isNull(fieldValues.get(KRADConstants.LOOKUP_RANGE_LOWER_BOUND_PROPERTY_PREFIX + ArPropertyConstants.TicklersReportFields.FOLLOWUP_DATE))) {
             final String dateFromFieldValues = fieldValues.get(KRADConstants.LOOKUP_RANGE_LOWER_BOUND_PROPERTY_PREFIX + ArPropertyConstants.TicklersReportFields.FOLLOWUP_DATE).toString();
-            validateDateField(dateFromFieldValues, KRADConstants.LOOKUP_RANGE_LOWER_BOUND_PROPERTY_PREFIX + ArPropertyConstants.TicklersReportFields.FOLLOWUP_DATE+ArConstants.FROM_SUFFIX, getDateTimeService());
+            validateDateField(dateFromFieldValues, KRADConstants.LOOKUP_RANGE_LOWER_BOUND_PROPERTY_PREFIX + ArPropertyConstants.TicklersReportFields.FOLLOWUP_DATE + ArConstants.FROM_SUFFIX, getDateTimeService());
         }
         if (!ObjectUtils.isNull(fieldValues.get(ArPropertyConstants.TicklersReportFields.FOLLOWUP_DATE))) {
             final String dateToFieldValues = fieldValues.get(ArPropertyConstants.TicklersReportFields.FOLLOWUP_DATE).toString();
-            validateDateField(dateToFieldValues, ArPropertyConstants.TicklersReportFields.FOLLOWUP_DATE+ArConstants.TO_SUFFIX, getDateTimeService());
+            validateDateField(dateToFieldValues, ArPropertyConstants.TicklersReportFields.FOLLOWUP_DATE + ArConstants.TO_SUFFIX, getDateTimeService());
         }
     }
 
@@ -95,7 +96,7 @@ public class TicklersReportLookupableHelperServiceImpl extends CollectionsReport
 
         Collection<TicklersReport> displayList = new ArrayList<TicklersReport>();
 
-        Map<String,String> fieldValues = new HashMap<String,String>();
+        Map<String, String> fieldValues = new HashMap<String, String>();
 
         String principalId = (String) lookupFormFields.get(ArPropertyConstants.TicklersReportFields.COLLECTOR);
         String collectorPrincName = (String) lookupFormFields.get(ArPropertyConstants.COLLECTOR_PRINC_NAME);
@@ -131,15 +132,15 @@ public class TicklersReportLookupableHelperServiceImpl extends CollectionsReport
             boolean isValid = true;
 
             if (StringUtils.isNotBlank(completed)) {
-                if(StringUtils.equalsIgnoreCase(completed, KRADConstants.YES_INDICATOR_VALUE)) {
+                if (StringUtils.equalsIgnoreCase(completed, KRADConstants.YES_INDICATOR_VALUE)) {
                     isValid = event.isCompleted();
-                } else if (StringUtils.equalsIgnoreCase(completed,KRADConstants.NO_INDICATOR_VALUE)) {
+                } else if (StringUtils.equalsIgnoreCase(completed, KRADConstants.NO_INDICATOR_VALUE)) {
                     isValid = !event.isCompleted();
                 }
 
             }
 
-           ContractsGrantsInvoiceDocument invoice = event.getInvoiceDocument();
+            ContractsGrantsInvoiceDocument invoice = event.getInvoiceDocument();
             if (!invoice.isOpenInvoiceIndicator()) {
                 isValid = false;
             }
@@ -158,12 +159,10 @@ public class TicklersReportLookupableHelperServiceImpl extends CollectionsReport
                         principalId = collUser.getPrincipalId();
                         if (!StringUtils.isBlank(principalId)) {
                             isValid = contractsGrantsInvoiceDocumentService.canViewInvoice(event.getInvoiceDocument(), principalId);
-                        }
-                        else {
+                        } else {
                             isValid = false;
                         }
-                    }
-                    else {
+                    } else {
                         isValid = false;
                     }
                 }
@@ -209,7 +208,7 @@ public class TicklersReportLookupableHelperServiceImpl extends CollectionsReport
 
     /**
      * @see org.kuali.kfs.module.ar.businessobject.lookup.ContractsGrantsReportLookupableHelperServiceImplBase#buildResultTable(org.kuali.rice.kns.web.struts.form.LookupForm,
-     *      java.util.Collection, java.util.Collection)
+     * java.util.Collection, java.util.Collection)
      */
     @Override
     protected void buildResultTable(LookupForm lookupForm, Collection displayList, Collection resultTable) {
@@ -218,13 +217,13 @@ public class TicklersReportLookupableHelperServiceImpl extends CollectionsReport
         List pkNames = getBusinessObjectMetaDataService().listPrimaryKeyFieldNames(getBusinessObjectClass());
 
         // Iterate through result list and wrap rows with return url and action url
-        for (Iterator iter = displayList.iterator(); iter.hasNext();) {
+        for (Iterator iter = displayList.iterator(); iter.hasNext(); ) {
             BusinessObject element = (BusinessObject) iter.next();
 
             BusinessObjectRestrictions businessObjectRestrictions = getBusinessObjectAuthorizationService().getLookupResultRestrictions(element, user);
 
             List<Column> columns = getColumns();
-            for (Iterator iterator = columns.iterator(); iterator.hasNext();) {
+            for (Iterator iterator = columns.iterator(); iterator.hasNext(); ) {
                 Column col = (Column) iterator.next();
 
                 String propValue = ObjectUtils.getFormattedPropertyValue(element, col.getPropertyName(), col.getFormatter());

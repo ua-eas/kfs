@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -21,12 +21,9 @@
  */
 package org.kuali.kfs.pdp.service.impl;
 
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.pdp.PdpConstants;
 import org.kuali.kfs.pdp.PdpKeyConstants;
 import org.kuali.kfs.pdp.PdpPropertyConstants;
@@ -38,10 +35,13 @@ import org.kuali.kfs.pdp.dataaccess.BatchMaintenanceDao;
 import org.kuali.kfs.pdp.service.BatchMaintenanceService;
 import org.kuali.kfs.pdp.service.PaymentGroupService;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class provides methods for Batch maintenance.
@@ -56,11 +56,11 @@ public class BatchMaintenanceServiceImpl implements BatchMaintenanceService {
 
     /**
      * This method changes the status for PaymentGroup and PaymentGroupHistory.
-     * 
-     * @param paymentGroup the PaymentGroup to change the status
+     *
+     * @param paymentGroup     the PaymentGroup to change the status
      * @param newPaymentStatus the new payment status
-     * @param changeStatus the payment change status code
-     * @param note a note from the user
+     * @param changeStatus     the payment change status code
+     * @param note             a note from the user
      */
     public void changeStatus(PaymentGroup paymentGroup, String newPaymentStatus, String changeStatus, String note, Person user) {
         if (LOG.isDebugEnabled()) {
@@ -91,10 +91,10 @@ public class BatchMaintenanceServiceImpl implements BatchMaintenanceService {
     /**
      * cancelPendingBatch() This method cancels a pending batch by canceling each payment in the batch if the following rules apply.
      * - All payments must have a status of 'OPEN'.
-     * 
+     *
      * @param paymentBatchId (Integer) Primary key of the Pending Batch to be canceled.
-     * @param note (String) Change note text entered by user.
-     * @param user (User) Actor making change.
+     * @param note           (String) Change note text entered by user.
+     * @param user           (User) Actor making change.
      */
     public boolean cancelPendingBatch(Integer paymentBatchId, String note, Person user) {
         if (LOG.isDebugEnabled()) {
@@ -119,8 +119,7 @@ public class BatchMaintenanceServiceImpl implements BatchMaintenanceService {
             }
 
             LOG.debug("cancelPendingBatch() All payment groups in batch have been canceled; exit method.");
-        }
-        else {
+        } else {
             LOG.debug("cancelPendingBatch() Not all payment groups are open; cannot cancel batch.");
 
             GlobalVariables.getMessageMap().putError(KRADConstants.GLOBAL_ERRORS, PdpKeyConstants.BatchConstants.ErrorMessages.ERROR_NOT_ALL_PAYMENT_GROUPS_OPEN_CANNOT_CANCEL);
@@ -133,10 +132,10 @@ public class BatchMaintenanceServiceImpl implements BatchMaintenanceService {
     /**
      * holdPendingBatch() This method holds a pending batch by holding each payment in the batch if the following rules apply. - All
      * payments must have a status of 'OPEN'.
-     * 
+     *
      * @param paymentBatchId (Integer) Primary key of the Pending Batch to be held.
-     * @param note (String) Change note text entered by user.
-     * @param user (User) Actor making change.
+     * @param note           (String) Change note text entered by user.
+     * @param user           (User) Actor making change.
      */
     public boolean holdPendingBatch(Integer paymentBatchId, String note, Person user) {
         if (LOG.isDebugEnabled()) {
@@ -161,8 +160,7 @@ public class BatchMaintenanceServiceImpl implements BatchMaintenanceService {
             }
 
             LOG.debug("holdPendingBatch() All payment groups in batch have been held; exit method.");
-        }
-        else {
+        } else {
             LOG.debug("holdPendingBatch() Not all payment groups are open; cannot hold batch.");
 
             GlobalVariables.getMessageMap().putError(KRADConstants.GLOBAL_ERRORS, PdpKeyConstants.BatchConstants.ErrorMessages.ERROR_NOT_ALL_PAYMENT_GROUPS_OPEN_CANNOT_HOLD);
@@ -175,10 +173,10 @@ public class BatchMaintenanceServiceImpl implements BatchMaintenanceService {
     /**
      * removeBatchHold() This method removes holds on batches of payments if the following rules apply. - All Payments' statuses in
      * batch must be: "held".
-     * 
+     *
      * @param paymentBatchId (Integer) Primary key of the Pending Batch to be released from hold.
-     * @param note (String) Change note text entered by user.
-     * @param user (User) Actor making change.
+     * @param note           (String) Change note text entered by user.
+     * @param user           (User) Actor making change.
      */
     public boolean removeBatchHold(Integer paymentBatchId, String note, Person user) {
         if (LOG.isDebugEnabled()) {
@@ -203,8 +201,7 @@ public class BatchMaintenanceServiceImpl implements BatchMaintenanceService {
             }
 
             LOG.debug("removeBatchHold() All payment groups in batch have been held; exit method.");
-        }
-        else {
+        } else {
             LOG.debug("removeBatchHold() Not all payment groups are open; cannot remove hold on batch.");
 
             GlobalVariables.getMessageMap().putError(KRADConstants.GLOBAL_ERRORS, PdpKeyConstants.BatchConstants.ErrorMessages.ERROR_NOT_ALL_PAYMENT_GROUPS_OPEN_CANNOT_REMOVE_HOLD);
@@ -252,8 +249,7 @@ public class BatchMaintenanceServiceImpl implements BatchMaintenanceService {
             LOG.debug("doBatchPaymentsHaveOpenOrHeldStatus() All payment groups have status 'HELD' or all payments have status 'OPEN'.");
 
             return true;
-        }
-        else {
+        } else {
             LOG.debug("doBatchPaymentsHaveOpenOrHeldStatus() Not all payment groups have status 'HELD' or not all payments have status 'OPEN'.");
 
             return false;
@@ -262,7 +258,7 @@ public class BatchMaintenanceServiceImpl implements BatchMaintenanceService {
 
     /**
      * This method sets the batchMaintenanceDao
-     * 
+     *
      * @param batchMaintenanceDao BatchMaintenanceDao
      */
     public void setBatchMaintenanceDao(BatchMaintenanceDao batchMaintenanceDao) {
@@ -271,7 +267,7 @@ public class BatchMaintenanceServiceImpl implements BatchMaintenanceService {
 
     /**
      * Sets the business object service
-     * 
+     *
      * @param businessObjectService
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {

@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -19,24 +19,24 @@
 
 package org.kuali.kfs.module.bc.businessobject;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.sys.businessobject.SystemOptions;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 
 public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusinessObjectBase implements MutableInactivatable {
@@ -455,10 +455,11 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Gets the csfTrackerOverridePerson attribute.
+     *
      * @return Returns the csfTrackerOverridePerson.
      */
     public Person getCsfTrackerOverridePerson() {
-        if(csfTrackerOverridePerson == null || !StringUtils.equals(csfTrackerOverridePerson.getEmployeeId(), emplid)) {
+        if (csfTrackerOverridePerson == null || !StringUtils.equals(csfTrackerOverridePerson.getEmployeeId(), emplid)) {
             csfTrackerOverridePerson = SpringContext.getBean(PersonService.class).getPersonByEmployeeId(emplid);
         }
 
@@ -467,6 +468,7 @@ public class CalculatedSalaryFoundationTrackerOverride extends PersistableBusine
 
     /**
      * Sets the csfTrackerOverridePerson attribute value.
+     *
      * @param csfTrackerOverridePerson The csfTrackerOverridePerson to set.
      */
     public void setCsfTrackerOverridePerson(Person csfTrackerOverridePerson) {

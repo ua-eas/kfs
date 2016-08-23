@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -42,7 +42,7 @@ public class MonthlyBudgetForm extends BudgetExpansionForm {
     private String financialSubObjectCode;
     private String financialBalanceTypeCode;
     private String financialObjectTypeCode;
-    
+
     private boolean revenue = false;
 
     public MonthlyBudgetForm() {
@@ -52,7 +52,7 @@ public class MonthlyBudgetForm extends BudgetExpansionForm {
 
     /**
      * Gets the budgetConstructioMonthly attribute.
-     * 
+     *
      * @return Returns the budgetConstructioMonthly.
      */
     public BudgetConstructionMonthly getBudgetConstructionMonthly() {
@@ -61,7 +61,7 @@ public class MonthlyBudgetForm extends BudgetExpansionForm {
 
     /**
      * Sets the budgetConstructioMonthly attribute value.
-     * 
+     *
      * @param budgetConstructioMonthly The budgetConstructioMonthly to set.
      */
     public void setBudgetConstructionMonthly(BudgetConstructionMonthly budgetConstructionMonthly) {
@@ -70,7 +70,7 @@ public class MonthlyBudgetForm extends BudgetExpansionForm {
 
     /**
      * Gets the accountNumber attribute.
-     * 
+     *
      * @return Returns the accountNumber.
      */
     public String getAccountNumber() {
@@ -79,7 +79,7 @@ public class MonthlyBudgetForm extends BudgetExpansionForm {
 
     /**
      * Sets the accountNumber attribute value.
-     * 
+     *
      * @param accountNumber The accountNumber to set.
      */
     public void setAccountNumber(String accountNumber) {
@@ -88,7 +88,7 @@ public class MonthlyBudgetForm extends BudgetExpansionForm {
 
     /**
      * Gets the chartOfAccountsCode attribute.
-     * 
+     *
      * @return Returns the chartOfAccountsCode.
      */
     public String getChartOfAccountsCode() {
@@ -97,7 +97,7 @@ public class MonthlyBudgetForm extends BudgetExpansionForm {
 
     /**
      * Sets the chartOfAccountsCode attribute value.
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {
@@ -106,7 +106,7 @@ public class MonthlyBudgetForm extends BudgetExpansionForm {
 
     /**
      * Gets the documentNumber attribute.
-     * 
+     *
      * @return Returns the documentNumber.
      */
     public String getDocumentNumber() {
@@ -115,7 +115,7 @@ public class MonthlyBudgetForm extends BudgetExpansionForm {
 
     /**
      * Sets the documentNumber attribute value.
-     * 
+     *
      * @param documentNumber The documentNumber to set.
      */
     public void setDocumentNumber(String documentNumber) {
@@ -124,7 +124,7 @@ public class MonthlyBudgetForm extends BudgetExpansionForm {
 
     /**
      * Gets the financialBalanceTypeCode attribute.
-     * 
+     *
      * @return Returns the financialBalanceTypeCode.
      */
     public String getFinancialBalanceTypeCode() {
@@ -133,7 +133,7 @@ public class MonthlyBudgetForm extends BudgetExpansionForm {
 
     /**
      * Sets the financialBalanceTypeCode attribute value.
-     * 
+     *
      * @param financialBalanceTypeCode The financialBalanceTypeCode to set.
      */
     public void setFinancialBalanceTypeCode(String financialBalanceTypeCode) {
@@ -142,7 +142,7 @@ public class MonthlyBudgetForm extends BudgetExpansionForm {
 
     /**
      * Gets the financialObjectCode attribute.
-     * 
+     *
      * @return Returns the financialObjectCode.
      */
     public String getFinancialObjectCode() {
@@ -151,7 +151,7 @@ public class MonthlyBudgetForm extends BudgetExpansionForm {
 
     /**
      * Sets the financialObjectCode attribute value.
-     * 
+     *
      * @param financialObjectCode The financialObjectCode to set.
      */
     public void setFinancialObjectCode(String financialObjectCode) {
@@ -160,7 +160,7 @@ public class MonthlyBudgetForm extends BudgetExpansionForm {
 
     /**
      * Gets the financialObjectTypeCode attribute.
-     * 
+     *
      * @return Returns the financialObjectTypeCode.
      */
     public String getFinancialObjectTypeCode() {
@@ -169,7 +169,7 @@ public class MonthlyBudgetForm extends BudgetExpansionForm {
 
     /**
      * Sets the financialObjectTypeCode attribute value.
-     * 
+     *
      * @param financialObjectTypeCode The financialObjectTypeCode to set.
      */
     public void setFinancialObjectTypeCode(String financialObjectTypeCode) {
@@ -178,7 +178,7 @@ public class MonthlyBudgetForm extends BudgetExpansionForm {
 
     /**
      * Gets the financialSubObjectCode attribute.
-     * 
+     *
      * @return Returns the financialSubObjectCode.
      */
     public String getFinancialSubObjectCode() {
@@ -187,7 +187,7 @@ public class MonthlyBudgetForm extends BudgetExpansionForm {
 
     /**
      * Sets the financialSubObjectCode attribute value.
-     * 
+     *
      * @param financialSubObjectCode The financialSubObjectCode to set.
      */
     public void setFinancialSubObjectCode(String financialSubObjectCode) {
@@ -196,7 +196,7 @@ public class MonthlyBudgetForm extends BudgetExpansionForm {
 
     /**
      * Gets the subAccountNumber attribute.
-     * 
+     *
      * @return Returns the subAccountNumber.
      */
     public String getSubAccountNumber() {
@@ -205,7 +205,7 @@ public class MonthlyBudgetForm extends BudgetExpansionForm {
 
     /**
      * Sets the subAccountNumber attribute value.
-     * 
+     *
      * @param subAccountNumber The subAccountNumber to set.
      */
     public void setSubAccountNumber(String subAccountNumber) {
@@ -214,7 +214,7 @@ public class MonthlyBudgetForm extends BudgetExpansionForm {
 
     /**
      * Gets the monthlyPersisted attribute.
-     * 
+     *
      * @return Returns the monthlyPersisted.
      */
     public boolean isMonthlyPersisted() {
@@ -223,7 +223,7 @@ public class MonthlyBudgetForm extends BudgetExpansionForm {
 
     /**
      * Sets the monthlyPersisted attribute value.
-     * 
+     *
      * @param monthlyPersisted The monthlyPersisted to set.
      */
     public void setMonthlyPersisted(boolean monthlyPersisted) {
@@ -232,7 +232,7 @@ public class MonthlyBudgetForm extends BudgetExpansionForm {
 
     /**
      * Gets the readOnly attribute.
-     * 
+     *
      * @return Returns the readOnly.
      */
     public boolean isMonthlyReadOnly() {
@@ -241,7 +241,7 @@ public class MonthlyBudgetForm extends BudgetExpansionForm {
 
     /**
      * Sets the readOnly attribute value.
-     * 
+     *
      * @param readOnly The readOnly to set.
      */
     public void setMonthlyReadOnly(boolean readOnly) {
@@ -250,7 +250,7 @@ public class MonthlyBudgetForm extends BudgetExpansionForm {
 
     /**
      * Gets the budgetableDocument attribute.
-     * 
+     *
      * @return Returns the budgetableDocument.
      */
     public boolean isBudgetableDocument() {
@@ -259,7 +259,7 @@ public class MonthlyBudgetForm extends BudgetExpansionForm {
 
     /**
      * Sets the budgetableDocument attribute value.
-     * 
+     *
      * @param budgetableDocument The budgetableDocument to set.
      */
     public void setBudgetableDocument(boolean budgetableDocument) {
@@ -268,7 +268,7 @@ public class MonthlyBudgetForm extends BudgetExpansionForm {
 
     /**
      * Gets the benefitsCalculationDisabled attribute.
-     * 
+     *
      * @return Returns the benefitsCalculationDisabled.
      */
     public boolean isBenefitsCalculationDisabled() {
@@ -277,7 +277,7 @@ public class MonthlyBudgetForm extends BudgetExpansionForm {
 
     /**
      * Gets the salarySettingDisabled attribute.
-     * 
+     *
      * @return Returns the salarySettingDisabled.
      */
     public boolean isSalarySettingDisabled() {
@@ -286,7 +286,7 @@ public class MonthlyBudgetForm extends BudgetExpansionForm {
 
     /**
      * Gets the hideDetails attribute.
-     * 
+     *
      * @return Returns the hideDetails.
      */
     public boolean isHideDetails() {
@@ -295,7 +295,7 @@ public class MonthlyBudgetForm extends BudgetExpansionForm {
 
     /**
      * Sets the hideDetails attribute value.
-     * 
+     *
      * @param hideDetails The hideDetails to set.
      */
     public void setHideDetails(boolean hideDetails) {
@@ -304,17 +304,17 @@ public class MonthlyBudgetForm extends BudgetExpansionForm {
 
     /**
      * Gets the revenue attribute.
-     * 
+     *
      * @return Returns the revenue
      */
-    
+
     public boolean isRevenue() {
         return revenue;
     }
 
-    /**	
+    /**
      * Sets the revenue attribute.
-     * 
+     *
      * @param revenue The revenue to set.
      */
     public void setRevenue(boolean revenue) {

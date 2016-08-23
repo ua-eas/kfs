@@ -1,22 +1,37 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.businessobject.lookup;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.lookup.LookupUtils;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.util.BeanPropertyComparator;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.businessobject.BusinessObjectProperty;
+import org.kuali.kfs.sys.businessobject.DataMappingFieldDefinition;
+import org.kuali.kfs.sys.businessobject.FunctionalFieldDescription;
+import org.kuali.kfs.sys.service.KfsBusinessObjectMetaDataService;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,29 +39,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.businessobject.BusinessObjectProperty;
-import org.kuali.kfs.sys.businessobject.DataMappingFieldDefinition;
-import org.kuali.kfs.sys.businessobject.FunctionalFieldDescription;
-import org.kuali.kfs.sys.service.KfsBusinessObjectMetaDataService;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.kfs.kns.lookup.LookupUtils;
-import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.lookup.CollectionIncomplete;
-import org.kuali.kfs.krad.util.BeanPropertyComparator;
-
 public class DataMappingFieldDefinitionLookupableHelperServiceImpl extends KualiLookupableHelperServiceImpl {
     private Logger LOG = Logger.getLogger(DataMappingFieldDefinitionLookupableHelperServiceImpl.class);
     private static final List<String> SORT_PROPERTIES = new ArrayList<String>();
+
     static {
         SORT_PROPERTIES.add(KFSPropertyConstants.NAMESPACE_CODE);
         SORT_PROPERTIES.add(KFSPropertyConstants.FUNCTIONAL_FIELD_DESCRIPTION_BUSINESS_OBJECT_PROPERTY_COMPONENT_LABEL);
         SORT_PROPERTIES.add(KFSPropertyConstants.FUNCTIONAL_FIELD_DESCRIPTION_BUSINESS_OBJECT_PROPERTY_LABEL);
     }
+
     protected KfsBusinessObjectMetaDataService kfsBusinessObjectMetaDataService;
 
     @Override
@@ -66,7 +68,7 @@ public class DataMappingFieldDefinitionLookupableHelperServiceImpl extends Kuali
                 }
             }
         }
-        
+
         Map<String, DataMappingFieldDefinition> dataMappingFieldDefinitions = new HashMap<String, DataMappingFieldDefinition>();
         int searchResultsLimit = LookupUtils.getSearchResultsLimit(DataMappingFieldDefinition.class);
         int iterationCount = 0;
@@ -75,13 +77,11 @@ public class DataMappingFieldDefinitionLookupableHelperServiceImpl extends Kuali
                 if (businessObject instanceof FunctionalFieldDescription) {
                     FunctionalFieldDescription functionalFieldDescription = (FunctionalFieldDescription) businessObject;
                     dataMappingFieldDefinitions.put(functionalFieldDescription.getComponentClass() + functionalFieldDescription.getPropertyName(), kfsBusinessObjectMetaDataService.getDataMappingFieldDefinition(functionalFieldDescription));
-                }
-                else {
+                } else {
                     BusinessObjectProperty businessObjectProperty = (BusinessObjectProperty) businessObject;
                     dataMappingFieldDefinitions.put(businessObjectProperty.getComponentClass() + businessObjectProperty.getPropertyName(), kfsBusinessObjectMetaDataService.getDataMappingFieldDefinition(businessObjectProperty.getComponentClass(), businessObjectProperty.getPropertyName()));
                 }
-            }
-            else {
+            } else {
                 break;
             }
         }
@@ -89,8 +89,7 @@ public class DataMappingFieldDefinitionLookupableHelperServiceImpl extends Kuali
         List<DataMappingFieldDefinition> searchResults = null;
         if (matches.size() > searchResultsLimit) {
             searchResults = new CollectionIncomplete(dataMappingFieldDefinitions.values(), Long.valueOf(matches.size()));
-        }
-        else {
+        } else {
             searchResults = new CollectionIncomplete(dataMappingFieldDefinitions.values(), 0L);
         }
         Collections.sort(searchResults, new BeanPropertyComparator(getSortProperties(), true));
@@ -99,17 +98,17 @@ public class DataMappingFieldDefinitionLookupableHelperServiceImpl extends Kuali
 
     @Override
     public HtmlData getInquiryUrl(BusinessObject bo, String propertyName) {
-        AnchorHtmlData inquiryHref = (AnchorHtmlData)super.getInquiryUrl(bo, propertyName);
+        AnchorHtmlData inquiryHref = (AnchorHtmlData) super.getInquiryUrl(bo, propertyName);
         if (StringUtils.isNotBlank(inquiryHref.getHref())) {
             inquiryHref.setHref(new StringBuffer(inquiryHref.getHref()).append("&").append(KFSPropertyConstants.COMPONENT_CLASS).append("=").append(((DataMappingFieldDefinition) bo).getComponentClass()).append("&").append(KFSPropertyConstants.PROPERTY_NAME).append("=").append(((DataMappingFieldDefinition) bo).getPropertyName()).toString());
         }
         return inquiryHref;
     }
-    
+
     protected List<String> getSortProperties() {
         return SORT_PROPERTIES;
     }
-    
+
     public void setKfsBusinessObjectMetaDataService(KfsBusinessObjectMetaDataService kfsBusinessObjectMetaDataService) {
         this.kfsBusinessObjectMetaDataService = kfsBusinessObjectMetaDataService;
     }

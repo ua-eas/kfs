@@ -1,27 +1,32 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.rules.TransactionalDocumentRuleBase;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.document.TransactionalDocument;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
@@ -35,14 +40,9 @@ import org.kuali.kfs.module.ar.document.validation.ContinueCustomerInvoiceWriteo
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.kns.rules.TransactionalDocumentRuleBase;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.document.TransactionalDocument;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class CustomerInvoiceWriteoffDocumentRule extends TransactionalDocumentRuleBase implements ContinueCustomerInvoiceWriteoffDocumentRule<TransactionalDocument> {
 
@@ -104,8 +104,7 @@ public class CustomerInvoiceWriteoffDocumentRule extends TransactionalDocumentRu
             for (CustomerInvoiceDetail customerInvoiceDetail : customerInvoiceWriteoffDocument.getCustomerInvoiceDocument().getCustomerInvoiceDetailsWithoutDiscounts()) {
                 success &= doesChartCodeHaveCorrespondingWriteoffObjectCode(customerInvoiceDetail);
             }
-        }
-        else if (ArConstants.GLPE_WRITEOFF_GENERATION_METHOD_ORG_ACCT_DEFAULT.equals(writeoffGenerationOption)) {
+        } else if (ArConstants.GLPE_WRITEOFF_GENERATION_METHOD_ORG_ACCT_DEFAULT.equals(writeoffGenerationOption)) {
             success &= doesOrganizationAccountingDefaultHaveWriteoffInformation(customerInvoiceWriteoffDocument);
         }
 
@@ -152,9 +151,8 @@ public class CustomerInvoiceWriteoffDocumentRule extends TransactionalDocumentRu
             success &= doesWriteoffAccountNumberExist(organizationAccountingDefault);
             success &= doesWriteoffChartOfAccountsCodeExist(organizationAccountingDefault);
             success &= doesWriteoffFinancialObjectCodeExist(organizationAccountingDefault);
-        }
-        else {
-            GlobalVariables.getMessageMap().putError(ArPropertyConstants.CustomerInvoiceWriteoffDocumentFields.CUSTOMER_INVOICE_DETAILS_FOR_WRITEOFF, ArKeyConstants.ERROR_CUSTOMER_INVOICE_WRITEOFF_FAU_MUST_EXIST, new String[] { currentFiscalYear.toString(), billByChartOfAccountCode, billedByOrganizationCode });
+        } else {
+            GlobalVariables.getMessageMap().putError(ArPropertyConstants.CustomerInvoiceWriteoffDocumentFields.CUSTOMER_INVOICE_DETAILS_FOR_WRITEOFF, ArKeyConstants.ERROR_CUSTOMER_INVOICE_WRITEOFF_FAU_MUST_EXIST, new String[]{currentFiscalYear.toString(), billByChartOfAccountCode, billedByOrganizationCode});
             success = false;
         }
 
@@ -171,7 +169,7 @@ public class CustomerInvoiceWriteoffDocumentRule extends TransactionalDocumentRu
     protected boolean doesWriteoffAccountNumberExist(OrganizationAccountingDefault organizationAccountingDefault) {
 
         if (StringUtils.isBlank(organizationAccountingDefault.getWriteoffAccountNumber())) {
-            GlobalVariables.getMessageMap().putError(ArPropertyConstants.CustomerInvoiceWriteoffDocumentFields.CUSTOMER_INVOICE_DETAILS_FOR_WRITEOFF, ArKeyConstants.ERROR_CUSTOMER_INVOICE_WRITEOFF_FAU_ACCOUNT_MUST_EXIST, new String[] { organizationAccountingDefault.getUniversityFiscalYear().toString(), organizationAccountingDefault.getChartOfAccountsCode(), organizationAccountingDefault.getOrganizationCode() });
+            GlobalVariables.getMessageMap().putError(ArPropertyConstants.CustomerInvoiceWriteoffDocumentFields.CUSTOMER_INVOICE_DETAILS_FOR_WRITEOFF, ArKeyConstants.ERROR_CUSTOMER_INVOICE_WRITEOFF_FAU_ACCOUNT_MUST_EXIST, new String[]{organizationAccountingDefault.getUniversityFiscalYear().toString(), organizationAccountingDefault.getChartOfAccountsCode(), organizationAccountingDefault.getOrganizationCode()});
             return false;
         }
 
@@ -187,7 +185,7 @@ public class CustomerInvoiceWriteoffDocumentRule extends TransactionalDocumentRu
     protected boolean doesWriteoffChartOfAccountsCodeExist(OrganizationAccountingDefault organizationAccountingDefault) {
 
         if (StringUtils.isBlank(organizationAccountingDefault.getWriteoffChartOfAccountsCode())) {
-            GlobalVariables.getMessageMap().putError(ArPropertyConstants.CustomerInvoiceWriteoffDocumentFields.CUSTOMER_INVOICE_DETAILS_FOR_WRITEOFF, ArKeyConstants.ERROR_CUSTOMER_INVOICE_WRITEOFF_FAU_CHART_MUST_EXIST, new String[] { organizationAccountingDefault.getUniversityFiscalYear().toString(), organizationAccountingDefault.getChartOfAccountsCode(), organizationAccountingDefault.getOrganizationCode() });
+            GlobalVariables.getMessageMap().putError(ArPropertyConstants.CustomerInvoiceWriteoffDocumentFields.CUSTOMER_INVOICE_DETAILS_FOR_WRITEOFF, ArKeyConstants.ERROR_CUSTOMER_INVOICE_WRITEOFF_FAU_CHART_MUST_EXIST, new String[]{organizationAccountingDefault.getUniversityFiscalYear().toString(), organizationAccountingDefault.getChartOfAccountsCode(), organizationAccountingDefault.getOrganizationCode()});
             return false;
         }
 
@@ -202,7 +200,7 @@ public class CustomerInvoiceWriteoffDocumentRule extends TransactionalDocumentRu
      */
     protected boolean doesWriteoffFinancialObjectCodeExist(OrganizationAccountingDefault organizationAccountingDefault) {
         if (StringUtils.isBlank(organizationAccountingDefault.getWriteoffFinancialObjectCode())) {
-            GlobalVariables.getMessageMap().putError(ArPropertyConstants.CustomerInvoiceWriteoffDocumentFields.CUSTOMER_INVOICE_DETAILS_FOR_WRITEOFF, ArKeyConstants.ERROR_CUSTOMER_INVOICE_WRITEOFF_FAU_OBJECT_CODE_MUST_EXIST, new String[] { organizationAccountingDefault.getUniversityFiscalYear().toString(), organizationAccountingDefault.getChartOfAccountsCode(), organizationAccountingDefault.getOrganizationCode() });
+            GlobalVariables.getMessageMap().putError(ArPropertyConstants.CustomerInvoiceWriteoffDocumentFields.CUSTOMER_INVOICE_DETAILS_FOR_WRITEOFF, ArKeyConstants.ERROR_CUSTOMER_INVOICE_WRITEOFF_FAU_OBJECT_CODE_MUST_EXIST, new String[]{organizationAccountingDefault.getUniversityFiscalYear().toString(), organizationAccountingDefault.getChartOfAccountsCode(), organizationAccountingDefault.getOrganizationCode()});
             return false;
         }
 
@@ -287,16 +285,14 @@ public class CustomerInvoiceWriteoffDocumentRule extends TransactionalDocumentRu
         if (ObjectUtils.isNull(invDocumentNumber) || StringUtils.isBlank(invDocumentNumber)) {
             success = false;
             GlobalVariables.getMessageMap().putError(ArPropertyConstants.CustomerCreditMemoDocumentFields.CREDIT_MEMO_DOCUMENT_REF_INVOICE_NUMBER, ArKeyConstants.ERROR_CUSTOMER_CREDIT_MEMO_DOCUMENT__INVOICE_DOCUMENT_NUMBER_IS_REQUIRED);
-        }
-        else {
+        } else {
             CustomerInvoiceDocumentService service = SpringContext.getBean(CustomerInvoiceDocumentService.class);
             CustomerInvoiceDocument customerInvoiceDocument = service.getInvoiceByInvoiceDocumentNumber(invDocumentNumber);
 
             if (ObjectUtils.isNull(customerInvoiceDocument)) {
                 success = false;
                 GlobalVariables.getMessageMap().putError(ArPropertyConstants.CustomerCreditMemoDocumentFields.CREDIT_MEMO_DOCUMENT_REF_INVOICE_NUMBER, ArKeyConstants.ERROR_CUSTOMER_CREDIT_MEMO_DOCUMENT_INVALID_INVOICE_DOCUMENT_NUMBER);
-            }
-            else if (!SpringContext.getBean(CustomerInvoiceDocumentService.class).checkIfInvoiceNumberIsFinal(invDocumentNumber)) {
+            } else if (!SpringContext.getBean(CustomerInvoiceDocumentService.class).checkIfInvoiceNumberIsFinal(invDocumentNumber)) {
                 success = false;
                 GlobalVariables.getMessageMap().putError(ArPropertyConstants.CustomerCreditMemoDocumentFields.CREDIT_MEMO_DOCUMENT_REF_INVOICE_NUMBER, ArKeyConstants.ERROR_CUSTOMER_INVOICE_DOCUMENT_NOT_FINAL);
             }

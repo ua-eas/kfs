@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,15 +18,11 @@
  */
 package org.kuali.kfs.module.ar.document.service.impl;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.ContractsGrantsAgingOpenInvoicesReport;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
@@ -38,8 +34,12 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.service.NonTransactional;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class is used to get the services for PDF generation and other services for Contracts & Grants Aging open Invoices report
@@ -130,9 +130,8 @@ public class ContractsGrantsAgingOpenInvoicesReportServiceImpl implements Contra
                 return results;
             }
 
-        }
-        catch (ParseException ex) {
-            LOG.error("problem during ContractsGrantsAgingOpenInvoicesReportServiceImpl.getPopulatedReportDetails",ex);
+        } catch (ParseException ex) {
+            LOG.error("problem during ContractsGrantsAgingOpenInvoicesReportServiceImpl.getPopulatedReportDetails", ex);
             throw new RuntimeException("Couldn't parse a date", ex);
         }
 
@@ -157,8 +156,7 @@ public class ContractsGrantsAgingOpenInvoicesReportServiceImpl implements Contra
             String documentDescription = invoice.getDocumentHeader().getDocumentDescription();
             if (ObjectUtils.isNotNull(documentDescription)) {
                 detail.setDocumentDescription(documentDescription);
-            }
-            else {
+            } else {
                 detail.setDocumentDescription("");
             }
             // Billing Date

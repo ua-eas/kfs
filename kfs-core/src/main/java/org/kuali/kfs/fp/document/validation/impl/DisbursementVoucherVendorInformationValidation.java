@@ -1,30 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.businessobject.DisbursementVoucherPayeeDetail;
 import org.kuali.kfs.fp.document.DisbursementVoucherConstants;
 import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -36,16 +37,14 @@ import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.kfs.vnd.document.service.VendorService;
 import org.kuali.rice.core.api.parameter.ParameterEvaluator;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.KimConstants.PersonExternalIdentifierTypes;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.identity.employment.EntityEmployment;
 import org.kuali.rice.kim.api.identity.entity.Entity;
 import org.kuali.rice.kim.api.services.IdentityManagementService;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
+
+import java.util.List;
 
 public class DisbursementVoucherVendorInformationValidation extends GenericValidation implements DisbursementVoucherConstants {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DisbursementVoucherPaymentReasonValidation.class);
@@ -61,14 +60,14 @@ public class DisbursementVoucherVendorInformationValidation extends GenericValid
     public boolean validate(AttributedDocumentEvent event) {
         LOG.debug("validate start");
         boolean isValid = true;
-      
+
         DisbursementVoucherDocument document = (DisbursementVoucherDocument) accountingDocumentForValidation;
         DisbursementVoucherPayeeDetail payeeDetail = document.getDvPayeeDetail();
 
         if (!payeeDetail.isVendor()) {
-            
+
             String initiator = document.getDocumentHeader().getWorkflowDocument().getInitiatorPrincipalId();
-            final Entity entity= SpringContext.getBean(IdentityManagementService.class).getEntityByPrincipalId(initiator);
+            final Entity entity = SpringContext.getBean(IdentityManagementService.class).getEntityByPrincipalId(initiator);
             // KFSCNTRB-1718- Don't assume that an initiator is an employee.
             List<EntityEmployment> employmentInformation = entity.getEmploymentInformation();
             if (employmentInformation != null && employmentInformation.size() > 0) {
@@ -79,7 +78,7 @@ public class DisbursementVoucherVendorInformationValidation extends GenericValid
                     isValid = false;
                     MessageMap errors = GlobalVariables.getMessageMap();
                     errors.addToErrorPath(KFSPropertyConstants.DOCUMENT);
-                    String[] errorName = { "Payee ID " + employeeId, " Originator has the same ID ", "name" };
+                    String[] errorName = {"Payee ID " + employeeId, " Originator has the same ID ", "name"};
                     errors.putError(DV_PAYEE_ID_NUMBER_PROPERTY_PATH, KFSKeyConstants.ERROR_DV_VENDOR_NAME_PERSON_NAME_CONFUSION, errorName);
                 }
             }
@@ -124,9 +123,7 @@ public class DisbursementVoucherVendorInformationValidation extends GenericValid
                     }
 
                 }
-            }
-           
-            else if (isEmployeeSSN(vendor.getVendorHeader().getVendorTaxNumber())) {
+            } else if (isEmployeeSSN(vendor.getVendorHeader().getVendorTaxNumber())) {
                 // check param setting for paid outside payroll check
                 boolean performPaidOutsidePayrollInd = parameterService.getParameterValueAsBoolean(DisbursementVoucherDocument.class, DisbursementVoucherConstants.CHECK_EMPLOYEE_PAID_OUTSIDE_PAYROLL_PARM_NM);
 
@@ -139,16 +136,16 @@ public class DisbursementVoucherVendorInformationValidation extends GenericValid
                 }
             }
         }
-        
+
         errors.removeFromErrorPath(KFSPropertyConstants.DOCUMENT);
-        
+
         return isValid;
     }
 
     /**
      * Retrieves the VendorDetail object from the vendor id number.
-     * 
-     * @param vendorIdNumber vendor ID number
+     *
+     * @param vendorIdNumber       vendor ID number
      * @param vendorDetailIdNumber vendor detail ID number
      * @return <code>VendorDetail</code>
      */
@@ -158,7 +155,7 @@ public class DisbursementVoucherVendorInformationValidation extends GenericValid
 
     /**
      * Retrieves Person from SSN
-     * 
+     *
      * @param ssnNumber social security number
      * @return <code>Person</code>
      */
@@ -172,7 +169,7 @@ public class DisbursementVoucherVendorInformationValidation extends GenericValid
 
     /**
      * Confirms that the SSN provided is associated with an employee.
-     * 
+     *
      * @param ssnNumber social security number
      * @return true if the ssn number is a valid employee ssn
      */
@@ -182,7 +179,7 @@ public class DisbursementVoucherVendorInformationValidation extends GenericValid
 
     /**
      * Performs a lookup on universal users for the given ssn number.
-     * 
+     *
      * @param ssnNumber social security number
      * @return true if the ssn number is a valid employee ssn and the employee is active
      */
@@ -193,7 +190,7 @@ public class DisbursementVoucherVendorInformationValidation extends GenericValid
 
     /**
      * Sets the accountingDocumentForValidation attribute value.
-     * 
+     *
      * @param accountingDocumentForValidation The accountingDocumentForValidation to set.
      */
     public void setAccountingDocumentForValidation(AccountingDocument accountingDocumentForValidation) {
@@ -202,6 +199,7 @@ public class DisbursementVoucherVendorInformationValidation extends GenericValid
 
     /**
      * Sets the parameterService attribute value.
+     *
      * @param parameterService The parameterService to set.
      */
     public void setParameterService(ParameterService parameterService) {
@@ -209,7 +207,8 @@ public class DisbursementVoucherVendorInformationValidation extends GenericValid
     }
 
     /**
-     * Gets the accountingDocumentForValidation attribute. 
+     * Gets the accountingDocumentForValidation attribute.
+     *
      * @return Returns the accountingDocumentForValidation.
      */
     public AccountingDocument getAccountingDocumentForValidation() {

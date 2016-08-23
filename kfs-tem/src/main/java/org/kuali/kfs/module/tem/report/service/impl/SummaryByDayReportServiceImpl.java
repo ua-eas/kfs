@@ -1,36 +1,25 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.report.service.impl;
 
-import static org.kuali.kfs.module.tem.TemConstants.TravelReimbursementParameters.LODGING_TYPE_CODES;
-import static org.kuali.kfs.module.tem.TemConstants.TravelReimbursementParameters.TRANSPORTATION_TYPE_CODES;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Map;
-import java.util.TreeMap;
-
 import org.apache.log4j.Logger;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.businessobject.ActualExpense;
 import org.kuali.kfs.module.tem.businessobject.PerDiemExpense;
@@ -43,9 +32,20 @@ import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.kfs.sys.util.KfsDateUtils;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Map;
+import java.util.TreeMap;
+
+import static org.kuali.kfs.module.tem.TemConstants.TravelReimbursementParameters.LODGING_TYPE_CODES;
+import static org.kuali.kfs.module.tem.TemConstants.TravelReimbursementParameters.TRANSPORTATION_TYPE_CODES;
 
 /**
  * Service implementation of ExpenseSummaryReportService.
@@ -79,7 +79,7 @@ public class SummaryByDayReportServiceImpl implements SummaryByDayReportService 
 
     @Override
     public SummaryByDayReport buildReport(final TravelDocument travelDocument) {
-        LOG.debug("Building a "+ SummaryByDayReport.class+ " report for trip id "+ travelDocument.getTravelDocumentIdentifier());
+        LOG.debug("Building a " + SummaryByDayReport.class + " report for trip id " + travelDocument.getTravelDocumentIdentifier());
         final SummaryByDayReport retval = new SummaryByDayReport();
         retval.setBeginDate(travelDocument.getTripBegin() != null ? KfsDateUtils.clearTimeFields(travelDocument.getTripBegin()) : new Date());
         retval.setEndDate(travelDocument.getTripEnd() != null ? KfsDateUtils.clearTimeFields(travelDocument.getTripEnd()) : new Date());
@@ -117,9 +117,9 @@ public class SummaryByDayReportServiceImpl implements SummaryByDayReportService 
         lastDayOfWeek.add(Calendar.MILLISECOND, 1);
 
         int perDiemExpensesSize = travelDocument.getPerDiemExpenses().size();
-        for (final PerDiemExpense perDiemExpense: travelDocument.getPerDiemExpenses()){
-            if(!(perDiemExpense.getMileageDate().after(firstDayOfWeek.getTime()) && perDiemExpense.getMileageDate().before(lastDayOfWeek.getTime()) && --perDiemExpensesSize > 0)){
-                String weekCountFormat = weekCount < 10 ? "0"+weekCount : ""+weekCount;
+        for (final PerDiemExpense perDiemExpense : travelDocument.getPerDiemExpenses()) {
+            if (!(perDiemExpense.getMileageDate().after(firstDayOfWeek.getTime()) && perDiemExpense.getMileageDate().before(lastDayOfWeek.getTime()) && --perDiemExpensesSize > 0)) {
+                String weekCountFormat = weekCount < 10 ? "0" + weekCount : "" + weekCount;
                 SummaryByDayReport.Detail perDiemMilageWeekTotal = new SummaryByDayReport.Detail("Per Diem Milage", milageWeekTotal, "week " + weekCountFormat);
                 perDiemWeeklyTotal.add(perDiemMilageWeekTotal);
 
@@ -162,18 +162,15 @@ public class SummaryByDayReportServiceImpl implements SummaryByDayReportService 
         for (final ActualExpense expense : travelDocument.getActualExpenses()) {
             expense.refreshReferenceObject(TemPropertyConstants.EXPENSE_TYPE_OBJECT_CODE);
             final String expenseDate = monthDay.format(expense.getExpenseDate());
-            final SummaryByDayReport.Detail detail = new SummaryByDayReport.Detail(expense.getExpenseTypeObjectCode().getExpenseType().getName()==null?"":expense.getExpenseTypeObjectCode().getExpenseType().getName(), new KualiDecimal(expense.getExpenseAmount().bigDecimalValue().multiply(expense.getCurrencyRate())), expenseDate);
+            final SummaryByDayReport.Detail detail = new SummaryByDayReport.Detail(expense.getExpenseTypeObjectCode().getExpenseType().getName() == null ? "" : expense.getExpenseTypeObjectCode().getExpenseType().getName(), new KualiDecimal(expense.getExpenseAmount().bigDecimalValue().multiply(expense.getCurrencyRate())), expenseDate);
 
             if (isTransportationExpense(expense)) {
                 transportation.add(detail);
-            }
-            else if (isLodgingExpense(expense)) {
+            } else if (isLodgingExpense(expense)) {
                 lodging.add(detail);
-            }
-            else if (isMealsExpense(expense)) {
+            } else if (isMealsExpense(expense)) {
                 meals.add(detail);
-            }
-            else {
+            } else {
                 other.add(detail);
             }
 
@@ -187,27 +184,27 @@ public class SummaryByDayReportServiceImpl implements SummaryByDayReportService 
         }
 
         if (perDiemWeeklyTotal.size() > 0) {
-            LOG.debug("Adding "+ perDiemWeeklyTotal.size()+ " per diem weekly total");
+            LOG.debug("Adding " + perDiemWeeklyTotal.size() + " per diem weekly total");
             retval.setWeeklyTotal(perDiemWeeklyTotal);
         }
         if (other.size() > 0) {
-            LOG.debug("Adding "+ other.size()+ " other expenses");
+            LOG.debug("Adding " + other.size() + " other expenses");
             retval.setOtherExpenses(other);
         }
         if (transportation.size() > 0) {
-            LOG.debug("Adding "+ transportation.size()+ " transportation expenses");
+            LOG.debug("Adding " + transportation.size() + " transportation expenses");
             retval.setTransportation(transportation);
         }
         if (lodging.size() > 0) {
-            LOG.debug("Adding "+ lodging.size()+ " lodging expenses");
+            LOG.debug("Adding " + lodging.size() + " lodging expenses");
             retval.setLodging(lodging);
         }
         if (meals.size() > 0) {
-            LOG.debug("Adding "+ meals.size()+ " meals expenses");
+            LOG.debug("Adding " + meals.size() + " meals expenses");
             retval.setMeals(meals);
         }
         if (summary.size() > 0) {
-            LOG.debug("Adding "+ summary.size()+ " summary");
+            LOG.debug("Adding " + summary.size() + " summary");
             retval.setSummary(summary);
         }
         return retval;
@@ -219,22 +216,22 @@ public class SummaryByDayReportServiceImpl implements SummaryByDayReportService 
             summaryAmount = KualiDecimal.ZERO;
         }
         summaryAmount = summaryAmount.add(expense);
-        LOG.debug("Adding "+ summaryAmount+ " for "+ expenseDate+ " to summary data");
+        LOG.debug("Adding " + summaryAmount + " for " + expenseDate + " to summary data");
         summaryData.put(expenseDate, summaryAmount);
     }
 
     protected boolean isTransportationExpense(final ActualExpense expense) {
-        LOG.debug("Checking if "+ expense+ " is a transportation ");
+        LOG.debug("Checking if " + expense + " is a transportation ");
         return expenseTypeCodeMatchesParameter(expense.getExpenseTypeCode(), TRANSPORTATION_TYPE_CODES);
     }
 
     protected boolean isLodgingExpense(final ActualExpense expense) {
-        LOG.debug("Checking if "+ expense+ " is a lodging ");
+        LOG.debug("Checking if " + expense + " is a lodging ");
         return expenseTypeCodeMatchesParameter(expense.getExpenseTypeCode(), LODGING_TYPE_CODES);
     }
 
     protected boolean isMealsExpense(final ActualExpense expense) {
-        LOG.debug("Checking if "+ expense+ " is a meal ");
+        LOG.debug("Checking if " + expense + " is a meal ");
         return getTravelDocumentService().isHostedMeal(expense);
     }
 

@@ -1,28 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.document.service.impl;
 
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.PersistenceService;
 import org.kuali.kfs.module.bc.BCConstants.OrgSelControlOption;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionOrganizationReports;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionPullup;
@@ -30,9 +29,10 @@ import org.kuali.kfs.module.bc.document.dataaccess.BudgetConstructionDao;
 import org.kuali.kfs.module.bc.document.dataaccess.BudgetPullupDao;
 import org.kuali.kfs.module.bc.document.service.BudgetConstructionOrganizationReportsService;
 import org.kuali.kfs.module.bc.document.service.BudgetOrganizationTreeService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.PersistenceService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * This class implements the BudgetOrganizationTreeService interface
@@ -53,7 +53,7 @@ public class BudgetOrganizationTreeServiceImpl implements BudgetOrganizationTree
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetOrganizationTreeService#buildPullup(java.lang.String, java.lang.String,
-     *      java.lang.String)
+     * java.lang.String)
      */
     public void buildPullup(String principalName, String chartOfAccountsCode, String organizationCode) {
         cleanPullup(principalName);
@@ -82,20 +82,19 @@ public class BudgetOrganizationTreeServiceImpl implements BudgetOrganizationTree
             // getActiveChildOrgs does not return orgs that report to themselves
             List childOrgs = budgetConstructionOrganizationReportsService.getActiveChildOrgs(bcOrgRpts.getChartOfAccountsCode(), bcOrgRpts.getOrganizationCode());
             if (childOrgs.size() > 0) {
-                for (Iterator iter = childOrgs.iterator(); iter.hasNext();) {
+                for (Iterator iter = childOrgs.iterator(); iter.hasNext(); ) {
                     BudgetConstructionOrganizationReports bcOrg = (BudgetConstructionOrganizationReports) iter.next();
                     buildSubTree(principalName, bcOrg, curLevel);
                 }
             }
-        }
-        else {
+        } else {
             LOG.warn(String.format("\n%s/%s reports to organization more than maxlevel of %d", bcOrgRpts.getChartOfAccountsCode(), bcOrgRpts.getOrganizationCode(), MAXLEVEL));
         }
     }
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetOrganizationTreeService#buildPullupSql(java.lang.String,
-     *      java.lang.String, java.lang.String)
+     * java.lang.String, java.lang.String)
      */
     public void buildPullupSql(String principalName, String chartOfAccountsCode, String organizationCode) {
         cleanPullup(principalName);
@@ -114,7 +113,7 @@ public class BudgetOrganizationTreeServiceImpl implements BudgetOrganizationTree
         budgetPullupDao.buildSubTree(principalName, bcOrgRpts.getChartOfAccountsCode(), bcOrgRpts.getOrganizationCode(), curLevel);
 //      budgetPullupDao.initPointOfView(principalName, bcOrgRpts.getChartOfAccountsCode(), bcOrgRpts.getOrganizationCode(), curLevel);
 //      budgetPullupDao.insertChildOrgs(principalName, curLevel);
-      
+
         // force OJB to go to DB since it is populated using JDBC
         persistenceServiceOjb.clearCache();
     }
@@ -133,7 +132,7 @@ public class BudgetOrganizationTreeServiceImpl implements BudgetOrganizationTree
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetOrganizationTreeService#getPullupChildOrgs(java.lang.String,
-     *      java.lang.String, java.lang.String)
+     * java.lang.String, java.lang.String)
      */
     public List<BudgetConstructionPullup> getPullupChildOrgs(String principalId, String chartOfAccountsCode, String organizationCode) {
 
@@ -181,7 +180,7 @@ public class BudgetOrganizationTreeServiceImpl implements BudgetOrganizationTree
 
     /**
      * Gets the budgetConstructionOrganizationReportsService attribute.
-     * 
+     *
      * @return Returns the budgetConstructionOrganizationReportsService.
      */
     public BudgetConstructionOrganizationReportsService getBudgetConstructionOrganizationReportsService() {
@@ -190,7 +189,7 @@ public class BudgetOrganizationTreeServiceImpl implements BudgetOrganizationTree
 
     /**
      * Sets the budgetConstructionOrganizationReportsService attribute value.
-     * 
+     *
      * @param budgetConstructionOrganizationReportsService The budgetConstructionOrganizationReportsService to set.
      */
     public void setBudgetConstructionOrganizationReportsService(BudgetConstructionOrganizationReportsService budgetConstructionOrganizationReportsService) {
@@ -199,7 +198,7 @@ public class BudgetOrganizationTreeServiceImpl implements BudgetOrganizationTree
 
     /**
      * Gets the businessObjectService attribute.
-     * 
+     *
      * @return Returns the businessObjectService.
      */
     public BusinessObjectService getBusinessObjectService() {
@@ -208,7 +207,7 @@ public class BudgetOrganizationTreeServiceImpl implements BudgetOrganizationTree
 
     /**
      * Sets the businessObjectService attribute value.
-     * 
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
@@ -217,7 +216,7 @@ public class BudgetOrganizationTreeServiceImpl implements BudgetOrganizationTree
 
     /**
      * Gets the budgetConstructionDao attribute.
-     * 
+     *
      * @return Returns the budgetConstructionDao.
      */
     public BudgetConstructionDao getBudgetConstructionDao() {
@@ -226,7 +225,7 @@ public class BudgetOrganizationTreeServiceImpl implements BudgetOrganizationTree
 
     /**
      * Sets the budgetConstructionDao attribute value.
-     * 
+     *
      * @param budgetConstructionDao The budgetConstructionDao to set.
      */
     public void setBudgetConstructionDao(BudgetConstructionDao budgetConstructionDao) {
@@ -235,7 +234,7 @@ public class BudgetOrganizationTreeServiceImpl implements BudgetOrganizationTree
 
     /**
      * Gets the budgetPullupDao attribute.
-     * 
+     *
      * @return Returns the budgetPullupDao.
      */
     public BudgetPullupDao getBudgetPullupDao() {
@@ -244,7 +243,7 @@ public class BudgetOrganizationTreeServiceImpl implements BudgetOrganizationTree
 
     /**
      * Sets the budgetPullupDao attribute value.
-     * 
+     *
      * @param budgetPullupDao The budgetPullupDao to set.
      */
     public void setBudgetPullupDao(BudgetPullupDao budgetPullupDao) {
@@ -253,17 +252,17 @@ public class BudgetOrganizationTreeServiceImpl implements BudgetOrganizationTree
 
     /**
      * Gets the persistenceServiceOjb attribute.
-     * 
+     *
      * @return Returns the persistenceServiceOjb
      */
-    
+
     public PersistenceService getPersistenceServiceOjb() {
         return persistenceServiceOjb;
     }
 
-    /**	
+    /**
      * Sets the persistenceServiceOjb attribute.
-     * 
+     *
      * @param persistenceServiceOjb The persistenceServiceOjb to set.
      */
     public void setPersistenceServiceOjb(PersistenceService persistenceServiceOjb) {

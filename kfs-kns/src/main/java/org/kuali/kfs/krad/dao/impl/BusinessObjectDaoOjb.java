@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -22,15 +22,15 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
 import org.apache.ojb.broker.query.QueryFactory;
-import org.kuali.kfs.krad.service.KRADServiceLocatorInternal;
-import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.dao.BusinessObjectDao;
+import org.kuali.kfs.krad.service.KRADServiceLocatorInternal;
 import org.kuali.kfs.krad.service.PersistenceStructureService;
 import org.kuali.kfs.krad.util.KRADPropertyConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.krad.util.OjbCollectionAware;
+import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
+import org.kuali.rice.krad.bo.BusinessObject;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.ObjectRetrievalFailureException;
 
@@ -52,32 +52,32 @@ public class BusinessObjectDaoOjb extends PlatformAwareDaoBaseOjb implements Bus
     private PersistenceStructureService persistenceStructureService;
 
     /**
-	 * This constructs a {@link BusinessObjectDaoOjb}
-	 */
-	public BusinessObjectDaoOjb(PersistenceStructureService persistenceStructureService) {
-		this.persistenceStructureService = persistenceStructureService;
-	}
+     * This constructs a {@link BusinessObjectDaoOjb}
+     */
+    public BusinessObjectDaoOjb(PersistenceStructureService persistenceStructureService) {
+        this.persistenceStructureService = persistenceStructureService;
+    }
 
     /**
-	 * @see BusinessObjectDao#findBySinglePrimaryKey(java.lang.Class, java.lang.Object)
-	 */
-	public <T extends BusinessObject> T findBySinglePrimaryKey(Class<T> clazz, Object primaryKey) {
-		if (primaryKey.getClass().getName().startsWith("java.lang.")
-                || primaryKey.getClass().getName().startsWith("java.sql.")
-                || primaryKey.getClass().getName().startsWith("java.math.")
-                || primaryKey.getClass().getName().startsWith("java.util.")) {
-			try {
-				return (T) getPersistenceBrokerTemplate().getObjectById(clazz, primaryKey);
-			} catch ( ObjectRetrievalFailureException ex ) {
-	    		// it doesn't exist, just return null
-				return null;
-			}
-		} else {
-			Criteria criteria = buildCriteria(clazz, primaryKey);
+     * @see BusinessObjectDao#findBySinglePrimaryKey(java.lang.Class, java.lang.Object)
+     */
+    public <T extends BusinessObject> T findBySinglePrimaryKey(Class<T> clazz, Object primaryKey) {
+        if (primaryKey.getClass().getName().startsWith("java.lang.")
+            || primaryKey.getClass().getName().startsWith("java.sql.")
+            || primaryKey.getClass().getName().startsWith("java.math.")
+            || primaryKey.getClass().getName().startsWith("java.util.")) {
+            try {
+                return (T) getPersistenceBrokerTemplate().getObjectById(clazz, primaryKey);
+            } catch (ObjectRetrievalFailureException ex) {
+                // it doesn't exist, just return null
+                return null;
+            }
+        } else {
+            Criteria criteria = buildCriteria(clazz, primaryKey);
 
-	        return (T) getPersistenceBrokerTemplate().getObjectByQuery(QueryFactory.newQuery(clazz, criteria));
-		}
-	}
+            return (T) getPersistenceBrokerTemplate().getObjectByQuery(QueryFactory.newQuery(clazz, criteria));
+        }
+    }
 
     /**
      * @see BusinessObjectDao#findByPrimaryKey(java.lang.Class, java.util.Map)
@@ -96,7 +96,7 @@ public class BusinessObjectDaoOjb extends PlatformAwareDaoBaseOjb implements Bus
      * @see BusinessObjectDao#findAll(java.lang.Class)
      */
     public <T extends BusinessObject> Collection<T> findAll(Class<T> clazz) {
-        return (Collection<T>)getPersistenceBrokerTemplate().getCollectionByQuery(QueryFactory.newQuery(clazz, (Criteria) null));
+        return (Collection<T>) getPersistenceBrokerTemplate().getCollectionByQuery(QueryFactory.newQuery(clazz, (Criteria) null));
     }
 
     /**
@@ -107,12 +107,11 @@ public class BusinessObjectDaoOjb extends PlatformAwareDaoBaseOjb implements Bus
 
         if (sortAscending) {
             queryByCriteria.addOrderByAscending(sortField);
-        }
-        else {
+        } else {
             queryByCriteria.addOrderByDescending(sortField);
         }
 
-        return (Collection<T>)getPersistenceBrokerTemplate().getCollectionByQuery(queryByCriteria);
+        return (Collection<T>) getPersistenceBrokerTemplate().getCollectionByQuery(queryByCriteria);
     }
 
     /**
@@ -123,30 +122,30 @@ public class BusinessObjectDaoOjb extends PlatformAwareDaoBaseOjb implements Bus
     public <T extends BusinessObject> Collection<T> findMatching(Class<T> clazz, Map<String, ?> fieldValues) {
         Criteria criteria = buildCriteria(fieldValues);
 
-        return (Collection<T>)getPersistenceBrokerTemplate().getCollectionByQuery(QueryFactory.newQuery(clazz, criteria));
+        return (Collection<T>) getPersistenceBrokerTemplate().getCollectionByQuery(QueryFactory.newQuery(clazz, criteria));
     }
 
 
     /**
-	 * Throws an UnsupportedOperationException
-	 * @see BusinessObjectDao#findMatching(org.kuali.rice.core.framework.persistence.jpa.criteria.Criteria)
-	 */
-	//public <T extends BusinessObject> Collection<T> findMatching(org.kuali.rice.core.jpa.criteria.Criteria criteria) {
-	//	throw new UnsupportedOperationException("OJB does not support finding matching business objects using JPA criteria");
-	//}
+     * Throws an UnsupportedOperationException
+     * @see BusinessObjectDao#findMatching(org.kuali.rice.core.framework.persistence.jpa.criteria.Criteria)
+     */
+    //public <T extends BusinessObject> Collection<T> findMatching(org.kuali.rice.core.jpa.criteria.Criteria criteria) {
+    //	throw new UnsupportedOperationException("OJB does not support finding matching business objects using JPA criteria");
+    //}
 
-	/**
+    /**
      * @see BusinessObjectDao#findAllActive(java.lang.Class)
      */
     public <T extends BusinessObject> Collection<T> findAllActive(Class<T> clazz) {
-        return (Collection<T>)getPersistenceBrokerTemplate().getCollectionByQuery(QueryFactory.newQuery(clazz, buildActiveCriteria()));
+        return (Collection<T>) getPersistenceBrokerTemplate().getCollectionByQuery(QueryFactory.newQuery(clazz, buildActiveCriteria()));
     }
 
     /**
      * @see BusinessObjectDao#findAllActive(java.lang.Class)
      */
     public <T extends BusinessObject> Collection<T> findAllInactive(Class<T> clazz) {
-        return (Collection<T>)getPersistenceBrokerTemplate().getCollectionByQuery(QueryFactory.newQuery(clazz, buildInactiveCriteria()));
+        return (Collection<T>) getPersistenceBrokerTemplate().getCollectionByQuery(QueryFactory.newQuery(clazz, buildInactiveCriteria()));
     }
 
     /**
@@ -157,12 +156,11 @@ public class BusinessObjectDaoOjb extends PlatformAwareDaoBaseOjb implements Bus
 
         if (sortAscending) {
             queryByCriteria.addOrderByAscending(sortField);
-        }
-        else {
+        } else {
             queryByCriteria.addOrderByDescending(sortField);
         }
 
-        return (Collection<T>)getPersistenceBrokerTemplate().getCollectionByQuery(queryByCriteria);
+        return (Collection<T>) getPersistenceBrokerTemplate().getCollectionByQuery(queryByCriteria);
     }
 
     /**
@@ -172,7 +170,7 @@ public class BusinessObjectDaoOjb extends PlatformAwareDaoBaseOjb implements Bus
         Criteria criteria = buildCriteria(fieldValues);
         criteria.addAndCriteria(buildActiveCriteria());
 
-        return (Collection<T>)getPersistenceBrokerTemplate().getCollectionByQuery(QueryFactory.newQuery(clazz, criteria));
+        return (Collection<T>) getPersistenceBrokerTemplate().getCollectionByQuery(QueryFactory.newQuery(clazz, criteria));
     }
 
     /**
@@ -210,39 +208,38 @@ public class BusinessObjectDaoOjb extends PlatformAwareDaoBaseOjb implements Bus
 
         if (sortAscending) {
             queryByCriteria.addOrderByAscending(sortField);
-        }
-        else {
+        } else {
             queryByCriteria.addOrderByDescending(sortField);
         }
 
-        return (Collection<T>)getPersistenceBrokerTemplate().getCollectionByQuery(queryByCriteria);
+        return (Collection<T>) getPersistenceBrokerTemplate().getCollectionByQuery(queryByCriteria);
     }
 
-	/**
-	 * Saves a business object.
-	 *
-	 * @see BusinessObjectDao#save(PersistableBusinessObject)
-	 */
-	public PersistableBusinessObject save(PersistableBusinessObject bo) throws DataAccessException {
-		// if collections exist on the BO, create a copy and use to process the
-		// collections to ensure
-		// that removed elements are deleted from the database
-		Set<String> boCollections = getPersistenceStructureService().listCollectionObjectTypes(bo.getClass()).keySet();
-		PersistableBusinessObject savedBo = null;
-		if (!boCollections.isEmpty()) {
-			// refresh bo to get db copy of collections
-			savedBo = (PersistableBusinessObject) ObjectUtils.deepCopy(bo);
-			for (String boCollection : boCollections) {
-				if (getPersistenceStructureService().isCollectionUpdatable(savedBo.getClass(), boCollection)) {
-					savedBo.refreshReferenceObject(boCollection);
-				}
-			}
+    /**
+     * Saves a business object.
+     *
+     * @see BusinessObjectDao#save(PersistableBusinessObject)
+     */
+    public PersistableBusinessObject save(PersistableBusinessObject bo) throws DataAccessException {
+        // if collections exist on the BO, create a copy and use to process the
+        // collections to ensure
+        // that removed elements are deleted from the database
+        Set<String> boCollections = getPersistenceStructureService().listCollectionObjectTypes(bo.getClass()).keySet();
+        PersistableBusinessObject savedBo = null;
+        if (!boCollections.isEmpty()) {
+            // refresh bo to get db copy of collections
+            savedBo = (PersistableBusinessObject) ObjectUtils.deepCopy(bo);
+            for (String boCollection : boCollections) {
+                if (getPersistenceStructureService().isCollectionUpdatable(savedBo.getClass(), boCollection)) {
+                    savedBo.refreshReferenceObject(boCollection);
+                }
+            }
             KRADServiceLocatorInternal.getOjbCollectionHelper().processCollections(this, bo, savedBo);
         }
 
-		getPersistenceBrokerTemplate().store(bo);
-		return bo;
-	}
+        getPersistenceBrokerTemplate().store(bo);
+        return bo;
+    }
 
     /**
      * Saves a business object.
@@ -250,13 +247,13 @@ public class BusinessObjectDaoOjb extends PlatformAwareDaoBaseOjb implements Bus
      * @see BusinessObjectDao#save(PersistableBusinessObject)
      */
     public List<? extends PersistableBusinessObject> save(List businessObjects) throws DataAccessException {
-    	if ( LOG.isDebugEnabled() ) {
-    		LOG.debug( "About to persist the following BOs:" );
-    		for ( Object bo : businessObjects ) {
-    			LOG.debug( "   --->" + bo );
-    		}
-    	}
-        for (Iterator i = businessObjects.iterator(); i.hasNext();) {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("About to persist the following BOs:");
+            for (Object bo : businessObjects) {
+                LOG.debug("   --->" + bo);
+            }
+        }
+        for (Iterator i = businessObjects.iterator(); i.hasNext(); ) {
             Object bo = i.next();
             getPersistenceBrokerTemplate().store(bo);
         }
@@ -306,22 +303,24 @@ public class BusinessObjectDaoOjb extends PlatformAwareDaoBaseOjb implements Bus
     }
 
     /**
-	 * OJB does not support this method
-	 * @see BusinessObjectDao#findByPrimaryKey(java.lang.Class, java.lang.Object)
-	 */
-	public  <T extends BusinessObject> T findByPrimaryKeyUsingKeyObject(Class<T> clazz, Object pkObject) {
-		throw new UnsupportedOperationException("OJB does not support this option");
-	}
+     * OJB does not support this method
+     *
+     * @see BusinessObjectDao#findByPrimaryKey(java.lang.Class, java.lang.Object)
+     */
+    public <T extends BusinessObject> T findByPrimaryKeyUsingKeyObject(Class<T> clazz, Object pkObject) {
+        throw new UnsupportedOperationException("OJB does not support this option");
+    }
 
-	/**
-	 * No need to do anything - avoid saving and OJB will "manage read only"
-	 * @see BusinessObjectDao#manageReadOnly(PersistableBusinessObject)
-	 */
-	public PersistableBusinessObject manageReadOnly(PersistableBusinessObject bo) {
-		return bo;
-	}
+    /**
+     * No need to do anything - avoid saving and OJB will "manage read only"
+     *
+     * @see BusinessObjectDao#manageReadOnly(PersistableBusinessObject)
+     */
+    public PersistableBusinessObject manageReadOnly(PersistableBusinessObject bo) {
+        return bo;
+    }
 
-	/**
+    /**
      * This method will build out criteria in the key-value paradigm (attribute-value).
      *
      * @param fieldValues
@@ -329,18 +328,17 @@ public class BusinessObjectDaoOjb extends PlatformAwareDaoBaseOjb implements Bus
      */
     private Criteria buildCriteria(Map<String, ?> fieldValues) {
         Criteria criteria = new Criteria();
-        for (Iterator i = fieldValues.entrySet().iterator(); i.hasNext();) {
+        for (Iterator i = fieldValues.entrySet().iterator(); i.hasNext(); ) {
             Map.Entry<String, Object> e = (Map.Entry<String, Object>) i.next();
 
             String key = e.getKey();
             Object value = e.getValue();
             if (value instanceof Collection) {
                 criteria.addIn(key, (Collection) value);
-            } else if(value instanceof String && ((String)value).contains("*")){
-               value = ((String)value).replace("*","%");
-               criteria.addLike(key,value);
-            }
-            else {
+            } else if (value instanceof String && ((String) value).contains("*")) {
+                value = ((String) value).replace("*", "%");
+                criteria.addLike(key, value);
+            } else {
                 criteria.addEqualTo(key, value);
             }
         }
@@ -348,7 +346,7 @@ public class BusinessObjectDaoOjb extends PlatformAwareDaoBaseOjb implements Bus
         return criteria;
     }
 
-    
+
     private <T extends BusinessObject> Criteria buildCriteria(Class<T> clazz, Object primaryKey) {
         Map<String, Object> fieldValues = new HashMap<String, Object>();
         List<String> fieldNames = getPersistenceStructureService().getPrimaryKeys(clazz);
@@ -374,12 +372,13 @@ public class BusinessObjectDaoOjb extends PlatformAwareDaoBaseOjb implements Bus
         }
         return this.buildCriteria(fieldValues);
     }
-    
+
     /**
      * Builds a Criteria object for active field set to true
+     *
      * @return Criteria
      */
-    private Criteria buildActiveCriteria(){
+    private Criteria buildActiveCriteria() {
         Criteria criteria = new Criteria();
         criteria.addEqualTo(KRADPropertyConstants.ACTIVE, true);
 
@@ -388,9 +387,10 @@ public class BusinessObjectDaoOjb extends PlatformAwareDaoBaseOjb implements Bus
 
     /**
      * Builds a Criteria object for active field set to true
+     *
      * @return Criteria
      */
-    private Criteria buildInactiveCriteria(){
+    private Criteria buildInactiveCriteria() {
         Criteria criteria = new Criteria();
         criteria.addEqualTo(KRADPropertyConstants.ACTIVE, false);
 
@@ -405,15 +405,14 @@ public class BusinessObjectDaoOjb extends PlatformAwareDaoBaseOjb implements Bus
      */
     private Criteria buildNegativeCriteria(Map<String, ?> negativeFieldValues) {
         Criteria criteria = new Criteria();
-        for (Iterator i = negativeFieldValues.entrySet().iterator(); i.hasNext();) {
+        for (Iterator i = negativeFieldValues.entrySet().iterator(); i.hasNext(); ) {
             Map.Entry<String, Object> e = (Map.Entry<String, Object>) i.next();
 
             String key = e.getKey();
             Object value = e.getValue();
             if (value instanceof Collection) {
                 criteria.addNotIn(key, (Collection) value);
-            }
-            else {
+            } else {
                 criteria.addNotEqualTo(key, value);
             }
         }
@@ -423,6 +422,7 @@ public class BusinessObjectDaoOjb extends PlatformAwareDaoBaseOjb implements Bus
 
     /**
      * Gets the persistenceStructureService attribute.
+     *
      * @return Returns the persistenceStructureService.
      */
     protected PersistenceStructureService getPersistenceStructureService() {
@@ -431,6 +431,7 @@ public class BusinessObjectDaoOjb extends PlatformAwareDaoBaseOjb implements Bus
 
     /**
      * Sets the persistenceStructureService attribute value.
+     *
      * @param persistenceStructureService The persistenceStructureService to set.
      */
     public void setPersistenceStructureService(PersistenceStructureService persistenceStructureService) {

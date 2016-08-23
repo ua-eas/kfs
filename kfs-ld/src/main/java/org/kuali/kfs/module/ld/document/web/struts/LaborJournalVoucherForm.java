@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -49,8 +49,8 @@ public class LaborJournalVoucherForm extends JournalVoucherForm {
     }
 
     /**
-     * Populates source a accounting line encumbrance code (D, R or null) for a given source accounting line 
-     * 
+     * Populates source a accounting line encumbrance code (D, R or null) for a given source accounting line
+     *
      * @see org.kuali.kfs.fp.document.web.struts.JournalVoucherForm#populateSourceAccountingLineEncumbranceCode(org.kuali.kfs.sys.businessobject.SourceAccountingLine)
      */
     @Override
@@ -70,8 +70,7 @@ public class LaborJournalVoucherForm extends JournalVoucherForm {
 //            else {
 //                sourceLine.setEncumbranceUpdateCode(null);
 //            }
-        }
-        else {
+        } else {
             // it's the first time in, the form will be empty the first time in set up default selection value
             selectedBalanceType = SpringContext.getBean(BalanceTypeService.class).getBalanceTypeByCode(KFSConstants.BALANCE_TYPE_ACTUAL);
             setSelectedBalanceType(selectedBalanceType);
@@ -83,7 +82,7 @@ public class LaborJournalVoucherForm extends JournalVoucherForm {
 
     /**
      * Returns the journal voucher document associated with this form.
-     * 
+     *
      * @return Returns the journalVoucherDocument.
      */
     public JournalVoucherDocument getJournalVoucherDocument() {
@@ -92,7 +91,7 @@ public class LaborJournalVoucherForm extends JournalVoucherForm {
 
     /**
      * Sets the journal voucher document associated with this form.
-     * 
+     *
      * @param journalVoucherDocument The journalVoucherDocument to set.
      */
     public void setJournalVoucherDocument(JournalVoucherDocument journalVoucherDocument) {
@@ -101,7 +100,7 @@ public class LaborJournalVoucherForm extends JournalVoucherForm {
 
     /**
      * Gets the originalOffsetTypeCode attribute.
-     * 
+     *
      * @return Returns the originalOffsetTypeCode.
      */
     public String getOriginalOffsetTypeCode() {
@@ -110,7 +109,7 @@ public class LaborJournalVoucherForm extends JournalVoucherForm {
 
     /**
      * Sets the originalOffsetTypeCode attribute value.
-     * 
+     *
      * @param originalOffsetTypeCode The originalOffsetTypeCode to set.
      */
     public void setOriginalOffsetTypeCode(String originalOffsetTypeCode) {
@@ -119,10 +118,10 @@ public class LaborJournalVoucherForm extends JournalVoucherForm {
 
     /**
      * Configure map for optional accounting line quickfinders.
-     * 
+     *
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase#getForcedLookupOptionalFields()
      */
-    
+
 //    public Map getForcedLookupOptionalFields() {
 //        Map retval = super.getForcedLookupOptionalFields();
 

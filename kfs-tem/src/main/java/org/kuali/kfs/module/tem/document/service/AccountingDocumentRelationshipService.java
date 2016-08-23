@@ -1,27 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.document.service;
 
+import org.kuali.kfs.module.tem.businessobject.AccountingDocumentRelationship;
+
 import java.util.List;
 import java.util.Set;
-
-import org.kuali.kfs.module.tem.businessobject.AccountingDocumentRelationship;
 
 public interface AccountingDocumentRelationshipService {
 
@@ -78,8 +78,8 @@ public interface AccountingDocumentRelationshipService {
     public void delete(AccountingDocumentRelationship accountingDocumentRelationship);
 
     /**
-     *
      * This method finds an accountingDocumentRelationship
+     *
      * @param adr
      * @return
      */
@@ -95,6 +95,7 @@ public interface AccountingDocumentRelationshipService {
 
     /**
      * Determines if the given document number represents a document which is a "child" of another document
+     *
      * @param documentNumber the document number to check for childishness
      * @return true if the document number represents a document which is the "related" document in any accounting document relationship; false otherwise
      */

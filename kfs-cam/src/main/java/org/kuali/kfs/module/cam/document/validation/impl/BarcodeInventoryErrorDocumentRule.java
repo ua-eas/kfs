@@ -1,32 +1,32 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cam.document.validation.impl;
 
-import java.sql.Timestamp;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.rules.TransactionalDocumentRuleBase;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsKeyConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
@@ -45,16 +45,16 @@ import org.kuali.kfs.sys.businessobject.Building;
 import org.kuali.kfs.sys.businessobject.Room;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.kns.rules.TransactionalDocumentRuleBase;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ErrorMessage;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.rice.location.api.campus.Campus;
 import org.kuali.rice.location.api.campus.CampusService;
+
+import java.sql.Timestamp;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Business rule(s) applicable to Asset Barcode Inventory upload and Barcode inventory error document.
@@ -108,8 +108,7 @@ public class BarcodeInventoryErrorDocumentRule extends TransactionalDocumentRule
 
                     // Getting the errors from GlobalVariables.
                     barcodeInventoryErrorDetail.setErrorDescription(getErrorMessages(errorPath));
-                }
-                else {
+                } else {
                     if (updateStatus) {
                         barcodeInventoryErrorDetail.setErrorCorrectionStatusCode(CamsConstants.BarCodeInventoryError.STATUS_CODE_CORRECTED);
                     }
@@ -136,7 +135,6 @@ public class BarcodeInventoryErrorDocumentRule extends TransactionalDocumentRule
      *
      * @param tagNumber
      * @return boolean
-     *
      * @deprecated this method is replaced by validateTagNumberAndRetrieveActiveAsset(String)
      */
     @Deprecated
@@ -148,8 +146,7 @@ public class BarcodeInventoryErrorDocumentRule extends TransactionalDocumentRule
         if (ObjectUtils.isNull(assets) || assets.isEmpty()) {
             GlobalVariables.getMessageMap().putError(CamsPropertyConstants.BarcodeInventory.ASSET_TAG_NUMBER, CamsKeyConstants.BarcodeInventory.ERROR_CAPITAL_ASSET_DOESNT_EXIST);
             result = false;
-        }
-        else {
+        } else {
             int activeAssets = assets.size();
             for (Asset asset : assets) {
                 if (getAssetService().isAssetRetired(asset)) {
@@ -159,8 +156,7 @@ public class BarcodeInventoryErrorDocumentRule extends TransactionalDocumentRule
             if (activeAssets == 0) {
                 GlobalVariables.getMessageMap().putError(CamsPropertyConstants.BarcodeInventory.ASSET_TAG_NUMBER, CamsKeyConstants.BarcodeInventory.ERROR_CAPITAL_ASSET_IS_RETIRED);
                 result = false;
-            }
-            else if (activeAssets > 1) {
+            } else if (activeAssets > 1) {
                 GlobalVariables.getMessageMap().putError(CamsPropertyConstants.BarcodeInventory.ASSET_TAG_NUMBER, CamsKeyConstants.BarcodeInventory.ERROR_DUPLICATED_TAG_NUMBER);
                 result = false;
             }
@@ -182,8 +178,7 @@ public class BarcodeInventoryErrorDocumentRule extends TransactionalDocumentRule
         if (ObjectUtils.isNull(assets) || assets.isEmpty()) {
             GlobalVariables.getMessageMap().putError(CamsPropertyConstants.BarcodeInventory.ASSET_TAG_NUMBER, CamsKeyConstants.BarcodeInventory.ERROR_CAPITAL_ASSET_DOESNT_EXIST);
             return null;
-        }
-        else if (assets.size() > 1) {
+        } else if (assets.size() > 1) {
             GlobalVariables.getMessageMap().putError(CamsPropertyConstants.BarcodeInventory.ASSET_TAG_NUMBER, CamsKeyConstants.BarcodeInventory.ERROR_DUPLICATED_TAG_NUMBER);
             return null;
         }
@@ -227,8 +222,7 @@ public class BarcodeInventoryErrorDocumentRule extends TransactionalDocumentRule
         if (ObjectUtils.isNull(campus)) {
             GlobalVariables.getMessageMap().putError(CamsPropertyConstants.BarcodeInventory.CAMPUS_CODE, CamsKeyConstants.BarcodeInventory.ERROR_INVALID_FIELD, label);
             result = false;
-        }
-        else if (!campus.isActive()) {
+        } else if (!campus.isActive()) {
             GlobalVariables.getMessageMap().putError(CamsPropertyConstants.BarcodeInventory.CAMPUS_CODE, CamsKeyConstants.BarcodeInventory.ERROR_INACTIVE_FIELD, label);
             result &= false;
         }
@@ -241,9 +235,8 @@ public class BarcodeInventoryErrorDocumentRule extends TransactionalDocumentRule
      *
      * @param buildingCode
      * @param detail
-     * @prarm asset
      * @return boolean
-     *
+     * @prarm asset
      * @deprecated this method is replaced by validateBuildingCodeAndRoomNumber(BarcodeInventoryErrorDetail, Asset)
      */
     @Deprecated
@@ -270,12 +263,10 @@ public class BarcodeInventoryErrorDocumentRule extends TransactionalDocumentRule
             if (StringUtils.isBlank(buildingCode)) {
                 GlobalVariables.getMessageMap().putError(CamsPropertyConstants.BarcodeInventory.BUILDING_CODE, CamsKeyConstants.BarcodeInventory.ERROR_REQUIRED_FIELD, label, description);
                 result &= false;
-            }
-            else if (ObjectUtils.isNull(building)) {
+            } else if (ObjectUtils.isNull(building)) {
                 GlobalVariables.getMessageMap().putError(CamsPropertyConstants.BarcodeInventory.BUILDING_CODE, CamsKeyConstants.BarcodeInventory.ERROR_INVALID_FIELD, label);
                 result &= false;
-            }
-            else if (!building.isActive()) {
+            } else if (!building.isActive()) {
                 GlobalVariables.getMessageMap().putError(CamsPropertyConstants.BarcodeInventory.BUILDING_CODE, CamsKeyConstants.BarcodeInventory.ERROR_INACTIVE_FIELD, label);
                 result &= false;
             }
@@ -289,9 +280,8 @@ public class BarcodeInventoryErrorDocumentRule extends TransactionalDocumentRule
      *
      * @param roomNumber
      * @param detail
-     * @prarm asset
      * @return boolean
-     *
+     * @prarm asset
      * @deprecated this method is replaced by validateBuildingCodeAndRoomNumber(BarcodeInventoryErrorDetail, Asset)
      */
     @Deprecated
@@ -319,12 +309,10 @@ public class BarcodeInventoryErrorDocumentRule extends TransactionalDocumentRule
             if (StringUtils.isBlank(roomNumber)) {
                 GlobalVariables.getMessageMap().putError(CamsPropertyConstants.BarcodeInventory.BUILDING_ROOM_NUMBER, CamsKeyConstants.BarcodeInventory.ERROR_REQUIRED_FIELD, label, description);
                 result &= false;
-            }
-            else if (ObjectUtils.isNull(room)) {
+            } else if (ObjectUtils.isNull(room)) {
                 GlobalVariables.getMessageMap().putError(CamsPropertyConstants.BarcodeInventory.BUILDING_ROOM_NUMBER, CamsKeyConstants.BarcodeInventory.ERROR_INVALID_FIELD, label);
                 result = false;
-            }
-            else if (!room.isActive()) {
+            } else if (!room.isActive()) {
                 GlobalVariables.getMessageMap().putError(CamsPropertyConstants.BarcodeInventory.BUILDING_ROOM_NUMBER, CamsKeyConstants.BarcodeInventory.ERROR_INACTIVE_FIELD, label);
                 result &= false;
             }
@@ -337,8 +325,8 @@ public class BarcodeInventoryErrorDocumentRule extends TransactionalDocumentRule
      * Validates that the existance of the building code and room number is consistent with the asset type requirements.
      *
      * @param detail
-     * @prarm asset
      * @return boolean
+     * @prarm asset
      */
     protected boolean validateBuildingCodeAndRoomNumber(BarcodeInventoryErrorDetail detail, Asset asset) {
         boolean result = true;
@@ -368,12 +356,10 @@ public class BarcodeInventoryErrorDocumentRule extends TransactionalDocumentRule
             if (StringUtils.isBlank(buildingCode)) {
                 GlobalVariables.getMessageMap().putError(CamsPropertyConstants.BarcodeInventory.BUILDING_CODE, CamsKeyConstants.BarcodeInventory.ERROR_REQUIRED_FIELD, labelBuilding, assetTypeCode);
                 result &= false;
-            }
-            else if (ObjectUtils.isNull(building)) {
+            } else if (ObjectUtils.isNull(building)) {
                 GlobalVariables.getMessageMap().putError(CamsPropertyConstants.BarcodeInventory.BUILDING_CODE, CamsKeyConstants.BarcodeInventory.ERROR_INVALID_FIELD, labelBuilding);
                 result &= false;
-            }
-            else if (!building.isActive()) {
+            } else if (!building.isActive()) {
                 GlobalVariables.getMessageMap().putError(CamsPropertyConstants.BarcodeInventory.BUILDING_CODE, CamsKeyConstants.BarcodeInventory.ERROR_INACTIVE_FIELD, labelBuilding);
                 result &= false;
             }
@@ -382,12 +368,10 @@ public class BarcodeInventoryErrorDocumentRule extends TransactionalDocumentRule
             if (StringUtils.isBlank(roomNumber)) {
                 GlobalVariables.getMessageMap().putError(CamsPropertyConstants.BarcodeInventory.BUILDING_ROOM_NUMBER, CamsKeyConstants.BarcodeInventory.ERROR_REQUIRED_FIELD, labelRoom, assetTypeCode);
                 result &= false;
-            }
-            else if (ObjectUtils.isNull(room)) {
+            } else if (ObjectUtils.isNull(room)) {
                 GlobalVariables.getMessageMap().putError(CamsPropertyConstants.BarcodeInventory.BUILDING_ROOM_NUMBER, CamsKeyConstants.BarcodeInventory.ERROR_INVALID_FIELD, labelRoom);
                 result = false;
-            }
-            else if (!room.isActive()) {
+            } else if (!room.isActive()) {
                 GlobalVariables.getMessageMap().putError(CamsPropertyConstants.BarcodeInventory.BUILDING_ROOM_NUMBER, CamsKeyConstants.BarcodeInventory.ERROR_INACTIVE_FIELD, labelRoom);
                 result &= false;
             }
@@ -399,12 +383,10 @@ public class BarcodeInventoryErrorDocumentRule extends TransactionalDocumentRule
             if (StringUtils.isBlank(buildingCode)) {
                 GlobalVariables.getMessageMap().putError(CamsPropertyConstants.BarcodeInventory.BUILDING_CODE, CamsKeyConstants.BarcodeInventory.ERROR_REQUIRED_FIELD, labelBuilding, assetTypeCode);
                 result &= false;
-            }
-            else if (ObjectUtils.isNull(building)) {
+            } else if (ObjectUtils.isNull(building)) {
                 GlobalVariables.getMessageMap().putError(CamsPropertyConstants.BarcodeInventory.BUILDING_CODE, CamsKeyConstants.BarcodeInventory.ERROR_INVALID_FIELD, labelBuilding);
                 result &= false;
-            }
-            else if (!building.isActive()) {
+            } else if (!building.isActive()) {
                 GlobalVariables.getMessageMap().putError(CamsPropertyConstants.BarcodeInventory.BUILDING_CODE, CamsKeyConstants.BarcodeInventory.ERROR_INACTIVE_FIELD, labelBuilding);
                 result &= false;
             }
@@ -453,8 +435,7 @@ public class BarcodeInventoryErrorDocumentRule extends TransactionalDocumentRule
         if (ObjectUtils.isNull(condition)) {
             GlobalVariables.getMessageMap().putError(CamsPropertyConstants.BarcodeInventory.ASSET_CONDITION_CODE, CamsKeyConstants.BarcodeInventory.ERROR_INVALID_FIELD, label);
             result &= false;
-        }
-        else if (!condition.isActive()) {
+        } else if (!condition.isActive()) {
             GlobalVariables.getMessageMap().putError(CamsPropertyConstants.BarcodeInventory.ASSET_CONDITION_CODE, CamsKeyConstants.BarcodeInventory.ERROR_INACTIVE_FIELD, label);
             result &= false;
         }
@@ -477,8 +458,7 @@ public class BarcodeInventoryErrorDocumentRule extends TransactionalDocumentRule
         // Getting system parameter in order to determine whether or not the asset locks will be ignored.
         if (getParameterService().parameterExists(BarcodeInventoryErrorDocument.class, CamsConstants.Parameters.BAR_CODE_ERROR_DOCUMENT_IGNORES_LOCKS)) {
             skipAssetLockValidation = getParameterService().getParameterValueAsString(BarcodeInventoryErrorDocument.class, CamsConstants.Parameters.BAR_CODE_ERROR_DOCUMENT_IGNORES_LOCKS);
-        }
-        else {
+        } else {
             LOG.warn("CAMS Parameter '" + CamsConstants.Parameters.BAR_CODE_ERROR_DOCUMENT_IGNORES_LOCKS + "' not found! - Setting default value to 'N' ");
             skipAssetLockValidation = CamsConstants.BarCodeInventoryError.BAR_CODE_ERROR_DOCUMENT_IGNORES_LOCKS_NO;
         }
@@ -489,8 +469,7 @@ public class BarcodeInventoryErrorDocumentRule extends TransactionalDocumentRule
             if (assets.size() > 1) {
                 GlobalVariables.getMessageMap().putError(CamsPropertyConstants.BarcodeInventory.ASSET_TAG_NUMBER, CamsKeyConstants.BarcodeInventory.ERROR_DUPLICATED_TAG_NUMBER);
                 result = false;
-            }
-            else if ((assets.size() > 0)) {
+            } else if ((assets.size() > 0)) {
                 // isAssetLocked = getAssetService().isAssetLocked("", assets.get(0).getCapitalAssetNumber());
                 List<Long> assetNumbers = new ArrayList<Long>();
                 assetNumbers.add(assets.get(0).getCapitalAssetNumber());
@@ -504,8 +483,7 @@ public class BarcodeInventoryErrorDocumentRule extends TransactionalDocumentRule
                     result = false;
                 }
             }
-        }
-        else {
+        } else {
             result = true;
         }
         return result;
@@ -520,7 +498,7 @@ public class BarcodeInventoryErrorDocumentRule extends TransactionalDocumentRule
      */
     protected String getErrorMessages(String errorPath) {
         String message = "";
-        String[] fields = { CamsPropertyConstants.BarcodeInventory.ASSET_TAG_NUMBER, CamsPropertyConstants.BarcodeInventory.INVENTORY_DATE, CamsPropertyConstants.BarcodeInventory.CAMPUS_CODE, CamsPropertyConstants.BarcodeInventory.BUILDING_CODE, CamsPropertyConstants.BarcodeInventory.BUILDING_ROOM_NUMBER, CamsPropertyConstants.BarcodeInventory.ASSET_CONDITION_CODE };
+        String[] fields = {CamsPropertyConstants.BarcodeInventory.ASSET_TAG_NUMBER, CamsPropertyConstants.BarcodeInventory.INVENTORY_DATE, CamsPropertyConstants.BarcodeInventory.CAMPUS_CODE, CamsPropertyConstants.BarcodeInventory.BUILDING_CODE, CamsPropertyConstants.BarcodeInventory.BUILDING_ROOM_NUMBER, CamsPropertyConstants.BarcodeInventory.ASSET_CONDITION_CODE};
 
         for (int i = 0; i < fields.length; i++) {
             String propertyName = errorPath + "." + fields[i];
@@ -548,7 +526,7 @@ public class BarcodeInventoryErrorDocumentRule extends TransactionalDocumentRule
             return;
         }
 
-        for (Iterator<ErrorMessage> iterator = GlobalVariables.getMessageMap().getMessages(KFSConstants.GLOBAL_ERRORS).iterator(); iterator.hasNext();) {
+        for (Iterator<ErrorMessage> iterator = GlobalVariables.getMessageMap().getMessages(KFSConstants.GLOBAL_ERRORS).iterator(); iterator.hasNext(); ) {
             ErrorMessage errorMessage = iterator.next();
             if (errorMessage.getErrorKey().equals(KFSKeyConstants.ERROR_MAINTENANCE_LOCKED)) {
                 el.add(errorMessage);

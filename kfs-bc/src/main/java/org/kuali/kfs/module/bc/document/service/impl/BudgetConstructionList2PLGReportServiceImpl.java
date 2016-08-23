@@ -1,30 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.document.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.ojb.broker.PersistenceBrokerException;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.PersistenceService;
 import org.kuali.kfs.module.bc.BCKeyConstants;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionOrgList2PLGReport;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionTwoPlugListMove;
@@ -34,9 +30,13 @@ import org.kuali.kfs.module.bc.document.service.BudgetConstructionOrganizationRe
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.PersistenceService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Service implementation of BudgetConstructionAccountSummaryReportService.
@@ -48,7 +48,7 @@ public class BudgetConstructionList2PLGReportServiceImpl implements BudgetConstr
     protected BudgetConstructionOrganizationReportsService budgetConstructionOrganizationReportsService;
     protected ConfigurationService kualiConfigurationService;
     protected BusinessObjectService businessObjectService;
-    protected PersistenceService persistenceServiceOjb; 
+    protected PersistenceService persistenceServiceOjb;
 
     @Override
     public void updateList2PLGReport(String principalName, Integer universityFiscalYear) {
@@ -92,24 +92,21 @@ public class BudgetConstructionList2PLGReportServiceImpl implements BudgetConstr
 
         if (orgChartDesc == null) {
             orgList2PLGReportEntry.setOrgChartOfAccountDescription(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_CHART_DESCRIPTION));
-        }
-        else {
+        } else {
             orgList2PLGReportEntry.setOrgChartOfAccountDescription(orgChartDesc);
         }
 
         orgList2PLGReportEntry.setOrganizationCode(twoPlugListMoveEntry.getOrganizationCode());
         if (orgName == null) {
             orgList2PLGReportEntry.setOrganizationName(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_ORGANIZATION_NAME));
-        }
-        else {
+        } else {
             orgList2PLGReportEntry.setOrganizationName(orgName);
         }
 
         orgList2PLGReportEntry.setChartOfAccountsCode(twoPlugListMoveEntry.getChartOfAccountsCode());
         if (chartDesc == null) {
             orgList2PLGReportEntry.setChartOfAccountDescription(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_CHART_DESCRIPTION));
-        }
-        else {
+        } else {
             orgList2PLGReportEntry.setChartOfAccountDescription(chartDesc);
         }
         Integer prevPrevFiscalyear = prevFiscalyear - 1;
@@ -124,21 +121,17 @@ public class BudgetConstructionList2PLGReportServiceImpl implements BudgetConstr
         if (twoPlugListMoveEntry.getSubAccountNumber().equals(KFSConstants.getDashSubAccountNumber())) {
             if (twoPlugListMoveEntry.getAccount().getAccountName() == null) {
                 orgList2PLGReportEntry.setAccountSubAccountName(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_ACCOUNT_DESCRIPTION));
-            }
-            else {
+            } else {
                 orgList2PLGReportEntry.setAccountSubAccountName(twoPlugListMoveEntry.getAccount().getAccountName());
             }
-        }
-        else {
+        } else {
             try {
                 if (twoPlugListMoveEntry.getSubAccount().getSubAccountName() == null) {
                     orgList2PLGReportEntry.setAccountSubAccountName(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_SUB_ACCOUNT_DESCRIPTION));
-                }
-                else {
+                } else {
                     orgList2PLGReportEntry.setAccountSubAccountName(twoPlugListMoveEntry.getSubAccount().getSubAccountName());
                 }
-            }
-            catch (PersistenceBrokerException e) {
+            } catch (PersistenceBrokerException e) {
                 orgList2PLGReportEntry.setAccountSubAccountName(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_SUB_ACCOUNT_DESCRIPTION));
             }
         }
@@ -179,17 +172,17 @@ public class BudgetConstructionList2PLGReportServiceImpl implements BudgetConstr
 
     /**
      * Gets the persistenceServiceOjb attribute.
-     * 
+     *
      * @return Returns the persistenceServiceOjb
      */
-    
+
     public PersistenceService getPersistenceServiceOjb() {
         return persistenceServiceOjb;
     }
 
-    /**	
+    /**
      * Sets the persistenceServiceOjb attribute.
-     * 
+     *
      * @param persistenceServiceOjb The persistenceServiceOjb to set.
      */
     public void setPersistenceServiceOjb(PersistenceService persistenceServiceOjb) {

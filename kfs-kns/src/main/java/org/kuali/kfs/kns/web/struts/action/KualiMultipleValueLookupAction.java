@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -23,14 +23,13 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.lookup.HtmlData;
 import org.kuali.kfs.kns.lookup.LookupResultsService;
 import org.kuali.kfs.kns.lookup.LookupUtils;
+import org.kuali.kfs.kns.lookup.Lookupable;
 import org.kuali.kfs.kns.service.KNSServiceLocator;
 import org.kuali.kfs.kns.web.struts.form.MultipleValueLookupForm;
 import org.kuali.kfs.kns.web.ui.Column;
-import org.kuali.rice.core.api.util.RiceConstants;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.lookup.Lookupable;
 import org.kuali.kfs.kns.web.ui.ResultRow;
 import org.kuali.kfs.krad.lookup.CollectionIncomplete;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
@@ -38,6 +37,7 @@ import org.kuali.kfs.krad.service.SequenceAccessorService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.UrlFactory;
+import org.kuali.rice.core.api.util.RiceConstants;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -61,7 +61,7 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
     /**
      * If there is no app param defined for the # rows/page, then this value
      * will be used for the default
-     * 
+     *
      * @see KualiMultipleValueLookupAction#getMaxRowsPerPage(MultipleValueLookupForm)
      */
     public static final int DEFAULT_MAX_ROWS_PER_PAGE = 50;
@@ -71,11 +71,11 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
      * This method performs the search, and will be responsible for persisting the results via the LookupResultsService.
      * This overrides the superclass's search action method b/c of the differences in how the results are generated and it populates
      * certain attributes that are specific to MultipleValueLookupForm
-     * 
+     *
      * @param mapping
-     * @param form must be an instance of MultipleValueLookupForm
+     * @param form     must be an instance of MultipleValueLookupForm
      * @param request
-     * @param response 
+     * @param response
      */
     @Override
     public ActionForward search(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -105,25 +105,24 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
         if (kualiLookupable.isSearchUsingOnlyPrimaryKeyValues()) {
             multipleValueLookupForm.setSearchUsingOnlyPrimaryKeyValues(true);
             multipleValueLookupForm.setPrimaryKeyFieldLabels(kualiLookupable.getPrimaryKeyFieldLabels());
-        }
-        else {
+        } else {
             multipleValueLookupForm.setSearchUsingOnlyPrimaryKeyValues(false);
             multipleValueLookupForm.setPrimaryKeyFieldLabels(KRADConstants.EMPTY_STRING);
         }
 
         //request.setAttribute("reqSearchResultsActualSize", ((CollectionIncomplete) displayList).getActualSizeIfTruncated());
 
-        if ( displayList instanceof CollectionIncomplete ){
+        if (displayList instanceof CollectionIncomplete) {
             request.setAttribute("reqSearchResultsActualSize", ((CollectionIncomplete) displayList).getActualSizeIfTruncated());
         } else {
-            request.setAttribute("reqSearchResultsActualSize", displayList.size() );
+            request.setAttribute("reqSearchResultsActualSize", displayList.size());
         }
 
         request.setAttribute("reqSearchResults", resultTable);
 
         //multipleValueLookupForm.setResultsActualSize((int) ((CollectionIncomplete) displayList).getActualSizeIfTruncated().longValue());
 
-        if ( displayList instanceof CollectionIncomplete ){
+        if (displayList instanceof CollectionIncomplete) {
             multipleValueLookupForm.setResultsActualSize((int) ((CollectionIncomplete) displayList).getActualSizeIfTruncated().longValue());
         } else {
             multipleValueLookupForm.setResultsActualSize(displayList.size());
@@ -144,9 +143,9 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
 
     /**
      * This method switches to another page on a multi-value lookup
-     * 
+     *
      * @param mapping
-     * @param form must be an instance of MultipleValueLookupForm
+     * @param form     must be an instance of MultipleValueLookupForm
      * @param request
      * @param response
      * @return
@@ -162,14 +161,14 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
 
     /**
      * This method sorts a column.  If the page is currently sorted on a certain column,
-     * and the same column is selected to be sorted again, then the results will be 
+     * and the same column is selected to be sorted again, then the results will be
      * reversed.  After the search method is called, it is difficult to determine the sort
      * order of the result table, so no column is considered sorted.  So, after a search, we were
      * to click sort on an already sorted column, it would appear to have no effect.  Subsequent clicks
-     * would tell you  
-     * 
+     * would tell you
+     *
      * @param mapping
-     * @param form must be an instance of MultipleValueLookupForm
+     * @param form     must be an instance of MultipleValueLookupForm
      * @param request
      * @param response
      * @return
@@ -185,9 +184,9 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
 
     /**
      * This method does the processing necessary to return selected results and sends a redirect back to the lookup caller
-     * 
+     *
      * @param mapping
-     * @param form must be an instance of MultipleValueLookupForm
+     * @param form     must be an instance of MultipleValueLookupForm
      * @param request
      * @param response
      * @return
@@ -213,7 +212,7 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
             parameters.put(KRADConstants.ANCHOR, multipleValueLookupForm.getLookupAnchor());
         }
         parameters.put(KRADConstants.LOOKED_UP_COLLECTION_NAME, multipleValueLookupForm.getLookedUpCollectionName());
-        if(multipleValueLookupForm.getDocNum() != null){
+        if (multipleValueLookupForm.getDocNum() != null) {
             parameters.put(KRADConstants.DOC_NUM, multipleValueLookupForm.getDocNum());
         }
 
@@ -224,8 +223,9 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
 
     /**
      * This method selects all results across all pages
+     *
      * @param mapping
-     * @param form must be an instance of MultipleValueLookupForm
+     * @param form     must be an instance of MultipleValueLookupForm
      * @param request
      * @param response
      * @return
@@ -240,9 +240,9 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
 
     /**
      * This method unselects all results across all pages
-     * 
+     *
      * @param mapping
-     * @param form must be an instance of MultipleValueLookupForm
+     * @param form     must be an instance of MultipleValueLookupForm
      * @param request
      * @param response
      * @return
@@ -256,8 +256,8 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
     }
 
     /**
-     * This method overrides the super class cancel method because it is basically equivalent to clicking prepare to return none 
-     * 
+     * This method overrides the super class cancel method because it is basically equivalent to clicking prepare to return none
+     *
      * @see KualiLookupAction#cancel(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
@@ -268,8 +268,9 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
 
     /**
      * This method returns none of the selected results and redirects back to the lookup caller.
+     *
      * @param mapping
-     * @param form must be an instance of MultipleValueLookupForm
+     * @param form     must be an instance of MultipleValueLookupForm
      * @param request
      * @param response
      * @return
@@ -287,7 +288,7 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
         if (!StringUtils.isBlank(multipleValueLookupForm.getLookupAnchor())) {
             parameters.put(KRADConstants.ANCHOR, multipleValueLookupForm.getLookupAnchor());
         }
-        if(multipleValueLookupForm.getDocNum() != null){
+        if (multipleValueLookupForm.getDocNum() != null) {
             parameters.put(KRADConstants.DOC_NUM, multipleValueLookupForm.getDocNum());
         }
         String backUrl = UrlFactory.parameterizeUrl(multipleValueLookupForm.getBackLocation(), parameters);
@@ -297,9 +298,9 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
     /**
      * This method prepares to export results.  Note: this method will not look for any rows selected since the last page view, so it is best
      * that exporting opens in a new browser window.
-     * 
+     *
      * @param mapping
-     * @param form must be an instance of MultipleValueLookupForm
+     * @param form     must be an instance of MultipleValueLookupForm
      * @param request
      * @param response
      * @return
@@ -315,11 +316,11 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
     /**
      * This method performs the lookup and returns a collection of lookup items.  Also initializes values in the form
      * that will allow the multiple value lookup page to render
-     * 
+     *
      * @param multipleValueLookupForm
-     * @param resultTable a list of result rows (used to generate what's shown in the UI).  This list will be modified by this method
+     * @param resultTable             a list of result rows (used to generate what's shown in the UI).  This list will be modified by this method
      * @param maxRowsPerPage
-     * @param bounded whether the results will be bounded
+     * @param bounded                 whether the results will be bounded
      * @return the list of result BOs, possibly bounded by size
      */
     protected Collection performMultipleValueLookup(MultipleValueLookupForm multipleValueLookupForm, List<ResultRow> resultTable, int maxRowsPerPage, boolean bounded) {
@@ -341,8 +342,7 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
                 }
             }
             multipleValueLookupForm.setColumnToSortIndex(firstSortColumnIdx);
-        }
-        else {
+        } else {
             // don't know how results were sorted, so we just say -1
             multipleValueLookupForm.setColumnToSortIndex(-1);
         }
@@ -357,9 +357,8 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
         try {
             LookupResultsService lookupResultsService = KNSServiceLocator.getLookupResultsService();
             lookupResultsService.persistResultsTable(lookupResultsSequenceNumber, resultTable,
-                    GlobalVariables.getUserSession().getPerson().getPrincipalId());
-        }
-        catch (Exception e) {
+                GlobalVariables.getUserSession().getPerson().getPrincipalId());
+        } catch (Exception e) {
             LOG.error("error occured trying to persist multiple lookup results", e);
             throw new RuntimeException("error occured trying to persist multiple lookup results");
         }
@@ -372,6 +371,7 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
 
     /**
      * This method performs the operations necessary for a multiple value lookup to switch to another page of results and rerender the page
+     *
      * @param multipleValueLookupForm
      * @param maxRowsPerPage
      * @return a list of result rows, used by the UI to render the page
@@ -382,8 +382,7 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
         List<ResultRow> resultTable = null;
         try {
             resultTable = KNSServiceLocator.getLookupResultsService().retrieveResultsTable(lookupResultsSequenceNumber, GlobalVariables.getUserSession().getPerson().getPrincipalId());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("error occured trying to retrieve multiple lookup results", e);
             throw new RuntimeException("error occured trying to retrieve multiple lookup results");
         }
@@ -392,13 +391,13 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
 
         multipleValueLookupForm.setColumnToSortIndex(Integer.parseInt(multipleValueLookupForm.getPreviouslySortedColumnIndex()));
         multipleValueLookupForm.setCompositeObjectIdMap(LookupUtils.generateCompositeSelectedObjectIds(multipleValueLookupForm.getPreviouslySelectedObjectIdSet(),
-                multipleValueLookupForm.getDisplayedObjectIdSet(), multipleValueLookupForm.getSelectedObjectIdSet()));
+            multipleValueLookupForm.getDisplayedObjectIdSet(), multipleValueLookupForm.getSelectedObjectIdSet()));
         return resultTable;
     }
 
     /**
      * This method performs the operations necessary for a multiple value lookup to sort results and rerender the page
-     * 
+     *
      * @param multipleValueLookupForm
      * @param maxRowsPerPage
      * @return a list of result rows, used by the UI to render the page
@@ -411,8 +410,7 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
         List<ResultRow> resultTable = null;
         try {
             resultTable = lookupResultsService.retrieveResultsTable(lookupResultsSequenceNumber, GlobalVariables.getUserSession().getPerson().getPrincipalId());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("error occured trying to retrieve multiple lookup results", e);
             throw new RuntimeException("error occured trying to retrieve multiple lookup results");
         }
@@ -426,8 +424,7 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
         if (columnToSortOn == columnCurrentlySortedOn) {
             // we're already sorted on the same column that the user clicked on, so we reverse the list
             Collections.reverse(resultTable);
-        }
-        else {
+        } else {
             // sorting on a different column, so we have to sort
 
             // HACK ALERT for findBestValueComparatorForColumn, since there's no central place to know
@@ -437,10 +434,9 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
 
         // repersist the list
         try {
-            lookupResultsService.persistResultsTable(lookupResultsSequenceNumber, resultTable, 
-                    GlobalVariables.getUserSession().getPerson().getPrincipalId());
-        }
-        catch (Exception e) {
+            lookupResultsService.persistResultsTable(lookupResultsSequenceNumber, resultTable,
+                GlobalVariables.getUserSession().getPerson().getPrincipalId());
+        } catch (Exception e) {
             LOG.error("error occured trying to persist multiple lookup results", e);
             throw new RuntimeException("error occured trying to persist multiple lookup results");
         }
@@ -449,14 +445,14 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
         multipleValueLookupForm.jumpToFirstPage(resultTable.size(), maxRowsPerPage);
 
         multipleValueLookupForm.setCompositeObjectIdMap(LookupUtils.generateCompositeSelectedObjectIds(multipleValueLookupForm.getPreviouslySelectedObjectIdSet(),
-                multipleValueLookupForm.getDisplayedObjectIdSet(), multipleValueLookupForm.getSelectedObjectIdSet()));
+            multipleValueLookupForm.getDisplayedObjectIdSet(), multipleValueLookupForm.getSelectedObjectIdSet()));
         return resultTable;
     }
 
     /**
      * This method performs the operations necessary for a multiple value lookup keep track of which results have been selected to be returned
      * to the calling document.  Note, this method does not actually requery for the results.
-     * 
+     *
      * @param multipleValueLookupForm
      */
     protected void prepareToReturnSelectedResultBOs(MultipleValueLookupForm multipleValueLookupForm) {
@@ -466,14 +462,13 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
             return;
         }
         Map<String, String> compositeObjectIdMap = LookupUtils.generateCompositeSelectedObjectIds(multipleValueLookupForm.getPreviouslySelectedObjectIdSet(),
-                multipleValueLookupForm.getDisplayedObjectIdSet(), multipleValueLookupForm.getSelectedObjectIdSet());
+            multipleValueLookupForm.getDisplayedObjectIdSet(), multipleValueLookupForm.getSelectedObjectIdSet());
         Set<String> compositeObjectIds = compositeObjectIdMap.keySet();
         try {
             LookupResultsService lookupResultsService = KNSServiceLocator.getLookupResultsService();
             lookupResultsService.persistSelectedObjectIds(lookupResultsSequenceNumber, compositeObjectIds,
-                    GlobalVariables.getUserSession().getPerson().getPrincipalId());
-        }
-        catch (Exception e) {
+                GlobalVariables.getUserSession().getPerson().getPrincipalId());
+        } catch (Exception e) {
             LOG.error("error occured trying to retrieve selected multiple lookup results", e);
             throw new RuntimeException("error occured trying to retrieve selected multiple lookup results");
         }
@@ -481,7 +476,7 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
 
     /**
      * This method performs the operations necessary for a multiple value lookup to return no results to the calling page
-     * 
+     *
      * @param multipleValueLookupForm
      */
     protected void prepareToReturnNone(MultipleValueLookupForm multipleValueLookupForm) {
@@ -493,8 +488,7 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
                 lookupResultsService.clearPersistedLookupResults(lookupResultsSequenceNumber);
                 multipleValueLookupForm.setLookupResultsSequenceNumber(null);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             // not a big deal, continue on and purge w/ a batch job
             LOG.error("error occured trying to clear lookup results seq nbr " + lookupResultsSequenceNumber, e);
         }
@@ -502,10 +496,10 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
 
     /**
      * This method performs the operations necessary for a multiple value lookup to export the rows via display tag
-     * 
+     * <p>
      * Note: this method assumes that the export will be opened in a new browser window, therefore, persisting the selected
      * checkboxes will not be needed.
-     * 
+     *
      * @param multipleValueLookupForm
      * @return a list of result rows, to be used by display tag to render the results
      */
@@ -516,8 +510,7 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
         try {
             LookupResultsService lookupResultsService = KNSServiceLocator.getLookupResultsService();
             resultTable = lookupResultsService.retrieveResultsTable(lookupResultsSequenceNumber, GlobalVariables.getUserSession().getPerson().getPrincipalId());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("error occured trying to export multiple lookup results", e);
             throw new RuntimeException("error occured trying to export multiple lookup results");
         }
@@ -527,6 +520,7 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
 
     /**
      * This method performs the operations necessary for a multiple value lookup to select all of the results and rerender the page
+     *
      * @param multipleValueLookupForm
      * @param maxRowsPerPage
      * @return a list of result rows, used by the UI to render the page
@@ -538,8 +532,7 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
         try {
             LookupResultsService lookupResultsService = KNSServiceLocator.getLookupResultsService();
             resultTable = lookupResultsService.retrieveResultsTable(lookupResultsSequenceNumber, GlobalVariables.getUserSession().getPerson().getPrincipalId());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("error occured trying to export multiple lookup results", e);
             throw new RuntimeException("error occured trying to export multiple lookup results");
         }
@@ -550,7 +543,7 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
             HtmlData.InputHtmlData returnUrl = (HtmlData.InputHtmlData) row.getReturnUrlHtmlData();
             returnUrl.setChecked(HtmlData.InputHtmlData.CHECKBOX_CHECKED_VALUE);
             row.setReturnUrl(returnUrl.constructCompleteHtmlTag());
-            if(objId != null){
+            if (objId != null) {
                 selectedObjectIds.put(objId, objId);
             }
         }
@@ -574,6 +567,7 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
 
     /**
      * This method performs the operations necessary for a multiple value lookup to unselect all of the results and rerender the page
+     *
      * @param multipleValueLookupForm
      * @param maxRowsPerPage
      * @return a list of result rows, used by the UI to render the page
@@ -585,8 +579,7 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
         try {
             LookupResultsService lookupResultsService = KNSServiceLocator.getLookupResultsService();
             resultTable = lookupResultsService.retrieveResultsTable(lookupResultsSequenceNumber, GlobalVariables.getUserSession().getPerson().getPrincipalId());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("error occured trying to export multiple lookup results", e);
             throw new RuntimeException("error occured trying to export multiple lookup results");
         }
@@ -603,16 +596,16 @@ public class KualiMultipleValueLookupAction extends KualiLookupAction implements
 
     /**
      * This method computes the max number of rows that should be rendered per page for a multiple value lookup.
-     * 
+     * <p>
      * This method first looks for an application parameter in FS_PARM_T, group SYSTEM, multipleValueLookupResultsPerPage
-     * 
-     * if someone wants to implement something where a user can decide how many results to display per page, 
+     * <p>
+     * if someone wants to implement something where a user can decide how many results to display per page,
      * this method is the place to do it.  Make this method read form values to determine the max rows per page based on the user inputs
-     * 
-     * @see KRADConstants.SystemGroupParameterNames#MULTIPLE_VALUE_LOOKUP_RESULTS_PER_PAGE
-     * @see #DEFAULT_MAX_ROWS_PER_PAGE
+     *
      * @param multipleValueLookupForm the form
      * @return
+     * @see KRADConstants.SystemGroupParameterNames#MULTIPLE_VALUE_LOOKUP_RESULTS_PER_PAGE
+     * @see #DEFAULT_MAX_ROWS_PER_PAGE
      */
     protected int getMaxRowsPerPage(MultipleValueLookupForm multipleValueLookupForm) {
         Integer appMaxRowsPerPage = LookupUtils.getApplicationMaximumSearchResulsPerPageForMultipleValueLookups();

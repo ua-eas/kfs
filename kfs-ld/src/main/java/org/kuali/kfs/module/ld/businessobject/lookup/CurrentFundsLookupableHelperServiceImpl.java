@@ -1,37 +1,35 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.businessobject.lookup;
-
-import static org.apache.commons.collections.IteratorUtils.toList;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.Constant;
 import org.kuali.kfs.gl.businessobject.TransientBalanceInquiryAttributes;
 import org.kuali.kfs.integration.ld.LaborLedgerObject;
 import org.kuali.kfs.integration.ld.businessobject.inquiry.AbstractPositionDataDetailsInquirableImpl;
+import org.kuali.kfs.kns.lookup.AbstractLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.BeanPropertyComparator;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ld.LaborKeyConstants;
 import org.kuali.kfs.module.ld.businessobject.AccountStatusCurrentFunds;
 import org.kuali.kfs.module.ld.businessobject.July1PositionFunding;
@@ -41,19 +39,20 @@ import org.kuali.kfs.module.ld.businessobject.inquiry.CurrentFundsInquirableImpl
 import org.kuali.kfs.module.ld.businessobject.inquiry.PositionDataDetailsInquirableImpl;
 import org.kuali.kfs.module.ld.dataaccess.LaborDao;
 import org.kuali.kfs.module.ld.service.LaborInquiryOptionsService;
-import org.kuali.kfs.module.ld.service.LaborLedgerBalanceService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.ObjectUtil;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.lookup.AbstractLookupableHelperServiceImpl;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.lookup.CollectionIncomplete;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.BeanPropertyComparator;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.apache.commons.collections.IteratorUtils.toList;
 
 /**
  * Service implementation for the CurrentFundsLookupableHelperServiceImpl class is the front-end for all current funds balance
@@ -89,9 +88,9 @@ public class CurrentFundsLookupableHelperServiceImpl extends AbstractLookupableH
      *
      * @param fieldValues list of fields that are used as a key to filter out data
      * @see org.kuali.rice.kns.lookup.Lookupable#getSearchResults(java.util.Map)
-     *
+     * <p>
      * KRAD Conversion: Lookupable performs customization of the search results.
-     *
+     * <p>
      * No uses data dictionary.
      */
     @Override
@@ -149,7 +148,7 @@ public class CurrentFundsLookupableHelperServiceImpl extends AbstractLookupableH
      * Adds the july1 budget amount to each account found in the
      *
      * @param searchResultsCollection collection with the list of current funds where the amount is added
-     * @param july1PositionFundings collection of current funds with july1st budget amounts
+     * @param july1PositionFundings   collection of current funds with july1st budget amounts
      * @param isConsolidated
      */
     private void updateJuly1BalanceAmount(Collection<AccountStatusCurrentFunds> searchResultsCollection, Collection<July1PositionFunding> july1PositionFundings, boolean isConsolidated) {
@@ -182,8 +181,8 @@ public class CurrentFundsLookupableHelperServiceImpl extends AbstractLookupableH
     /**
      * Returns a list with the current funds.
      *
-     * @param iterator the iterator of search results of account status
-     * @param isConsolidated determine if the consolidated result is desired
+     * @param iterator           the iterator of search results of account status
+     * @param isConsolidated     determine if the consolidated result is desired
      * @param pendingEntryOption the given pending entry option that can be no, approved or all
      * @return the current funds collection
      */
@@ -192,8 +191,7 @@ public class CurrentFundsLookupableHelperServiceImpl extends AbstractLookupableH
 
         if (isConsolidated) {
             retval = buildCosolidatedCurrentFundsCollection(collection, pendingEntryOption);
-        }
-        else {
+        } else {
             retval = buildDetailedCurrentFundsCollection(collection, pendingEntryOption);
         }
         return retval;
@@ -225,12 +223,10 @@ public class CurrentFundsLookupableHelperServiceImpl extends AbstractLookupableH
                 if (AccountStatusCurrentFunds.class.isAssignableFrom(getBusinessObjectClass())) {
                     try {
                         cf = (AccountStatusCurrentFunds) getBusinessObjectClass().newInstance();
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         LOG.warn("Using " + AccountStatusCurrentFunds.class + " for results because I couldn't instantiate the " + getBusinessObjectClass());
                     }
-                }
-                else {
+                } else {
                     LOG.warn("Using " + AccountStatusCurrentFunds.class + " for results because I couldn't instantiate the " + getBusinessObjectClass());
                 }
 
@@ -272,7 +268,7 @@ public class CurrentFundsLookupableHelperServiceImpl extends AbstractLookupableH
     /**
      * Builds the current funds collection with detail option from an iterator
      *
-     * @param iterator the current funds iterator
+     * @param iterator           the current funds iterator
      * @param pendingEntryOption the selected pending entry option
      * @return the detailed balance collection
      */
@@ -299,7 +295,7 @@ public class CurrentFundsLookupableHelperServiceImpl extends AbstractLookupableH
      * Gets the outstanding encumbrance amount
      *
      * @param AccountStatusCurrentFunds
-     * @param Map fieldValues
+     * @param Map                       fieldValues
      */
     private KualiDecimal getOutstandingEncum(AccountStatusCurrentFunds bo) {
         Map<String, String> fieldValues = new HashMap();

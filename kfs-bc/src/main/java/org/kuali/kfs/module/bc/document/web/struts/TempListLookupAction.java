@@ -1,34 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.document.web.struts;
-
-import java.io.IOException;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Properties;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.text.StrTokenizer;
@@ -36,10 +24,21 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.kuali.kfs.coa.service.OrganizationService;
+import org.kuali.kfs.kns.lookup.Lookupable;
+import org.kuali.kfs.kns.question.ConfirmationQuestion;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.web.struts.action.KualiLookupAction;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.kns.web.ui.ResultRow;
+import org.kuali.kfs.kns.web.ui.Row;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.module.bc.BCConstants;
+import org.kuali.kfs.module.bc.BCConstants.LockStatus;
 import org.kuali.kfs.module.bc.BCKeyConstants;
 import org.kuali.kfs.module.bc.BCPropertyConstants;
-import org.kuali.kfs.module.bc.BCConstants.LockStatus;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionIntendedIncumbent;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionLockSummary;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionPosition;
@@ -59,17 +58,17 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.kim.api.services.IdentityManagementService;
-import org.kuali.kfs.kns.lookup.Lookupable;
-import org.kuali.kfs.kns.question.ConfirmationQuestion;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.kns.web.struts.action.KualiLookupAction;
-import org.kuali.kfs.kns.web.struts.form.LookupForm;
-import org.kuali.kfs.kns.web.ui.Field;
-import org.kuali.kfs.kns.web.ui.ResultRow;
-import org.kuali.kfs.kns.web.ui.Row;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * Action class to display special budget lookup screens.
@@ -79,7 +78,7 @@ public class TempListLookupAction extends KualiLookupAction {
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiLookupAction#execute(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -104,19 +103,17 @@ public class TempListLookupAction extends KualiLookupAction {
             // we want the actions in actions column to show when in position or incumbent lookup mode
             // regardless of what KIM thinks
             tempListLookupForm.setSuppressActions(false);
-        }
-        else if (tempListLookupForm.getTempListLookupMode() == BCConstants.TempListLookupMode.LOCK_MONITOR) {
+        } else if (tempListLookupForm.getTempListLookupMode() == BCConstants.TempListLookupMode.LOCK_MONITOR) {
             // check if current user has permission to unlock
             String[] rootOrg = SpringContext.getBean(OrganizationService.class).getRootOrganizationCode();
-            Map<String,String> qualification = new HashMap<String,String>();
+            Map<String, String> qualification = new HashMap<String, String>();
             qualification.put(BCPropertyConstants.ORGANIZATION_CHART_OF_ACCOUNTS_CODE, rootOrg[0]);
             qualification.put(KfsKimAttributes.ORGANIZATION_CODE, rootOrg[1]);
 
             boolean canUnlock = SpringContext.getBean(IdentityManagementService.class).isAuthorized(GlobalVariables.getUserSession().getPerson().getPrincipalId(), BCConstants.BUDGET_CONSTRUCTION_NAMESPACE, BCConstants.KimApiConstants.UNLOCK_PERMISSION_NAME, qualification);
             tempListLookupForm.setSuppressActions(!canUnlock);
             tempListLookupForm.setSupplementalActionsEnabled(canUnlock);
-        }
-        else {
+        } else {
             super.supressActionsIfNeeded(form);
         }
     }
@@ -127,7 +124,7 @@ public class TempListLookupAction extends KualiLookupAction {
      * parameter showInitialResults is true, an initial search will be performed before display of the screen.
      *
      * @see org.kuali.rice.kns.web.struts.action.KualiLookupAction#start(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward start(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -186,12 +183,10 @@ public class TempListLookupAction extends KualiLookupAction {
                 int resultSize = resultTable.size();
                 if (resultSize == 0) {
                     KNSGlobalVariables.getMessageList().add(KFSKeyConstants.budget.MSG_REPORT_EMPTY_ACCOUNT_LIST);
-                }
-                else {
+                } else {
                     KNSGlobalVariables.getMessageList().add(KFSKeyConstants.budget.MSG_REPORT_ACCOUNT_LIST);
                 }
-            }
-            else {
+            } else {
                 // Show Account above current point of view for user
                 // The table was already built in OrganizationSelectionTreeAction.performReport
                 KNSGlobalVariables.getMessageList().add(KFSKeyConstants.budget.MSG_REPORT_ACCOUNT_LIST);
@@ -205,7 +200,7 @@ public class TempListLookupAction extends KualiLookupAction {
      * BC temp tables that use principalId to operate on the set of rows associated with the current user.
      *
      * @see org.kuali.rice.kns.web.struts.action.KualiLookupAction#clearValues(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward clearValues(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -216,9 +211,9 @@ public class TempListLookupAction extends KualiLookupAction {
             throw new RuntimeException("Lookupable is null.");
         }
 
-        for (Iterator iter = kualiLookupable.getRows().iterator(); iter.hasNext();) {
+        for (Iterator iter = kualiLookupable.getRows().iterator(); iter.hasNext(); ) {
             Row row = (Row) iter.next();
-            for (Iterator iterator = row.getFields().iterator(); iterator.hasNext();) {
+            for (Iterator iterator = row.getFields().iterator(); iterator.hasNext(); ) {
                 Field field = (Field) iterator.next();
                 if (!field.getFieldType().equals(Field.RADIO) && !field.getFieldType().equals(Field.HIDDEN)) {
                     field.setPropertyValue(field.getDefaultValue());
@@ -230,7 +225,7 @@ public class TempListLookupAction extends KualiLookupAction {
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiLookupAction#cancel(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward cancel(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -260,7 +255,7 @@ public class TempListLookupAction extends KualiLookupAction {
      * Forwards to budget position lookup.
      *
      * @see org.kuali.rice.kns.web.struts.action.KualiLookupAction#start(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     public ActionForward performExtendedPositionSearch(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         TempListLookupForm tempListLookupForm = (TempListLookupForm) form;
@@ -301,7 +296,7 @@ public class TempListLookupAction extends KualiLookupAction {
      * Validates the get new action for position then calls BudgetPositionService to pull the new position record.
      *
      * @see org.kuali.rice.kns.web.struts.action.KualiLookupAction#start(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     public ActionForward getNewPosition(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         TempListLookupForm tempListLookupForm = (TempListLookupForm) form;
@@ -322,11 +317,9 @@ public class TempListLookupAction extends KualiLookupAction {
         // call service to pull new position
         try {
             SpringContext.getBean(BudgetConstructionPositionService.class).pullNewPositionFromExternal(tempListLookupForm.getUniversityFiscalYear(), positionNumber);
-        }
-        catch (PositionNotFoundException e) {
+        } catch (PositionNotFoundException e) {
             GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, e.getMessageKey(), e.getMessageParameters());
-        }
-        catch (BudgetPositionAlreadyExistsException e1) {
+        } catch (BudgetPositionAlreadyExistsException e1) {
             GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, e1.getMessageKey(), e1.getMessageParameters());
         }
 
@@ -338,7 +331,7 @@ public class TempListLookupAction extends KualiLookupAction {
      * Forwards to intended incumbent lookup.
      *
      * @see org.kuali.rice.kns.web.struts.action.KualiLookupAction#start(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     public ActionForward performExtendedIncumbentSearch(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         TempListLookupForm tempListLookupForm = (TempListLookupForm) form;
@@ -376,7 +369,7 @@ public class TempListLookupAction extends KualiLookupAction {
      * Validates the get new action for incumbent then calls BudgetPositionService to pull the new incumbent record.
      *
      * @see org.kuali.rice.kns.web.struts.action.KualiLookupAction#start(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     public ActionForward getNewIncumbent(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         TempListLookupForm tempListLookupForm = (TempListLookupForm) form;
@@ -397,11 +390,9 @@ public class TempListLookupAction extends KualiLookupAction {
         // call service to pull new incumbent
         try {
             SpringContext.getBean(BudgetConstructionIntendedIncumbentService.class).pullNewIncumbentFromExternal(emplid);
-        }
-        catch (IncumbentNotFoundException e) {
+        } catch (IncumbentNotFoundException e) {
             GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, e.getMessageKey(), e.getMessageParameters());
-        }
-        catch (BudgetIncumbentAlreadyExistsException e1) {
+        } catch (BudgetIncumbentAlreadyExistsException e1) {
             GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, e1.getMessageKey(), e1.getMessageParameters());
         }
 
@@ -413,7 +404,7 @@ public class TempListLookupAction extends KualiLookupAction {
      * Continues the organization report action after viewing the account list.
      *
      * @see org.kuali.rice.kns.web.struts.action.KualiLookupAction#start(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     public ActionForward submitReport(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         TempListLookupForm tempListLookupForm = (TempListLookupForm) form;
@@ -441,7 +432,7 @@ public class TempListLookupAction extends KualiLookupAction {
      * Unlocks a current budget lock and returns back to lock monitor with refreshed locks.
      *
      * @see org.kuali.rice.kns.web.struts.action.KualiAction#execute(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     public ActionForward unlock(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         TempListLookupForm tempListLookupForm = (TempListLookupForm) form;
@@ -464,15 +455,13 @@ public class TempListLookupAction extends KualiLookupAction {
         boolean lockExists = SpringContext.getBean(LockService.class).checkLockExists(lockSummary);
         if (!lockExists) {
             GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, BCKeyConstants.MSG_LOCK_NOTEXIST, lockSummary.getLockType(), lockKeyMessage);
-        }
-        else {
+        } else {
             // do the unlock
             LockStatus lockStatus = SpringContext.getBean(LockService.class).doUnlock(lockSummary);
             if (LockStatus.SUCCESS.equals(lockStatus)) {
                 String successMessage = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(BCKeyConstants.MSG_UNLOCK_SUCCESSFUL);
                 tempListLookupForm.addMessage(MessageFormat.format(successMessage, lockSummary.getLockType(), lockKeyMessage));
-            }
-            else {
+            } else {
                 GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, BCKeyConstants.MSG_UNLOCK_NOTSUCCESSFUL, lockSummary.getLockType(), lockKeyMessage);
             }
         }
@@ -488,7 +477,7 @@ public class TempListLookupAction extends KualiLookupAction {
      * unlock page.
      *
      * @see org.kuali.rice.kns.web.struts.action.KualiAction#execute(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     public ActionForward doUnlockConfirmation(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response, String lockType, String lockKeyMessage) throws Exception {
         TempListLookupForm lookupForm = (TempListLookupForm) form;
@@ -499,8 +488,7 @@ public class TempListLookupAction extends KualiLookupAction {
             message = MessageFormat.format(message, lockType, lockKeyMessage);
 
             return this.performQuestionWithoutInput(mapping, form, request, response, BCConstants.UNLOCK_CONFIRMATION_QUESTION, message, KFSConstants.CONFIRMATION_QUESTION, BCConstants.TEMP_LIST_UNLOCK_METHOD, "");
-        }
-        else {
+        } else {
             // get result of confirmation, if yes return null which will indicate the unlock can continue
             String buttonClicked = request.getParameter(KFSConstants.QUESTION_CLICKED_BUTTON);
             if ((BCConstants.UNLOCK_CONFIRMATION_QUESTION.equals(question)) && ConfirmationQuestion.YES.equals(buttonClicked)) {
@@ -559,12 +547,10 @@ public class TempListLookupAction extends KualiLookupAction {
         if (BCConstants.LockTypes.POSITION_LOCK.equals(lockType)) {
             lockKeyMessage = kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.MSG_LOCK_POSITIONKEY);
             lockKeyMessage = MessageFormat.format(lockKeyMessage, lockUserId, fiscalYear.toString(), positionNumber);
-        }
-        else if (BCConstants.LockTypes.POSITION_FUNDING_LOCK.equals(lockType)) {
+        } else if (BCConstants.LockTypes.POSITION_FUNDING_LOCK.equals(lockType)) {
             lockKeyMessage = kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.MSG_LOCK_POSITIONFUNDINGKEY);
             lockKeyMessage = MessageFormat.format(lockKeyMessage, lockUserId, fiscalYear.toString(), positionNumber, chartOfAccountsCode, accountNumber, subAccountNumber);
-        }
-        else {
+        } else {
             lockKeyMessage = kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.MSG_LOCK_ACCOUNTKEY);
             lockKeyMessage = MessageFormat.format(lockKeyMessage, lockUserId, fiscalYear.toString(), chartOfAccountsCode, accountNumber, subAccountNumber);
         }

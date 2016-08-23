@@ -1,29 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document.authorization;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
 import org.apache.commons.collections.CollectionUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapAuthorizationConstants;
 import org.kuali.kfs.module.purap.PurapAuthorizationConstants.RequisitionEditMode;
 import org.kuali.kfs.module.purap.PurapConstants;
@@ -36,21 +34,23 @@ import org.kuali.kfs.module.purap.document.RequisitionDocument;
 import org.kuali.kfs.module.purap.document.service.PurapService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 
 public class RequisitionDocumentPresentationController extends PurchasingAccountsPayableDocumentPresentationController {
 
     @Override
     public boolean canEdit(Document document) {
-        RequisitionDocument reqDocument = (RequisitionDocument)document;
+        RequisitionDocument reqDocument = (RequisitionDocument) document;
         if (!RequisitionStatuses.APPDOC_IN_PROCESS.equals(reqDocument.getApplicationDocumentStatus()) &&
-                !RequisitionStatuses.APPDOC_AWAIT_CONTENT_REVIEW.equals(reqDocument.getApplicationDocumentStatus()) &&
-                !RequisitionStatuses.APPDOC_AWAIT_HAS_ACCOUNTING_LINES.equals(reqDocument.getApplicationDocumentStatus()) &&
-                !RequisitionStatuses.APPDOC_AWAIT_FISCAL_REVIEW.equals(reqDocument.getApplicationDocumentStatus())) {
+            !RequisitionStatuses.APPDOC_AWAIT_CONTENT_REVIEW.equals(reqDocument.getApplicationDocumentStatus()) &&
+            !RequisitionStatuses.APPDOC_AWAIT_HAS_ACCOUNTING_LINES.equals(reqDocument.getApplicationDocumentStatus()) &&
+            !RequisitionStatuses.APPDOC_AWAIT_FISCAL_REVIEW.equals(reqDocument.getApplicationDocumentStatus())) {
             //unless the Requisition is in process, awaiting content, awaiting accounting lines or awaiting fiscal, editing is not allowed
             return false;
         }
@@ -60,7 +60,7 @@ public class RequisitionDocumentPresentationController extends PurchasingAccount
     @Override
     public Set<String> getEditModes(Document document) {
         Set<String> editModes = super.getEditModes(document);
-        RequisitionDocument reqDocument = (RequisitionDocument)document;
+        RequisitionDocument reqDocument = (RequisitionDocument) document;
 
         //if the ENABLE_COMMODITY_CODE_IND system parameter is Y then add this edit mode so that the commodity code fields would display on the document.
         boolean enableCommodityCode = SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(KfsParameterConstants.PURCHASING_DOCUMENT.class, PurapParameterConstants.ENABLE_COMMODITY_CODE_IND);
@@ -80,7 +80,7 @@ public class RequisitionDocumentPresentationController extends PurchasingAccount
 
         // if not B2B requisition, the posting year cannot be edited if within a given amount of time set in a parameter
         if (!RequisitionSources.B2B.equals(reqDocument.getRequisitionSourceCode()) &&
-                SpringContext.getBean(PurapService.class).allowEncumberNextFiscalYear()) {
+            SpringContext.getBean(PurapService.class).allowEncumberNextFiscalYear()) {
             editModes.add(RequisitionEditMode.ALLOW_POSTING_YEAR_ENTRY);
         }
 
@@ -112,12 +112,11 @@ public class RequisitionDocumentPresentationController extends PurchasingAccount
         //to be removed
         //for app doc status
         if (reqDocument.isDocumentStoppedInRouteNode(RequisitionStatuses.NODE_CONTENT_REVIEW) ||
-            reqDocument.isDocumentStoppedInRouteNode(RequisitionStatuses.NODE_HAS_ACCOUNTING_LINES))
-        {
+            reqDocument.isDocumentStoppedInRouteNode(RequisitionStatuses.NODE_HAS_ACCOUNTING_LINES)) {
             editModes.add(RequisitionEditMode.LOCK_CONTENT_ENTRY);
         }
 
-         // FISCAL OFFICER ROUTE LEVEL - Approvers can edit only the accounting lines that they own and no other detail on REQ.
+        // FISCAL OFFICER ROUTE LEVEL - Approvers can edit only the accounting lines that they own and no other detail on REQ.
         // to be removed
         //for app doc status
         else if (reqDocument.isDocumentStoppedInRouteNode(RequisitionStatuses.NODE_ACCOUNT)) {
@@ -126,7 +125,7 @@ public class RequisitionDocumentPresentationController extends PurchasingAccount
             editModes.add(RequisitionEditMode.RESTRICT_FISCAL_ENTRY);
 
             List lineList = new ArrayList();
-            for (Iterator iter = reqDocument.getItems().iterator(); iter.hasNext();) {
+            for (Iterator iter = reqDocument.getItems().iterator(); iter.hasNext(); ) {
                 RequisitionItem item = (RequisitionItem) iter.next();
                 lineList.addAll(item.getSourceAccountingLines());
                 // If FO has deleted the last accounting line for an item, set entry mode to full so they can add another one
@@ -143,27 +142,26 @@ public class RequisitionDocumentPresentationController extends PurchasingAccount
         // allow capital asset tab to be editable based on requisition status
         String reqDocumentStatus = reqDocument.getApplicationDocumentStatus();
         if (RequisitionStatuses.APPDOC_AWAIT_FISCAL_REVIEW.equals(reqDocumentStatus)
-                || RequisitionStatuses.APPDOC_IN_PROCESS.equals(reqDocumentStatus))
-        {
+            || RequisitionStatuses.APPDOC_IN_PROCESS.equals(reqDocumentStatus)) {
             editModes.add(RequisitionEditMode.ALLOW_CAPITAL_ASSET_EDITS);
         }
 
         WorkflowDocument workflowDocument = document.getDocumentHeader().getWorkflowDocument();
         if (workflowDocument.isEnroute()) {
-             Set<String> nodeNames = workflowDocument.getNodeNames();
-             for (Iterator<String> iterator = nodeNames.iterator(); iterator.hasNext();) {
-                    String nodeNamesNode = iterator.next();
-                    if (RequisitionStatuses.NODE_ACCOUNT.equals(nodeNamesNode)) {
-                        // disable the button for setup distribution
-                        editModes.add(RequisitionEditMode.DISABLE_SETUP_ACCT_DISTRIBUTION);
-                        // disable the button for remove accounts from all items
-                        editModes.add(RequisitionEditMode.DISABLE_REMOVE_ACCTS);
-                        // disable the button for remove commodity codes from all items
-                        if (editModes.contains(RequisitionEditMode.ENABLE_COMMODITY_CODE)) {
-                            editModes.remove(RequisitionEditMode.ENABLE_COMMODITY_CODE);
-                        }
+            Set<String> nodeNames = workflowDocument.getNodeNames();
+            for (Iterator<String> iterator = nodeNames.iterator(); iterator.hasNext(); ) {
+                String nodeNamesNode = iterator.next();
+                if (RequisitionStatuses.NODE_ACCOUNT.equals(nodeNamesNode)) {
+                    // disable the button for setup distribution
+                    editModes.add(RequisitionEditMode.DISABLE_SETUP_ACCT_DISTRIBUTION);
+                    // disable the button for remove accounts from all items
+                    editModes.add(RequisitionEditMode.DISABLE_REMOVE_ACCTS);
+                    // disable the button for remove commodity codes from all items
+                    if (editModes.contains(RequisitionEditMode.ENABLE_COMMODITY_CODE)) {
+                        editModes.remove(RequisitionEditMode.ENABLE_COMMODITY_CODE);
                     }
-             }
+                }
+            }
         }
 
         return editModes;
@@ -172,7 +170,7 @@ public class RequisitionDocumentPresentationController extends PurchasingAccount
     @Override
     public boolean canCopy(Document document) {
         //  disallow copying until the doc is saved
-     //   WorkflowDocument workflowDocument = ((PurchasingAccountsPayableDocument) document).getFinancialSystemDocumentHeader().getWorkflowDocument();
+        //   WorkflowDocument workflowDocument = ((PurchasingAccountsPayableDocument) document).getFinancialSystemDocumentHeader().getWorkflowDocument();
 
         WorkflowDocument workflowDocument = document.getDocumentHeader().getWorkflowDocument();
 
@@ -233,7 +231,6 @@ public class RequisitionDocumentPresentationController extends PurchasingAccount
     }
 
     /**
-     *
      * @param document
      * @param nodeDetails
      * @return

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -39,8 +39,6 @@ import java.util.List;
 /**
  * History class used to keep track of views visited so they can be displayed in the ui
  * as breadcrumbs - both as homeward path and history path interpretations
- *
- * 
  */
 public class History implements Serializable {
     private static final long serialVersionUID = -8279297694371557335L;
@@ -111,6 +109,7 @@ public class History implements Serializable {
 
     /**
      * Sets the current HistoryEntry to the current view
+     *
      * @param viewId
      * @param pageId
      * @param title
@@ -243,7 +242,7 @@ public class History implements Serializable {
      * @return
      */
     public HistoryEntry getGeneratedCurrentBreadcrumb() {
-        if (current == null){
+        if (current == null) {
             return new HistoryEntry();
         }
 
@@ -390,13 +389,13 @@ public class History implements Serializable {
 
     /**
      * Builds the title for the view to display in history (for example breadcrumbs)
-     *
+     * <p>
      * <p>
      * Retrieves the viewLabelFieldPropertyName from the view if configured, otherwise attempts
      * to find the title attribute for the default data object. If view label property is found the
      * corresponding property value is retrieved and appended to the title for the view
      * </p>
-     *
+     * <p>
      * TODO: Possibly move so it can be used for the actual view title, not just history
      *
      * @param form - form instance containing the view and view data
@@ -434,15 +433,14 @@ public class History implements Serializable {
                 }
             } else {
                 viewLabelPropertyPath = StringUtils.removeStart(viewLabelPropertyName,
-                        UifConstants.NO_BIND_ADJUST_PREFIX);
+                    UifConstants.NO_BIND_ADJUST_PREFIX);
             }
-        }
-        else {
+        } else {
             // attempt to get title attribute
             Class<?> dataObjectClass;
             if (StringUtils.isNotBlank(view.getDefaultBindingObjectPath())) {
                 dataObjectClass = ViewModelUtils.getObjectClassForMetadata(view, form,
-                        view.getDefaultBindingObjectPath());
+                    view.getDefaultBindingObjectPath());
             } else {
                 dataObjectClass = view.getFormClass();
             }
@@ -451,13 +449,13 @@ public class History implements Serializable {
             if (dataObjectClass != null) {
                 String titleAttribute = mds.getTitleAttribute(dataObjectClass);
                 if (StringUtils.isNotBlank(titleAttribute)) {
-                  viewLabelPropertyPath = view.getDefaultBindingObjectPath() + "." + titleAttribute;
+                    viewLabelPropertyPath = view.getDefaultBindingObjectPath() + "." + titleAttribute;
                 }
             }
         }
 
         Object viewLabelPropertyValue = null;
-        if (StringUtils.isNotBlank(viewLabelPropertyPath) && ObjectPropertyUtils. isReadableProperty(form, viewLabelPropertyPath)) {
+        if (StringUtils.isNotBlank(viewLabelPropertyPath) && ObjectPropertyUtils.isReadableProperty(form, viewLabelPropertyPath)) {
             viewLabelPropertyValue = ObjectPropertyUtils.getPropertyValue(form, viewLabelPropertyPath);
         }
 

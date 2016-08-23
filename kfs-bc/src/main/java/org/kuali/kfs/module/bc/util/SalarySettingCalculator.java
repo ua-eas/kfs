@@ -1,26 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.util;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionCalculatedSalaryFoundationTracker;
@@ -29,12 +25,16 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
 public class SalarySettingCalculator {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(SalarySettingCalculator.class);
 
     /**
      * calculate the standard working hours through the given time percent
-     * 
+     *
      * @param timePercent the given time percent
      * @return the standard working hour calculated from the given time percent
      */
@@ -45,7 +45,7 @@ public class SalarySettingCalculator {
 
     /**
      * calcaulte the total requested csf amount for the given appointment funding lines
-     * 
+     *
      * @param AppointmentFundings the given appointment funding lines
      * @return the total requested csf amount for the given appointment funding lines
      */
@@ -65,7 +65,7 @@ public class SalarySettingCalculator {
 
     /**
      * calcaulte the total requested csf time percent for the given appointment funding lines
-     * 
+     *
      * @param AppointmentFundings the given appointment funding lines
      * @return the total requested csf time percent for the given appointment funding lines
      */
@@ -85,7 +85,7 @@ public class SalarySettingCalculator {
 
     /**
      * calcaulte the total requested csf standard hours for the given appointment funding lines
-     * 
+     *
      * @param AppointmentFundings the given appointment funding lines
      * @return the total requested csf standard hours for the given appointment funding lines
      */
@@ -95,7 +95,7 @@ public class SalarySettingCalculator {
 
     /**
      * calcaulte the total requested csf full time employee quantity for the given appointment funding lines
-     * 
+     *
      * @param AppointmentFundings the given appointment funding lines
      * @return the total requested csf full time employee quantity for the given appointment funding lines
      */
@@ -115,7 +115,7 @@ public class SalarySettingCalculator {
 
     /**
      * calcaulte the total requested amount for the given appointment funding lines
-     * 
+     *
      * @param AppointmentFundings the given appointment funding lines
      * @return the total requested amount for the given appointment funding lines
      */
@@ -134,7 +134,7 @@ public class SalarySettingCalculator {
 
     /**
      * calcaulte the total requested time percent for the given appointment funding lines
-     * 
+     *
      * @param AppointmentFundings the given appointment funding lines
      * @return the total requested time percent for the given appointment funding lines
      */
@@ -153,7 +153,7 @@ public class SalarySettingCalculator {
 
     /**
      * calcaulte the total requested standard hours for the given appointment funding lines
-     * 
+     *
      * @param AppointmentFundings the given appointment funding lines
      * @return the total requested standard hours for the given appointment funding lines
      */
@@ -163,7 +163,7 @@ public class SalarySettingCalculator {
 
     /**
      * calcaulte the total requested full time employee quantity for the given appointment funding lines
-     * 
+     *
      * @param AppointmentFundings the given appointment funding lines
      * @return the total requested full time employee quantity for the given appointment funding lines
      */
@@ -182,7 +182,7 @@ public class SalarySettingCalculator {
 
     /**
      * calcaulte the total csf amount for the given appointment funding lines
-     * 
+     *
      * @param AppointmentFundings the given appointment funding lines
      * @return the total csf amount for the given appointment funding lines
      */
@@ -201,7 +201,7 @@ public class SalarySettingCalculator {
 
     /**
      * calcaulte the total csf time percent for the given appointment funding lines
-     * 
+     *
      * @param AppointmentFundings the given appointment funding lines
      * @return the total csf time percent for the given appointment funding lines
      */
@@ -220,7 +220,7 @@ public class SalarySettingCalculator {
 
     /**
      * calcaulte the total csf standard hours for the given appointment funding lines
-     * 
+     *
      * @param AppointmentFundings the given appointment funding lines
      * @return the total csf standard hours for the given appointment funding lines
      */
@@ -230,7 +230,7 @@ public class SalarySettingCalculator {
 
     /**
      * calcaulte the total csf full time employee quantity for the given appointment funding lines
-     * 
+     *
      * @param AppointmentFundings the given appointment funding lines
      * @return the total csf full time employee quantity for the given appointment funding lines
      */
@@ -252,7 +252,7 @@ public class SalarySettingCalculator {
      * is used to decide whether or not to include csf, request or requestCsf amounts in the totals. This allows marked deleted line
      * in the set, but this is benign since marked deleted lines have zero request and requestCsf amounts by definition and we want
      * marked delete csf amounts included in the totals.
-     * 
+     *
      * @param AppointmentFundings the given appointment funding lines
      * @return a collection of PendingBudgetConstructionAppointmentFunding objects that are not marked as deleted
      */
@@ -272,11 +272,11 @@ public class SalarySettingCalculator {
 
     /**
      * calculate the changing percent between the requested amount and the base amount
-     * 
-     * @param baseAmount the given base amount
+     *
+     * @param baseAmount      the given base amount
      * @param requestedAmount the requested amount
      * @return the changing percent between the requested amount and the base amount if both of amounts are numbers; otherwise,
-     *         return null
+     * return null
      */
     public static KualiDecimal getPercentChange(KualiInteger baseAmount, KualiInteger requestedAmount) {
         KualiDecimal percentChange = null;

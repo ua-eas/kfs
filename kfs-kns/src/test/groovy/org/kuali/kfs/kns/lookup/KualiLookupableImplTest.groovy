@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -17,6 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.kns.lookup
+
 import groovy.mock.interceptor.MockFor
 import org.junit.Test
 import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions
@@ -28,6 +29,7 @@ import org.kuali.rice.krad.bo.BusinessObject
 
 import static org.junit.Assert.assertEquals
 import static org.junit.Assert.assertTrue
+
 /**
  * Tests the KualiLookupableImpl base class.  This test was initially created during investigation
  * of the Kuali lookup framework.  It is probably too tightly coupled to the implementation, and should not
@@ -230,7 +232,7 @@ class KualiLookupableImplTest {
 
     @Test
     void testSetFieldConversions() {
-        def params = [foo:"bar"]
+        def params = [foo: "bar"]
         assertLookupableCall("setFieldConversions", { p -> assertEquals(params, p) }) {
             it.setFieldConversions(params)
         }
@@ -292,7 +294,7 @@ class KualiLookupableImplTest {
 
     @Test
     void testShouldDisplayLookupCriteria() {
-       assertLookupableCall("shouldDisplayLookupCriteria", {}) {
+        assertLookupableCall("shouldDisplayLookupCriteria", {}) {
             it.shouldDisplayLookupCriteria()
         }
     }
@@ -334,7 +336,7 @@ class KualiLookupableImplTest {
 
     protected assertDelegateCall(clazz, method, method_closure, test_closure = null) {
         def ctx = new MockFor(clazz)
-        def args = [ 1, method_closure ]
+        def args = [1, method_closure]
         ctx.demand.invokeMethod(method, args)
         def del = ctx.proxyDelegateInstance()
 
@@ -348,17 +350,17 @@ class KualiLookupableImplTest {
     protected assertLookupableCall(method, method_closure, test_closure = null) {
         assertDelegateCall(LookupableHelperService, method, method_closure) {
             lookupable, del ->
-            lookupable.setLookupableHelperService(del)
-            test_closure?.call(lookupable)
+                lookupable.setLookupableHelperService(del)
+                test_closure?.call(lookupable)
         }
     }
 
     protected assertBusinessObjectDictionaryServiceCall(method, method_closure, test_closure = null) {
         assertDelegateCall(BusinessObjectDictionaryService, method, method_closure) {
             lookupable, del ->
-            assertLookupableCall("getBusinessObjectDictionaryService", { del }) {
-                test_closure?.call(lookupable)
-            }
+                assertLookupableCall("getBusinessObjectDictionaryService", { del }) {
+                    test_closure?.call(lookupable)
+                }
         }
     }
 }

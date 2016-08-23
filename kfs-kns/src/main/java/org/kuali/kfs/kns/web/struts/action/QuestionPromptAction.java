@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -23,11 +23,11 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.kuali.kfs.kns.web.struts.form.QuestionPromptForm;
-import org.kuali.rice.core.api.util.RiceConstants;
 import org.kuali.kfs.krad.exception.AuthorizationException;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.UrlFactory;
+import org.kuali.rice.core.api.util.RiceConstants;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,23 +35,21 @@ import java.util.Properties;
 
 /**
  * This class handles Actions for QuestionPromp.
- *
- *
  */
 public class QuestionPromptAction extends KualiAction {
-	
-    /**
-	 * This overridden method ...
-	 * 
-	 * @see org.kuali.rice.krad.web.struts.action.KualiAction#checkAuthorization(org.apache.struts.action.ActionForm, java.lang.String)
-	 */
-	@Override
-	protected void checkAuthorization(ActionForm form, String methodToCall)
-			throws AuthorizationException {
-		// no authorization required
-	}
 
-	/**
+    /**
+     * This overridden method ...
+     *
+     * @see org.kuali.rice.krad.web.struts.action.KualiAction#checkAuthorization(org.apache.struts.action.ActionForm, java.lang.String)
+     */
+    @Override
+    protected void checkAuthorization(ActionForm form, String methodToCall)
+        throws AuthorizationException {
+        // no authorization required
+    }
+
+    /**
      * This method is the entry point action for the question prompt component.
      *
      * @param mapping
@@ -88,10 +86,10 @@ public class QuestionPromptAction extends KualiAction {
         parameters.put(KRADConstants.METHOD_TO_CALL_ATTRIBUTE, questionPromptForm.getCaller());
         parameters.put(KRADConstants.REFRESH_CALLER, KRADConstants.QUESTION_REFRESH);
         parameters.put(KRADConstants.QUESTION_INST_ATTRIBUTE_NAME, questionPromptForm.getQuestionIndex());
-        if(questionPromptForm.getDocNum() != null){
-        	parameters.put(KRADConstants.DOC_NUM, questionPromptForm.getDocNum());
+        if (questionPromptForm.getDocNum() != null) {
+            parameters.put(KRADConstants.DOC_NUM, questionPromptForm.getDocNum());
         }
-        
+
         if (StringUtils.isNotBlank(questionPromptForm.getQuestionAnchor())) {
             parameters.put(KRADConstants.ANCHOR, questionPromptForm.getQuestionAnchor());
         }
@@ -143,12 +141,10 @@ public class QuestionPromptAction extends KualiAction {
         if (StringUtils.isNotBlank(errorKey)) {
             if (StringUtils.isBlank(errorPropertyName)) {
                 throw new IllegalStateException("Both the errorKey and the errorPropertyName must be filled in, " + "in order for errors to be displayed by the question component.  Currently, " + "only the errorKey has a value specified.");
-            }
-            else {
+            } else {
                 if (StringUtils.isBlank(errorParameter)) {
                     GlobalVariables.getMessageMap().putErrorWithoutFullErrorPath(errorPropertyName, errorKey);
-                }
-                else {
+                } else {
                     GlobalVariables.getMessageMap().putErrorWithoutFullErrorPath(errorPropertyName, errorKey, errorParameter);
                 }
             }

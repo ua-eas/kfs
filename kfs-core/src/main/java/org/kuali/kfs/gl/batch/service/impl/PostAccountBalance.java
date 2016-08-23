@@ -1,26 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.batch.service.impl;
-
-import java.util.Collection;
-import java.util.Date;
-import java.util.Iterator;
 
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.batch.service.AccountBalanceCalculator;
@@ -28,10 +24,14 @@ import org.kuali.kfs.gl.batch.service.AccountingCycleCachingService;
 import org.kuali.kfs.gl.batch.service.PostTransaction;
 import org.kuali.kfs.gl.businessobject.AccountBalance;
 import org.kuali.kfs.gl.businessobject.Transaction;
+import org.kuali.kfs.krad.service.PersistenceStructureService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.service.ReportWriterService;
-import org.kuali.kfs.krad.service.PersistenceStructureService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
 
 @Transactional
 public class PostAccountBalance implements PostTransaction, AccountBalanceCalculator {
@@ -49,10 +49,10 @@ public class PostAccountBalance implements PostTransaction, AccountBalanceCalcul
 
     /**
      * Posts the transaction to the appropriate account balance record.
-     * 
-     * @param t the transaction which is being posted
-     * @param mode the mode the poster is currently running in
-     * @param postDate the date this transaction should post to
+     *
+     * @param t                         the transaction which is being posted
+     * @param mode                      the mode the poster is currently running in
+     * @param postDate                  the date this transaction should post to
      * @param posterReportWriterService the writer service where the poster is writing its report
      * @return the accomplished post type
      * @see org.kuali.kfs.gl.batch.service.PostTransaction#post(org.kuali.kfs.gl.businessobject.Transaction, int, java.util.Date)
@@ -88,8 +88,7 @@ public class PostAccountBalance implements PostTransaction, AccountBalanceCalcul
             }
 
             return returnCode;
-        }
-        else {
+        } else {
             return GeneralLedgerConstants.EMPTY_CODE;
         }
     }
@@ -97,7 +96,7 @@ public class PostAccountBalance implements PostTransaction, AccountBalanceCalcul
     public AccountBalance findAccountBalance(Collection balanceList, Transaction t) {
 
         // Try to find one that already exists
-        for (Iterator iter = balanceList.iterator(); iter.hasNext();) {
+        for (Iterator iter = balanceList.iterator(); iter.hasNext(); ) {
             AccountBalance b = (AccountBalance) iter.next();
 
             if (b.getUniversityFiscalYear().equals(t.getUniversityFiscalYear()) && b.getChartOfAccountsCode().equals(t.getChartOfAccountsCode()) && b.getAccountNumber().equals(t.getAccountNumber()) && b.getSubAccountNumber().equals(t.getSubAccountNumber()) && b.getObjectCode().equals(t.getFinancialObjectCode()) && b.getSubObjectCode().equals(t.getFinancialSubObjectCode())) {
@@ -115,24 +114,19 @@ public class PostAccountBalance implements PostTransaction, AccountBalanceCalcul
     protected boolean updateAccountBalanceReturn(Transaction t, AccountBalance ab) {
         if (t.getFinancialBalanceTypeCode().equals(t.getOption().getBudgetCheckingBalanceTypeCd())) {
             ab.setCurrentBudgetLineBalanceAmount(ab.getCurrentBudgetLineBalanceAmount().add(t.getTransactionLedgerEntryAmount()));
-        }
-        else if (t.getFinancialBalanceTypeCode().equals(t.getOption().getActualFinancialBalanceTypeCd())) {
+        } else if (t.getFinancialBalanceTypeCode().equals(t.getOption().getActualFinancialBalanceTypeCd())) {
             if (t.getObjectType().getFinObjectTypeDebitcreditCd().equals(t.getTransactionDebitCreditCode()) || ((!t.getBalanceType().isFinancialOffsetGenerationIndicator()) && KFSConstants.GL_BUDGET_CODE.equals(t.getTransactionDebitCreditCode()))) {
                 ab.setAccountLineActualsBalanceAmount(ab.getAccountLineActualsBalanceAmount().add(t.getTransactionLedgerEntryAmount()));
-            }
-            else {
+            } else {
                 ab.setAccountLineActualsBalanceAmount(ab.getAccountLineActualsBalanceAmount().subtract(t.getTransactionLedgerEntryAmount()));
             }
-        }
-        else if (t.getFinancialBalanceTypeCode().equals(t.getOption().getExtrnlEncumFinBalanceTypCd()) || t.getFinancialBalanceTypeCode().equals(t.getOption().getIntrnlEncumFinBalanceTypCd()) || t.getFinancialBalanceTypeCode().equals(t.getOption().getPreencumbranceFinBalTypeCd()) || t.getFinancialBalanceTypeCode().equals(t.getOption().getCostShareEncumbranceBalanceTypeCd())) {
+        } else if (t.getFinancialBalanceTypeCode().equals(t.getOption().getExtrnlEncumFinBalanceTypCd()) || t.getFinancialBalanceTypeCode().equals(t.getOption().getIntrnlEncumFinBalanceTypCd()) || t.getFinancialBalanceTypeCode().equals(t.getOption().getPreencumbranceFinBalTypeCd()) || t.getFinancialBalanceTypeCode().equals(t.getOption().getCostShareEncumbranceBalanceTypeCd())) {
             if (t.getObjectType().getFinObjectTypeDebitcreditCd().equals(t.getTransactionDebitCreditCode()) || ((!t.getBalanceType().isFinancialOffsetGenerationIndicator()) && KFSConstants.GL_BUDGET_CODE.equals(t.getTransactionDebitCreditCode()))) {
                 ab.setAccountLineEncumbranceBalanceAmount(ab.getAccountLineEncumbranceBalanceAmount().add(t.getTransactionLedgerEntryAmount()));
-            }
-            else {
+            } else {
                 ab.setAccountLineEncumbranceBalanceAmount(ab.getAccountLineEncumbranceBalanceAmount().subtract(t.getTransactionLedgerEntryAmount()));
             }
-        }
-        else {
+        } else {
             return false;
         }
         return true;

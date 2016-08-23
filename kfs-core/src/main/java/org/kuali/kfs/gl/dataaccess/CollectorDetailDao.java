@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -25,7 +25,7 @@ public interface CollectorDetailDao {
     /**
      * Purge the table by year/chart
      *
-     * @param chartOfAccountsCode chart of accounts code criteria to purge
+     * @param chartOfAccountsCode  chart of accounts code criteria to purge
      * @param universityFiscalYear university fiscal year criteria to purge
      */
     public void purgeYearByChart(String chartOfAccountsCode, int universityFiscalYear);

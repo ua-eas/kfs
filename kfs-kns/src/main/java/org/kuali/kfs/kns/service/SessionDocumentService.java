@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -19,8 +19,8 @@
 package org.kuali.kfs.kns.service;
 
 import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.kfs.krad.UserSession;
+import org.kuali.rice.kew.api.WorkflowDocument;
 
 import java.sql.Timestamp;
 
@@ -66,7 +66,7 @@ public interface SessionDocumentService {
      * @throws
      */
     public KualiDocumentFormBase getDocumentForm(String documentNumber, String docFormKey, UserSession userSession,
-            String ipAddress);
+                                                 String ipAddress);
 
     /**
      * Store KualiDocumentFormBase into session and database.

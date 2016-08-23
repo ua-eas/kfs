@@ -1,26 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document.web.struts;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import org.kuali.kfs.fp.businessobject.Check;
 import org.kuali.kfs.fp.businessobject.CheckBase;
@@ -30,6 +26,8 @@ import org.kuali.kfs.fp.businessobject.DepositWizardCashieringCheckHelper;
 import org.kuali.kfs.fp.businessobject.DepositWizardHelper;
 import org.kuali.kfs.fp.businessobject.format.CashReceiptDepositTypeFormatter;
 import org.kuali.kfs.fp.document.CashReceiptDocument;
+import org.kuali.kfs.kns.util.WebUtils;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSConstants.DocumentStatusCodes.CashReceipt;
 import org.kuali.kfs.sys.KFSKeyConstants;
@@ -38,8 +36,10 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.BankService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
-import org.kuali.kfs.kns.util.WebUtils;
-import org.kuali.kfs.kns.web.struts.form.KualiForm;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class is the action form for the deposit document wizard.
@@ -430,6 +430,7 @@ public class DepositWizardForm extends KualiForm {
 
     /**
      * Gets the documentActions attribute.
+     *
      * @return Returns the documentActions.
      */
     public Map getDocumentActions() {
@@ -438,6 +439,7 @@ public class DepositWizardForm extends KualiForm {
 
     /**
      * Sets the documentActions attribute value.
+     *
      * @param documentActions The documentActions to set.
      */
     public void setDocumentActions(Map documentActions) {
@@ -446,6 +448,7 @@ public class DepositWizardForm extends KualiForm {
 
     /**
      * Gets the editingMode attribute.
+     *
      * @return Returns the editingMode.
      */
     public Map getEditingMode() {
@@ -454,6 +457,7 @@ public class DepositWizardForm extends KualiForm {
 
     /**
      * Sets the editingMode attribute value.
+     *
      * @param editingMode The editingMode to set.
      */
     public void setEditingMode(Map editingMode) {
@@ -471,6 +475,7 @@ public class DepositWizardForm extends KualiForm {
      * Adds a cash receipt to the target total amount for the given deposit (if the deposit was final)
      * The amount to add is: confirmed check amount + confirmed currency amount + confirmed coin amount - change request
      * currency amount - change request coin amount
+     *
      * @param crDoc
      */
     public void addCashReceiptToTargetTotal(CashReceiptDocument crDoc) {
@@ -487,6 +492,7 @@ public class DepositWizardForm extends KualiForm {
 
     /**
      * Adds total undeposited cashiering transaction amount to the target total
+     *
      * @param transaction
      */
     public void addCashieringTransactionToTargetTotal(KualiDecimal undepositedCheckAmount) {
@@ -505,6 +511,7 @@ public class DepositWizardForm extends KualiForm {
 
     /**
      * Adds the check total for a cash receipt to checks
+     *
      * @param crDoc
      */
     public void addCashReceiptToChecks(CashReceiptDocument crDoc) {
@@ -516,6 +523,7 @@ public class DepositWizardForm extends KualiForm {
 
     /**
      * Adds the cashiering check total to checks
+     *
      * @param crDoc
      */
     public void addCashieringReceiptToChecks() {

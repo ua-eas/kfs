@@ -1,34 +1,34 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.document.validation.impl;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.service.DictionaryValidationService;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.ValidationFieldConvertible;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.kns.service.DictionaryValidationService;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * A validation to have the data dictionary perform its validations upon a business object
@@ -43,6 +43,7 @@ public class BusinessObjectDataDictionaryValidation extends GenericValidation {
     /**
      * Validates a business object against the data dictionary
      * <strong>expects a business object to be the first parameter</strong>
+     *
      * @see org.kuali.kfs.sys.document.validation.GenericValidation#validate(java.lang.Object[])
      */
     @Override
@@ -106,6 +107,7 @@ public class BusinessObjectDataDictionaryValidation extends GenericValidation {
 
     /**
      * Gets the dictionaryValidationService attribute.
+     *
      * @return Returns the dictionaryValidationService.
      */
     public DictionaryValidationService getDictionaryValidationService() {
@@ -114,6 +116,7 @@ public class BusinessObjectDataDictionaryValidation extends GenericValidation {
 
     /**
      * Sets the dictionaryValidationService attribute value.
+     *
      * @param dictionaryValidationService The dictionaryValidationService to set.
      */
     public void setDictionaryValidationService(DictionaryValidationService dictionaryValidationService) {
@@ -122,6 +125,7 @@ public class BusinessObjectDataDictionaryValidation extends GenericValidation {
 
     /**
      * Gets the businessObjectForValidation attribute.
+     *
      * @return Returns the businessObjectForValidation.
      */
     public PersistableBusinessObject getBusinessObjectForValidation() {
@@ -130,6 +134,7 @@ public class BusinessObjectDataDictionaryValidation extends GenericValidation {
 
     /**
      * Sets the businessObjectForValidation attribute value.
+     *
      * @param businessObjectForValidation The businessObjectForValidation to set.
      */
     public void setBusinessObjectForValidation(PersistableBusinessObject businessObjectForValidation) {
@@ -145,6 +150,7 @@ public class BusinessObjectDataDictionaryValidation extends GenericValidation {
 
     /**
      * Sets whether this validation should attempt to determine the error prefix for the check
+     *
      * @param attemptDeterminationOfErrorPrefix true if the error prefix should be automatically determined if possible; if false, automatic determination will be skipped - and that is the default behavior
      */
     public void setAttemptDeterminationOfErrorPrefix(boolean attemptDeterminationOfErrorPrefix) {

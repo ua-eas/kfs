@@ -1,24 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cab;
-
-import java.util.List;
 
 import org.kuali.kfs.module.cab.businessobject.PurApAccountLineGroup;
 import org.kuali.kfs.module.purap.businessobject.CreditMemoAccountRevision;
@@ -28,6 +26,8 @@ import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.List;
 
 public class PurApAccountLineGroupTest extends KualiTestBase {
     public static class PurApAccountLineGroupTestable extends PurApAccountLineGroup {
@@ -44,8 +44,7 @@ public class PurApAccountLineGroupTest extends KualiTestBase {
             getSourceEntries().add(entry);
             if (CreditMemoAccountRevision.class.isAssignableFrom(entry.getClass())) {
                 setAmount(entry.getAmount().negated());
-            }
-            else {
+            } else {
                 setAmount(entry.getAmount());
             }
         }
@@ -117,8 +116,7 @@ public class PurApAccountLineGroupTest extends KualiTestBase {
         PurApAccountingLineBase entry = null;
         try {
             entry = (PurApAccountingLineBase) clazz.newInstance();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             fail(e.toString());
         }
         entry.setPostingYear(i);

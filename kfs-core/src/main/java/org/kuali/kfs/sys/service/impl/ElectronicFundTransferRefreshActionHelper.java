@@ -1,40 +1,40 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.lookup.LookupResultsService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.exception.AuthorizationException;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.businessobject.ElectronicPaymentClaim;
 import org.kuali.kfs.sys.service.ElectronicFundTransferActionHelper;
 import org.kuali.kfs.sys.service.ElectronicPaymentClaimingService;
 import org.kuali.kfs.sys.web.struts.ElectronicFundTransferForm;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.lookup.LookupResultsService;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.exception.AuthorizationException;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Represents a web action that occurs when a user returns a bunch of selected claims and redirects to the electronic funds transfer "claimng" page
@@ -43,7 +43,7 @@ public class ElectronicFundTransferRefreshActionHelper implements ElectronicFund
     private ElectronicPaymentClaimingService electronicPaymentClaimingService;
     private DataDictionaryService ddService;
     protected LookupResultsService lookupResultsService;
-    
+
     protected static final String BASIC_FORWARD = "basic";
     protected static final String ACTION_NAME = "claim";
     protected static final String PORTAL_FORWARD = "portal";
@@ -60,7 +60,7 @@ public class ElectronicFundTransferRefreshActionHelper implements ElectronicFund
         // does the current user have claimed funds waiting for them?
         String lookupResultsSequenceNumber = null;
         if (params.get("lookupResultsSequenceNumber") != null) {
-            lookupResultsSequenceNumber = ((String[])params.get("lookupResultsSequenceNumber"))[0];
+            lookupResultsSequenceNumber = ((String[]) params.get("lookupResultsSequenceNumber"))[0];
         }
         if (StringUtils.isBlank(lookupResultsSequenceNumber)) {
             return mapping.findForward(PORTAL_FORWARD);
@@ -74,10 +74,11 @@ public class ElectronicFundTransferRefreshActionHelper implements ElectronicFund
         // and redirect
         return mapping.findForward(BASIC_FORWARD);
     }
-    
+
     /**
      * Gets the selected electronic payment claim records from the LookupResults service
-     * @param currentUser the claiming user
+     *
+     * @param currentUser                 the claiming user
      * @param lookupResultsSequenceNumber the parameter for the lookup results sequence number
      * @return a list of claims
      */
@@ -91,23 +92,24 @@ public class ElectronicFundTransferRefreshActionHelper implements ElectronicFund
                     claims.add(claim);
                 }
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
-        }        
+        }
         return claims;
     }
-    
+
     /**
      * Sets the electronicPaymentClaimingService attribute value.
+     *
      * @param electronicPaymentClaimingService The electronicPaymentClaimingService to set.
      */
     public void setElectronicPaymentClaimingService(ElectronicPaymentClaimingService electronicPaymentClaimingService) {
         this.electronicPaymentClaimingService = electronicPaymentClaimingService;
     }
-    
+
     /**
      * Sets the ddService attribute value.
+     *
      * @param ddService The ddService to set.
      */
     public void setDataDictonaryService(DataDictionaryService ddService) {
@@ -116,12 +118,13 @@ public class ElectronicFundTransferRefreshActionHelper implements ElectronicFund
 
     /**
      * Sets the lookupResultsService attribute value.
+     *
      * @param lookupResultsService The lookupResultsService to set.
      */
     public void setLookupResultsService(LookupResultsService lookupResultsService) {
         this.lookupResultsService = lookupResultsService;
     }
-    
-    
+
+
 }
 

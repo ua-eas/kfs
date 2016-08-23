@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -27,6 +27,7 @@ import org.kuali.kfs.sys.service.NonTransactional;
 
 /**
  * A mock implementation of OrganizationReversionService, used by the OrganizationReversionLogicTest
+ *
  * @see org.kuali.kfs.gl.service.OrganizationReversionLogicTest
  */
 
@@ -39,12 +40,13 @@ public class OrganizationReversionMockServiceImpl extends OrganizationReversionS
 
     /**
      * Always returns the same mock organization reversion record, no matter what keys are handed to it
-     * @param fiscal year the fiscal year of the organization reversion record that will be returned
-     * @param chart the chart of the organization reversion record that will be returned
+     *
+     * @param fiscal  year the fiscal year of the organization reversion record that will be returned
+     * @param chart   the chart of the organization reversion record that will be returned
      * @param orgCode the organization code of the organization reversion record that will be returned
      * @return an OrganizationReversion record with the given chart, org, and year, but everything else--budget reversion and cash reversion account information and category details--pre-set
      * @see org.kuali.kfs.coa.service.impl.OrganizationReversionServiceImpl#getByPrimaryId(java.lang.Integer, java.lang.String,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     public OrganizationReversion getByPrimaryId(Integer fiscalYear, String chartCode, String orgCode) {
@@ -70,7 +72,7 @@ public class OrganizationReversionMockServiceImpl extends OrganizationReversionS
         orgRev.addOrganizationReversionDetail(createDetail(fiscalYear, chartCode, orgCode, "C09", KFSConstants.RULE_CODE_R2));
         orgRev.addOrganizationReversionDetail(createDetail(fiscalYear, chartCode, orgCode, "C10", KFSConstants.RULE_CODE_A));
         orgRev.addOrganizationReversionDetail(createDetail(fiscalYear, chartCode, orgCode, "C11", KFSConstants.RULE_CODE_A));
-        
+
         orgRev.refreshReferenceObject("chartOfAccounts");
 
         return orgRev;
@@ -78,11 +80,11 @@ public class OrganizationReversionMockServiceImpl extends OrganizationReversionS
 
     /**
      * Creates a mock OrganizationReversionDetail record, based on the parameters
-     * 
-     * @param fiscalYear the fiscal year to set
-     * @param chartCode the chart to set
-     * @param orgCode the org code to set
-     * @param categoryCode the category code of the record
+     *
+     * @param fiscalYear        the fiscal year to set
+     * @param chartCode         the chart to set
+     * @param orgCode           the org code to set
+     * @param categoryCode      the category code of the record
      * @param categoryAlgorithm the algorithm to use for the record
      */
     private OrganizationReversionDetail createDetail(Integer fiscalYear, String chartCode, String orgCode, String categoryCode, String categoryAlgorithm) {

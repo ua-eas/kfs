@@ -1,30 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.module.ec.document;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Organization;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterConstants.COMPONENT;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.UserSession;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationDetail;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationReportDefinition;
 import org.kuali.kfs.module.ec.service.EffortCertificationDocumentService;
@@ -35,21 +36,20 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.FinancialSystemTransactionalDocumentBase;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterConstants.COMPONENT;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.krad.UserSession;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Effort Certification Document Class.
  */
-@COMPONENT(component="EffortCertification")
-public class EffortCertificationDocument extends FinancialSystemTransactionalDocumentBase  {
+@COMPONENT(component = "EffortCertification")
+public class EffortCertificationDocument extends FinancialSystemTransactionalDocumentBase {
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(EffortCertificationDocument.class);
 
     protected static final String DO_AWARD_SPLIT = "DoAwardSplit";
@@ -220,7 +220,7 @@ public class EffortCertificationDocument extends FinancialSystemTransactionalDoc
      * @return Returns the employee.
      */
     public Person getEmployee() {
-        if ( StringUtils.isNotBlank( getEmplid() ) ) {
+        if (StringUtils.isNotBlank(getEmplid())) {
             return SpringContext.getBean(PersonService.class).getPersonByEmployeeId(getEmplid());
         } else {
             return null;
@@ -242,7 +242,7 @@ public class EffortCertificationDocument extends FinancialSystemTransactionalDoc
      * @return Returns the Person
      */
     public Person getLedgerPerson() {
-        if( (ledgerPerson == null || !StringUtils.equals(ledgerPerson.getEmployeeId(), emplid)) && StringUtils.isNotBlank( emplid )) {
+        if ((ledgerPerson == null || !StringUtils.equals(ledgerPerson.getEmployeeId(), emplid)) && StringUtils.isNotBlank(emplid)) {
             ledgerPerson = SpringContext.getBean(PersonService.class).getPersonByEmployeeId(emplid);
         }
 
@@ -380,8 +380,7 @@ public class EffortCertificationDocument extends FinancialSystemTransactionalDoc
                 detailLines.removeAll(detailLines);
                 maxAmount = currentAmount;
                 detailLines.add(line);
-            }
-            else if (maxAmount.equals(currentAmount)) {
+            } else if (maxAmount.equals(currentAmount)) {
                 detailLines.add(line);
             }
         }
@@ -702,8 +701,7 @@ public class EffortCertificationDocument extends FinancialSystemTransactionalDoc
     public void populateDocumentForRouting() {
         if (ObjectUtils.isNotNull(getTotalPayrollAmount())) {
             getFinancialSystemDocumentHeader().setFinancialDocumentTotalAmount(getTotalPayrollAmount());
-        }
-        else {
+        } else {
             getFinancialSystemDocumentHeader().setFinancialDocumentTotalAmount(new KualiDecimal(0));
         }
         super.populateDocumentForRouting();
@@ -773,6 +771,7 @@ public class EffortCertificationDocument extends FinancialSystemTransactionalDoc
      * Provides answers to the following splits:
      * Do Award Split
      * Do Recreate Split
+     *
      * @see org.kuali.kfs.sys.document.FinancialSystemTransactionalDocumentBase#answerSplitNodeQuestion(java.lang.String)
      */
     @Override
@@ -786,21 +785,22 @@ public class EffortCertificationDocument extends FinancialSystemTransactionalDoc
         if (nodeName.equals(KFSConstants.REQUIRES_WORKSTUDY_REVIEW)) {
             return checkOjbectCodeForWorkstudy();
         }
-        throw new UnsupportedOperationException("Cannot answer split question for this node you call \""+nodeName+"\"");
+        throw new UnsupportedOperationException("Cannot answer split question for this node you call \"" + nodeName + "\"");
     }
 
 
     /**
      * KFSMI-4606
+     *
      * @return boolean
      */
-    protected boolean checkOjbectCodeForWorkstudy(){
+    protected boolean checkOjbectCodeForWorkstudy() {
         Collection<String> workstudyRouteObjectcodes = SpringContext.getBean(ParameterService.class).getParameterValuesAsString(KfsParameterConstants.FINANCIAL_SYSTEM_DOCUMENT.class, KFSConstants.WORKSTUDY_ROUTE_OBJECT_CODES_PARM_NM);
 
         List<EffortCertificationDetail> effortCertificationDetails = getEffortCertificationDetailLines();
 
         // check object code in accounting lines
-        for (EffortCertificationDetail effortCertificationDetail : effortCertificationDetails){
+        for (EffortCertificationDetail effortCertificationDetail : effortCertificationDetails) {
             if (workstudyRouteObjectcodes.contains(effortCertificationDetail.getFinancialObjectCode())) {
                 return true;
             }

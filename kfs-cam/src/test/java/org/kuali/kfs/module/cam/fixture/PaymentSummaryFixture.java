@@ -1,42 +1,42 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cam.fixture;
 
-import java.io.IOException;
-import java.util.Properties;
-
 import org.kuali.kfs.module.cam.businessobject.Asset;
 import org.kuali.kfs.module.cam.businessobject.AssetPayment;
 import org.kuali.kfs.sys.TestDataPreparator;
+
+import java.io.IOException;
+import java.util.Properties;
 
 public enum PaymentSummaryFixture {
     ASSET(1), PAYMENT1(1), PAYMENT2(2), PAYMENT3(3), PAYMENT4(4);
     private int testDataPos;
 
     private static Properties properties;
+
     static {
         String propertiesFileName = "org/kuali/kfs/module/cam/document/service/payment_summary_service.properties";
         properties = new Properties();
         try {
             properties.load(PaymentSummaryFixture.class.getClassLoader().getResourceAsStream(propertiesFileName));
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException();
         }
     }

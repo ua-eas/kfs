@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -20,31 +20,20 @@ package org.kuali.kfs.kns.maintenance.rules;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.kns.document.authorization.MaintenanceDocumentAuthorizer;
-import org.kuali.kfs.kns.rules.MaintenanceDocumentRule;
-import org.kuali.kfs.kns.service.BusinessObjectAuthorizationService;
-import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
-import org.kuali.kfs.kns.service.DictionaryValidationService;
-import org.kuali.kfs.kns.util.RouteToCompletionUtil;
-import org.kuali.rice.core.api.CoreApiServiceLocator;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.core.api.util.RiceKeyConstants;
-import org.kuali.rice.core.web.format.Formatter;
-import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.rice.kim.api.role.RoleService;
-import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.document.authorization.MaintenanceDocumentAuthorizer;
 import org.kuali.kfs.kns.maintenance.Maintainable;
 import org.kuali.kfs.kns.rule.AddCollectionLineRule;
 import org.kuali.kfs.kns.rules.DocumentRuleBase;
+import org.kuali.kfs.kns.rules.MaintenanceDocumentRule;
+import org.kuali.kfs.kns.service.BusinessObjectAuthorizationService;
+import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
 import org.kuali.kfs.kns.service.BusinessObjectMetaDataService;
+import org.kuali.kfs.kns.service.DictionaryValidationService;
 import org.kuali.kfs.kns.service.DocumentHelperService;
 import org.kuali.kfs.kns.service.KNSServiceLocator;
 import org.kuali.kfs.kns.service.MaintenanceDocumentDictionaryService;
-import org.kuali.rice.krad.bo.BusinessObject;
+import org.kuali.kfs.kns.util.RouteToCompletionUtil;
 import org.kuali.kfs.krad.bo.GlobalBusinessObject;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.datadictionary.InactivationBlockingMetadata;
@@ -67,6 +56,17 @@ import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
+import org.kuali.rice.core.api.CoreApiServiceLocator;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+import org.kuali.rice.core.api.util.RiceKeyConstants;
+import org.kuali.rice.core.web.format.Formatter;
+import org.kuali.rice.kew.api.WorkflowDocument;
+import org.kuali.rice.kim.api.identity.PersonService;
+import org.kuali.rice.kim.api.role.RoleService;
+import org.kuali.rice.kim.api.services.KimApiServiceLocator;
+import org.kuali.rice.krad.bo.BusinessObject;
 import org.springframework.util.AutoPopulatingList;
 
 import java.security.GeneralSecurityException;
@@ -194,10 +194,10 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
         if (completeRequestPending) {
             return true;
         }
-        
+
         // get the documentAuthorizer for this document
         MaintenanceDocumentAuthorizer documentAuthorizer =
-                (MaintenanceDocumentAuthorizer) getDocumentHelperService().getDocumentAuthorizer(document);
+            (MaintenanceDocumentAuthorizer) getDocumentHelperService().getDocumentAuthorizer(document);
 
         // remove all items from the errorPath temporarily (because it may not
         // be what we expect, or what we need)
@@ -216,13 +216,13 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
         WorkflowDocument workflowDocument = document.getDocumentHeader().getWorkflowDocument();
         if (workflowDocument.isInitiated() || workflowDocument.isSaved()) {
             success &= documentAuthorizer
-                    .canCreateOrMaintain((MaintenanceDocument) document, GlobalVariables.getUserSession().getPerson());
+                .canCreateOrMaintain((MaintenanceDocument) document, GlobalVariables.getUserSession().getPerson());
             if (success == false) {
                 GlobalVariables.getMessageMap()
-                        .putError(KRADConstants.DOCUMENT_ERRORS, RiceKeyConstants.AUTHORIZATION_ERROR_DOCUMENT,
-                                new String[]{GlobalVariables.getUserSession().getPerson().getPrincipalName(),
-                                        "Create/Maintain",
-                                        this.getMaintDocDictionaryService().getDocumentTypeName(newBo.getClass())});
+                    .putError(KRADConstants.DOCUMENT_ERRORS, RiceKeyConstants.AUTHORIZATION_ERROR_DOCUMENT,
+                        new String[]{GlobalVariables.getUserSession().getPerson().getPrincipalName(),
+                            "Create/Maintain",
+                            this.getMaintDocDictionaryService().getDocumentTypeName(newBo.getClass())});
             }
         }
         // apply rules that are common across all maintenance documents, regardless of class
@@ -272,7 +272,7 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
         if (isDocumentInactivatingBusinessObject(maintenanceDocument)) {
             Class boClass = maintenanceDocument.getNewMaintainableObject().getDataObjectClass();
             Set<InactivationBlockingMetadata> inactivationBlockingMetadatas =
-                    ddService.getAllInactivationBlockingDefinitions(boClass);
+                ddService.getAllInactivationBlockingDefinitions(boClass);
 
             if (inactivationBlockingMetadatas != null) {
                 for (InactivationBlockingMetadata inactivationBlockingMetadata : inactivationBlockingMetadatas) {
@@ -298,19 +298,19 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
      * @return true iff, based on the InactivationBlockingMetadata, the maintenance document should be allowed to route
      */
     protected boolean processInactivationBlockChecking(MaintenanceDocument maintenanceDocument,
-            InactivationBlockingMetadata inactivationBlockingMetadata) {
+                                                       InactivationBlockingMetadata inactivationBlockingMetadata) {
         if (newBo instanceof PersistableBusinessObject) {
             String inactivationBlockingDetectionServiceBeanName =
-                    inactivationBlockingMetadata.getInactivationBlockingDetectionServiceBeanName();
+                inactivationBlockingMetadata.getInactivationBlockingDetectionServiceBeanName();
             if (StringUtils.isBlank(inactivationBlockingDetectionServiceBeanName)) {
                 inactivationBlockingDetectionServiceBeanName =
-                        KRADServiceLocatorWeb.DEFAULT_INACTIVATION_BLOCKING_DETECTION_SERVICE;
+                    KRADServiceLocatorWeb.DEFAULT_INACTIVATION_BLOCKING_DETECTION_SERVICE;
             }
             InactivationBlockingDetectionService inactivationBlockingDetectionService = KRADServiceLocatorWeb
-                    .getInactivationBlockingDetectionService(inactivationBlockingDetectionServiceBeanName);
+                .getInactivationBlockingDetectionService(inactivationBlockingDetectionServiceBeanName);
 
             boolean foundBlockingRecord = inactivationBlockingDetectionService
-                    .hasABlockingRecord((PersistableBusinessObject) newBo, inactivationBlockingMetadata);
+                .hasABlockingRecord((PersistableBusinessObject) newBo, inactivationBlockingMetadata);
 
             if (foundBlockingRecord) {
                 putInactivationBlockingErrorOnPage(maintenanceDocument, inactivationBlockingMetadata);
@@ -330,15 +330,15 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
      * @param inactivationBlockingMetadata
      */
     protected void putInactivationBlockingErrorOnPage(MaintenanceDocument document,
-            InactivationBlockingMetadata inactivationBlockingMetadata) {
+                                                      InactivationBlockingMetadata inactivationBlockingMetadata) {
         if (!persistenceStructureService.hasPrimaryKeyFieldValues(newBo)) {
             throw new RuntimeException("Maintenance document did not have all primary key values filled in.");
         }
         Properties parameters = new Properties();
         parameters.put(KRADConstants.BUSINESS_OBJECT_CLASS_ATTRIBUTE,
-                inactivationBlockingMetadata.getBlockedBusinessObjectClass().getName());
+            inactivationBlockingMetadata.getBlockedBusinessObjectClass().getName());
         parameters
-                .put(KRADConstants.DISPATCH_REQUEST_PARAMETER, KRADConstants.METHOD_DISPLAY_ALL_INACTIVATION_BLOCKERS);
+            .put(KRADConstants.DISPATCH_REQUEST_PARAMETER, KRADConstants.METHOD_DISPLAY_ALL_INACTIVATION_BLOCKERS);
 
         List keys = new ArrayList();
         if (getPersistenceStructureService().isPersistable(newBo.getClass())) {
@@ -368,9 +368,9 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
 
             // Encrypt value if it is a secure field
             if (businessObjectAuthorizationService.attributeValueNeedsToBeEncryptedOnFormsAndLinks(
-                    inactivationBlockingMetadata.getBlockedBusinessObjectClass(), keyName)) {
+                inactivationBlockingMetadata.getBlockedBusinessObjectClass(), keyName)) {
                 try {
-                    if(CoreApiServiceLocator.getEncryptionService().isEnabled()) {
+                    if (CoreApiServiceLocator.getEncryptionService().isEnabled()) {
                         keyValue = CoreApiServiceLocator.getEncryptionService().encrypt(keyValue);
                     }
                 } catch (GeneralSecurityException e) {
@@ -383,11 +383,11 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
         }
 
         String blockingUrl =
-                UrlFactory.parameterizeUrl(KRADConstants.DISPLAY_ALL_INACTIVATION_BLOCKERS_ACTION, parameters);
+            UrlFactory.parameterizeUrl(KRADConstants.DISPLAY_ALL_INACTIVATION_BLOCKERS_ACTION, parameters);
 
         // post an error about the locked document
         GlobalVariables.getMessageMap()
-                .putError(KRADConstants.GLOBAL_ERRORS, RiceKeyConstants.ERROR_INACTIVATION_BLOCKED, blockingUrl);
+            .putError(KRADConstants.GLOBAL_ERRORS, RiceKeyConstants.ERROR_INACTIVATION_BLOCKED, blockingUrl);
     }
 
     /**
@@ -446,12 +446,12 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
      * applicable to the whole document).
      *
      * @param errorConstant - Error Constant that can be mapped to a resource for the actual text message.
-     * @param parameter - Replacement value for part of the error message.
+     * @param parameter     - Replacement value for part of the error message.
      */
     protected void putGlobalError(String errorConstant, String parameter) {
         if (!errorAlreadyExists(KRADConstants.DOCUMENT_ERRORS, errorConstant)) {
             GlobalVariables.getMessageMap()
-                    .putErrorWithoutFullErrorPath(KRADConstants.DOCUMENT_ERRORS, errorConstant, parameter);
+                .putErrorWithoutFullErrorPath(KRADConstants.DOCUMENT_ERRORS, errorConstant, parameter);
         }
     }
 
@@ -461,12 +461,12 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
      * applicable to the whole document).
      *
      * @param errorConstant - Error Constant that can be mapped to a resource for the actual text message.
-     * @param parameters - Array of replacement values for part of the error message.
+     * @param parameters    - Array of replacement values for part of the error message.
      */
     protected void putGlobalError(String errorConstant, String[] parameters) {
         if (!errorAlreadyExists(KRADConstants.DOCUMENT_ERRORS, errorConstant)) {
             GlobalVariables.getMessageMap()
-                    .putErrorWithoutFullErrorPath(KRADConstants.DOCUMENT_ERRORS, errorConstant, parameters);
+                .putErrorWithoutFullErrorPath(KRADConstants.DOCUMENT_ERRORS, errorConstant, parameters);
         }
     }
 
@@ -475,15 +475,15 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
      * sure that
      * the correct prefix is added to the property name so that it will display correctly on maintenance documents.
      *
-     * @param propertyName - Property name of the element that is associated with the error. Used to mark the field as
-     * errored in
-     * the UI.
+     * @param propertyName  - Property name of the element that is associated with the error. Used to mark the field as
+     *                      errored in
+     *                      the UI.
      * @param errorConstant - Error Constant that can be mapped to a resource for the actual text message.
      */
     protected void putFieldError(String propertyName, String errorConstant) {
         if (!errorAlreadyExists(MAINTAINABLE_ERROR_PREFIX + propertyName, errorConstant)) {
             GlobalVariables.getMessageMap()
-                    .putErrorWithoutFullErrorPath(MAINTAINABLE_ERROR_PREFIX + propertyName, errorConstant);
+                .putErrorWithoutFullErrorPath(MAINTAINABLE_ERROR_PREFIX + propertyName, errorConstant);
         }
     }
 
@@ -492,18 +492,18 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
      * sure that
      * the correct prefix is added to the property name so that it will display correctly on maintenance documents.
      *
-     * @param propertyName - Property name of the element that is associated with the error. Used to mark the field as
-     * errored in
-     * the UI.
+     * @param propertyName  - Property name of the element that is associated with the error. Used to mark the field as
+     *                      errored in
+     *                      the UI.
      * @param errorConstant - Error Constant that can be mapped to a resource for the actual text message.
-     * @param parameter - Single parameter value that can be used in the message so that you can display specific values
-     * to the
-     * user.
+     * @param parameter     - Single parameter value that can be used in the message so that you can display specific values
+     *                      to the
+     *                      user.
      */
     protected void putFieldError(String propertyName, String errorConstant, String parameter) {
         if (!errorAlreadyExists(MAINTAINABLE_ERROR_PREFIX + propertyName, errorConstant)) {
             GlobalVariables.getMessageMap()
-                    .putErrorWithoutFullErrorPath(MAINTAINABLE_ERROR_PREFIX + propertyName, errorConstant, parameter);
+                .putErrorWithoutFullErrorPath(MAINTAINABLE_ERROR_PREFIX + propertyName, errorConstant, parameter);
         }
     }
 
@@ -512,27 +512,27 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
      * sure that
      * the correct prefix is added to the property name so that it will display correctly on maintenance documents.
      *
-     * @param propertyName - Property name of the element that is associated with the error. Used to mark the field as
-     * errored in
-     * the UI.
+     * @param propertyName  - Property name of the element that is associated with the error. Used to mark the field as
+     *                      errored in
+     *                      the UI.
      * @param errorConstant - Error Constant that can be mapped to a resource for the actual text message.
-     * @param parameters - Array of strings holding values that can be used in the message so that you can display
-     * specific values
-     * to the user.
+     * @param parameters    - Array of strings holding values that can be used in the message so that you can display
+     *                      specific values
+     *                      to the user.
      */
     protected void putFieldError(String propertyName, String errorConstant, String[] parameters) {
         if (!errorAlreadyExists(MAINTAINABLE_ERROR_PREFIX + propertyName, errorConstant)) {
             GlobalVariables.getMessageMap()
-                    .putErrorWithoutFullErrorPath(MAINTAINABLE_ERROR_PREFIX + propertyName, errorConstant, parameters);
+                .putErrorWithoutFullErrorPath(MAINTAINABLE_ERROR_PREFIX + propertyName, errorConstant, parameters);
         }
     }
 
     /**
      * Adds a property-specific error to the global errors list, with the DD short label as the single argument.
      *
-     * @param propertyName - Property name of the element that is associated with the error. Used to mark the field as
-     * errored in
-     * the UI.
+     * @param propertyName  - Property name of the element that is associated with the error. Used to mark the field as
+     *                      errored in
+     *                      the UI.
      * @param errorConstant - Error Constant that can be mapped to a resource for the actual text message.
      */
     protected void putFieldErrorWithShortLabel(String propertyName, String errorConstant) {
@@ -546,13 +546,13 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
      * sure that the correct prefix is added to the property name so that it will display correctly on maintenance
      * documents.
      *
-     * @param propertyName - Property name of the element that is associated with the error. Used to mark the field as
-     * errored in
-     * the UI.
+     * @param propertyName  - Property name of the element that is associated with the error. Used to mark the field as
+     *                      errored in
+     *                      the UI.
      * @param errorConstant - Error Constant that can be mapped to a resource for the actual text message.
-     * @param parameter - Single parameter value that can be used in the message so that you can display specific values
-     * to the
-     * user.
+     * @param parameter     - Single parameter value that can be used in the message so that you can display specific values
+     *                      to the
+     *                      user.
      */
     protected void putDocumentError(String propertyName, String errorConstant, String parameter) {
         if (!errorAlreadyExists(DOCUMENT_ERROR_PREFIX + propertyName, errorConstant)) {
@@ -566,13 +566,13 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
      * sure that the correct prefix is added to the property name so that it will display correctly on maintenance
      * documents.
      *
-     * @param propertyName - Property name of the element that is associated with the error. Used to mark the field as
-     * errored in
-     * the UI.
+     * @param propertyName  - Property name of the element that is associated with the error. Used to mark the field as
+     *                      errored in
+     *                      the UI.
      * @param errorConstant - Error Constant that can be mapped to a resource for the actual text message.
-     * @param parameters - Array of String parameters that can be used in the message so that you can display specific
-     * values to the
-     * user.
+     * @param parameters    - Array of String parameters that can be used in the message so that you can display specific
+     *                      values to the
+     *                      user.
      */
     protected void putDocumentError(String propertyName, String errorConstant, String[] parameters) {
         GlobalVariables.getMessageMap().putError(DOCUMENT_ERROR_PREFIX + propertyName, errorConstant, parameters);
@@ -580,10 +580,10 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
 
     /**
      * Convenience method to determine whether the field already has the message indicated.
-     *
+     * <p>
      * This is useful if you want to suppress duplicate error messages on the same field.
      *
-     * @param propertyName - propertyName you want to test on
+     * @param propertyName  - propertyName you want to test on
      * @param errorConstant - errorConstant you want to test
      * @return returns True if the propertyName indicated already has the errorConstant indicated, false otherwise
      */
@@ -630,7 +630,7 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
      * resumeErrorPath() are used to temporarily clear the errorPath, and then return it to the original state after the
      * rule is
      * executed.
-     *
+     * <p>
      * This method is called at the very beginning of rule enforcement and pulls a copy of the contents of the errorPath
      * ArrayList
      * to a local arrayList for temporary storage.
@@ -649,7 +649,7 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
      * clearErrorPath()
      * are used to temporarily clear the errorPath, and then return it to the original state after the rule is
      * executed.
-     *
+     * <p>
      * This method is called at the very end of the rule enforcement, and returns the temporarily stored copy of the
      * errorPath to
      * the global errorPath, so that no other classes are interrupted.
@@ -678,8 +678,8 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
         if (newMaintainable == null) {
             GlobalVariables.getMessageMap().removeFromErrorPath("document.newMaintainableObject");
             throw new ValidationException(
-                    "Maintainable object from Maintenance Document '" + document.getDocumentTitle() +
-                            "' is null, unable to proceed.");
+                "Maintainable object from Maintenance Document '" + document.getDocumentTitle() +
+                    "' is null, unable to proceed.");
         }
 
         // document's newMaintainable must contain an object (ie, not null)
@@ -692,7 +692,7 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
         // if the Maintainable object is a PBO and there is a legacy maintDefinition
         // then use the old validation methods
         if (newBo instanceof PersistableBusinessObject && CollectionUtils.isNotEmpty(maintDocDictionaryService
-                .getMaintainableSections(document.getDocumentHeader().getWorkflowDocument().getDocumentTypeName()))) {
+            .getMaintainableSections(document.getDocumentHeader().getWorkflowDocument().getDocumentTypeName()))) {
 
             BusinessObject businessObject = (BusinessObject) newBo;
 
@@ -704,7 +704,7 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
 
             // run the DD DictionaryValidation (non-recursive)
             dictionaryValidationService.validateBusinessObjectOnMaintenanceDocument(businessObject,
-                    document.getDocumentHeader().getWorkflowDocument().getDocumentTypeName());
+                document.getDocumentHeader().getWorkflowDocument().getDocumentTypeName());
 
             // do default (ie, mandatory) existence checks
             dictionaryValidationService.validateDefaultExistenceChecks(businessObject);
@@ -725,15 +725,15 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
 
     /**
      * This method checks the two major cases that may violate primary key integrity.
-     *
+     * <p>
      * 1. Disallow changing of the primary keys on an EDIT maintenance document. Other fields can be changed, but once
      * the primary
      * keys have been set, they are permanent.
-     *
+     * <p>
      * 2. Disallow creating a new object whose primary key values are already present in the system on a CREATE NEW
      * maintenance
      * document.
-     *
+     * <p>
      * This method also will add new Errors to the Global Error Map.
      *
      * @param document - The Maintenance Document being tested.
@@ -763,8 +763,8 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
             if (!getDataObjectMetaDataService().equalsByPrimaryKeys(oldBo, newBo)) {
                 // add a complaint to the errors
                 putDocumentError(KRADConstants.DOCUMENT_ERRORS,
-                        RiceKeyConstants.ERROR_DOCUMENT_MAINTENANCE_PRIMARY_KEYS_CHANGED_ON_EDIT,
-                        getHumanReadablePrimaryKeyFieldNames(boClass));
+                    RiceKeyConstants.ERROR_DOCUMENT_MAINTENANCE_PRIMARY_KEYS_CHANGED_ON_EDIT,
+                    getHumanReadablePrimaryKeyFieldNames(boClass));
                 success &= false;
             }
         }
@@ -786,14 +786,14 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
 
                 // attempt to do a lookup, see if this object already exists by these Primary Keys
                 PersistableBusinessObject testBo =
-                        boService.findByPrimaryKey(boClass.asSubclass(PersistableBusinessObject.class), newPkFields);
+                    boService.findByPrimaryKey(boClass.asSubclass(PersistableBusinessObject.class), newPkFields);
 
                 // if the retrieve was successful, then this object already exists, and we need
                 // to complain
                 if (testBo != null) {
                     putDocumentError(KRADConstants.DOCUMENT_ERRORS,
-                            RiceKeyConstants.ERROR_DOCUMENT_MAINTENANCE_KEYS_ALREADY_EXIST_ON_CREATE_NEW,
-                            getHumanReadablePrimaryKeyFieldNames(boClass));
+                        RiceKeyConstants.ERROR_DOCUMENT_MAINTENANCE_KEYS_ALREADY_EXIST_ON_CREATE_NEW,
+                        getHumanReadablePrimaryKeyFieldNames(boClass));
                     success &= false;
                 }
             }
@@ -839,7 +839,7 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
      * This method enforces all business rules that are common to all maintenance documents which must be tested before
      * doing an
      * approval.
-     *
+     * <p>
      * It can be overloaded in special cases where a MaintenanceDocument has very special needs that would be contrary
      * to what is
      * enforced here.
@@ -855,7 +855,7 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
      * This method enforces all business rules that are common to all maintenance documents which must be tested before
      * doing a
      * route.
-     *
+     * <p>
      * It can be overloaded in special cases where a MaintenanceDocument has very special needs that would be contrary
      * to what is
      * enforced here.
@@ -869,8 +869,8 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
 
         // require a document description field
         success &= checkEmptyDocumentField(
-                KRADPropertyConstants.DOCUMENT_HEADER + "." + KRADPropertyConstants.DOCUMENT_DESCRIPTION,
-                document.getDocumentHeader().getDocumentDescription(), "Description");
+            KRADPropertyConstants.DOCUMENT_HEADER + "." + KRADPropertyConstants.DOCUMENT_DESCRIPTION,
+            document.getDocumentHeader().getDocumentDescription(), "Description");
 
         return success;
     }
@@ -879,11 +879,11 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
      * This method enforces all business rules that are common to all maintenance documents which must be tested before
      * doing a
      * save.
-     *
+     * <p>
      * It can be overloaded in special cases where a MaintenanceDocument has very special needs that would be contrary
      * to what is
      * enforced here.
-     *
+     * <p>
      * Note that although this method returns a true or false to indicate whether the save should happen or not, this
      * result may not
      * be followed by the calling method. In other words, the boolean result will likely be ignored, and the document
@@ -942,9 +942,9 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
 
     /**
      * This method checks to see if the document is in a state that it can be saved without causing exceptions.
-     *
+     * <p>
      * Note that Business Rules are NOT enforced here, only validity checks.
-     *
+     * <p>
      * This method will only return false if the document is in such a state that routing it will cause
      * RunTimeExceptions.
      *
@@ -964,7 +964,7 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
 
     /**
      * This method makes sure the document itself is valid, and has the necessary fields populated to be routable.
-     *
+     * <p>
      * This is not a business rules test, rather its a structure test to make sure that the document will not cause
      * exceptions
      * before routing.
@@ -988,13 +988,12 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
      * This method checks to make sure the document is a valid maintenanceDocument, and has the necessary values
      * populated such that
      * it will not cause exceptions in later routing or business rules testing.
-     *
+     * <p>
      * This is not a business rules test.
      *
      * @param maintenanceDocument - document to be tested
      * @return whether maintenance doc passes
      * @throws ValidationException
-     *
      */
     protected boolean validateMaintenanceDocument(MaintenanceDocument maintenanceDocument) {
         boolean success = true;
@@ -1003,8 +1002,8 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
         // document must have a newMaintainable object
         if (newMaintainable == null) {
             throw new ValidationException(
-                    "Maintainable object from Maintenance Document '" + maintenanceDocument.getDocumentTitle() +
-                            "' is null, unable to proceed.");
+                "Maintainable object from Maintenance Document '" + maintenanceDocument.getDocumentTitle() +
+                    "' is null, unable to proceed.");
         }
 
         // document's newMaintainable must contain an object (ie, not null)
@@ -1024,8 +1023,8 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
      *
      * @param document
      * @return False when the method determines that the contained Global Business Object will cause a SQL Exception,
-     *         and the
-     *         document should not be saved. It will return True otherwise.
+     * and the
+     * document should not be saved. It will return True otherwise.
      */
     protected boolean validateGlobalBusinessObjectPersistable(MaintenanceDocument document) {
         boolean success = true;
@@ -1047,11 +1046,11 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
 
     /**
      * This method tests to make sure the MaintenanceDocument passed in is based on the class you are expecting.
-     *
+     * <p>
      * It does this based on the NewMaintainableObject of the MaintenanceDocument.
      *
      * @param document - MaintenanceDocument instance you want to test
-     * @param clazz - class you are expecting the MaintenanceDocument to be based on
+     * @param clazz    - class you are expecting the MaintenanceDocument to be based on
      * @return true if they match, false if not
      */
     protected boolean isCorrectMaintenanceClass(MaintenanceDocument document, Class clazz) {
@@ -1071,12 +1070,12 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
 
     /**
      * This method accepts an object, and attempts to determine whether it is empty by this method's definition.
-     *
+     * <p>
      * OBJECT RESULT null false empty-string false whitespace false otherwise true
-     *
+     * <p>
      * If the result is false, it will add an object field error to the Global Errors.
      *
-     * @param valueToTest - any object to test, usually a String
+     * @param valueToTest  - any object to test, usually a String
      * @param propertyName - the name of the property being tested
      * @return true or false, by the description above
      */
@@ -1097,12 +1096,12 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
     /**
      * This method accepts document field (such as , and attempts to determine whether it is empty by this method's
      * definition.
-     *
+     * <p>
      * OBJECT RESULT null false empty-string false whitespace false otherwise true
-     *
+     * <p>
      * If the result is false, it will add document field error to the Global Errors.
      *
-     * @param valueToTest - any object to test, usually a String
+     * @param valueToTest  - any object to test, usually a String
      * @param propertyName - the name of the property being tested
      * @return true or false, by the description above
      */
@@ -1118,9 +1117,9 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
     /**
      * This method accepts document field (such as , and attempts to determine whether it is empty by this method's
      * definition.
-     *
+     * <p>
      * OBJECT RESULT null false empty-string false whitespace false otherwise true
-     *
+     * <p>
      * It will the result as a boolean
      *
      * @param valueToTest - any object to test, usually a String
@@ -1165,7 +1164,7 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
                     LOG.error(e.getKey().toString() + " = " + em.getErrorKey());
                 } else {
                     LOG.error(e.getKey().toString() + " = " + em.getErrorKey() + " : " +
-                            em.getMessageParameters().toString());
+                        em.getMessageParameters().toString());
                 }
             }
         }
@@ -1202,11 +1201,11 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
      * This method checks to make sure that if the foreign-key fields for the given reference attributes have any fields
      * filled out,
      * that all fields are filled out.
-     *
+     * <p>
      * If any are filled out, but all are not, it will return false and add a global error message about the problem.
      *
      * @param referenceName - The name of the reference object, whose foreign-key fields must be all-or-none filled
-     * out.
+     *                      out.
      * @return true if this is the case, false if not
      */
     protected boolean checkForPartiallyFilledOutReferenceForeignKeys(String referenceName) {
@@ -1215,7 +1214,7 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
         if (newBo instanceof PersistableBusinessObject) {
             ForeignKeyFieldsPopulationState fkFieldsState;
             fkFieldsState = persistenceStructureService
-                    .getForeignKeyFieldsPopulationState((PersistableBusinessObject) newBo, referenceName);
+                .getForeignKeyFieldsPopulationState((PersistableBusinessObject) newBo, referenceName);
 
             // determine result
             if (fkFieldsState.isAnyFieldsPopulated() && !fkFieldsState.isAllFieldsPopulated()) {
@@ -1225,8 +1224,8 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
 
                 // get the full set of foreign-keys
                 List fKeys = new ArrayList(persistenceStructureService
-                        .getForeignKeysForReference(newBo.getClass().asSubclass(PersistableBusinessObject.class),
-                                referenceName).keySet());
+                    .getForeignKeysForReference(newBo.getClass().asSubclass(PersistableBusinessObject.class),
+                        referenceName).keySet());
                 String fKeysReadable = consolidateFieldNames(fKeys, ", ").toString();
 
                 // walk through the missing fields
@@ -1238,7 +1237,7 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
 
                     // add a field error
                     putFieldError(fieldName, RiceKeyConstants.ERROR_DOCUMENT_MAINTENANCE_PARTIALLY_FILLED_OUT_REF_FKEYS,
-                            new String[]{fieldNameReadable, fKeysReadable});
+                        new String[]{fieldNameReadable, fKeysReadable});
                 }
             }
         }
@@ -1280,7 +1279,7 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
 
     /**
      * This method translates the passed in field name into a human-readable attribute label.
-     *
+     * <p>
      * It assumes the existing newBO's class as the class to examine the fieldName for.
      *
      * @param fieldName The fieldName you want a human-readable label for.
@@ -1288,21 +1287,21 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
      */
     protected String getFieldLabel(String fieldName) {
         return ddService.getAttributeLabel(newBo.getClass(), fieldName) + "(" +
-                ddService.getAttributeShortLabel(newBo.getClass(), fieldName) + ")";
+            ddService.getAttributeShortLabel(newBo.getClass(), fieldName) + ")";
     }
 
     /**
      * This method translates the passed in field name into a human-readable attribute label.
-     *
+     * <p>
      * It assumes the existing newBO's class as the class to examine the fieldName for.
      *
-     * @param boClass The class to use in combination with the fieldName.
+     * @param boClass   The class to use in combination with the fieldName.
      * @param fieldName The fieldName you want a human-readable label for.
      * @return A human-readable label, pulled from the DataDictionary.
      */
     protected String getFieldLabel(Class boClass, String fieldName) {
         return ddService.getAttributeLabel(boClass, fieldName) + "(" +
-                ddService.getAttributeShortLabel(boClass, fieldName) + ")";
+            ddService.getAttributeShortLabel(boClass, fieldName) + ")";
     }
 
     /**
@@ -1454,7 +1453,7 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
     }
 
     public boolean processAddCollectionLineBusinessRules(MaintenanceDocument document, String collectionName,
-            PersistableBusinessObject bo) {
+                                                         PersistableBusinessObject bo) {
         LOG.debug("processAddCollectionLineBusinessRules");
 
         // setup convenience pointers to the old & new bo
@@ -1473,14 +1472,14 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
         }
         //getBoDictionaryService().performForceUppercase(bo);
         getMaintDocDictionaryService().validateMaintainableCollectionsAddLineRequiredFields(document,
-                document.getNewMaintainableObject().getBusinessObject(), collectionName);
+            document.getNewMaintainableObject().getBusinessObject(), collectionName);
         String errorPath = KRADConstants.MAINTENANCE_ADD_PREFIX + collectionName;
         map.addToErrorPath(errorPath);
 
         getDictionaryValidationService().validateBusinessObject(bo, false);
         success &= map.getErrorCount() == errorCount;
         success &= dictionaryValidationService.validateDefaultExistenceChecksForNewCollectionItem(
-                document.getNewMaintainableObject().getBusinessObject(), bo, collectionName);
+            document.getNewMaintainableObject().getBusinessObject(), bo, collectionName);
         success &= validateDuplicateIdentifierInDataDictionary(document, collectionName, bo);
         success &= processCustomAddCollectionLineBusinessRules(document, collectionName, bo);
 
@@ -1508,29 +1507,29 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
      * @return
      */
     protected boolean validateDuplicateIdentifierInDataDictionary(MaintenanceDocument document, String collectionName,
-            PersistableBusinessObject bo) {
+                                                                  PersistableBusinessObject bo) {
         boolean valid = true;
         PersistableBusinessObject maintBo = document.getNewMaintainableObject().getBusinessObject();
         Collection maintCollection = (Collection) ObjectUtils.getPropertyValue(maintBo, collectionName);
         List<String> duplicateIdentifier = document.getNewMaintainableObject()
-                .getDuplicateIdentifierFieldsFromDataDictionary(
-                        document.getDocumentHeader().getWorkflowDocument().getDocumentTypeName(), collectionName);
+            .getDuplicateIdentifierFieldsFromDataDictionary(
+                document.getDocumentHeader().getWorkflowDocument().getDocumentTypeName(), collectionName);
         if (duplicateIdentifier.size() > 0) {
             List<String> existingIdentifierString = document.getNewMaintainableObject()
-                    .getMultiValueIdentifierList(maintCollection, duplicateIdentifier);
+                .getMultiValueIdentifierList(maintCollection, duplicateIdentifier);
             if (document.getNewMaintainableObject()
-                    .hasBusinessObjectExisted(bo, existingIdentifierString, duplicateIdentifier)) {
+                .hasBusinessObjectExisted(bo, existingIdentifierString, duplicateIdentifier)) {
                 valid = false;
                 GlobalVariables.getMessageMap()
-                        .putError(duplicateIdentifier.get(0), RiceKeyConstants.ERROR_DUPLICATE_ELEMENT, "entries in ",
-                                document.getDocumentHeader().getWorkflowDocument().getDocumentTypeName());
+                    .putError(duplicateIdentifier.get(0), RiceKeyConstants.ERROR_DUPLICATE_ELEMENT, "entries in ",
+                        document.getDocumentHeader().getWorkflowDocument().getDocumentTypeName());
             }
         }
         return valid;
     }
 
     public boolean processCustomAddCollectionLineBusinessRules(MaintenanceDocument document, String collectionName,
-            PersistableBusinessObject line) {
+                                                               PersistableBusinessObject line) {
         return true;
     }
 
@@ -1579,7 +1578,7 @@ public class MaintenanceDocumentRuleBase extends DocumentRuleBase implements Mai
     }
 
     public void setBusinessObjectAuthorizationService(
-            BusinessObjectAuthorizationService businessObjectAuthorizationService) {
+        BusinessObjectAuthorizationService businessObjectAuthorizationService) {
         this.businessObjectAuthorizationService = businessObjectAuthorizationService;
     }
 

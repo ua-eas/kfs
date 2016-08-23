@@ -1,25 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.document.workflow;
 
-import java.util.List;
-
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.krad.datadictionary.DocumentEntry;
+import org.kuali.kfs.krad.document.DocumentAuthorizer;
+import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.datadictionary.FinancialSystemTransactionalDocumentEntry;
 import org.kuali.rice.kew.api.KewApiServiceLocator;
@@ -27,12 +31,8 @@ import org.kuali.rice.kew.api.document.WorkflowDocumentService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.framework.document.security.DocumentSecurityAttribute;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.kns.service.DocumentHelperService;
-import org.kuali.kfs.krad.datadictionary.DocumentEntry;
-import org.kuali.kfs.krad.document.DocumentAuthorizer;
-import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.List;
 
 /**
  * This class...
@@ -46,13 +46,13 @@ public class SensitiveDataSecurityAttribute implements DocumentSecurityAttribute
         String docTypeName = document.getDocumentTypeName();
         DocumentEntry docEntry = SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getDocumentEntry(docTypeName);
         if (docEntry instanceof FinancialSystemTransactionalDocumentEntry) {
-            if (((FinancialSystemTransactionalDocumentEntry)docEntry).isPotentiallySensitive()) {
+            if (((FinancialSystemTransactionalDocumentEntry) docEntry).isPotentiallySensitive()) {
 
                 WorkflowDocumentService workflowDocService = KewApiServiceLocator.getWorkflowDocumentService();
-                List<String> sensitiveDataCodeArray = workflowDocService.getSearchableAttributeStringValuesByKey(document.getDocumentId(),"sensitive");
+                List<String> sensitiveDataCodeArray = workflowDocService.getSearchableAttributeStringValuesByKey(document.getDocumentId(), "sensitive");
                 if (sensitiveDataCodeArray != null && sensitiveDataCodeArray.size() > 0) {
                     List<String> sensitiveDataCode = sensitiveDataCodeArray;
-                    if ( sensitiveDataCode != null && sensitiveDataCode.contains("Y")) {
+                    if (sensitiveDataCode != null && sensitiveDataCode.contains("Y")) {
 
                         DocumentAuthorizer docAuthorizer = SpringContext.getBean(DocumentHelperService.class).getDocumentAuthorizer(docTypeName);
                         try {
@@ -64,9 +64,8 @@ public class SensitiveDataSecurityAttribute implements DocumentSecurityAttribute
                             } else {
                                 return docAuthorizer.canOpen(kfsDocument, KimApiServiceLocator.getPersonService().getPerson(principalId));
                             }
-                        }
-                        catch (WorkflowException ex) {
-                            LOG.error( "Exception while testing if user can open document: document.getDocumentId()=" + document.getDocumentId(), ex);
+                        } catch (WorkflowException ex) {
+                            LOG.error("Exception while testing if user can open document: document.getDocumentId()=" + document.getDocumentId(), ex);
                             return false;
                         }
                     }

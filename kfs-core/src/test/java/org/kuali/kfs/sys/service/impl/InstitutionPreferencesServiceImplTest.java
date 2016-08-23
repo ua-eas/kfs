@@ -1,3 +1,21 @@
+/*
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.kuali.kfs.sys.service.impl;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -31,7 +49,6 @@ import org.kuali.kfs.sys.dataaccess.PreferencesDao;
 import org.kuali.kfs.sys.document.FinancialSystemMaintenanceDocument;
 import org.kuali.kfs.sys.identity.TestPerson;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.impl.identity.PersonImpl;
 import org.kuali.rice.krad.bo.BusinessObject;
@@ -103,7 +120,7 @@ public class InstitutionPreferencesServiceImplTest {
             @Override
             public Map<String, Object> findInstitutionPreferences() {
                 Map<String, Object> ip = new ConcurrentHashMap<>();
-                ip.put("institutionId","123413535");
+                ip.put("institutionId", "123413535");
                 ip.put("logoUrl", "static/images/out-of-the-box-logo-rtna.png");
                 ip.put("institutionName", "Kuali");
                 return ip;
@@ -167,7 +184,7 @@ public class InstitutionPreferencesServiceImplTest {
         };
     }
 
-    private Map<String,Object> jsonToMap(String json) {
+    private Map<String, Object> jsonToMap(String json) {
         try {
             return new ObjectMapper().readValue(json, HashMap.class);
         } catch (IOException e) {
@@ -254,9 +271,9 @@ public class InstitutionPreferencesServiceImplTest {
     }
 
     private String getMenuLinkUrl(Map<String, Object> preferences, String key) {
-        List<Map<String, String>> menuItems = (List<Map<String, String>>)preferences.get("menu");
+        List<Map<String, String>> menuItems = (List<Map<String, String>>) preferences.get("menu");
         if (CollectionUtils.isNotEmpty(menuItems)) {
-            for (Map<String, String> menuItem: menuItems) {
+            for (Map<String, String> menuItem : menuItems) {
                 String label = menuItem.get("label");
                 if (StringUtils.equals(label, key)) {
                     return menuItem.get("link");
@@ -272,7 +289,7 @@ public class InstitutionPreferencesServiceImplTest {
         institutionPreferencesServiceImpl.setPreferencesDao(createFakePreferencesDaoInstitutionPreferencesWithMenu());
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
 
-        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(), false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertTrue("Preferences should always include a feedback url", StringUtils.isNotBlank(getMenuLinkUrl(preferences, "Feedback")));
@@ -313,7 +330,7 @@ public class InstitutionPreferencesServiceImplTest {
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(), false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertNotNull("Link Groups should exist", preferences.get("linkGroups"));
@@ -339,7 +356,7 @@ public class InstitutionPreferencesServiceImplTest {
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(), false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertNotNull("Link Groups should exist", preferences.get("linkGroups"));
@@ -385,7 +402,7 @@ public class InstitutionPreferencesServiceImplTest {
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(), false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertNotNull("Link Groups should exist", preferences.get("linkGroups"));
@@ -415,7 +432,7 @@ public class InstitutionPreferencesServiceImplTest {
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(), false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertNotNull("Link Groups should exist", preferences.get("linkGroups"));
@@ -436,7 +453,7 @@ public class InstitutionPreferencesServiceImplTest {
     }
 
     protected Map<String, String> getLinkAt(Map<String, Object> preferences, int i, String type, int j) {
-        return ((Map<String, List<Map<String, String>>>)((List<Map<String, Object>>) preferences.get("linkGroups")).get(i).get("links")).get(type).get(j);
+        return ((Map<String, List<Map<String, String>>>) ((List<Map<String, Object>>) preferences.get("linkGroups")).get(i).get("links")).get(type).get(j);
     }
 
     @Test
@@ -455,7 +472,7 @@ public class InstitutionPreferencesServiceImplTest {
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(), false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertNotNull("Link Groups should exist", preferences.get("linkGroups"));
@@ -492,7 +509,7 @@ public class InstitutionPreferencesServiceImplTest {
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(), false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertNotNull("Link Groups should exist", preferences.get("linkGroups"));
@@ -520,16 +537,16 @@ public class InstitutionPreferencesServiceImplTest {
             @Override
             public Map<String, Object> findInstitutionPreferences() {
                 return jsonToMap("{ " +
-                        "\"linkGroups\": [" +
-                        "    { " +
-                        "      \"label\": \"Test Menu\", " +
-                        "      \"links\": [" +
-                        "          { \"link\": \"electronicFundTransfer.do?methodToCall=start\",\"label\": \"Electronic Payment Claim\"," +
-                        "            \"type\": \"activities\",\"linkType\": \"kfs\" }" +
-                        "        ] " +
-                        "    } " +
-                        "] " +
-                        "}");
+                    "\"linkGroups\": [" +
+                    "    { " +
+                    "      \"label\": \"Test Menu\", " +
+                    "      \"links\": [" +
+                    "          { \"link\": \"electronicFundTransfer.do?methodToCall=start\",\"label\": \"Electronic Payment Claim\"," +
+                    "            \"type\": \"activities\",\"linkType\": \"kfs\" }" +
+                    "        ] " +
+                    "    } " +
+                    "] " +
+                    "}");
             }
         });
         institutionPreferencesServiceImpl.setDocumentDictionaryService(new StubDocumentDictionaryService());
@@ -554,20 +571,20 @@ public class InstitutionPreferencesServiceImplTest {
             @Override
             public Map<String, Object> findInstitutionPreferences() {
                 return jsonToMap("{ " +
-                        "\"linkGroups\": [" +
-                        "    { " +
-                        "      \"label\": \"Test Menu\", " +
-                        "      \"links\": {" +
-                        "          \"activities\": [ { \"link\": \"electronicFundTransfer.do?methodToCall=start\",\"label\": \"Electronic Payment Claim\"," +
-                        "            \"linkType\": \"kfs\",\"permission\": {" +
-                        "                \"templateNamespace\": \"KR-SYS\"," +
-                        "                \"templateName\": \"Initiate Document\"," +
-                        "                \"details\": { \"documentTypeCode\": \"ETB\" }" +
-                        "              } } ]" +
-                        "        } " +
-                        "    } " +
-                        "] " +
-                        "}");
+                    "\"linkGroups\": [" +
+                    "    { " +
+                    "      \"label\": \"Test Menu\", " +
+                    "      \"links\": {" +
+                    "          \"activities\": [ { \"link\": \"electronicFundTransfer.do?methodToCall=start\",\"label\": \"Electronic Payment Claim\"," +
+                    "            \"linkType\": \"kfs\",\"permission\": {" +
+                    "                \"templateNamespace\": \"KR-SYS\"," +
+                    "                \"templateName\": \"Initiate Document\"," +
+                    "                \"details\": { \"documentTypeCode\": \"ETB\" }" +
+                    "              } } ]" +
+                    "        } " +
+                    "    } " +
+                    "] " +
+                    "}");
             }
         });
 
@@ -575,7 +592,7 @@ public class InstitutionPreferencesServiceImplTest {
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(), false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertEquals("Link Group should be empty", 0, ((List) preferences.get("linkGroups")).size());
@@ -593,15 +610,15 @@ public class InstitutionPreferencesServiceImplTest {
             @Override
             public Map<String, Object> findInstitutionPreferences() {
                 return jsonToMap("{ " +
-                        "\"linkGroups\": [" +
-                        "    { " +
-                        "      \"label\": \"Test Menu\", " +
-                        "      \"links\": {" +
-                        "          \"activities\": [ { \"documentTypeCode\": \"SB\",\"linkType\": \"kfs\" } ]" +
-                        "        } " +
-                        "    } " +
-                        "] " +
-                        "}");
+                    "\"linkGroups\": [" +
+                    "    { " +
+                    "      \"label\": \"Test Menu\", " +
+                    "      \"links\": {" +
+                    "          \"activities\": [ { \"documentTypeCode\": \"SB\",\"linkType\": \"kfs\" } ]" +
+                    "        } " +
+                    "    } " +
+                    "] " +
+                    "}");
             }
         });
 
@@ -609,7 +626,7 @@ public class InstitutionPreferencesServiceImplTest {
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(), false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertEquals("Link Group should be empty", 0, ((List) preferences.get("linkGroups")).size());
@@ -627,15 +644,15 @@ public class InstitutionPreferencesServiceImplTest {
             @Override
             public Map<String, Object> findInstitutionPreferences() {
                 return jsonToMap("{ " +
-                        "\"linkGroups\": [" +
-                        "    { " +
-                        "      \"label\": \"Test Menu\", " +
-                        "      \"links\": {" +
-                        "          \"administration\": [ { \"documentTypeCode\": \"CCTY\",\"linkType\": \"kfs\" } ]" +
-                        "        } " +
-                        "    } " +
-                        "] " +
-                        "}");
+                    "\"linkGroups\": [" +
+                    "    { " +
+                    "      \"label\": \"Test Menu\", " +
+                    "      \"links\": {" +
+                    "          \"administration\": [ { \"documentTypeCode\": \"CCTY\",\"linkType\": \"kfs\" } ]" +
+                    "        } " +
+                    "    } " +
+                    "] " +
+                    "}");
             }
         });
 
@@ -643,7 +660,7 @@ public class InstitutionPreferencesServiceImplTest {
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(), false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertEquals("Link Group should be empty", 0, ((List) preferences.get("linkGroups")).size());
@@ -657,7 +674,7 @@ public class InstitutionPreferencesServiceImplTest {
         institutionPreferencesServiceImpl.setPreferencesDao(dao);
 
         institutionPreferencesServiceImpl.setInstitutionPreferencesCacheLength(1000);
-        Assert.assertEquals("Cache Length should be set",1000,(int)dao.cacheLength);
+        Assert.assertEquals("Cache Length should be set", 1000, (int) dao.cacheLength);
     }
 
     @Test
@@ -668,30 +685,30 @@ public class InstitutionPreferencesServiceImplTest {
         institutionPreferencesServiceImpl.setPreferencesDao(dao);
         dao.cacheLength = 100;
 
-        Assert.assertEquals("Cache Length should be retrieved",100,(int)institutionPreferencesServiceImpl.getInstitutionPreferencesCacheLength());
+        Assert.assertEquals("Cache Length should be retrieved", 100, (int) institutionPreferencesServiceImpl.getInstitutionPreferencesCacheLength());
     }
 
     @Test
     public void testFindInstitutionPreferencesLinksCache() {
         InstitutionPreferencesServiceImpl institutionPreferencesServiceImpl = new NoPermissionsInstitutionPreferencesServiceImpl();
         institutionPreferencesServiceImpl.setPreferencesDao(new PreferencesDaoInstitutionPreferences() {
-            private Map<String,Object> getData() {
+            private Map<String, Object> getData() {
                 return jsonToMap("{ " +
-                        "\"linkGroups\": [" +
-                        "    { " +
-                        "      \"label\": \"Test Menu\", " +
-                        "      \"links\": {" +
-                        "          \"administration\": [ { \"documentTypeCode\": \"CCTY\",\"linkType\": \"kfs\" } ]" +
-                        "        } " +
-                        "    } " +
-                        "] " +
-                        "}");
+                    "\"linkGroups\": [" +
+                    "    { " +
+                    "      \"label\": \"Test Menu\", " +
+                    "      \"links\": {" +
+                    "          \"administration\": [ { \"documentTypeCode\": \"CCTY\",\"linkType\": \"kfs\" } ]" +
+                    "        } " +
+                    "    } " +
+                    "] " +
+                    "}");
             }
 
             @Override
             public Map<String, Object> findInstitutionPreferencesCache(String principalName) {
-                Map<String,Object> data = getData();
-                data.put("cache","cached");
+                Map<String, Object> data = getData();
+                data.put("cache", "cached");
                 return data;
             }
 
@@ -705,10 +722,10 @@ public class InstitutionPreferencesServiceImplTest {
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),true);
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(), true);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
-        Assert.assertEquals("Should have retrieved cached version","cached",preferences.get("cache"));
+        Assert.assertEquals("Should have retrieved cached version", "cached", preferences.get("cache"));
     }
 
     @Test
@@ -734,7 +751,7 @@ public class InstitutionPreferencesServiceImplTest {
         preferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         preferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
+        Map<String, Object> preferences = preferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(), false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertNotNull("Link Groups should exist", preferences.get("linkGroups"));
@@ -799,9 +816,9 @@ public class InstitutionPreferencesServiceImplTest {
         List<Map<String, Object>> processedLinkGroups = preferencesServiceImpl.removeGeneratedLabels(linkGroups);
 
         Map<String, Object> processedGroup = processedLinkGroups.get(0);
-        Map<String, Object> processedGroupLinks = (Map<String, Object>)processedGroup.get(KFSPropertyConstants.LINKS);
-        List<Map<String, String>> processedActivitiesLinks = (List<Map<String, String>>)processedGroupLinks.get("activities");
-        List<Map<String, String>> processedAdministrationLinks = (List<Map<String, String>>)processedGroupLinks.get("administration");
+        Map<String, Object> processedGroupLinks = (Map<String, Object>) processedGroup.get(KFSPropertyConstants.LINKS);
+        List<Map<String, String>> processedActivitiesLinks = (List<Map<String, String>>) processedGroupLinks.get("activities");
+        List<Map<String, String>> processedAdministrationLinks = (List<Map<String, String>>) processedGroupLinks.get("administration");
 
         Assert.assertTrue(!processedActivitiesLinks.get(0).containsKey(KFSPropertyConstants.LABEL));
         Assert.assertEquals("BA", processedActivitiesLinks.get(0).get(KFSPropertyConstants.DOCUMENT_TYPE_CODE));
@@ -902,7 +919,7 @@ public class InstitutionPreferencesServiceImplTest {
         link.put("link", "kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.rice.location.impl.state.StateBo&docFormKey=88888888&hideReturnLink=true");
         link.put("label", "State");
         link.put("linkType", "rice");
-        link.put("type","reference");
+        link.put("type", "reference");
 
         List<Map<String, Object>> linkGroups = buildLinkGroup(link);
 
@@ -911,7 +928,7 @@ public class InstitutionPreferencesServiceImplTest {
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(), false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertNotNull("Link Groups should exist", preferences.get("linkGroups"));
@@ -939,7 +956,7 @@ public class InstitutionPreferencesServiceImplTest {
         link.put("link", "ksb/ThreadPool.do");
         link.put("label", "Thread Pool");
         link.put("linkType", "rice");
-        link.put("type","reference");
+        link.put("type", "reference");
 
         List<Map<String, Object>> linkGroups = buildLinkGroup(link);
 
@@ -948,7 +965,7 @@ public class InstitutionPreferencesServiceImplTest {
         institutionPreferencesServiceImpl.setConfigurationService(new StubConfigurationService());
         institutionPreferencesServiceImpl.setKualiModuleService(new StubKualiModuleService());
 
-        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(),false);
+        Map<String, Object> preferences = institutionPreferencesServiceImpl.findInstitutionPreferencesLinks(new TestPerson(), false);
 
         Assert.assertNotNull("Preferences should really really exist", preferences);
         Assert.assertNotNull("Link Groups should exist", preferences.get("linkGroups"));
@@ -1280,10 +1297,10 @@ public class InstitutionPreferencesServiceImplTest {
 
                     }
 
-					@Override
-					public boolean isExternal(Class boClass) {
-						return false;
-					}
+                    @Override
+                    public boolean isExternal(Class boClass) {
+                        return false;
+                    }
                 };
             }
             return null;
@@ -1319,10 +1336,10 @@ public class InstitutionPreferencesServiceImplTest {
             return null;
         }
 
-		@Override
-		public boolean isBusinessObjectExternal(String boClassName) {
-			return false;
-		}
+        @Override
+        public boolean isBusinessObjectExternal(String boClassName) {
+            return false;
+        }
     }
 
     class NoPermissionsInstitutionPreferencesServiceImpl extends InstitutionPreferencesServiceImpl {

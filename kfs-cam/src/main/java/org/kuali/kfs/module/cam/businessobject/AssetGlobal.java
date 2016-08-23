@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,22 +18,19 @@
  */
 package org.kuali.kfs.module.cam.businessobject;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Locale;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.service.AccountingPeriodService;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsAgency;
+import org.kuali.kfs.krad.bo.GlobalBusinessObject;
+import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetail;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cam.CamsKeyConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.document.service.AssetGlobalService;
@@ -46,13 +43,16 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.WorkflowDocumentFactory;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.bo.GlobalBusinessObject;
-import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetail;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Locale;
 
 
 public class AssetGlobal extends PersistableBusinessObjectBase implements GlobalBusinessObject {
@@ -88,7 +88,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
     protected String financialDocumentPostingPeriodCode;
     protected Integer financialDocumentPostingYear;
 
-// CSU 6702 END
+    // CSU 6702 END
     protected String universityFiscalPeriodName;
 // CSU 6702 END
 
@@ -408,8 +408,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
     public Date getCreateDate() {
         if (createDate != null) {
             return createDate;
-        }
-        else {
+        } else {
             return SpringContext.getBean(DateTimeService.class).getCurrentSqlDate();
         }
     }
@@ -681,8 +680,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
         if (assetGlobalService.isAssetSeparate(this)) {
             persistables = assetGlobalService.getSeparateAssets(this);
-        }
-        else {
+        } else {
             persistables = assetGlobalService.getCreateNewAssets(this);
         }
 
@@ -694,7 +692,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
         // to save Asset Global document with a non existing, inactive or expired account.
         this.refreshReferenceObject(CamsPropertyConstants.AssetGlobal.ORGANIZATION_OWNER_ACCOUNT);
         AssetGlobalService assetGlobalService = SpringContext.getBean(AssetGlobalService.class);
-        if (!assetGlobalService.isAssetSeparate(this))  {
+        if (!assetGlobalService.isAssetSeparate(this)) {
             Account organizationOwnerAccount = this.getOrganizationOwnerAccount();
             if (ObjectUtils.isNull(organizationOwnerAccount) || !organizationOwnerAccount.isActive() || organizationOwnerAccount.isExpired()) {
                 GlobalVariables.getMessageMap().putErrorWithoutFullErrorPath(KfsMaintenanceDocumentRuleBase.MAINTAINABLE_ERROR_PREFIX + CamsPropertyConstants.AssetGlobal.ORGANIZATION_OWNER_ACCOUNT_NUMBER, CamsKeyConstants.ORGANIZATION_OWNER_ACCOUNT_INVALID);
@@ -976,8 +974,7 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
             return sqlDueDate;
         try {
             sqlDueDate = SpringContext.getBean(DateTimeService.class).convertToSqlDate(new Timestamp(cal.getTime().getTime()));
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             // TODO: throw an error here, but don't die
         }
         return sqlDueDate;
@@ -1032,8 +1029,8 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
     @Override
     public List<Collection<PersistableBusinessObject>> buildListOfDeletionAwareLists() {
         List<Collection<PersistableBusinessObject>> managedLists = super.buildListOfDeletionAwareLists();
-        managedLists.add( new ArrayList<PersistableBusinessObject>(getAssetGlobalDetails()));
-        managedLists.add( new ArrayList<PersistableBusinessObject>(getAssetPaymentDetails()));
+        managedLists.add(new ArrayList<PersistableBusinessObject>(getAssetGlobalDetails()));
+        managedLists.add(new ArrayList<PersistableBusinessObject>(getAssetPaymentDetails()));
         return managedLists;
     }
 
@@ -1127,10 +1124,11 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Get the {@link AccountingPeriodService}
+     *
      * @return {@link AccountingPeriodService}
      */
     public static AccountingPeriodService getAccountingPeriodService() {
-        if ( accountingPeriodService == null ) {
+        if (accountingPeriodService == null) {
             accountingPeriodService = SpringContext.getBean(AccountingPeriodService.class);
         }
 
@@ -1140,19 +1138,21 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Set postingYear and postingPeriodCode
+     *
      * @param accountingPeriod
      */
     public void setAccountingPeriod(AccountingPeriod accountingPeriod) {
         this.accountingPeriod = accountingPeriod;
 
-    //    if(ObjectUtils.isNotNull(accountingPeriod)) {
-    //        setFinancialDocumentPostingYear(accountingPeriod.getUniversityFiscalYear());
-    //        setFinancialDocumentPostingPeriodCode(accountingPeriod.getUniversityFiscalPeriodCode());
-    //    }
+        //    if(ObjectUtils.isNotNull(accountingPeriod)) {
+        //        setFinancialDocumentPostingYear(accountingPeriod.getUniversityFiscalYear());
+        //        setFinancialDocumentPostingPeriodCode(accountingPeriod.getUniversityFiscalPeriodCode());
+        //    }
     }
 
     /**
      * get the accountingPeriod
+     *
      * @return accountingPeriod
      */
     public AccountingPeriod getAccountingPeriod() {
@@ -1206,12 +1206,14 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     //this was the code from contribution 6702.....
     //needs to be refactored...seriously..
+
     /**
      * Creates a composite of postingPeriodCode and postingyear.
+     *
      * @return composite or an empty string if either postingPeriodCode or postingYear is null
      */
     public String getAccountingPeriodCompositeString() {
-        if (financialDocumentPostingPeriodCode== null || financialDocumentPostingYear == null ) {
+        if (financialDocumentPostingPeriodCode == null || financialDocumentPostingYear == null) {
             return "";
         }
         return financialDocumentPostingPeriodCode + financialDocumentPostingYear;
@@ -1219,8 +1221,8 @@ public class AssetGlobal extends PersistableBusinessObjectBase implements Global
 
     /**
      * Sets the accountingPeriod if in period 13
-     * @param accountingPeriodString
-     * TODO remove hardcoding
+     *
+     * @param accountingPeriodString TODO remove hardcoding
      */
     public void setAccountingPeriodCompositeString(String accountingPeriodString) {
         String THIRTEEN = "13";

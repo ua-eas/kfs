@@ -1,31 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.document.service.impl;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemParameterConstants;
 import org.kuali.kfs.module.tem.dataaccess.TravelDocumentDao;
@@ -42,10 +37,15 @@ import org.kuali.kfs.sys.document.service.PaymentSourceHelperService;
 import org.kuali.kfs.sys.document.validation.event.AccountingDocumentSaveWithNoLedgerEntryGenerationEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.service.DocumentService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Implementation of the PaymentSourceToExtractServiceImpl and TravelAuthorizatoinDocumentPaymentServices which will feed travel authorizations
@@ -61,7 +61,6 @@ public class TravelAuthorizationDocumentExtractionHelperServiceImpl implements P
     protected ParameterService parameterService;
 
     /**
-     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#retrievePaymentSourcesByCampus(boolean)
      */
     @Override
@@ -89,6 +88,7 @@ public class TravelAuthorizationDocumentExtractionHelperServiceImpl implements P
 
     /**
      * Retrieves all the TravelReimbursement, TravelRelocation, and TravelEntertainment documents paid by check at approved status in one convenient call
+     *
      * @param immediatesOnly true if only those documents marked for immediate payment should be retrieved, false if all qualifying documents should be retrieved
      * @return all of the documents to process in a list
      */
@@ -104,7 +104,6 @@ public class TravelAuthorizationDocumentExtractionHelperServiceImpl implements P
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.tem.document.service.TravelAuthorizationDocumentPaymentService#cancelReimbursableDocument(org.kuali.kfs.module.tem.document.TravelAuthorizationDocument, java.sql.Date)
      */
     @Override
@@ -116,8 +115,7 @@ public class TravelAuthorizationDocumentExtractionHelperServiceImpl implements P
                 authorizationDoc.getFinancialSystemDocumentHeader().setFinancialDocumentStatusCode(KFSConstants.DocumentStatusCodes.CANCELLED);
                 // save the document
                 getDocumentService().saveDocument(authorizationDoc, AccountingDocumentSaveWithNoLedgerEntryGenerationEvent.class);
-            }
-            catch (WorkflowException we) {
+            } catch (WorkflowException we) {
                 LOG.error("encountered workflow exception while attempting to save Disbursement Voucher: " + authorizationDoc.getDocumentNumber() + " " + we);
                 throw new RuntimeException(we);
             }
@@ -126,6 +124,7 @@ public class TravelAuthorizationDocumentExtractionHelperServiceImpl implements P
 
     /**
      * Returns true if the GLPE has a doc type of TACA or TAWF
+     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#shouldRollBackPendingEntry(org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry)
      */
     @Override
@@ -135,6 +134,7 @@ public class TravelAuthorizationDocumentExtractionHelperServiceImpl implements P
 
     /**
      * Sets the paid date on the travel payment
+     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#markAsPaid(org.kuali.kfs.sys.document.PaymentSource, java.sql.Date)
      */
     @Override
@@ -142,8 +142,7 @@ public class TravelAuthorizationDocumentExtractionHelperServiceImpl implements P
         try {
             paymentSource.getAdvanceTravelPayment().setPaidDate(processDate);
             getDocumentService().saveDocument(paymentSource, AccountingDocumentSaveWithNoLedgerEntryGenerationEvent.class);
-        }
-        catch (WorkflowException we) {
+        } catch (WorkflowException we) {
             LOG.error("encountered workflow exception while attempting to save Disbursement Voucher: " + paymentSource.getDocumentNumber() + " " + we);
             throw new RuntimeException(we);
         }
@@ -151,6 +150,7 @@ public class TravelAuthorizationDocumentExtractionHelperServiceImpl implements P
 
     /**
      * This involves rolling back the extracted and paid dates and setting the document to approved
+     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#resetFromExtraction(org.kuali.kfs.sys.document.PaymentSource)
      */
     @Override
@@ -160,8 +160,7 @@ public class TravelAuthorizationDocumentExtractionHelperServiceImpl implements P
             paymentSource.getAdvanceTravelPayment().setPaidDate(null);
             paymentSource.getFinancialSystemDocumentHeader().setFinancialDocumentStatusCode(KFSConstants.DocumentStatusCodes.APPROVED);
             getDocumentService().saveDocument(paymentSource, AccountingDocumentSaveWithNoLedgerEntryGenerationEvent.class);
-        }
-        catch (WorkflowException we) {
+        } catch (WorkflowException we) {
             LOG.error("encountered workflow exception while attempting to save Disbursement Voucher: " + paymentSource.getDocumentNumber() + " " + we);
             throw new RuntimeException(we);
         }
@@ -187,7 +186,8 @@ public class TravelAuthorizationDocumentExtractionHelperServiceImpl implements P
 
     /**
      * Builds the PaymentDetail for the given authorization document
-     * @param document the authorization document to create a payment for
+     *
+     * @param document       the authorization document to create a payment for
      * @param processRunDate the date when the extraction is occurring
      * @return a PaymentDetail to add to the PaymentGroup
      */
@@ -210,6 +210,7 @@ public class TravelAuthorizationDocumentExtractionHelperServiceImpl implements P
 
     /**
      * Uses the value in the KFS-TEM / Document / PRE_DISBURSEMENT_EXTRACT_ORGANIZATION parameter
+     *
      * @see org.kuali.kfs.sys.document.PaymentSource#getPreDisbursementCustomerProfileUnit()
      */
     @Override
@@ -221,6 +222,7 @@ public class TravelAuthorizationDocumentExtractionHelperServiceImpl implements P
 
     /**
      * Uses the value in the KFS-TEM / Document / PRE_DISBURSEMENT_EXTRACT_SUB_UNIT
+     *
      * @see org.kuali.kfs.sys.document.PaymentSource#getPreDisbursementCustomerProfileSubUnit()
      */
     @Override
@@ -231,6 +233,7 @@ public class TravelAuthorizationDocumentExtractionHelperServiceImpl implements P
 
     /**
      * Marks the advance travel payment as extracted
+     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#markAsExtracted(org.kuali.rice.krad.document.Document, java.sql.Date)
      */
     @Override
@@ -239,8 +242,7 @@ public class TravelAuthorizationDocumentExtractionHelperServiceImpl implements P
             document.getFinancialSystemDocumentHeader().setFinancialDocumentStatusCode(KFSConstants.DocumentStatusCodes.Payments.EXTRACTED);
             document.getAdvanceTravelPayment().setExtractDate(sqlProcessRunDate);
             getDocumentService().saveDocument(document, AccountingDocumentSaveWithNoLedgerEntryGenerationEvent.class);
-        }
-        catch (WorkflowException we) {
+        } catch (WorkflowException we) {
             LOG.error("Could not save TravelAuthorizationDocument document #" + document.getDocumentNumber() + ": " + we);
             throw new RuntimeException(we);
         }
@@ -248,6 +250,7 @@ public class TravelAuthorizationDocumentExtractionHelperServiceImpl implements P
 
     /**
      * If advance on the document should be processed, returns the check total from the advance travel payment; otherwise returns 0
+     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#getPaymentAmount(org.kuali.rice.krad.document.Document)
      */
     @Override
@@ -260,6 +263,7 @@ public class TravelAuthorizationDocumentExtractionHelperServiceImpl implements P
 
     /**
      * Returns "TACA"
+     *
      * @see org.kuali.kfs.sys.document.PaymentSource#getAchCheckDocumentType()
      */
     @Override
@@ -269,6 +273,7 @@ public class TravelAuthorizationDocumentExtractionHelperServiceImpl implements P
 
     /**
      * Returns true if doc type is TACA, false otherwise
+     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#handlesAchCheckDocumentType(java.lang.String)
      */
     @Override
@@ -278,6 +283,7 @@ public class TravelAuthorizationDocumentExtractionHelperServiceImpl implements P
 
     /**
      * Returns the value of the KFS-TEM / Document / IMMEDIATE_EXTRACT_NOTIFICATION_FROM_EMAIL_ADDRESS parameter
+     *
      * @see org.kuali.kfs.sys.document.PaymentSource#getImmediateExtractEMailFromAddress()
      */
     @Override
@@ -287,6 +293,7 @@ public class TravelAuthorizationDocumentExtractionHelperServiceImpl implements P
 
     /**
      * Returns the value of the KFS-TEM / Document / IMMEDIATE_EXTRACT_NOTIFICATION_TO_EMAIL_ADDRESSES parameter
+     *
      * @see org.kuali.kfs.sys.document.PaymentSource#getImmediateExtractEmailToAddresses()
      */
     @Override
@@ -298,6 +305,7 @@ public class TravelAuthorizationDocumentExtractionHelperServiceImpl implements P
 
     /**
      * Determines if the payment would be 0 - if it's greater than that, it should be extracted
+     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#shouldExtractPayment(org.kuali.kfs.sys.document.PaymentSource)
      */
     @Override
@@ -314,6 +322,7 @@ public class TravelAuthorizationDocumentExtractionHelperServiceImpl implements P
 
     /**
      * Sets the implementation of the DAO for TravelDocuments for this service to use
+     *
      * @param parameterService an implementation of the data access object for travel documents
      */
     public void setTravelDocumentDao(TravelDocumentDao travelDocumentDao) {
@@ -329,6 +338,7 @@ public class TravelAuthorizationDocumentExtractionHelperServiceImpl implements P
 
     /**
      * Sets the implementation of the TravelPaymentsHelperService for this service to use
+     *
      * @param travelPaymentsHelperService an implementation of the TravelPaymentsHelperService
      */
     public void setTravelPaymentsHelperService(TravelPaymentsHelperService travelPaymentsHelperService) {
@@ -344,6 +354,7 @@ public class TravelAuthorizationDocumentExtractionHelperServiceImpl implements P
 
     /**
      * Sets the implementation of the DocumentService for this service to use
+     *
      * @param parameterService an implementation of DocumentService
      */
     public void setDocumentService(DocumentService documentService) {
@@ -359,6 +370,7 @@ public class TravelAuthorizationDocumentExtractionHelperServiceImpl implements P
 
     /**
      * Sets the implementation of the PaymentSourceHelperService for this service to use
+     *
      * @param parameterService an implementation of PaymentSourceHelperService
      */
     public void setPaymentSourceHelperService(PaymentSourceHelperService paymentSourceHelperService) {
@@ -374,6 +386,7 @@ public class TravelAuthorizationDocumentExtractionHelperServiceImpl implements P
 
     /**
      * Injects an implementation of the ParameterService
+     *
      * @param parameterService the implementation of the ParameterService
      */
     public void setParameterService(ParameterService parameterService) {

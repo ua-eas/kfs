@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -58,163 +58,160 @@ public class PurapAccountingServiceTest extends KualiTestBase {
     private PurapAccountingService purapAccountingService;
     private PurapService purapService;
     private ParameterService parameterService;
-    
+
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        if(purapAccountingService == null) {
+        if (purapAccountingService == null) {
             purapAccountingService = SpringContext.getBean(PurapAccountingService.class);
         }
-        if(purapService == null) {
+        if (purapService == null) {
             purapService = SpringContext.getBean(PurapService.class);
         }
-        if(parameterService == null) {
+        if (parameterService == null) {
             parameterService = SpringContext.getBean(ParameterService.class);
         }
     }
-    
+
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
     }
-        
+
     /*
      * Tests of generateAccountDistributionForProration(List<SourceAccountingLine> accounts, KualiDecimal totalAmount, Integer percentScale, Class clazz)
      */
-    
+
     /**
      * Used by tests of generateAccountDistributionForProration and related methods to make comparisons between
      * the percentages given by the resulting distributed accounts and the percentages that we think should be
      * correct for those lines.
-     * 
-     * @param distributedAccounts       A List of the PurApAccountingLines that result from the distribution to be tested.
-     * @param correctPercents           A List of percents we think should be correct, in BigDecimal format
+     *
+     * @param distributedAccounts A List of the PurApAccountingLines that result from the distribution to be tested.
+     * @param correctPercents     A List of percents we think should be correct, in BigDecimal format
      */
     private void comparePercentages(List<PurApAccountingLine> distributedAccounts, List<BigDecimal> correctPercents) {
-        for(int i = 0; i < distributedAccounts.size(); i++) {
+        for (int i = 0; i < distributedAccounts.size(); i++) {
             PurApAccountingLine line = distributedAccounts.get(i);
             BigDecimal percent = line.getAccountLinePercent();
             assertTrue(percent.floatValue() == correctPercents.get(i).floatValue());
         }
     }
-    
+
     public void testGenerateAccountDistributionForProration_OneAcctGood() {
         PurapAccountingServiceFixture fixture = PurapAccountingServiceFixture.PREQ_PRORATION_ONE_ACCOUNT;
         List<PurApAccountingLine> distributedAccounts = purapAccountingService.generateAccountDistributionForProration(
-                                                                                fixture.getSourceAccountingLineList(),
-                                                                                fixture.getTotalAmount(),
-                                                                                fixture.getPercentScale(),
-                                                                                fixture.getAccountClass());
+            fixture.getSourceAccountingLineList(),
+            fixture.getTotalAmount(),
+            fixture.getPercentScale(),
+            fixture.getAccountClass());
         List<BigDecimal> correctPercents = new ArrayList<BigDecimal>();
-        correctPercents.add(0,new BigDecimal("100"));
-        assertEquals(distributedAccounts.size(),correctPercents.size());
+        correctPercents.add(0, new BigDecimal("100"));
+        assertEquals(distributedAccounts.size(), correctPercents.size());
         comparePercentages(distributedAccounts, correctPercents);
     }
-    
+
     public void testGenerateAccountDistributionForProration_TwoAcctGood() {
         PurapAccountingServiceFixture fixture = PurapAccountingServiceFixture.PREQ_PRORATION_TWO_ACCOUNTS;
         List<PurApAccountingLine> distributedAccounts = purapAccountingService.generateAccountDistributionForProration(
-                                                                                fixture.getSourceAccountingLineList(),
-                                                                                fixture.getTotalAmount(),
-                                                                                fixture.getPercentScale(),
-                                                                                fixture.getAccountClass());
+            fixture.getSourceAccountingLineList(),
+            fixture.getTotalAmount(),
+            fixture.getPercentScale(),
+            fixture.getAccountClass());
         List<BigDecimal> correctPercents = new ArrayList<BigDecimal>();
-        correctPercents.add(0,new BigDecimal("50"));
-        correctPercents.add(1,new BigDecimal("50"));
-        assertEquals(distributedAccounts.size(),correctPercents.size());
+        correctPercents.add(0, new BigDecimal("50"));
+        correctPercents.add(1, new BigDecimal("50"));
+        assertEquals(distributedAccounts.size(), correctPercents.size());
         comparePercentages(distributedAccounts, correctPercents);
     }
-    
+
     public void testGenerateAccountDistributionForProration_ThreeAccountGood() {
         PurapAccountingServiceFixture fixture = PurapAccountingServiceFixture.PREQ_PRORATION_THIRDS;
         List<PurApAccountingLine> distributedAccounts = purapAccountingService.generateAccountDistributionForProration(
-                                                                                fixture.getSourceAccountingLineList(),
-                                                                                fixture.getTotalAmount(),
-                                                                                fixture.getPercentScale(),
-                                                                                fixture.getAccountClass());
+            fixture.getSourceAccountingLineList(),
+            fixture.getTotalAmount(),
+            fixture.getPercentScale(),
+            fixture.getAccountClass());
         List<BigDecimal> correctPercents = new ArrayList<BigDecimal>();
-        correctPercents.add(0,new BigDecimal("33"));
-        correctPercents.add(1,new BigDecimal("33"));
-        correctPercents.add(2,new BigDecimal("34"));
-        assertEquals(distributedAccounts.size(),correctPercents.size());
+        correctPercents.add(0, new BigDecimal("33"));
+        correctPercents.add(1, new BigDecimal("33"));
+        correctPercents.add(2, new BigDecimal("34"));
+        assertEquals(distributedAccounts.size(), correctPercents.size());
         comparePercentages(distributedAccounts, correctPercents);
     }
-    
+
     /*
      * Tests of generateAccountDistributionForProrationWithZeroTotal(PurchasingAccountsPayableDocument purapdoc)
      */
-    @ConfigureContext(session = appleton, shouldCommitTransactions=true)
+    @ConfigureContext(session = appleton, shouldCommitTransactions = true)
     public void testGenerateAccountDistributionForProrationWithZeroTotal_OneAcct() {
         PurapAccountingServiceFixture fixture = PurapAccountingServiceFixture.PREQ_PRORATION_ONE_ACCOUNT_ZERO_TOTAL;
         PurchasingAccountsPayableDocument preq = fixture.generatePaymentRequestDocument_OneItem();
         List<PurApAccountingLine> distributedAccounts = null;
         try {
             distributedAccounts = purapAccountingService.generateAccountDistributionForProrationWithZeroTotal(preq);
-        }
-        catch (RuntimeException re) {
+        } catch (RuntimeException re) {
             fail(re.toString());
         }
         List<BigDecimal> correctPercents = new ArrayList<BigDecimal>();
-        correctPercents.add(0,new BigDecimal("100"));
-        assertEquals(distributedAccounts.size(),correctPercents.size());
+        correctPercents.add(0, new BigDecimal("100"));
+        assertEquals(distributedAccounts.size(), correctPercents.size());
         comparePercentages(distributedAccounts, correctPercents);
     }
-    
-    @ConfigureContext(session = appleton, shouldCommitTransactions=true)
+
+    @ConfigureContext(session = appleton, shouldCommitTransactions = true)
     public void testGenerateAccountDistributionForProrationWithZeroTotal_TwoAcct() {
         PurapAccountingServiceFixture fixture = PurapAccountingServiceFixture.PREQ_PRORATION_TWO_ACCOUNTS_ZERO_TOTAL;
         PurchasingAccountsPayableDocument preq = fixture.generatePaymentRequestDocument_OneItem();
         List<PurApAccountingLine> distributedAccounts = null;
         try {
             distributedAccounts = purapAccountingService.generateAccountDistributionForProrationWithZeroTotal(preq);
-        }
-        catch (RuntimeException re) {
+        } catch (RuntimeException re) {
             fail(re.toString());
-        }        
+        }
         List<BigDecimal> correctPercents = new ArrayList<BigDecimal>();
-        correctPercents.add(0,new BigDecimal("50"));
-        correctPercents.add(1,new BigDecimal("50"));
-        assertEquals(distributedAccounts.size(),correctPercents.size());
+        correctPercents.add(0, new BigDecimal("50"));
+        correctPercents.add(1, new BigDecimal("50"));
+        assertEquals(distributedAccounts.size(), correctPercents.size());
         comparePercentages(distributedAccounts, correctPercents);
     }
-    
-    @ConfigureContext(session = appleton, shouldCommitTransactions=true)
+
+    @ConfigureContext(session = appleton, shouldCommitTransactions = true)
     public void testGenerateAccountDistributionForProrationWithZeroTotal_ThreeAccount() {
         PurapAccountingServiceFixture fixture = PurapAccountingServiceFixture.PREQ_PRORATION_THIRDS_ZERO_TOTAL;
         PurchasingAccountsPayableDocument preq = fixture.generatePaymentRequestDocument_OneItem();
         List<PurApAccountingLine> distributedAccounts = null;
         try {
             distributedAccounts = purapAccountingService.generateAccountDistributionForProrationWithZeroTotal(preq);
-        }
-        catch (RuntimeException re) {
+        } catch (RuntimeException re) {
             fail(re.toString());
         }
         List<BigDecimal> correctPercents = new ArrayList<BigDecimal>();
-        correctPercents.add(0,new BigDecimal("33.33"));
-        correctPercents.add(1,new BigDecimal("33.33"));
-        correctPercents.add(2,new BigDecimal("33.34"));
-        assertEquals(distributedAccounts.size(),correctPercents.size());
+        correctPercents.add(0, new BigDecimal("33.33"));
+        correctPercents.add(1, new BigDecimal("33.33"));
+        correctPercents.add(2, new BigDecimal("33.34"));
+        assertEquals(distributedAccounts.size(), correctPercents.size());
         comparePercentages(distributedAccounts, correctPercents);
     }
-    
+
     /*
      * Tests of generateSummaryAccounts(PurchasingAccountsPayableDocument document)
      */
-    
+
     /**
-     * Used by tests of generateSummaryAccounts and related methods to marshall the comparisons of the accounts 
+     * Used by tests of generateSummaryAccounts and related methods to marshall the comparisons of the accounts
      * and items of the generated summary accounts.
-     * 
-     * @param fixture       The PurapAccountingServiceFixture
-     * @param document      A PurchasingAccountsPayableDocument generated from the fixture.
+     *
+     * @param fixture  The PurapAccountingServiceFixture
+     * @param document A PurchasingAccountsPayableDocument generated from the fixture.
      */
     private void makePerAccountComparisons(PurapAccountingServiceFixture fixture, PurchasingAccountsPayableDocument doc) {
         int itemCount = doc.getItems().size();
         List<SummaryAccount> accounts = purapAccountingService.generateSummaryAccounts(doc);
-        
+
         List<SourceAccountingLine> originalSourceAccounts = fixture.getSourceAccountingLineList();
-        assertEquals(accounts.size(),originalSourceAccounts.size());
-        for(int i = 0; i < originalSourceAccounts.size(); i++) {
+        assertEquals(accounts.size(), originalSourceAccounts.size());
+        for (int i = 0; i < originalSourceAccounts.size(); i++) {
             SummaryAccount account = accounts.get(i);
             SourceAccountingLine sourceAccount = account.getAccount();
             compareSourceAccounts(sourceAccount, originalSourceAccounts.get(i));
@@ -222,91 +219,90 @@ public class PurapAccountingServiceTest extends KualiTestBase {
             assertTrue(summaryItems.size() <= itemCount);
         }
     }
-    
+
     /**
      * Compares SourceAccounts to see whether those fields which are displayed in the SummaryAccount tab are
      * faithfully represented, with the exception of the Amount, which changes.
-     * 
-     * @param sourceAccount         The generated SourceAccountingLine
-     * @param correctSourceAccount  The SourceAccountingLine which we think should contain correct values
+     *
+     * @param sourceAccount        The generated SourceAccountingLine
+     * @param correctSourceAccount The SourceAccountingLine which we think should contain correct values
      */
     private void compareSourceAccounts(SourceAccountingLine sourceAccount, SourceAccountingLine correctSourceAccount) {
         Map source = sourceAccount.getValuesMap();
         Map correct = correctSourceAccount.getValuesMap();
-        assertEquals(source.get("chartOfAccountsCode"),correct.get("chartOfAccountsCode"));
-        assertEquals(source.get("accountNumber"),correct.get("accountNumber"));
-        assertEquals(source.get("subAccountNumber"),correct.get("subAccountNumber"));
-        assertEquals(source.get("financialObjectCode"),correct.get("financialObjectCode"));
-        assertEquals(source.get("financialSubObjectCode"),correct.get("financialSubObjectCode"));
-        assertEquals(source.get("projectCode"),correct.get("projectCode"));
-        assertEquals(source.get("organizationReferenceId"),correct.get("organizationReferenceId"));
-        assertEquals(source.get("organizationDocumentNumber"),correct.get("organizationDocumentNumber"));
+        assertEquals(source.get("chartOfAccountsCode"), correct.get("chartOfAccountsCode"));
+        assertEquals(source.get("accountNumber"), correct.get("accountNumber"));
+        assertEquals(source.get("subAccountNumber"), correct.get("subAccountNumber"));
+        assertEquals(source.get("financialObjectCode"), correct.get("financialObjectCode"));
+        assertEquals(source.get("financialSubObjectCode"), correct.get("financialSubObjectCode"));
+        assertEquals(source.get("projectCode"), correct.get("projectCode"));
+        assertEquals(source.get("organizationReferenceId"), correct.get("organizationReferenceId"));
+        assertEquals(source.get("organizationDocumentNumber"), correct.get("organizationDocumentNumber"));
     }
-    
-    @ConfigureContext(session = parke, shouldCommitTransactions=true)
+
+    @ConfigureContext(session = parke, shouldCommitTransactions = true)
     public void testGenerateSummaryAccounts_OneRequisitionAccountOneItemWithPositiveTotal() {
         PurapAccountingServiceFixture fixture = PurapAccountingServiceFixture.REQ_PRORATION_ONE_ACCOUNT;
         PurchasingAccountsPayableDocument doc = fixture.generateRequisitionDocument_OneItem();
         makePerAccountComparisons(fixture, doc);
     }
-    
-    @ConfigureContext(session = parke, shouldCommitTransactions=true)
+
+    @ConfigureContext(session = parke, shouldCommitTransactions = true)
     public void testGenerateSummaryAccounts_OneRequisitionAccountTwoItemsWithPositiveTotal() {
         PurapAccountingServiceFixture fixture = PurapAccountingServiceFixture.REQ_PRORATION_ONE_ACCOUNT;
         PurchasingAccountsPayableDocument doc = fixture.generateRequisitionDocument_TwoItems();
         makePerAccountComparisons(fixture, doc);
     }
-    
+
     /*public void testGenerateSummaryAccounts_TwoRequisitionAccountsTwoItems_OneEach_WithPositiveTotal() {
         PurapAccountingServiceFixture fixture = PurapAccountingServiceFixture.REQ_PRORATION_TWO_ACCOUNTS;
         PurchasingAccountsPayableDocument doc = fixture.generateRequisitionDocument_TwoItems();
         //TODO: Failing.  Needs work.
         makePerAccountComparisons(fixture, doc);
     }*/
-    
-    @ConfigureContext(session = appleton, shouldCommitTransactions=true)
+
+    @ConfigureContext(session = appleton, shouldCommitTransactions = true)
     public void testGenerateSummaryAccounts_OnePREQAccountOneItemWithPositiveTotal() {
         PurapAccountingServiceFixture fixture = PurapAccountingServiceFixture.PREQ_PRORATION_ONE_ACCOUNT;
         PurchasingAccountsPayableDocument doc = fixture.generatePaymentRequestDocument_OneItem();
         makePerAccountComparisons(fixture, doc);
     }
-    
-    @ConfigureContext(session = appleton, shouldCommitTransactions=true)
+
+    @ConfigureContext(session = appleton, shouldCommitTransactions = true)
     public void testGenerateSummaryAccounts_OnePREQAccountTwoItemsWithPositiveTotal() {
         PurapAccountingServiceFixture fixture = PurapAccountingServiceFixture.PREQ_PRORATION_ONE_ACCOUNT;
         PurchasingAccountsPayableDocument doc = fixture.generatePaymentRequestDocument_TwoItems();
         makePerAccountComparisons(fixture, doc);
     }
-    
+
     /*
      * Tests of generateSummaryAccountsWithNoZeroTotals(PurchasingAccountsPayableDocument document)
      */
-    
+
     /*
      * Tests of generateSummaryAccountsWithNoZeroTotalsNoUseTax(PurchasingAccountsPayableDocument document)
      */
-    
+
     /*
      * Tests of generateSummary(List<PurApItem> items)
      */
-    
+
     /**
      * Asserts that, for each original source account, there is exactly one source account in the summary, regardless
      * of whether there is more than one instance of this account in the original.
-     * 
-     * @param sourceLines               The List<SourceAccountingLine> from after the summary
-     * @param originalSourceAccounts    The original List<SourceAccountingLine>
+     *
+     * @param sourceLines            The List<SourceAccountingLine> from after the summary
+     * @param originalSourceAccounts The original List<SourceAccountingLine>
      */
     private void checkAccountConsolidation(List<SourceAccountingLine> sourceLines, List<SourceAccountingLine> originalSourceAccounts) {
-        for(int i = 0; i < sourceLines.size(); i++) {
+        for (int i = 0; i < sourceLines.size(); i++) {
             SourceAccountingLine originalSourceAccount = originalSourceAccounts.get(i);
             boolean containsOneAccount = false;
-            for( SourceAccountingLine sourceAccount : sourceLines ) {
-                if ( StringUtils.equals(sourceAccount.getAccountNumber(), originalSourceAccount.getAccountNumber())) {
-                    if (containsOneAccount == false) { 
+            for (SourceAccountingLine sourceAccount : sourceLines) {
+                if (StringUtils.equals(sourceAccount.getAccountNumber(), originalSourceAccount.getAccountNumber())) {
+                    if (containsOneAccount == false) {
                         containsOneAccount = true;
-                    }
-                    else {
+                    } else {
                         fail();
                     }
                 }
@@ -314,35 +310,35 @@ public class PurapAccountingServiceTest extends KualiTestBase {
             assertTrue(containsOneAccount);
         }
     }
-    
+
     public void testGenerateSummary_OneItem_OneAccount() {
         //TestUtils.setSystemParameter(Document.class,PurapParameterConstants.ENABLE_SALES_TAX_IND,"Y");
         PurapAccountingServiceFixture fixture = PurapAccountingServiceFixture.REQ_SUMMARY_ONE_ITEM_ONE_ACCOUNT;
         List<SourceAccountingLine> originalSourceAccounts = fixture.getSourceAccountingLineList();
         List<PurApItem> items = fixture.getItems();
         List<SourceAccountingLine> sourceLines = purapAccountingService.generateSummary(items);
-        assertEquals(sourceLines.size(),originalSourceAccounts.size());
-        checkAccountConsolidation(sourceLines,originalSourceAccounts);
+        assertEquals(sourceLines.size(), originalSourceAccounts.size());
+        checkAccountConsolidation(sourceLines, originalSourceAccounts);
     }
-    
+
     public void testGenerateSummary_OneItem_TwoAccounts() {
         PurapAccountingServiceFixture fixture = PurapAccountingServiceFixture.REQ_SUMMARY_ONE_ITEM_TWO_ACCOUNTS;
         List<SourceAccountingLine> originalSourceAccounts = fixture.getSourceAccountingLineList();
         List<PurApItem> items = fixture.getItems();
         List<SourceAccountingLine> sourceLines = purapAccountingService.generateSummary(items);
-        assertEquals(sourceLines.size(),originalSourceAccounts.size());
-        checkAccountConsolidation(sourceLines,originalSourceAccounts);
+        assertEquals(sourceLines.size(), originalSourceAccounts.size());
+        checkAccountConsolidation(sourceLines, originalSourceAccounts);
     }
-    
+
     public void testGenerateSummary_TwoItems_OneAccount() {
         PurapAccountingServiceFixture fixture = PurapAccountingServiceFixture.REQ_SUMMARY_TWO_ITEMS_ONE_ACCOUNT;
         List<SourceAccountingLine> originalSourceAccounts = fixture.getSourceAccountingLineList();
         List<PurApItem> items = fixture.getItems();
         List<SourceAccountingLine> sourceLines = purapAccountingService.generateSummary(items);
-        assertEquals(sourceLines.size(),originalSourceAccounts.size());
-        checkAccountConsolidation(sourceLines,originalSourceAccounts);
+        assertEquals(sourceLines.size(), originalSourceAccounts.size());
+        checkAccountConsolidation(sourceLines, originalSourceAccounts);
     }
-    
+
     /*
      * Tests of generateSummaryWithNoZeroTotals(List<PurApItem> items)
      */
@@ -358,28 +354,28 @@ public class PurapAccountingServiceTest extends KualiTestBase {
         List<SourceAccountingLine> originalSourceAccounts = fixture.getSourceAccountingLineList();
         List<PurApItem> items = fixture.getItems();
         List<SourceAccountingLine> sourceLines = purapAccountingService.generateSummaryWithNoZeroTotals(items);
-        assertEquals(sourceLines.size(),originalSourceAccounts.size());
-        checkAccountConsolidation(sourceLines,originalSourceAccounts);
+        assertEquals(sourceLines.size(), originalSourceAccounts.size());
+        checkAccountConsolidation(sourceLines, originalSourceAccounts);
     }
-    
+
     public void testGenerateSummaryWithNoZeroTotals_OneItem_TwoAccounts() {
         PurapAccountingServiceFixture fixture = PurapAccountingServiceFixture.REQ_SUMMARY_ONE_ITEM_TWO_ACCOUNTS;
         List<SourceAccountingLine> originalSourceAccounts = fixture.getSourceAccountingLineList();
         List<PurApItem> items = fixture.getItems();
         List<SourceAccountingLine> sourceLines = purapAccountingService.generateSummaryWithNoZeroTotals(items);
-        assertEquals(sourceLines.size(),originalSourceAccounts.size());
-        checkAccountConsolidation(sourceLines,originalSourceAccounts);
+        assertEquals(sourceLines.size(), originalSourceAccounts.size());
+        checkAccountConsolidation(sourceLines, originalSourceAccounts);
     }
-    
+
     public void testGenerateSummaryWithNoZeroTotals_TwoItems_OneAccount() {
         PurapAccountingServiceFixture fixture = PurapAccountingServiceFixture.REQ_SUMMARY_TWO_ITEMS_ONE_ACCOUNT;
         List<SourceAccountingLine> originalSourceAccounts = fixture.getSourceAccountingLineList();
         List<PurApItem> items = fixture.getItems();
         List<SourceAccountingLine> sourceLines = purapAccountingService.generateSummaryWithNoZeroTotals(items);
-        assertEquals(sourceLines.size(),originalSourceAccounts.size());
-        checkAccountConsolidation(sourceLines,originalSourceAccounts);
+        assertEquals(sourceLines.size(), originalSourceAccounts.size());
+        checkAccountConsolidation(sourceLines, originalSourceAccounts);
     }
-    
+
     /*
      * Tests of generateSummaryWithNoZeroTotalsNoUseTax(List<PurApItem> items)
      */
@@ -391,14 +387,14 @@ public class PurapAccountingServiceTest extends KualiTestBase {
         RequisitionDocumentFixture reqFixture = RequisitionDocumentFixture.REQ_ONLY_REQUIRED_FIELDS;
         RequisitionDocument req = reqFixture.createRequisitionDocument();
         GlobalVariables.getUserSession().setBackdoorUser("kfs");
-        for(PurApItem item : items) {
+        for (PurApItem item : items) {
             item.setPurapDocument(req);
-        }      
+        }
         List<SourceAccountingLine> sourceLines = purapAccountingService.generateSummaryWithNoZeroTotalsNoUseTax(items);
-        assertEquals(sourceLines.size(),originalSourceAccounts.size());
-        checkAccountConsolidation(sourceLines,originalSourceAccounts);
+        assertEquals(sourceLines.size(), originalSourceAccounts.size());
+        checkAccountConsolidation(sourceLines, originalSourceAccounts);
     }
-    
+
     public void testGenerateSummaryWithNoZeroTotalsNoUseTax_OneItem_TwoAccounts() {
         PurapAccountingServiceFixture fixture = PurapAccountingServiceFixture.REQ_SUMMARY_ONE_ITEM_TWO_ACCOUNTS;
         List<SourceAccountingLine> originalSourceAccounts = fixture.getSourceAccountingLineList();
@@ -407,14 +403,14 @@ public class PurapAccountingServiceTest extends KualiTestBase {
         RequisitionDocumentFixture reqFixture = RequisitionDocumentFixture.REQ_ONLY_REQUIRED_FIELDS;
         RequisitionDocument req = reqFixture.createRequisitionDocument();
         GlobalVariables.getUserSession().setBackdoorUser("kfs");
-        for(PurApItem item : items) {
+        for (PurApItem item : items) {
             item.setPurapDocument(req);
         }
         List<SourceAccountingLine> sourceLines = purapAccountingService.generateSummaryWithNoZeroTotalsNoUseTax(items);
-        assertEquals(sourceLines.size(),originalSourceAccounts.size());
-        checkAccountConsolidation(sourceLines,originalSourceAccounts);
+        assertEquals(sourceLines.size(), originalSourceAccounts.size());
+        checkAccountConsolidation(sourceLines, originalSourceAccounts);
     }
-    
+
     public void testGenerateSummaryWithNoZeroTotalsNoUseTax_TwoItems_OneAccount() {
         PurapAccountingServiceFixture fixture = PurapAccountingServiceFixture.REQ_SUMMARY_TWO_ITEMS_ONE_ACCOUNT;
         List<SourceAccountingLine> originalSourceAccounts = fixture.getSourceAccountingLineList();
@@ -423,17 +419,17 @@ public class PurapAccountingServiceTest extends KualiTestBase {
         RequisitionDocumentFixture reqFixture = RequisitionDocumentFixture.REQ_ONLY_REQUIRED_FIELDS;
         RequisitionDocument req = reqFixture.createRequisitionDocument();
         GlobalVariables.getUserSession().setBackdoorUser("kfs");
-        for(PurApItem item : items) {
+        for (PurApItem item : items) {
             item.setPurapDocument(req);
         }
         List<SourceAccountingLine> sourceLines = purapAccountingService.generateSummaryWithNoZeroTotalsNoUseTax(items);
-        assertEquals(sourceLines.size(),originalSourceAccounts.size());
-        checkAccountConsolidation(sourceLines,originalSourceAccounts);
-    }   
-    
+        assertEquals(sourceLines.size(), originalSourceAccounts.size());
+        checkAccountConsolidation(sourceLines, originalSourceAccounts);
+    }
+
     /*
      * Tests of generateSummaryWithNoZeroTotalsUsingAlternateAmount(List<PurApItem> items)
-     */    
+     */
     public void testGenerateSummaryWithNoZeroTotalsUsingAlternateAmount_OneItem_OneAccount() {
         PurapAccountingServiceFixture fixture = PurapAccountingServiceFixture.REQ_SUMMARY_ONE_ITEM_ONE_ACCOUNT;
         List<SourceAccountingLine> originalSourceAccounts = fixture.getSourceAccountingLineList();
@@ -442,14 +438,14 @@ public class PurapAccountingServiceTest extends KualiTestBase {
         RequisitionDocumentFixture reqFixture = RequisitionDocumentFixture.REQ_ONLY_REQUIRED_FIELDS;
         RequisitionDocument req = reqFixture.createRequisitionDocument();
         GlobalVariables.getUserSession().setBackdoorUser("kfs");
-        for(PurApItem item : items) {
+        for (PurApItem item : items) {
             item.setPurapDocument(req);
-        }      
+        }
         List<SourceAccountingLine> sourceLines = purapAccountingService.generateSummaryWithNoZeroTotalsUsingAlternateAmount(items);
-        assertEquals(sourceLines.size(),originalSourceAccounts.size());
-        checkAccountConsolidation(sourceLines,originalSourceAccounts);
+        assertEquals(sourceLines.size(), originalSourceAccounts.size());
+        checkAccountConsolidation(sourceLines, originalSourceAccounts);
     }
-    
+
     public void testGenerateSummaryWithNoZeroTotalsUsingAlternateAmount_OneItem_TwoAccounts() {
         PurapAccountingServiceFixture fixture = PurapAccountingServiceFixture.REQ_SUMMARY_ONE_ITEM_TWO_ACCOUNTS;
         List<SourceAccountingLine> originalSourceAccounts = fixture.getSourceAccountingLineList();
@@ -458,14 +454,14 @@ public class PurapAccountingServiceTest extends KualiTestBase {
         RequisitionDocumentFixture reqFixture = RequisitionDocumentFixture.REQ_ONLY_REQUIRED_FIELDS;
         RequisitionDocument req = reqFixture.createRequisitionDocument();
         GlobalVariables.getUserSession().setBackdoorUser("kfs");
-        for(PurApItem item : items) {
+        for (PurApItem item : items) {
             item.setPurapDocument(req);
         }
         List<SourceAccountingLine> sourceLines = purapAccountingService.generateSummaryWithNoZeroTotalsUsingAlternateAmount(items);
-        assertEquals(sourceLines.size(),originalSourceAccounts.size());
-        checkAccountConsolidation(sourceLines,originalSourceAccounts);
+        assertEquals(sourceLines.size(), originalSourceAccounts.size());
+        checkAccountConsolidation(sourceLines, originalSourceAccounts);
     }
-    
+
     public void testGenerateSummaryWithNoZeroTotalsUsingAlternateAmount_TwoItems_OneAccount() {
         PurapAccountingServiceFixture fixture = PurapAccountingServiceFixture.REQ_SUMMARY_TWO_ITEMS_ONE_ACCOUNT;
         List<SourceAccountingLine> originalSourceAccounts = fixture.getSourceAccountingLineList();
@@ -474,29 +470,29 @@ public class PurapAccountingServiceTest extends KualiTestBase {
         RequisitionDocumentFixture reqFixture = RequisitionDocumentFixture.REQ_ONLY_REQUIRED_FIELDS;
         RequisitionDocument req = reqFixture.createRequisitionDocument();
         GlobalVariables.getUserSession().setBackdoorUser("kfs");
-        for(PurApItem item : items) {
+        for (PurApItem item : items) {
             item.setPurapDocument(req);
         }
         List<SourceAccountingLine> sourceLines = purapAccountingService.generateSummaryWithNoZeroTotalsUsingAlternateAmount(items);
-        assertEquals(sourceLines.size(),originalSourceAccounts.size());
-        checkAccountConsolidation(sourceLines,originalSourceAccounts);
-    }    
-    
+        assertEquals(sourceLines.size(), originalSourceAccounts.size());
+        checkAccountConsolidation(sourceLines, originalSourceAccounts);
+    }
+
     /*
      * Tests of generateSummaryExcludeItemTypes(List<PurApItem> items, Set excludedItemTypeCodes)
      */
-    
+
     /*
      * Tests of generateSummaryExcludeItemTypesAndNoZeroTotals(List<PurApItem> items, Set excludedItemTypeCodes)
      */
-    
+
     /*
      * Tests of generateSummaryIncludeItemTypesAndNoZeroTotals(List<PurApItem> items, Set includedItemTypeCodes)
      */
-    
+
     /*
      * Tests of updateAccountAmounts(PurchasingAccountsPayableDocument document)
-     */ 
+     */
     @ConfigureContext(session = appleton)
     public void testUpdateAccountAmounts_BeforeFullEntry_PercentToAmount() {
         PurapAccountingServiceFixture fixture = PurapAccountingServiceFixture.PREQ_PRORATION_THIRDS;
@@ -505,7 +501,7 @@ public class PurapAccountingServiceTest extends KualiTestBase {
         assertFalse(preq.getItems().get(0).getTotalAmount().isZero());
     }
 
-    @ConfigureContext(session = appleton)    
+    @ConfigureContext(session = appleton)
     public void testUpdateAccountAmounts_BeforeFullEntry_AmountNotToPercent() {
         PurapAccountingServiceFixture fixture = PurapAccountingServiceFixture.PREQ_PRORATION_THIRDS;
         PurchasingAccountsPayableDocument preq = fixture.generatePaymentRequestDocument_OneItem();
@@ -515,14 +511,14 @@ public class PurapAccountingServiceTest extends KualiTestBase {
         boolean orResult = false;
         for (PurApAccountingLine correctLine : fixture.getPurApAccountingLineList()) {
             PurApAccountingLine line = item.getSourceAccountingLines().get(i++);
-            if(!line.getAccountLinePercent().equals(correctLine.getAccountLinePercent())) {
+            if (!line.getAccountLinePercent().equals(correctLine.getAccountLinePercent())) {
                 orResult = true;
                 break;
             }
         }
         assertFalse(orResult);
     }
-    
+
     @ConfigureContext(session = appleton)
     public void testUpdateAccountAmounts_AfterFullEntry_AmountToPercent() {
         PurapAccountingServiceFixture fixture = PurapAccountingServiceFixture.PREQ_PRORATION_THIRDS;
@@ -536,7 +532,7 @@ public class PurapAccountingServiceTest extends KualiTestBase {
             assertTrue(line.getAccountLinePercent().equals(correctLine.getAccountLinePercent()));
         }
     }
-    
+
     @ConfigureContext(session = appleton)
     public void testUpdateAccountAmounts_AfterFullEntry_PercentNotToAmount() {
         PurapAccountingServiceFixture fixture = PurapAccountingServiceFixture.PREQ_PRORATION_THIRDS;
@@ -546,7 +542,7 @@ public class PurapAccountingServiceTest extends KualiTestBase {
         purapAccountingService.updateAccountAmounts(preq);
         assertTrue(preq.getItems().get(0).getTotalAmount().isZero());
     }
-    
+
     /*
      * Tests of updateItemAccountAmounts(PurApItem item)
      */
@@ -554,39 +550,39 @@ public class PurapAccountingServiceTest extends KualiTestBase {
     public void testUpdateItemAccountAmounts_OneAccount() {
         PurapAccountingServiceFixture fixture = PurapAccountingServiceFixture.REQ_PRORATION_ONE_ACCOUNT;
         RequisitionDocument req = fixture.generateRequisitionDocument_OneItem();
-        RequisitionItem item = (RequisitionItem)req.getItems().get(0);
+        RequisitionItem item = (RequisitionItem) req.getItems().get(0);
         KualiDecimal total = item.getTotalAmount();
         purapAccountingService.updateItemAccountAmounts(item);
         PurApAccountingLine line = item.getSourceAccountingLines().get(0);
         assertTrue(line.getAmount().compareTo(total) == 0);
     }
-    
+
     @ConfigureContext(session = parke)
     public void testUpdateItemAccountAmounts_TwoAccounts() {
         PurapAccountingServiceFixture fixture = PurapAccountingServiceFixture.REQ_PRORATION_TWO_ACCOUNTS;
         RequisitionDocument req = fixture.generateRequisitionDocument_OneItem();
-        RequisitionItem item = (RequisitionItem)req.getItems().get(0);
+        RequisitionItem item = (RequisitionItem) req.getItems().get(0);
         KualiDecimal total = item.getTotalAmount();
         purapAccountingService.updateItemAccountAmounts(item);
         PurApAccountingLine line = item.getSourceAccountingLines().get(0);
         assertTrue(line.getAmount().compareTo(total.divide(new KualiDecimal(2))) == 0);
     }
-    
+
     @ConfigureContext(session = parke)
     public void testUpdateItemAccountAmounts_ThreeAccounts() {
         PurapAccountingServiceFixture fixture = PurapAccountingServiceFixture.REQ_PRORATION_THIRDS;
         RequisitionDocument req = fixture.generateRequisitionDocument_OneItem();
-        RequisitionItem item = (RequisitionItem)req.getItems().get(0);
+        RequisitionItem item = (RequisitionItem) req.getItems().get(0);
         KualiDecimal total = item.getTotalAmount();
         purapAccountingService.updateItemAccountAmounts(item);
         PurApAccountingLine line1 = item.getSourceAccountingLines().get(0);
         assertTrue(line1.getAmount().compareTo(total.divide(new KualiDecimal(3))) == 0);
-    }   
-    
+    }
+
     /*
      * Tests of deleteSummaryAccounts(Integer purapDocumentIdentifier)
      */
-    @ConfigureContext(session = appleton, shouldCommitTransactions=true)
+    @ConfigureContext(session = appleton, shouldCommitTransactions = true)
     public void testDeleteSummaryAccounts_PaymentRequest() {
         PurapAccountingServiceFixture fixture = PurapAccountingServiceFixture.PREQ_PRORATION_ONE_ACCOUNT;
         PaymentRequestDocument preq = fixture.generatePaymentRequestDocument_OneItem();
@@ -595,8 +591,8 @@ public class PurapAccountingServiceTest extends KualiTestBase {
         purapAccountingService.deleteSummaryAccounts(preq.getPurapDocumentIdentifier(), PurapDocTypeCodes.PAYMENT_REQUEST_DOCUMENT);
         assertNull(purapAccountingService.getAccountsPayableSummaryAccounts(preq.getPurapDocumentIdentifier(), PurapDocTypeCodes.PAYMENT_REQUEST_DOCUMENT));
     }
-    
-    @ConfigureContext(session = appleton, shouldCommitTransactions=true)
+
+    @ConfigureContext(session = appleton, shouldCommitTransactions = true)
     public void testDeleteSummaryAccounts_CreditMemo() {
         PurapAccountingServiceFixture fixture = PurapAccountingServiceFixture.CREDIT_MEMO_ONE_ACCOUNT;
         VendorCreditMemoDocument vcm = fixture.generateVendorCreditMemoDocument_OneItem();
@@ -605,13 +601,13 @@ public class PurapAccountingServiceTest extends KualiTestBase {
         purapAccountingService.deleteSummaryAccounts(vcm.getPurapDocumentIdentifier(), PurapDocTypeCodes.PAYMENT_REQUEST_DOCUMENT);
         assertNull(purapAccountingService.getAccountsPayableSummaryAccounts(vcm.getPurapDocumentIdentifier(), PurapDocTypeCodes.PAYMENT_REQUEST_DOCUMENT));
     }
-    
+
     /*
      * Tests of generateSourceAccountsForVendorRemit(PurchasingAccountsPayableDocument document)
      */
-    
-    
-    
+
+
+
     /*
      * Tests of convertMoneyToPercent(PaymentRequestDocument pr)
      */
@@ -630,7 +626,7 @@ public class PurapAccountingServiceTest extends KualiTestBase {
             fail("The conversion is not exact." + ae.toString());
         }
     }*/
-    
+
     /*@ConfigureContext(session = appleton)
     public void testConvertMoneyToPercent_OneItem_TwoAccounts() {
         PurapAccountingServiceFixture fixture = PurapAccountingServiceFixture.PREQ_PRORATION_TWO_ACCOUNTS;
@@ -645,7 +641,7 @@ public class PurapAccountingServiceTest extends KualiTestBase {
             fail("The conversion is not exact." + ae.toString());
         }
     }*/
-    
+
     /*
      * Tests of generateUseTaxAccount(PurchasingAccountsPayableDocument document)
      */

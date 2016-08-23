@@ -1,27 +1,24 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.service.impl;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.krad.service.LookupService;
 import org.kuali.kfs.module.ld.businessobject.AccountStatusBaseFunds;
 import org.kuali.kfs.module.ld.businessobject.EmployeeFunding;
 import org.kuali.kfs.module.ld.businessobject.July1PositionFunding;
@@ -29,12 +26,15 @@ import org.kuali.kfs.module.ld.businessobject.LaborCalculatedSalaryFoundationTra
 import org.kuali.kfs.module.ld.dataaccess.LaborCalculatedSalaryFoundationTrackerDao;
 import org.kuali.kfs.module.ld.service.LaborCalculatedSalaryFoundationTrackerService;
 import org.kuali.kfs.sys.ObjectUtil;
-import org.kuali.kfs.krad.service.LookupService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class provides its clients with access to CSF tracker entries in the backend data store.
- * 
+ *
  * @see org.kuali.kfs.module.ld.businessobject.LaborCalculatedSalaryFoundationTracker
  */
 @Transactional
@@ -54,7 +54,7 @@ public class LaborCalculatedSalaryFoundationTrackerServiceImpl implements LaborC
 
     /**
      * @see org.kuali.kfs.module.ld.service.LaborCalculatedSalaryFoundationTrackerService#findCSFTrackerWithJuly1(java.util.Map,
-     *      boolean)
+     * boolean)
      */
     public List<LaborCalculatedSalaryFoundationTracker> findCSFTrackerWithJuly1(Map fieldValues, boolean isConsolidated) {
         LOG.debug("start findCSFTrackerWithJuly1()");
@@ -68,8 +68,7 @@ public class LaborCalculatedSalaryFoundationTrackerServiceImpl implements LaborC
                 CSFTracker.setJuly1BudgetAmount(CSFTracker.getJuly1BudgetAmount().add(july1PositionFunding.getJuly1BudgetAmount()));
                 CSFTracker.setJuly1BudgetFteQuantity(CSFTracker.getJuly1BudgetFteQuantity().add(july1PositionFunding.getJuly1BudgetFteQuantity()));
                 CSFTracker.setJuly1BudgetTimePercent(CSFTracker.getJuly1BudgetTimePercent().add(july1PositionFunding.getJuly1BudgetTimePercent()));
-            }
-            else {
+            } else {
                 CSFTracker = new LaborCalculatedSalaryFoundationTracker();
                 ObjectUtil.buildObject(CSFTracker, july1PositionFunding);
                 CSFTrackerCollection.add(CSFTracker);
@@ -80,9 +79,9 @@ public class LaborCalculatedSalaryFoundationTrackerServiceImpl implements LaborC
 
     /**
      * Check if there is a CSF track in the given set that matches the given object
-     * 
+     *
      * @param csfTrackerCollection the given set of CSF trackers
-     * @param anotherObject the object to be searched
+     * @param anotherObject        the object to be searched
      * @return the CSF tracker if there is a CSF track in the given set that matches the given object
      */
     protected LaborCalculatedSalaryFoundationTracker findCSFTracker(List<LaborCalculatedSalaryFoundationTracker> CSFTrackerCollection, Object anotherObject) {
@@ -105,7 +104,7 @@ public class LaborCalculatedSalaryFoundationTrackerServiceImpl implements LaborC
 
     /**
      * @see org.kuali.kfs.module.ld.service.LaborCalculatedSalaryFoundationTrackerService#findCSFTrackersAsEmployeeFunding(java.util.Map,
-     *      boolean)
+     * boolean)
      */
     public List<EmployeeFunding> findCSFTrackersAsEmployeeFunding(Map fieldValues, boolean isConsolidated) {
         LOG.debug("start findCSFTrackersAsEmployeeFunding()");
@@ -114,7 +113,7 @@ public class LaborCalculatedSalaryFoundationTrackerServiceImpl implements LaborC
 
     /**
      * Sets the laborCalculatedSalaryFoundationTrackerDao attribute value.
-     * 
+     *
      * @param laborCalculatedSalaryFoundationTrackerDao The laborCalculatedSalaryFoundationTrackerDao to set.
      */
     public void setLaborCalculatedSalaryFoundationTrackerDao(LaborCalculatedSalaryFoundationTrackerDao laborCalculatedSalaryFoundationTrackerDao) {
@@ -123,7 +122,7 @@ public class LaborCalculatedSalaryFoundationTrackerServiceImpl implements LaborC
 
     /**
      * Sets the lookupService attribute value.
-     * 
+     *
      * @param lookupService The lookupService to set.
      */
     public void setLookupService(LookupService lookupService) {

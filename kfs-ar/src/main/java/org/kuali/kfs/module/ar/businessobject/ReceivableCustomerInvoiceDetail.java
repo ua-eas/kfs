@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -26,74 +26,74 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 public class ReceivableCustomerInvoiceDetail extends CustomerInvoiceDetail {
 
-   private CustomerInvoiceDetail postable;
-   private CustomerInvoiceDocument poster;
-   private boolean isUsingReceivableFAU;
+    private CustomerInvoiceDetail postable;
+    private CustomerInvoiceDocument poster;
+    private boolean isUsingReceivableFAU;
 
-   public ReceivableCustomerInvoiceDetail(CustomerInvoiceDetail postable, CustomerInvoiceDocument poster){
-       this.poster = poster;
-       this.postable = postable;
-       this.postable.refreshNonUpdateableReferences();
-   }
+    public ReceivableCustomerInvoiceDetail(CustomerInvoiceDetail postable, CustomerInvoiceDocument poster) {
+        this.poster = poster;
+        this.postable = postable;
+        this.postable.refreshNonUpdateableReferences();
+    }
 
-   @Override
+    @Override
     public Account getAccount() {
-       return postable.getAccount();
+        return postable.getAccount();
     }
 
-   @Override
+    @Override
     public String getAccountNumber() {
-       return postable.getAccountNumber();
+        return postable.getAccountNumber();
     }
 
-   @Override
+    @Override
     public KualiDecimal getAmount() {
         return postable.getInvoiceItemPreTaxAmount();
     }
 
-   @Override
+    @Override
     public String getChartOfAccountsCode() {
-       return postable.getChartOfAccountsCode();
+        return postable.getChartOfAccountsCode();
     }
 
-   @Override
+    @Override
     public String getDocumentNumber() {
         return postable.getDocumentNumber();
     }
 
-   @Override
+    @Override
     public String getFinancialDocumentLineDescription() {
         return postable.getFinancialDocumentLineDescription();
     }
 
-   @Override
+    @Override
     public String getFinancialObjectCode() {
-       return postable.getAccountsReceivableObjectCode();
+        return postable.getAccountsReceivableObjectCode();
     }
 
-   @Override
+    @Override
     public ObjectCode getObjectCode() {
-       return postable.getAccountsReceivableObject();
+        return postable.getAccountsReceivableObject();
     }
 
-   @Override
-   public String getFinancialSubObjectCode() {
-       return GENERAL_LEDGER_PENDING_ENTRY_CODE.getBlankFinancialSubObjectCode();
-   }
+    @Override
+    public String getFinancialSubObjectCode() {
+        return GENERAL_LEDGER_PENDING_ENTRY_CODE.getBlankFinancialSubObjectCode();
+    }
 
-   @Override
+    @Override
     public String getOrganizationReferenceId() {
-       return postable.getOrganizationReferenceId();
+        return postable.getOrganizationReferenceId();
     }
 
-   @Override
+    @Override
     public String getProjectCode() {
-       return postable.getProjectCode();
+        return postable.getProjectCode();
     }
 
-   @Override
+    @Override
     public String getSubAccountNumber() {
-       return postable.getSubAccountNumber();
+        return postable.getSubAccountNumber();
     }
 
 }

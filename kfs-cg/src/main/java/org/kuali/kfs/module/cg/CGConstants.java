@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.module.cg;
 
+import org.kuali.kfs.integration.ar.ArIntegrationConstants;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import org.kuali.kfs.integration.ar.ArIntegrationConstants;
-
 /**
  * Constants specific to the Contracts & Grants module.
  */
-public class CGConstants{
+public class CGConstants {
 
     /**
      * The key for the document error map to grab errors for the close document.
@@ -74,10 +74,10 @@ public class CGConstants{
     public static final String CHAPTER13_CODE = "C13";
     public static final String JUDGMENT_OBTAINED_CODE = "JO";
 
-    public static final String CHAPTER7  = "Chapter 7";
+    public static final String CHAPTER7 = "Chapter 7";
     public static final String CHAPTER11 = "Chapter 11";
     public static final String CHAPTER13 = "Chapter 13";
-    public static final String JUDGMENT_OBTAINED= "Judgment Obtained";
+    public static final String JUDGMENT_OBTAINED = "Judgment Obtained";
 
     // Award
     public static final String AWARD_DETAIL_TYPE_CODE = "Award";

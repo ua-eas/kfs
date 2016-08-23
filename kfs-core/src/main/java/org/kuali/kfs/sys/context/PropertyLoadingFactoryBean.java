@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -27,11 +27,8 @@ import org.springframework.core.io.DefaultResourceLoader;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Set;
 import java.util.List;
 import java.util.Properties;
 
@@ -62,19 +59,18 @@ public class PropertyLoadingFactoryBean implements FactoryBean<Properties> {
         if (secureMode) {
             loadPropertyList(props, SECURITY_PROPERTY_FILE_NAME_KEY);
         } else {
-            loadPropertyList(props,PROPERTY_FILE_NAMES_KEY);
+            loadPropertyList(props, PROPERTY_FILE_NAMES_KEY);
         }
         if (testMode) {
-            loadPropertyList(props,PROPERTY_TEST_FILE_NAMES_KEY);
+            loadPropertyList(props, PROPERTY_TEST_FILE_NAMES_KEY);
         }
         if (StringUtils.isBlank(System.getProperty(HTTP_URL_PROPERTY_NAME))) {
             props.put(KSB_REMOTING_URL_PROPERTY_NAME, props.getProperty(KFSConstants.APPLICATION_URL_KEY) + REMOTING_URL_SUFFIX);
-        }
-        else {
+        } else {
             props.put(KSB_REMOTING_URL_PROPERTY_NAME, new StringBuilder("http://").append(System.getProperty(HTTP_URL_PROPERTY_NAME)).append("/kfs-").append(props.getProperty(KFSConstants.ENVIRONMENT_KEY)).append(REMOTING_URL_SUFFIX).toString());
         }
         if (LOG.isDebugEnabled()) {
-            for (Object key: props.keySet()) {
+            for (Object key : props.keySet()) {
                 String value = (String) props.get(key);
                 LOG.debug(key + ": " + value);
             }
@@ -92,26 +88,24 @@ public class PropertyLoadingFactoryBean implements FactoryBean<Properties> {
 
     private static void loadPropertyList(Properties props, String listPropertyName) {
         for (String propertyFileName : getBaseListProperty(listPropertyName)) {
-            loadProperties(props,propertyFileName);
+            loadProperties(props, propertyFileName);
         }
     }
 
-    private static void loadProperties( Properties props, String propertyFileName) {
+    private static void loadProperties(Properties props, String propertyFileName) {
         InputStream propertyFileInputStream = null;
         try {
             try {
                 propertyFileInputStream = new DefaultResourceLoader(ClassLoaderUtils.getDefaultClassLoader()).getResource(propertyFileName).getInputStream();
                 props.load(propertyFileInputStream);
-            }
-            finally {
+            } finally {
                 if (propertyFileInputStream != null) {
                     propertyFileInputStream.close();
                 }
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             LOG.error(e);
-           // throw new RuntimeException("PropertyLoadingFactoryBean unable to load property file: " + propertyFileName);
+            // throw new RuntimeException("PropertyLoadingFactoryBean unable to load property file: " + propertyFileName);
         }
     }
 
@@ -146,20 +140,21 @@ public class PropertyLoadingFactoryBean implements FactoryBean<Properties> {
 
         }
     }
-    
+
     /**
      * Loads properties from an external file.  Also merges in all System properties
+     *
      * @param props the properties object
      */
     private static void loadExternalProperties(Properties props, String location) {
         String externalConfigLocationPaths = System.getProperty(location);
         if (StringUtils.isNotEmpty(externalConfigLocationPaths)) {
-            String[] files = externalConfigLocationPaths.split(","); 
-            for (String f: files) { 
-                if (StringUtils.isNotEmpty(f)) { 
+            String[] files = externalConfigLocationPaths.split(",");
+            for (String f : files) {
+                if (StringUtils.isNotEmpty(f)) {
                     LOG.info("Loading properties from " + f);
                     loadProperties(props, new StringBuffer("file:").append(f).toString());
-                } 
+                }
             }
         }
 
@@ -174,7 +169,7 @@ public class PropertyLoadingFactoryBean implements FactoryBean<Properties> {
     public void setSecureMode(boolean secureMode) {
         this.secureMode = secureMode;
     }
-    
+
     public static void clear() {
         BASE_PROPERTIES.clear();
     }

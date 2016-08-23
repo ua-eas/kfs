@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -22,13 +22,13 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
-import org.kuali.rice.core.api.config.property.ConfigContext;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.core.api.util.Truth;
 import org.kuali.kfs.kns.web.struts.action.KualiPropertyMessageResources;
 import org.kuali.kfs.kns.web.struts.action.KualiPropertyMessageResourcesFactory;
 import org.kuali.kfs.krad.exception.DuplicateKeyException;
 import org.kuali.kfs.krad.exception.PropertiesException;
+import org.kuali.rice.core.api.config.property.ConfigContext;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
+import org.kuali.rice.core.api.util.Truth;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -55,7 +55,7 @@ public class ConfigurationServiceImpl implements ConfigurationService {
 
         // create default KualiPropertyMessageResources
         KualiPropertyMessageResources messageResources =
-                (KualiPropertyMessageResources) propertyMessageFactory.createResources("");
+            (KualiPropertyMessageResources) propertyMessageFactory.createResources("");
 
         //Add Kuali Properties to property holder
         this.propertyHolder.getHeldProperties().putAll(messageResources.getKualiProperties(null));
@@ -99,8 +99,6 @@ public class ConfigurationServiceImpl implements ConfigurationService {
 
     /**
      * This is an interface for a source for properties
-     *
-     *
      */
     static interface PropertySource {
         /**
@@ -112,8 +110,6 @@ public class ConfigurationServiceImpl implements ConfigurationService {
 
     /**
      * This class is a Property container. It is able to load properties from various property-sources.
-     *
-     *
      */
     static class PropertyHolder {
         private static Logger LOG = Logger.getLogger(PropertyHolder.class);
@@ -165,10 +161,10 @@ public class ConfigurationServiceImpl implements ConfigurationService {
          * @param value
          * @throws IllegalArgumentException if the given key is null
          * @throws IllegalArgumentException if the given value is null
-         * @throws DuplicateKeyException if a property with the given key already exists
+         * @throws DuplicateKeyException    if a property with the given key already exists
          */
         public void setProperty(String key, String value) {
-        setProperty(null, key, value);
+            setProperty(null, key, value);
         }
 
         /**
@@ -179,14 +175,14 @@ public class ConfigurationServiceImpl implements ConfigurationService {
          * @param value
          * @throws IllegalArgumentException if the given key is null
          * @throws IllegalArgumentException if the given value is null
-         * @throws DuplicateKeyException if a property with the given key already exists
+         * @throws DuplicateKeyException    if a property with the given key already exists
          */
         public void setProperty(PropertySource source, String key, String value) {
             validateKey(key);
             validateValue(value);
 
             if (containsKey(key)) {
-                if (source != null && source instanceof FilePropertySource && ((FilePropertySource)source).isAllowOverrides()) {
+                if (source != null && source instanceof FilePropertySource && ((FilePropertySource) source).isAllowOverrides()) {
                     LOG.info("Duplicate Key: Override is enabled [key=" + key + ", new value=" + value + ", old value=" + this.heldProperties.getProperty(key) + "]");
                 } else {
                     throw new DuplicateKeyException("duplicate key '" + key + "'");
@@ -214,7 +210,7 @@ public class ConfigurationServiceImpl implements ConfigurationService {
          * @param source
          * @throws IllegalStateException if the source is invalid (improperly initialized)
          * @throws DuplicateKeyException the first time a given property has the same key as an existing property
-         * @throws PropertiesException if unable to load properties from the given source
+         * @throws PropertiesException   if unable to load properties from the given source
          */
         public void loadProperties(PropertySource source) {
             if (source == null) {
@@ -223,7 +219,7 @@ public class ConfigurationServiceImpl implements ConfigurationService {
 
             Properties newProperties = source.loadProperties();
 
-            for (Iterator i = newProperties.keySet().iterator(); i.hasNext();) {
+            for (Iterator i = newProperties.keySet().iterator(); i.hasNext(); ) {
                 String key = (String) i.next();
                 setProperty(source, key, newProperties.getProperty(key));
             }
@@ -278,8 +274,6 @@ public class ConfigurationServiceImpl implements ConfigurationService {
 
     /**
      * This class is used to obtain properties from a properites file.
-     *
-     *
      */
     static class FilePropertySource implements PropertySource {
         private static Log log = LogFactory.getLog(FilePropertySource.class);
@@ -315,8 +309,8 @@ public class ConfigurationServiceImpl implements ConfigurationService {
         /**
          * Attempts to load properties from a properties file which has the current fileName and is located on the classpath.
          *
-         * @see ConfigurationServiceImpl.PropertySource#loadProperties()
          * @throws IllegalStateException if the fileName is null or empty
+         * @see ConfigurationServiceImpl.PropertySource#loadProperties()
          */
         public Properties loadProperties() {
             if (StringUtils.isBlank(getFileName())) {
@@ -336,16 +330,13 @@ public class ConfigurationServiceImpl implements ConfigurationService {
             try {
                 in = url.openStream();
                 properties.load(in);
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 throw new PropertiesException("error loading from properties file '" + getFileName() + "'", e);
-            }
-            finally {
+            } finally {
                 if (in != null) {
                     try {
                         in.close();
-                    }
-                    catch (IOException e) {
+                    } catch (IOException e) {
                         log.error("caught exception closing InputStream: " + e);
                     }
 

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -25,7 +25,7 @@ import org.kuali.rice.krad.bo.BusinessObject;
 /**
  * A representation of LedgerEntries, which are summaries that show up on Ledger Reports created by the scrubber and poster.
  */
-public class LedgerEntryForReporting implements BusinessObject{
+public class LedgerEntryForReporting implements BusinessObject {
 
     private String balanceType;
     private String originCode;
@@ -48,7 +48,7 @@ public class LedgerEntryForReporting implements BusinessObject{
 
     /**
      * Constructs a LedgerEntry.java.
-     * 
+     *
      * @param fiscalYear
      * @param period
      * @param balanceType
@@ -67,7 +67,7 @@ public class LedgerEntryForReporting implements BusinessObject{
 
     /**
      * Add the amounts of the given ledger entry into those of current ledger entry, and update the counts of corresponding fields
-     * 
+     *
      * @param addend the given ledger entry to be added into current one
      */
     public void add(LedgerEntryForReporting addend) {
@@ -85,7 +85,7 @@ public class LedgerEntryForReporting implements BusinessObject{
 
     /**
      * create or update a ledger entry with the array of information from the given entry summary object
-     * 
+     *
      * @param entrySummary an entry summary to turn into a ledger entry
      * @return a LedgerEntry created from the entrySummary array
      */
@@ -112,12 +112,10 @@ public class LedgerEntryForReporting implements BusinessObject{
         if (KFSConstants.GL_CREDIT_CODE.equals(debitCreditCode)) {
             ledgerEntry.setCreditAmount(amount);
             ledgerEntry.setCreditCount(count);
-        }
-        else if (KFSConstants.GL_DEBIT_CODE.equals(debitCreditCode)) {
+        } else if (KFSConstants.GL_DEBIT_CODE.equals(debitCreditCode)) {
             ledgerEntry.setDebitAmount(amount);
             ledgerEntry.setDebitCount(count);
-        }
-        else {
+        } else {
             ledgerEntry.setNoDCAmount(amount);
             ledgerEntry.setNoDCCount(count);
         }
@@ -128,7 +126,7 @@ public class LedgerEntryForReporting implements BusinessObject{
 
     /**
      * Gets the balanceType attribute.
-     * 
+     *
      * @return Returns the balanceType.
      */
     public String getBalanceType() {
@@ -137,7 +135,7 @@ public class LedgerEntryForReporting implements BusinessObject{
 
     /**
      * Sets the balanceType attribute value.
-     * 
+     *
      * @param balanceType The balanceType to set.
      */
     public void setBalanceType(String balanceType) {
@@ -146,7 +144,7 @@ public class LedgerEntryForReporting implements BusinessObject{
 
     /**
      * Gets the creditAmount attribute.
-     * 
+     *
      * @return Returns the creditAmount.
      */
     public KualiDecimal getCreditAmount() {
@@ -155,7 +153,7 @@ public class LedgerEntryForReporting implements BusinessObject{
 
     /**
      * Sets the creditAmount attribute value.
-     * 
+     *
      * @param creditAmount The creditAmount to set.
      */
     public void setCreditAmount(KualiDecimal creditAmount) {
@@ -164,7 +162,7 @@ public class LedgerEntryForReporting implements BusinessObject{
 
     /**
      * Gets the creditCount attribute.
-     * 
+     *
      * @return Returns the creditCount.
      */
     public int getCreditCount() {
@@ -173,7 +171,7 @@ public class LedgerEntryForReporting implements BusinessObject{
 
     /**
      * Sets the creditCount attribute value.
-     * 
+     *
      * @param creditCount The creditCount to set.
      */
     public void setCreditCount(int creditCount) {
@@ -182,7 +180,7 @@ public class LedgerEntryForReporting implements BusinessObject{
 
     /**
      * Gets the debitAmount attribute.
-     * 
+     *
      * @return Returns the debitAmount.
      */
     public KualiDecimal getDebitAmount() {
@@ -191,7 +189,7 @@ public class LedgerEntryForReporting implements BusinessObject{
 
     /**
      * Sets the debitAmount attribute value.
-     * 
+     *
      * @param debitAmount The debitAmount to set.
      */
     public void setDebitAmount(KualiDecimal debitAmount) {
@@ -200,7 +198,7 @@ public class LedgerEntryForReporting implements BusinessObject{
 
     /**
      * Gets the debitCount attribute.
-     * 
+     *
      * @return Returns the debitCount.
      */
     public int getDebitCount() {
@@ -209,7 +207,7 @@ public class LedgerEntryForReporting implements BusinessObject{
 
     /**
      * Sets the debitCount attribute value.
-     * 
+     *
      * @param debitCount The debitCount to set.
      */
     public void setDebitCount(int debitCount) {
@@ -218,7 +216,7 @@ public class LedgerEntryForReporting implements BusinessObject{
 
     /**
      * Gets the fiscalYear attribute.
-     * 
+     *
      * @return Returns the fiscalYear.
      */
     public Integer getFiscalYear() {
@@ -227,7 +225,7 @@ public class LedgerEntryForReporting implements BusinessObject{
 
     /**
      * Sets the fiscalYear attribute value.
-     * 
+     *
      * @param fiscalYear The fiscalYear to set.
      */
     public void setFiscalYear(Integer fiscalYear) {
@@ -236,7 +234,7 @@ public class LedgerEntryForReporting implements BusinessObject{
 
     /**
      * Gets the noDCAmount attribute.
-     * 
+     *
      * @return Returns the noDCAmount.
      */
     public KualiDecimal getNoDCAmount() {
@@ -245,7 +243,7 @@ public class LedgerEntryForReporting implements BusinessObject{
 
     /**
      * Sets the noDCAmount attribute value.
-     * 
+     *
      * @param noDCAmount The noDCAmount to set.
      */
     public void setNoDCAmount(KualiDecimal noDCAmount) {
@@ -254,7 +252,7 @@ public class LedgerEntryForReporting implements BusinessObject{
 
     /**
      * Gets the noDCCount attribute.
-     * 
+     *
      * @return Returns the noDCCount.
      */
     public int getNoDCCount() {
@@ -263,7 +261,7 @@ public class LedgerEntryForReporting implements BusinessObject{
 
     /**
      * Sets the noDCCount attribute value.
-     * 
+     *
      * @param noDCCount The noDCCount to set.
      */
     public void setNoDCCount(int noDCCount) {
@@ -272,7 +270,7 @@ public class LedgerEntryForReporting implements BusinessObject{
 
     /**
      * Gets the originCode attribute.
-     * 
+     *
      * @return Returns the originCode.
      */
     public String getOriginCode() {
@@ -281,7 +279,7 @@ public class LedgerEntryForReporting implements BusinessObject{
 
     /**
      * Sets the originCode attribute value.
-     * 
+     *
      * @param originCode The originCode to set.
      */
     public void setOriginCode(String originCode) {
@@ -290,7 +288,7 @@ public class LedgerEntryForReporting implements BusinessObject{
 
     /**
      * Gets the period attribute.
-     * 
+     *
      * @return Returns the period.
      */
     public String getPeriod() {
@@ -299,7 +297,7 @@ public class LedgerEntryForReporting implements BusinessObject{
 
     /**
      * Sets the period attribute value.
-     * 
+     *
      * @param period The period to set.
      */
     public void setPeriod(String period) {
@@ -308,7 +306,7 @@ public class LedgerEntryForReporting implements BusinessObject{
 
     /**
      * Gets the recordCount attribute.
-     * 
+     *
      * @return Returns the recordCount.
      */
     public int getRecordCount() {
@@ -317,7 +315,7 @@ public class LedgerEntryForReporting implements BusinessObject{
 
     /**
      * Sets the recordCount attribute value.
-     * 
+     *
      * @param recordCount The recordCount to set.
      */
     public void setRecordCount(int recordCount) {
@@ -348,6 +346,9 @@ public class LedgerEntryForReporting implements BusinessObject{
         return ledgerEntryDescription.toString();
     }
 
-    public void prepareForWorkflow() {}
-    public void refresh() { }
+    public void prepareForWorkflow() {
+    }
+
+    public void refresh() {
+    }
 }

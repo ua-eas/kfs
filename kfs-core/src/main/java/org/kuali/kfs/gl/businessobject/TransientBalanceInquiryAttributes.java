@@ -1,29 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.gl.OJBUtility;
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 import org.kuali.kfs.sys.KFSConstants.ParameterValues;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
+
+import java.util.LinkedHashMap;
 
 /**
  * This class represents the transient balance inquiry attributes which is typically used as a "dummy business object"
@@ -292,7 +292,6 @@ public class TransientBalanceInquiryAttributes extends TransientBusinessObjectBa
 
 
     /**
-     *
      * Gets the debitCreditOption attribute value.
      *
      * @return Returns the debitCreditOption
@@ -302,8 +301,8 @@ public class TransientBalanceInquiryAttributes extends TransientBusinessObjectBa
     }
 
     /**
-     *
      * Sets the debitCreditOption attribute
+     *
      * @param debitCreditOption The debitCreditOption to set.
      */
     public void setDebitCreditOption(String debitCreditOption) {
@@ -319,6 +318,7 @@ public class TransientBalanceInquiryAttributes extends TransientBusinessObjectBa
 
     /**
      * Sets the include option for encumbrances which have gone to zero
+     *
      * @param includeZeroEncumbranceOption the include option for encumbrances which have gone to zero
      */
     public void setZeroEncumbranceOption(String zeroEncumbranceOption) {

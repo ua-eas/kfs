@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -19,20 +19,20 @@
 
 package org.kuali.kfs.sys.businessobject;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.location.api.LocationConstants;
 import org.kuali.rice.location.framework.campus.CampusEbo;
 import org.kuali.rice.location.framework.country.CountryEbo;
 import org.kuali.rice.location.framework.postalcode.PostalCodeEbo;
 import org.kuali.rice.location.framework.state.StateEbo;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class Building extends PersistableBusinessObjectBase implements MutableInactivatable {
@@ -115,17 +115,17 @@ public class Building extends PersistableBusinessObjectBase implements MutableIn
      * @return Returns the campus.
      */
     public CampusEbo getCampus() {
-        if ( StringUtils.isBlank(campusCode) ) {
+        if (StringUtils.isBlank(campusCode)) {
             campus = null;
         } else {
-            if ( campus == null || !StringUtils.equals( campus.getCode(),campusCode) ) {
+            if (campus == null || !StringUtils.equals(campus.getCode(), campusCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(CampusEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(1);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(1);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, campusCode);
                     campus = moduleService.getExternalizableBusinessObject(CampusEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -233,6 +233,7 @@ public class Building extends PersistableBusinessObjectBase implements MutableIn
 
     /**
      * Gets the active attribute.
+     *
      * @return Returns the active.
      */
     @Override
@@ -242,6 +243,7 @@ public class Building extends PersistableBusinessObjectBase implements MutableIn
 
     /**
      * Sets the active attribute value.
+     *
      * @param active The active to set.
      */
     @Override
@@ -255,18 +257,18 @@ public class Building extends PersistableBusinessObjectBase implements MutableIn
      * @return Returns the buildingAddressState.
      */
     public StateEbo getBuildingAddressState() {
-        if ( StringUtils.isBlank(buildingAddressStateCode) || StringUtils.isBlank(buildingAddressCountryCode ) ) {
+        if (StringUtils.isBlank(buildingAddressStateCode) || StringUtils.isBlank(buildingAddressCountryCode)) {
             buildingAddressState = null;
         } else {
-            if ( buildingAddressState == null || !StringUtils.equals( buildingAddressState.getCode(),buildingAddressStateCode) || !StringUtils.equals(buildingAddressState.getCountryCode(), buildingAddressCountryCode ) ) {
+            if (buildingAddressState == null || !StringUtils.equals(buildingAddressState.getCode(), buildingAddressStateCode) || !StringUtils.equals(buildingAddressState.getCountryCode(), buildingAddressCountryCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(StateEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(2);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(2);
                     keys.put(LocationConstants.PrimaryKeyConstants.COUNTRY_CODE, buildingAddressCountryCode);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, buildingAddressStateCode);
                     buildingAddressState = moduleService.getExternalizableBusinessObject(StateEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -289,18 +291,18 @@ public class Building extends PersistableBusinessObjectBase implements MutableIn
      * @return Returns the buildingAddressZip.
      */
     public PostalCodeEbo getBuildingAddressZip() {
-        if ( StringUtils.isBlank(buildingAddressZipCode) || StringUtils.isBlank(buildingAddressCountryCode) ) {
+        if (StringUtils.isBlank(buildingAddressZipCode) || StringUtils.isBlank(buildingAddressCountryCode)) {
             buildingAddressZip = null;
         } else {
-            if ( buildingAddressZip == null || !StringUtils.equals( buildingAddressZip.getCode(),buildingAddressZipCode) || !StringUtils.equals(buildingAddressZip.getCountryCode(), buildingAddressCountryCode ) ) {
+            if (buildingAddressZip == null || !StringUtils.equals(buildingAddressZip.getCode(), buildingAddressZipCode) || !StringUtils.equals(buildingAddressZip.getCountryCode(), buildingAddressCountryCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(PostalCodeEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(2);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(2);
                     keys.put(LocationConstants.PrimaryKeyConstants.COUNTRY_CODE, buildingAddressCountryCode);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, buildingAddressZipCode);
                     buildingAddressZip = moduleService.getExternalizableBusinessObject(PostalCodeEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -319,6 +321,7 @@ public class Building extends PersistableBusinessObjectBase implements MutableIn
 
     /**
      * Gets the buildingAddressCountryCode attribute.
+     *
      * @return Returns the buildingAddressCountryCode.
      */
     public String getBuildingAddressCountryCode() {
@@ -327,6 +330,7 @@ public class Building extends PersistableBusinessObjectBase implements MutableIn
 
     /**
      * Sets the buildingAddressCountryCode attribute value.
+     *
      * @param buildingAddressCountryCode The buildingAddressCountryCode to set.
      */
     public void setBuildingAddressCountryCode(String buildingAddressCountryCode) {
@@ -335,20 +339,21 @@ public class Building extends PersistableBusinessObjectBase implements MutableIn
 
     /**
      * Gets the buildingAddressCountry attribute.
+     *
      * @return Returns the buildingAddressCountry.
      */
     public CountryEbo getBuildingAddressCountry() {
-        if ( StringUtils.isBlank(buildingAddressCountryCode) ) {
+        if (StringUtils.isBlank(buildingAddressCountryCode)) {
             buildingAddressCountry = null;
         } else {
-            if ( buildingAddressCountry == null || !StringUtils.equals( buildingAddressCountry.getCode(),buildingAddressCountryCode) ) {
+            if (buildingAddressCountry == null || !StringUtils.equals(buildingAddressCountry.getCode(), buildingAddressCountryCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(CountryEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(1);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(1);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, buildingAddressCountryCode);
                     buildingAddressCountry = moduleService.getExternalizableBusinessObject(CountryEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -357,6 +362,7 @@ public class Building extends PersistableBusinessObjectBase implements MutableIn
 
     /**
      * Sets the buildingAddressCountry attribute value.
+     *
      * @param buildingAddressCountry The buildingAddressCountry to set.
      */
     public void setBuildingAddressCountry(CountryEbo buildingAddressCountry) {

@@ -1,32 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.report.service.impl;
-
-import static net.sf.jasperreports.engine.JRExporterParameter.JASPER_PRINT_LIST;
-import static net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_STREAM;
-
-import java.io.ByteArrayOutputStream;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
@@ -36,7 +26,6 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
-
 import org.apache.log4j.Logger;
 import org.kuali.kfs.module.tem.report.DetailedReport;
 import org.kuali.kfs.module.tem.report.annotations.ReportStyle;
@@ -46,9 +35,18 @@ import org.kuali.kfs.sys.report.ReportInfo;
 import org.kuali.kfs.sys.service.ReportGenerationService;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.ByteArrayOutputStream;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
+import static net.sf.jasperreports.engine.JRExporterParameter.JASPER_PRINT_LIST;
+import static net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_STREAM;
+
 /**
  * Service interface for travel reports.
- *
  */
 @Transactional
 public class TravelReportServiceImpl implements TravelReportService {
@@ -59,13 +57,12 @@ public class TravelReportServiceImpl implements TravelReportService {
     protected TravelReportFactoryService reportFactoryService;
 
     /**
-     *
      * @param report
      * @param ByteArrayOutputStream
      */
     @Override
     public ByteArrayOutputStream buildReport(final ReportInfo report) throws Exception {
-        final Collection reportSet           = new ArrayList(); // Empty data set. The report is essentially subreports
+        final Collection reportSet = new ArrayList(); // Empty data set. The report is essentially subreports
         final Map<String, Object> reportData = new HashMap<String, Object>();
         reportData.put("report", report);
 
@@ -106,13 +103,11 @@ public class TravelReportServiceImpl implements TravelReportService {
                 if (report instanceof DetailedReport) {
                     printObjs.add(JasperFillManager.fillReport(reportObj, reportData, ((DetailedReport) report).getData()));
                 }
-            }
-            else {
+            } else {
                 addMoreReports = false;
             }
             i++;
         }
-
 
 
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -123,8 +118,7 @@ public class TravelReportServiceImpl implements TravelReportService {
             exporter.exportReport();
         } catch (JRException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             LOG.info("######################################################################");
             LOG.info("# FINISHED PROCESSING REPORT                                         #");
             LOG.info("######################################################################");
@@ -152,6 +146,7 @@ public class TravelReportServiceImpl implements TravelReportService {
 
     /**
      * Gets the reportFactoryService property.
+     *
      * @return Returns the reportFactoryService.
      */
     public TravelReportFactoryService getReportFactoryService() {
@@ -160,6 +155,7 @@ public class TravelReportServiceImpl implements TravelReportService {
 
     /**
      * Sets the reportFactoryService property value.
+     *
      * @param reportFactoryService The reportFactoryService to set.
      */
     public void setReportFactoryService(final TravelReportFactoryService reportFactoryService) {

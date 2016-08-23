@@ -1,3 +1,21 @@
+/*
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.kuali.kfs.sys.businessobject;
 
 
@@ -21,7 +39,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
 
 public class HealthReport {
 
@@ -44,7 +61,7 @@ public class HealthReport {
             status = "OK";
             message = "System checks out";
         }
-        Metric metric = new Metric("Health", "executionTime", (System.currentTimeMillis()-startTime)+"ms");
+        Metric metric = new Metric("Health", "executionTime", (System.currentTimeMillis() - startTime) + "ms");
         metrics.add(metric);
         return this;
 
@@ -91,7 +108,7 @@ public class HealthReport {
         String context = ConfigContext.getCurrentContextConfig().getProperty("app.context.name");
 
         MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
-        ObjectName objectName = new ObjectName("Catalina:type=Manager,context=/"+context+",host=localhost");
+        ObjectName objectName = new ObjectName("Catalina:type=Manager,context=/" + context + ",host=localhost");
         Object activeSessions = mBeanServer.getAttribute(objectName, "activeSessions");
         Metric metric = new Metric("Session", "active", activeSessions.toString());
         metrics.add(metric);
@@ -151,11 +168,11 @@ public class HealthReport {
 
     protected void doCheckMemory() {
         Runtime runtime = Runtime.getRuntime();
-        Metric metric  = new Metric("Memory", "free", ""+ runtime.freeMemory());
+        Metric metric = new Metric("Memory", "free", "" + runtime.freeMemory());
         metrics.add(metric);
-        metric  = new Metric("Memory", "max", ""+ runtime.maxMemory());
+        metric = new Metric("Memory", "max", "" + runtime.maxMemory());
         metrics.add(metric);
-        metric  = new Metric("Memory", "total", ""+ runtime.totalMemory());
+        metric = new Metric("Memory", "total", "" + runtime.totalMemory());
         metrics.add(metric);
     }
 

@@ -1,28 +1,25 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.document;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.document.Copyable;
 import org.kuali.kfs.module.ld.businessobject.ExpenseTransferSourceAccountingLine;
 import org.kuali.kfs.module.ld.businessobject.ExpenseTransferTargetAccountingLine;
 import org.kuali.kfs.sys.KFSConstants;
@@ -33,7 +30,10 @@ import org.kuali.kfs.sys.document.Correctable;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.krad.document.Copyable;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Labor Base class for Expense Transfer Documents
@@ -53,9 +53,9 @@ public abstract class LaborExpenseTransferDocumentBase extends LaborLedgerPostin
 
     /**
      * Determine whether target accouting lines have the same amounts as source accounting lines for each object code
-     * 
+     *
      * @return true if target accouting lines have the same amounts as source accounting lines for each object code; otherwise,
-     *         false
+     * false
      */
     public Map<String, KualiDecimal> getUnbalancedObjectCodes() {
         Map<String, KualiDecimal> amountsFromSourceLine = summerizeByObjectCode(getSourceAccountingLines());
@@ -67,8 +67,7 @@ public abstract class LaborExpenseTransferDocumentBase extends LaborLedgerPostin
 
             if (!amountsFromTargetLine.containsKey(objectCode)) {
                 unbalancedAmounts.put(objectCode, sourceAmount.negated());
-            }
-            else {
+            } else {
                 KualiDecimal targetAmount = amountsFromTargetLine.get(objectCode);
                 KualiDecimal amountDifference = targetAmount.subtract(sourceAmount);
                 if (amountDifference.isNonZero()) {
@@ -89,7 +88,7 @@ public abstract class LaborExpenseTransferDocumentBase extends LaborLedgerPostin
 
     /**
      * summerize the amounts of accounting lines by object codes
-     * 
+     *
      * @param accountingLines the given accounting line list
      * @return the summerized amounts by object codes
      */
@@ -112,7 +111,7 @@ public abstract class LaborExpenseTransferDocumentBase extends LaborLedgerPostin
 
     /**
      * Gets the emplid
-     * 
+     *
      * @return Returns the emplid.
      * @see org.kuali.kfs.module.ld.document.LaborExpenseTransferDocument#getEmplid()
      */
@@ -122,37 +121,39 @@ public abstract class LaborExpenseTransferDocumentBase extends LaborLedgerPostin
 
     /**
      * Sets the emplid
-     * 
-     * @see org.kuali.kfs.module.ld.document.LaborExpenseTransferDocument#setEmplid(String)
+     *
      * @param emplid
+     * @see org.kuali.kfs.module.ld.document.LaborExpenseTransferDocument#setEmplid(String)
      */
     public void setEmplid(String emplid) {
         this.emplid = emplid;
     }
-    
+
     /**
-     * Gets the user attribute. 
+     * Gets the user attribute.
+     *
      * @return Returns the user.
      */
     public Person getUser() {
-        if(user == null || !StringUtils.equals(user.getEmployeeId(), emplid)) {
+        if (user == null || !StringUtils.equals(user.getEmployeeId(), emplid)) {
             this.user = SpringContext.getBean(PersonService.class).getPersonByEmployeeId(emplid);
         }
-        
+
         return user;
     }
 
     /**
      * Sets the user attribute value.
+     *
      * @param user The user to set.
      */
     public void setUser(Person user) {
         this.user = user;
-    }    
+    }
 
     /**
      * Overrides the base implementation to return "From".
-     * 
+     *
      * @see org.kuali.rice.krad.document.AccountingDocument#getSourceAccountingLinesSectionTitle()
      */
     public String getSourceAccountingLinesSectionTitle() {
@@ -161,7 +162,7 @@ public abstract class LaborExpenseTransferDocumentBase extends LaborLedgerPostin
 
     /**
      * Overrides the base implementation to return "To".
-     * 
+     *
      * @see org.kuali.rice.krad.document.AccountingDocument#getTargetAccountingLinesSectionTitle()
      */
     public String getTargetAccountingLinesSectionTitle() {
@@ -183,5 +184,5 @@ public abstract class LaborExpenseTransferDocumentBase extends LaborLedgerPostin
     public Class getTargetAccountingLineClass() {
         return ExpenseTransferTargetAccountingLine.class;
     }
-    
+
 }

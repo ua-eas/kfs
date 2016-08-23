@@ -1,29 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.document.service.impl;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 import org.kuali.kfs.module.tem.businessobject.TemProfile;
 import org.kuali.kfs.module.tem.businessobject.TravelPayment;
 import org.kuali.kfs.module.tem.businessobject.TravelerDetail;
@@ -44,9 +42,11 @@ import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.krad.bo.DocumentHeader;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Base implementation of the TravelPaymentsHelperService
@@ -61,7 +61,8 @@ public class TravelPaymentsHelperServiceImpl implements TravelPaymentsHelperServ
 
     /**
      * Retrieves the campus code associated with the initiator of a passed in authorization document
-     * @param document the authorization document to find a campus for
+     *
+     * @param document          the authorization document to find a campus for
      * @param initiatorCampuses the cache of document initiator principal keys to campus codes
      * @return the campus code associated with the initiator of the given document
      */
@@ -70,16 +71,16 @@ public class TravelPaymentsHelperServiceImpl implements TravelPaymentsHelperServ
         try {
             final WorkflowDocument workflowDocument = getWorkflowDocumentService().loadWorkflowDocument(document.getDocumentNumber(), GlobalVariables.getUserSession().getPerson());
             return findCampusForInitiator(workflowDocument.getInitiatorPrincipalId(), initiatorCampuses);
-        }
-        catch (WorkflowException we) {
-            throw new RuntimeException("Could not load document: "+document.getDocumentNumber(), we);
+        } catch (WorkflowException we) {
+            throw new RuntimeException("Could not load document: " + document.getDocumentNumber(), we);
         }
     }
 
     /**
      * Retrieves and caches the campus code for the given initiator's principal id
+     *
      * @param initiatorPrincipalId the principal id of the initiator of a document
-     * @param initiatorCampuses the cache of initiator principal keys to campus codes
+     * @param initiatorCampuses    the cache of initiator principal keys to campus codes
      * @return the campus code associated with the given principal id
      */
     protected String findCampusForInitiator(String initiatorPrincipalId, Map<String, String> initiatorCampuses) {
@@ -96,6 +97,7 @@ public class TravelPaymentsHelperServiceImpl implements TravelPaymentsHelperServ
 
     /**
      * Returns the initiator for the initiator of this document
+     *
      * @see org.kuali.kfs.module.tem.document.service.TravelPaymentsHelperService#getInitiator(org.kuali.kfs.module.tem.document.TravelDocument)
      */
     @Override
@@ -103,9 +105,8 @@ public class TravelPaymentsHelperServiceImpl implements TravelPaymentsHelperServ
         try {
             final WorkflowDocument workflowDocument = getWorkflowDocumentService().loadWorkflowDocument(document.getDocumentNumber(), GlobalVariables.getUserSession().getPerson());
             return getPersonService().getPerson(workflowDocument.getInitiatorPrincipalId());
-        }
-        catch (WorkflowException we) {
-            throw new RuntimeException("Could not load document: "+document.getDocumentNumber(), we);
+        } catch (WorkflowException we) {
+            throw new RuntimeException("Could not load document: " + document.getDocumentNumber(), we);
         }
     }
 
@@ -136,12 +137,12 @@ public class TravelPaymentsHelperServiceImpl implements TravelPaymentsHelperServ
 
         pg.setTaxablePayment(Boolean.FALSE);
 
-        if (getTravelerService().isEmployee(traveler)){
+        if (getTravelerService().isEmployee(traveler)) {
             pg.setPayeeId(travelerProfile.getEmployeeId());
             pg.setPayeeIdTypeCd(PdpConstants.PayeeIdTypeCodes.EMPLOYEE);
             pg.setEmployeeIndicator(Boolean.TRUE);
             pg.setTaxablePayment(Boolean.FALSE);
-        }else{
+        } else {
             pg.setPayeeId(traveler.getCustomerNumber());
             pg.setPayeeIdTypeCd(PdpConstants.PayeeIdTypeCodes.CUSTOMER);
         }
@@ -150,7 +151,6 @@ public class TravelPaymentsHelperServiceImpl implements TravelPaymentsHelperServ
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.tem.document.service.TravelPaymentsHelperService#buildGenericPaymentDetail(org.kuali.rice.krad.bo.DocumentHeader, java.sql.Date, org.kuali.kfs.module.tem.businessobject.TravelPayment, org.kuali.rice.kim.api.identity.Person, java.lang.String)
      */
     @Override
@@ -182,7 +182,7 @@ public class TravelPaymentsHelperServiceImpl implements TravelPaymentsHelperServ
             pnt.setCustomerNoteLineNbr(new KualiInteger(line++));
             pnt.setCustomerNoteText("Send Check To: " + travelPayment.getSpecialHandlingPersonName());
             if (LOG.isDebugEnabled()) {
-                LOG.debug("Creating special handling person name note: "+pnt.getCustomerNoteText());
+                LOG.debug("Creating special handling person name note: " + pnt.getCustomerNoteText());
             }
             pd.addNote(pnt);
         }
@@ -191,7 +191,7 @@ public class TravelPaymentsHelperServiceImpl implements TravelPaymentsHelperServ
             pnt.setCustomerNoteLineNbr(new KualiInteger(line++));
             pnt.setCustomerNoteText(travelPayment.getSpecialHandlingLine1Addr());
             if (LOG.isDebugEnabled()) {
-                LOG.debug("Creating special handling address 1 note: "+pnt.getCustomerNoteText());
+                LOG.debug("Creating special handling address 1 note: " + pnt.getCustomerNoteText());
             }
             pd.addNote(pnt);
         }
@@ -200,7 +200,7 @@ public class TravelPaymentsHelperServiceImpl implements TravelPaymentsHelperServ
             pnt.setCustomerNoteLineNbr(new KualiInteger(line++));
             pnt.setCustomerNoteText(travelPayment.getSpecialHandlingLine2Addr());
             if (LOG.isDebugEnabled()) {
-                LOG.debug("Creating special handling address 2 note: "+pnt.getCustomerNoteText());
+                LOG.debug("Creating special handling address 2 note: " + pnt.getCustomerNoteText());
             }
             pd.addNote(pnt);
         }
@@ -209,7 +209,7 @@ public class TravelPaymentsHelperServiceImpl implements TravelPaymentsHelperServ
             pnt.setCustomerNoteLineNbr(new KualiInteger(line++));
             pnt.setCustomerNoteText(travelPayment.getSpecialHandlingCityName() + ", " + travelPayment.getSpecialHandlingStateCode() + " " + travelPayment.getSpecialHandlingZipCode());
             if (LOG.isDebugEnabled()) {
-                LOG.debug("Creating special handling city note: "+pnt.getCustomerNoteText());
+                LOG.debug("Creating special handling city note: " + pnt.getCustomerNoteText());
             }
             pd.addNote(pnt);
         }
@@ -218,7 +218,7 @@ public class TravelPaymentsHelperServiceImpl implements TravelPaymentsHelperServ
             pnt.setCustomerNoteLineNbr(new KualiInteger(line++));
             pnt.setCustomerNoteText("Attachment Included");
             if (LOG.isDebugEnabled()) {
-                LOG.debug("create attachment note: "+pnt.getCustomerNoteText());
+                LOG.debug("create attachment note: " + pnt.getCustomerNoteText());
             }
             pd.addNote(pnt);
         }
@@ -235,7 +235,6 @@ public class TravelPaymentsHelperServiceImpl implements TravelPaymentsHelperServ
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.tem.document.service.TravelPaymentsHelperService#buildGenericPaymentAccountDetails(java.util.List)
      */
     @Override
@@ -247,15 +246,13 @@ public class TravelPaymentsHelperServiceImpl implements TravelPaymentsHelperServ
             pad.setAccountNbr(accountingLine.getAccountNumber());
             if (!StringUtils.isBlank(accountingLine.getSubAccountNumber())) {
                 pad.setSubAccountNbr(accountingLine.getSubAccountNumber());
-            }
-            else {
+            } else {
                 pad.setSubAccountNbr(KFSConstants.getDashSubAccountNumber());
             }
             pad.setFinObjectCode(accountingLine.getFinancialObjectCode());
             if (!StringUtils.isBlank(accountingLine.getFinancialSubObjectCode())) {
                 pad.setFinSubObjectCode(accountingLine.getFinancialSubObjectCode());
-            }
-            else {
+            } else {
                 pad.setFinSubObjectCode(KFSConstants.getDashFinancialSubObjectCode());
             }
             if (!StringUtils.isBlank(accountingLine.getOrganizationReferenceId())) {
@@ -263,8 +260,7 @@ public class TravelPaymentsHelperServiceImpl implements TravelPaymentsHelperServ
             }
             if (!StringUtils.isBlank(accountingLine.getProjectCode())) {
                 pad.setProjectCode(accountingLine.getProjectCode());
-            }
-            else {
+            } else {
                 pad.setProjectCode(KFSConstants.getDashProjectCode());
             }
             pad.setAccountNetAmount(accountingLine.getAmount());
@@ -282,6 +278,7 @@ public class TravelPaymentsHelperServiceImpl implements TravelPaymentsHelperServ
 
     /**
      * Sets the implementation of the PersonService for this service to use
+     *
      * @param parameterService an implementation of PersonService
      */
     public void setPersonService(PersonService personService) {
@@ -297,6 +294,7 @@ public class TravelPaymentsHelperServiceImpl implements TravelPaymentsHelperServ
 
     /**
      * Sets the implementation of the WorkflowDocumentService for this service to use
+     *
      * @param parameterService an implementation of WorkflowDocumentService
      */
     public void setWorkflowDocumentService(WorkflowDocumentService workflowDocumentService) {
@@ -312,6 +310,7 @@ public class TravelPaymentsHelperServiceImpl implements TravelPaymentsHelperServ
 
     /**
      * Sets the implementation of the PaymentSourceHelperService for this service to use
+     *
      * @param paymentSourceHelperService an implementation of PaymentSourceHelperService
      */
     public void setPaymentSourceHelperService(PaymentSourceHelperService paymentSourceHelperService) {

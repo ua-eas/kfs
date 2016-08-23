@@ -1,27 +1,25 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.document.web.struts;
 
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.bc.BCPropertyConstants;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionAppointmentFundingReason;
 import org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding;
@@ -38,8 +36,10 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 
 /**
  * the base Struts form for salary setting
@@ -152,19 +152,18 @@ public abstract class SalarySettingBaseForm extends BudgetExpansionForm {
      *
      * @param appointmentFunding
      */
-    public void applyDefaultReasonAmountIfEmpty (PendingBudgetConstructionAppointmentFunding appointmentFunding){
-        if (!appointmentFunding.getBudgetConstructionAppointmentFundingReason().isEmpty()){
+    public void applyDefaultReasonAmountIfEmpty(PendingBudgetConstructionAppointmentFunding appointmentFunding) {
+        if (!appointmentFunding.getBudgetConstructionAppointmentFundingReason().isEmpty()) {
             BudgetConstructionAppointmentFundingReason afReason = appointmentFunding.getBudgetConstructionAppointmentFundingReason().get(0);
-            if (ObjectUtils.isNotNull(afReason)){
-                if (afReason.getAppointmentFundingReasonAmount() == null){
+            if (ObjectUtils.isNotNull(afReason)) {
+                if (afReason.getAppointmentFundingReasonAmount() == null) {
                     afReason.setAppointmentFundingReasonAmount(KualiInteger.ZERO);
                 }
-                if (afReason.getAppointmentFundingReasonCode() != null){
+                if (afReason.getAppointmentFundingReasonCode() != null) {
                     afReason.refreshReferenceObject(BCPropertyConstants.APPOINTMENT_FUNDING_REASON);
                 }
             }
-        }
-        else {
+        } else {
             appointmentFunding.getBudgetConstructionAppointmentFundingReason().add(new BudgetConstructionAppointmentFundingReason());
         }
     }
@@ -174,11 +173,11 @@ public abstract class SalarySettingBaseForm extends BudgetExpansionForm {
      *
      * @param appointmentFunding
      */
-    public void applyDefaultTotalIntendedAmountIfEmpty (PendingBudgetConstructionAppointmentFunding appointmentFunding){
-        if (appointmentFunding.getAppointmentTotalIntendedAmount() == null){
+    public void applyDefaultTotalIntendedAmountIfEmpty(PendingBudgetConstructionAppointmentFunding appointmentFunding) {
+        if (appointmentFunding.getAppointmentTotalIntendedAmount() == null) {
             appointmentFunding.setAppointmentTotalIntendedAmount(KualiInteger.ZERO);
         }
-        if (appointmentFunding.getAppointmentTotalIntendedFteQuantity() == null){
+        if (appointmentFunding.getAppointmentTotalIntendedFteQuantity() == null) {
             appointmentFunding.setAppointmentTotalIntendedFteQuantity(BigDecimal.ZERO);
         }
     }

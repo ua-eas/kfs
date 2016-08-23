@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -21,7 +21,6 @@ package org.kuali.kfs.sys.service;
 import org.kuali.kfs.sys.businessobject.FileStorageFile;
 
 import java.io.InputStream;
-import java.io.Reader;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -40,7 +39,7 @@ public interface FileStorageService {
      * Create a file with a handle to write data.
      *
      * @param filename filename to create
-     * @param action code to create data for file
+     * @param action   code to create data for file
      */
     void open(String filename, Consumer<FileStorageFile> action);
 
@@ -67,10 +66,10 @@ public interface FileStorageService {
      * @return a String array containing each line in the file
      */
     List<String> getFileContents(String filename);
-    
+
     /**
      * Gets the length of the file.
-     * 
+     *
      * @param filename the file whose length we want to check
      * @return The length, in bytes, of the file, or 0L if the file does not exist.
      */
@@ -94,11 +93,11 @@ public interface FileStorageService {
     /**
      * Get a list of all files at a prefix with a specific extension.
      *
-     * @param prefix Prefix to check
+     * @param prefix    Prefix to check
      * @param extension File name extension to match
      * @return List of filenames matching prefix with correct extension
      */
-    List<String> getFilesMatching(String prefix,String extension);
+    List<String> getFilesMatching(String prefix, String extension);
 
     /**
      * Make a folder.

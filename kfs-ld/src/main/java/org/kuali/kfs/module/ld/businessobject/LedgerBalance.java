@@ -1,28 +1,23 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.module.ld.businessobject;
-
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Chart;
@@ -37,10 +32,15 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+
 /**
  * Labor business object for LedgerBalance.
  */
-public class LedgerBalance extends Balance implements LaborLedgerBalance{
+public class LedgerBalance extends Balance implements LaborLedgerBalance {
     private String financialObjectCode;
     private String financialSubObjectCode;
     private String financialBalanceTypeCode;
@@ -361,63 +361,48 @@ public class LedgerBalance extends Balance implements LaborLedgerBalance{
     public void addAmount(String period, KualiDecimal amount) {
         if (KFSConstants.PERIOD_CODE_ANNUAL_BALANCE.equals(period)) {
             this.setAccountLineAnnualBalanceAmount(this.getAccountLineAnnualBalanceAmount().add(amount));
-        }
-        else if (KFSConstants.PERIOD_CODE_BEGINNING_BALANCE.equals(period)) {
+        } else if (KFSConstants.PERIOD_CODE_BEGINNING_BALANCE.equals(period)) {
             this.setFinancialBeginningBalanceLineAmount(this.getFinancialBeginningBalanceLineAmount().add(amount));
             super.getBeginningBalanceLineAmount().add(amount);
-        }
-        else if (KFSConstants.PERIOD_CODE_CG_BEGINNING_BALANCE.equals(period)) {
+        } else if (KFSConstants.PERIOD_CODE_CG_BEGINNING_BALANCE.equals(period)) {
             this.setContractsGrantsBeginningBalanceAmount(this.getContractsGrantsBeginningBalanceAmount().add(amount));
-        }
-        else if (KFSConstants.MONTH1.equals(period)) {
+        } else if (KFSConstants.MONTH1.equals(period)) {
             setMonth1Amount(getMonth1Amount().add(amount));
             this.setAccountLineAnnualBalanceAmount(this.getAccountLineAnnualBalanceAmount().add(amount));
-        }
-        else if (KFSConstants.MONTH2.equals(period)) {
+        } else if (KFSConstants.MONTH2.equals(period)) {
             setMonth2Amount(getMonth2Amount().add(amount));
             this.setAccountLineAnnualBalanceAmount(this.getAccountLineAnnualBalanceAmount().add(amount));
-        }
-        else if (KFSConstants.MONTH3.equals(period)) {
+        } else if (KFSConstants.MONTH3.equals(period)) {
             setMonth3Amount(getMonth3Amount().add(amount));
             this.setAccountLineAnnualBalanceAmount(this.getAccountLineAnnualBalanceAmount().add(amount));
-        }
-        else if (KFSConstants.MONTH4.equals(period)) {
+        } else if (KFSConstants.MONTH4.equals(period)) {
             setMonth4Amount(getMonth4Amount().add(amount));
             this.setAccountLineAnnualBalanceAmount(this.getAccountLineAnnualBalanceAmount().add(amount));
-        }
-        else if (KFSConstants.MONTH5.equals(period)) {
+        } else if (KFSConstants.MONTH5.equals(period)) {
             setMonth5Amount(getMonth5Amount().add(amount));
             this.setAccountLineAnnualBalanceAmount(this.getAccountLineAnnualBalanceAmount().add(amount));
-        }
-        else if (KFSConstants.MONTH6.equals(period)) {
+        } else if (KFSConstants.MONTH6.equals(period)) {
             setMonth6Amount(getMonth6Amount().add(amount));
             this.setAccountLineAnnualBalanceAmount(this.getAccountLineAnnualBalanceAmount().add(amount));
-        }
-        else if (KFSConstants.MONTH7.equals(period)) {
+        } else if (KFSConstants.MONTH7.equals(period)) {
             setMonth7Amount(getMonth7Amount().add(amount));
             this.setAccountLineAnnualBalanceAmount(this.getAccountLineAnnualBalanceAmount().add(amount));
-        }
-        else if (KFSConstants.MONTH8.equals(period)) {
+        } else if (KFSConstants.MONTH8.equals(period)) {
             setMonth8Amount(getMonth8Amount().add(amount));
             this.setAccountLineAnnualBalanceAmount(this.getAccountLineAnnualBalanceAmount().add(amount));
-        }
-        else if (KFSConstants.MONTH9.equals(period)) {
+        } else if (KFSConstants.MONTH9.equals(period)) {
             setMonth9Amount(getMonth9Amount().add(amount));
             this.setAccountLineAnnualBalanceAmount(this.getAccountLineAnnualBalanceAmount().add(amount));
-        }
-        else if (KFSConstants.MONTH10.equals(period)) {
+        } else if (KFSConstants.MONTH10.equals(period)) {
             setMonth10Amount(getMonth10Amount().add(amount));
             this.setAccountLineAnnualBalanceAmount(this.getAccountLineAnnualBalanceAmount().add(amount));
-        }
-        else if (KFSConstants.MONTH11.equals(period)) {
+        } else if (KFSConstants.MONTH11.equals(period)) {
             setMonth11Amount(getMonth11Amount().add(amount));
             this.setAccountLineAnnualBalanceAmount(this.getAccountLineAnnualBalanceAmount().add(amount));
-        }
-        else if (KFSConstants.MONTH12.equals(period)) {
+        } else if (KFSConstants.MONTH12.equals(period)) {
             setMonth12Amount(getMonth12Amount().add(amount));
             this.setAccountLineAnnualBalanceAmount(this.getAccountLineAnnualBalanceAmount().add(amount));
-        }
-        else if (KFSConstants.MONTH13.equals(period)) {
+        } else if (KFSConstants.MONTH13.equals(period)) {
             setMonth13Amount(getMonth13Amount().add(amount));
             this.setAccountLineAnnualBalanceAmount(this.getAccountLineAnnualBalanceAmount().add(amount));
         }
@@ -432,53 +417,37 @@ public class LedgerBalance extends Balance implements LaborLedgerBalance{
     public KualiDecimal getAmountByPeriod(String periodCode) {
         if (KFSConstants.PERIOD_CODE_ANNUAL_BALANCE.equals(periodCode)) {
             return this.getAccountLineAnnualBalanceAmount();
-        }
-        else if (KFSConstants.PERIOD_CODE_BEGINNING_BALANCE.equals(periodCode)) {
+        } else if (KFSConstants.PERIOD_CODE_BEGINNING_BALANCE.equals(periodCode)) {
             return this.getFinancialBeginningBalanceLineAmount();
-        }
-        else if (KFSConstants.PERIOD_CODE_CG_BEGINNING_BALANCE.equals(periodCode)) {
+        } else if (KFSConstants.PERIOD_CODE_CG_BEGINNING_BALANCE.equals(periodCode)) {
             return this.getContractsGrantsBeginningBalanceAmount();
-        }
-        else if (KFSConstants.MONTH1.equals(periodCode)) {
+        } else if (KFSConstants.MONTH1.equals(periodCode)) {
             return this.getMonth1Amount();
-        }
-        else if (KFSConstants.MONTH2.equals(periodCode)) {
+        } else if (KFSConstants.MONTH2.equals(periodCode)) {
             return this.getMonth2Amount();
-        }
-        else if (KFSConstants.MONTH3.equals(periodCode)) {
+        } else if (KFSConstants.MONTH3.equals(periodCode)) {
             return this.getMonth3Amount();
-        }
-        else if (KFSConstants.MONTH4.equals(periodCode)) {
+        } else if (KFSConstants.MONTH4.equals(periodCode)) {
             return this.getMonth4Amount();
-        }
-        else if (KFSConstants.MONTH5.equals(periodCode)) {
+        } else if (KFSConstants.MONTH5.equals(periodCode)) {
             return this.getMonth5Amount();
-        }
-        else if (KFSConstants.MONTH6.equals(periodCode)) {
+        } else if (KFSConstants.MONTH6.equals(periodCode)) {
             return this.getMonth6Amount();
-        }
-        else if (KFSConstants.MONTH7.equals(periodCode)) {
+        } else if (KFSConstants.MONTH7.equals(periodCode)) {
             return this.getMonth7Amount();
-        }
-        else if (KFSConstants.MONTH8.equals(periodCode)) {
+        } else if (KFSConstants.MONTH8.equals(periodCode)) {
             return this.getMonth8Amount();
-        }
-        else if (KFSConstants.MONTH9.equals(periodCode)) {
+        } else if (KFSConstants.MONTH9.equals(periodCode)) {
             return this.getMonth9Amount();
-        }
-        else if (KFSConstants.MONTH10.equals(periodCode)) {
+        } else if (KFSConstants.MONTH10.equals(periodCode)) {
             return this.getMonth10Amount();
-        }
-        else if (KFSConstants.MONTH11.equals(periodCode)) {
+        } else if (KFSConstants.MONTH11.equals(periodCode)) {
             return this.getMonth11Amount();
-        }
-        else if (KFSConstants.MONTH12.equals(periodCode)) {
+        } else if (KFSConstants.MONTH12.equals(periodCode)) {
             return this.getMonth12Amount();
-        }
-        else if (KFSConstants.MONTH13.equals(periodCode)) {
+        } else if (KFSConstants.MONTH13.equals(periodCode)) {
             return this.getMonth13Amount();
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Unsupport Period Code: " + periodCode);
         }
     }
@@ -526,7 +495,7 @@ public class LedgerBalance extends Balance implements LaborLedgerBalance{
      */
     @Override
     public Person getLedgerPerson() {
-        if( (ledgerPerson == null || !StringUtils.equals(ledgerPerson.getEmployeeId(), emplid)) && StringUtils.isNotBlank(emplid) ) {
+        if ((ledgerPerson == null || !StringUtils.equals(ledgerPerson.getEmployeeId(), emplid)) && StringUtils.isNotBlank(emplid)) {
             ledgerPerson = SpringContext.getBean(PersonService.class).getPersonByEmployeeId(emplid);
         }
 
@@ -568,22 +537,22 @@ public class LedgerBalance extends Balance implements LaborLedgerBalance{
      * Returns true if all amounts except C/G beginning balance are zero; false otherwise.
      */
     public boolean isCGBeginningBalanceOnly() {
-        return  getAccountLineAnnualBalanceAmount().isZero() &&
-                getBeginningBalanceLineAmount().isZero() &&
-                getFinancialBeginningBalanceLineAmount().isZero() &&
-        		getMonth1Amount().isZero() &&
-                getMonth2Amount().isZero() &&
-                getMonth3Amount().isZero() &&
-                getMonth4Amount().isZero() &&
-                getMonth5Amount().isZero() &&
-                getMonth6Amount().isZero() &&
-                getMonth7Amount().isZero() &&
-                getMonth8Amount().isZero() &&
-                getMonth9Amount().isZero() &&
-                getMonth10Amount().isZero() &&
-                getMonth11Amount().isZero() &&
-                getMonth12Amount().isZero() &&
-                getMonth13Amount().isZero();
+        return getAccountLineAnnualBalanceAmount().isZero() &&
+            getBeginningBalanceLineAmount().isZero() &&
+            getFinancialBeginningBalanceLineAmount().isZero() &&
+            getMonth1Amount().isZero() &&
+            getMonth2Amount().isZero() &&
+            getMonth3Amount().isZero() &&
+            getMonth4Amount().isZero() &&
+            getMonth5Amount().isZero() &&
+            getMonth6Amount().isZero() &&
+            getMonth7Amount().isZero() &&
+            getMonth8Amount().isZero() &&
+            getMonth9Amount().isZero() &&
+            getMonth10Amount().isZero() &&
+            getMonth11Amount().isZero() &&
+            getMonth12Amount().isZero() &&
+            getMonth13Amount().isZero();
     }
 
     /**

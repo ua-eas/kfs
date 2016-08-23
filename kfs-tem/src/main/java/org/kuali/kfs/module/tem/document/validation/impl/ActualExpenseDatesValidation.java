@@ -1,26 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.document.validation.impl;
 
-import java.util.Calendar;
-
 import org.apache.commons.lang.time.DateUtils;
+import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.tem.TemKeyConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.businessobject.ActualExpense;
@@ -29,8 +29,8 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.krad.service.DataDictionaryService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.Calendar;
 
 /**
  * validates that the date of the actual expense occurred before either the end date of the document or before the initiation date of the document
@@ -42,12 +42,13 @@ public class ActualExpenseDatesValidation extends GenericValidation {
 
     /**
      * True if the date of the actual expense is valid, false otherwise
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     @Override
     public boolean validate(AttributedDocumentEvent event) {
         if (getActualExpenseForValidation().getExpenseDate() != null) {
-            final TravelDocument travelDocument = (TravelDocument)event.getDocument();
+            final TravelDocument travelDocument = (TravelDocument) event.getDocument();
             Calendar messageDate = null; // the date we'll put in our message to be earlier than
             String messageProperty = null; // the label of the property to be earlier than
 

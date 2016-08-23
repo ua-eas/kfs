@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -36,23 +36,20 @@ public class OjbCharBooleanFieldInverseConversion implements FieldConversion {
     /**
      * This method takes the value intended to be passed to the SQL statement and replaces that value with its inverse. Thus TRUE
      * becomes FALSE and vice versa.
-     * 
+     *
      * @see org.apache.ojb.broker.accesslayer.conversions.FieldConversion#javaToSql(java.lang.Object)
      */
     public Object javaToSql(Object source) {
         if (source instanceof Boolean) {
             if (source.equals(Boolean.TRUE)) {
                 return FALSE;
-            }
-            else {
+            } else {
                 return TRUE;
             }
-        }
-        else if (source instanceof String) {
+        } else if (source instanceof String) {
             if ("Y".equalsIgnoreCase((String) source)) {
                 return FALSE;
-            }
-            else if ("N".equalsIgnoreCase((String) source)) {
+            } else if ("N".equalsIgnoreCase((String) source)) {
                 return TRUE;
             }
         }
@@ -62,19 +59,17 @@ public class OjbCharBooleanFieldInverseConversion implements FieldConversion {
     /**
      * This method takes the value returned from the database and replaces it with its inverse, thus FALSE becomes TRUE and vice
      * versa.
-     * 
+     *
      * @see org.apache.ojb.broker.accesslayer.conversions.FieldConversion#sqlToJava(java.lang.Object)
      */
     public Object sqlToJava(Object source) {
         if (source instanceof String) {
             if (TRUE.equals(source)) {
                 return Boolean.FALSE;
-            }
-            else {
+            } else {
                 return Boolean.TRUE;
             }
-        }
-        else {
+        } else {
             return source;
         }
     }

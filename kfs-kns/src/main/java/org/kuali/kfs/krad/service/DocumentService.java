@@ -1,38 +1,36 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.krad.service;
 
-import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.kfs.krad.bo.AdHocRouteRecipient;
 import org.kuali.kfs.krad.bo.Note;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.exception.ValidationException;
 import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
 import org.kuali.kfs.krad.rules.rule.event.SaveEvent;
+import org.kuali.rice.kew.api.exception.WorkflowException;
+import org.kuali.rice.kim.api.identity.Person;
 
 import java.util.List;
 
 /**
  * Defines various operations that support the Document framework.
- * 
- * 
  */
 public interface DocumentService {
 
@@ -75,6 +73,7 @@ public interface DocumentService {
      * @return
      */
     public Document getByDocumentHeaderId(String documentHeaderId) throws WorkflowException;
+
     /**
      * get a document based on the document header id which is the primary key for all document types.  Using this method
      * does not require that GlobalVariables.getUserSession() be populated.  Therefore, this method can be used when a HTTP request
@@ -96,7 +95,6 @@ public interface DocumentService {
     public List<Document> getDocumentsByListOfDocumentHeaderIds(Class<? extends Document> documentClass, List<String> documentHeaderIds) throws WorkflowException;
 
     /**
-     *
      * This method is to allow for documents to be updated which is currently used to update the document status as well as to allow
      * for locked docs to be unlocked
      *
@@ -107,7 +105,7 @@ public interface DocumentService {
     /**
      * This is a helper method that performs the same as the {@link #saveDocument(Document, Class)} method.  The convenience
      * of this method is that the event being used is the standard SaveDocumentEvent.
-     * 
+     *
      * @see DocumentService#saveDocument(Document, Class)
      */
     public Document saveDocument(Document document) throws WorkflowException;
@@ -116,20 +114,20 @@ public interface DocumentService {
      * Saves the passed-in document. This will persist it both to the Kuali database, and also initiate it (if necessary) within
      * workflow, so its available in the initiator's action list.  This method uses the passed in KualiDocumentEvent class when saving
      * the document.  The KualiDocumentEvent class must implement the {@link SaveEvent} interface.
-     *
+     * <p>
      * Note that the system does not support passing in Workflow Annotations or AdHoc Route Recipients on a SaveDocument call. These
      * are sent to workflow on a routeDocument action, or any of the others which actually causes a routing action to happen in
      * workflow.
-     *
+     * <p>
      * NOTE: This method will not check the document action flags to check if a save is valid
-     * 
-     * @param document The document to be saved
+     *
+     * @param document                The document to be saved
      * @param kualiDocumentEventClass The event class to use when saving (class must implement the SaveEvent interface)
      * @return the document that was passed in
      * @throws WorkflowException
      */
     public Document saveDocument(Document document, Class<? extends KualiDocumentEvent> kualiDocumentEventClass) throws WorkflowException;
-    
+
     /**
      * start the route the document for approval, optionally providing a list of ad hoc recipients, and additionally provideing a
      * annotation to show up in the route log for the document
@@ -266,38 +264,38 @@ public interface DocumentService {
      * @throws WorkflowException
      */
     public void prepareWorkflowDocument(Document document) throws WorkflowException;
-    
-    
+
+
     /**
      * This method creates a note from a given document and note text.  The resulting Note will
      * have it's note type set to the value of {@link Document#getNoteType()}.  Additionally, it's
      * remoteObjectId will be set to the object id of the document's note target.
-     * 
+     *
      * @param document the document from which to use the note type and note target when creating the note
-     * @param text the text value to include in the resulting note
+     * @param text     the text value to include in the resulting note
      * @return the note that was created
      */
     public Note createNoteFromDocument(Document document, String text);
-    
+
     /**
      * Saves the notes associated with the given document if they are in a state where they can be
      * saved.  In certain cases they may not be ready to be saved.  For example, in maintenance documents
      * where the notes are associated with the business object instead of the document header, the notes
      * cannot be saved until the business object itself has been persisted.
-     * 
+     *
      * @param document the document for which to save notes
      * @return true if the notes were saved, false if they were not
      */
     public boolean saveDocumentNotes(Document document);
-    
+
     public void sendAdHocRequests(Document document, String annotation, List<AdHocRouteRecipient> adHocRecipients) throws WorkflowException;
 
     /**
      * Builds an workflow notification request for the note and sends it to note recipient.
      *
      * @param document - document that contains the note
-     * @param note - note to notify
-     * @param sender - user who is sending the notification
+     * @param note     - note to notify
+     * @param sender   - user who is sending the notification
      * @throws WorkflowException
      */
     public void sendNoteRouteNotification(Document document, Note note, Person sender) throws WorkflowException;
@@ -306,18 +304,18 @@ public interface DocumentService {
      * recall this document, optionally providing an annotation for the recall which will show up in the route log for the
      * document for this action taken
      *
-     * @since 2.1
      * @param document
      * @param annotation
      * @return
+     * @since 2.1
      */
     public Document recallDocument(Document document, String annotation, boolean cancel) throws WorkflowException;
 
     /**
      * Complete action for a document
-     * 
-     * @param document Document 
-     * @param annotation Annotation text
+     *
+     * @param document        Document
+     * @param annotation      Annotation text
      * @param adHocRecipients list of adhoc recipients
      */
     public Document completeDocument(Document document, String annotation, List adHocRecipients) throws WorkflowException;
@@ -326,7 +324,7 @@ public interface DocumentService {
      * Helper method used to save and validate a document
      *
      * @param document Document
-     * @param event KualiDocumentEvent
+     * @param event    KualiDocumentEvent
      */
     public Document validateAndPersistDocument(Document document, KualiDocumentEvent event) throws ValidationException;
 }

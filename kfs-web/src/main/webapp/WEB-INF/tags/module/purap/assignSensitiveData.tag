@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -26,11 +26,11 @@
               description="The DataDictionary entry containing attributes for purchase order sensitive data's fields." %>
 <%@ attribute name="sensitiveDataAssignAttributes" required="true" type="java.util.Map"
               description="The DataDictionary entry containing attributes for sensitive data assignment's fields." %>
-              
+
 <c:set var="lastSensitiveDataAssignment" value="${KualiForm.lastSensitiveDataAssignment}" />
-              
+
 <kul:tabTop tabTitle="Assign Sensitive Data to Purchase Order" defaultOpen="true" tabErrorKey="${PurapConstants.ASSIGN_SENSITIVE_DATA_TAB_ERRORS}">
-	
+
     <div class="tab-container">
     	<h3>General Information</h3>
         <table class="standard" style="table-layout: fixed;" summary="Sensitive Data Assignment General Information">
@@ -72,7 +72,7 @@
             	</td>
             <tr>
         </table>
-    
+
     	<h3>Vendor Information</h3>
         <table class="standard" summary="Purchase Order Vendor Information">
         	<tr>
@@ -123,7 +123,7 @@
                 </c:if>
             </logic:iterate>
         </table>
-        
+
         <h3>New Sensitive Data Entry To Be Assigned</h3>
         <table class="standard side-margins" summary="Assign New Sensitive Data Entry">
             <tr class="header">
@@ -146,7 +146,7 @@
         		</td>
         	</tr>
         </table>
-        
+
         <h3>Current Sensitive Data Entries Assigned</h3>
         <table class="standard side-margins" summary="Delete/Update Current Sensitive Data Entries">
             <tr class="header">
@@ -173,6 +173,6 @@
         </table>
     </div>
 </kul:tabTop>
-        
-                
-             
+
+
+

@@ -1,29 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.batch.service.impl;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.Iterator;
-
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.batch.PosterEntriesStep;
 import org.kuali.kfs.gl.batch.service.AccountingCycleCachingService;
@@ -32,12 +29,15 @@ import org.kuali.kfs.gl.batch.service.PostTransaction;
 import org.kuali.kfs.gl.businessobject.Encumbrance;
 import org.kuali.kfs.gl.businessobject.Entry;
 import org.kuali.kfs.gl.businessobject.Transaction;
+import org.kuali.kfs.krad.service.PersistenceStructureService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.service.ReportWriterService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.service.PersistenceStructureService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
 
 /**
  * This implementation of PostTransaction posts a transaction that could be an encumbrance
@@ -60,10 +60,10 @@ public class PostEncumbrance implements PostTransaction, EncumbranceCalculator {
 
     /**
      * Called by the poster to post a transaction. The transaction might or might not be an encumbrance transaction.
-     * 
-     * @param t the transaction which is being posted
-     * @param mode the mode the poster is currently running in
-     * @param postDate the date this transaction should post to
+     *
+     * @param t                         the transaction which is being posted
+     * @param mode                      the mode the poster is currently running in
+     * @param postDate                  the date this transaction should post to
      * @param posterReportWriterService the writer service where the poster is writing its report
      * @return the accomplished post type
      */
@@ -86,15 +86,14 @@ public class PostEncumbrance implements PostTransaction, EncumbranceCalculator {
             e.setFinancialSystemOriginationCode(t.getReferenceFinancialSystemOriginationCode());
             e.setFinancialDocumentTypeCode(t.getReferenceFinancialDocumentTypeCode());
         }
-        
+
         Encumbrance enc = accountingCycleCachingService.getEncumbrance(e);
         if (enc == null) {
             // Build a new encumbrance record
             enc = new Encumbrance(e);
 
             returnCode = GeneralLedgerConstants.INSERT_CODE;
-        }
-        else {
+        } else {
             // Use the one retrieved
             if (enc.getTransactionEncumbranceDate() == null) {
                 enc.setTransactionEncumbranceDate(t.getTransactionDate());
@@ -116,9 +115,9 @@ public class PostEncumbrance implements PostTransaction, EncumbranceCalculator {
 
     /**
      * Given a Collection of encumbrances, returns the encumbrance that would affected by the given transaction
-     * 
+     *
      * @param encumbranceList a Collection of encumbrances
-     * @param t the transaction to find the appropriate encumbrance for
+     * @param t               the transaction to find the appropriate encumbrance for
      * @return the encumbrance found from the list, or, if not found, a newly created encumbrance
      * @see org.kuali.kfs.gl.batch.service.EncumbranceCalculator#findEncumbrance(java.util.Collection, org.kuali.kfs.gl.businessobject.Transaction)
      */
@@ -130,7 +129,7 @@ public class PostEncumbrance implements PostTransaction, EncumbranceCalculator {
         }
 
         // Try to find one that already exists
-        for (Iterator iter = encumbranceList.iterator(); iter.hasNext();) {
+        for (Iterator iter = encumbranceList.iterator(); iter.hasNext(); ) {
             Encumbrance e = (Encumbrance) iter.next();
 
             if (KFSConstants.ENCUMB_UPDT_DOCUMENT_CD.equals(t.getTransactionEncumbranceUpdateCode()) && e.getUniversityFiscalYear().equals(t.getUniversityFiscalYear()) && e.getChartOfAccountsCode().equals(t.getChartOfAccountsCode()) && e.getAccountNumber().equals(t.getAccountNumber()) && e.getSubAccountNumber().equals(t.getSubAccountNumber()) && e.getObjectCode().equals(t.getFinancialObjectCode()) && e.getSubObjectCode().equals(t.getFinancialSubObjectCode()) && e.getBalanceTypeCode().equals(t.getFinancialBalanceTypeCode()) && e.getDocumentTypeCode().equals(t.getFinancialDocumentTypeCode()) && e.getOriginCode().equals(t.getFinancialSystemOriginationCode()) && e.getDocumentNumber().equals(t.getDocumentNumber())) {
@@ -164,25 +163,22 @@ public class PostEncumbrance implements PostTransaction, EncumbranceCalculator {
      */
     public void updateEncumbrance(Transaction t, Encumbrance enc) {
         //KFSMI-1571 - check parameter encumbranceOpenAmountOeverridingDocTypes
-        String[] encumbranceOpenAmountOeverridingDocTypes = parameterService.getParameterValuesAsString(PosterEntriesStep.class, GeneralLedgerConstants.PosterService.ENCUMBRANCE_OPEN_AMOUNT_OVERRIDING_DOCUMENT_TYPES).toArray(new String[] {});
+        String[] encumbranceOpenAmountOeverridingDocTypes = parameterService.getParameterValuesAsString(PosterEntriesStep.class, GeneralLedgerConstants.PosterService.ENCUMBRANCE_OPEN_AMOUNT_OVERRIDING_DOCUMENT_TYPES).toArray(new String[]{});
 
         if (KFSConstants.ENCUMB_UPDT_REFERENCE_DOCUMENT_CD.equals(t.getTransactionEncumbranceUpdateCode()) && !ArrayUtils.contains(encumbranceOpenAmountOeverridingDocTypes, t.getFinancialDocumentTypeCode())) {
             // If using referring doc number, add or subtract transaction amount from
             // encumbrance closed amount
             if (KFSConstants.GL_DEBIT_CODE.equals(t.getTransactionDebitCreditCode())) {
                 enc.setAccountLineEncumbranceClosedAmount(enc.getAccountLineEncumbranceClosedAmount().subtract(t.getTransactionLedgerEntryAmount()));
-            }
-            else {
+            } else {
                 enc.setAccountLineEncumbranceClosedAmount(enc.getAccountLineEncumbranceClosedAmount().add(t.getTransactionLedgerEntryAmount()));
             }
-        }
-        else {
+        } else {
             // If not using referring doc number, add or subtract transaction amount from
             // encumbrance amount
             if (KFSConstants.GL_DEBIT_CODE.equals(t.getTransactionDebitCreditCode()) || KFSConstants.GL_BUDGET_CODE.equals(t.getTransactionDebitCreditCode())) {
                 enc.setAccountLineEncumbranceAmount(enc.getAccountLineEncumbranceAmount().add(t.getTransactionLedgerEntryAmount()));
-            }
-            else {
+            } else {
                 enc.setAccountLineEncumbranceAmount(enc.getAccountLineEncumbranceAmount().subtract(t.getTransactionLedgerEntryAmount()));
             }
         }

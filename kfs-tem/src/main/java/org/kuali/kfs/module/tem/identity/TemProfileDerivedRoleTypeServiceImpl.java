@@ -1,30 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.identity;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.kim.role.DerivedRoleTypeServiceBase;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.businessobject.TemProfile;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -32,9 +29,12 @@ import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.rice.core.api.membership.MemberType;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.role.RoleMembership;
-import org.kuali.kfs.kns.kim.role.DerivedRoleTypeServiceBase;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("deprecation")
 public class TemProfileDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceBase {
@@ -57,7 +57,7 @@ public class TemProfileDerivedRoleTypeServiceImpl extends DerivedRoleTypeService
     public List<RoleMembership> getRoleMembersFromDerivedRole(String namespaceCode, String roleName, Map<String, String> qualification) {
         validateRequiredAttributesAgainstReceived(qualification);
         final List<RoleMembership> members = new ArrayList<RoleMembership>(1);
-        if (qualification!=null && !qualification.isEmpty()) {
+        if (qualification != null && !qualification.isEmpty()) {
             // This is to allow users to create/edit their own profile. If the principalId from the profile
             // matches, the profile fields are unmasked. Otherwise the other roles will handle the appropriate
             // masking/unmasking of fields (see TemProfileOrganizationHierarchyRoleTypeServiceImpl).
@@ -74,6 +74,7 @@ public class TemProfileDerivedRoleTypeServiceImpl extends DerivedRoleTypeService
 
     /**
      * Determines if the user with the given principal id has a profile record
+     *
      * @param profilePrincipalId the principal id to check for a profile for
      * @return true if a profile was found, false otherwise
      */
@@ -87,6 +88,7 @@ public class TemProfileDerivedRoleTypeServiceImpl extends DerivedRoleTypeService
 
     /**
      * Determines if the document requesting routing is currently creating a profile - ie, it's a TTP doc with a new maintenance action
+     *
      * @param qualification the qualification to find document type and maintenance action in
      * @return true if the qualifiers suggest a profile is being created, false otherwise
      */

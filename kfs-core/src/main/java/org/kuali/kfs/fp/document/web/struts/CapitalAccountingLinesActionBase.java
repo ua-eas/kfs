@@ -1,29 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document.web.struts;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -37,6 +30,14 @@ import org.kuali.kfs.fp.document.CapitalAccountingLinesDocumentBase;
 import org.kuali.kfs.fp.document.validation.event.CapitalAccountingLinesSameObjectCodeSubTypeEvent;
 import org.kuali.kfs.fp.document.validation.impl.CapitalAssetAccountingLineUniquenessEnforcementValidation;
 import org.kuali.kfs.integration.cab.CapitalAssetBuilderModuleService;
+import org.kuali.kfs.kns.question.ConfirmationQuestion;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.rules.rule.event.SaveDocumentEvent;
+import org.kuali.kfs.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
@@ -49,14 +50,12 @@ import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.RiceConstants;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.question.ConfirmationQuestion;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.kfs.kns.web.struts.form.KualiForm;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.rules.rule.event.SaveDocumentEvent;
-import org.kuali.kfs.krad.service.KualiRuleService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * This is the action class for the CapitalAccountingLinesActionBase.
@@ -66,6 +65,7 @@ public abstract class CapitalAccountingLinesActionBase extends CapitalAssetInfor
 
     /**
      * Upon entry we need to set the capitalAccountingLinesExist boolean and check the tab states
+     *
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#execute(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
@@ -81,6 +81,7 @@ public abstract class CapitalAccountingLinesActionBase extends CapitalAssetInfor
 
     /**
      * Upon entry we need to set the capitalAccountingLinesExist boolean and check the tab states
+     *
      * @see org.kuali.kfs.kns.web.struts.action.KualiDocumentActionBase#docHandler(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
@@ -97,6 +98,7 @@ public abstract class CapitalAccountingLinesActionBase extends CapitalAssetInfor
     /**
      * removes capitalaccountinglines which is a transient bo.. and call the super method to
      * create a error correction document.
+     *
      * @see org.kuali.kfs.sys.document.web.struts.FinancialSystemTransactionalDocumentActionBase#correct(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
@@ -108,7 +110,7 @@ public abstract class CapitalAccountingLinesActionBase extends CapitalAssetInfor
         super.correct(mapping, capitalAccountingLinesFormBase, request, response);
 
         KualiAccountingDocumentFormBase kadfb = (KualiAccountingDocumentFormBase) form;
-        List<CapitalAssetInformation> currentCapitalAssetInformation =  this.getCurrentCapitalAssetInformationObject(kadfb);
+        List<CapitalAssetInformation> currentCapitalAssetInformation = this.getCurrentCapitalAssetInformationObject(kadfb);
         for (CapitalAssetInformation capitalAsset : currentCapitalAssetInformation) {
             capitalAsset.setCapitalAssetProcessedIndicator(false);
             capitalAsset.setCapitalAssetLineAmount(capitalAsset.getCapitalAssetLineAmount().negated());
@@ -228,6 +230,7 @@ public abstract class CapitalAccountingLinesActionBase extends CapitalAssetInfor
     /**
      * When user adds an accounting line to the either source or target, if the object code on
      * that line has capital object type code group then a capital accounting line is created.
+     *
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#insertAccountingLine(boolean, org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase, org.kuali.kfs.sys.businessobject.AccountingLine)
      */
     @Override
@@ -235,7 +238,7 @@ public abstract class CapitalAccountingLinesActionBase extends CapitalAssetInfor
         AccountingDocument tdoc = (AccountingDocument) kualiDocumentFormBase.getDocument();
         CapitalAccountingLinesDocumentBase caldb = (CapitalAccountingLinesDocumentBase) tdoc;
 
-        if(capitalAssetBuilderModuleService.hasCapitalAssetObjectSubType(line) && caldb.getCapitalAccountingLines().size() > 0) {
+        if (capitalAssetBuilderModuleService.hasCapitalAssetObjectSubType(line) && caldb.getCapitalAccountingLines().size() > 0) {
             if (line.isSourceAccountingLine()) {
                 GlobalVariables.getMessageMap().putError(KFSConstants.NEW_SOURCE_LINE_ERRORS, KFSKeyConstants.ERROR_DOCUMENT_CANT_ADD_CAPITALIZATION_ACCOUNTING_LINES);
             } else {
@@ -313,8 +316,7 @@ public abstract class CapitalAccountingLinesActionBase extends CapitalAssetInfor
 
         if (line instanceof SourceAccountingLine) {
             cal.setLineType(KFSConstants.SOURCE);
-        }
-        else {
+        } else {
             cal.setLineType(KFSConstants.TARGET);
         }
         cal.setSequenceNumber(line.getSequenceNumber());
@@ -335,6 +337,7 @@ public abstract class CapitalAccountingLinesActionBase extends CapitalAssetInfor
 
     /**
      * sort the capital accounting lines collection based on financial object code and account number.
+     *
      * @param capitalAccountingLines List of capital accounting lines
      */
     protected void sortCaptitalAccountingLines(List<CapitalAccountingLines> capitalAccountingLines) {
@@ -346,6 +349,7 @@ public abstract class CapitalAccountingLinesActionBase extends CapitalAssetInfor
 
     /**
      * Supports the generate button on the UI. It generates the capital accounting lines
+     *
      * @param mapping
      * @param form
      * @param request
@@ -361,7 +365,7 @@ public abstract class CapitalAccountingLinesActionBase extends CapitalAssetInfor
         CapitalAssetAccountingLineUniquenessEnforcementValidation uniquenessValidation = new CapitalAssetAccountingLineUniquenessEnforcementValidation();
         uniquenessValidation.setAccountingDocumentForValidation(caldb);
         if (uniquenessValidation.validate(new AttributedRouteDocumentEvent(caldb))
-                && getRuleService().applyRules(new SaveDocumentEvent(caldb))) {
+            && getRuleService().applyRules(new SaveDocumentEvent(caldb))) {
             String distributionAmountCode = capitalAccountingLinesFormBase.getCapitalAccountingLine().getDistributionCode();
 
             List<CapitalAccountingLines> capitalAccountingLines = caldb.getCapitalAccountingLines();
@@ -375,6 +379,7 @@ public abstract class CapitalAccountingLinesActionBase extends CapitalAssetInfor
 
     /**
      * Supports the delete button for capital accounting lines on the UI
+     *
      * @param mapping
      * @param form
      * @param request
@@ -413,9 +418,8 @@ public abstract class CapitalAccountingLinesActionBase extends CapitalAssetInfor
         CapitalAccountingLinesFormBase calfb = (CapitalAccountingLinesFormBase) form;
         String distributionAmountCode = calfb.getCapitalAccountingLine().getDistributionCode();
         if (KFSConstants.CapitalAssets.DISTRIBUTE_COST_EQUALLY_CODE.equals(distributionAmountCode)) {
-           calfb.setDistributeEqualAmount(true);
-        }
-        else {
+            calfb.setDistributeEqualAmount(true);
+        } else {
             calfb.setDistributeEqualAmount(false);
         }
 
@@ -426,8 +430,7 @@ public abstract class CapitalAccountingLinesActionBase extends CapitalAssetInfor
         if (!capitalAccountingLinesSelected(calfb)) {
             GlobalVariables.getMessageMap().putError(KFSConstants.EDIT_ACCOUNTING_LINES_FOR_CAPITALIZATION_ERRORS, KFSKeyConstants.ERROR_DOCUMENT_ACCOUNTING_LINE_FOR_CAPITALIZATAION_REQUIRED_CREATE);
             return mapping.findForward(KFSConstants.MAPPING_BASIC);
-        }
-        else {
+        } else {
             calfb.setEditCreateOrModify(false);
         }
 
@@ -440,9 +443,8 @@ public abstract class CapitalAccountingLinesActionBase extends CapitalAssetInfor
             if (forward != null) {
                 return forward;
             }
-        }
-        else {
-            createCapitalAssetsForSelectedAccountingLines(form , calfb, KFSConstants.CapitalAssets.CAPITAL_ASSET_CREATE_ACTION_INDICATOR, distributionAmountCode);
+        } else {
+            createCapitalAssetsForSelectedAccountingLines(form, calfb, KFSConstants.CapitalAssets.CAPITAL_ASSET_CREATE_ACTION_INDICATOR, distributionAmountCode);
         }
 
         //restore the tab states....
@@ -472,8 +474,7 @@ public abstract class CapitalAccountingLinesActionBase extends CapitalAssetInfor
 
         if (KFSConstants.CapitalAssets.DISTRIBUTE_COST_EQUALLY_CODE.equals(distributionAmountCode)) {
             calfb.setDistributeEqualAmount(true);
-         }
-        else {
+        } else {
             calfb.setDistributeEqualAmount(false);
         }
 
@@ -481,8 +482,7 @@ public abstract class CapitalAccountingLinesActionBase extends CapitalAssetInfor
         if (!capitalAccountingLinesSelected(calfb)) {
             GlobalVariables.getMessageMap().putError(KFSConstants.EDIT_ACCOUNTING_LINES_FOR_CAPITALIZATION_ERRORS, KFSKeyConstants.ERROR_DOCUMENT_ACCOUNTING_LINE_FOR_CAPITALIZATAION_REQUIRED_MODIFY);
             return mapping.findForward(KFSConstants.MAPPING_BASIC);
-        }
-        else {
+        } else {
             calfb.setEditCreateOrModify(false);
         }
 
@@ -495,9 +495,8 @@ public abstract class CapitalAccountingLinesActionBase extends CapitalAssetInfor
             if (forward != null) {
                 return forward;
             }
-        }
-        else {
-            createCapitalAssetsForSelectedAccountingLines(form , calfb, KFSConstants.CapitalAssets.CAPITAL_ASSET_MODIFY_ACTION_INDICATOR, distributionAmountCode);
+        } else {
+            createCapitalAssetsForSelectedAccountingLines(form, calfb, KFSConstants.CapitalAssets.CAPITAL_ASSET_MODIFY_ACTION_INDICATOR, distributionAmountCode);
         }
 
         //restore the tab states....
@@ -513,7 +512,7 @@ public abstract class CapitalAccountingLinesActionBase extends CapitalAssetInfor
      *
      * @param form
      * @param calfb
-     * @param actionTypeIndicator indicates whether creating an asset for "create" or "modify" actions.
+     * @param actionTypeIndicator    indicates whether creating an asset for "create" or "modify" actions.
      * @param distributionAmountCode amount distribution code
      */
     protected void createCapitalAssetsForSelectedAccountingLines(ActionForm form, CapitalAccountingLinesFormBase calfb, String actionTypeIndicator, String distributionAmountCode) {
@@ -549,13 +548,13 @@ public abstract class CapitalAccountingLinesActionBase extends CapitalAssetInfor
         return selected;
     }
 
-   /**
-    * runs the validation to check if object subtypes crosses groups on
-    * selected capital accounting lines.
-    *
-    * @param form
-    * @return true if rule passed else false
-    */
+    /**
+     * runs the validation to check if object subtypes crosses groups on
+     * selected capital accounting lines.
+     *
+     * @param form
+     * @return true if rule passed else false
+     */
     protected boolean checkObjecSubTypeCrossingCapitalAccountingLines(Document document) {
         boolean differentObjecSubtypes = true;
         differentObjecSubtypes &= getRuleService().applyRules(new CapitalAccountingLinesSameObjectCodeSubTypeEvent(document));
@@ -564,14 +563,13 @@ public abstract class CapitalAccountingLinesActionBase extends CapitalAssetInfor
     }
 
     /**
-     *
-     * @param mapping An ActionMapping
-     * @param form An ActionForm
-     * @param request The HttpServletRequest
-     * @param response The HttpServletResponse
-     * @throws Exception
+     * @param mapping                An ActionMapping
+     * @param form                   An ActionForm
+     * @param request                The HttpServletRequest
+     * @param response               The HttpServletResponse
      * @param distributionAmountCode
      * @return An ActionForward
+     * @throws Exception
      */
     protected ActionForward performQuestionPrompt(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response, String actionTypeCode, String distributionAmountCode) throws Exception {
         ActionForward forward = null;
@@ -581,12 +579,11 @@ public abstract class CapitalAccountingLinesActionBase extends CapitalAssetInfor
         if (question == null) {
             String questionText = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSKeyConstants.WARNING_NOT_SAME_OBJECT_SUB_TYPES);
             return this.performQuestionWithoutInput(mapping, form, request, response, KFSConstants.OBJECT_SUB_TYPES_DIFFERENT_QUESTION, questionText, KFSConstants.CONFIRMATION_QUESTION, KFSConstants.ROUTE_METHOD, "");
-        }
-        else {
+        } else {
             Object buttonClicked = request.getParameter(KFSConstants.QUESTION_CLICKED_BUTTON);
             // If the user replies 'Yes' the question, proceed..
             if (KFSConstants.OBJECT_SUB_TYPES_DIFFERENT_QUESTION.equals(question) && ConfirmationQuestion.YES.equals(buttonClicked)) {
-                createCapitalAssetsForSelectedAccountingLines(form , calfb, actionTypeCode, distributionAmountCode);
+                createCapitalAssetsForSelectedAccountingLines(form, calfb, actionTypeCode, distributionAmountCode);
 
                 KualiForm kualiForm = (KualiForm) form;
                 setTabStatesForCapitalAssets(kualiForm);

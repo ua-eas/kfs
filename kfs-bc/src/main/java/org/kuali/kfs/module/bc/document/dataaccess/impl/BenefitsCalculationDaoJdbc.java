@@ -1,29 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.document.dataaccess.impl;
 
-import java.util.ArrayList;
-import java.util.UUID;
-
 import org.kuali.kfs.module.bc.batch.dataaccess.impl.SQLForStep;
 import org.kuali.kfs.module.bc.document.dataaccess.BenefitsCalculationDao;
 import org.kuali.kfs.sys.KFSConstants;
+
+import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * implements the SQL procedures to calculate benefits for the personnel object codes in the budget. apply the appropriate
@@ -570,7 +570,7 @@ public class BenefitsCalculationDaoJdbc extends BudgetConstructionDaoJdbcBase im
     /**
      * @see org.kuali.kfs.module.bc.document.dataaccess.BenefitsCalculationDao#calculateAnnualBudgetConstructionGeneralLedgerBenefits(java.lang.String, java.lang.Integer, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.util.ArrayList)
      */
-    public void calculateAnnualBudgetConstructionGeneralLedgerBenefits(String documentNumber, Integer fiscalYear, String chartOfAccounts, String accountNumber, String subAccountNumber, String finObjTypeExpenditureexpCd, String expenditureINList){
+    public void calculateAnnualBudgetConstructionGeneralLedgerBenefits(String documentNumber, Integer fiscalYear, String chartOfAccounts, String accountNumber, String subAccountNumber, String finObjTypeExpenditureexpCd, String expenditureINList) {
 
         // original non rate category code version
 
@@ -636,7 +636,7 @@ public class BenefitsCalculationDaoJdbc extends BudgetConstructionDaoJdbcBase im
 
     /**
      * @see org.kuali.kfs.module.bc.document.dataaccess.BenefitsCalculationDao#calculateMonthlyBudgetConstructionGeneralLedgerBenefits(java.lang.String,
-     *      java.lang.Integer, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+     * java.lang.Integer, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     public void calculateMonthlyBudgetConstructionGeneralLedgerBenefits(String documentNumber, Integer fiscalYear, String chartOfAccounts, String accountNumber, String subAccountNumber, String finObjTypeExpenditureexpCd) {
 
@@ -660,11 +660,11 @@ public class BenefitsCalculationDaoJdbc extends BudgetConstructionDaoJdbcBase im
 
 
     /**
-     * @see org.kuali.kfs.module.bc.document.dataaccess.BenefitsCalculationDao#calculateMonthlyBudgetConstructionGeneralLedgerBenefits(java.lang.String,
-     *      java.lang.Integer, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      * @@ -420,6 +615,31 @@ persistenceService.clearCache(); } /**
      * @see org.kuali.kfs.module.bc.document.dataaccess.BenefitsCalculationDao#calculateMonthlyBudgetConstructionGeneralLedgerBenefits(java.lang.String,
-     *      java.lang.Integer, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+     * java.lang.Integer, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+     * @see org.kuali.kfs.module.bc.document.dataaccess.BenefitsCalculationDao#calculateMonthlyBudgetConstructionGeneralLedgerBenefits(java.lang.String,
+     * java.lang.Integer, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     public void calculateMonthlyBudgetConstructionGeneralLedgerBenefits(String documentNumber, Integer fiscalYear, String chartOfAccounts, String accountNumber, String subAccountNumber, String finObjTypeExpenditureexpCd, String laborBenefitRateCategoryCode) {
 

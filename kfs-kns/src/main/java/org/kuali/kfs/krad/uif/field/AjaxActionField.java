@@ -1,33 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.krad.uif.field;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.uif.UifConstants;
 import org.kuali.kfs.krad.uif.component.Component;
 import org.kuali.kfs.krad.uif.component.ComponentBase;
-import org.kuali.kfs.krad.uif.UifConstants;
 import org.kuali.kfs.krad.uif.view.View;
 
 /**
  * Action field that performs an Ajax request and will result in updating of the page or a component
- *
- * 
  */
 public class AjaxActionField extends ActionField {
     private static final long serialVersionUID = -2831173647391138870L;
@@ -41,14 +39,14 @@ public class AjaxActionField extends ActionField {
 
     /**
      * The following finalization is performed:
-     *
+     * <p>
      * <ul>
      * <li>Add methodToCall action parameter if set and setup event code for
      * setting action parameters</li>
      * </ul>
      *
      * @see ComponentBase#performFinalize(View,
-     *      java.lang.Object, Component)
+     * java.lang.Object, Component)
      */
     @Override
     public void performFinalize(View view, Object model, Component parent) {
@@ -66,10 +64,9 @@ public class AjaxActionField extends ActionField {
 
             DataField dataField = view.getViewIndex().getDataFieldByPath(refreshPropertyName);
             if (dataField != null) {
-               refreshComponent = dataField;
+                refreshComponent = dataField;
             }
-        }
-        else if (StringUtils.isNotBlank(refreshId)) {
+        } else if (StringUtils.isNotBlank(refreshId)) {
             Component component = view.getViewIndex().getComponentById(refreshId);
             if (component != null) {
                 refreshComponent = component;
@@ -81,7 +78,7 @@ public class AjaxActionField extends ActionField {
             refreshComponent.setRefreshedByAction(true);
             // update initial state
             Component initialComponent = view.getViewIndex().getInitialComponentStates().get(
-                    refreshComponent.getFactoryId());
+                refreshComponent.getFactoryId());
             if (initialComponent != null) {
                 initialComponent.setRefreshedByAction(true);
                 view.getViewIndex().getInitialComponentStates().put(refreshComponent.getFactoryId(), initialComponent);
@@ -89,9 +86,8 @@ public class AjaxActionField extends ActionField {
 
             // refresh component for action
             actionScript = "retrieveComponent('" + refreshComponent.getId() + "','" + refreshComponent.getFactoryId()
-                    + "','" + getMethodToCall() + "');";
-        }
-        else {
+                + "','" + getMethodToCall() + "');";
+        } else {
             // refresh page
             actionScript = "submitForm();";
         }
@@ -107,7 +103,7 @@ public class AjaxActionField extends ActionField {
 
     /**
      * Id for the component that should be refreshed after the action completes
-     *
+     * <p>
      * <p>
      * Either refresh id or refresh property name can be set to configure the component that should
      * be refreshed after the action completes. If both are blank, the page will be refreshed
@@ -130,18 +126,18 @@ public class AjaxActionField extends ActionField {
 
     /**
      * Property name for the {@link DataField} that should be refreshed after the action completes
-     *
+     * <p>
      * <p>
      * Either refresh id or refresh property name can be set to configure the component that should
      * be refreshed after the action completes. If both are blank, the page will be refreshed
      * </p>
-     *
+     * <p>
      * <p>
      * Property name will be adjusted to use the default binding path unless it contains the form prefix
      *
      * @return String valid property name with an associated DataField
      * @see UifConstants#NO_BIND_ADJUST_PREFIX
-     *      </p>
+     * </p>
      */
     public String getRefreshPropertyName() {
         return refreshPropertyName;

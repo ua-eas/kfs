@@ -1,32 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.document.AdvanceDepositDocument;
 import org.kuali.kfs.integration.ar.AccountsReceivableModuleService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.businessobject.ElectronicPaymentClaim;
@@ -35,14 +33,16 @@ import org.kuali.kfs.sys.service.ElectronicPaymentClaimingDocumentGenerationStra
 import org.kuali.kfs.sys.service.ElectronicPaymentClaimingService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.services.IdentityManagementService;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ElectronicPaymentClaimingServiceImpl implements ElectronicPaymentClaimingService {
     private org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ElectronicPaymentClaimingServiceImpl.class);
@@ -74,8 +74,7 @@ public class ElectronicPaymentClaimingServiceImpl implements ElectronicPaymentCl
                 noteTexts.add(noteText);
                 i += summariesPerNote;
             }
-        }
-        catch (NumberFormatException nfe) {
+        } catch (NumberFormatException nfe) {
             throw new RuntimeException("The KFS-SYS / ElectronicPaymentClaim / " + ELECTRONIC_FUNDS_CLAIM_SUMMARIES_PER_NOTE_PARAMETER + " should have a value that can be parsed into an integer.", nfe);
         }
         return noteTexts;
@@ -83,9 +82,9 @@ public class ElectronicPaymentClaimingServiceImpl implements ElectronicPaymentCl
 
     /**
      * This creates a note for the given point in the list of summaries.
-     * 
-     * @param claims a List of ElectronicPaymentClaim records that are being claimed
-     * @param startPoint the point in the list the note is starting at
+     *
+     * @param claims              a List of ElectronicPaymentClaim records that are being claimed
+     * @param startPoint          the point in the list the note is starting at
      * @param maxSummariesPerNote the number of ElectronicPaymentClaim summaries we can have on a note
      * @return a newly constructed note, that needs to have a user added
      */
@@ -103,7 +102,7 @@ public class ElectronicPaymentClaimingServiceImpl implements ElectronicPaymentCl
 
     /**
      * Creates a summary line for a note from a claim
-     * 
+     *
      * @param claim the electronic payment claim to summarize
      * @return a String with the summary of the claim.
      */
@@ -128,7 +127,7 @@ public class ElectronicPaymentClaimingServiceImpl implements ElectronicPaymentCl
 
     /**
      * @see org.kuali.kfs.sys.service.ElectronicPaymentClaimingService#createPaymentClaimingDocument(java.util.List,
-     *      org.kuali.kfs.sys.service.ElectronicPaymentClaimingDocumentGenerationStrategy)
+     * org.kuali.kfs.sys.service.ElectronicPaymentClaimingDocumentGenerationStrategy)
      */
     public String createPaymentClaimingDocument(List<ElectronicPaymentClaim> claims, ElectronicPaymentClaimingDocumentGenerationStrategy documentCreationHelper, Person user) {
         return documentCreationHelper.createDocumentFromElectronicPayments(claims, user);
@@ -141,19 +140,19 @@ public class ElectronicPaymentClaimingServiceImpl implements ElectronicPaymentCl
         List<ElectronicPaymentClaimingDocumentGenerationStrategy> documentChoices = new ArrayList<ElectronicPaymentClaimingDocumentGenerationStrategy>();
         Map<String, ElectronicPaymentClaimingDocumentGenerationStrategy> claimingDocHelpers = SpringContext.getBeansOfType(ElectronicPaymentClaimingDocumentGenerationStrategy.class);
         ElectronicPaymentClaimingDocumentGenerationStrategy claimingDocHelper;
-        
+
         // try the helper for no document case
         claimingDocHelper = claimingDocHelpers.get(CLAIMING_DOC_HELPER_BEAN_NAME);
         if (claimingDocHelper.userMayUseToClaim(user)) {
             documentChoices.add(claimingDocHelper);
-        }        
+        }
 
         // try the DI
         claimingDocHelper = claimingDocHelpers.get(DI_CLAIMING_DOC_HELPER_BEAN_NAME);
         if (claimingDocHelper.userMayUseToClaim(user)) {
             documentChoices.add(claimingDocHelper);
         }
-        
+
         // try the YEDI
         claimingDocHelper = claimingDocHelpers.get(YEDI_CLAIMING_DOC_HELPER_BEAN_NAME);
         if (claimingDocHelper.userMayUseToClaim(user)) {
@@ -172,8 +171,8 @@ public class ElectronicPaymentClaimingServiceImpl implements ElectronicPaymentCl
     /**
      * Sets the referenceFinancialDocumentNumber on each of the payments passed in with the given document number and then saves
      * them.
-     * 
-     * @param payments a list of payments to claim
+     *
+     * @param payments      a list of payments to claim
      * @param docmentNumber the document number of the claiming document
      */
     public void claimElectronicPayments(List<ElectronicPaymentClaim> payments, String documentNumber) {
@@ -201,19 +200,19 @@ public class ElectronicPaymentClaimingServiceImpl implements ElectronicPaymentCl
 
     /**
      * @see org.kuali.kfs.sys.service.ElectronicPaymentClaimingService#isAuthorizedForClaimingElectronicPayment(org.kuali.rice.kim.api.identity.Person,
-     *      java.lang.String, java.lang.String)
+     * java.lang.String, java.lang.String)
      */
     public boolean isAuthorizedForClaimingElectronicPayment(Person user, String workflowDocumentTypeName) {
         String principalId = user.getPrincipalId();
         String namespaceCode = KFSConstants.ParameterNamespaces.KFS;
         String permissionTemplateName = KFSConstants.PermissionTemplate.CLAIM_ELECTRONIC_PAYMENT.name;
 
-        Map<String,String> permissionDetails = new HashMap<String,String>();
-        permissionDetails.put(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME, workflowDocumentTypeName);      
+        Map<String, String> permissionDetails = new HashMap<String, String>();
+        permissionDetails.put(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME, workflowDocumentTypeName);
 
         IdentityManagementService identityManagementService = SpringContext.getBean(IdentityManagementService.class);
         boolean isAuthorized = identityManagementService.hasPermissionByTemplateName(principalId, namespaceCode, permissionTemplateName, permissionDetails);
-        
+
         return isAuthorized;
     }
 
@@ -232,9 +231,10 @@ public class ElectronicPaymentClaimingServiceImpl implements ElectronicPaymentCl
         }
         return claimRecords;
     }
-    
+
     /**
      * Determines if the given accounting line represents an electronic payment
+     *
      * @param accountingLine the accounting line to check
      * @return true if the accounting line does represent an electronic payment, false otherwise
      */
@@ -244,7 +244,7 @@ public class ElectronicPaymentClaimingServiceImpl implements ElectronicPaymentCl
 
     /**
      * Creates an electronic payment claim record to match the given accounting line on the document
-     * 
+     *
      * @param accountingLine an accounting line that an electronic payment claim record should be created for
      * @return the created ElectronicPaymentClaim business object
      */
@@ -260,7 +260,7 @@ public class ElectronicPaymentClaimingServiceImpl implements ElectronicPaymentCl
 
     /**
      * Sets the businessObjectService attribute value.
-     * 
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
@@ -269,7 +269,7 @@ public class ElectronicPaymentClaimingServiceImpl implements ElectronicPaymentCl
 
     /**
      * Sets the documentService attribute value.
-     * 
+     *
      * @param documentService The documentService to set.
      */
     public void setDocumentService(DocumentService documentService) {
@@ -278,7 +278,7 @@ public class ElectronicPaymentClaimingServiceImpl implements ElectronicPaymentCl
 
     /**
      * Sets the parameterService attribute value.
-     * 
+     *
      * @param parameterService The parameterService to set.
      */
     public void setParameterService(ParameterService parameterService) {
@@ -287,7 +287,7 @@ public class ElectronicPaymentClaimingServiceImpl implements ElectronicPaymentCl
 
     /**
      * Sets the dateTimeService attribute value.
-     * 
+     *
      * @param dateTimeService The dateTimeService to set.
      */
     public void setDateTimeService(DateTimeService dateTimeService) {

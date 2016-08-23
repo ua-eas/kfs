@@ -1,37 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.document.web.struts;
-
-import static org.kuali.kfs.module.tem.TemConstants.COVERSHEET_FILENAME_FORMAT;
-import static org.kuali.kfs.module.tem.TemConstants.REMAINING_DISTRIBUTION_ATTRIBUTE;
-import static org.kuali.kfs.module.tem.TemConstants.SHOW_REPORTS_ATTRIBUTE;
-import static org.kuali.kfs.sys.KFSPropertyConstants.DOCUMENT_NUMBER;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Properties;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -40,6 +25,13 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.kuali.kfs.fp.document.DisbursementVoucherDocument;
 import org.kuali.kfs.fp.document.web.struts.DisbursementVoucherForm;
+import org.kuali.kfs.kns.util.WebUtils;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.businessobject.AccountingDistribution;
@@ -62,22 +54,30 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.util.WebUtils;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Properties;
+
+import static org.kuali.kfs.module.tem.TemConstants.COVERSHEET_FILENAME_FORMAT;
+import static org.kuali.kfs.module.tem.TemConstants.REMAINING_DISTRIBUTION_ATTRIBUTE;
+import static org.kuali.kfs.module.tem.TemConstants.SHOW_REPORTS_ATTRIBUTE;
+import static org.kuali.kfs.sys.KFSPropertyConstants.DOCUMENT_NUMBER;
 
 public class TravelRelocationAction extends TravelActionBase {
 
     public static Logger LOG = Logger.getLogger(TravelRelocationAction.class);
 
-    private static final String[] reloMethodToCallExclusionArray = { "recalculate", "calculate", "recalculateTripDetailTotal" };
+    private static final String[] reloMethodToCallExclusionArray = {"recalculate", "calculate", "recalculateTripDetailTotal"};
 
     /**
      * Refreshes collections on the document
+     *
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#loadDocument(org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase)
      */
     @Override
@@ -93,7 +93,7 @@ public class TravelRelocationAction extends TravelActionBase {
 
     /**
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#execute(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -190,7 +190,7 @@ public class TravelRelocationAction extends TravelActionBase {
                 LOG.debug("Setting traveler with id " + oldRelocation.getTravelerDetailId());
                 document.setTravelerDetailId(oldRelocation.getTravelerDetailId());
                 document.refreshReferenceObject(TemPropertyConstants.TRAVELER);
-                LOG.debug("Traveler is "+ document.getTraveler()+ " with customer number "+ document.getTraveler().getCustomerNumber());
+                LOG.debug("Traveler is " + document.getTraveler() + " with customer number " + document.getTraveler().getCustomerNumber());
 
                 if (document.getTraveler().getPrincipalId() != null) {
                     document.getTraveler().setPrincipalName(getPersonService().getPerson(document.getTraveler().getPrincipalId()).getPrincipalName());
@@ -244,11 +244,12 @@ public class TravelRelocationAction extends TravelActionBase {
 
     /**
      * Performs necessary updates after the requester on the relocation document was updated, such as updating the payee type
+     *
      * @param document the document to update
      */
     @Override
     protected void performRequesterRefresh(TravelDocument document, TravelFormBase travelForm, HttpServletRequest request) {
-        ((TravelRelocationDocument)document).updatePayeeTypeForReimbursable();
+        ((TravelRelocationDocument) document).updatePayeeTypeForReimbursable();
         updateAccountsWithNewProfile(travelForm, document.getTemProfile());
     }
 
@@ -378,13 +379,14 @@ public class TravelRelocationAction extends TravelActionBase {
      * @throws Exception
      */
     public ActionForward newRelocation(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-       final TravelRelocationDocument reloDoc = ((TravelRelocationForm)form).getTravelRelocationDocument();
-       final String url = buildNewRelocationUrl(reloDoc);
-       return new ActionForward(url, true);
+        final TravelRelocationDocument reloDoc = ((TravelRelocationForm) form).getTravelRelocationDocument();
+        final String url = buildNewRelocationUrl(reloDoc);
+        return new ActionForward(url, true);
     }
 
     /**
      * Builds a new relocation url for the given travel document
+     *
      * @param travelDoc the travel document to create a new relocation for
      * @return the url to redirect to to create a new relocation
      */

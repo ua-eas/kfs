@@ -1,29 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.krad.uif.field;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.krad.uif.component.ComponentBase;
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
-import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
 import org.kuali.kfs.krad.uif.component.Component;
+import org.kuali.kfs.krad.uif.component.ComponentBase;
 import org.kuali.kfs.krad.uif.control.CheckboxControl;
 import org.kuali.kfs.krad.uif.control.Control;
 import org.kuali.kfs.krad.uif.control.MultiValueControl;
@@ -34,14 +32,14 @@ import org.kuali.kfs.krad.uif.util.ComponentUtils;
 import org.kuali.kfs.krad.uif.view.View;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.KRADPropertyConstants;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
+import org.kuali.rice.core.api.util.KeyValue;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Custom <code>InputField</code> for search fields within a lookup view
- *
- * 
  */
 public class LookupInputField extends InputField {
     private static final long serialVersionUID = -8294275596836322699L;
@@ -58,13 +56,13 @@ public class LookupInputField extends InputField {
 
     /**
      * The following actions are performed:
-     *
+     * <p>
      * <ul>
      * <li>Add all option if enabled and control is multi-value</li>
      * </ul>
      *
      * @see ComponentBase#performFinalize(View,
-     *      java.lang.Object, Component)
+     * java.lang.Object, Component)
      */
     @Override
     public void performFinalize(View view, Object model, Component parent) {

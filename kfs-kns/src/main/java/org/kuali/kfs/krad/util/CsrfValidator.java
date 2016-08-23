@@ -1,3 +1,21 @@
+/*
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.kuali.kfs.krad.util;
 
 import org.apache.commons.lang.StringUtils;
@@ -22,16 +40,15 @@ public class CsrfValidator {
     /**
      * Applies CSRF protection for any HTTP method other than GET, HEAD, or OPTIONS.
      *
-     * @param request the http request to check
+     * @param request  the http request to check
      * @param response the http response associated with the given request
-     *
      * @return true if the request validated successfully, false otherwise. If false is returned, calling code should
      * act immediately to terminate any additional work performed on the response.
      */
     public static boolean validateCsrf(HttpServletRequest request, HttpServletResponse response) {
         if (HttpMethod.GET.equals(request.getMethod()) ||
-                HttpMethod.HEAD.equals(request.getMethod()) ||
-                HttpMethod.OPTIONS.equals(request.getMethod())) {
+            HttpMethod.HEAD.equals(request.getMethod()) ||
+            HttpMethod.OPTIONS.equals(request.getMethod())) {
             // if it's a GET and there's not already a CSRF token, then we need to generate and place a CSRF token
             placeSessionToken(request);
         } else {
@@ -58,7 +75,7 @@ public class CsrfValidator {
      * @return the CSRF token on the request's session, or null if the session has none
      */
     public static String getSessionToken(HttpServletRequest request) {
-        return (String)request.getSession().getAttribute(CSRF_SESSION_TOKEN);
+        return (String) request.getSession().getAttribute(CSRF_SESSION_TOKEN);
     }
 
     /**

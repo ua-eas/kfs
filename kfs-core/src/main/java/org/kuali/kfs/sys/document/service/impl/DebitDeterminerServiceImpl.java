@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -101,7 +101,7 @@ public class DebitDeterminerServiceImpl implements DebitDeterminerService {
     public boolean isDebitConsideringNothingPositiveOnly(GeneralLedgerPendingEntrySource poster, GeneralLedgerPendingEntrySourceDetail postable) {
         LOG.debug("isDebitConsideringNothingPositiveOnly(AccountingDocumentRuleBase, AccountingDocument, AccountingLine) - start");
 
-        boolean isDebit = isDebitConsideringNothingPositiveOrNegative(poster,postable);
+        boolean isDebit = isDebitConsideringNothingPositiveOrNegative(poster, postable);
 
         // non error correction document with non positive amount
         if (!isErrorCorrection(poster) && !isDebit) {
@@ -125,9 +125,8 @@ public class DebitDeterminerServiceImpl implements DebitDeterminerService {
         // isDebit if income/liability/expense/asset and line amount is positive
         if (isPositiveAmount && (isIncomeOrLiability(postable) || isExpenseOrAsset(postable))) {
             isDebit = true;
-        }
-        else {
-          isDebit = false;
+        } else {
+            isDebit = false;
         }
 
         LOG.debug("isDebitConsideringNothingPositiveOnly(AccountingDocumentRuleBase, AccountingDocument, AccountingLine) - end");
@@ -153,8 +152,7 @@ public class DebitDeterminerServiceImpl implements DebitDeterminerService {
             // income/liability/expense/asset
             if (isIncomeOrLiability(accountingLine) || isExpenseOrAsset(accountingLine)) {
                 isDebit = !isPositiveAmount;
-            }
-            else {
+            } else {
                 throw new IllegalStateException(isDebitCalculationIllegalStateExceptionMessage);
             }
         }
@@ -163,12 +161,10 @@ public class DebitDeterminerServiceImpl implements DebitDeterminerService {
             if (accountingLine.isTargetAccountingLine()) {
                 if (isIncomeOrLiability(accountingLine) || isExpenseOrAsset(accountingLine)) {
                     isDebit = isPositiveAmount;
-                }
-                else {
+                } else {
                     throw new IllegalStateException(isDebitCalculationIllegalStateExceptionMessage);
                 }
-            }
-            else {
+            } else {
                 throw new IllegalArgumentException(isInvalidLineTypeIllegalArgumentExceptionMessage);
             }
         }
@@ -197,8 +193,7 @@ public class DebitDeterminerServiceImpl implements DebitDeterminerService {
             // isDebit = (rule.isIncomeOrLiability(accountingLine) == isPositiveAmount);
             if (isPositiveAmount) {
                 isDebit = isIncomeOrLiability(accountingLine);
-            }
-            else {
+            } else {
                 isDebit = isExpenseOrAsset(accountingLine);
             }
         }
@@ -207,12 +202,10 @@ public class DebitDeterminerServiceImpl implements DebitDeterminerService {
             if (accountingLine.isTargetAccountingLine()) {
                 if (isPositiveAmount) {
                     isDebit = isExpenseOrAsset(accountingLine);
-                }
-                else {
+                } else {
                     isDebit = isIncomeOrLiability(accountingLine);
                 }
-            }
-            else {
+            } else {
                 throw new IllegalArgumentException(isInvalidLineTypeIllegalArgumentExceptionMessage);
             }
         }
@@ -244,8 +237,7 @@ public class DebitDeterminerServiceImpl implements DebitDeterminerService {
         else {
             if (isExpenseOrAsset(postable)) {
                 isDebit = isPositiveAmount;
-            }
-            else {
+            } else {
                 throw new IllegalStateException(isDebitCalculationIllegalStateExceptionMessage);
             }
         }
@@ -335,33 +327,32 @@ public class DebitDeterminerServiceImpl implements DebitDeterminerService {
     }
 
     @Override
-    public String getConvertedAmount(String objectType , String debitCreditCode , String amount ) {
+    public String getConvertedAmount(String objectType, String debitCreditCode, String amount) {
         SystemOptions systemOption = optionsService.getCurrentYearOptions();
 
         // If entries lack a debit and credit code that means they're budget entries and should already be signed appropriately + or -.
         // so we should just be able to grab those without having to do any change.
-        if(StringHelper.isNullOrEmpty(debitCreditCode)) {
+        if (StringHelper.isNullOrEmpty(debitCreditCode)) {
             return amount;
         }
 
-        if(systemOption.getFinancialObjectTypeAssetsCd().equals(objectType)
-                ||systemOption.getFinObjTypeExpendNotExpCode().equals(objectType)
-                ||systemOption.getFinObjTypeExpenditureexpCd().equals(objectType)
-                ||systemOption.getFinObjTypeExpendNotExpCode().equals(objectType)
-                ||systemOption.getFinancialObjectTypeTransferExpenseCd().equals(objectType)) {
+        if (systemOption.getFinancialObjectTypeAssetsCd().equals(objectType)
+            || systemOption.getFinObjTypeExpendNotExpCode().equals(objectType)
+            || systemOption.getFinObjTypeExpenditureexpCd().equals(objectType)
+            || systemOption.getFinObjTypeExpendNotExpCode().equals(objectType)
+            || systemOption.getFinancialObjectTypeTransferExpenseCd().equals(objectType)) {
 
-            if  (KFSConstants.GL_CREDIT_CODE.equals(debitCreditCode)) {
+            if (KFSConstants.GL_CREDIT_CODE.equals(debitCreditCode)) {
                 amount = "-" + amount;
             }
-        }
-        else if (systemOption.getFinObjTypeCshNotIncomeCd().equals(objectType)
-                || systemOption.getFinObjectTypeFundBalanceCd().equals(objectType)
-                || systemOption.getFinObjectTypeIncomecashCode().equals(objectType)
-                || systemOption.getFinObjTypeCshNotIncomeCd().equals(objectType)
-                || systemOption.getFinObjectTypeLiabilitiesCode().equals(objectType)
-                || systemOption.getFinancialObjectTypeTransferIncomeCd().equals(objectType)) {
+        } else if (systemOption.getFinObjTypeCshNotIncomeCd().equals(objectType)
+            || systemOption.getFinObjectTypeFundBalanceCd().equals(objectType)
+            || systemOption.getFinObjectTypeIncomecashCode().equals(objectType)
+            || systemOption.getFinObjTypeCshNotIncomeCd().equals(objectType)
+            || systemOption.getFinObjectTypeLiabilitiesCode().equals(objectType)
+            || systemOption.getFinancialObjectTypeTransferIncomeCd().equals(objectType)) {
             if (KFSConstants.GL_DEBIT_CODE.equals(debitCreditCode)) {
-              amount = "-" + amount;
+                amount = "-" + amount;
             }
 
         }
@@ -370,63 +361,65 @@ public class DebitDeterminerServiceImpl implements DebitDeterminerService {
     }
 
 
+    /**
+     * @see org.kuali.kfs.sys.document.service.DebitDeterminerService#isRevenue(org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail)
+     */
+    @Override
+    public boolean isRevenue(GeneralLedgerPendingEntrySourceDetail postable) {
+        LOG.debug("isRevenue(AccountingLine) - start");
 
+        boolean returnboolean = !isExpense(postable);
+        LOG.debug("isRevenue(AccountingLine) - end");
+        return returnboolean;
+    }
 
+    /**
+     * Sets the accountingDocumentRuleUtils attribute value.
+     *
+     * @param accountingDocumentRuleUtils The accountingDocumentRuleUtils to set.
+     */
+    public void setAccountingDocumentRuleUtils(AccountingDocumentRuleHelperService accountingDocumentRuleUtil) {
+        this.accountingDocumentRuleUtil = accountingDocumentRuleUtil;
+    }
 
-/**
- * @see org.kuali.kfs.sys.document.service.DebitDeterminerService#isRevenue(org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail)
- */
-@Override
-public boolean isRevenue(GeneralLedgerPendingEntrySourceDetail postable) {
-    LOG.debug("isRevenue(AccountingLine) - start");
+    /**
+     * Sets the optionsService attribute value.
+     *
+     * @param optionsService The optionsService to set.
+     */
+    public void setOptionsService(OptionsService optionsService) {
+        this.optionsService = optionsService;
+    }
 
-    boolean returnboolean = !isExpense(postable);
-    LOG.debug("isRevenue(AccountingLine) - end");
-    return returnboolean;
-}
+    /**
+     * Gets the isDebitCalculationIllegalStateExceptionMessage attribute.
+     *
+     * @return Returns the isDebitCalculationIllegalStateExceptionMessage.
+     */
+    @Override
+    public String getDebitCalculationIllegalStateExceptionMessage() {
+        return isDebitCalculationIllegalStateExceptionMessage;
+    }
 
-/**
- * Sets the accountingDocumentRuleUtils attribute value.
- * @param accountingDocumentRuleUtils The accountingDocumentRuleUtils to set.
- */
-public void setAccountingDocumentRuleUtils(AccountingDocumentRuleHelperService accountingDocumentRuleUtil) {
-    this.accountingDocumentRuleUtil = accountingDocumentRuleUtil;
-}
+    /**
+     * Gets the isErrorCorrectionIllegalStateExceptionMessage attribute.
+     *
+     * @return Returns the isErrorCorrectionIllegalStateExceptionMessage.
+     */
+    @Override
+    public String getErrorCorrectionIllegalStateExceptionMessage() {
+        return isErrorCorrectionIllegalStateExceptionMessage;
+    }
 
-/**
- * Sets the optionsService attribute value.
- * @param optionsService The optionsService to set.
- */
-public void setOptionsService(OptionsService optionsService) {
-    this.optionsService = optionsService;
-}
-
-/**
- * Gets the isDebitCalculationIllegalStateExceptionMessage attribute.
- * @return Returns the isDebitCalculationIllegalStateExceptionMessage.
- */
-@Override
-public String getDebitCalculationIllegalStateExceptionMessage() {
-    return isDebitCalculationIllegalStateExceptionMessage;
-}
-
-/**
- * Gets the isErrorCorrectionIllegalStateExceptionMessage attribute.
- * @return Returns the isErrorCorrectionIllegalStateExceptionMessage.
- */
-@Override
-public String getErrorCorrectionIllegalStateExceptionMessage() {
-    return isErrorCorrectionIllegalStateExceptionMessage;
-}
-
-/**
- * Gets the isInvalidLineTypeIllegalArgumentExceptionMessage attribute.
- * @return Returns the isInvalidLineTypeIllegalArgumentExceptionMessage.
- */
-@Override
-public String getInvalidLineTypeIllegalArgumentExceptionMessage() {
-    return isInvalidLineTypeIllegalArgumentExceptionMessage;
-}
+    /**
+     * Gets the isInvalidLineTypeIllegalArgumentExceptionMessage attribute.
+     *
+     * @return Returns the isInvalidLineTypeIllegalArgumentExceptionMessage.
+     */
+    @Override
+    public String getInvalidLineTypeIllegalArgumentExceptionMessage() {
+        return isInvalidLineTypeIllegalArgumentExceptionMessage;
+    }
 
 
 }

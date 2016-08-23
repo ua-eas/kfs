@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -22,29 +22,13 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.upload.FormFile;
-import org.kuali.rice.core.api.CoreApiServiceLocator;
-import org.kuali.rice.core.api.util.RiceKeyConstants;
-import org.kuali.rice.core.web.format.NoOpStringFormatter;
-import org.kuali.rice.core.web.format.TimestampAMPMFormatter;
 import org.kuali.kfs.coreservice.framework.CoreFrameworkServiceLocator;
-import org.kuali.rice.kew.api.KewApiServiceLocator;
-import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.rice.kew.api.WorkflowDocumentFactory;
-import org.kuali.rice.kew.api.action.ActionRequest;
-import org.kuali.rice.kew.api.action.ActionRequestType;
-import org.kuali.rice.kew.api.doctype.DocumentType;
-import org.kuali.rice.kew.api.document.DocumentStatus;
-import org.kuali.rice.kew.api.document.node.RouteNodeInstance;
-import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.kim.api.KimConstants;
-import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.kfs.kns.datadictionary.HeaderNavigation;
 import org.kuali.kfs.kns.datadictionary.KNSDocumentEntry;
 import org.kuali.kfs.kns.util.WebUtils;
 import org.kuali.kfs.kns.web.derivedvaluesetter.DerivedValuesSetter;
-import org.kuali.kfs.krad.UserSessionUtils;
 import org.kuali.kfs.kns.web.ui.HeaderField;
+import org.kuali.kfs.krad.UserSessionUtils;
 import org.kuali.kfs.krad.bo.AdHocRoutePerson;
 import org.kuali.kfs.krad.bo.AdHocRouteWorkgroup;
 import org.kuali.kfs.krad.bo.Note;
@@ -58,6 +42,21 @@ import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.krad.util.UrlFactory;
+import org.kuali.rice.core.api.CoreApiServiceLocator;
+import org.kuali.rice.core.api.util.RiceKeyConstants;
+import org.kuali.rice.core.web.format.NoOpStringFormatter;
+import org.kuali.rice.core.web.format.TimestampAMPMFormatter;
+import org.kuali.rice.kew.api.KewApiServiceLocator;
+import org.kuali.rice.kew.api.WorkflowDocument;
+import org.kuali.rice.kew.api.action.ActionRequest;
+import org.kuali.rice.kew.api.action.ActionRequestType;
+import org.kuali.rice.kew.api.doctype.DocumentType;
+import org.kuali.rice.kew.api.document.DocumentStatus;
+import org.kuali.rice.kew.api.document.node.RouteNodeInstance;
+import org.kuali.rice.kew.api.exception.WorkflowException;
+import org.kuali.rice.kim.api.KimConstants;
+import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.springframework.util.AutoPopulatingList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -75,7 +74,7 @@ import java.util.Properties;
 public abstract class KualiDocumentFormBase extends KualiForm implements Serializable {
     private static final long serialVersionUID = 916061016201941821L;
 
-	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(KualiDocumentFormBase.class);
+    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(KualiDocumentFormBase.class);
 
     private Document document;
     private String annotation = "";
@@ -90,75 +89,74 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
     private AdHocRouteWorkgroup newAdHocRouteWorkgroup;
 
     private Note newNote;
-    
+
     //TODO: is this still needed? I think it's obsolete now
     private List boNotes;
-    
+
     protected FormFile attachmentFile = new BlankFormFile();
 
     protected Map editingMode;
     protected Map documentActions;
     protected boolean suppressAllButtons;
-    
+
     protected Map adHocActionRequestCodes;
     private boolean returnToActionList;
 
     // for session enhancement
     private String formKey;
     private String docNum;
-    
+
     private List<ActionRequest> actionRequests;
     private List<String> selectedActionRequests;
     private String superUserAnnotation;
 
     private String lastActionTaken;
-    
-    
+
+
     /**
      * Stores the error map from previous requests, so that we can continue to display error messages displayed during a previous request
      */
     private MessageMap errorMapFromPreviousRequest;
-    
+
     // private fields for superuser checks
- 	private DocumentType documentType;
- 	private boolean superuserForDocumentType;
- 	private String documentStatus;
- 	private List<RouteNodeInstance> routeNodeInstances;
- 	private boolean superUserFieldsInitialized;
-    
-	/***
+    private DocumentType documentType;
+    private boolean superuserForDocumentType;
+    private String documentStatus;
+    private List<RouteNodeInstance> routeNodeInstances;
+    private boolean superUserFieldsInitialized;
+
+    /***
      * @see KualiForm#addRequiredNonEditableProperties()
      */
     @Override
-    public void addRequiredNonEditableProperties(){
-    	super.addRequiredNonEditableProperties();
-    	registerRequiredNonEditableProperty(KRADConstants.DOCUMENT_TYPE_NAME);
-    	registerRequiredNonEditableProperty(KRADConstants.FORM_KEY);
-    	registerRequiredNonEditableProperty(KRADConstants.NEW_NOTE_NOTE_TYPE_CODE);
+    public void addRequiredNonEditableProperties() {
+        super.addRequiredNonEditableProperties();
+        registerRequiredNonEditableProperty(KRADConstants.DOCUMENT_TYPE_NAME);
+        registerRequiredNonEditableProperty(KRADConstants.FORM_KEY);
+        registerRequiredNonEditableProperty(KRADConstants.NEW_NOTE_NOTE_TYPE_CODE);
     }
 
-	/**
-	 * @return the docNum
-	 */
-	public String getDocNum() {
-		return this.docNum;
-	}
+    /**
+     * @return the docNum
+     */
+    public String getDocNum() {
+        return this.docNum;
+    }
 
-	/**
-	 * @param docNum
-	 *            the docNum to set
-	 */
-	public void setDocNum(String docNum) {
-		this.docNum = docNum;
-	}
-    
+    /**
+     * @param docNum the docNum to set
+     */
+    public void setDocNum(String docNum) {
+        this.docNum = docNum;
+    }
+
     /**
      * no args constructor that just initializes things for us
      */
     @SuppressWarnings("unchecked")
-	public KualiDocumentFormBase() {
+    public KualiDocumentFormBase() {
         super();
-        
+
         instantiateDocument();
         newNote = new Note();
         this.editingMode = new HashMap();
@@ -176,15 +174,15 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
         setFormatterType("document.documentHeader.note.attachment.finDocNotePostedDttmStamp", TimestampAMPMFormatter.class);
         //TODO: Chris - Notes: remove the above and change the below from boNotes when notes are finished
         //overriding note formatter to make sure they post back the full timestamp
-        setFormatterType("document.documentHeader.boNote.notePostedTimestamp",TimestampAMPMFormatter.class);
-        setFormatterType("document.documentBusinessObject.boNote.notePostedTimestamp",TimestampAMPMFormatter.class);
+        setFormatterType("document.documentHeader.boNote.notePostedTimestamp", TimestampAMPMFormatter.class);
+        setFormatterType("document.documentBusinessObject.boNote.notePostedTimestamp", TimestampAMPMFormatter.class);
 
         setFormatterType("editingMode", NoOpStringFormatter.class);
         setFormatterType("editableAccounts", NoOpStringFormatter.class);
 
         setDocumentActions(new HashMap());
         suppressAllButtons = false;
-        
+
         initializeHeaderNavigationTabs();
     }
 
@@ -194,167 +192,163 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
     @Override
     public void populate(HttpServletRequest request) {
         super.populate(request);
-        
+
         clearFieldsForSuperUserChecks();
         WorkflowDocument workflowDocument = null;
 
         if (hasDocumentId()) {
             // populate workflowDocument in documentHeader, if needed
-        	// KULRICE-4444 Obtain Document Header using the Workflow Service to minimize overhead
+            // KULRICE-4444 Obtain Document Header using the Workflow Service to minimize overhead
             try {
                 workflowDocument = UserSessionUtils.getWorkflowDocument(GlobalVariables.getUserSession(), getDocument().getDocumentNumber());
-                if ( workflowDocument == null)
-         	 	{
+                if (workflowDocument == null) {
                     // gets the workflow document from doc service, doc service will also set the workflow document in the
                     // user's session
                     Person person = GlobalVariables.getUserSession().getPerson();
                     if (ObjectUtils.isNull(person)) {
                         person = KimApiServiceLocator.getPersonService().getPersonByPrincipalName(KRADConstants.SYSTEM_USER);
                     }
-         	 		workflowDocument = KRADServiceLocatorWeb.getWorkflowDocumentService().loadWorkflowDocument(getDocument().getDocumentNumber(), person);
-         	 	 	UserSessionUtils.addWorkflowDocument(GlobalVariables.getUserSession(), workflowDocument);
-         	 	 	if (workflowDocument == null)
-         	 	 	{
-         	 	 		throw new WorkflowException("Unable to retrieve workflow document # " + getDocument().getDocumentNumber() + " from workflow document service createWorkflowDocument");
-         	 	 	}
-         	 	 	else
-         	 	 	{
-         	 	 	LOG.debug("Retrieved workflow Document ID: " + workflowDocument.getDocumentId());
-         	 	 	}
-         	 	}
+                    workflowDocument = KRADServiceLocatorWeb.getWorkflowDocumentService().loadWorkflowDocument(getDocument().getDocumentNumber(), person);
+                    UserSessionUtils.addWorkflowDocument(GlobalVariables.getUserSession(), workflowDocument);
+                    if (workflowDocument == null) {
+                        throw new WorkflowException("Unable to retrieve workflow document # " + getDocument().getDocumentNumber() + " from workflow document service createWorkflowDocument");
+                    } else {
+                        LOG.debug("Retrieved workflow Document ID: " + workflowDocument.getDocumentId());
+                    }
+                }
 
                 getDocument().getDocumentHeader().setWorkflowDocument(workflowDocument);
             } catch (WorkflowException e) {
                 LOG.warn("Error while instantiating workflowDoc", e);
                 throw new RuntimeException("error populating documentHeader.workflowDocument", e);
             }
-        } 
+        }
         if (workflowDocument != null) {
-	        //Populate Document Header attributes
-	        populateHeaderFields(workflowDocument);
+            //Populate Document Header attributes
+            populateHeaderFields(workflowDocument);
         }
     }
-    
+
     protected String getPersonInquiryUrlLink(Person user, String linkBody) {
         StringBuffer urlBuffer = new StringBuffer();
-        
-        if(user != null && StringUtils.isNotEmpty(linkBody) ) {
-        	ModuleService moduleService = KRADServiceLocatorWeb.getKualiModuleService().getResponsibleModuleService(Person.class);
-        	Map<String, String[]> parameters = new HashMap<String, String[]>();
-        	parameters.put(KimConstants.AttributeConstants.PRINCIPAL_ID, new String[] { user.getPrincipalId() });
-        	String inquiryUrl = moduleService.getExternalizableBusinessObjectInquiryUrl(Person.class, parameters);
-            if(!StringUtils.equals(KimConstants.EntityTypes.SYSTEM, user.getEntityTypeCode())){
-	            urlBuffer.append("<a href='");
-	            urlBuffer.append(inquiryUrl);
-	            urlBuffer.append("' ");
-	            urlBuffer.append("target='_blank'");
-	            urlBuffer.append("title='Person Inquiry'>");
-	            urlBuffer.append(linkBody);
-	            urlBuffer.append("</a>");
-            } else{
-            	urlBuffer.append(linkBody);
+
+        if (user != null && StringUtils.isNotEmpty(linkBody)) {
+            ModuleService moduleService = KRADServiceLocatorWeb.getKualiModuleService().getResponsibleModuleService(Person.class);
+            Map<String, String[]> parameters = new HashMap<String, String[]>();
+            parameters.put(KimConstants.AttributeConstants.PRINCIPAL_ID, new String[]{user.getPrincipalId()});
+            String inquiryUrl = moduleService.getExternalizableBusinessObjectInquiryUrl(Person.class, parameters);
+            if (!StringUtils.equals(KimConstants.EntityTypes.SYSTEM, user.getEntityTypeCode())) {
+                urlBuffer.append("<a href='");
+                urlBuffer.append(inquiryUrl);
+                urlBuffer.append("' ");
+                urlBuffer.append("target='_blank'");
+                urlBuffer.append("title='Person Inquiry'>");
+                urlBuffer.append(linkBody);
+                urlBuffer.append("</a>");
+            } else {
+                urlBuffer.append(linkBody);
             }
         }
-        
+
         return urlBuffer.toString();
     }
-    
+
     protected String getDocumentHandlerUrl(String documentId) {
         Properties parameters = new Properties();
         parameters.put(KRADConstants.PARAMETER_DOC_ID, documentId);
         parameters.put(KRADConstants.PARAMETER_COMMAND, KRADConstants.METHOD_DISPLAY_DOC_SEARCH_VIEW);
         return UrlFactory.parameterizeUrl(
-                KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(
-                        KRADConstants.WORKFLOW_URL_KEY) + "/" + KRADConstants.DOC_HANDLER_ACTION, parameters);
+            KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(
+                KRADConstants.WORKFLOW_URL_KEY) + "/" + KRADConstants.DOC_HANDLER_ACTION, parameters);
     }
-    
+
     protected String buildHtmlLink(String url, String linkBody) {
         StringBuffer urlBuffer = new StringBuffer();
-        
-        if(StringUtils.isNotEmpty(url) && StringUtils.isNotEmpty(linkBody) ) {
+
+        if (StringUtils.isNotEmpty(url) && StringUtils.isNotEmpty(linkBody)) {
             urlBuffer.append("<a href='").append(url).append("'>").append(linkBody).append("</a>");
         }
-        
+
         return urlBuffer.toString();
     }
-    
-    /**
-	 * This method is used to populate the list of header field objects (see {@link KualiForm#getDocInfo()}) displayed on
-	 * the Kuali document form display pages.
-	 * 
-	 * @param workflowDocument - the workflow document of the document being displayed (null is allowed)
-	 */
-	public void populateHeaderFields(WorkflowDocument workflowDocument) {
-		getDocInfo().clear();
-		getDocInfo().addAll(getStandardHeaderFields(workflowDocument));
-	}
 
-	/**
-	 * This method returns a list of {@link HeaderField} objects that are used by default on Kuali document display pages. To
-	 * use this list and override an individual {@link HeaderField} object the id constants from
-	 * {@link KRADConstants.DocumentFormHeaderFieldIds} can be used to identify items from the list.
-	 * 
-	 * @param workflowDocument - the workflow document of the document being displayed (null is allowed)
-	 * @return a list of the standard fields displayed by default for all Kuali documents
-	 */
+    /**
+     * This method is used to populate the list of header field objects (see {@link KualiForm#getDocInfo()}) displayed on
+     * the Kuali document form display pages.
+     *
+     * @param workflowDocument - the workflow document of the document being displayed (null is allowed)
+     */
+    public void populateHeaderFields(WorkflowDocument workflowDocument) {
+        getDocInfo().clear();
+        getDocInfo().addAll(getStandardHeaderFields(workflowDocument));
+    }
+
+    /**
+     * This method returns a list of {@link HeaderField} objects that are used by default on Kuali document display pages. To
+     * use this list and override an individual {@link HeaderField} object the id constants from
+     * {@link KRADConstants.DocumentFormHeaderFieldIds} can be used to identify items from the list.
+     *
+     * @param workflowDocument - the workflow document of the document being displayed (null is allowed)
+     * @return a list of the standard fields displayed by default for all Kuali documents
+     */
     protected List<HeaderField> getStandardHeaderFields(WorkflowDocument workflowDocument) {
-    	List<HeaderField> headerFields = new ArrayList<HeaderField>();
-    	setNumColumns(2);
-    	// check for a document template number as that will dictate column numbering
-    	HeaderField docTemplateNumber = null;
+        List<HeaderField> headerFields = new ArrayList<HeaderField>();
+        setNumColumns(2);
+        // check for a document template number as that will dictate column numbering
+        HeaderField docTemplateNumber = null;
         if ((ObjectUtils.isNotNull(getDocument())) && (ObjectUtils.isNotNull(getDocument().getDocumentHeader())) && (StringUtils.isNotBlank(getDocument().getDocumentHeader().getDocumentTemplateNumber()))) {
-			String templateDocumentNumber = getDocument().getDocumentHeader().getDocumentTemplateNumber();
-			docTemplateNumber = new HeaderField(KRADConstants.DocumentFormHeaderFieldIds.DOCUMENT_TEMPLATE_NUMBER, "DataDictionary.DocumentHeader.attributes.documentTemplateNumber",
-					templateDocumentNumber,	buildHtmlLink(getDocumentHandlerUrl(templateDocumentNumber), templateDocumentNumber));
-		}
-        //Document Number    	
-        HeaderField docNumber = new HeaderField("DataDictionary.DocumentHeader.attributes.documentNumber", workflowDocument != null? getDocument().getDocumentNumber() : null);
+            String templateDocumentNumber = getDocument().getDocumentHeader().getDocumentTemplateNumber();
+            docTemplateNumber = new HeaderField(KRADConstants.DocumentFormHeaderFieldIds.DOCUMENT_TEMPLATE_NUMBER, "DataDictionary.DocumentHeader.attributes.documentTemplateNumber",
+                templateDocumentNumber, buildHtmlLink(getDocumentHandlerUrl(templateDocumentNumber), templateDocumentNumber));
+        }
+        //Document Number
+        HeaderField docNumber = new HeaderField("DataDictionary.DocumentHeader.attributes.documentNumber", workflowDocument != null ? getDocument().getDocumentNumber() : null);
         docNumber.setId(KRADConstants.DocumentFormHeaderFieldIds.DOCUMENT_NUMBER);
-        HeaderField docStatus = new HeaderField("DataDictionary.AttributeReferenceDummy.attributes.workflowDocumentStatus", workflowDocument != null? workflowDocument.getStatus().getLabel() : null);
+        HeaderField docStatus = new HeaderField("DataDictionary.AttributeReferenceDummy.attributes.workflowDocumentStatus", workflowDocument != null ? workflowDocument.getStatus().getLabel() : null);
         docStatus.setId(KRADConstants.DocumentFormHeaderFieldIds.DOCUMENT_WORKFLOW_STATUS);
         String initiatorNetworkId = null;
         Person user = null;
-    	if (workflowDocument != null) {
-       		if (getInitiator() == null) {
-    			LOG.warn("User Not Found while attempting to build inquiry link for document header fields");
-    		} else {
-    			user = getInitiator();
-    			initiatorNetworkId = getInitiator().getPrincipalName();
-    		}
-    	}
-        String inquiryUrl = getPersonInquiryUrlLink(user, workflowDocument != null? initiatorNetworkId:null);
+        if (workflowDocument != null) {
+            if (getInitiator() == null) {
+                LOG.warn("User Not Found while attempting to build inquiry link for document header fields");
+            } else {
+                user = getInitiator();
+                initiatorNetworkId = getInitiator().getPrincipalName();
+            }
+        }
+        String inquiryUrl = getPersonInquiryUrlLink(user, workflowDocument != null ? initiatorNetworkId : null);
 
         HeaderField docInitiator = new HeaderField(KRADConstants.DocumentFormHeaderFieldIds.DOCUMENT_INITIATOR, "DataDictionary.AttributeReferenceDummy.attributes.initiatorNetworkId",
-        workflowDocument != null? initiatorNetworkId : null, workflowDocument != null? inquiryUrl : null);
-        
+            workflowDocument != null ? initiatorNetworkId : null, workflowDocument != null ? inquiryUrl : null);
+
         String createDateStr = null;
-        if(workflowDocument != null && workflowDocument.getDateCreated() != null) {
+        if (workflowDocument != null && workflowDocument.getDateCreated() != null) {
             createDateStr = CoreApiServiceLocator.getDateTimeService().toString(workflowDocument.getDateCreated().toDate(), "hh:mm a MM/dd/yyyy");
         }
-        
+
         HeaderField docCreateDate = new HeaderField("DataDictionary.AttributeReferenceDummy.attributes.createDate", createDateStr);
         docCreateDate.setId(KRADConstants.DocumentFormHeaderFieldIds.DOCUMENT_CREATE_DATE);
         if (ObjectUtils.isNotNull(docTemplateNumber)) {
-        	setNumColumns(3);
+            setNumColumns(3);
         }
-        
+
         headerFields.add(docNumber);
         headerFields.add(docStatus);
         if (ObjectUtils.isNotNull(docTemplateNumber)) {
-        	headerFields.add(docTemplateNumber);
+            headerFields.add(docTemplateNumber);
         }
         headerFields.add(docInitiator);
         headerFields.add(docCreateDate);
         if (ObjectUtils.isNotNull(docTemplateNumber)) {
-        	// adding an empty field so implementors do not have to worry about additional fields being put on the wrong row
-        	headerFields.add(HeaderField.EMPTY_FIELD);
+            // adding an empty field so implementors do not have to worry about additional fields being put on the wrong row
+            headerFields.add(HeaderField.EMPTY_FIELD);
         }
-    	return headerFields;
-    }    
+        return headerFields;
+    }
 
     /**
      * @see org.apache.struts.action.ActionForm#validate(org.apache.struts.action.ActionMapping,
-     *      javax.servlet.http.HttpServletRequest)
+     * javax.servlet.http.HttpServletRequest)
      */
     @Override
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
@@ -362,7 +356,7 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
         setAnnotation(StringUtils.stripToNull(getAnnotation()));
         int diff = StringUtils.defaultString(getAnnotation()).length() - KRADConstants.DOCUMENT_ANNOTATION_MAX_LENGTH;
         if (diff > 0) {
-            GlobalVariables.getMessageMap().putError("annotation", RiceKeyConstants.ERROR_DOCUMENT_ANNOTATION_MAX_LENGTH_EXCEEDED, new String[] { Integer.toString(KRADConstants.DOCUMENT_ANNOTATION_MAX_LENGTH), Integer.toString(diff) });
+            GlobalVariables.getMessageMap().putError("annotation", RiceKeyConstants.ERROR_DOCUMENT_ANNOTATION_MAX_LENGTH_EXCEEDED, new String[]{Integer.toString(KRADConstants.DOCUMENT_ANNOTATION_MAX_LENGTH), Integer.toString(diff)});
         }
         return super.validate(mapping, request);
     }
@@ -385,10 +379,10 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
 
     /**
      * @return Map of editingModes for this document, as set during the most recent call to
-     *         populate(javax.servlet.http.HttpServletRequest)
+     * populate(javax.servlet.http.HttpServletRequest)
      */
     @SuppressWarnings("unchecked")
-	public Map getEditingMode() {
+    public Map getEditingMode() {
         return editingMode;
     }
 
@@ -396,41 +390,40 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
      * Set editingMode for this document
      */
     @SuppressWarnings("unchecked")
-	public void setEditingMode(Map editingMode) {
+    public void setEditingMode(Map editingMode) {
         this.editingMode = editingMode;
     }
-    
+
     /**
-	 * @return the documentActions
-	 */
-	@SuppressWarnings("unchecked")
-	public Map getDocumentActions() {
-		return this.documentActions;
-	}
+     * @return the documentActions
+     */
+    @SuppressWarnings("unchecked")
+    public Map getDocumentActions() {
+        return this.documentActions;
+    }
 
-	/**
-	 * @param documentActions the documentActions to set
-	 */
-	@SuppressWarnings("unchecked")
-	public void setDocumentActions(Map documentActions) {
-		this.documentActions = documentActions;
-	}
-	
-	
+    /**
+     * @param documentActions the documentActions to set
+     */
+    @SuppressWarnings("unchecked")
+    public void setDocumentActions(Map documentActions) {
+        this.documentActions = documentActions;
+    }
 
-	/**
-	 * @param adHocActionRequestCodes the adHocActionRequestCodes to set
-	 */
-	@SuppressWarnings("unchecked")
-	public void setAdHocActionRequestCodes(Map adHocActionRequestCodes) {
-		this.adHocActionRequestCodes = adHocActionRequestCodes;
-	}
 
-	/**
+    /**
+     * @param adHocActionRequestCodes the adHocActionRequestCodes to set
+     */
+    @SuppressWarnings("unchecked")
+    public void setAdHocActionRequestCodes(Map adHocActionRequestCodes) {
+        this.adHocActionRequestCodes = adHocActionRequestCodes;
+    }
+
+    /**
      * @return a map of the possible action request codes that takes into account the users context on the document
      */
     @SuppressWarnings("unchecked")
-	public Map getAdHocActionRequestCodes() {
+    public Map getAdHocActionRequestCodes() {
         //Map adHocActionRequestCodes = new HashMap();
         //KRADServiceLocatorInternal.getDocumentHelperService()
         /*if (getWorkflowDocument() != null) {
@@ -571,7 +564,7 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
      */
     public void setDocument(Document document) {
         this.document = document;
-        if(document != null && StringUtils.isNotEmpty(document.getDocumentNumber())) {
+        if (document != null && StringUtils.isNotEmpty(document.getDocumentNumber())) {
             populateHeaderFields(document.getDocumentHeader().getWorkflowDocument());
         }
     }
@@ -582,16 +575,16 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
     public WorkflowDocument getWorkflowDocument() {
         return getDocument().getDocumentHeader().getWorkflowDocument();
     }
-    
+
     /**
-	 *  Null-safe check to see if the workflow document object exists before attempting to retrieve it.
-     *  (Which, if called, will throw an exception.)
-	 */
+     * Null-safe check to see if the workflow document object exists before attempting to retrieve it.
+     * (Which, if called, will throw an exception.)
+     */
     public boolean isHasWorkflowDocument() {
-    	if ( getDocument() == null || getDocument().getDocumentHeader() == null ) {
-    		return false;
-    	}
-    	return getDocument().getDocumentHeader().hasWorkflowDocument();
+        if (getDocument() == null || getDocument().getDocumentHeader() == null) {
+            return false;
+        }
+        return getDocument().getDocumentHeader().hasWorkflowDocument();
     }
 
     /**
@@ -600,14 +593,14 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
     public boolean isUserDocumentInitiator() {
         if (getWorkflowDocument() != null) {
             return getWorkflowDocument().getInitiatorPrincipalId().equalsIgnoreCase(
-            		GlobalVariables.getUserSession().getPrincipalId());
+                GlobalVariables.getUserSession().getPrincipalId());
         }
         return false;
     }
 
     public Person getInitiator() {
-    	String initiatorPrincipalId = getWorkflowDocument().getInitiatorPrincipalId();
-    	return KimApiServiceLocator.getPersonService().getPerson(initiatorPrincipalId);
+        String initiatorPrincipalId = getWorkflowDocument().getInitiatorPrincipalId();
+        return KimApiServiceLocator.getPersonService().getPerson(initiatorPrincipalId);
     }
 
     /**
@@ -710,7 +703,7 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
 
     /**
      * @return true if this form's getDocument() method returns a Document, and if that Document's getDocumentHeaderId method
-     *         returns a non-null
+     * returns a non-null
      */
     public boolean hasDocumentId() {
         boolean hasDocId = false;
@@ -747,12 +740,12 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
         this.additionalScriptFiles = additionalScriptFiles;
     }
 
-    public void setAdditionalScriptFile( int index, String scriptFile ) {
-        additionalScriptFiles.set( index, scriptFile );
-	}
+    public void setAdditionalScriptFile(int index, String scriptFile) {
+        additionalScriptFiles.set(index, scriptFile);
+    }
 
-    public String getAdditionalScriptFile( int index ) {
-        return additionalScriptFiles.get( index );
+    public String getAdditionalScriptFile(int index) {
+        return additionalScriptFiles.get(index);
     }
 
     public Note getNewNote() {
@@ -764,20 +757,22 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
     }
 
     /**
-     * Gets the boNotes attribute. 
+     * Gets the boNotes attribute.
+     *
      * @return Returns the boNotes.
      */
     @SuppressWarnings("unchecked")
-	public List getBoNotes() {
+    public List getBoNotes() {
         return boNotes;
     }
 
     /**
      * Sets the boNotes attribute value.
+     *
      * @param boNotes The boNotes to set.
      */
     @SuppressWarnings("unchecked")
-	public void setBoNotes(List boNotes) {
+    public void setBoNotes(List boNotes) {
         this.boNotes = boNotes;
     }
 
@@ -796,7 +791,7 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
      */
     @Override
     public void reset(ActionMapping mapping, HttpServletRequest request) {
-    	super.reset(mapping, request);
+        super.reset(mapping, request);
         this.setMethodToCall(null);
         this.setRefreshCaller(null);
         this.setAnchor(null);
@@ -804,10 +799,10 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
         this.setSelectedActionRequests(new ArrayList<String>());
     }
 
-    
+
     /**
      * Adds the attachment file size to the list of max file sizes.
-     * 
+     *
      * @see org.kuali.rice.krad.web.struts.pojo.PojoFormBase#customInitMaxUploadSizes()
      */
     @Override
@@ -819,152 +814,156 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
         }
     }
 
-    
-    
-	/**
-	 * This overridden method ...
-	 * IMPORTANT: any overrides of this method must ensure that nothing in the HTTP request will be used to determine whether document is in session 
-	 * 
-	 * @see org.kuali.rice.krad.web.struts.pojo.PojoFormBase#shouldPropertyBePopulatedInForm(java.lang.String, javax.servlet.http.HttpServletRequest)
-	 */
-	@Override
-	public boolean shouldPropertyBePopulatedInForm(String requestParameterName, HttpServletRequest request) {
-		for ( String prefix : KRADConstants.ALWAYS_VALID_PARAMETER_PREFIXES ) {
-			if (requestParameterName.startsWith(prefix)) {
-				return true;
-			}
-		}
 
-		if (StringUtils.equalsIgnoreCase(getMethodToCall(), KRADConstants.DOC_HANDLER_METHOD)) {
-			return true;
-		}
-		if (WebUtils.isDocumentSession(getDocument(), this)) {
-			return isPropertyEditable(requestParameterName) || isPropertyNonEditableButRequired(requestParameterName);
-		}
-		return true;
-	}
+    /**
+     * This overridden method ...
+     * IMPORTANT: any overrides of this method must ensure that nothing in the HTTP request will be used to determine whether document is in session
+     *
+     * @see org.kuali.rice.krad.web.struts.pojo.PojoFormBase#shouldPropertyBePopulatedInForm(java.lang.String, javax.servlet.http.HttpServletRequest)
+     */
+    @Override
+    public boolean shouldPropertyBePopulatedInForm(String requestParameterName, HttpServletRequest request) {
+        for (String prefix : KRADConstants.ALWAYS_VALID_PARAMETER_PREFIXES) {
+            if (requestParameterName.startsWith(prefix)) {
+                return true;
+            }
+        }
 
-	/**
-	 * This overridden method ...
-	 * 
-	 * @see KualiForm#shouldMethodToCallParameterBeUsed(java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest)
-	 */
-	@Override
-	public boolean shouldMethodToCallParameterBeUsed(
-			String methodToCallParameterName,
-			String methodToCallParameterValue, HttpServletRequest request) {
-		if (StringUtils.equals(methodToCallParameterName, KRADConstants.DISPATCH_REQUEST_PARAMETER) &&
-				StringUtils.equals(methodToCallParameterValue, KRADConstants.DOC_HANDLER_METHOD)) {
-			return true;
-		}
-		return super.shouldMethodToCallParameterBeUsed(methodToCallParameterName,
-				methodToCallParameterValue, request);
-	}
-	
-	public MessageMap getMessageMapFromPreviousRequest() {
-		return this.errorMapFromPreviousRequest;
-	}
-	
-	public void setMessageMapFromPreviousRequest(MessageMap errorMapFromPreviousRequest) {
-		this.errorMapFromPreviousRequest = errorMapFromPreviousRequest;
-	}
-	
-	@Override
-	public void setDerivedValuesOnForm(HttpServletRequest request) {
-		super.setDerivedValuesOnForm(request);
+        if (StringUtils.equalsIgnoreCase(getMethodToCall(), KRADConstants.DOC_HANDLER_METHOD)) {
+            return true;
+        }
+        if (WebUtils.isDocumentSession(getDocument(), this)) {
+            return isPropertyEditable(requestParameterName) || isPropertyNonEditableButRequired(requestParameterName);
+        }
+        return true;
+    }
 
-		String docTypeName = getDocTypeName();
-		if (StringUtils.isNotBlank(docTypeName)) {
-			DataDictionary dataDictionary = KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary();
+    /**
+     * This overridden method ...
+     *
+     * @see KualiForm#shouldMethodToCallParameterBeUsed(java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest)
+     */
+    @Override
+    public boolean shouldMethodToCallParameterBeUsed(
+        String methodToCallParameterName,
+        String methodToCallParameterValue, HttpServletRequest request) {
+        if (StringUtils.equals(methodToCallParameterName, KRADConstants.DISPATCH_REQUEST_PARAMETER) &&
+            StringUtils.equals(methodToCallParameterValue, KRADConstants.DOC_HANDLER_METHOD)) {
+            return true;
+        }
+        return super.shouldMethodToCallParameterBeUsed(methodToCallParameterName,
+            methodToCallParameterValue, request);
+    }
+
+    public MessageMap getMessageMapFromPreviousRequest() {
+        return this.errorMapFromPreviousRequest;
+    }
+
+    public void setMessageMapFromPreviousRequest(MessageMap errorMapFromPreviousRequest) {
+        this.errorMapFromPreviousRequest = errorMapFromPreviousRequest;
+    }
+
+    @Override
+    public void setDerivedValuesOnForm(HttpServletRequest request) {
+        super.setDerivedValuesOnForm(request);
+
+        String docTypeName = getDocTypeName();
+        if (StringUtils.isNotBlank(docTypeName)) {
+            DataDictionary dataDictionary = KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary();
 
             Class<? extends DerivedValuesSetter> derivedValuesSetterClass = null;
             KNSDocumentEntry documentEntry = (KNSDocumentEntry) dataDictionary.getDocumentEntry(docTypeName);
             derivedValuesSetterClass = (documentEntry).getDerivedValuesSetterClass();
 
-			if (derivedValuesSetterClass != null) {
-				DerivedValuesSetter derivedValuesSetter = null;
-				try {
-					derivedValuesSetter = derivedValuesSetterClass.newInstance();
-				}
-
-				catch (Exception e) {
-					LOG.error("Unable to instantiate class " + derivedValuesSetterClass.getName(), e);
-					throw new RuntimeException("Unable to instantiate class " + derivedValuesSetterClass.getName(), e);
-				}
-				derivedValuesSetter.setDerivedValues(this, request);
-			}
-		}
-	}
-	
-	protected String getDefaultDocumentTypeName() {
-		return "";
-	}
-	
-	/** will instatiate a new document setting it on the form if {@link KualiDocumentFormBase#getDefaultDocumentTypeName()} is overriden to return a valid value. */
-	protected void instantiateDocument() {
-		if (document == null && StringUtils.isNotBlank(getDefaultDocumentTypeName())) {
-			Class<? extends Document> documentClass = getDocumentClass();
-			try {
-				Document document = documentClass.newInstance();
-				setDocument(document);
-			} catch (Exception e) {
-				LOG.error("Unable to instantiate document class " + documentClass.getName() + " document type " + getDefaultDocumentTypeName());
-				throw new RuntimeException(e);
-			}
-		}
-	}
-	
-	/** gets the document class from the datadictionary if {@link KualiDocumentFormBase#getDefaultDocumentTypeName()} is overriden to return a valid value otherwise behavior is nondeterministic. */
-	private Class<? extends Document> getDocumentClass() {
-		return KRADServiceLocatorWeb.getDataDictionaryService().getDocumentClassByTypeName(getDefaultDocumentTypeName());
-	}
-	
-	/**initializes the header tabs from what is defined in the datadictionary if {@link KualiDocumentFormBase#getDefaultDocumentTypeName()} is overriden to return a valid value. */
-    protected void initializeHeaderNavigationTabs() {
-    	if (StringUtils.isNotBlank(getDefaultDocumentTypeName())) {
-    		final KNSDocumentEntry docEntry = (KNSDocumentEntry) KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getDocumentEntry(getDocumentClass().getName());
-    		final List<HeaderNavigation> navList = docEntry.getHeaderNavigationList();
-    		final HeaderNavigation[] list = new HeaderNavigation[navList.size()];
-    		super.setHeaderNavigationTabs(navList.toArray(list));
-    	}
+            if (derivedValuesSetterClass != null) {
+                DerivedValuesSetter derivedValuesSetter = null;
+                try {
+                    derivedValuesSetter = derivedValuesSetterClass.newInstance();
+                } catch (Exception e) {
+                    LOG.error("Unable to instantiate class " + derivedValuesSetterClass.getName(), e);
+                    throw new RuntimeException("Unable to instantiate class " + derivedValuesSetterClass.getName(), e);
+                }
+                derivedValuesSetter.setDerivedValues(this, request);
+            }
+        }
     }
-    
+
+    protected String getDefaultDocumentTypeName() {
+        return "";
+    }
+
+    /**
+     * will instatiate a new document setting it on the form if {@link KualiDocumentFormBase#getDefaultDocumentTypeName()} is overriden to return a valid value.
+     */
+    protected void instantiateDocument() {
+        if (document == null && StringUtils.isNotBlank(getDefaultDocumentTypeName())) {
+            Class<? extends Document> documentClass = getDocumentClass();
+            try {
+                Document document = documentClass.newInstance();
+                setDocument(document);
+            } catch (Exception e) {
+                LOG.error("Unable to instantiate document class " + documentClass.getName() + " document type " + getDefaultDocumentTypeName());
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
+     * gets the document class from the datadictionary if {@link KualiDocumentFormBase#getDefaultDocumentTypeName()} is overriden to return a valid value otherwise behavior is nondeterministic.
+     */
+    private Class<? extends Document> getDocumentClass() {
+        return KRADServiceLocatorWeb.getDataDictionaryService().getDocumentClassByTypeName(getDefaultDocumentTypeName());
+    }
+
+    /**
+     * initializes the header tabs from what is defined in the datadictionary if {@link KualiDocumentFormBase#getDefaultDocumentTypeName()} is overriden to return a valid value.
+     */
+    protected void initializeHeaderNavigationTabs() {
+        if (StringUtils.isNotBlank(getDefaultDocumentTypeName())) {
+            final KNSDocumentEntry docEntry = (KNSDocumentEntry) KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getDocumentEntry(getDocumentClass().getName());
+            final List<HeaderNavigation> navList = docEntry.getHeaderNavigationList();
+            final HeaderNavigation[] list = new HeaderNavigation[navList.size()];
+            super.setHeaderNavigationTabs(navList.toArray(list));
+        }
+    }
+
     public List<ActionRequest> getActionRequests() {
-		return actionRequests;
-	}
+        return actionRequests;
+    }
 
-	public void setActionRequests(List<ActionRequest> actionRequests) {
-		this.actionRequests = actionRequests;
-	}
+    public void setActionRequests(List<ActionRequest> actionRequests) {
+        this.actionRequests = actionRequests;
+    }
 
-	public List<String> getSelectedActionRequests() {
-		return selectedActionRequests;
-	}
+    public List<String> getSelectedActionRequests() {
+        return selectedActionRequests;
+    }
 
-	public void setSelectedActionRequests(List<String> selectedActionRequests) {
-		this.selectedActionRequests = selectedActionRequests;
-	}
+    public void setSelectedActionRequests(List<String> selectedActionRequests) {
+        this.selectedActionRequests = selectedActionRequests;
+    }
 
     public List<ActionRequest> getActionRequestsRequiringApproval() {
         List<ActionRequest> actionRequests = getActionRequests();
-        List<ActionRequest> actionRequestsApprove = new ArrayList<ActionRequest>();;
+        List<ActionRequest> actionRequestsApprove = new ArrayList<ActionRequest>();
+        ;
 
-        for (ActionRequest actionRequest: actionRequests) {
-            if  ((StringUtils.equals(actionRequest.getActionRequested().getCode(), ActionRequestType.APPROVE.getCode())) ||
-                    (StringUtils.equals(actionRequest.getActionRequested().getCode(), ActionRequestType.COMPLETE.getCode()))) {
+        for (ActionRequest actionRequest : actionRequests) {
+            if ((StringUtils.equals(actionRequest.getActionRequested().getCode(), ActionRequestType.APPROVE.getCode())) ||
+                (StringUtils.equals(actionRequest.getActionRequested().getCode(), ActionRequestType.COMPLETE.getCode()))) {
                 actionRequestsApprove.add(actionRequest);
             }
         }
         return actionRequestsApprove;
     }
 
-	public String getSuperUserAnnotation() {
-		return superUserAnnotation;
-	}
+    public String getSuperUserAnnotation() {
+        return superUserAnnotation;
+    }
 
-	public void setSuperUserAnnotation(String superUserAnnotation) {
-		this.superUserAnnotation = superUserAnnotation;
-	}
+    public void setSuperUserAnnotation(String superUserAnnotation) {
+        this.superUserAnnotation = superUserAnnotation;
+    }
 
     public boolean isSuperUserActionAvaliable() {
         List<ActionRequest> actionRequests = getActionRequestsRequiringApproval();
@@ -972,9 +971,9 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
         boolean canSuperUserApprove = false;
         boolean canSuperUserDisapprove = false;
 
-        hasSingleActionToTake =  ( isSuperUserApproveSingleActionRequestAuthorized() &&
-                isStateAllowsApproveSingleActionRequest() &&
-                !actionRequests.isEmpty());
+        hasSingleActionToTake = (isSuperUserApproveSingleActionRequestAuthorized() &&
+            isStateAllowsApproveSingleActionRequest() &&
+            !actionRequests.isEmpty());
         if (!hasSingleActionToTake) {
             canSuperUserApprove = (isSuperUserApproveDocumentAuthorized() && isStateAllowsApproveOrDisapprove());
         }
@@ -982,100 +981,100 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
             canSuperUserDisapprove = (isSuperUserDisapproveDocumentAuthorized() && isStateAllowsApproveOrDisapprove());
         }
 
-        return (hasSingleActionToTake || canSuperUserApprove || canSuperUserDisapprove) ;
+        return (hasSingleActionToTake || canSuperUserApprove || canSuperUserDisapprove);
     }
 
     private void initializeFieldsForSuperUserChecks() {
-    	if (!superUserFieldsInitialized) {
-    		String principalId =  GlobalVariables.getUserSession().getPrincipalId();
-    		String docId = this.getDocId();
-    		
-    		documentType = KewApiServiceLocator.getDocumentTypeService().getDocumentTypeByName(docTypeName);
-    		String docTypeId = null;
-    		if (documentType != null) {
-    			docTypeId = null;
-    			docTypeId = documentType.getId();
-    		}
+        if (!superUserFieldsInitialized) {
+            String principalId = GlobalVariables.getUserSession().getPrincipalId();
+            String docId = this.getDocId();
 
-   			routeNodeInstances = KewApiServiceLocator.getWorkflowDocumentService().getRouteNodeInstances(docId);
-    		
-    		documentStatus = this.getDocument().getDocumentHeader().getWorkflowDocument().getStatus().getCode();
-    		superuserForDocumentType = KewApiServiceLocator.getDocumentTypeService().isSuperUserForDocumentTypeId(principalId, docTypeId);
-    		
-    		superUserFieldsInitialized = true;
-    	}
+            documentType = KewApiServiceLocator.getDocumentTypeService().getDocumentTypeByName(docTypeName);
+            String docTypeId = null;
+            if (documentType != null) {
+                docTypeId = null;
+                docTypeId = documentType.getId();
+            }
+
+            routeNodeInstances = KewApiServiceLocator.getWorkflowDocumentService().getRouteNodeInstances(docId);
+
+            documentStatus = this.getDocument().getDocumentHeader().getWorkflowDocument().getStatus().getCode();
+            superuserForDocumentType = KewApiServiceLocator.getDocumentTypeService().isSuperUserForDocumentTypeId(principalId, docTypeId);
+
+            superUserFieldsInitialized = true;
+        }
     }
-    
+
     private void clearFieldsForSuperUserChecks() {
-    	documentType = null;
-    	routeNodeInstances = null;
-    	documentStatus = null;
-    	superuserForDocumentType = false;
-    	superUserFieldsInitialized = false;
+        documentType = null;
+        routeNodeInstances = null;
+        documentStatus = null;
+        superuserForDocumentType = false;
+        superUserFieldsInitialized = false;
     }
 
-    public boolean isSuperUserApproveSingleActionRequestAuthorized() {      
+    public boolean isSuperUserApproveSingleActionRequestAuthorized() {
         initializeFieldsForSuperUserChecks();
-        if ( superuserForDocumentType ) {
+        if (superuserForDocumentType) {
             return true;
         }
-        
-        String principalId =  GlobalVariables.getUserSession().getPrincipalId();
+
+        String principalId = GlobalVariables.getUserSession().getPrincipalId();
         return KewApiServiceLocator.getDocumentTypeService().canSuperUserApproveSingleActionRequest(
-                principalId, getDocTypeName(), routeNodeInstances, documentStatus);
+            principalId, getDocTypeName(), routeNodeInstances, documentStatus);
     }
-	
-	public boolean isSuperUserApproveDocumentAuthorized() {
-		initializeFieldsForSuperUserChecks();
-        if ( superuserForDocumentType ) {
+
+    public boolean isSuperUserApproveDocumentAuthorized() {
+        initializeFieldsForSuperUserChecks();
+        if (superuserForDocumentType) {
             return true;
         }
-        
-        String principalId =  GlobalVariables.getUserSession().getPrincipalId();
+
+        String principalId = GlobalVariables.getUserSession().getPrincipalId();
         return KewApiServiceLocator.getDocumentTypeService().canSuperUserApproveDocument(
-                    principalId, this.getDocTypeName(), routeNodeInstances, documentStatus);
-	}
-	
-	public boolean isSuperUserDisapproveDocumentAuthorized() {
-		initializeFieldsForSuperUserChecks();
-        if ( superuserForDocumentType ) {
+            principalId, this.getDocTypeName(), routeNodeInstances, documentStatus);
+    }
+
+    public boolean isSuperUserDisapproveDocumentAuthorized() {
+        initializeFieldsForSuperUserChecks();
+        if (superuserForDocumentType) {
             return true;
         }
-        
-        String principalId =  GlobalVariables.getUserSession().getPrincipalId();
+
+        String principalId = GlobalVariables.getUserSession().getPrincipalId();
         return KewApiServiceLocator.getDocumentTypeService().canSuperUserDisapproveDocument(
             principalId, this.getDocTypeName(), routeNodeInstances, documentStatus);
-   	}
+    }
 
     public boolean isSuperUserAuthorized() {
-    	initializeFieldsForSuperUserChecks();
-        if ( superuserForDocumentType ) {
+        initializeFieldsForSuperUserChecks();
+        if (superuserForDocumentType) {
             return true;
         }
-        
-        String principalId =  GlobalVariables.getUserSession().getPrincipalId();
+
+        String principalId = GlobalVariables.getUserSession().getPrincipalId();
         return ((KewApiServiceLocator.getDocumentTypeService().canSuperUserApproveSingleActionRequest(
-                    principalId, this.getDocTypeName(), routeNodeInstances, documentStatus)) ||
-                (KewApiServiceLocator.getDocumentTypeService().canSuperUserApproveDocument(
-                    principalId, this.getDocTypeName(), routeNodeInstances, documentStatus)) ||
-                (KewApiServiceLocator.getDocumentTypeService().canSuperUserDisapproveDocument (
-                    principalId, this.getDocTypeName(), routeNodeInstances, documentStatus))) ;
+            principalId, this.getDocTypeName(), routeNodeInstances, documentStatus)) ||
+            (KewApiServiceLocator.getDocumentTypeService().canSuperUserApproveDocument(
+                principalId, this.getDocTypeName(), routeNodeInstances, documentStatus)) ||
+            (KewApiServiceLocator.getDocumentTypeService().canSuperUserDisapproveDocument(
+                principalId, this.getDocTypeName(), routeNodeInstances, documentStatus)));
     }
-	
+
     public boolean isStateAllowsApproveOrDisapprove() {
-        if(this.getDocument().getDocumentHeader().hasWorkflowDocument()) {
+        if (this.getDocument().getDocumentHeader().hasWorkflowDocument()) {
             DocumentStatus status = this.getDocument().getDocumentHeader().getWorkflowDocument().getStatus();
             return !(isStateProcessedOrDisapproved(status) ||
-                     isStateInitiatedFinalCancelled(status) ||
-                     StringUtils.equals(status.getCode(), DocumentStatus.SAVED.getCode()));
+                isStateInitiatedFinalCancelled(status) ||
+                StringUtils.equals(status.getCode(), DocumentStatus.SAVED.getCode()));
         } else {
             return false;
         }
     }
 
     public boolean isStateAllowsApproveSingleActionRequest() {
-        if(this.getDocument().getDocumentHeader().hasWorkflowDocument()) {
-        	DocumentStatus status = this.getDocument().getDocumentHeader().getWorkflowDocument().getStatus();
+        if (this.getDocument().getDocumentHeader().hasWorkflowDocument()) {
+            DocumentStatus status = this.getDocument().getDocumentHeader().getWorkflowDocument().getStatus();
             return !(isStateInitiatedFinalCancelled(status));
         } else {
             return false;
@@ -1084,13 +1083,13 @@ public abstract class KualiDocumentFormBase extends KualiForm implements Seriali
 
     public boolean isStateProcessedOrDisapproved(DocumentStatus status) {
         return (StringUtils.equals(status.getCode(), DocumentStatus.PROCESSED.getCode()) ||
-                StringUtils.equals(status.getCode(), DocumentStatus.DISAPPROVED.getCode()));
+            StringUtils.equals(status.getCode(), DocumentStatus.DISAPPROVED.getCode()));
     }
 
     public boolean isStateInitiatedFinalCancelled(DocumentStatus status) {
         return (StringUtils.equals(status.getCode(), DocumentStatus.INITIATED.getCode()) ||
-                StringUtils.equals(status.getCode(), DocumentStatus.FINAL.getCode()) ||
-                StringUtils.equals(status.getCode(), DocumentStatus.CANCELED.getCode()));
+            StringUtils.equals(status.getCode(), DocumentStatus.FINAL.getCode()) ||
+            StringUtils.equals(status.getCode(), DocumentStatus.CANCELED.getCode()));
     }
 
     public String getLastActionTaken() {

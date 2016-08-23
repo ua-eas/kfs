@@ -1,31 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.fp.businessobject;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
 import java.sql.Date;
 import java.util.LinkedHashMap;
 
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-
 /**
- *  This class represents customer credit card information
+ * This class represents customer credit card information
  */
 public class CustomerCreditCardInformation extends PersistableBusinessObjectBase {
 
@@ -49,7 +49,7 @@ public class CustomerCreditCardInformation extends PersistableBusinessObjectBase
 
     /**
      * Gets the customerCreditCardNumber attribute.
-     * 
+     *
      * @return Returns the customerCreditCardNumber
      */
     public String getCustomerCreditCardNumber() {
@@ -58,7 +58,7 @@ public class CustomerCreditCardInformation extends PersistableBusinessObjectBase
 
     /**
      * Sets the customerCreditCardNumber attribute.
-     * 
+     *
      * @param customerCreditCardNumber The customerCreditCardNumber to set.
      */
     public void setCustomerCreditCardNumber(String customerCreditCardNumber) {
@@ -68,7 +68,7 @@ public class CustomerCreditCardInformation extends PersistableBusinessObjectBase
 
     /**
      * Gets the customerCreditCardHolderName attribute.
-     * 
+     *
      * @return Returns the customerCreditCardHolderName
      */
     public String getCustomerCreditCardHolderName() {
@@ -77,7 +77,7 @@ public class CustomerCreditCardInformation extends PersistableBusinessObjectBase
 
     /**
      * Sets the customerCreditCardHolderName attribute.
-     * 
+     *
      * @param customerCreditCardHolderName The customerCreditCardHolderName to set.
      */
     public void setCustomerCreditCardHolderName(String customerCreditCardHolderName) {
@@ -87,7 +87,7 @@ public class CustomerCreditCardInformation extends PersistableBusinessObjectBase
 
     /**
      * Gets the customerCreditCardIssuerName attribute.
-     * 
+     *
      * @return Returns the customerCreditCardIssuerName
      */
     public String getCustomerCreditCardIssuerName() {
@@ -96,7 +96,7 @@ public class CustomerCreditCardInformation extends PersistableBusinessObjectBase
 
     /**
      * Sets the customerCreditCardIssuerName attribute.
-     * 
+     *
      * @param customerCreditCardIssuerName The customerCreditCardIssuerName to set.
      */
     public void setCustomerCreditCardIssuerName(String customerCreditCardIssuerName) {
@@ -106,7 +106,7 @@ public class CustomerCreditCardInformation extends PersistableBusinessObjectBase
 
     /**
      * Gets the financialDocumentCreditCardTypeCode attribute.
-     * 
+     *
      * @return Returns the financialDocumentCreditCardTypeCode
      */
     public String getFinancialDocumentCreditCardTypeCode() {
@@ -115,7 +115,7 @@ public class CustomerCreditCardInformation extends PersistableBusinessObjectBase
 
     /**
      * Sets the financialDocumentCreditCardTypeCode attribute.
-     * 
+     *
      * @param financialDocumentCreditCardTypeCode The financialDocumentCreditCardTypeCode to set.
      */
     public void setFinancialDocumentCreditCardTypeCode(String financialDocumentCreditCardTypeCode) {
@@ -125,7 +125,7 @@ public class CustomerCreditCardInformation extends PersistableBusinessObjectBase
 
     /**
      * Gets the customerCreditCardExpenditureDate attribute.
-     * 
+     *
      * @return Returns the customerCreditCardExpenditureDate
      */
     public Date getCustomerCreditCardExpenditureDate() {
@@ -134,7 +134,7 @@ public class CustomerCreditCardInformation extends PersistableBusinessObjectBase
 
     /**
      * Sets the customerCreditCardExpenditureDate attribute.
-     * 
+     *
      * @param customerCreditCardExpenditureDate The customerCreditCardExpenditureDate to set.
      */
     public void setCustomerCreditCardExpenditureDate(Date customerCreditCardExpenditureDate) {
@@ -144,7 +144,7 @@ public class CustomerCreditCardInformation extends PersistableBusinessObjectBase
 
     /**
      * Gets the customerNumber attribute.
-     * 
+     *
      * @return Returns the customerNumber
      */
     public String getCustomerNumber() {
@@ -153,7 +153,7 @@ public class CustomerCreditCardInformation extends PersistableBusinessObjectBase
 
     /**
      * Sets the customerNumber attribute.
-     * 
+     *
      * @param customerNumber The customerNumber to set.
      */
     public void setCustomerNumber(String customerNumber) {
@@ -163,7 +163,7 @@ public class CustomerCreditCardInformation extends PersistableBusinessObjectBase
 
     /**
      * Gets the financialDocumentCreditCardVendorNumber attribute.
-     * 
+     *
      * @return Returns the financialDocumentCreditCardVendorNumber
      */
     public String getFinancialDocumentCreditCardVendorNumber() {
@@ -172,7 +172,7 @@ public class CustomerCreditCardInformation extends PersistableBusinessObjectBase
 
     /**
      * Sets the financialDocumentCreditCardVendorNumber attribute.
-     * 
+     *
      * @param financialDocumentCreditCardVendorNumber The financialDocumentCreditCardVendorNumber to set.
      */
     public void setFinancialDocumentCreditCardVendorNumber(String financialDocumentCreditCardVendorNumber) {
@@ -182,7 +182,7 @@ public class CustomerCreditCardInformation extends PersistableBusinessObjectBase
 
     /**
      * Gets the customerCreditCardInformationNoteText attribute.
-     * 
+     *
      * @return Returns the customerCreditCardInformationNoteText
      */
     public String getCustomerCreditCardInformationNoteText() {
@@ -191,7 +191,7 @@ public class CustomerCreditCardInformation extends PersistableBusinessObjectBase
 
     /**
      * Sets the customerCreditCardInformationNoteText attribute.
-     * 
+     *
      * @param customerCreditCardInformationNoteText The customerCreditCardInformationNoteText to set.
      */
     public void setCustomerCreditCardInformationNoteText(String customerCreditCardInformationNoteText) {
@@ -201,7 +201,7 @@ public class CustomerCreditCardInformation extends PersistableBusinessObjectBase
 
     /**
      * Gets the financialDocumentCreditCardVendor attribute.
-     * 
+     *
      * @return Returns the financialDocumentCreditCardVendor
      */
     public CreditCardVendor getFinancialDocumentCreditCardVendor() {
@@ -210,7 +210,7 @@ public class CustomerCreditCardInformation extends PersistableBusinessObjectBase
 
     /**
      * Sets the financialDocumentCreditCardVendor attribute.
-     * 
+     *
      * @param financialDocumentCreditCardVendor The financialDocumentCreditCardVendor to set.
      * @deprecated
      */

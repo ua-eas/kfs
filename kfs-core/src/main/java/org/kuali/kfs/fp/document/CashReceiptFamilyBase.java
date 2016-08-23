@@ -1,31 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document;
 
-import java.sql.Date;
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.businessobject.CapitalAccountingLines;
 import org.kuali.kfs.fp.businessobject.CapitalAssetInformation;
 import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLineBase;
@@ -34,7 +31,10 @@ import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.service.DebitDeterminerService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Abstract class which defines behavior common to CashReceipt-like documents.
@@ -120,13 +120,11 @@ abstract public class CashReceiptFamilyBase extends CapitalAccountingLinesDocume
                 if (amount != null && amount.isNonZero()) {
                     if (isDebit(al)) {
                         total = total.subtract(amount);
-                    }
-                    else { // in this context, if it's not a debit, it's a credit
+                    } else { // in this context, if it's not a debit, it's a credit
                         total = total.add(amount);
                     }
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 // Possibly caused by accounting lines w/ bad data
                 LOG.error("Error occured trying to compute Cash receipt total, returning 0", e);
                 return KualiDecimal.ZERO;
@@ -170,10 +168,10 @@ abstract public class CashReceiptFamilyBase extends CapitalAccountingLinesDocume
      *
      * @param financialDocument
      * @param accountingLine
-     * @param true if accountline line
+     * @param true              if accountline line
      * @see IsDebitUtils#isDebitConsideringType(FinancialDocumentRuleBase, FinancialDocument, AccountingLine)
      * @see org.kuali.rice.krad.rule.AccountingLineRule#isDebit(org.kuali.rice.krad.document.FinancialDocument,
-     *      org.kuali.rice.krad.bo.AccountingLine)
+     * org.kuali.rice.krad.bo.AccountingLine)
      */
     @Override
     public boolean isDebit(GeneralLedgerPendingEntrySourceDetail postable) {
@@ -188,10 +186,10 @@ abstract public class CashReceiptFamilyBase extends CapitalAccountingLinesDocume
      * Overrides to set the entry's description to the description from the accounting line, if a value exists.
      *
      * @param financialDocument submitted accounting document
-     * @param accountingLine accounting line in accounting document
-     * @param explicitEntry general ledger pending entry
+     * @param accountingLine    accounting line in accounting document
+     * @param explicitEntry     general ledger pending entry
      * @see org.kuali.module.financial.rules.FinancialDocumentRuleBase#customizeExplicitGeneralLedgerPendingEntry(org.kuali.rice.krad.document.FinancialDocument,
-     *      org.kuali.rice.krad.bo.AccountingLine, org.kuali.module.gl.bo.GeneralLedgerPendingEntry)
+     * org.kuali.rice.krad.bo.AccountingLine, org.kuali.module.gl.bo.GeneralLedgerPendingEntry)
      */
     @Override
     public void customizeExplicitGeneralLedgerPendingEntry(GeneralLedgerPendingEntrySourceDetail postable, GeneralLedgerPendingEntry explicitEntry) {
@@ -227,7 +225,7 @@ abstract public class CashReceiptFamilyBase extends CapitalAccountingLinesDocume
      * and updates the documentNumber to point to the new document.
      */
     protected void correctCapitalAccountingLines() {
-        for (CapitalAccountingLines capacctline: capitalAccountingLines) {
+        for (CapitalAccountingLines capacctline : capitalAccountingLines) {
             capacctline.setDocumentNumber(documentNumber);
             capacctline.setAmount(capacctline.getAmount().negated());
         }

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -20,6 +20,10 @@ package org.kuali.kfs.kns.document.authorization;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.kuali.kfs.kns.bo.authorization.BusinessObjectAuthorizerBase;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.KewApiServiceLocator;
 import org.kuali.rice.kew.api.WorkflowDocument;
@@ -28,10 +32,6 @@ import org.kuali.rice.kew.api.doctype.ProcessDefinition;
 import org.kuali.rice.kew.api.doctype.RoutePath;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.bo.authorization.BusinessObjectAuthorizerBase;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
-import org.kuali.kfs.krad.util.KRADConstants;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -49,7 +49,7 @@ public class DocumentAuthorizerBase extends BusinessObjectAuthorizerBase impleme
     public static final String EDIT_MODE_DEFAULT_TRUE_VALUE = "TRUE";
     public static final String USER_SESSION_METHOD_TO_CALL_OBJECT_KEY = "METHOD_TO_CALL_KEYS_METHOD_OBJECT_KEY";
     public static final String USER_SESSION_METHOD_TO_CALL_COMPLETE_OBJECT_KEY =
-            "METHOD_TO_CALL_KEYS_COMPLETE_OBJECT_KEY";
+        "METHOD_TO_CALL_KEYS_COMPLETE_OBJECT_KEY";
     public static final String USER_SESSION_METHOD_TO_CALL_COMPLETE_MARKER = "_EXITING";
 
     /**
@@ -60,10 +60,10 @@ public class DocumentAuthorizerBase extends BusinessObjectAuthorizerBase impleme
     public Set<String> getDocumentActions(Document document, Person user, Set<String> documentActions) {
         if (LOG.isDebugEnabled()) {
             LOG.debug("calling DocumentAuthorizerBase.getDocumentActionFlags for document '"
-                    + document.getDocumentNumber()
-                    + "'. user '"
-                    + user.getPrincipalName()
-                    + "'");
+                + document.getDocumentNumber()
+                + "'. user '"
+                + user.getPrincipalName()
+                + "'");
         }
         if (documentActions.contains(KRADConstants.KUALI_ACTION_CAN_EDIT) && !canEdit(document, user)) {
             documentActions.remove(KRADConstants.KUALI_ACTION_CAN_EDIT);
@@ -132,12 +132,12 @@ public class DocumentAuthorizerBase extends BusinessObjectAuthorizerBase impleme
         }
 
         if (documentActions.contains(KRADConstants.KUALI_ACTION_CAN_EDIT_DOCUMENT_OVERVIEW) && !canEditDocumentOverview(
-                document, user)) {
+            document, user)) {
             documentActions.remove(KRADConstants.KUALI_ACTION_CAN_EDIT_DOCUMENT_OVERVIEW);
         }
 
         if (documentActions.contains(KRADConstants.KUALI_ACTION_PERFORM_ROUTE_REPORT) && !canPerformRouteReport(document,
-                user)) {
+            user)) {
             documentActions.remove(KRADConstants.KUALI_ACTION_PERFORM_ROUTE_REPORT);
         }
 
@@ -149,14 +149,14 @@ public class DocumentAuthorizerBase extends BusinessObjectAuthorizerBase impleme
         Map<String, String> permissionDetails = new HashMap<String, String>();
         permissionDetails.put(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME, documentTypeName);
         return getPermissionService().isAuthorizedByTemplate(user.getPrincipalId(), nameSpaceCode,
-                KimConstants.PermissionTemplateNames.INITIATE_DOCUMENT, permissionDetails,
-                Collections.<String, String>emptyMap());
+            KimConstants.PermissionTemplateNames.INITIATE_DOCUMENT, permissionDetails,
+            Collections.<String, String>emptyMap());
     }
 
     public boolean canEdit(Document document, Person user) {
-        // KULRICE-7864: document can be editable on adhoc route for completion 
+        // KULRICE-7864: document can be editable on adhoc route for completion
         return document.getDocumentHeader().getWorkflowDocument().isCompletionRequested()
-                || isAuthorizedByTemplate(document, KRADConstants.KNS_NAMESPACE, KimConstants.PermissionTemplateNames.EDIT_DOCUMENT, user.getPrincipalId());
+            || isAuthorizedByTemplate(document, KRADConstants.KNS_NAMESPACE, KimConstants.PermissionTemplateNames.EDIT_DOCUMENT, user.getPrincipalId());
     }
 
     public boolean canAnnotate(Document document, Person user) {
@@ -173,19 +173,19 @@ public class DocumentAuthorizerBase extends BusinessObjectAuthorizerBase impleme
 
     public boolean canSave(Document document, Person user) {
         return isAuthorizedByTemplate(document, KRADConstants.KUALI_RICE_WORKFLOW_NAMESPACE,
-                KimConstants.PermissionTemplateNames.SAVE_DOCUMENT, user.getPrincipalId());
+            KimConstants.PermissionTemplateNames.SAVE_DOCUMENT, user.getPrincipalId());
     }
 
     public boolean canRoute(Document document, Person user) {
         return isAuthorizedByTemplate(document, KRADConstants.KUALI_RICE_WORKFLOW_NAMESPACE,
-                KimConstants.PermissionTemplateNames.ROUTE_DOCUMENT, user.getPrincipalId());
+            KimConstants.PermissionTemplateNames.ROUTE_DOCUMENT, user.getPrincipalId());
     }
 
     public boolean canCancel(Document document, Person user) {
-        // KULRICE-8762: CANCEL button should be enabled for a person who is doing COMPLETE action 
+        // KULRICE-8762: CANCEL button should be enabled for a person who is doing COMPLETE action
         boolean isCompletionRequested = document.getDocumentHeader().getWorkflowDocument().isCompletionRequested();
         return isCompletionRequested || isAuthorizedByTemplate(document, KRADConstants.KUALI_RICE_WORKFLOW_NAMESPACE,
-                KimConstants.PermissionTemplateNames.CANCEL_DOCUMENT, user.getPrincipalId());
+            KimConstants.PermissionTemplateNames.CANCEL_DOCUMENT, user.getPrincipalId());
     }
 
     public boolean canRecall(Document document, Person user) {
@@ -194,7 +194,7 @@ public class DocumentAuthorizerBase extends BusinessObjectAuthorizerBase impleme
 
     public boolean canCopy(Document document, Person user) {
         return isAuthorizedByTemplate(document, KRADConstants.KNS_NAMESPACE,
-                KimConstants.PermissionTemplateNames.COPY_DOCUMENT, user.getPrincipalId());
+            KimConstants.PermissionTemplateNames.COPY_DOCUMENT, user.getPrincipalId());
     }
 
     public boolean canPerformRouteReport(Document document, Person user) {
@@ -203,7 +203,7 @@ public class DocumentAuthorizerBase extends BusinessObjectAuthorizerBase impleme
 
     public boolean canBlanketApprove(Document document, Person user) {
         return isAuthorizedByTemplate(document, KRADConstants.KUALI_RICE_WORKFLOW_NAMESPACE,
-                KimConstants.PermissionTemplateNames.BLANKET_APPROVE_DOCUMENT, user.getPrincipalId());
+            KimConstants.PermissionTemplateNames.BLANKET_APPROVE_DOCUMENT, user.getPrincipalId());
     }
 
     public boolean canApprove(Document document, Person user) {
@@ -230,13 +230,13 @@ public class DocumentAuthorizerBase extends BusinessObjectAuthorizerBase impleme
         Map<String, String> additionalPermissionDetails = new HashMap<String, String>();
         additionalPermissionDetails.put(KimConstants.AttributeConstants.ACTION_REQUEST_CD, actionRequestCode);
         return isAuthorizedByTemplate(document, KRADConstants.KUALI_RICE_WORKFLOW_NAMESPACE,
-                KimConstants.PermissionTemplateNames.AD_HOC_REVIEW_DOCUMENT, user.getPrincipalId(),
-                additionalPermissionDetails, Collections.<String, String>emptyMap());
+            KimConstants.PermissionTemplateNames.AD_HOC_REVIEW_DOCUMENT, user.getPrincipalId(),
+            additionalPermissionDetails, Collections.<String, String>emptyMap());
     }
 
     public boolean canOpen(Document document, Person user) {
         return isAuthorizedByTemplate(document, KRADConstants.KNS_NAMESPACE,
-                KimConstants.PermissionTemplateNames.OPEN_DOCUMENT, user.getPrincipalId());
+            KimConstants.PermissionTemplateNames.OPEN_DOCUMENT, user.getPrincipalId());
     }
 
     public boolean canAddNoteAttachment(Document document, String attachmentTypeCode, Person user) {
@@ -245,20 +245,20 @@ public class DocumentAuthorizerBase extends BusinessObjectAuthorizerBase impleme
             additionalPermissionDetails.put(KimConstants.AttributeConstants.ATTACHMENT_TYPE_CODE, attachmentTypeCode);
         }
         return isAuthorizedByTemplate(document, KRADConstants.KNS_NAMESPACE,
-                KimConstants.PermissionTemplateNames.ADD_NOTE_ATTACHMENT, user.getPrincipalId(),
-                additionalPermissionDetails, Collections.<String, String>emptyMap());
+            KimConstants.PermissionTemplateNames.ADD_NOTE_ATTACHMENT, user.getPrincipalId(),
+            additionalPermissionDetails, Collections.<String, String>emptyMap());
     }
 
     public boolean canDeleteNoteAttachment(Document document, String attachmentTypeCode, String createdBySelfOnly,
-            Person user) {
+                                           Person user) {
         Map<String, String> additionalPermissionDetails = new HashMap<String, String>();
         if (attachmentTypeCode != null) {
             additionalPermissionDetails.put(KimConstants.AttributeConstants.ATTACHMENT_TYPE_CODE, attachmentTypeCode);
         }
         additionalPermissionDetails.put(KimConstants.AttributeConstants.CREATED_BY_SELF, createdBySelfOnly);
         return isAuthorizedByTemplate(document, KRADConstants.KNS_NAMESPACE,
-                KimConstants.PermissionTemplateNames.DELETE_NOTE_ATTACHMENT, user.getPrincipalId(),
-                additionalPermissionDetails, Collections.<String, String>emptyMap());
+            KimConstants.PermissionTemplateNames.DELETE_NOTE_ATTACHMENT, user.getPrincipalId(),
+            additionalPermissionDetails, Collections.<String, String>emptyMap());
     }
 
     public boolean canViewNoteAttachment(Document document, String attachmentTypeCode, Person user) {
@@ -267,12 +267,12 @@ public class DocumentAuthorizerBase extends BusinessObjectAuthorizerBase impleme
             additionalPermissionDetails.put(KimConstants.AttributeConstants.ATTACHMENT_TYPE_CODE, attachmentTypeCode);
         }
         return isAuthorizedByTemplate(document, KRADConstants.KNS_NAMESPACE,
-                KimConstants.PermissionTemplateNames.VIEW_NOTE_ATTACHMENT, user.getPrincipalId(),
-                additionalPermissionDetails, Collections.<String, String>emptyMap());
+            KimConstants.PermissionTemplateNames.VIEW_NOTE_ATTACHMENT, user.getPrincipalId(),
+            additionalPermissionDetails, Collections.<String, String>emptyMap());
     }
 
     public boolean canViewNoteAttachment(Document document, String attachmentTypeCode, String authorUniversalIdentifier,
-            Person user) {
+                                         Person user) {
         return canViewNoteAttachment(document, attachmentTypeCode, user);
     }
 
@@ -282,20 +282,20 @@ public class DocumentAuthorizerBase extends BusinessObjectAuthorizerBase impleme
             additionalPermissionDetails.put(KimConstants.AttributeConstants.ACTION_REQUEST_CD, actionRequestCd);
         }
         return isAuthorizedByTemplate(document, KRADConstants.KNS_NAMESPACE,
-                KimConstants.PermissionTemplateNames.SEND_AD_HOC_REQUEST, user.getPrincipalId(),
-                additionalPermissionDetails, Collections.<String, String>emptyMap());
+            KimConstants.PermissionTemplateNames.SEND_AD_HOC_REQUEST, user.getPrincipalId(),
+            additionalPermissionDetails, Collections.<String, String>emptyMap());
     }
 
     public boolean canEditDocumentOverview(Document document, Person user) {
         return isAuthorizedByTemplate(document, KRADConstants.KNS_NAMESPACE,
-                KimConstants.PermissionTemplateNames.EDIT_DOCUMENT, user.getPrincipalId()) && this.isDocumentInitiator(
-                document, user);
+            KimConstants.PermissionTemplateNames.EDIT_DOCUMENT, user.getPrincipalId()) && this.isDocumentInitiator(
+            document, user);
     }
 
     public boolean canSendAnyTypeAdHocRequests(Document document, Person user) {
         if (canSendAdHocRequests(document, KewApiConstants.ACTION_REQUEST_FYI_REQ, user)) {
             RoutePath routePath = KewApiServiceLocator.getDocumentTypeService().getRoutePathForDocumentTypeName(
-                    document.getDocumentHeader().getWorkflowDocument().getDocumentTypeName());
+                document.getDocumentHeader().getWorkflowDocument().getDocumentTypeName());
             ProcessDefinition processDefinition = routePath.getPrimaryProcess();
             if (processDefinition != null) {
                 if (processDefinition.getInitialRouteNode() == null) {
@@ -315,8 +315,8 @@ public class DocumentAuthorizerBase extends BusinessObjectAuthorizerBase impleme
         Map<String, String> additionalPermissionDetails = new HashMap<String, String>();
         additionalPermissionDetails.put(KimConstants.AttributeConstants.ACTION_REQUEST_CD, actionRequestCode);
         return isAuthorizedByTemplate(document, KRADConstants.KNS_NAMESPACE,
-                KimConstants.PermissionTemplateNames.TAKE_REQUESTED_ACTION, user.getPrincipalId(),
-                additionalPermissionDetails, Collections.<String, String>emptyMap());
+            KimConstants.PermissionTemplateNames.TAKE_REQUESTED_ACTION, user.getPrincipalId(),
+            additionalPermissionDetails, Collections.<String, String>emptyMap());
     }
 
     @Override
@@ -343,7 +343,7 @@ public class DocumentAuthorizerBase extends BusinessObjectAuthorizerBase impleme
             attributes.put(KimConstants.AttributeConstants.ROUTE_NODE_NAME, PRE_ROUTING_ROUTE_NAME);
         } else {
             attributes.put(KimConstants.AttributeConstants.ROUTE_NODE_NAME,
-                    KRADServiceLocatorWeb.getWorkflowDocumentService().getCurrentRouteNodeNames(wd));
+                KRADServiceLocatorWeb.getWorkflowDocumentService().getCurrentRouteNodeNames(wd));
         }
         attributes.put(KimConstants.AttributeConstants.ROUTE_STATUS_CODE, wd.getStatus().getCode());
     }

@@ -1,31 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cam.document;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.cam.CapitalAssetManagementModuleService;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.rules.rule.event.SaveDocumentEvent;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.businessobject.Asset;
 import org.kuali.kfs.module.cam.document.service.EquipmentLoanOrReturnService;
@@ -36,19 +35,16 @@ import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
-import org.kuali.kfs.krad.rules.rule.event.SaveDocumentEvent;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.rice.location.api.LocationConstants;
-import org.kuali.rice.location.api.country.CountryService;
-import org.kuali.rice.location.api.postalcode.PostalCodeService;
-import org.kuali.rice.location.api.state.StateService;
-import org.kuali.rice.location.framework.campus.CampusEbo;
 import org.kuali.rice.location.framework.country.CountryEbo;
 import org.kuali.rice.location.framework.postalcode.PostalCodeEbo;
 import org.kuali.rice.location.framework.state.StateEbo;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 
 public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalDocumentBase {
@@ -96,7 +92,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Gets the asset attribute.
-     * 
+     *
      * @return Returns the asset
      */
     public Asset getAsset() {
@@ -105,7 +101,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Sets the asset attribute.
-     * 
+     *
      * @param asset The asset to set.
      */
     public void setAsset(Asset asset) {
@@ -114,30 +110,30 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Gets the borrowerCountry attribute.
-     * 
+     *
      * @return Returns the borrowerCountry
      */
     public CountryEbo getBorrowerCountry() {
-        if ( StringUtils.isBlank(borrowerCountryCode) ) {
+        if (StringUtils.isBlank(borrowerCountryCode)) {
             borrowerCountry = null;
         } else {
-            if ( borrowerCountry == null || !StringUtils.equals( borrowerCountry.getCode(),borrowerCountryCode) ) {
+            if (borrowerCountry == null || !StringUtils.equals(borrowerCountry.getCode(), borrowerCountryCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(CountryEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(1);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(1);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, borrowerCountryCode);
                     borrowerCountry = moduleService.getExternalizableBusinessObject(CountryEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
-        return borrowerCountry;       
-     }
+        return borrowerCountry;
+    }
 
     /**
      * Sets the borrowerCountry attribute.
-     * 
+     *
      * @param borrowerCountry The borrowerCountry to set.
      */
     public void setBorrowerCountry(CountryEbo borrowerCountry) {
@@ -146,31 +142,31 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Gets the borrowerState attribute.
-     * 
+     *
      * @return Returns the borrowerState
      */
     public StateEbo getBorrowerState() {
-        if ( StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES ) || StringUtils.isBlank(borrowerStateCode) ) {
+        if (StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES) || StringUtils.isBlank(borrowerStateCode)) {
             borrowerState = null;
         } else {
-            if ( borrowerState == null || !StringUtils.equals( borrowerState.getCode(), borrowerStateCode) || !StringUtils.equals(borrowerState.getCountryCode(), KFSConstants.COUNTRY_CODE_UNITED_STATES ) ) {
+            if (borrowerState == null || !StringUtils.equals(borrowerState.getCode(), borrowerStateCode) || !StringUtils.equals(borrowerState.getCountryCode(), KFSConstants.COUNTRY_CODE_UNITED_STATES)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(StateEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(2);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(2);
                     keys.put(LocationConstants.PrimaryKeyConstants.COUNTRY_CODE, borrowerCountryCode);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, borrowerStateCode);
                     borrowerState = moduleService.getExternalizableBusinessObject(StateEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
-        }        
+        }
         return borrowerState;
     }
 
     /**
      * Sets the borrowerState attribute.
-     * 
+     *
      * @param borrowerState The borrowerState to set.
      */
     public void setBorrowerState(StateEbo borrowerState) {
@@ -179,21 +175,21 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Gets the borrowerStorageCountry attribute.
-     * 
+     *
      * @return Returns the borrowerStorageCountry
      */
     public CountryEbo getBorrowerStorageCountry() {
-        if ( StringUtils.isBlank(borrowerStorageCountryCode) ) {
+        if (StringUtils.isBlank(borrowerStorageCountryCode)) {
             borrowerStorageCountry = null;
         } else {
-            if ( borrowerStorageCountry == null || !StringUtils.equals( borrowerStorageCountry.getCode(),borrowerStorageCountryCode) ) {
+            if (borrowerStorageCountry == null || !StringUtils.equals(borrowerStorageCountry.getCode(), borrowerStorageCountryCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(CountryEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(1);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(1);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, borrowerStorageCountryCode);
                     borrowerStorageCountry = moduleService.getExternalizableBusinessObject(CountryEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -202,7 +198,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Sets the borrowerStorageCountry attribute.
-     * 
+     *
      * @param borrowerStorageCountry The borrowerStorageCountry to set.
      */
     public void setBorrowerStorageCountry(CountryEbo borrowerStorageCountry) {
@@ -211,32 +207,32 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Gets the getBorrowerStorageState attribute.
-     * 
+     *
      * @return Returns the getBorrowerStorageState
      */
     public StateEbo getBorrowerStorageState() {
-        if ( StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES ) || StringUtils.isBlank(borrowerStorageStateCode) ) {
+        if (StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES) || StringUtils.isBlank(borrowerStorageStateCode)) {
             borrowerStorageState = null;
         } else {
-            if ( borrowerStorageState == null || !StringUtils.equals( borrowerStorageState.getCountryCode(),borrowerStorageCountryCode) || !StringUtils.equals( borrowerStorageState.getCode(), borrowerStorageStateCode)) {
+            if (borrowerStorageState == null || !StringUtils.equals(borrowerStorageState.getCountryCode(), borrowerStorageCountryCode) || !StringUtils.equals(borrowerStorageState.getCode(), borrowerStorageStateCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(StateEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(2);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(2);
                     keys.put(LocationConstants.PrimaryKeyConstants.COUNTRY_CODE, borrowerStorageCountryCode);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, borrowerStorageStateCode);
                     borrowerStorageState = moduleService.getExternalizableBusinessObject(StateEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
-        
+
         return borrowerStorageState;
     }
 
     /**
      * Sets the borrowerStorageState attribute.
-     * 
+     *
      * @param borrowerStorageState The borrowerStorageState to set.
      */
     public void setBorrowerStorageState(StateEbo borrowerStorageState) {
@@ -245,7 +241,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Gets the borrowerPerson attribute.
-     * 
+     *
      * @return Returns the borrowerPerson
      */
     public Person getBorrowerPerson() {
@@ -255,7 +251,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Sets the borrowerPerson attribute.
-     * 
+     *
      * @param borrowerPerson The borrowerPerson to set.
      */
     public void setBorrowerPerson(Person borrowerPerson) {
@@ -264,7 +260,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Gets the borrowerAddress attribute.
-     * 
+     *
      * @return Returns the borrowerAddress
      */
     public String getBorrowerAddress() {
@@ -273,7 +269,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Sets the borrowerAddress attribute.
-     * 
+     *
      * @param borrowerAddress The borrowerAddress to set.
      */
     public void setBorrowerAddress(String borrowerAddress) {
@@ -282,7 +278,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Gets the borrowerCityName attribute.
-     * 
+     *
      * @return Returns the borrowerCityName
      */
     public String getBorrowerCityName() {
@@ -291,7 +287,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Sets the borrowerCityName attribute.
-     * 
+     *
      * @param borrowerCityName The borrowerCityName to set.
      */
     public void setBorrowerCityName(String borrowerCityName) {
@@ -300,7 +296,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Gets the borrowerCountryCode attribute.
-     * 
+     *
      * @return Returns the borrowerCountryCode
      */
     public String getBorrowerCountryCode() {
@@ -309,7 +305,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Sets the borrowerCountryCode attribute.
-     * 
+     *
      * @param borrowerCountryCode The borrowerCountryCode to set.
      */
     public void setBorrowerCountryCode(String borrowerCountryCode) {
@@ -318,7 +314,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Gets the borrowerPhoneNumber attribute.
-     * 
+     *
      * @return Returns the borrowerPhoneNumber
      */
     public String getBorrowerPhoneNumber() {
@@ -327,7 +323,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Sets the borrowerPhoneNumber attribute.
-     * 
+     *
      * @param borrowerPhoneNumber The borrowerPhoneNumber to set.
      */
     public void setBorrowerPhoneNumber(String borrowerPhoneNumber) {
@@ -336,7 +332,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Gets the borrowerStateCode attribute.
-     * 
+     *
      * @return Returns the borrowerStateCode
      */
     public String getBorrowerStateCode() {
@@ -345,7 +341,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Sets the borrowerStateCode attribute.
-     * 
+     *
      * @param borrowerStateCode The borrowerStateCode to set.
      */
     public void setBorrowerStateCode(String borrowerStateCode) {
@@ -354,7 +350,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Gets the borrowerStorageAddress attribute.
-     * 
+     *
      * @return Returns the borrowerStorageAddress
      */
     public String getBorrowerStorageAddress() {
@@ -363,7 +359,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Sets the borrowerStorageAddress attribute.
-     * 
+     *
      * @param borrowerStorageAddress The borrowerStorageAddress to set.
      */
     public void setBorrowerStorageAddress(String borrowerStorageAddress) {
@@ -372,7 +368,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Gets the borrowerStorageCityName attribute.
-     * 
+     *
      * @return Returns the borrowerStorageCityName
      */
     public String getBorrowerStorageCityName() {
@@ -381,7 +377,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Sets the borrowerStorageCityName attribute.
-     * 
+     *
      * @param borrowerStorageCityName The borrowerStorageCityName to set.
      */
     public void setBorrowerStorageCityName(String borrowerStorageCityName) {
@@ -390,7 +386,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Gets the borrowerStorageCountryCode attribute.
-     * 
+     *
      * @return Returns the borrowerStorageCountryCode
      */
     public String getBorrowerStorageCountryCode() {
@@ -399,7 +395,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Sets the borrowerStorageCountryCode attribute.
-     * 
+     *
      * @param borrowerStorageCountryCode The borrowerStorageCountryCode to set.
      */
     public void setBorrowerStorageCountryCode(String borrowerStorageCountryCode) {
@@ -408,7 +404,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Gets the borrowerStoragePhoneNumber attribute.
-     * 
+     *
      * @return Returns the borrowerStoragePhoneNumber
      */
     public String getBorrowerStoragePhoneNumber() {
@@ -417,7 +413,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Sets the borrowerStoragePhoneNumber attribute.
-     * 
+     *
      * @param borrowerStoragePhoneNumber The borrowerStoragePhoneNumber to set.
      */
     public void setBorrowerStoragePhoneNumber(String borrowerStoragePhoneNumber) {
@@ -426,7 +422,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Gets the borrowerStorageStateCode attribute.
-     * 
+     *
      * @return Returns the borrowerStorageStateCode
      */
     public String getBorrowerStorageStateCode() {
@@ -435,7 +431,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Sets the borrowerStorageStateCode attribute.
-     * 
+     *
      * @param borrowerStorageStateCode The borrowerStorageStateCode to set.
      */
     public void setBorrowerStorageStateCode(String borrowerStorageStateCode) {
@@ -444,7 +440,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Gets the borrowerStorageZipCode attribute.
-     * 
+     *
      * @return Returns the borrowerStorageZipCode
      */
     public String getBorrowerStorageZipCode() {
@@ -453,7 +449,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Sets the borrowerStorageZipCode attribute.
-     * 
+     *
      * @param borrowerStorageZipCode The borrowerStorageZipCode to set.
      */
     public void setBorrowerStorageZipCode(String borrowerStorageZipCode) {
@@ -462,31 +458,31 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Gets the borrowerPostalZipCode attribute.
-     * 
+     *
      * @return Returns the borrowerPostalZipCode
      */
     public PostalCodeEbo getBorrowerPostalZipCode() {
-        if ( StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES ) || StringUtils.isBlank(borrowerZipCode) ) {
+        if (StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES) || StringUtils.isBlank(borrowerZipCode)) {
             borrowerPostalZipCode = null;
         } else {
-            if ( borrowerPostalZipCode == null || !StringUtils.equals( borrowerPostalZipCode.getCountryCode(),borrowerCountryCode)|| !StringUtils.equals( borrowerPostalZipCode.getCode(), borrowerZipCode)) {
+            if (borrowerPostalZipCode == null || !StringUtils.equals(borrowerPostalZipCode.getCountryCode(), borrowerCountryCode) || !StringUtils.equals(borrowerPostalZipCode.getCode(), borrowerZipCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(PostalCodeEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(2);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(2);
                     keys.put(LocationConstants.PrimaryKeyConstants.COUNTRY_CODE, borrowerCountryCode);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, borrowerZipCode);
                     borrowerPostalZipCode = moduleService.getExternalizableBusinessObject(PostalCodeEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
-        }        
+        }
         return borrowerPostalZipCode;
     }
 
     /**
      * Sets the borrowerPostalZipCode attribute.
-     * 
+     *
      * @param borrowerPostalZipCode The borrowerPostalZipCode to set.
      */
     public void setBorrowerPostalZipCode(PostalCodeEbo borrowerPostalZipCode) {
@@ -495,32 +491,32 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Sets the borrowerStoragePostalZipCode attribute.
-     * 
+     *
      * @param borrowerStoragePostalZipCode The borrowerStoragePostalZipCode to set.
      */
     public PostalCodeEbo getBorrowerStoragePostalZipCode() {
-        if ( StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES ) || StringUtils.isBlank(borrowerStorageZipCode) ) {
+        if (StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES) || StringUtils.isBlank(borrowerStorageZipCode)) {
             borrowerStoragePostalZipCode = null;
         } else {
-            if (  borrowerStoragePostalZipCode == null || !StringUtils.equals( borrowerStoragePostalZipCode.getCountryCode(),borrowerStorageCountryCode)|| !StringUtils.equals( borrowerStoragePostalZipCode.getCode(), borrowerStorageZipCode)) {
+            if (borrowerStoragePostalZipCode == null || !StringUtils.equals(borrowerStoragePostalZipCode.getCountryCode(), borrowerStorageCountryCode) || !StringUtils.equals(borrowerStoragePostalZipCode.getCode(), borrowerStorageZipCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(PostalCodeEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(2);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(2);
                     keys.put(LocationConstants.PrimaryKeyConstants.COUNTRY_CODE, borrowerStorageCountryCode);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, borrowerStorageZipCode);
                     borrowerStoragePostalZipCode = moduleService.getExternalizableBusinessObject(PostalCodeEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
-        
+
         return borrowerStoragePostalZipCode;
     }
 
     /**
      * Gets the borrowerStoragePostalZipCode attribute.
-     * 
+     *
      * @return Returns the borrowerStoragePostalZipCode
      */
     public void setborrowerStoragePostalZipCode(PostalCodeEbo borrowerStoragePostalZipCode) {
@@ -529,7 +525,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Gets the borrowerUniversalIdentifier attribute.
-     * 
+     *
      * @return Returns the borrowerUniversalIdentifier
      */
     public String getBorrowerUniversalIdentifier() {
@@ -538,7 +534,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Sets the borrowerUniversalIdentifier attribute.
-     * 
+     *
      * @param borrowerUniversalIdentifier The borrowerUniversalIdentifier to set.
      */
     public void setBorrowerUniversalIdentifier(String borrowerUniversalIdentifier) {
@@ -547,7 +543,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Gets the borrowerZipCode attribute.
-     * 
+     *
      * @return Returns the borrowerZipCode
      */
     public String getBorrowerZipCode() {
@@ -556,7 +552,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Sets the borrowerZipCode attribute.
-     * 
+     *
      * @param borrowerZipCode The borrowerZipCode to set.
      */
     public void setBorrowerZipCode(String borrowerZipCode) {
@@ -565,7 +561,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Gets the documentNumber attribute.
-     * 
+     *
      * @return Returns the documentNumber
      */
     public String getDocumentNumber() {
@@ -574,7 +570,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Sets the documentNumber attribute.
-     * 
+     *
      * @param documentNumber The documentNumber to set.
      */
     public void setDocumentNumber(String documentNumber) {
@@ -583,7 +579,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Gets the expectedReturnDate attribute.
-     * 
+     *
      * @return Returns the expectedReturnDate
      */
     public Date getExpectedReturnDate() {
@@ -592,7 +588,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Sets the expectedReturnDate attribute.
-     * 
+     *
      * @param expectedReturnDate The expectedReturnDate to set.
      */
     public void setExpectedReturnDate(Date expectedReturnDate) {
@@ -601,21 +597,20 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Gets the loanDate attribute.
-     * 
+     *
      * @return Returns the loanDate
      */
     public Date getLoanDate() {
         if (loanDate != null) {
             return loanDate;
-        }
-        else {
+        } else {
             return SpringContext.getBean(DateTimeService.class).getCurrentSqlDate();
         }
     }
 
     /**
      * Sets the loanDate attribute.
-     * 
+     *
      * @param loanDate The loanDate to set.
      */
     public void setLoanDate(Date loanDate) {
@@ -624,7 +619,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Gets the loanReturnDate attribute.
-     * 
+     *
      * @return Returns the loanReturnDate
      */
     public Date getLoanReturnDate() {
@@ -633,7 +628,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Sets the loanReturnDate attribute.
-     * 
+     *
      * @param loanReturnDate The loanReturnDate to set.
      */
     public void setLoanReturnDate(Date loanReturnDate) {
@@ -646,7 +641,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
     /**
      * @see org.kuali.rice.krad.document.DocumentBase#postProcessSave(org.kuali.rice.krad.rule.event.KualiDocumentEvent)
      */
-    
+
     public void postProcessSave(KualiDocumentEvent event) {
         super.postProcessSave(event);
 
@@ -668,7 +663,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * If the document final, unlock the document
-     * 
+     *
      * @see org.kuali.rice.krad.document.DocumentBase#doRouteStatusChange()
      */
     @Override
@@ -698,7 +693,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Gets the capitalAssetNumber attribute.
-     * 
+     *
      * @return Returns the capitalAssetNumber
      */
     public Long getCapitalAssetNumber() {
@@ -707,7 +702,7 @@ public class EquipmentLoanOrReturnDocument extends FinancialSystemTransactionalD
 
     /**
      * Sets the capitalAssetNumber attribute.
-     * 
+     *
      * @param capitalAssetNumber The capitalAssetNumber to set.
      */
     public void setCapitalAssetNumber(Long capitalAssetNumber) {

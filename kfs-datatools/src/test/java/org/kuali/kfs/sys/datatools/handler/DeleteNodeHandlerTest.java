@@ -18,6 +18,10 @@
  */
 package org.kuali.kfs.sys.datatools.handler;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mongodb.DBObject;
+import com.mongodb.util.JSON;
 import org.easymock.EasyMock;
 import org.junit.Assert;
 import org.junit.Before;
@@ -26,11 +30,6 @@ import org.kuali.kfs.sys.datatools.liquimongo.change.DeleteNodeHandler;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mongodb.DBObject;
-import com.mongodb.util.JSON;
 
 public class DeleteNodeHandlerTest {
     private DeleteNodeHandler deleteNodeHandler;
@@ -41,7 +40,7 @@ public class DeleteNodeHandlerTest {
         deleteNodeHandler = new DeleteNodeHandler();
         mongoTemplate = EasyMock.createMock(MongoOperations.class);
     }
-    
+
     @Test
     public void testHandlesDeleteNodes() throws Exception {
         String testJson = "{ \"changeType\": \"deleteNode\",\"collectionName\": \"collection\",\"query\": { } }";
@@ -61,30 +60,30 @@ public class DeleteNodeHandlerTest {
 
         Assert.assertEquals("Should not handle deleteDocument element", false, deleteNodeHandler.handlesChange(testNode));
     }
-    
+
     @Test
     public void testMakeChangeDeleteNode() throws Exception {
         Query q = new Query(Criteria.where("myId").is("10"));
-        
+
         EasyMock.expect(mongoTemplate.findOne(q, DBObject.class, "collection")).andReturn(createSampleDocumentBeforeRemoval());
         mongoTemplate.remove(q, "collection");
         EasyMock.expectLastCall();
         mongoTemplate.save(createSampleDocumentAfterRemoval(), "collection");
         EasyMock.replay(mongoTemplate);
-        
+
         String testJson = "{ \"changeType\": \"deleteNode\",\"collectionName\": \"collection\","
-                + "\"query\": { \"myId\": \"10\"},\"revertPath\": \"$..link\","
-                + "\"path\": \"$..link[?(@.label=='Label5')]\" }";  
-        
+            + "\"query\": { \"myId\": \"10\"},\"revertPath\": \"$..link\","
+            + "\"path\": \"$..link[?(@.label=='Label5')]\" }";
+
         deleteNodeHandler.setMongoTemplate(mongoTemplate);
-        
+
         ObjectMapper mapper = new ObjectMapper();
         JsonNode testNode = mapper.readValue(testJson, JsonNode.class);
 
         deleteNodeHandler.makeChange(testNode);
         EasyMock.verify(mongoTemplate);
     }
-    
+
     private DBObject createSampleDocumentBeforeRemoval() {
         return (DBObject) JSON.parse("{ \"link\": [{\"label\": \"Label1\"}, {\"label\": \"Label5\"}, {\"label\": \"Label2\"}] }");
     }

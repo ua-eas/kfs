@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,19 +18,19 @@
  */
 package org.kuali.kfs.module.ar.service.impl;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.kuali.kfs.integration.ar.AccountsReceivableModuleBillingService;
-import org.kuali.kfs.module.ar.ArPropertyConstants;
-import org.kuali.kfs.module.ar.service.CustomerViewService;
-import org.kuali.kfs.sys.service.NonTransactional;
 import org.kuali.kfs.kns.web.ui.Field;
 import org.kuali.kfs.kns.web.ui.Row;
 import org.kuali.kfs.kns.web.ui.Section;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.ar.ArPropertyConstants;
+import org.kuali.kfs.module.ar.service.CustomerViewService;
+import org.kuali.kfs.sys.service.NonTransactional;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Implementation of the Customer View Service.
@@ -46,7 +46,7 @@ public class CustomerViewServiceImpl implements CustomerViewService {
     @Override
     public List getSections(List<Section> sections) {
         if (!getAccountsReceivableModuleBillingService().isContractsGrantsBillingEnhancementActive()) {
-            for(Iterator<Section> it = sections.iterator(); it.hasNext(); ) {
+            for (Iterator<Section> it = sections.iterator(); it.hasNext(); ) {
                 Section section = it.next();
                 if (getSectionsToIgnore().contains(section.getSectionId())) {
                     it.remove();

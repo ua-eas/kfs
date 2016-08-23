@@ -1,46 +1,40 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.service.impl;
 
-import java.lang.reflect.InvocationTargetException;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.businessobject.TravelExpenseTypeCode;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
-import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.TemConstants.AgencyStagingDataErrorCodes;
 import org.kuali.kfs.module.tem.TemConstants.CreditCardStagingDataErrorCodes;
 import org.kuali.kfs.module.tem.TemConstants.ExpenseImportTypes;
 import org.kuali.kfs.module.tem.TemConstants.ExpenseTypeMetaCategory;
 import org.kuali.kfs.module.tem.TemConstants.ReconciledCodes;
+import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.businessobject.ActualExpense;
 import org.kuali.kfs.module.tem.businessobject.AgencyStagingData;
 import org.kuali.kfs.module.tem.businessobject.CreditCardAgency;
@@ -64,14 +58,20 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.service.DocumentHelperService;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.kns.web.struts.form.KualiForm;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.lang.reflect.InvocationTargetException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Service for handling travel expenses
@@ -102,7 +102,7 @@ public class TravelExpenseServiceImpl implements TravelExpenseService {
         Collections.sort(expenseTypeObjectCodes, getExpenseTypeObjectCodeComparator());
         final ExpenseTypeObjectCode chosenExpenseTypeObjectCode = expenseTypeObjectCodes.get(0);
         if (LOG.isDebugEnabled()) {
-            LOG.debug("I choose you, "+chosenExpenseTypeObjectCode.toString());
+            LOG.debug("I choose you, " + chosenExpenseTypeObjectCode.toString());
         }
         return chosenExpenseTypeObjectCode;
     }
@@ -156,6 +156,7 @@ public class TravelExpenseServiceImpl implements TravelExpenseService {
 
         /**
          * Returns the branch level of the given document type
+         *
          * @param documentType the document type to find a branch level for
          * @return the branch level, with TT being high and doc types which descend from TT having lower levels
          */
@@ -185,6 +186,7 @@ public class TravelExpenseServiceImpl implements TravelExpenseService {
 
     /**
      * Attempts to retrieve the TravelDocument in operation - first from the form, then by looking up via document service
+     *
      * @param documentNumber the document number of the document to attempt retrieval of
      * @return the retrieved document, or null if retrieval was unsucessful
      */
@@ -192,23 +194,21 @@ public class TravelExpenseServiceImpl implements TravelExpenseService {
         // first, we'll look in the form
         KualiForm form = KNSGlobalVariables.getKualiForm();
         if (form instanceof TravelFormBase) {
-            final TravelDocument document = ((TravelFormBase)form).getTravelDocument();
+            final TravelDocument document = ((TravelFormBase) form).getTravelDocument();
             if (!StringUtils.isBlank(document.getDocumentNumber()) && document.getDocumentNumber().equals(documentNumber)) {
                 return document;
             }
         }
         // still here?  Let's look it up
         try {
-            final TravelDocument document = (TravelDocument)getDocumentService().getByDocumentHeaderIdSessionless(documentNumber);
+            final TravelDocument document = (TravelDocument) getDocumentService().getByDocumentHeaderIdSessionless(documentNumber);
             return document;
-        }
-        catch (WorkflowException we) {
-            throw new RuntimeException("Could not retrieve document "+documentNumber, we);
+        } catch (WorkflowException we) {
+            throw new RuntimeException("Could not retrieve document " + documentNumber, we);
         }
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.tem.service.TravelExpenseService#getExpenseTypesForDocument(java.lang.String, java.lang.String, java.lang.String, boolean)
      */
     @Override
@@ -254,12 +254,11 @@ public class TravelExpenseServiceImpl implements TravelExpenseService {
 
         try {
             expense.setImportDate(dateTimeService.convertToSqlDate(agency.getProcessingTimestamp()));
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             throw new RuntimeException("Unable to convert timestamp to date " + e.getMessage());
         }
 
-        CreditCardAgency ccAgency =agency.getCreditCardAgency();
+        CreditCardAgency ccAgency = agency.getCreditCardAgency();
         expense.setCreditCardAgency(ccAgency);
         expense.setCreditCardOrAgencyCode(ccAgency.getCreditCardOrAgencyCode());
         final ExpenseType expenseType = getDefaultExpenseTypeForCategory(agency.getExpenseTypeCategory());
@@ -279,8 +278,8 @@ public class TravelExpenseServiceImpl implements TravelExpenseService {
     }
 
     /**
-     *
      * This method returns a {@link TravelExpenseTypeCode}. This is needed to convert from the code to the name for imports by traveler.
+     *
      * @param expenseType
      * @return
      */
@@ -299,8 +298,7 @@ public class TravelExpenseServiceImpl implements TravelExpenseService {
 
         try {
             expense.setImportDate(dateTimeService.convertToSqlDate(creditCard.getProcessingTimestamp()));
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             throw new RuntimeException("Unable to convert timestamp to date " + e.getMessage());
         }
 
@@ -334,7 +332,7 @@ public class TravelExpenseServiceImpl implements TravelExpenseService {
 
     @Override
     public List<AgencyStagingData> retrieveValidAgencyData() {
-        Map<String,String> criteria = new HashMap<String,String>(1);
+        Map<String, String> criteria = new HashMap<String, String>(1);
         criteria.put(TemPropertyConstants.AGENCY_ERROR_CODE, AgencyStagingDataErrorCodes.AGENCY_NO_ERROR);
         criteria.put(TemPropertyConstants.ACTIVE_IND, TemConstants.YES);
         List<AgencyStagingData> agencyData = (List<AgencyStagingData>) getBusinessObjectService().findMatching(AgencyStagingData.class, criteria);
@@ -343,7 +341,7 @@ public class TravelExpenseServiceImpl implements TravelExpenseService {
 
     @Override
     public List<AgencyStagingData> retrieveValidAgencyDataByImportType(String importBy) {
-        Map<String,String> criteria = new HashMap<String,String>(2);
+        Map<String, String> criteria = new HashMap<String, String>(2);
         criteria.put(TemPropertyConstants.AGENCY_ERROR_CODE, AgencyStagingDataErrorCodes.AGENCY_NO_ERROR);
         criteria.put(TemPropertyConstants.IMPORT_BY, importBy);
         List<AgencyStagingData> agencyData = (List<AgencyStagingData>) getBusinessObjectService().findMatching(AgencyStagingData.class, criteria);
@@ -352,7 +350,7 @@ public class TravelExpenseServiceImpl implements TravelExpenseService {
 
     @Override
     public List<CreditCardStagingData> retrieveValidCreditCardData() {
-        Map<String,String> criteria = new HashMap<String,String>(1);
+        Map<String, String> criteria = new HashMap<String, String>(1);
         criteria.put(TemPropertyConstants.AGENCY_ERROR_CODE, CreditCardStagingDataErrorCodes.CREDIT_CARD_NO_ERROR);
         criteria.put(TemPropertyConstants.IMPORT_BY, ExpenseImportTypes.IMPORT_BY_TRAVELLER);
         List<CreditCardStagingData> creditCardData = (List<CreditCardStagingData>) getBusinessObjectService().findMatching(CreditCardStagingData.class, criteria);
@@ -361,7 +359,7 @@ public class TravelExpenseServiceImpl implements TravelExpenseService {
 
     @Override
     public CreditCardStagingData findImportedCreditCardExpense(KualiDecimal amount, String itineraryNumber) {
-        Map<String,Object> criteria = new HashMap<String,Object>(3);
+        Map<String, Object> criteria = new HashMap<String, Object>(3);
         criteria.put(TemPropertyConstants.TRANSACTION_AMOUNT, amount);
         criteria.put(TemPropertyConstants.ITINERARY_NUMBER, itineraryNumber);
         criteria.put(TemPropertyConstants.AGENCY_ERROR_CODE, CreditCardStagingDataErrorCodes.CREDIT_CARD_NO_ERROR);
@@ -374,7 +372,7 @@ public class TravelExpenseServiceImpl implements TravelExpenseService {
 
     @Override
     public CreditCardStagingData findImportedCreditCardExpense(KualiDecimal amount, String ticketNumber, String serviceFeeNumber) {
-        Map<String,Object> criteria = new HashMap<String,Object>(4);
+        Map<String, Object> criteria = new HashMap<String, Object>(4);
         criteria.put(TemPropertyConstants.TRANSACTION_AMOUNT, amount);
         criteria.put(TemPropertyConstants.TICKET_NUMBER, ticketNumber);
         criteria.put(TemPropertyConstants.SERVICE_FEE_NUMBER, serviceFeeNumber);
@@ -388,6 +386,7 @@ public class TravelExpenseServiceImpl implements TravelExpenseService {
 
     /**
      * This method should only be called when adding an actual expense or detail
+     *
      * @see org.kuali.kfs.module.tem.service.TravelExpenseService#updateTaxabilityOfActualExpense(org.kuali.kfs.module.tem.businessobject.ActualExpense, org.kuali.kfs.module.tem.document.TravelDocument, org.kuali.rice.kim.api.identity.Person)
      */
     @Override
@@ -406,6 +405,7 @@ public class TravelExpenseServiceImpl implements TravelExpenseService {
 
     /**
      * Does BusinessObjectService lookup - pretty simple
+     *
      * @see org.kuali.kfs.module.tem.service.TravelExpenseService#getDefaultExpenseTypeForCategory(org.kuali.kfs.module.tem.TemConstants.ExpenseTypeMetaCategory)
      */
     @Override
@@ -431,12 +431,13 @@ public class TravelExpenseServiceImpl implements TravelExpenseService {
      * @see org.kuali.kfs.module.tem.service.TravelExpenseService#getExpenseServiceByType(org.kuali.kfs.module.tem.TemConstants.ExpenseType)
      */
     @Override
-    public TemExpenseService getExpenseServiceByType(TemConstants.ExpenseType expenseType){
+    public TemExpenseService getExpenseServiceByType(TemConstants.ExpenseType expenseType) {
         return (TemExpenseService) SpringContext.getBean(TemExpense.class, expenseType.service);
     }
 
     /**
      * Gets the businessObjectService attribute.
+     *
      * @return Returns the businessObjectService.
      */
     public BusinessObjectService getBusinessObjectService() {
@@ -445,6 +446,7 @@ public class TravelExpenseServiceImpl implements TravelExpenseService {
 
     /**
      * Sets the businessObjectService attribute value.
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
@@ -453,6 +455,7 @@ public class TravelExpenseServiceImpl implements TravelExpenseService {
 
     /**
      * Gets the dateTimeService attribute.
+     *
      * @return Returns the dateTimeService.
      */
     public DateTimeService getDateTimeService() {
@@ -461,6 +464,7 @@ public class TravelExpenseServiceImpl implements TravelExpenseService {
 
     /**
      * Sets the dateTimeService attribute value.
+     *
      * @param dateTimeService The dateTimeService to set.
      */
     public void setDateTimeService(DateTimeService dateTimeService) {
@@ -505,11 +509,11 @@ public class TravelExpenseServiceImpl implements TravelExpenseService {
         final ExpenseTypeObjectCode expenseTypeCode = expense.getExpenseTypeObjectCode();
 
         if (expenseTypeCode.isReceiptRequired()) {
-          //check for the threshold amount
-            if (expenseTypeCode.getReceiptRequirementThreshold() != null){
+            //check for the threshold amount
+            if (expenseTypeCode.getReceiptRequirementThreshold() != null) {
                 KualiDecimal threshold = expenseTypeCode.getReceiptRequirementThreshold();
                 isExceed = threshold.isLessThan(expense.getExpenseAmount());
-            }else{
+            } else {
                 isExceed = true;
             }
         }
@@ -522,16 +526,17 @@ public class TravelExpenseServiceImpl implements TravelExpenseService {
     @Override
     public boolean isTripAccountingInformationEmpty(TripAccountingInformation accountingInformation) {
         return StringUtils.isEmpty(accountingInformation.getTripChartCode()) &&
-                StringUtils.isEmpty(accountingInformation.getTripAccountNumber()) &&
-                StringUtils.isEmpty(accountingInformation.getTripSubAccountNumber()) &&
-                StringUtils.isEmpty(accountingInformation.getObjectCode()) &&
-                StringUtils.isEmpty(accountingInformation.getSubObjectCode()) &&
-                StringUtils.isEmpty(accountingInformation.getProjectCode()) &&
-                StringUtils.isEmpty(accountingInformation.getOrganizationReference());
+            StringUtils.isEmpty(accountingInformation.getTripAccountNumber()) &&
+            StringUtils.isEmpty(accountingInformation.getTripSubAccountNumber()) &&
+            StringUtils.isEmpty(accountingInformation.getObjectCode()) &&
+            StringUtils.isEmpty(accountingInformation.getSubObjectCode()) &&
+            StringUtils.isEmpty(accountingInformation.getProjectCode()) &&
+            StringUtils.isEmpty(accountingInformation.getOrganizationReference());
     }
 
     /**
      * Copies the parent and nulls out unnecessary fields for a detail line
+     *
      * @see org.kuali.kfs.module.tem.service.TravelExpenseService#createNewDetailForActualExpense(org.kuali.kfs.module.tem.businessobject.ActualExpense)
      */
     @Override
@@ -544,11 +549,9 @@ public class TravelExpenseServiceImpl implements TravelExpenseService {
             newExpense.setId(null);
             newExpense.setNotes(null);
             newExpense.setExpenseLineTypeCode(null); // evidently, this should be nulled out on detail lines
-        }
-        catch (IllegalAccessException ex) {
+        } catch (IllegalAccessException ex) {
             LOG.error(ex.getMessage(), ex);
-        }
-        catch (InvocationTargetException ex) {
+        } catch (InvocationTargetException ex) {
             LOG.error(ex.getMessage(), ex);
         }
         return newExpense;

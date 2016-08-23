@@ -1,33 +1,32 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.businessobject.DisbursementPayee;
 import org.kuali.kfs.fp.document.service.DisbursementVoucherPayeeService;
 import org.kuali.kfs.fp.document.service.DisbursementVoucherPaymentReasonService;
+import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
+import org.kuali.kfs.kns.document.authorization.FieldRestriction;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.lookup.Lookupable;
+import org.kuali.kfs.kns.web.ui.ResultRow;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -37,12 +36,13 @@ import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.impl.KIMPropertyConstants;
-import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
-import org.kuali.kfs.kns.document.authorization.FieldRestriction;
-import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.kfs.kns.lookup.Lookupable;
-import org.kuali.kfs.kns.web.ui.ResultRow;
 import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class AbstractPayeeLookupableHelperServiceImpl extends KualiLookupableHelperServiceImpl {
 
@@ -124,8 +124,7 @@ public class AbstractPayeeLookupableHelperServiceImpl extends KualiLookupableHel
                 firstName = KFSConstants.WILDCARD_CHARACTER;
             }
             return lastName + VendorConstants.NAME_DELIM + firstName;
-        }
-        else if (StringUtils.isNotBlank(firstName)) {
+        } else if (StringUtils.isNotBlank(firstName)) {
             return KFSConstants.WILDCARD_CHARACTER + VendorConstants.NAME_DELIM + firstName;
         }
 
@@ -199,8 +198,8 @@ public class AbstractPayeeLookupableHelperServiceImpl extends KualiLookupableHel
         if (businessObjectRestrictions != null) {
             FieldRestriction fieldRestriction = businessObjectRestrictions.getFieldRestriction(propertyName);
             if (fieldRestriction != null
-            && (fieldRestriction.isMasked() || fieldRestriction.isPartiallyMasked())
-            && StringUtils.isNotBlank(propertyValue)) {
+                && (fieldRestriction.isMasked() || fieldRestriction.isPartiallyMasked())
+                && StringUtils.isNotBlank(propertyValue)) {
                 maskedPropertyValue = fieldRestriction.getMaskFormatter().maskValue(propertyValue);
             }
         }

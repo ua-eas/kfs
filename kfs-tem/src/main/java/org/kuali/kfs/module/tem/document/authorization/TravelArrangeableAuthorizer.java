@@ -1,30 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.document.authorization;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants.TemProfileProperties;
 import org.kuali.kfs.module.tem.businessobject.TemProfile;
@@ -43,15 +41,16 @@ import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.role.RoleService;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Check for travel arranger access
  * Checking for ReturnToFiscalOfficerAuthorization
- *
  */
 abstract public class TravelArrangeableAuthorizer extends AccountingDocumentAuthorizerBase implements ReturnToFiscalOfficerAuthorizer {
 
@@ -59,7 +58,7 @@ abstract public class TravelArrangeableAuthorizer extends AccountingDocumentAuth
     private volatile BusinessObjectService businessObjectService;
 
     /**
-     * @see org.kuali.kfs.sys.document.authorization.AccountingDocumentAuthorizerBase#addRoleQualification(org.kuali.rice.kns.bo.BusinessObject,java.util.Map)
+     * @see org.kuali.kfs.sys.document.authorization.AccountingDocumentAuthorizerBase#addRoleQualification(org.kuali.rice.kns.bo.BusinessObject, java.util.Map)
      */
     @Override
     protected void addRoleQualification(Object dataObject, Map<String, String> qualification) {
@@ -73,12 +72,12 @@ abstract public class TravelArrangeableAuthorizer extends AccountingDocumentAuth
 
                 final TemProfile profile = getBusinessObjectService().findBySinglePrimaryKey(TemProfile.class, document.getProfileId());
                 if (profile != null) {
-                	if (!qualification.containsKey(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE)) {
-                	    qualification.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, profile.getHomeDeptChartOfAccountsCode());
-                	}
-                	if (!qualification.containsKey(KFSPropertyConstants.ORGANIZATION_CODE)) {
-                	    qualification.put(KFSPropertyConstants.ORGANIZATION_CODE, profile.getHomeDeptOrgCode());
-                	}
+                    if (!qualification.containsKey(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE)) {
+                        qualification.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, profile.getHomeDeptChartOfAccountsCode());
+                    }
+                    if (!qualification.containsKey(KFSPropertyConstants.ORGANIZATION_CODE)) {
+                        qualification.put(KFSPropertyConstants.ORGANIZATION_CODE, profile.getHomeDeptOrgCode());
+                    }
                 }
             }
             if (ObjectUtils.isNotNull(document.getTraveler()) && !StringUtils.isBlank(document.getTraveler().getPrincipalId())) {
@@ -89,6 +88,7 @@ abstract public class TravelArrangeableAuthorizer extends AccountingDocumentAuth
 
     /**
      * Overridden to pass in profile principal id as the current user's principal id
+     *
      * @see org.kuali.rice.kns.document.authorization.DocumentAuthorizerBase#canInitiate(java.lang.String, org.kuali.rice.kim.api.identity.Person)
      */
     @Override
@@ -99,11 +99,11 @@ abstract public class TravelArrangeableAuthorizer extends AccountingDocumentAuth
         qualificationDetails.put(KfsKimAttributes.PROFILE_PRINCIPAL_ID, user.getPrincipalId());
         permissionDetails.put(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME, documentTypeName);
         return getPermissionService().isAuthorizedByTemplate(user.getPrincipalId(), nameSpaceCode,
-                KimConstants.PermissionTemplateNames.INITIATE_DOCUMENT, permissionDetails, qualificationDetails);
+            KimConstants.PermissionTemplateNames.INITIATE_DOCUMENT, permissionDetails, qualificationDetails);
     }
 
     /**
-     * @see org.kuali.rice.kns.document.authorization.DocumentAuthorizerBase#canEditDocumentOverview(org.kuali.rice.kns.document.Document,org.kuali.rice.kim.bo.Person)
+     * @see org.kuali.rice.kns.document.authorization.DocumentAuthorizerBase#canEditDocumentOverview(org.kuali.rice.kns.document.Document, org.kuali.rice.kim.bo.Person)
      */
     @Override
     public boolean canEditDocumentOverview(Document document, Person user) {
@@ -118,11 +118,11 @@ abstract public class TravelArrangeableAuthorizer extends AccountingDocumentAuth
      * @return
      */
     public boolean canEditDocument(Document document, Person user) {
-     // override base implementation to only allow initiator to edit doc overview
+        // override base implementation to only allow initiator to edit doc overview
         return isAuthorizedByTemplate(document, KRADConstants.KNS_NAMESPACE, KimConstants.PermissionTemplateNames.EDIT_DOCUMENT, user.getPrincipalId());
     }
 
-    public boolean canTaxSelectable(final Person user){
+    public boolean canTaxSelectable(final Person user) {
         return getPermissionService().hasPermission(user.getPrincipalId(), TemConstants.PARAM_NAMESPACE, TemConstants.Permission.EDIT_TAXABLE_IND);
     }
 
@@ -131,7 +131,7 @@ abstract public class TravelArrangeableAuthorizer extends AccountingDocumentAuth
      */
     @Override
     public boolean canReturnToFisicalOfficer(final TravelDocument travelDocument, final Person user) {
-        if(ObjectUtils.isNull(user)) {
+        if (ObjectUtils.isNull(user)) {
             return false;
         }
 
@@ -139,7 +139,7 @@ abstract public class TravelArrangeableAuthorizer extends AccountingDocumentAuth
 
         // initiator cannot Hold their own document
         String initiator = workflowDocument.getInitiatorPrincipalId();
-        if (initiator.equals(user.getPrincipalId())){
+        if (initiator.equals(user.getPrincipalId())) {
             return false;
         }
 
@@ -154,7 +154,7 @@ abstract public class TravelArrangeableAuthorizer extends AccountingDocumentAuth
         }
 
         String nameSpaceCode = org.kuali.kfs.module.tem.TemConstants.PARAM_NAMESPACE;
-        Map<String,String> roleQualifications = new HashMap<String,String>();
+        Map<String, String> roleQualifications = new HashMap<String, String>();
         addRoleQualification(travelDocument, roleQualifications);
 
         return getPermissionService().isAuthorized(user.getPrincipalId(), nameSpaceCode, TemConstants.Permission.RETURN_TO_FO, roleQualifications);
@@ -201,7 +201,6 @@ abstract public class TravelArrangeableAuthorizer extends AccountingDocumentAuth
     }
 
     /**
-     *
      * @return
      */
     protected TravelDocumentService getTravelDocumentService() {
@@ -215,7 +214,7 @@ abstract public class TravelArrangeableAuthorizer extends AccountingDocumentAuth
      * @return
      */
     protected boolean isEmployee(final TravelerDetail traveler) {
-        return traveler == null? false : getTravelerService().isEmployee(traveler);
+        return traveler == null ? false : getTravelerService().isEmployee(traveler);
     }
 
     protected TravelerService getTravelerService() {
@@ -231,7 +230,7 @@ abstract public class TravelArrangeableAuthorizer extends AccountingDocumentAuth
     }
 
     protected RoleService getRoleService() {
-        if ( roleService == null ) {
+        if (roleService == null) {
             roleService = SpringContext.getBean(RoleService.class);
         }
         return roleService;

@@ -1,3 +1,21 @@
+/*
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.kuali.kfs.sys.service.impl;
 
 import junit.framework.Assert;
@@ -8,17 +26,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.kuali.kfs.sys.exception.FileStorageException;
 
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.io.Reader;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +54,7 @@ public class FileSystemFileStorageServiceImplTest {
         String filename;
         do {
             filename = RandomStringUtils.randomAlphanumeric(8);
-        } while ((new File( tempFolder + filename + (extension != null ? "." + extension : "") )).exists());
+        } while ((new File(tempFolder + filename + (extension != null ? "." + extension : ""))).exists());
         return filename;
     }
 
@@ -60,7 +74,7 @@ public class FileSystemFileStorageServiceImplTest {
 
     private void makeDirectory(String directory) {
         File f = new File(tempFolder + directory);
-        if ( ! f.mkdir() ) {
+        if (!f.mkdir()) {
             System.out.println("WTF?");
         }
     }
@@ -70,7 +84,7 @@ public class FileSystemFileStorageServiceImplTest {
         tempFolder = System.getProperty("java.io.tmpdir");
 
         if (!StringUtils.endsWith(tempFolder, File.separator)) {
-            tempFolder = tempFolder+File.separator;
+            tempFolder = tempFolder + File.separator;
         }
 
         service = new FileSystemFileStorageServiceImpl();
@@ -88,7 +102,7 @@ public class FileSystemFileStorageServiceImplTest {
     public void testSavesToFile() throws IOException {
         String filename = getUniqueFilename("txt");
 
-        service.open(filename,(outputFile) -> {
+        service.open(filename, (outputFile) -> {
             PrintWriter pw = new PrintWriter(outputFile.getOutputStream());
             pw.print("test");
             pw.flush();
@@ -257,12 +271,12 @@ public class FileSystemFileStorageServiceImplTest {
         createFile(dir2 + File.separator + "data3.done");
 
         // Some results
-        List<String> matches = service.getFilesMatching(dir1,"data");
+        List<String> matches = service.getFilesMatching(dir1, "data");
         Assert.assertEquals("Should have found 2 files", 2, matches.size());
 
         // No results
-        matches = service.getFilesMatching(dir2,"data");
-        Assert.assertEquals("Should have found 0 files",0,matches.size());
+        matches = service.getFilesMatching(dir2, "data");
+        Assert.assertEquals("Should have found 0 files", 0, matches.size());
 
         // No extensions specified some results
         matches = service.getFilesMatching(dir1);
@@ -286,7 +300,7 @@ public class FileSystemFileStorageServiceImplTest {
         service.mkdir(dirname);
 
         File d = new File(tempFolder + dirname);
-        Assert.assertEquals("Directory should exist",true,d.exists());
+        Assert.assertEquals("Directory should exist", true, d.exists());
         Assert.assertEquals("Should be a directory", true, d.isDirectory());
 
         deleteFile(dirname);
@@ -372,11 +386,11 @@ public class FileSystemFileStorageServiceImplTest {
         String filename = getUniqueFilename();
         createFile(filename);
 
-        Assert.assertEquals("Directory exists",true,service.directoryExists(dirname));
+        Assert.assertEquals("Directory exists", true, service.directoryExists(dirname));
 
-        Assert.assertEquals("Directory should not exist",false,service.directoryExists(dirname2));
+        Assert.assertEquals("Directory should not exist", false, service.directoryExists(dirname2));
 
-        Assert.assertEquals("File is not a directory",false,service.directoryExists(filename));
+        Assert.assertEquals("File is not a directory", false, service.directoryExists(filename));
 
         deleteFile(dirname);
         deleteFile(filename);

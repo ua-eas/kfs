@@ -1,47 +1,45 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.web.struts;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.kuali.kfs.module.ar.report.service.AccountsReceivableReportService;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.kns.util.WebUtils;
-import org.kuali.kfs.kns.web.struts.action.KualiAction;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.pdf.PdfCopy;
 import com.lowagie.text.pdf.PdfImportedPage;
 import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.SimpleBookmark;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.util.WebUtils;
+import org.kuali.kfs.kns.web.struts.action.KualiAction;
+import org.kuali.kfs.module.ar.report.service.AccountsReceivableReportService;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * This class handles Actions for lookup flow
@@ -51,8 +49,8 @@ public class CustomerInvoiceGenerationAction extends KualiAction {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CustomerInvoiceGenerationAction.class);
 
     /**
-     *
      * This method...
+     *
      * @param mapping
      * @param form
      * @param request
@@ -65,8 +63,8 @@ public class CustomerInvoiceGenerationAction extends KualiAction {
     }
 
     /**
-     *
      * This method...
+     *
      * @param mapping
      * @param form
      * @param request
@@ -80,8 +78,8 @@ public class CustomerInvoiceGenerationAction extends KualiAction {
     }
 
     /**
-     *
      * This method...
+     *
      * @param mapping
      * @param form
      * @param request
@@ -90,7 +88,7 @@ public class CustomerInvoiceGenerationAction extends KualiAction {
      * @throws Exception
      */
     public ActionForward clear(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        CustomerInvoiceGenerationForm ciForm = (CustomerInvoiceGenerationForm)form;
+        CustomerInvoiceGenerationForm ciForm = (CustomerInvoiceGenerationForm) form;
         ciForm.setChartCode(null);
         ciForm.setOrgCode(null);
         ciForm.setOrgType(null);
@@ -100,8 +98,8 @@ public class CustomerInvoiceGenerationAction extends KualiAction {
     }
 
     /**
-     *
      * This method...
+     *
      * @param mapping
      * @param form
      * @param request
@@ -110,7 +108,7 @@ public class CustomerInvoiceGenerationAction extends KualiAction {
      * @throws Exception
      */
     public ActionForward print(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        CustomerInvoiceGenerationForm ciForm = (CustomerInvoiceGenerationForm)form;
+        CustomerInvoiceGenerationForm ciForm = (CustomerInvoiceGenerationForm) form;
 
         String org = ciForm.getOrgCode();
         String chart = ciForm.getChartCode();
@@ -123,8 +121,7 @@ public class CustomerInvoiceGenerationAction extends KualiAction {
         if (ciForm.getOrgType() != null && chart != null && org != null) {
             if (ciForm.getOrgType().equals("B")) {
                 reports = reportService.generateInvoicesByBillingOrg(chart, org, date);
-            }
-            else if (ciForm.getOrgType().equals("P")) {
+            } else if (ciForm.getOrgType().equals("P")) {
                 reports = reportService.generateInvoicesByProcessingOrg(chart, org, date);
             }
             fileName.append(chart);
@@ -136,14 +133,14 @@ public class CustomerInvoiceGenerationAction extends KualiAction {
             reports = reportService.generateInvoicesByInitiator(ciForm.getUserId(), date);
             fileName.append(ciForm.getUserId());
         }
-        if (reports.size()>0) {
+        if (reports.size() > 0) {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             int pageOffset = 0;
             ArrayList master = new ArrayList();
             int f = 0;
             Document document = null;
-            PdfCopy  writer = null;
-            for (Iterator<File> itr = reports.iterator(); itr.hasNext();) {
+            PdfCopy writer = null;
+            for (Iterator<File> itr = reports.iterator(); itr.hasNext(); ) {
                 // we create a reader for a certain document
                 String reportName = itr.next().getAbsolutePath();
                 PdfReader reader = new PdfReader(reportName);
@@ -177,10 +174,9 @@ public class CustomerInvoiceGenerationAction extends KualiAction {
                 writer.freeReader(reader);
                 f++;
             }
-            if (!master.isEmpty())
-             {
+            if (!master.isEmpty()) {
                 writer.setOutlines(master);
-            // step 5: we close the document
+                // step 5: we close the document
             }
 
             document.close();
@@ -189,7 +185,7 @@ public class CustomerInvoiceGenerationAction extends KualiAction {
 
 
             WebUtils.saveMimeOutputStreamAsFile(response, "application/pdf", baos, fileName.toString());
-            ciForm.setMessage(reports.size()+" Reports Generated");
+            ciForm.setMessage(reports.size() + " Reports Generated");
             return null;
         }
         ciForm.setMessage("No Reports Generated");

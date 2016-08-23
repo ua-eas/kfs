@@ -1,25 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.coreservice.api.parameter;
 
-import java.io.Serializable;
-import java.util.Collection;
+import org.apache.commons.lang.StringUtils;
+import org.kuali.rice.core.api.CoreConstants;
+import org.kuali.rice.core.api.mo.AbstractDataTransferObject;
+import org.kuali.rice.core.api.mo.ModelBuilder;
+import org.w3c.dom.Element;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -28,12 +31,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.core.api.CoreConstants;
-import org.kuali.rice.core.api.mo.AbstractDataTransferObject;
-import org.kuali.rice.core.api.mo.ModelBuilder;
-import org.w3c.dom.Element;
+import java.io.Serializable;
+import java.util.Collection;
 
 /**
  * An immutable representation of a {@link ParameterContract}.
@@ -45,17 +44,17 @@ import org.w3c.dom.Element;
 @XmlRootElement(name = Parameter.Constants.ROOT_ELEMENT_NAME)
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlType(name = Parameter.Constants.TYPE_NAME, propOrder = {
-        Parameter.Elements.APPLICATION_ID,
-        Parameter.Elements.NAMESPACE_CODE,
-        Parameter.Elements.COMPONENT_CODE,
-        Parameter.Elements.NAME,
-        Parameter.Elements.VALUE,
-        Parameter.Elements.DESCRIPTION,
-        Parameter.Elements.PARAMETER_TYPE,
-        Parameter.Elements.EVALUATION_OPERATOR,
-        CoreConstants.CommonElements.VERSION_NUMBER,
-        CoreConstants.CommonElements.OBJECT_ID,
-        CoreConstants.CommonElements.FUTURE_ELEMENTS
+    Parameter.Elements.APPLICATION_ID,
+    Parameter.Elements.NAMESPACE_CODE,
+    Parameter.Elements.COMPONENT_CODE,
+    Parameter.Elements.NAME,
+    Parameter.Elements.VALUE,
+    Parameter.Elements.DESCRIPTION,
+    Parameter.Elements.PARAMETER_TYPE,
+    Parameter.Elements.EVALUATION_OPERATOR,
+    CoreConstants.CommonElements.VERSION_NUMBER,
+    CoreConstants.CommonElements.OBJECT_ID,
+    CoreConstants.CommonElements.FUTURE_ELEMENTS
 })
 public final class Parameter extends AbstractDataTransferObject implements ParameterContract {
 
@@ -121,7 +120,7 @@ public final class Parameter extends AbstractDataTransferObject implements Param
         description = builder.getDescription();
         parameterType = builder.parameterType.build();
         EvaluationOperator evaluationOperatorEnum = builder.getEvaluationOperator();
-        evaluationOperator = evaluationOperatorEnum == null ? null : evaluationOperatorEnum.getCode(); 
+        evaluationOperator = evaluationOperatorEnum == null ? null : evaluationOperatorEnum.getCode();
         versionNumber = builder.getVersionNumber();
         objectId = builder.getObjectId();
     }
@@ -175,7 +174,7 @@ public final class Parameter extends AbstractDataTransferObject implements Param
     public String getObjectId() {
         return objectId;
     }
-    
+
     public ParameterKey getParameterKey() {
         return ParameterKey.create(this.applicationId, this.namespaceCode, this.componentCode, this.name);
     }

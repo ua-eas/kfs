@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -21,27 +21,25 @@ package org.kuali.kfs.kns.datadictionary.control;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.kuali.kfs.krad.datadictionary.DataDictionaryDefinition;
-import org.kuali.rice.core.api.util.ClassLoaderUtils;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.datadictionary.DataDictionaryDefinitionBase;
 import org.kuali.kfs.krad.datadictionary.control.ControlDefinition;
 import org.kuali.kfs.krad.datadictionary.exception.ClassValidationException;
 import org.kuali.kfs.krad.datadictionary.exception.CompletionException;
 import org.kuali.kfs.krad.keyvalues.KeyValuesFinder;
+import org.kuali.rice.core.api.util.ClassLoaderUtils;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 /**
  * A single HTML control definition in the DataDictionary, which contains information relating to the HTML control used to realize a
  * specific attribute. All types of controls are represented by an instance of this class; you have to call one of the is* methods
  * to figure out which of the other accessors should return useful values.
- *
- *
  */
 @Deprecated
 public abstract class ControlDefinitionBase extends DataDictionaryDefinitionBase implements ControlDefinition {
     private static final long serialVersionUID = 4372435175782501152L;
-    
-	protected boolean datePicker;
-	protected boolean expandedTextArea;
+
+    protected boolean datePicker;
+    protected boolean expandedTextArea;
     protected String script;
     protected String valuesFinderClass;
     protected String businessObjectClass;
@@ -56,33 +54,35 @@ public abstract class ControlDefinitionBase extends DataDictionaryDefinitionBase
 
 
     public ControlDefinitionBase() {
-    	ranged = true;
+        ranged = true;
     }
 
     public boolean isDatePicker() {
         return datePicker;
     }
 
-    /** Whether this control should have a date picker button next to the field.
-     *  Valid for text fields.
-     *  
+    /**
+     * Whether this control should have a date picker button next to the field.
+     * Valid for text fields.
+     *
      * @see ControlDefinition#setDatePicker(boolean)
      */
     public void setDatePicker(boolean datePicker) {
-        this.datePicker=datePicker;
+        this.datePicker = datePicker;
     }
-    
+
     public boolean isExpandedTextArea() {
         return expandedTextArea;
     }
 
-    /** Whether this control should have a expanded text area button next to the field.
-     *  Valid for textarea fields.
-     *  
+    /**
+     * Whether this control should have a expanded text area button next to the field.
+     * Valid for textarea fields.
+     *
      * @see ControlDefinition#setExpandedTextArea(boolean)
      */
     public void setExpandedTextArea(boolean eTextArea) {
-        this.expandedTextArea=eTextArea;
+        this.expandedTextArea = eTextArea;
     }
 
     /**
@@ -112,7 +112,7 @@ public abstract class ControlDefinitionBase extends DataDictionaryDefinitionBase
     public boolean isSelect() {
         return false;
     }
-    
+
     /**
      * @see ControlDefinition#isSelect()
      */
@@ -142,7 +142,6 @@ public abstract class ControlDefinitionBase extends DataDictionaryDefinitionBase
     }
 
     /**
-     *
      * @see ControlDefinition#isKualiUser()
      */
     public boolean isKualiUser() {
@@ -176,21 +175,21 @@ public abstract class ControlDefinitionBase extends DataDictionaryDefinitionBase
     public boolean isLookupReadonly() {
         return false;
     }
-    
+
     /**
      * @see ControlDefinition#isButton()
      */
     public boolean isButton() {
         return false;
     }
-    
+
     /**
      * @see ControlDefinition#isLink()
      */
     public boolean isLink() {
         return false;
     }
-    
+
 
     /**
      * @see ControlDefinition#setKeyValuesFinder(java.lang.String)
@@ -213,9 +212,9 @@ public abstract class ControlDefinitionBase extends DataDictionaryDefinitionBase
     /**
      * Used by a PersistableBusinessObjectValuesFinder to automatically query and display a list
      * of business objects as part of a select list or set of radio buttons.
-     * 
+     * <p>
      * The keyAttribute, labelAttribute, and includeKeyInLabel are used with this property.
-     * 
+     *
      * @param businessObjectClass the dataObjectClass to set
      */
     public void setBusinessObjectClass(String businessObjectClass) {
@@ -263,7 +262,7 @@ public abstract class ControlDefinitionBase extends DataDictionaryDefinitionBase
 
     /**
      * Attribute of the given dataObjectClass to use as the value of a select list
-     * or set of radio buttons. 
+     * or set of radio buttons.
      */
     public void setKeyAttribute(String keyAttribute) {
         this.keyAttribute = keyAttribute;
@@ -278,7 +277,7 @@ public abstract class ControlDefinitionBase extends DataDictionaryDefinitionBase
 
     /**
      * Attribute of the given dataObjectClass to use as the displayed label on a select list
-     * or set of radio buttons. 
+     * or set of radio buttons.
      */
     public void setLabelAttribute(String labelAttribute) {
         this.labelAttribute = labelAttribute;
@@ -293,7 +292,7 @@ public abstract class ControlDefinitionBase extends DataDictionaryDefinitionBase
 
     /**
      * Size of a text control.
-     * 
+     *
      * @see ControlDefinition#setSize(int)
      */
     public void setSize(Integer size) {
@@ -316,7 +315,7 @@ public abstract class ControlDefinitionBase extends DataDictionaryDefinitionBase
 
     /**
      * Number of rows to display on a text-area widget.
-     * 
+     *
      * @see ControlDefinition#setRows(int)
      */
     public void setRows(Integer rows) {
@@ -332,7 +331,7 @@ public abstract class ControlDefinitionBase extends DataDictionaryDefinitionBase
 
     /**
      * Number of columns to display on a text-area widget.
-     * 
+     *
      * @see ControlDefinition#setCols(int)
      */
     public void setCols(Integer cols) {
@@ -352,28 +351,28 @@ public abstract class ControlDefinitionBase extends DataDictionaryDefinitionBase
      * @see DataDictionaryDefinition#completeValidation(java.lang.Class, java.lang.Object)
      */
     public void completeValidation(Class rootBusinessObjectClass, Class otherBusinessObjectClass) {
-        if (!isCheckbox() && !isHidden() && !isRadio() && !isSelect() && !isMultiselect() && !isText() && !isTextarea() && !isCurrency() && !isKualiUser() && !isLookupHidden() && !isLookupReadonly() && !isWorkflowWorkgroup() && !isFile()&& !isButton() && !isLink()) {
+        if (!isCheckbox() && !isHidden() && !isRadio() && !isSelect() && !isMultiselect() && !isText() && !isTextarea() && !isCurrency() && !isKualiUser() && !isLookupHidden() && !isLookupReadonly() && !isWorkflowWorkgroup() && !isFile() && !isButton() && !isLink()) {
             throw new CompletionException("error validating " + rootBusinessObjectClass.getName() + " control: unknown control type in control definition (" + "" + ")");
         }
         if (valuesFinderClass != null) {
-        	try {
-        		Class valuesFinderClassObject = ClassUtils.getClass(ClassLoaderUtils.getDefaultClassLoader(), getValuesFinderClass());
-        		if (!KeyValuesFinder.class.isAssignableFrom(valuesFinderClassObject)) {
-        			throw new ClassValidationException("valuesFinderClass is not a valid instance of " + KeyValuesFinder.class.getName() + " instead was: " + valuesFinderClassObject.getName());
-        		}
-        	} catch (ClassNotFoundException e) {
-        		throw new ClassValidationException("valuesFinderClass could not be found: " + getValuesFinderClass(), e);
-        	}
+            try {
+                Class valuesFinderClassObject = ClassUtils.getClass(ClassLoaderUtils.getDefaultClassLoader(), getValuesFinderClass());
+                if (!KeyValuesFinder.class.isAssignableFrom(valuesFinderClassObject)) {
+                    throw new ClassValidationException("valuesFinderClass is not a valid instance of " + KeyValuesFinder.class.getName() + " instead was: " + valuesFinderClassObject.getName());
+                }
+            } catch (ClassNotFoundException e) {
+                throw new ClassValidationException("valuesFinderClass could not be found: " + getValuesFinderClass(), e);
+            }
         }
         if (businessObjectClass != null) {
-        	try {
-        		Class businessObjectClassObject = ClassUtils.getClass(ClassLoaderUtils.getDefaultClassLoader(), getBusinessObjectClass());
-        		if (!BusinessObject.class.isAssignableFrom(businessObjectClassObject)) {
-        			throw new ClassValidationException("dataObjectClass is not a valid instance of " + BusinessObject.class.getName() + " instead was: " + businessObjectClassObject.getName());
-        		}
-        	} catch (ClassNotFoundException e) {
-        		throw new ClassValidationException("dataObjectClass could not be found: " + getBusinessObjectClass(), e);
-        	}
+            try {
+                Class businessObjectClassObject = ClassUtils.getClass(ClassLoaderUtils.getDefaultClassLoader(), getBusinessObjectClass());
+                if (!BusinessObject.class.isAssignableFrom(businessObjectClassObject)) {
+                    throw new ClassValidationException("dataObjectClass is not a valid instance of " + BusinessObject.class.getName() + " instead was: " + businessObjectClassObject.getName());
+                }
+            } catch (ClassNotFoundException e) {
+                throw new ClassValidationException("dataObjectClass could not be found: " + getBusinessObjectClass(), e);
+            }
         }
     }
 
@@ -386,51 +385,51 @@ public abstract class ControlDefinitionBase extends DataDictionaryDefinitionBase
 
     /**
      * JavaScript script to run when a select control's value is changed.
-     * 
+     *
      * @see ControlDefinition#setScript()
      */
     public void setScript(String script) {
         this.script = script;
     }
-    
+
     /**
      * @see ControlDefinition#isRanged()
      */
     public boolean isRanged() {
-		return this.ranged;
-	}
+        return this.ranged;
+    }
 
     /**
      * Sets the control as a ranged (from and to) date field if true, or a single date field if false
-     * 
+     *
      * @param ranged boolean true for a ranged control, false for a single date field
      */
-	public void setRanged(boolean ranged) {
-		this.ranged = ranged;
-	}
+    public void setRanged(boolean ranged) {
+        this.ranged = ranged;
+    }
 
-	/**
+    /**
      * @see java.lang.Object#equals(Object)
      */
     public boolean equals(Object object) {
-    	if ( !(object instanceof ControlDefinitionBase) ) {
-    		return false;
-    	}
-    	ControlDefinitionBase rhs = (ControlDefinitionBase)object;
-    	return new EqualsBuilder()
-    	        .append( this.cols, rhs.cols )
-    			.append( this.businessObjectClass, rhs.businessObjectClass )
-    			.append( this.valuesFinderClass, rhs.valuesFinderClass )
-    			.append( this.rows, rhs.rows )
-    			.append( this.script, rhs.script )
-    			.append( this.size, rhs.size )
-    			.append( this.datePicker, rhs.datePicker )
-    			.append( this.ranged, rhs.ranged )
-    			.append( this.labelAttribute,rhs.labelAttribute )
-    			.append( this.includeKeyInLabel, rhs.includeKeyInLabel )
-    			.append( this.keyAttribute, rhs.keyAttribute )
-    			.isEquals();
+        if (!(object instanceof ControlDefinitionBase)) {
+            return false;
+        }
+        ControlDefinitionBase rhs = (ControlDefinitionBase) object;
+        return new EqualsBuilder()
+            .append(this.cols, rhs.cols)
+            .append(this.businessObjectClass, rhs.businessObjectClass)
+            .append(this.valuesFinderClass, rhs.valuesFinderClass)
+            .append(this.rows, rhs.rows)
+            .append(this.script, rhs.script)
+            .append(this.size, rhs.size)
+            .append(this.datePicker, rhs.datePicker)
+            .append(this.ranged, rhs.ranged)
+            .append(this.labelAttribute, rhs.labelAttribute)
+            .append(this.includeKeyInLabel, rhs.includeKeyInLabel)
+            .append(this.keyAttribute, rhs.keyAttribute)
+            .isEquals();
     }
-    
-    
+
+
 }

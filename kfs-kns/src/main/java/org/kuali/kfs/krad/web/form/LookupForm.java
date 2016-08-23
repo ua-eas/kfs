@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -33,8 +33,6 @@ import java.util.Map;
 
 /**
  * Form class for <code>LookupView</code> screens
- *
- * 
  */
 public class LookupForm extends UifFormBase {
     private static final long serialVersionUID = -7323484966538685327L;
@@ -99,7 +97,7 @@ public class LookupForm extends UifFormBase {
             if (!((LookupView) getView()).isShowMaintenanceLinks()) {
                 // TODO replace with check to history
                 if (StringUtils.contains(getReturnLocation(), "/" + KRADConstants.PORTAL_ACTION) ||
-                        StringUtils.contains(getReturnLocation(), "/index.html")) {
+                    StringUtils.contains(getReturnLocation(), "/index.html")) {
                     ((LookupView) getView()).setShowMaintenanceLinks(true);
                 }
             }
@@ -122,7 +120,7 @@ public class LookupForm extends UifFormBase {
                 for (Map.Entry<String, String> entry : formFields.entrySet()) {
                     // check here to see if this field is a criteria element on the form
                     fieldValues.put(entry.getKey(),
-                            LookupUtils.forceUppercase(dataObjectClass, entry.getKey(), entry.getValue()));
+                        LookupUtils.forceUppercase(dataObjectClass, entry.getKey(), entry.getValue()));
                 }
             }
 
@@ -173,7 +171,7 @@ public class LookupForm extends UifFormBase {
 
     /**
      * Indicates whether multiple values select should be enabled for the lookup
-     *
+     * <p>
      * <p>
      * When set to true, the select field is enabled for the lookup results group that allows the user
      * to select one or more rows for returning

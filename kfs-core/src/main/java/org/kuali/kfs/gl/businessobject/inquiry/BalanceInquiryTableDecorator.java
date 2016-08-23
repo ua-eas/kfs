@@ -1,32 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.businessobject.inquiry;
 
-import java.util.Iterator;
-import java.util.List;
-
-import javax.servlet.jsp.PageContext;
-
 import org.displaytag.decorator.TableDecorator;
 import org.displaytag.properties.MediaTypeEnum;
 import org.kuali.kfs.kns.web.ui.Column;
 import org.kuali.kfs.kns.web.ui.ResultRow;
+
+import javax.servlet.jsp.PageContext;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * A decorator meant to help display balance inquiry information for the displaytag tag library.
@@ -39,10 +38,10 @@ public class BalanceInquiryTableDecorator extends TableDecorator {
 
     /**
      * Generates the first row of the table, which acts as the headers for the data.
-     * 
+     *
      * @return the String to display as the first row in the table
      * @see org.displaytag.decorator.TableDecorator#startRow()
-     *
+     * <p>
      * KRAD Conversion: Inquirable customizes the first row with columns.
      * No use of data dictionary here.
      */
@@ -61,7 +60,7 @@ public class BalanceInquiryTableDecorator extends TableDecorator {
             List columns = row.getColumns();
             int columnCount = 0;
             numOfNonMonthField = columns.size() - numOfMonthField;
-            for (Iterator i = columns.iterator(); i.hasNext() && columnCount++ < numOfNonMonthField;) {
+            for (Iterator i = columns.iterator(); i.hasNext() && columnCount++ < numOfNonMonthField; ) {
                 Column column = (Column) i.next();
 
                 if (rowCounter > 0) {
@@ -78,9 +77,10 @@ public class BalanceInquiryTableDecorator extends TableDecorator {
 
     /**
      * Generates the last row of the displayed table...which displays some kind of footer...
+     *
      * @return a String representing the last row of the table
      * @see org.displaytag.decorator.TableDecorator#finishRow()
-     * 
+     * <p>
      * KRAD Conversion: Inquirable customizes the last row with columns.
      * No use of data dictionary here.
      */

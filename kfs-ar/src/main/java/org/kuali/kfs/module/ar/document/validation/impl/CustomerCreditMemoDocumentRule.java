@@ -1,30 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.rules.TransactionalDocumentRuleBase;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.document.TransactionalDocument;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
@@ -41,13 +42,12 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.WorkflowDocumentFactory;
-import org.kuali.kfs.kns.rules.TransactionalDocumentRuleBase;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.document.TransactionalDocument;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class holds the business rules for the AR Credit Memo Document
@@ -76,7 +76,7 @@ public class CustomerCreditMemoDocumentRule extends TransactionalDocumentRuleBas
 
     /**
      * @see org.kuali.kfs.module.ar.document.validation.RecalculateCustomerCreditMemoDetailRule#processRecalculateCustomerCreditMemoDetailRules(org.kuali.kfs.sys.document.AccountingDocument,
-     *      org.kuali.kfs.module.ar.businessobject.CustomerCreditMemoDetail)
+     * org.kuali.kfs.module.ar.businessobject.CustomerCreditMemoDetail)
      */
     @Override
     public boolean processRecalculateCustomerCreditMemoDetailRules(TransactionalDocument document, CustomerCreditMemoDetail customerCreditMemoDetail) {
@@ -123,11 +123,9 @@ public class CustomerCreditMemoDocumentRule extends TransactionalDocumentRuleBas
 
         if (ObjectUtils.isNotNull(customerCreditMemoItemQty) && ObjectUtils.isNotNull(customerCreditMemoItemAmount)) {
             inputKey = ArConstants.CustomerCreditMemoConstants.BOTH_QUANTITY_AND_ITEM_TOTAL_AMOUNT_ENTERED;
-        }
-        else if (ObjectUtils.isNotNull(customerCreditMemoItemQty)) {
+        } else if (ObjectUtils.isNotNull(customerCreditMemoItemQty)) {
             inputKey = ArConstants.CustomerCreditMemoConstants.CUSTOMER_CREDIT_MEMO_ITEM_QUANTITY;
-        }
-        else if (ObjectUtils.isNotNull(customerCreditMemoItemAmount)) {
+        } else if (ObjectUtils.isNotNull(customerCreditMemoItemAmount)) {
             inputKey = ArConstants.CustomerCreditMemoConstants.CUSTOMER_CREDIT_MEMO_ITEM_TOTAL_AMOUNT;
         }
 
@@ -267,15 +265,13 @@ public class CustomerCreditMemoDocumentRule extends TransactionalDocumentRuleBas
         if (StringUtils.isBlank(invDocumentNumber)) {
             success &= false;
             GlobalVariables.getMessageMap().putError(ArPropertyConstants.CustomerCreditMemoDocumentFields.CREDIT_MEMO_DOCUMENT_REF_INVOICE_NUMBER, ArKeyConstants.ERROR_CUSTOMER_CREDIT_MEMO_DOCUMENT__INVOICE_DOCUMENT_NUMBER_IS_REQUIRED);
-        }
-        else {
+        } else {
             CustomerInvoiceDocumentService service = SpringContext.getBean(CustomerInvoiceDocumentService.class);
             CustomerInvoiceDocument customerInvoiceDocument = service.getInvoiceByInvoiceDocumentNumber(invDocumentNumber);
             if (ObjectUtils.isNull(customerInvoiceDocument)) {
                 success &= false;
                 GlobalVariables.getMessageMap().putError(ArPropertyConstants.CustomerCreditMemoDocumentFields.CREDIT_MEMO_DOCUMENT_REF_INVOICE_NUMBER, ArKeyConstants.ERROR_CUSTOMER_CREDIT_MEMO_DOCUMENT_INVALID_INVOICE_DOCUMENT_NUMBER);
-            }
-            else if (!SpringContext.getBean(CustomerInvoiceDocumentService.class).checkIfInvoiceNumberIsFinal(invDocumentNumber)) {
+            } else if (!SpringContext.getBean(CustomerInvoiceDocumentService.class).checkIfInvoiceNumberIsFinal(invDocumentNumber)) {
                 GlobalVariables.getMessageMap().putError(ArPropertyConstants.CustomerCreditMemoDocumentFields.CREDIT_MEMO_DOCUMENT_REF_INVOICE_NUMBER, ArKeyConstants.ERROR_CUSTOMER_INVOICE_DOCUMENT_NOT_FINAL);
                 success &= false;
             }
@@ -307,7 +303,7 @@ public class CustomerCreditMemoDocumentRule extends TransactionalDocumentRuleBas
         }
 
         String userId = GlobalVariables.getUserSession().getPrincipalId();
-        for(CustomerCreditMemoDocument customerCreditMemoDocument : customerCreditMemoDocuments) {
+        for (CustomerCreditMemoDocument customerCreditMemoDocument : customerCreditMemoDocuments) {
             workflowDocument = WorkflowDocumentFactory.loadDocument(userId, customerCreditMemoDocument.getDocumentNumber());
             if (!(workflowDocument.isApproved() || workflowDocument.isProcessed() || workflowDocument.isCanceled() || workflowDocument.isDisapproved())) {
                 GlobalVariables.getMessageMap().putError(ArPropertyConstants.CustomerCreditMemoDocumentFields.CREDIT_MEMO_DOCUMENT_REF_INVOICE_NUMBER, ArKeyConstants.ERROR_CUSTOMER_CREDIT_MEMO_DOCUMENT_ONE_CRM_IN_ROUTE_PER_INVOICE);

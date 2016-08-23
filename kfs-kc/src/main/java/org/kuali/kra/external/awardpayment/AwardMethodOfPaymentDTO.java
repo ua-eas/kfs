@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -22,21 +22,24 @@ import java.io.Serializable;
 
 public class AwardMethodOfPaymentDTO implements Serializable {
 
-	private static final long serialVersionUID = 492600544085327507L;
+    private static final long serialVersionUID = 492600544085327507L;
 
-	private String methodOfPaymentCode;
+    private String methodOfPaymentCode;
     private String description;
 
-	public String getMethodOfPaymentCode() {
-		return methodOfPaymentCode;
-	}
-	public void setMethodOfPaymentCode(String methodOfPaymentCode) {
-		this.methodOfPaymentCode = methodOfPaymentCode;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public String getMethodOfPaymentCode() {
+        return methodOfPaymentCode;
+    }
+
+    public void setMethodOfPaymentCode(String methodOfPaymentCode) {
+        this.methodOfPaymentCode = methodOfPaymentCode;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

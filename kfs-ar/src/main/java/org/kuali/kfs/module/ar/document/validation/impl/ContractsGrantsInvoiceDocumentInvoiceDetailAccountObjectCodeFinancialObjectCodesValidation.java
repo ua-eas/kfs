@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2015 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,10 +18,8 @@
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.InvoiceDetailAccountObjectCode;
@@ -29,7 +27,9 @@ import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Validates that all invoice detail account object codes have object codes set
@@ -38,6 +38,7 @@ public class ContractsGrantsInvoiceDocumentInvoiceDetailAccountObjectCodeFinanci
 
     /**
      * Goes through each invoice detail account object code on the document, verifying that the object code is set
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     @Override
@@ -45,12 +46,12 @@ public class ContractsGrantsInvoiceDocumentInvoiceDetailAccountObjectCodeFinanci
         boolean success = true;
         Set<String> reportedOnChartCategories = new HashSet<>();
 
-        ContractsGrantsInvoiceDocument contractsGrantsInvoice = (ContractsGrantsInvoiceDocument)event.getDocument();
+        ContractsGrantsInvoiceDocument contractsGrantsInvoice = (ContractsGrantsInvoiceDocument) event.getDocument();
         for (InvoiceDetailAccountObjectCode invoiceDetailAccountObjectCode : contractsGrantsInvoice.getInvoiceDetailAccountObjectCodes()) {
             if (StringUtils.isBlank(invoiceDetailAccountObjectCode.getFinancialObjectCode())) {
                 final String key = buildChartCategoryKey(invoiceDetailAccountObjectCode);
                 if (!reportedOnChartCategories.contains(key)) {
-                    GlobalVariables.getMessageMap().putError(KFSPropertyConstants.DOCUMENT+"."+ArPropertyConstants.INVOICE_DETAIL+"s", ArKeyConstants.ContractsGrantsInvoiceConstants.ERROR_INVOICE_DETAIL_ACCOUNT_OBJECT_CODE_FINANCIAL_OBJECT_CODE_REQUIRED, new String[] { invoiceDetailAccountObjectCode.getChartOfAccountsCode(), invoiceDetailAccountObjectCode.getCategoryCode()});
+                    GlobalVariables.getMessageMap().putError(KFSPropertyConstants.DOCUMENT + "." + ArPropertyConstants.INVOICE_DETAIL + "s", ArKeyConstants.ContractsGrantsInvoiceConstants.ERROR_INVOICE_DETAIL_ACCOUNT_OBJECT_CODE_FINANCIAL_OBJECT_CODE_REQUIRED, new String[]{invoiceDetailAccountObjectCode.getChartOfAccountsCode(), invoiceDetailAccountObjectCode.getCategoryCode()});
                     success = false;
                     reportedOnChartCategories.add(key);
                 }
@@ -62,6 +63,7 @@ public class ContractsGrantsInvoiceDocumentInvoiceDetailAccountObjectCodeFinanci
 
     /**
      * Builds a key out of the chart and category code of the given invoice detail account object code
+     *
      * @param invoiceDetailAccountObjectCode the invoice detail account object code to build a key for
      * @return the built key
      */

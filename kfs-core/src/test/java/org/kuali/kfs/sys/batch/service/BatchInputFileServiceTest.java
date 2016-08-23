@@ -1,27 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.batch.service;
-
-import java.io.File;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.RandomUtils;
@@ -29,6 +24,7 @@ import org.kuali.kfs.fp.batch.ProcurementCardInputFileType;
 import org.kuali.kfs.gl.batch.CollectorBatch;
 import org.kuali.kfs.gl.batch.CollectorXmlInputFileType;
 import org.kuali.kfs.gl.batch.MockCollectorBatch;
+import org.kuali.kfs.krad.exception.AuthorizationException;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KualiTestConstants.TestConstants.Data4;
 import org.kuali.kfs.sys.batch.BatchInputFileType;
@@ -36,7 +32,11 @@ import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.exception.FileStorageException;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.exception.AuthorizationException;
+
+import java.io.File;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Tests the BatchInputFileService. TEST DEPENDENCIES The following are external configurations not setup by the test case that are
@@ -46,7 +46,7 @@ import org.kuali.kfs.krad.exception.AuthorizationException;
  * 4) One Collector files must exist in Collector staging directory. File name should not contain the usernames given by constants
  * Data4_USER_ID2 and Data4_USER_ID1. Note the files in #3 & #4 are created by the project build from files located in project
  * folder buld/configurationFiles/externalConfigDirectory/static/staging/
- * 
+ *
  * @see org.kuali.kfs.sys.batch.service.BatchInputFileService Unit tests for this service are also in:
  * @see org.kuali.kfs.sys.batch.service.BatchInputServiceParseTest
  * @see org.kuali.kfs.sys.batch.service.BatchInputServiceSystemParametersTest
@@ -81,13 +81,13 @@ public class BatchInputFileServiceTest extends KualiTestBase {
         batchInputFileService = SpringContext.getBean(BatchInputFileService.class);
         pcdoBatchInputFileType = SpringContext.getBean(ProcurementCardInputFileType.class);
         collectorBatchInputFileType = SpringContext.getBean(CollectorXmlInputFileType.class);
-        sampleBatchInputFileType = SpringContext.getBean(BatchInputFileType.class,"sampleTest2FlatFileInputFileType");
+        sampleBatchInputFileType = SpringContext.getBean(BatchInputFileType.class, "sampleTest2FlatFileInputFileType");
 
         testFileIdentifier = "junit" + RandomUtils.nextInt();
         validPCDOFileContents = BatchInputFileServiceTest.class.getClassLoader().getResourceAsStream(TEST_BATCH_XML_DIRECTORY + "BatchInputValidPCDO.xml");
         validCollectorFileContents = BatchInputFileServiceTest.class.getClassLoader().getResourceAsStream(TEST_BATCH_XML_DIRECTORY + "BatchInputValidCollector.xml");
         validSampleFileContents = BatchInputFileServiceTest.class.getClassLoader().getResourceAsStream(TEST_BATCH_XML_DIRECTORY + "BatchInputFileWithNoExtension");
-        
+
 
         validWorkgroupUser = SpringContext.getBean(org.kuali.rice.kim.api.identity.PersonService.class).getPersonByPrincipalName(Data4.USER_ID2);
         invalidWorkgroupUser = SpringContext.getBean(org.kuali.rice.kim.api.identity.PersonService.class).getPersonByPrincipalName(Data4.USER_ID1);
@@ -97,7 +97,7 @@ public class BatchInputFileServiceTest extends KualiTestBase {
 
     /**
      * Clean up any files created during test methods that were not removed (possibly because of a failure).
-     * 
+     *
      * @see junit.framework.TestCase#tearDown()
      */
     @Override
@@ -149,11 +149,11 @@ public class BatchInputFileServiceTest extends KualiTestBase {
 
         checkForDoneFile(expectedFile);
     }
-    
-    
+
+
     public final void testSaveFileWithNoExtension() throws Exception {
-        
-        String savedFileName = batchInputFileService.save(validWorkgroupUser, sampleBatchInputFileType , testFileIdentifier, validPCDOFileContents, new ArrayList());
+
+        String savedFileName = batchInputFileService.save(validWorkgroupUser, sampleBatchInputFileType, testFileIdentifier, validPCDOFileContents, new ArrayList());
 
         File expectedFile = new File(savedFileName);
         createdTestFiles.add(expectedFile);
@@ -162,11 +162,11 @@ public class BatchInputFileServiceTest extends KualiTestBase {
 
         checkForDoneFile(expectedFile);
 
-        // remove file 
+        // remove file
         expectedFile.delete();
 
     }
-      
+
 
     /**
      * Checks for a done file with the same name as the given batch file.
@@ -186,8 +186,7 @@ public class BatchInputFileServiceTest extends KualiTestBase {
         boolean failedAsExpected = false;
         try {
             batchInputFileService.save(invalidWorkgroupUser, pcdoBatchInputFileType, testFileIdentifier, validPCDOFileContents, new ArrayList());
-        }
-        catch (AuthorizationException e) {
+        } catch (AuthorizationException e) {
             failedAsExpected = true;
         }
 
@@ -196,8 +195,7 @@ public class BatchInputFileServiceTest extends KualiTestBase {
         failedAsExpected = false;
         try {
             batchInputFileService.save(invalidWorkgroupUser, collectorBatchInputFileType, testFileIdentifier, validCollectorFileContents, new MockCollectorBatch());
-        }
-        catch (AuthorizationException e) {
+        } catch (AuthorizationException e) {
             failedAsExpected = true;
         }
 
@@ -221,8 +219,7 @@ public class BatchInputFileServiceTest extends KualiTestBase {
         boolean failedAsExpected = false;
         try {
             batchInputFileService.save(validWorkgroupUser, pcdoBatchInputFileType, testFileIdentifier, validPCDOFileContents, new ArrayList());
-        }
-        catch (FileStorageException e) {
+        } catch (FileStorageException e) {
             failedAsExpected = true;
         }
 

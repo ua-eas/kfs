@@ -1,31 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.document.service.impl;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemParameterConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
@@ -53,12 +50,15 @@ import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.kfs.vnd.document.service.VendorService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Service which supports creating PDP payments for Corporate Cards by extracting reimbursable documents
@@ -75,7 +75,6 @@ public class CorporateCardExtractionServiceImpl implements PaymentSourceToExtrac
     protected VendorService vendorService;
 
     /**
-     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#retrievePaymentSourcesByCampus(boolean)
      */
     @Override
@@ -110,6 +109,7 @@ public class CorporateCardExtractionServiceImpl implements PaymentSourceToExtrac
 
     /**
      * Retrieves all the TravelReimbursement, TravelRelocation, and TravelEntertainment documents paid by check at approved status in one convenient call
+     *
      * @param immediatesOnly true if only those documents marked for immediate payment should be retrieved, false if all qualifying documents should be retrieved
      * @return all of the documents to process in a list
      */
@@ -123,6 +123,7 @@ public class CorporateCardExtractionServiceImpl implements PaymentSourceToExtrac
 
     /**
      * Uses the value in the KFS-TEM / Document / PRE_DISBURSEMENT_EXTRACT_ORGANIZATION parameter
+     *
      * @see org.kuali.kfs.sys.document.PaymentSource#getPreDisbursementCustomerProfileUnit()
      */
     @Override
@@ -133,6 +134,7 @@ public class CorporateCardExtractionServiceImpl implements PaymentSourceToExtrac
 
     /**
      * Uses the value in the KFS-TEM / Document / PRE_DISBURSEMENT_EXTRACT_SUB_UNIT
+     *
      * @see org.kuali.kfs.sys.document.PaymentSource#getPreDisbursementCustomerProfileSubUnit()
      */
     @Override
@@ -143,6 +145,7 @@ public class CorporateCardExtractionServiceImpl implements PaymentSourceToExtrac
 
     /**
      * Sets the corporate card payment extracted date on the document
+     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#markAsExtracted(org.kuali.kfs.sys.document.PaymentSource, java.sql.Date)
      */
     @Override
@@ -151,8 +154,7 @@ public class CorporateCardExtractionServiceImpl implements PaymentSourceToExtrac
             document.setCorporateCardPaymentExtractDate(sqlProcessRunDate);
             associatePaymentGroupWithCreditCardData(document, paymentGroupId);
             getDocumentService().saveDocument(document, AccountingDocumentSaveWithNoLedgerEntryGenerationEvent.class);
-        }
-        catch (WorkflowException we) {
+        } catch (WorkflowException we) {
             LOG.error("Could not save TEMReimbursementDocument document #" + document.getDocumentNumber() + ": " + we);
             throw new RuntimeException(we);
         }
@@ -160,13 +162,14 @@ public class CorporateCardExtractionServiceImpl implements PaymentSourceToExtrac
 
     /**
      * Associates the given payment group id with every historical travel expense that represents a corporate card charge on the given document
-     * @param document the document to update
+     *
+     * @param document           the document to update
      * @param paymentGroupNumber the payment group id to update the historical expenses with
      */
     protected void associatePaymentGroupWithCreditCardData(TEMReimbursementDocument document, KualiInteger paymentGroupNumber) {
-        for (HistoricalTravelExpense expense : document.getHistoricalTravelExpenses()){
-            if (expense.getCreditCardStagingData() != null){
-                if (StringUtils.equals(expense.getCreditCardStagingData().getCreditCardAgency().getTravelCardTypeCode(), TemConstants.TRAVEL_TYPE_CORP)){
+        for (HistoricalTravelExpense expense : document.getHistoricalTravelExpenses()) {
+            if (expense.getCreditCardStagingData() != null) {
+                if (StringUtils.equals(expense.getCreditCardStagingData().getCreditCardAgency().getTravelCardTypeCode(), TemConstants.TRAVEL_TYPE_CORP)) {
                     expense.getCreditCardStagingData().setPaymentGroupId(paymentGroupNumber);
                     getBusinessObjectService().save(expense.getCreditCardStagingData());
                 }
@@ -175,7 +178,6 @@ public class CorporateCardExtractionServiceImpl implements PaymentSourceToExtrac
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#createPaymentGroup(org.kuali.kfs.sys.document.PaymentSource, java.sql.Date)
      */
     @Override
@@ -192,12 +194,12 @@ public class CorporateCardExtractionServiceImpl implements PaymentSourceToExtrac
         PaymentGroup pg = new PaymentGroup();
         final CreditCardAgency creditCardAgency = getCorporateCreditCardAgency(document);
         if (creditCardAgency == null) {
-            LOG.error("Skipping corporate card payment for "+document.getDocumentNumber()+" because no credit card agency could be found.");
+            LOG.error("Skipping corporate card payment for " + document.getDocumentNumber() + " because no credit card agency could be found.");
             return null;
         }
         final VendorDetail vendor = getCorporateCardVendor(creditCardAgency);
         if (vendor == null) {
-            LOG.error("Skipping corporate card payment for "+document.getDocumentNumber()+" because no vendor could be found.");
+            LOG.error("Skipping corporate card payment for " + document.getDocumentNumber() + " because no vendor could be found.");
             return null;
         }
         final VendorAddress vendorAddress = getVendorService().getVendorDefaultAddress(vendor.getVendorAddresses(), vendor.getVendorHeader().getVendorType().getAddressType().getVendorAddressTypeCode(), "");
@@ -237,12 +239,13 @@ public class CorporateCardExtractionServiceImpl implements PaymentSourceToExtrac
 
     /**
      * Finds the vendor for the corporate card used on the given document
+     *
      * @param document the document to find a corporate card vendor for
      * @return the found vendor or null if a vendor could not be found
      */
     protected VendorDetail getCorporateCardVendor(CreditCardAgency creditCardAgency) {
         if (!ObjectUtils.isNull(creditCardAgency)) {
-            final String vendorNumber =  creditCardAgency.getVendorNumber();
+            final String vendorNumber = creditCardAgency.getVendorNumber();
             if (!StringUtils.isBlank(vendorNumber)) {
                 return getVendorService().getByVendorNumber(vendorNumber);
             }
@@ -252,6 +255,7 @@ public class CorporateCardExtractionServiceImpl implements PaymentSourceToExtrac
 
     /**
      * Looks through the imported expenses on the document to find a corporate card record which has a credit card agency - returns that
+     *
      * @param document a document to find a corporate card vendor for
      * @return the id of the found vendor or null if nothing was found
      */
@@ -269,6 +273,7 @@ public class CorporateCardExtractionServiceImpl implements PaymentSourceToExtrac
 
     /**
      * Finds the vendor number from the first historical travel expense associated with the given document
+     *
      * @param document a document to find a corporate card vendor for
      * @return the id of the found vendor or null if nothing was found
      */
@@ -282,6 +287,7 @@ public class CorporateCardExtractionServiceImpl implements PaymentSourceToExtrac
 
     /**
      * Returns a Date object representing the day after the given processDate
+     *
      * @param processDate the date to find the next day for
      * @return the next day for the given date
      */
@@ -294,7 +300,8 @@ public class CorporateCardExtractionServiceImpl implements PaymentSourceToExtrac
 
     /**
      * Builds the PaymentDetail for the given reimbursable travel & entertainment document
-     * @param document the reimbursable travel & entertainment document to create a payment for
+     *
+     * @param document       the reimbursable travel & entertainment document to create a payment for
      * @param processRunDate the date when the extraction is occurring
      * @return a PaymentDetail to add to the PaymentGroup
      */
@@ -325,8 +332,8 @@ public class CorporateCardExtractionServiceImpl implements PaymentSourceToExtrac
         PaymentNoteText pnt = new PaymentNoteText();
         pnt.setCustomerNoteLineNbr(new KualiInteger(line++));
         final String travelerId = (!ObjectUtils.isNull(document.getTemProfile()) ?
-                (!ObjectUtils.isNull(document.getTemProfile().getPrincipal()) ? document.getTemProfile().getPrincipal().getPrincipalName() : document.getTemProfile().getCustomerNumber()) :
-                    document.getDocumentNumber()); // they got this far without a payee id?  that really probably shouldn't happen
+            (!ObjectUtils.isNull(document.getTemProfile().getPrincipal()) ? document.getTemProfile().getPrincipal().getPrincipalName() : document.getTemProfile().getCustomerNumber()) :
+            document.getDocumentNumber()); // they got this far without a payee id?  that really probably shouldn't happen
         pnt.setCustomerNoteText("Info: " + travelerId + " " + document.getTemProfile().getPhoneNumber());
         pd.addNote(pnt);
 
@@ -340,7 +347,7 @@ public class CorporateCardExtractionServiceImpl implements PaymentSourceToExtrac
         }
         // Handle accounts, but only corporate card accounting lines
         List<TemSourceAccountingLine> corporateCardLines = new ArrayList<TemSourceAccountingLine>();
-        for (TemSourceAccountingLine accountingLine : (List<TemSourceAccountingLine>)document.getSourceAccountingLines()) {
+        for (TemSourceAccountingLine accountingLine : (List<TemSourceAccountingLine>) document.getSourceAccountingLines()) {
             if (StringUtils.equals(TemConstants.TRAVEL_TYPE_CORP, accountingLine.getCardType())) {
                 corporateCardLines.add(accountingLine);
             }
@@ -354,55 +361,54 @@ public class CorporateCardExtractionServiceImpl implements PaymentSourceToExtrac
     }
 
     /**
-    * Only build account details for corporate card accounting lines
-    * @see org.kuali.kfs.module.tem.document.service.TravelPaymentsHelperService#buildGenericPaymentAccountDetails(java.util.List)
-    */
-   protected List<PaymentAccountDetail> buildPaymentAccountDetails(List<? extends AccountingLine> accountingLines) {
-       List<PaymentAccountDetail> details = new ArrayList<PaymentAccountDetail>();
-       for (AccountingLine al : accountingLines) {
-           final TemSourceAccountingLine accountingLine = (TemSourceAccountingLine)al;
-           if (StringUtils.equals(accountingLine.getCardType(), TemConstants.TRAVEL_TYPE_CORP)) {
-               PaymentAccountDetail pad = new PaymentAccountDetail();
-               pad.setFinChartCode(accountingLine.getChartOfAccountsCode());
-               pad.setAccountNbr(accountingLine.getAccountNumber());
-               if (!StringUtils.isBlank(accountingLine.getSubAccountNumber())) {
-                   pad.setSubAccountNbr(accountingLine.getSubAccountNumber());
-               }
-               else {
-                   pad.setSubAccountNbr(KFSConstants.getDashSubAccountNumber());
-               }
-               pad.setFinObjectCode(accountingLine.getFinancialObjectCode());
-               if (!StringUtils.isBlank(accountingLine.getFinancialSubObjectCode())) {
-                   pad.setFinSubObjectCode(accountingLine.getFinancialSubObjectCode());
-               }
-               else {
-                   pad.setFinSubObjectCode(KFSConstants.getDashFinancialSubObjectCode());
-               }
-               if (!StringUtils.isBlank(accountingLine.getOrganizationReferenceId())) {
-                   pad.setOrgReferenceId(accountingLine.getOrganizationReferenceId());
-               }
-               if (!StringUtils.isBlank(accountingLine.getProjectCode())) {
-                   pad.setProjectCode(accountingLine.getProjectCode());
-               }
-               else {
-                   pad.setProjectCode(KFSConstants.getDashProjectCode());
-               }
-               pad.setAccountNetAmount(accountingLine.getAmount());
-               details.add(pad);
-           }
-       }
-       return details;
-   }
+     * Only build account details for corporate card accounting lines
+     *
+     * @see org.kuali.kfs.module.tem.document.service.TravelPaymentsHelperService#buildGenericPaymentAccountDetails(java.util.List)
+     */
+    protected List<PaymentAccountDetail> buildPaymentAccountDetails(List<? extends AccountingLine> accountingLines) {
+        List<PaymentAccountDetail> details = new ArrayList<PaymentAccountDetail>();
+        for (AccountingLine al : accountingLines) {
+            final TemSourceAccountingLine accountingLine = (TemSourceAccountingLine) al;
+            if (StringUtils.equals(accountingLine.getCardType(), TemConstants.TRAVEL_TYPE_CORP)) {
+                PaymentAccountDetail pad = new PaymentAccountDetail();
+                pad.setFinChartCode(accountingLine.getChartOfAccountsCode());
+                pad.setAccountNbr(accountingLine.getAccountNumber());
+                if (!StringUtils.isBlank(accountingLine.getSubAccountNumber())) {
+                    pad.setSubAccountNbr(accountingLine.getSubAccountNumber());
+                } else {
+                    pad.setSubAccountNbr(KFSConstants.getDashSubAccountNumber());
+                }
+                pad.setFinObjectCode(accountingLine.getFinancialObjectCode());
+                if (!StringUtils.isBlank(accountingLine.getFinancialSubObjectCode())) {
+                    pad.setFinSubObjectCode(accountingLine.getFinancialSubObjectCode());
+                } else {
+                    pad.setFinSubObjectCode(KFSConstants.getDashFinancialSubObjectCode());
+                }
+                if (!StringUtils.isBlank(accountingLine.getOrganizationReferenceId())) {
+                    pad.setOrgReferenceId(accountingLine.getOrganizationReferenceId());
+                }
+                if (!StringUtils.isBlank(accountingLine.getProjectCode())) {
+                    pad.setProjectCode(accountingLine.getProjectCode());
+                } else {
+                    pad.setProjectCode(KFSConstants.getDashProjectCode());
+                }
+                pad.setAccountNetAmount(accountingLine.getAmount());
+                details.add(pad);
+            }
+        }
+        return details;
+    }
 
     /**
      * The sum of all CORP accounting lines on the document
+     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#getPaymentAmount(org.kuali.kfs.sys.document.PaymentSource)
      */
     @Override
     public KualiDecimal getPaymentAmount(TEMReimbursementDocument document) {
         KualiDecimal amount = KualiDecimal.ZERO;
-        for(TemSourceAccountingLine line: (List<TemSourceAccountingLine>)document.getSourceAccountingLines()){
-            if (StringUtils.equals(line.getCardType(), TemConstants.TRAVEL_TYPE_CORP)){
+        for (TemSourceAccountingLine line : (List<TemSourceAccountingLine>) document.getSourceAccountingLines()) {
+            if (StringUtils.equals(line.getCardType(), TemConstants.TRAVEL_TYPE_CORP)) {
                 amount = amount.add(line.getAmount());
             }
         }
@@ -411,6 +417,7 @@ public class CorporateCardExtractionServiceImpl implements PaymentSourceToExtrac
 
     /**
      * Sets teh corporate card payment paid date on the document to the process date
+     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#markAsPaid(org.kuali.kfs.sys.document.PaymentSource, java.sql.Date)
      */
     @Override
@@ -418,8 +425,7 @@ public class CorporateCardExtractionServiceImpl implements PaymentSourceToExtrac
         try {
             paymentSource.setCorporateCardPaymentPaidDate(processDate);
             getDocumentService().saveDocument(paymentSource, AccountingDocumentSaveWithNoLedgerEntryGenerationEvent.class);
-        }
-        catch (WorkflowException we) {
+        } catch (WorkflowException we) {
             LOG.error("encountered workflow exception while attempting to save Disbursement Voucher: " + paymentSource.getDocumentNumber() + " " + we);
             throw new RuntimeException(we);
         }
@@ -427,6 +433,7 @@ public class CorporateCardExtractionServiceImpl implements PaymentSourceToExtrac
 
     /**
      * Sets the corporate card payment cancel date to the given cancel date and handles the entry cancellation for the payment
+     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#cancelPayment(org.kuali.kfs.sys.document.PaymentSource, java.sql.Date)
      */
     @Override
@@ -437,8 +444,7 @@ public class CorporateCardExtractionServiceImpl implements PaymentSourceToExtrac
                 getPaymentSourceHelperService().handleEntryCancellation(paymentSource, this);
                 // save the document
                 getDocumentService().saveDocument(paymentSource, AccountingDocumentSaveWithNoLedgerEntryGenerationEvent.class);
-            }
-            catch (WorkflowException we) {
+            } catch (WorkflowException we) {
                 LOG.error("encountered workflow exception while attempting to save Disbursement Voucher: " + paymentSource.getDocumentNumber() + " " + we);
                 throw new RuntimeException(we);
             }
@@ -448,6 +454,7 @@ public class CorporateCardExtractionServiceImpl implements PaymentSourceToExtrac
 
     /**
      * True if the GLPE has a doc type of RCCA
+     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#shouldRollBackPendingEntry(org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry)
      */
     @Override
@@ -457,6 +464,7 @@ public class CorporateCardExtractionServiceImpl implements PaymentSourceToExtrac
 
     /**
      * Resets the corporate card payment extract date and paid date on the document to null
+     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#resetFromExtraction(org.kuali.kfs.sys.document.PaymentSource)
      */
     @Override
@@ -465,8 +473,7 @@ public class CorporateCardExtractionServiceImpl implements PaymentSourceToExtrac
             paymentSource.setCorporateCardPaymentExtractDate(null);
             paymentSource.setCorporateCardPaymentPaidDate(null);
             getDocumentService().saveDocument(paymentSource, AccountingDocumentSaveWithNoLedgerEntryGenerationEvent.class);
-        }
-        catch (WorkflowException we) {
+        } catch (WorkflowException we) {
             LOG.error("encountered workflow exception while attempting to save Disbursement Voucher: " + paymentSource.getDocumentNumber() + " " + we);
             throw new RuntimeException(we);
         }
@@ -475,6 +482,7 @@ public class CorporateCardExtractionServiceImpl implements PaymentSourceToExtrac
 
     /**
      * Returns the value of the KFS-TEM / Document / IMMEDIATE_EXTRACT_NOTIFICATION_FROM_EMAIL_ADDRESS parameter
+     *
      * @see org.kuali.kfs.sys.document.PaymentSource#getImmediateExtractEMailFromAddress()
      */
     @Override
@@ -484,6 +492,7 @@ public class CorporateCardExtractionServiceImpl implements PaymentSourceToExtrac
 
     /**
      * Returns the value of the KFS-TEM / Document / IMMEDIATE_EXTRACT_NOTIFICATION_TO_EMAIL_ADDRESSES parameter
+     *
      * @see org.kuali.kfs.sys.document.PaymentSource#getImmediateExtractEmailToAddresses()
      */
     @Override
@@ -495,6 +504,7 @@ public class CorporateCardExtractionServiceImpl implements PaymentSourceToExtrac
 
     /**
      * Returns RCCA.  But not TCCA or TAVA.
+     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#getAchCheckDocumentType(org.kuali.kfs.sys.document.PaymentSource)
      */
     @Override
@@ -504,6 +514,7 @@ public class CorporateCardExtractionServiceImpl implements PaymentSourceToExtrac
 
     /**
      * This extraction service handles RCCA payment details
+     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#handlesAchCheckDocumentType(java.lang.String)
      */
     @Override
@@ -513,6 +524,7 @@ public class CorporateCardExtractionServiceImpl implements PaymentSourceToExtrac
 
     /**
      * Determines if the payment would be 0 - if it's greater than that, it should be extracted
+     *
      * @see org.kuali.kfs.sys.batch.service.PaymentSourceToExtractService#shouldExtractPayment(org.kuali.kfs.sys.document.PaymentSource)
      */
     @Override

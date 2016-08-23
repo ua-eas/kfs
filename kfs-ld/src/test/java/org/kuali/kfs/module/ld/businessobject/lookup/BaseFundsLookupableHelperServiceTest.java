@@ -1,32 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 import org.kuali.kfs.gl.Constant;
 import org.kuali.kfs.gl.businessobject.OriginEntryGroup;
 import org.kuali.kfs.gl.web.TestDataGenerator;
+import org.kuali.kfs.kns.lookup.LookupableHelperService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.PersistenceService;
 import org.kuali.kfs.module.bc.businessobject.CalculatedSalaryFoundationTracker;
 import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.kfs.module.ld.businessobject.AccountStatusBaseFunds;
@@ -39,9 +36,12 @@ import org.kuali.kfs.sys.businessobject.lookup.LookupableSpringContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
-import org.kuali.kfs.kns.lookup.LookupableHelperService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.PersistenceService;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * This class contains test cases that can be applied to methods in Account Status Base Funds class.
@@ -87,9 +87,9 @@ public class BaseFundsLookupableHelperServiceTest extends KualiTestBase {
     }
 
     /**
-     *
      * This method will run the base funds balance inquiry to test that the BaseFundsLookupableHelperService
      * is returning data correctly.
+     *
      * @throws Exception
      */
     public void testGetSearchResults() throws Exception {
@@ -97,7 +97,7 @@ public class BaseFundsLookupableHelperServiceTest extends KualiTestBase {
         insertCSFRecords();
         System.out.println("**** RECORDS INSERTED !!!!!");
 
-        String messageFileName    = "org/kuali/kfs/module/ld/testdata/message.properties";
+        String messageFileName = "org/kuali/kfs/module/ld/testdata/message.properties";
         String propertiesFileName = "org/kuali/kfs/module/ld/testdata/accountStatusBaseFunds.properties";
 
         properties = (new TestDataGenerator(propertiesFileName, messageFileName)).getProperties();
@@ -123,9 +123,9 @@ public class BaseFundsLookupableHelperServiceTest extends KualiTestBase {
 
         // Make sure the basic search parameters are returned from the inquiry
         for (AccountStatusBaseFunds accountStatusBaseFundsReturn : searchResults) {
-              assertTrue((accountStatusBaseFundsReturn.getAccountNumber().equals(accountStatusBaseFunds.getAccountNumber()) &&
-              accountStatusBaseFundsReturn.getUniversityFiscalYear().equals(accountStatusBaseFunds.getUniversityFiscalYear()) &&
-              accountStatusBaseFundsReturn.getChartOfAccountsCode().equals(accountStatusBaseFunds.getChartOfAccountsCode())));
+            assertTrue((accountStatusBaseFundsReturn.getAccountNumber().equals(accountStatusBaseFunds.getAccountNumber()) &&
+                accountStatusBaseFundsReturn.getUniversityFiscalYear().equals(accountStatusBaseFunds.getUniversityFiscalYear()) &&
+                accountStatusBaseFundsReturn.getChartOfAccountsCode().equals(accountStatusBaseFunds.getChartOfAccountsCode())));
         }
 
         if (searchResults != null) {
@@ -133,7 +133,7 @@ public class BaseFundsLookupableHelperServiceTest extends KualiTestBase {
         }
 
         // compare the search results with the expected and see if they match with each other
-        assertEquals(this.baseFundsExpectedInsertion,searchResults.size());
+        assertEquals(this.baseFundsExpectedInsertion, searchResults.size());
 
 
         /*int expectedOfData = Integer.valueOf(properties.getProperty("getAccountStatusBaseFunds.expectedNumOfData"));
@@ -151,17 +151,17 @@ public class BaseFundsLookupableHelperServiceTest extends KualiTestBase {
         System.out.println("****1111");
         List expectedDataList = TestDataPreparator.buildExpectedValueList(AccountStatusBaseFunds.class, properties, testTarget + "expected", fieldNames, deliminator, this.baseFundsExpectedInsertion);
         for (Object expectedAccountStatusBaseFundsAsObject : expectedDataList) {
-            AccountStatusBaseFunds expectedAccountStatusBaseFunds = (AccountStatusBaseFunds)expectedAccountStatusBaseFundsAsObject;
+            AccountStatusBaseFunds expectedAccountStatusBaseFunds = (AccountStatusBaseFunds) expectedAccountStatusBaseFundsAsObject;
             expectedAccountStatusBaseFunds.setUniversityFiscalYear(TestUtils.getFiscalYearForTesting());
         }
         System.out.println("****2222");
 
-        for (int i=0;i < searchResults.size();i++) {
+        for (int i = 0; i < searchResults.size(); i++) {
             //AccountStatusBaseFundsForTesting accountStatusBaseFundsForTesting = new AccountStatusBaseFundsForTesting();
             //accountStatusBaseFunds = new AccountStatusBaseFunds();
             //ObjectUtil.buildObject(accountStatusBaseFunds, entry);
-            accountStatusBaseFunds = ((AccountStatusBaseFunds)searchResults.get(i));
-            System.out.println("*********DATA:"+accountStatusBaseFunds.toString());
+            accountStatusBaseFunds = ((AccountStatusBaseFunds) searchResults.get(i));
+            System.out.println("*********DATA:" + accountStatusBaseFunds.toString());
             assertTrue(expectedDataList.contains(accountStatusBaseFunds));
         }
         assertEquals(this.baseFundsExpectedInsertion, searchResults.size());
@@ -174,43 +174,43 @@ public class BaseFundsLookupableHelperServiceTest extends KualiTestBase {
      * @throws Exception
      *
     public void testGetSearchResultsConsolidated() throws Exception {
-        insertBaseFundsRecords();
-        //insertCSFRecords();
+    insertBaseFundsRecords();
+    //insertCSFRecords();
 
-        AccountStatusBaseFunds accountStatusBaseFunds = new AccountStatusBaseFunds();
-        accountStatusBaseFunds.setAccountNumber("1031400");
-        accountStatusBaseFunds.setUniversityFiscalYear(2007);
-        accountStatusBaseFunds.setChartOfAccountsCode("BL");
+    AccountStatusBaseFunds accountStatusBaseFunds = new AccountStatusBaseFunds();
+    accountStatusBaseFunds.setAccountNumber("1031400");
+    accountStatusBaseFunds.setUniversityFiscalYear(2007);
+    accountStatusBaseFunds.setChartOfAccountsCode("BL");
 
-        // test the search results before the specified entry is inserted into the database
-        Map fieldValues = buildFieldValues(accountStatusBaseFunds, this.getLookupFields(false));
+    // test the search results before the specified entry is inserted into the database
+    Map fieldValues = buildFieldValues(accountStatusBaseFunds, this.getLookupFields(false));
 
-        // Tells the lookupable I want consolidated results
-        getInquiryOptionsService().getConsolidationField(lookupableHelperService.getRows()).setPropertyValue(Constant.CONSOLIDATION);
-        fieldValues.put(Constant.CONSOLIDATION_OPTION, Constant.CONSOLIDATION);
+    // Tells the lookupable I want consolidated results
+    getInquiryOptionsService().getConsolidationField(lookupableHelperService.getRows()).setPropertyValue(Constant.CONSOLIDATION);
+    fieldValues.put(Constant.CONSOLIDATION_OPTION, Constant.CONSOLIDATION);
 
-        List<String> groupByList = new ArrayList<String>();
-        List<AccountStatusBaseFunds> searchResults = lookupableHelperService.getSearchResults(fieldValues);
+    List<String> groupByList = new ArrayList<String>();
+    List<AccountStatusBaseFunds> searchResults = lookupableHelperService.getSearchResults(fieldValues);
 
-        // Make sure the basic search parameters are returned from the inquiry
-        for (AccountStatusBaseFunds accountStatusBaseFundsReturn : searchResults) {
-              assertFalse(!(accountStatusBaseFundsReturn.getAccountNumber().equals(accountStatusBaseFunds.getAccountNumber()) &&
-              accountStatusBaseFundsReturn.getUniversityFiscalYear().equals(accountStatusBaseFunds.getUniversityFiscalYear()) &&
-              accountStatusBaseFundsReturn.getChartOfAccountsCode().equals(accountStatusBaseFunds.getChartOfAccountsCode())));
-        }
+    // Make sure the basic search parameters are returned from the inquiry
+    for (AccountStatusBaseFunds accountStatusBaseFundsReturn : searchResults) {
+    assertFalse(!(accountStatusBaseFundsReturn.getAccountNumber().equals(accountStatusBaseFunds.getAccountNumber()) &&
+    accountStatusBaseFundsReturn.getUniversityFiscalYear().equals(accountStatusBaseFunds.getUniversityFiscalYear()) &&
+    accountStatusBaseFundsReturn.getChartOfAccountsCode().equals(accountStatusBaseFunds.getChartOfAccountsCode())));
+    }
 
-        if (searchResults != null) {
-            System.out.println("Results Size:" + searchResults.size());
-        }
+    if (searchResults != null) {
+    System.out.println("Results Size:" + searchResults.size());
+    }
 
-        // compare the search results with the expected and see if they match with each other
-        assertEquals(this.baseFundsExpectedInsertion,searchResults.size());
+    // compare the search results with the expected and see if they match with each other
+    assertEquals(this.baseFundsExpectedInsertion,searchResults.size());
 
     }*/
 
     /**
-     *
      * This method uses property file parameters to create insert database records for this test
+     *
      * @param accountStatusBaseFunds
      * @param lookupFields
      * @return
@@ -226,8 +226,8 @@ public class BaseFundsLookupableHelperServiceTest extends KualiTestBase {
     }
 
     /**
-     *
      * This method adds property constatants for future lookups
+     *
      * @param isExtended
      * @return
      */
@@ -287,7 +287,7 @@ public class BaseFundsLookupableHelperServiceTest extends KualiTestBase {
         String propertyKey;
 
         AccountStatusBaseFunds inputData;
-        String messageFileName    = "org/kuali/kfs/module/ld/testdata/message.properties";
+        String messageFileName = "org/kuali/kfs/module/ld/testdata/message.properties";
         String propertiesFileName = "org/kuali/kfs/module/ld/testdata/accountStatusBaseFunds.properties";
 
         properties = (new TestDataGenerator(propertiesFileName, messageFileName)).getProperties();
@@ -299,14 +299,14 @@ public class BaseFundsLookupableHelperServiceTest extends KualiTestBase {
         businessObjectService = SpringContext.getBean(BusinessObjectService.class);
         persistenceService = SpringContext.getBean(PersistenceService.class);
 
-        int numberOfData   = Integer.valueOf(properties.getProperty(testTarget+"numOfData"));
+        int numberOfData = Integer.valueOf(properties.getProperty(testTarget + "numOfData"));
 
         List<AccountStatusBaseFunds> inputDataList = new ArrayList<AccountStatusBaseFunds>();
 
         for (int i = 1; i <= numberOfData; i++) {
             inputData = new AccountStatusBaseFunds();
 
-            propertyKey = testTarget+"testData" + i;
+            propertyKey = testTarget + "testData" + i;
 
             ObjectUtil.populateBusinessObject(inputData, properties, propertyKey, fieldNames, deliminator);
             inputData.setUniversityFiscalYear(TestUtils.getFiscalYearForTesting());

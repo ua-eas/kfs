@@ -1,24 +1,31 @@
+/*
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.kuali.kfs.sys.datatools.liquimongo.change;
 
-import java.io.IOException;
-import java.util.Date;
-
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.domain.Sort.Order;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
-import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
+import org.springframework.data.mongodb.core.query.Query;
 
 public class UpdateNodeHandler extends AbstractNodeChangeHandler implements DocumentStoreChangeHandler {
-    
+
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(UpdateNodeHandler.class);
     public static final String UPDATE_NODE = "updateNode";
 
@@ -31,20 +38,20 @@ public class UpdateNodeHandler extends AbstractNodeChangeHandler implements Docu
     public void makeChange(JsonNode change) {
         LOG.debug("makeChange() started");
 
-        verifyKeyExistence(change,COLLECTION_NAME);
-        verifyKeyExistence(change,QUERY);
-        verifyKeyExistence(change,PATH);
-        verifyKeyExistence(change,VALUE);
-        
+        verifyKeyExistence(change, COLLECTION_NAME);
+        verifyKeyExistence(change, QUERY);
+        verifyKeyExistence(change, PATH);
+        verifyKeyExistence(change, VALUE);
+
         String collectionName = change.get(COLLECTION_NAME).asText();
         Object newValue = JSON.parse(change.get(VALUE).toString());
         String path = change.get(PATH).asText();
-        JsonNode query = change.get(QUERY); 
+        JsonNode query = change.get(QUERY);
         Query q = JsonUtils.getQueryFromJson(query);
-        
+
         String documentJson = mongoTemplate.findOne(q, DBObject.class, collectionName).toString();
-        String newJson = JsonPath.parse(documentJson).set(path, newValue).jsonString(); 
-               
+        String newJson = JsonPath.parse(documentJson).set(path, newValue).jsonString();
+
         DBObject result = (DBObject) JSON.parse(newJson);
         mongoTemplate.remove(q, collectionName);
         mongoTemplate.save(result, collectionName);

@@ -18,21 +18,17 @@
  */
 package org.kuali.kfs.sys.datatools.handler;
 
-import org.kuali.kfs.sys.datatools.liquimongo.change.UpdateDocumentHandler;
-import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
-
 import org.easymock.EasyMock;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.kuali.kfs.sys.datatools.liquimongo.change.UpdateDocumentHandler;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 
 public class UpdateDocumentHandlerTest {
     private UpdateDocumentHandler updateDocumentHandler;
@@ -67,7 +63,7 @@ public class UpdateDocumentHandlerTest {
     @Test
     public void testMakeChangeUpdatesDocument() throws Exception {
         Query q = new Query(Criteria.where("myId").is("10"));
-        
+
         mongoTemplate.remove(q, "collection");
         EasyMock.expectLastCall();
         mongoTemplate.save(JSON.parse("{ }"), "collection");

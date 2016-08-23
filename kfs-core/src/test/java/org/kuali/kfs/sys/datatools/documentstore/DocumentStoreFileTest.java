@@ -40,22 +40,22 @@ public class DocumentStoreFileTest {
         JsonNode rootNode = getJson(FILE_PACKAGE + UPDATES_FILE);
 
         JsonNode arrayOfChanges = rootNode.get("updateFiles");
-        Assert.assertNotNull("updates.json must contain array named updateFiles",arrayOfChanges);
+        Assert.assertNotNull("updates.json must contain array named updateFiles", arrayOfChanges);
 
-        Assert.assertTrue("updateFiles must be an array",arrayOfChanges.isArray());
+        Assert.assertTrue("updateFiles must be an array", arrayOfChanges.isArray());
 
         Iterator<String> fields = rootNode.fieldNames();
         while (fields.hasNext()) {
             String field = fields.next();
-            if ( ! "updateFiles".equals(field) ) {
+            if (!"updateFiles".equals(field)) {
                 Assert.fail("updates.json must contain only one array named updateFiles");
             }
         }
 
         Iterator<JsonNode> nodes = arrayOfChanges.elements();
-        while ( nodes.hasNext() ) {
+        while (nodes.hasNext()) {
             JsonNode child = nodes.next();
-            Assert.assertTrue("Children of updateFiles must be strings",child.isTextual());
+            Assert.assertTrue("Children of updateFiles must be strings", child.isTextual());
         }
     }
 
@@ -65,46 +65,46 @@ public class DocumentStoreFileTest {
         updateFiles.stream().forEach(uf -> {
             try {
                 JsonNode ufNode = getJson(FILE_PACKAGE + uf);
-                verifyUpdateFileFormat(uf,ufNode);
-                Assert.assertNotNull("Unable to read update file " + uf,ufNode);
+                verifyUpdateFileFormat(uf, ufNode);
+                Assert.assertNotNull("Unable to read update file " + uf, ufNode);
             } catch (IOException e) {
                 Assert.fail("Unable to read update file " + uf);
             }
         });
     }
 
-    private void verifyUpdateFileFormat(String fileName,JsonNode ufNode) {
+    private void verifyUpdateFileFormat(String fileName, JsonNode ufNode) {
         JsonNode changeLog = ufNode.get("changeLog");
-        Assert.assertNotNull(fileName + " must contain object named changeLog",changeLog);
+        Assert.assertNotNull(fileName + " must contain object named changeLog", changeLog);
 
-        Assert.assertTrue(fileName + " must be an array",changeLog.isArray());
+        Assert.assertTrue(fileName + " must be an array", changeLog.isArray());
 
         Iterator<String> fields = ufNode.fieldNames();
         while (fields.hasNext()) {
             String field = fields.next();
-            if ( ! "changeLog".equals(field) ) {
+            if (!"changeLog".equals(field)) {
                 Assert.fail("updates.json must contain only one array named updateFiles");
             }
         }
 
         Iterator<JsonNode> changes = changeLog.elements();
-        while ( changes.hasNext() ) {
+        while (changes.hasNext()) {
             JsonNode changeLogItem = changes.next();
-            Assert.assertTrue("ChangeLog item must be an object",changeLogItem.isObject());
+            Assert.assertTrue("ChangeLog item must be an object", changeLogItem.isObject());
 
             Iterator<String> keys = changeLogItem.fieldNames();
-            while ( keys.hasNext() ) {
+            while (keys.hasNext()) {
                 String key = keys.next();
                 if ("jira".equals(key)) {
                     JsonNode data = changeLogItem.get(key);
-                    Assert.assertTrue("jira value in change log item must be a string in " + fileName,data.isTextual());
+                    Assert.assertTrue("jira value in change log item must be a string in " + fileName, data.isTextual());
                 } else if ("id".equals(key)) {
                     JsonNode data = changeLogItem.get(key);
-                    Assert.assertTrue("id value in change log item must be a string in " + fileName,data.isTextual());
+                    Assert.assertTrue("id value in change log item must be a string in " + fileName, data.isTextual());
                 } else if ("changes".equals(key)) {
                     JsonNode data = changeLogItem.get(key);
-                    Assert.assertTrue("changes value in change log item must be an array in " + fileName,data.isArray());
-                    verifyChangesArray(fileName,data);
+                    Assert.assertTrue("changes value in change log item must be an array in " + fileName, data.isArray());
+                    verifyChangesArray(fileName, data);
                 } else {
                     Assert.fail("Unknown key (" + key + ") in change log item in " + fileName);
                 }
@@ -112,30 +112,30 @@ public class DocumentStoreFileTest {
         }
     }
 
-    private void verifyChangesArray(String fileName,JsonNode data) {
+    private void verifyChangesArray(String fileName, JsonNode data) {
         Iterator<JsonNode> attributes = data.elements();
-        while ( attributes.hasNext() ) {
+        while (attributes.hasNext()) {
             JsonNode attribute = attributes.next();
-            verifyChange(fileName,attribute);
+            verifyChange(fileName, attribute);
         }
     }
 
-    private void verifyChange(String fileName,JsonNode attribute) {
-        Assert.assertTrue("Change must be an object in " + fileName,attribute.isObject());
+    private void verifyChange(String fileName, JsonNode attribute) {
+        Assert.assertTrue("Change must be an object in " + fileName, attribute.isObject());
         JsonNode data = attribute.get("changeType");
-        Assert.assertNotNull("changeType must exist in a change in " + fileName,data);
-        Assert.assertTrue("changeType must be a string in " + fileName,data.isTextual());
+        Assert.assertNotNull("changeType must exist in a change in " + fileName, data);
+        Assert.assertTrue("changeType must be a string in " + fileName, data.isTextual());
     }
 
     private JsonNode getJson(String resourceName) throws IOException {
         Resource resource = ResourceLoaderUtil.getFileResource(resourceName);
-        if ( resource == null ) {
+        if (resource == null) {
             // There are no updates
             return null;
         }
 
         InputStream is = resource.getInputStream();
-        if ( is == null ) {
+        if (is == null) {
             Assert.fail("Unable to read updates file");
         }
 
@@ -148,7 +148,7 @@ public class DocumentStoreFileTest {
         ObjectMapper mapper = new ObjectMapper();
 
         JsonNode rootNode = getJson(listFile);
-        if ( rootNode == null ) {
+        if (rootNode == null) {
             return files;
         }
 

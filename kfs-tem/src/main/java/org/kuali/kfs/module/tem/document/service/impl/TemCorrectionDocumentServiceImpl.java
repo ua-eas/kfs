@@ -1,31 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.document.service.impl;
 
-import org.kuali.kfs.module.tem.businessobject.AgencyEntryFull;
-import org.kuali.kfs.module.tem.document.TemCorrectionProcessDocument;
-import org.kuali.kfs.module.tem.document.service.TemCorrectionDocumentService;
-import org.kuali.kfs.module.tem.document.web.struts.TemCorrectionForm;
 import org.kuali.kfs.kns.web.ui.Column;
 import org.kuali.kfs.krad.comparator.NumericValueComparator;
 import org.kuali.kfs.krad.comparator.StringValueComparator;
 import org.kuali.kfs.krad.comparator.TemporalValueComparator;
+import org.kuali.kfs.module.tem.businessobject.AgencyEntryFull;
+import org.kuali.kfs.module.tem.document.TemCorrectionProcessDocument;
+import org.kuali.kfs.module.tem.document.service.TemCorrectionDocumentService;
+import org.kuali.kfs.module.tem.document.web.struts.TemCorrectionForm;
 
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -42,6 +42,7 @@ public class TemCorrectionDocumentServiceImpl implements TemCorrectionDocumentSe
     private List<Column> cachedColumns = null;
 
     protected String batchFileDirectoryName;
+
     /**
      * Returns metadata to help render columns in the TMCP. Do not modify this list or the contents in this list.
      *
@@ -162,24 +163,56 @@ public class TemCorrectionDocumentServiceImpl implements TemCorrectionDocumentSe
             writer.writeStartDocument();
             writer.writeStartElement("agencyData");
 
-            for (AgencyEntryFull agency: correctionForm.getAllEntries()) {
+            for (AgencyEntryFull agency : correctionForm.getAllEntries()) {
                 writer.writeStartElement("record");
-                writer.writeStartElement("creditCardOrAgencyCode"); writer.writeCharacters(agency.getCreditCardOrAgencyCode()); writer.writeEndElement();
-                writer.writeStartElement("agency"); writer.writeCharacters(agency.getAgency()); writer.writeEndElement();
-                writer.writeStartElement("agencyFileName"); writer.writeCharacters(agency.getAgencyFileName()); writer.writeEndElement();
-                writer.writeStartElement("merchantName"); writer.writeCharacters(agency.getMerchantName()); writer.writeEndElement();
-                writer.writeStartElement("tripInvoiceNumber"); writer.writeCharacters(agency.getTripInvoiceNumber()); writer.writeEndElement();
-                writer.writeStartElement("travelerName"); writer.writeCharacters(agency.getTravelerName()); writer.writeEndElement();
-                writer.writeStartElement("travelerId"); writer.writeCharacters(agency.getTravelerId()); writer.writeEndElement();
-                writer.writeStartElement("tripExpenseAmount"); writer.writeCharacters(agency.getTripExpenseAmount().toString()); writer.writeEndElement();
-                writer.writeStartElement("tripArrangerName"); writer.writeCharacters(agency.getTripArrangerName()); writer.writeEndElement();
-                writer.writeStartElement("tripDepartureDate"); writer.writeCharacters(agency.getTripDepartureDate().toString()); writer.writeEndElement();
-                writer.writeStartElement("airBookDate"); writer.writeCharacters(agency.getAirBookDate().toString()); writer.writeEndElement();
-                writer.writeStartElement("airCarrierCode"); writer.writeCharacters(agency.getAirCarrierCode()); writer.writeEndElement();
-                writer.writeStartElement("airTicketNumber"); writer.writeCharacters(agency.getAirTicketNumber()); writer.writeEndElement();
-                writer.writeStartElement("pnrNumber"); writer.writeCharacters(agency.getPnrNumber()); writer.writeEndElement();
-                writer.writeStartElement("transactionUniqueId"); writer.writeCharacters(agency.getTransactionUniqueId()); writer.writeEndElement();
-                writer.writeStartElement("transactionPostingDate"); writer.writeCharacters(agency.getTransactionPostingDate().toString()); writer.writeEndElement();
+                writer.writeStartElement("creditCardOrAgencyCode");
+                writer.writeCharacters(agency.getCreditCardOrAgencyCode());
+                writer.writeEndElement();
+                writer.writeStartElement("agency");
+                writer.writeCharacters(agency.getAgency());
+                writer.writeEndElement();
+                writer.writeStartElement("agencyFileName");
+                writer.writeCharacters(agency.getAgencyFileName());
+                writer.writeEndElement();
+                writer.writeStartElement("merchantName");
+                writer.writeCharacters(agency.getMerchantName());
+                writer.writeEndElement();
+                writer.writeStartElement("tripInvoiceNumber");
+                writer.writeCharacters(agency.getTripInvoiceNumber());
+                writer.writeEndElement();
+                writer.writeStartElement("travelerName");
+                writer.writeCharacters(agency.getTravelerName());
+                writer.writeEndElement();
+                writer.writeStartElement("travelerId");
+                writer.writeCharacters(agency.getTravelerId());
+                writer.writeEndElement();
+                writer.writeStartElement("tripExpenseAmount");
+                writer.writeCharacters(agency.getTripExpenseAmount().toString());
+                writer.writeEndElement();
+                writer.writeStartElement("tripArrangerName");
+                writer.writeCharacters(agency.getTripArrangerName());
+                writer.writeEndElement();
+                writer.writeStartElement("tripDepartureDate");
+                writer.writeCharacters(agency.getTripDepartureDate().toString());
+                writer.writeEndElement();
+                writer.writeStartElement("airBookDate");
+                writer.writeCharacters(agency.getAirBookDate().toString());
+                writer.writeEndElement();
+                writer.writeStartElement("airCarrierCode");
+                writer.writeCharacters(agency.getAirCarrierCode());
+                writer.writeEndElement();
+                writer.writeStartElement("airTicketNumber");
+                writer.writeCharacters(agency.getAirTicketNumber());
+                writer.writeEndElement();
+                writer.writeStartElement("pnrNumber");
+                writer.writeCharacters(agency.getPnrNumber());
+                writer.writeEndElement();
+                writer.writeStartElement("transactionUniqueId");
+                writer.writeCharacters(agency.getTransactionUniqueId());
+                writer.writeEndElement();
+                writer.writeStartElement("transactionPostingDate");
+                writer.writeCharacters(agency.getTransactionPostingDate().toString());
+                writer.writeEndElement();
                 writer.writeEndElement(); // end the record element
             }
 
@@ -188,11 +221,9 @@ public class TemCorrectionDocumentServiceImpl implements TemCorrectionDocumentSe
             writer.writeEndDocument();
             writer.close();
             out.close();
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw new RuntimeException("Could not write XML for agency groups", ioe);
-        }
-        catch (XMLStreamException xmlse) {
+        } catch (XMLStreamException xmlse) {
             throw new RuntimeException("Could not write XML for agency groups", xmlse);
         }
 
@@ -205,6 +236,7 @@ public class TemCorrectionDocumentServiceImpl implements TemCorrectionDocumentSe
 
     /**
      * Sets the batchFileDirectoryName attribute value.
+     *
      * @param batchFileDirectoryName The batchFileDirectoryName to set.
      */
     public void setBatchFileDirectoryName(String batchFileDirectoryName) {

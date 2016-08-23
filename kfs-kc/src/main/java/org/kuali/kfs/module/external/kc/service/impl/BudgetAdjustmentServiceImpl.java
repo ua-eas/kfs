@@ -1,30 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.external.kc.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
 import org.kuali.kfs.coa.service.ObjectCodeService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.businessobject.BudgetAdjustmentAccountingLine;
 import org.kuali.kfs.fp.businessobject.BudgetAdjustmentSourceAccountingLine;
 import org.kuali.kfs.fp.businessobject.BudgetAdjustmentTargetAccountingLine;
@@ -32,17 +30,6 @@ import org.kuali.kfs.fp.document.BudgetAdjustmentDocument;
 import org.kuali.kfs.integration.cg.dto.BudgetAdjustmentCreationStatusDTO;
 import org.kuali.kfs.integration.cg.dto.BudgetAdjustmentParametersDTO;
 import org.kuali.kfs.integration.cg.dto.BudgetAdjustmentParametersDTO.Details;
-import org.kuali.kfs.module.external.kc.KcConstants;
-import org.kuali.kfs.module.external.kc.service.AccountCreationService;
-import org.kuali.kfs.module.external.kc.service.BudgetAdjustmentService;
-import org.kuali.kfs.module.external.kc.util.GlobalVariablesExtractHelper;
-import org.kuali.kfs.module.external.kc.util.KcUtils;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.businessobject.AccountingLine;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.kns.service.MaintenanceDocumentDictionaryService;
 import org.kuali.kfs.kns.service.TransactionalDocumentDictionaryService;
@@ -58,6 +45,19 @@ import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.krad.service.KualiRuleService;
 import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.module.external.kc.KcConstants;
+import org.kuali.kfs.module.external.kc.service.AccountCreationService;
+import org.kuali.kfs.module.external.kc.service.BudgetAdjustmentService;
+import org.kuali.kfs.module.external.kc.util.GlobalVariablesExtractHelper;
+import org.kuali.kfs.module.external.kc.util.KcUtils;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.businessobject.AccountingLine;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.kim.api.identity.PersonService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BudgetAdjustmentServiceImpl implements BudgetAdjustmentService {
 
@@ -98,22 +98,21 @@ public class BudgetAdjustmentServiceImpl implements BudgetAdjustmentService {
         }
         try {
             // create a Budget Adjustment object
-            budgetAdjustmentDoc = createBudgetAdjustmentObject( budgetAdjustmentCreationStatus);
+            budgetAdjustmentDoc = createBudgetAdjustmentObject(budgetAdjustmentCreationStatus);
 
             if (!isValidParameters(budgetAdjustmentDoc.getPostingYear(), budgetAdjustmentCreationStatus, budgetAdjustmentParameters)) {
                 return budgetAdjustmentCreationStatus;
             }
 
             // create a Budget Adjustment object, then route if successful
-            if( populateBudgetAdjustmentDocDetails(budgetAdjustmentParameters, budgetAdjustmentDoc, budgetAdjustmentCreationStatus) ){
+            if (populateBudgetAdjustmentDocDetails(budgetAdjustmentParameters, budgetAdjustmentDoc, budgetAdjustmentCreationStatus)) {
                 routeBudgetAdjustmentDocument(budgetAdjustmentDoc, budgetAdjustmentCreationStatus);
-            }else{
+            } else {
                 //return as we have a failure
                 return budgetAdjustmentCreationStatus;
             }
 
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             this.setFailStatus(budgetAdjustmentCreationStatus, KcConstants.BudgetAdjustmentService.ERROR_KC_DOCUMENT_ACCOUNT_GENERATION_PROBLEM);
             return budgetAdjustmentCreationStatus;
         }
@@ -121,19 +120,17 @@ public class BudgetAdjustmentServiceImpl implements BudgetAdjustmentService {
 
         if (budgetAdjustmentCreationStatus.getStatus().equals(KcConstants.KcWebService.STATUS_KC_SUCCESS) && getDocumentService().documentExists(budgetAdjustmentDoc.getDocumentHeader().getDocumentNumber())) {
             budgetAdjustmentCreationStatus.setDocumentNumber(budgetAdjustmentDoc.getDocumentNumber());
-        }
-        else {
+        } else {
             // save the document
             try {
-                try{
+                try {
                     GlobalVariables.getMessageMap().clearErrorMessages();
                     getDocumentService().saveDocument(budgetAdjustmentDoc);
-                }catch(ValidationException ve){
+                } catch (ValidationException ve) {
                 }
                 budgetAdjustmentCreationStatus.setDocumentNumber(budgetAdjustmentDoc.getDocumentNumber());
-            }
-            catch (Exception ex) {
-                LOG.error( KcUtils.getErrorMessage(KcConstants.BudgetAdjustmentService.ERROR_KC_DOCUMENT_WORKFLOW_EXCEPTION_DOCUMENT_NOT_SAVED, null) + ": " + ex.getMessage());
+            } catch (Exception ex) {
+                LOG.error(KcUtils.getErrorMessage(KcConstants.BudgetAdjustmentService.ERROR_KC_DOCUMENT_WORKFLOW_EXCEPTION_DOCUMENT_NOT_SAVED, null) + ": " + ex.getMessage());
                 budgetAdjustmentCreationStatus.setErrorMessages(GlobalVariablesExtractHelper.extractGlobalVariableErrors());
                 budgetAdjustmentCreationStatus.setStatus(KcConstants.KcWebService.STATUS_KC_FAILURE);
 
@@ -177,8 +174,7 @@ public class BudgetAdjustmentServiceImpl implements BudgetAdjustmentService {
                 isValid = false;
                 String message = GlobalVariablesExtractHelper.replaceTokens(KcConstants.BudgetAdjustmentService.ERROR_KC_DOCUMENT_AMT_IS_NONUMERIC, detail.getObjectCode(), detail.getCurrentAmount());
                 this.setFailStatus(budgetAdjustmentCreationStatusDTO, message);
-            }
-            else {
+            } else {
                 // test if amount is non zero
                 KualiDecimal amt = new KualiDecimal(detail.getCurrentAmount());
                 if (amt.isZero()) {
@@ -192,8 +188,7 @@ public class BudgetAdjustmentServiceImpl implements BudgetAdjustmentService {
                 isValidAcct = false;
                 String message = GlobalVariablesExtractHelper.replaceTokens(KcConstants.BudgetAdjustmentService.ERROR_KC_DOCUMENT_INVALID_ACCT, detail.getChart(), detail.getAccount());
                 this.setFailStatus(budgetAdjustmentCreationStatusDTO, message);
-            }
-            else {
+            } else {
 
                 ObjectCode objCode = objectCodeService.getByPrimaryId(postingFiscalYear, detail.getChart(), detail.getObjectCode());
                 if (objCode == null) {
@@ -220,7 +215,7 @@ public class BudgetAdjustmentServiceImpl implements BudgetAdjustmentService {
         BudgetAdjustmentDocument budgetAdjustmentDocument = (BudgetAdjustmentDocument) createBADocument(budgetAdjustmentCreationStatus);
         // also populates posting year
         budgetAdjustmentDocument.initiateDocument();
-         return budgetAdjustmentDocument;
+        return budgetAdjustmentDocument;
     }
 
     protected boolean populateBudgetAdjustmentDocDetails(BudgetAdjustmentParametersDTO parameters, BudgetAdjustmentDocument budgetAdjustmentDocument, BudgetAdjustmentCreationStatusDTO budgetAdjustmentCreationStatus) {
@@ -239,10 +234,9 @@ public class BudgetAdjustmentServiceImpl implements BudgetAdjustmentService {
                     KualiDecimal amount = new KualiDecimal(detail.getCurrentAmount());
                     runningtotal = runningtotal.add(amount);
                     if (amount.isPositive()) {
-                        budgetAdjustmentDocument.addTargetAccountingLine(createBudgetAdjustmentTargetAccountingLine(detail,fiscalYear));
-                    }
-                    else {
-                        budgetAdjustmentDocument.addSourceAccountingLine(createBudgetAdjustmentSourceAccountingLine(detail,fiscalYear));
+                        budgetAdjustmentDocument.addTargetAccountingLine(createBudgetAdjustmentTargetAccountingLine(detail, fiscalYear));
+                    } else {
+                        budgetAdjustmentDocument.addSourceAccountingLine(createBudgetAdjustmentSourceAccountingLine(detail, fiscalYear));
                     }
                 }
             }
@@ -292,19 +286,18 @@ public class BudgetAdjustmentServiceImpl implements BudgetAdjustmentService {
     protected boolean generateIncomeAccountingLine(Integer postingYear, String sponsorType, BudgetAdjustmentDocument baDoc, KualiDecimal amount) {
         BudgetAdjustmentParametersDTO.Details incomeDetail = new BudgetAdjustmentParametersDTO.Details();
         String sponsorCodeMapValue = parameterService.getSubParameterValueAsString(BudgetAdjustmentDocument.class, KcConstants.BudgetAdjustmentService.PARAMETER_INCOME_OBJECT_CODES_BY_SPONSOR_TYPE, sponsorType);
-        if ( StringUtils.isBlank(sponsorCodeMapValue) ) {
+        if (StringUtils.isBlank(sponsorCodeMapValue)) {
             return false;
         }
         if (amount.isNegative()) { // from side
             AccountingLine accountingLineDetail = baDoc.getSourceAccountingLine(0);
             BudgetAdjustmentSourceAccountingLine budgetAdjustmentSourceAccountingLine = new BudgetAdjustmentSourceAccountingLine();
-            populateAccountingLine(budgetAdjustmentSourceAccountingLine,postingYear, accountingLineDetail.getChartOfAccountsCode(), accountingLineDetail.getAccountNumber(), accountingLineDetail.getProjectCode(), sponsorCodeMapValue, amount.abs());
+            populateAccountingLine(budgetAdjustmentSourceAccountingLine, postingYear, accountingLineDetail.getChartOfAccountsCode(), accountingLineDetail.getAccountNumber(), accountingLineDetail.getProjectCode(), sponsorCodeMapValue, amount.abs());
             baDoc.addSourceAccountingLine(budgetAdjustmentSourceAccountingLine);
-        }
-        else {
+        } else {
             AccountingLine accountingLineDetail = baDoc.getTargetAccountingLine(0);
             BudgetAdjustmentTargetAccountingLine budgetAdjustmentTargetAccountingLine = new BudgetAdjustmentTargetAccountingLine();
-            populateAccountingLine(budgetAdjustmentTargetAccountingLine,postingYear, accountingLineDetail.getChartOfAccountsCode(), accountingLineDetail.getAccountNumber(), accountingLineDetail.getProjectCode(), sponsorCodeMapValue, amount.abs());
+            populateAccountingLine(budgetAdjustmentTargetAccountingLine, postingYear, accountingLineDetail.getChartOfAccountsCode(), accountingLineDetail.getAccountNumber(), accountingLineDetail.getProjectCode(), sponsorCodeMapValue, amount.abs());
             baDoc.addTargetAccountingLine(budgetAdjustmentTargetAccountingLine);
         }
         return true;
@@ -322,8 +315,7 @@ public class BudgetAdjustmentServiceImpl implements BudgetAdjustmentService {
         try {
             Document document = getDocumentService().getNewDocument(transactionalDocumentDictionaryService.getDocumentClassByName("BA"));
             return document;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             budgetAdjustmentCreationStatusDTO.setErrorMessages(GlobalVariablesExtractHelper.extractGlobalVariableErrors());
             budgetAdjustmentCreationStatusDTO.setStatus(KcConstants.KcWebService.STATUS_KC_FAILURE);
             return null;
@@ -361,62 +353,63 @@ public class BudgetAdjustmentServiceImpl implements BudgetAdjustmentService {
                 //attempt to save if apply rules were successful and there are no errors
                 boolean rulesPassed = kualiRuleService.applyRules(new SaveDocumentEvent(budgetAdjustmentDocument));
 
-                if( rulesPassed && GlobalVariables.getMessageMap().hasNoErrors()){
+                if (rulesPassed && GlobalVariables.getMessageMap().hasNoErrors()) {
                     getDocumentService().saveDocument(budgetAdjustmentDocument);
-                }else{
+                } else {
                     //get errors from apply rules invocation, also clears global variables
                     budgetAdjustmentCreationStatus.setErrorMessages(GlobalVariablesExtractHelper.extractGlobalVariableErrors());
-                    try{
+                    try {
                         //save document, and catch VE's as we want to do this silently
                         getDocumentService().saveDocument(budgetAdjustmentDocument);
-                    }catch(ValidationException ve){}
+                    } catch (ValidationException ve) {
+                    }
 
                     budgetAdjustmentCreationStatus.setStatus(KcConstants.KcWebService.STATUS_KC_SUCCESS);
-                    LOG.error( KcUtils.getErrorMessage(KcConstants.BudgetAdjustmentService.ERROR_KC_DOCUMENT_BA_RULES_EXCEPTION, new String[]{budgetAdjustmentDocument.getDocumentNumber()}));
+                    LOG.error(KcUtils.getErrorMessage(KcConstants.BudgetAdjustmentService.ERROR_KC_DOCUMENT_BA_RULES_EXCEPTION, new String[]{budgetAdjustmentDocument.getDocumentNumber()}));
 
                     return false;
                 }
 
-            }
-            else if (BudgetAdjustAutoRouteValue.equalsIgnoreCase(KFSConstants.WORKFLOW_DOCUMENT_BLANKET_APPROVE)) {
+            } else if (BudgetAdjustAutoRouteValue.equalsIgnoreCase(KFSConstants.WORKFLOW_DOCUMENT_BLANKET_APPROVE)) {
 
                 //attempt to blanket approve if apply rules were successful and there are no errors
                 boolean rulesPassed = kualiRuleService.applyRules(new BlanketApproveDocumentEvent(budgetAdjustmentDocument));
 
-                if( rulesPassed && GlobalVariables.getMessageMap().hasNoErrors()){
+                if (rulesPassed && GlobalVariables.getMessageMap().hasNoErrors()) {
                     getDocumentService().blanketApproveDocument(budgetAdjustmentDocument, "", null);
-                }else{
+                } else {
                     //get errors from apply rules invocation, also clears global variables
                     budgetAdjustmentCreationStatus.setErrorMessages(GlobalVariablesExtractHelper.extractGlobalVariableErrors());
-                    try{
+                    try {
                         //save document, and catch VE's as we want to do this silently
                         getDocumentService().saveDocument(budgetAdjustmentDocument);
-                    }catch(ValidationException ve){}
+                    } catch (ValidationException ve) {
+                    }
 
                     budgetAdjustmentCreationStatus.setStatus(KcConstants.KcWebService.STATUS_KC_SUCCESS);
-                    LOG.error( KcUtils.getErrorMessage(KcConstants.BudgetAdjustmentService.ERROR_KC_DOCUMENT_BA_RULES_EXCEPTION, new String[]{budgetAdjustmentDocument.getDocumentNumber()}));
+                    LOG.error(KcUtils.getErrorMessage(KcConstants.BudgetAdjustmentService.ERROR_KC_DOCUMENT_BA_RULES_EXCEPTION, new String[]{budgetAdjustmentDocument.getDocumentNumber()}));
 
                     return false;
                 }
 
-            }
-            else if (BudgetAdjustAutoRouteValue.equalsIgnoreCase("submit")) {
+            } else if (BudgetAdjustAutoRouteValue.equalsIgnoreCase("submit")) {
 
                 //attempt to blanket approve if apply rules were successful and there are no errors
                 boolean rulesPassed = kualiRuleService.applyRules(new RouteDocumentEvent(budgetAdjustmentDocument));
 
-                if( rulesPassed && GlobalVariables.getMessageMap().hasNoErrors()){
+                if (rulesPassed && GlobalVariables.getMessageMap().hasNoErrors()) {
                     getDocumentService().routeDocument(budgetAdjustmentDocument, "", null);
-                }else{
+                } else {
                     //get errors from apply rules invocation, also clears global variables
                     budgetAdjustmentCreationStatus.setErrorMessages(GlobalVariablesExtractHelper.extractGlobalVariableErrors());
-                    try{
+                    try {
                         //save document, and catch VE's as we want to do this silently
                         getDocumentService().saveDocument(budgetAdjustmentDocument);
-                    }catch(ValidationException ve){}
+                    } catch (ValidationException ve) {
+                    }
 
                     budgetAdjustmentCreationStatus.setStatus(KcConstants.KcWebService.STATUS_KC_SUCCESS);
-                    LOG.error( KcUtils.getErrorMessage(KcConstants.BudgetAdjustmentService.ERROR_KC_DOCUMENT_BA_RULES_EXCEPTION, new String[]{budgetAdjustmentDocument.getDocumentNumber()}));
+                    LOG.error(KcUtils.getErrorMessage(KcConstants.BudgetAdjustmentService.ERROR_KC_DOCUMENT_BA_RULES_EXCEPTION, new String[]{budgetAdjustmentDocument.getDocumentNumber()}));
 
                     return false;
                 }
@@ -424,11 +417,10 @@ public class BudgetAdjustmentServiceImpl implements BudgetAdjustmentService {
             }
             return true;
 
-        }
-        catch (Exception ex) {
-            LOG.error(KcUtils.getErrorMessage(KcConstants.BudgetAdjustmentService.ERROR_KC_DOCUMENT_WORKFLOW_EXCEPTION_DOCUMENT_ACTIONS,null) + ": " + ex.getMessage());
+        } catch (Exception ex) {
+            LOG.error(KcUtils.getErrorMessage(KcConstants.BudgetAdjustmentService.ERROR_KC_DOCUMENT_WORKFLOW_EXCEPTION_DOCUMENT_ACTIONS, null) + ": " + ex.getMessage());
             budgetAdjustmentCreationStatus.setErrorMessages(GlobalVariablesExtractHelper.extractGlobalVariableErrors());
-            budgetAdjustmentCreationStatus.getErrorMessages().add( KcUtils.getErrorMessage(KcConstants.BudgetAdjustmentService.ERROR_KC_DOCUMENT_WORKFLOW_EXCEPTION_DOCUMENT_ACTIONS, null) + ": " + ex.getMessage());
+            budgetAdjustmentCreationStatus.getErrorMessages().add(KcUtils.getErrorMessage(KcConstants.BudgetAdjustmentService.ERROR_KC_DOCUMENT_WORKFLOW_EXCEPTION_DOCUMENT_ACTIONS, null) + ": " + ex.getMessage());
             budgetAdjustmentCreationStatus.setStatus(KcConstants.KcWebService.STATUS_KC_FAILURE);
             return false;
         }
@@ -450,14 +442,12 @@ public class BudgetAdjustmentServiceImpl implements BudgetAdjustmentService {
                 // set the user session so that the user name can be displayed in the saved document
                 GlobalVariables.setUserSession(new UserSession(user.getPrincipalName()));
                 return true;
-            }
-            else {
+            } else {
                 return false;
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
 
-            LOG.error( KcUtils.getErrorMessage(KcConstants.BudgetAdjustmentService.ERROR_KC_DOCUMENT_INVALID_USER, new String[]{principalId}));
+            LOG.error(KcUtils.getErrorMessage(KcConstants.BudgetAdjustmentService.ERROR_KC_DOCUMENT_INVALID_USER, new String[]{principalId}));
             return false;
         }
     }

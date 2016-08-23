@@ -1,48 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:p="http://www.springframework.org/schema/p"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-    <bean id="glOrganizationReversionMockService" class="org.kuali.kfs.gl.batch.service.impl.OrganizationReversionMockServiceImpl" parent="organizationReversionService" />
-    
+    <bean id="glOrganizationReversionMockService" class="org.kuali.kfs.gl.batch.service.impl.OrganizationReversionMockServiceImpl" parent="organizationReversionService"/>
+
     <bean id="glOrganizationReversionTestProcess" class="org.kuali.kfs.gl.batch.service.impl.OrganizationReversionTestProcess" scope="prototype">
-		<property name="organizationReversionService" ref="glOrganizationReversionMockService" />
-		<property name="balanceService" ref="glBalanceService" />
-		<property name="originEntryService" ref="originEntryService" />
-		<property name="persistenceService" ref="persistenceService" />
-		<property name="dateTimeService" ref="dateTimeService" />
-		<property name="priorYearAccountService" ref="priorYearAccountService" />
-		<property name="orgReversionUnitOfWorkService" ref="glOrgReversionUnitOfWorkService" />
-		<property name="flexibleOffsetAccountService" ref="flexibleOffsetAccountService" />
-		<property name="parameterService" ref="parameterService" />
-		<property name="configurationService" ref="kualiConfigurationService" />
-		<property name="cashOrganizationReversionCategoryLogic">
-			<ref bean="glCashOrganizationReversionCategoryLogic" />
-		</property>
-		<property name="usePriorYearInformation" value="false" />
-		<property name="batchFileDirectoryName" value="${staging.directory}/gl/test_directory/originEntry"/>
-	</bean>
-    
+        <property name="organizationReversionService" ref="glOrganizationReversionMockService"/>
+        <property name="balanceService" ref="glBalanceService"/>
+        <property name="originEntryService" ref="originEntryService"/>
+        <property name="persistenceService" ref="persistenceService"/>
+        <property name="dateTimeService" ref="dateTimeService"/>
+        <property name="priorYearAccountService" ref="priorYearAccountService"/>
+        <property name="orgReversionUnitOfWorkService" ref="glOrgReversionUnitOfWorkService"/>
+        <property name="flexibleOffsetAccountService" ref="flexibleOffsetAccountService"/>
+        <property name="parameterService" ref="parameterService"/>
+        <property name="configurationService" ref="kualiConfigurationService"/>
+        <property name="cashOrganizationReversionCategoryLogic">
+            <ref bean="glCashOrganizationReversionCategoryLogic"/>
+        </property>
+        <property name="usePriorYearInformation" value="false"/>
+        <property name="batchFileDirectoryName" value="${staging.directory}/gl/test_directory/originEntry"/>
+    </bean>
+
     <bean id="tableReportWriterService" parent="tableReportWriterService-parentBean"/>
     <bean id="tableReportWriterService-parentBean" parent="reportWriterService" abstract="true">
         <property name="filePath" value="${reports.directory}"/>
@@ -54,10 +53,10 @@
             </map>
         </property>
     </bean>
-    
+
     <bean id="summaryReportHelperForTesting" parent="businessObjectReportHelper">
-        <property name="dataDictionaryBusinessObjectClass" value="org.kuali.kfs.gl.businessobject.Balance" />
-        <property name="columnCount" value="6" />
+        <property name="dataDictionaryBusinessObjectClass" value="org.kuali.kfs.gl.businessobject.Balance"/>
+        <property name="columnCount" value="6"/>
         <property name="orderedPropertyNameToHeaderLabelMap">
             <map>
                 <entry key="fundGroup" value="FUND GROUP"/>
@@ -66,21 +65,21 @@
                 <entry key="contractsGrantsBeginningBalanceAmount" value="CG BEGINNING BAL"/>
                 <entry key="month1Amount" value="ACCUM AMT FOR JUL"/>
                 <entry key="month2Amount" value="ACCUM AMT FOR AUG"/>
-                
+
                 <entry key="EMPTY_CELL1" value=""/>
                 <entry key="month3Amount" value="ACCUM AMT FOR SEP"/>
                 <entry key="month4Amount" value="ACCUM AMT FOR OCT"/>
                 <entry key="month5Amount" value="ACCUM AMT FOR NOV"/>
                 <entry key="month6Amount" value="ACCUM AMT FOR DEC"/>
                 <entry key="month7Amount" value="ACCUM AMT FOR JAN"/>
-                
+
                 <entry key="EMPTY_CELL2" value=""/>
                 <entry key="month8Amount" value="ACCUM AMT FOR FEB"/>
                 <entry key="month9Amount" value="ACCUM AMT FOR MAR"/>
                 <entry key="month10Amount" value="ACCUM AMT FOR APR"/>
                 <entry key="month11Amount" value="ACCUM AMT FOR MAY"/>
                 <entry key="month12Amount" value="ACCUM AMT FOR JUN"/>
-                
+
                 <entry key="EMPTY_CELL3" value=""/>
                 <entry key="month13Amount" value="ACCUM AMT FOR CLOSE"/>
             </map>
@@ -92,9 +91,9 @@
                 <entry key="month3Amount" value="5"/>
                 <entry key="month8Amount" value="5"/>
             </map>
-        </property>        
+        </property>
     </bean>
-    
+
     <bean id="colspanTableReportWriterService" parent="colspanTableReportWriterService-parentBean"/>
     <bean id="colspanTableReportWriterService-parentBean" parent="reportWriterService" abstract="true">
         <property name="filePath" value="${reports.directory}"/>
@@ -106,10 +105,10 @@
             </map>
         </property>
     </bean>
-       
+
     <bean id="colspanSummaryReportHelperForTesting" parent="businessObjectReportHelper">
-        <property name="dataDictionaryBusinessObjectClass" value="org.kuali.kfs.gl.businessobject.Balance" />
-        <property name="columnCount" value="6" />
+        <property name="dataDictionaryBusinessObjectClass" value="org.kuali.kfs.gl.businessobject.Balance"/>
+        <property name="columnCount" value="6"/>
         <property name="orderedPropertyNameToHeaderLabelMap">
             <map>
                 <entry key="fundGroup" value="FUND GROUP"/>
@@ -125,9 +124,9 @@
                 <entry key="fundGroup" value="4"/>
                 <entry key="month1Amount" value="2"/>
             </map>
-        </property>        
+        </property>
     </bean>
-    
+
     <bean id="testLedgerReportWriterService" parent="testLedgerReportWriterService-parentBean"/>
     <bean id="testLedgerReportWriterService-parentBean" parent="reportWriterService" abstract="true">
         <property name="filePath" value="${reports.directory}"/>
@@ -139,10 +138,10 @@
             </map>
         </property>
     </bean>
-       
+
     <bean id="ledgerReportHelperForTesting" parent="businessObjectReportHelper">
-        <property name="dataDictionaryBusinessObjectClass" value="org.kuali.kfs.gl.businessobject.LedgerEntryForReporting" />
-        <property name="columnCount" value="11" />
+        <property name="dataDictionaryBusinessObjectClass" value="org.kuali.kfs.gl.businessobject.LedgerEntryForReporting"/>
+        <property name="columnCount" value="11"/>
         <property name="orderedPropertyNameToHeaderLabelMap">
             <map>
                 <entry key="balanceType" value="BAL TYP"/>
@@ -162,249 +161,249 @@
             <map>
                 <entry key="balanceType" value="4"/>
             </map>
-        </property>        
-    </bean>    
-        
-    <bean id="mockReportWriterService" class="org.kuali.kfs.gl.service.impl.MockReportWriterService" />
-    
-    <bean id="glSufficientFundsAccountUpdateService" class="org.kuali.kfs.gl.batch.service.impl.SufficientFundsAccountUpdateServiceImpl">
-		<property name="dateTimeService">
-			<ref bean="dateTimeService" />
-		</property>
-		<property name="configurationService">
-			<ref bean="kualiConfigurationService" />
-		</property>
-		<property name="balanceDao">
-			<ref bean="glBalanceDao" />
-		</property>
-		<property name="sufficientFundBalancesDao">
-			<ref bean="glSufficientFundBalancesDao" />
-		</property>
-		<property name="sufficientFundRebuildDao">
-			<ref bean="glSufficientFundRebuildDao" />
-		</property>
-		<property name="reportWriterService" ref="mockReportWriterService" />
-		<property name="accountService">
-			<ref bean="accountService" />
-		</property>
-		<property name="sufficientFundsService">
-			<ref bean="sufficientFundsService" />
-		</property>
-		<property name="businessObjectService" ref="businessObjectService" />
-	</bean>
-	
-	<bean id="originEntryGroupService" parent="originEntryGroupService-parentBean"/>
-	<bean id="originEntryGroupService-parentBean" abstract="true"  class="org.kuali.kfs.gl.service.impl.OriginEntryGroupServiceImpl">
-		<property name="dateTimeService">
-			<ref bean="dateTimeService" />
-		</property>
-		<property name="kualiModuleService">
-            <ref bean="kualiModuleService" />
         </property>
-		<property name="batchFileDirectoryName" value="${staging.directory}/gl/test_directory/originEntry"/>
-		<property name="nightlyOutFileName" value="gl_glentry_kfs" />
-		<property name="backupFileName" value="gl_glbackup" />
-	</bean>
-	
-	<bean id="glNightlyOutService" class="org.kuali.kfs.gl.batch.service.impl.NightlyOutServiceImpl">
-		<property name="generalLedgerPendingEntryService">
-			<ref bean="generalLedgerPendingEntryService" />
-		</property>
-		<property name="originEntryService">
-			<ref bean="originEntryService" />
-		</property>
-		<property name="dateTimeService">
-			<ref bean="dateTimeService" />
-		</property>
-		<property name="originEntryGroupService">
-			<ref bean="originEntryGroupService" />
-		</property>
-		<property name="dataDictionaryService" ref="dataDictionaryService" />
-		<property name="pendingEntryListReportWriterService" ref="mockReportWriterService" />
-		<property name="pendingEntrySummaryReportWriterService" ref="mockReportWriterService" />
-		<property name="batchFileDirectoryName" value="${staging.directory}/gl/test_directory/originEntry"/>
-	</bean>
-	
-	<bean id="glScrubberService" class="org.kuali.kfs.gl.service.impl.ScrubberServiceImpl">
-		<property name="scrubberProcess">
-			<ref bean="mockScrubberProcess"/>
-		</property>
-		<property name="demergerScrubberProcess">
-			<ref bean="mockDemergerScrubberProcess"/>
-		</property>
-		<property name="reportOnlyScrubberProcess">
-			<ref bean="mockReportOnlyScrubberProcess"/>
-		</property>	
-	
-<!--		<property name="flexibleOffsetAccountService">-->
-<!--			<ref bean="flexibleOffsetAccountService" />-->
-<!--		</property>-->
-<!--		<property name="originEntryService">-->
-<!--			<ref bean="originEntryService" />-->
-<!--		</property>-->
-<!--		<property name="dateTimeService">-->
-<!--			<ref bean="dateTimeService" />-->
-<!--		</property>-->
-<!--		<property name="offsetDefinitionService">-->
-<!--			<ref bean="offsetDefinitionService" />-->
-<!--		</property>-->
-<!--		<property name="objectCodeService">-->
-<!--			<ref bean="objectCodeService" />-->
-<!--		</property>-->
-<!--		<property name="configurationService">-->
-<!--			<ref bean="kualiConfigurationService" />-->
-<!--		</property>-->
-<!--		<property name="universityDateDao">-->
-<!--			<ref bean="universityDateDao" />-->
-<!--		</property>-->
-<!--		<property name="originEntryGroupService">-->
-<!--			<ref bean="originEntryGroupService" />-->
-<!--		</property>-->
-<!--		<property name="persistenceService">-->
-<!--			<ref bean="persistenceService" />-->
-<!--		</property>-->
-<!--		<property name="scrubberValidator">-->
-<!--			<ref bean="scrubberValidator" />-->
-<!--		</property>-->
-<!--		<property name="scrubberProcessObjectCodeOverride">-->
-<!--			<ref bean="glScrubberProcessObjectCodeOverride" />-->
-<!--		</property>-->
-<!--		<property name="runDateService">-->
-<!--			<ref bean="glRunDateService" />-->
-<!--		</property>-->
-<!--		<property name="accountingCycleCachingService">-->
-<!--		  	<ref bean="accountingCycleCachingService" />-->
-<!--		</property>-->
-<!--		<property name="batchFileDirectoryName" value="${staging.directory}/gl/test_directory/originEntry"/>-->
-<!--		<property name="collectorFileDirectoryName" value="${staging.directory}/gl/test_directory/collector"/>-->
-<!--		<property name="demergerReportWriterService" ref="mockReportWriterService" />-->
-<!--		<property name="scrubberReportWriterService" ref="mockReportWriterService" />-->
-<!--		<property name="scrubberLedgerReportWriterService" ref="mockReportWriterService" />-->
-<!--		<property name="scrubberListingReportWriterService" ref="mockReportWriterService" />-->
-<!--		<property name="scrubberBadBalanceListingReportWriterService" ref="mockReportWriterService" />-->
-<!--		<property name="scrubberReportOnlyWriterService" ref="mockReportWriterService" />-->
-<!--		<property name="demergerRemovedTransactionsListingReportWriterService" ref="mockReportWriterService" />-->
-	</bean>
-	
-	<bean id="mockReportOnlyScrubberProcess" parent="reportOnlyScrubberProcess" scope="prototype">
-	     
-		<property name="scrubberReportWriterService" ref="mockReportWriterService" />
-        <property name="scrubberLedgerReportWriterService" ref="mockReportWriterService" />
-		<property name="scrubberListingReportWriterService" ref="mockReportWriterService" />
-		<property name="batchFileDirectoryName" value="${staging.directory}/gl/test_directory/originEntry"/>
-	</bean>
-	
-	<bean id="mockScrubberProcess" parent="scrubberProcess" scope="prototype">
-		
-		<property name="scrubberReportWriterService" ref="mockReportWriterService" />
-        <property name="scrubberLedgerReportWriterService" ref="mockReportWriterService" />
-        <property name="scrubberBadBalanceListingReportWriterService" ref="mockReportWriterService" />
-		<property name="batchFileDirectoryName" value="${staging.directory}/gl/test_directory/originEntry"/>
-	</bean>
-	
-	<bean id="mockDemergerScrubberProcess" parent="demergerScrubberProcess" scope="prototype">
-	
-		<property name="scrubberReportWriterService" ref="mockReportWriterService" />
-        <property name="scrubberLedgerReportWriterService" ref="mockReportWriterService" />
-        <property name="scrubberBadBalanceListingReportWriterService" ref="mockReportWriterService" />
-		<property name="demergerReportWriterService" ref="mockReportWriterService" />
-		<property name="demergerRemovedTransactionsListingReportWriterService" ref="mockReportWriterService" />
-		<property name="batchFileDirectoryName" value="${staging.directory}/gl/test_directory/originEntry"/>
-	</bean>
-	
-	<bean id="mockBatchScrubberProcess" parent="batchScrubberProcess" scope="prototype">
-	
-		<property name="scrubberReportWriterService" ref="mockReportWriterService" />
-        <property name="scrubberLedgerReportWriterService" ref="mockReportWriterService" />
-        <property name="scrubberBadBalanceListingReportWriterService" ref="mockReportWriterService" />
+    </bean>
+
+    <bean id="mockReportWriterService" class="org.kuali.kfs.gl.service.impl.MockReportWriterService"/>
+
+    <bean id="glSufficientFundsAccountUpdateService" class="org.kuali.kfs.gl.batch.service.impl.SufficientFundsAccountUpdateServiceImpl">
+        <property name="dateTimeService">
+            <ref bean="dateTimeService"/>
+        </property>
+        <property name="configurationService">
+            <ref bean="kualiConfigurationService"/>
+        </property>
+        <property name="balanceDao">
+            <ref bean="glBalanceDao"/>
+        </property>
+        <property name="sufficientFundBalancesDao">
+            <ref bean="glSufficientFundBalancesDao"/>
+        </property>
+        <property name="sufficientFundRebuildDao">
+            <ref bean="glSufficientFundRebuildDao"/>
+        </property>
+        <property name="reportWriterService" ref="mockReportWriterService"/>
+        <property name="accountService">
+            <ref bean="accountService"/>
+        </property>
+        <property name="sufficientFundsService">
+            <ref bean="sufficientFundsService"/>
+        </property>
+        <property name="businessObjectService" ref="businessObjectService"/>
+    </bean>
+
+    <bean id="originEntryGroupService" parent="originEntryGroupService-parentBean"/>
+    <bean id="originEntryGroupService-parentBean" abstract="true" class="org.kuali.kfs.gl.service.impl.OriginEntryGroupServiceImpl">
+        <property name="dateTimeService">
+            <ref bean="dateTimeService"/>
+        </property>
+        <property name="kualiModuleService">
+            <ref bean="kualiModuleService"/>
+        </property>
         <property name="batchFileDirectoryName" value="${staging.directory}/gl/test_directory/originEntry"/>
-	</bean>
-	
-	<bean id="glMockPosterService" parent="glPosterService">
-		<property name="batchFileDirectoryName" value="${staging.directory}/gl/test_directory/originEntry"/>
-		<property name="reportWriterService">
-			<ref bean="mockReportWriterService" />
-		</property>
-		<property name="errorListingReportWriterService">
-			<ref bean="mockReportWriterService" />
-		</property>
-		<property name="ledgerSummaryReportWriterService">
-			<ref bean="mockReportWriterService" />
-		</property>
-		<property name="reversalReportWriterService">
-			<ref bean="mockReportWriterService" />
-		</property>
-	</bean>
-	            
-    <bean id="mockMailService" class="org.kuali.kfs.gl.batch.service.impl.MockMailServiceImpl"/>     
+        <property name="nightlyOutFileName" value="gl_glentry_kfs"/>
+        <property name="backupFileName" value="gl_glbackup"/>
+    </bean>
+
+    <bean id="glNightlyOutService" class="org.kuali.kfs.gl.batch.service.impl.NightlyOutServiceImpl">
+        <property name="generalLedgerPendingEntryService">
+            <ref bean="generalLedgerPendingEntryService"/>
+        </property>
+        <property name="originEntryService">
+            <ref bean="originEntryService"/>
+        </property>
+        <property name="dateTimeService">
+            <ref bean="dateTimeService"/>
+        </property>
+        <property name="originEntryGroupService">
+            <ref bean="originEntryGroupService"/>
+        </property>
+        <property name="dataDictionaryService" ref="dataDictionaryService"/>
+        <property name="pendingEntryListReportWriterService" ref="mockReportWriterService"/>
+        <property name="pendingEntrySummaryReportWriterService" ref="mockReportWriterService"/>
+        <property name="batchFileDirectoryName" value="${staging.directory}/gl/test_directory/originEntry"/>
+    </bean>
+
+    <bean id="glScrubberService" class="org.kuali.kfs.gl.service.impl.ScrubberServiceImpl">
+        <property name="scrubberProcess">
+            <ref bean="mockScrubberProcess"/>
+        </property>
+        <property name="demergerScrubberProcess">
+            <ref bean="mockDemergerScrubberProcess"/>
+        </property>
+        <property name="reportOnlyScrubberProcess">
+            <ref bean="mockReportOnlyScrubberProcess"/>
+        </property>
+
+        <!--		<property name="flexibleOffsetAccountService">-->
+        <!--			<ref bean="flexibleOffsetAccountService" />-->
+        <!--		</property>-->
+        <!--		<property name="originEntryService">-->
+        <!--			<ref bean="originEntryService" />-->
+        <!--		</property>-->
+        <!--		<property name="dateTimeService">-->
+        <!--			<ref bean="dateTimeService" />-->
+        <!--		</property>-->
+        <!--		<property name="offsetDefinitionService">-->
+        <!--			<ref bean="offsetDefinitionService" />-->
+        <!--		</property>-->
+        <!--		<property name="objectCodeService">-->
+        <!--			<ref bean="objectCodeService" />-->
+        <!--		</property>-->
+        <!--		<property name="configurationService">-->
+        <!--			<ref bean="kualiConfigurationService" />-->
+        <!--		</property>-->
+        <!--		<property name="universityDateDao">-->
+        <!--			<ref bean="universityDateDao" />-->
+        <!--		</property>-->
+        <!--		<property name="originEntryGroupService">-->
+        <!--			<ref bean="originEntryGroupService" />-->
+        <!--		</property>-->
+        <!--		<property name="persistenceService">-->
+        <!--			<ref bean="persistenceService" />-->
+        <!--		</property>-->
+        <!--		<property name="scrubberValidator">-->
+        <!--			<ref bean="scrubberValidator" />-->
+        <!--		</property>-->
+        <!--		<property name="scrubberProcessObjectCodeOverride">-->
+        <!--			<ref bean="glScrubberProcessObjectCodeOverride" />-->
+        <!--		</property>-->
+        <!--		<property name="runDateService">-->
+        <!--			<ref bean="glRunDateService" />-->
+        <!--		</property>-->
+        <!--		<property name="accountingCycleCachingService">-->
+        <!--		  	<ref bean="accountingCycleCachingService" />-->
+        <!--		</property>-->
+        <!--		<property name="batchFileDirectoryName" value="${staging.directory}/gl/test_directory/originEntry"/>-->
+        <!--		<property name="collectorFileDirectoryName" value="${staging.directory}/gl/test_directory/collector"/>-->
+        <!--		<property name="demergerReportWriterService" ref="mockReportWriterService" />-->
+        <!--		<property name="scrubberReportWriterService" ref="mockReportWriterService" />-->
+        <!--		<property name="scrubberLedgerReportWriterService" ref="mockReportWriterService" />-->
+        <!--		<property name="scrubberListingReportWriterService" ref="mockReportWriterService" />-->
+        <!--		<property name="scrubberBadBalanceListingReportWriterService" ref="mockReportWriterService" />-->
+        <!--		<property name="scrubberReportOnlyWriterService" ref="mockReportWriterService" />-->
+        <!--		<property name="demergerRemovedTransactionsListingReportWriterService" ref="mockReportWriterService" />-->
+    </bean>
+
+    <bean id="mockReportOnlyScrubberProcess" parent="reportOnlyScrubberProcess" scope="prototype">
+
+        <property name="scrubberReportWriterService" ref="mockReportWriterService"/>
+        <property name="scrubberLedgerReportWriterService" ref="mockReportWriterService"/>
+        <property name="scrubberListingReportWriterService" ref="mockReportWriterService"/>
+        <property name="batchFileDirectoryName" value="${staging.directory}/gl/test_directory/originEntry"/>
+    </bean>
+
+    <bean id="mockScrubberProcess" parent="scrubberProcess" scope="prototype">
+
+        <property name="scrubberReportWriterService" ref="mockReportWriterService"/>
+        <property name="scrubberLedgerReportWriterService" ref="mockReportWriterService"/>
+        <property name="scrubberBadBalanceListingReportWriterService" ref="mockReportWriterService"/>
+        <property name="batchFileDirectoryName" value="${staging.directory}/gl/test_directory/originEntry"/>
+    </bean>
+
+    <bean id="mockDemergerScrubberProcess" parent="demergerScrubberProcess" scope="prototype">
+
+        <property name="scrubberReportWriterService" ref="mockReportWriterService"/>
+        <property name="scrubberLedgerReportWriterService" ref="mockReportWriterService"/>
+        <property name="scrubberBadBalanceListingReportWriterService" ref="mockReportWriterService"/>
+        <property name="demergerReportWriterService" ref="mockReportWriterService"/>
+        <property name="demergerRemovedTransactionsListingReportWriterService" ref="mockReportWriterService"/>
+        <property name="batchFileDirectoryName" value="${staging.directory}/gl/test_directory/originEntry"/>
+    </bean>
+
+    <bean id="mockBatchScrubberProcess" parent="batchScrubberProcess" scope="prototype">
+
+        <property name="scrubberReportWriterService" ref="mockReportWriterService"/>
+        <property name="scrubberLedgerReportWriterService" ref="mockReportWriterService"/>
+        <property name="scrubberBadBalanceListingReportWriterService" ref="mockReportWriterService"/>
+        <property name="batchFileDirectoryName" value="${staging.directory}/gl/test_directory/originEntry"/>
+    </bean>
+
+    <bean id="glMockPosterService" parent="glPosterService">
+        <property name="batchFileDirectoryName" value="${staging.directory}/gl/test_directory/originEntry"/>
+        <property name="reportWriterService">
+            <ref bean="mockReportWriterService"/>
+        </property>
+        <property name="errorListingReportWriterService">
+            <ref bean="mockReportWriterService"/>
+        </property>
+        <property name="ledgerSummaryReportWriterService">
+            <ref bean="mockReportWriterService"/>
+        </property>
+        <property name="reversalReportWriterService">
+            <ref bean="mockReportWriterService"/>
+        </property>
+    </bean>
+
+    <bean id="mockMailService" class="org.kuali.kfs.gl.batch.service.impl.MockMailServiceImpl"/>
 
     <bean id="preScrubberStep" class="org.kuali.kfs.gl.batch.PreScrubberStep" parent="wrappedStep">
-    	<property name="batchFileDirectoryName" value="${staging.directory}/gl/test_directory/originEntry"/>
-    	<property name="preScrubberService" ref="preScrubberService"/>
-    	<property name="preScrubberReportWriterService" ref="preScrubberReportWriterService"/>
-    	<property name="wrappingBatchServices">
-			<list>
-				<ref bean="preScrubberReportWriterService" />
-			</list>
-		</property>
-    </bean> 
+        <property name="batchFileDirectoryName" value="${staging.directory}/gl/test_directory/originEntry"/>
+        <property name="preScrubberService" ref="preScrubberService"/>
+        <property name="preScrubberReportWriterService" ref="preScrubberReportWriterService"/>
+        <property name="wrappingBatchServices">
+            <list>
+                <ref bean="preScrubberReportWriterService"/>
+            </list>
+        </property>
+    </bean>
 
-	<bean id="scrubberSortStep" parent="flatFileSortStep">
-		<property name="inputFileName" value="${staging.directory}/gl/test_directory/originEntry/gl_prescrub.data"/>
-		<property name="outputFileName" value="${staging.directory}/gl/test_directory/originEntry/gl_sortscrb.data"/>
-		<property name="lineComparatorClass" value="org.kuali.kfs.gl.batch.ScrubberSortComparator"/>
-	</bean>
+    <bean id="scrubberSortStep" parent="flatFileSortStep">
+        <property name="inputFileName" value="${staging.directory}/gl/test_directory/originEntry/gl_prescrub.data"/>
+        <property name="outputFileName" value="${staging.directory}/gl/test_directory/originEntry/gl_sortscrb.data"/>
+        <property name="lineComparatorClass" value="org.kuali.kfs.gl.batch.ScrubberSortComparator"/>
+    </bean>
 
-	<bean id="demergerSortStep" parent="flatFileSortStep">
-		<property name="inputFileName" value="${staging.directory}/gl/test_directory/originEntry/gl_scrberr1.data"/>
-		<property name="outputFileName" value="${staging.directory}/gl/test_directory/originEntry/gl_sorterr1.data"/>
-		<property name="lineComparatorClass" value="org.kuali.kfs.gl.batch.DemergerSortComparator"/>
-	</bean>
+    <bean id="demergerSortStep" parent="flatFileSortStep">
+        <property name="inputFileName" value="${staging.directory}/gl/test_directory/originEntry/gl_scrberr1.data"/>
+        <property name="outputFileName" value="${staging.directory}/gl/test_directory/originEntry/gl_sorterr1.data"/>
+        <property name="lineComparatorClass" value="org.kuali.kfs.gl.batch.DemergerSortComparator"/>
+    </bean>
 
-	<bean id="posterSortStep" parent="flatFileSortStep">
-		<property name="inputFileName" value="${staging.directory}/gl/test_directory/originEntry/gl_scrbout2.data"/>
-		<property name="outputFileName" value="${staging.directory}/gl/test_directory/originEntry/gl_sortpost.data"/>
-		<property name="lineComparatorClass" value="org.kuali.kfs.gl.batch.PosterSortComparator"/>
-	</bean>
-	
-	<bean id="icrSortStep" class="org.kuali.kfs.gl.batch.IcrSortStep" parent="step">
-		<property name="batchFileDirectoryName" value="${staging.directory}/gl/test_directory/originEntry"/>
-	</bean>
-	
-	<bean id="fileRenameStep" class="org.kuali.kfs.gl.batch.FileRenameStep" parent="step">
-		<property name="batchFileDirectoryName" value="${staging.directory}/gl/test_directory/originEntry"/>
-	</bean>
+    <bean id="posterSortStep" parent="flatFileSortStep">
+        <property name="inputFileName" value="${staging.directory}/gl/test_directory/originEntry/gl_scrbout2.data"/>
+        <property name="outputFileName" value="${staging.directory}/gl/test_directory/originEntry/gl_sortpost.data"/>
+        <property name="lineComparatorClass" value="org.kuali.kfs.gl.batch.PosterSortComparator"/>
+    </bean>
 
-	<bean id="testDateTimeService" class="org.kuali.kfs.sys.service.impl.ConfigurableDateTimeServiceImpl">
-		<!-- just need to make sure this property is not null -->
-		<property name="currentDate" value="2010-01-01" />
-	</bean>
-	<alias name="testDateTimeService" alias="dateTimeService"/>
+    <bean id="icrSortStep" class="org.kuali.kfs.gl.batch.IcrSortStep" parent="step">
+        <property name="batchFileDirectoryName" value="${staging.directory}/gl/test_directory/originEntry"/>
+    </bean>
 
-	<bean id="dateEditor"
-		class="org.springframework.beans.propertyeditors.CustomDateEditor">
-	
-		<constructor-arg>
-			<bean class="java.text.SimpleDateFormat">
-				<constructor-arg value="yyyy-MM-dd" />
-			</bean>
-		</constructor-arg>
-		<constructor-arg value="true" />
-	
-	</bean>
+    <bean id="fileRenameStep" class="org.kuali.kfs.gl.batch.FileRenameStep" parent="step">
+        <property name="batchFileDirectoryName" value="${staging.directory}/gl/test_directory/originEntry"/>
+    </bean>
 
-	<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
-		<property name="customEditors">
-			<map>
-				<entry key="java.util.Date">
-					<ref local="dateEditor" />
-				</entry>
-			</map>
-		</property>
-	</bean>
+    <bean id="testDateTimeService" class="org.kuali.kfs.sys.service.impl.ConfigurableDateTimeServiceImpl">
+        <!-- just need to make sure this property is not null -->
+        <property name="currentDate" value="2010-01-01"/>
+    </bean>
+    <alias name="testDateTimeService" alias="dateTimeService"/>
+
+    <bean id="dateEditor"
+          class="org.springframework.beans.propertyeditors.CustomDateEditor">
+
+        <constructor-arg>
+            <bean class="java.text.SimpleDateFormat">
+                <constructor-arg value="yyyy-MM-dd"/>
+            </bean>
+        </constructor-arg>
+        <constructor-arg value="true"/>
+
+    </bean>
+
+    <bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+        <property name="customEditors">
+            <map>
+                <entry key="java.util.Date">
+                    <ref local="dateEditor"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
 
     <bean id="collectorXmlInputFileType" parent="collectorXmlInputFileType-parentBean">
         <property name="schemaLocation" value="file:../kfs-web/src/main/webapp/static/xsd/gl/collector.xsd"/>
     </bean>
-           
+
 </beans>

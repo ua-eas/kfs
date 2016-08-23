@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -37,13 +37,13 @@ public class SidebarMenuCacheAction extends KualiAction {
     public ActionForward start(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         LOG.debug("start() started");
 
-        SidebarMenuCacheForm smcForm = (SidebarMenuCacheForm)form;
+        SidebarMenuCacheForm smcForm = (SidebarMenuCacheForm) form;
 
-        if ( smcForm.getCacheLength() == null ) {
+        if (smcForm.getCacheLength() == null) {
             smcForm.setCacheLengthValue(getInstitutionPreferencesService().getInstitutionPreferencesCacheLength());
         }
 
-        request.setAttribute("KualiForm",smcForm);
+        request.setAttribute("KualiForm", smcForm);
 
         return mapping.findForward("basic");
     }
@@ -51,19 +51,19 @@ public class SidebarMenuCacheAction extends KualiAction {
     public ActionForward save(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         LOG.debug("save() started");
 
-        SidebarMenuCacheForm smcForm = (SidebarMenuCacheForm)form;
-        if ( smcForm.isValid() ) {
+        SidebarMenuCacheForm smcForm = (SidebarMenuCacheForm) form;
+        if (smcForm.isValid()) {
             getInstitutionPreferencesService().setInstitutionPreferencesCacheLength(smcForm.getCacheLengthValue());
         } else {
             GlobalVariables.getMessageMap().putErrorForSectionId("top", "error.sys.sidebar.menu.cache");
-            return start(mapping,form,request,response);
+            return start(mapping, form, request, response);
         }
 
         return mapping.findForward("portal");
     }
 
     public InstitutionPreferencesService getInstitutionPreferencesService() {
-        if ( institutionPreferencesService == null ) {
+        if (institutionPreferencesService == null) {
             institutionPreferencesService = SpringContext.getBean(InstitutionPreferencesService.class);
         }
         return institutionPreferencesService;

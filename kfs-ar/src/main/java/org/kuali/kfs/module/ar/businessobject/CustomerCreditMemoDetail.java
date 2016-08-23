@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,12 +18,11 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.math.BigDecimal;
-import java.util.LinkedHashMap;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.document.CustomerCreditMemoDocument;
 import org.kuali.kfs.module.ar.document.service.CustomerInvoiceDetailService;
@@ -31,9 +30,9 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
+import java.math.BigDecimal;
+import java.util.LinkedHashMap;
 
 
 public class CustomerCreditMemoDetail extends PersistableBusinessObjectBase implements GeneralLedgerPendingEntrySourceDetail, AppliedPayment {
@@ -240,8 +239,7 @@ public class CustomerCreditMemoDetail extends PersistableBusinessObjectBase impl
 
         if (customerCreditMemoDocument.getArTaxService().isCustomerInvoiceDetailTaxable(customerCreditMemoDocument.getInvoice(), getCustomerInvoiceDetail())) {
             creditMemoItemTaxAmount = customerCreditMemoDocument.getTaxService().getTotalSalesTaxAmount(customerCreditMemoDocument.getInvoice().getBillingDate(), customerCreditMemoDocument.getPostalCode(), creditMemoItemTotalAmount);
-        }
-        else {
+        } else {
             creditMemoItemTaxAmount = KualiDecimal.ZERO;
         }
         creditMemoLineTotalAmount = creditMemoItemTotalAmount.add(creditMemoItemTaxAmount);
@@ -253,8 +251,7 @@ public class CustomerCreditMemoDetail extends PersistableBusinessObjectBase impl
 
         if (customerCreditMemoDocument.getArTaxService().isCustomerInvoiceDetailTaxable(customerCreditMemoDocument.getInvoice(), getCustomerInvoiceDetail())) {
             creditMemoItemTaxAmount = customerCreditMemoDocument.getTaxService().getTotalSalesTaxAmount(customerCreditMemoDocument.getInvoice().getBillingDate(), customerCreditMemoDocument.getPostalCode(), creditMemoItemTotalAmount);
-        }
-        else {
+        } else {
             creditMemoItemTaxAmount = KualiDecimal.ZERO;
         }
         creditMemoLineTotalAmount = creditMemoItemTotalAmount.add(creditMemoItemTaxAmount);

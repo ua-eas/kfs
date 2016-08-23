@@ -1,28 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.document.dataaccess.impl;
 
-import java.util.ArrayList;
-
 import org.apache.log4j.Logger;
 import org.kuali.kfs.module.bc.batch.dataaccess.impl.SQLForStep;
 import org.kuali.kfs.module.bc.document.dataaccess.BudgetConstructionMonthlyBudgetsCreateDeleteDao;
+
+import java.util.ArrayList;
 
 
 public class BudgetConstructionMonthlyBudgetsCreateDeleteDaoJdbc extends BudgetConstructionDaoJdbcBase implements BudgetConstructionMonthlyBudgetsCreateDeleteDao {
@@ -37,13 +37,13 @@ public class BudgetConstructionMonthlyBudgetsCreateDeleteDaoJdbc extends BudgetC
 
         StringBuilder sqlBuilder = new StringBuilder(5000);
         ArrayList<Integer> insertionPoints = new ArrayList<Integer>();
-        // delete all rows for a given key from the budget construction monthly table  
-        sqlBuilder.append("DELETE FROM LD_BCNSTR_MONTH_T\n"); 
-        sqlBuilder.append("WHERE (fdoc_nbr = ?)\n"); 
-        sqlBuilder.append("  AND (univ_fiscal_yr = ?)\n"); 
-        sqlBuilder.append("  AND (fin_coa_cd = ?)\n"); 
-        sqlBuilder.append("  AND (account_nbr = ?)\n"); 
-        sqlBuilder.append("  AND (sub_acct_nbr = ?)\n"); 
+        // delete all rows for a given key from the budget construction monthly table
+        sqlBuilder.append("DELETE FROM LD_BCNSTR_MONTH_T\n");
+        sqlBuilder.append("WHERE (fdoc_nbr = ?)\n");
+        sqlBuilder.append("  AND (univ_fiscal_yr = ?)\n");
+        sqlBuilder.append("  AND (fin_coa_cd = ?)\n");
+        sqlBuilder.append("  AND (account_nbr = ?)\n");
+        sqlBuilder.append("  AND (sub_acct_nbr = ?)\n");
         sqlBuilder.append("  AND (fin_obj_typ_cd IN ");
         insertionPoints.add(sqlBuilder.length());
         sqlBuilder.append(")");
@@ -56,12 +56,12 @@ public class BudgetConstructionMonthlyBudgetsCreateDeleteDaoJdbc extends BudgetC
 
         // SQL needed to spread revenue
         // delete existing revenue for this key, so it can be spread again
-        sqlBuilder.append("DELETE FROM LD_BCNSTR_MONTH_T\n"); 
-        sqlBuilder.append("WHERE (fdoc_nbr = ?)\n"); 
-        sqlBuilder.append("  AND (univ_fiscal_yr = ?)\n"); 
-        sqlBuilder.append("  AND (fin_coa_cd = ?)\n"); 
-        sqlBuilder.append("  AND (account_nbr = ?)\n"); 
-        sqlBuilder.append("  AND (sub_acct_nbr = ?)\n"); 
+        sqlBuilder.append("DELETE FROM LD_BCNSTR_MONTH_T\n");
+        sqlBuilder.append("WHERE (fdoc_nbr = ?)\n");
+        sqlBuilder.append("  AND (univ_fiscal_yr = ?)\n");
+        sqlBuilder.append("  AND (fin_coa_cd = ?)\n");
+        sqlBuilder.append("  AND (account_nbr = ?)\n");
+        sqlBuilder.append("  AND (sub_acct_nbr = ?)\n");
         sqlBuilder.append("  AND (fin_obj_typ_cd IN ");
         insertionPoints.add(sqlBuilder.length());
         sqlBuilder.append(")");
@@ -89,7 +89,7 @@ public class BudgetConstructionMonthlyBudgetsCreateDeleteDaoJdbc extends BudgetC
         sqlBuilder.append("        ROUND((LD_PND_BCNSTR_GL_T.acln_annl_bal_amt / 12), 0),\n");
         sqlBuilder.append("        ROUND((LD_PND_BCNSTR_GL_T.acln_annl_bal_amt / 12), 0),\n");
         sqlBuilder.append("        ROUND((LD_PND_BCNSTR_GL_T.acln_annl_bal_amt / 12), 0)\n");
-        sqlBuilder.append("        FROM LD_PND_BCNSTR_GL_T\n"); 
+        sqlBuilder.append("        FROM LD_PND_BCNSTR_GL_T\n");
         sqlBuilder.append("        WHERE (fdoc_nbr = ?)\n");
         sqlBuilder.append("          AND (univ_fiscal_yr = ?)\n");
         sqlBuilder.append("          AND (fin_coa_cd = ?)\n");
@@ -104,13 +104,13 @@ public class BudgetConstructionMonthlyBudgetsCreateDeleteDaoJdbc extends BudgetC
         sqlBuilder.delete(0, sqlBuilder.length());
 
         // SQL to spread expenditure
-        // delete existing monthly expenditure (except for actual benefits objects--the benefits will be recalulated and spread later from the GL) 
-        sqlBuilder.append("DELETE FROM LD_BCNSTR_MONTH_T\n"); 
-        sqlBuilder.append("WHERE (fdoc_nbr = ?)\n"); 
-        sqlBuilder.append("  AND (univ_fiscal_yr = ?)\n"); 
-        sqlBuilder.append("  AND (fin_coa_cd = ?)\n"); 
-        sqlBuilder.append("  AND (account_nbr = ?)\n"); 
-        sqlBuilder.append("  AND (sub_acct_nbr = ?)\n"); 
+        // delete existing monthly expenditure (except for actual benefits objects--the benefits will be recalulated and spread later from the GL)
+        sqlBuilder.append("DELETE FROM LD_BCNSTR_MONTH_T\n");
+        sqlBuilder.append("WHERE (fdoc_nbr = ?)\n");
+        sqlBuilder.append("  AND (univ_fiscal_yr = ?)\n");
+        sqlBuilder.append("  AND (fin_coa_cd = ?)\n");
+        sqlBuilder.append("  AND (account_nbr = ?)\n");
+        sqlBuilder.append("  AND (sub_acct_nbr = ?)\n");
         sqlBuilder.append("  AND (fin_obj_typ_cd IN ");
         insertionPoints.add(sqlBuilder.length());
         sqlBuilder.append(")\n");
@@ -142,7 +142,7 @@ public class BudgetConstructionMonthlyBudgetsCreateDeleteDaoJdbc extends BudgetC
         sqlBuilder.append("        ROUND((LD_PND_BCNSTR_GL_T.acln_annl_bal_amt / 12), 0),\n");
         sqlBuilder.append("        ROUND((LD_PND_BCNSTR_GL_T.acln_annl_bal_amt / 12), 0),\n");
         sqlBuilder.append("        ROUND((LD_PND_BCNSTR_GL_T.acln_annl_bal_amt / 12), 0)\n");
-        sqlBuilder.append("        FROM LD_PND_BCNSTR_GL_T\n"); 
+        sqlBuilder.append("        FROM LD_PND_BCNSTR_GL_T\n");
         sqlBuilder.append("        WHERE (fdoc_nbr = ?)\n");
         sqlBuilder.append("          AND (univ_fiscal_yr = ?)\n");
         sqlBuilder.append("          AND (fin_coa_cd = ?)\n");
@@ -182,7 +182,7 @@ public class BudgetConstructionMonthlyBudgetsCreateDeleteDaoJdbc extends BudgetC
 
     /**
      * @see org.kuali.kfs.module.bc.document.dataaccess.BudgetConstructionMonthlyBudgetsCreateDeleteDao#BudgetConstructionMonthlyBudgetsDeleteRevenue(java.lang.String,
-     *      java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+     * java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     public void deleteBudgetConstructionMonthlyBudgetsRevenue(String documentNumber, Integer fiscalYear, String chartCode, String accountNumber, String subAccountNumber, String revenueINList) {
 
@@ -197,7 +197,7 @@ public class BudgetConstructionMonthlyBudgetsCreateDeleteDaoJdbc extends BudgetC
 
     /**
      * @see org.kuali.kfs.module.bc.document.dataaccess.BudgetConstructionMonthlyBudgetsCreateDeleteDao#BudgetConstructionMonthlyBudgetsDeleteExpenditure(java.lang.String,
-     *      java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+     * java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     public void deleteBudgetConstructionMonthlyBudgetsExpenditure(String documentNumber, Integer fiscalYear, String chartCode, String accountNumber, String subAccountNumber, String expenditureINList) {
 
@@ -212,7 +212,7 @@ public class BudgetConstructionMonthlyBudgetsCreateDeleteDaoJdbc extends BudgetC
 
     /**
      * @see org.kuali.kfs.module.bc.document.dataaccess.BudgetConstructionMonthlyBudgetsCreateDeleteDao#BudgetConstructionMonthlyBudgetsSpreadRevenue(java.lang.String,
-     *      java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+     * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     public void spreadBudgetConstructionMonthlyBudgetsRevenue(String documentNumber, Integer fiscalYear, String chartCode, String accountNumber, String subAccountNumber, String revenueINList) {
 
@@ -237,7 +237,7 @@ public class BudgetConstructionMonthlyBudgetsCreateDeleteDaoJdbc extends BudgetC
 
     /**
      * @see org.kuali.kfs.module.bc.document.dataaccess.BudgetConstructionMonthlyBudgetsCreateDeleteDao#BudgetConstructionMonthlyBudgetsSpreadExpenditure(java.lang.String,
-     *      java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+     * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     public boolean spreadBudgetConstructionMonthlyBudgetsExpenditure(String documentNumber, Integer fiscalYear, String chartCode, String accountNumber, String subAccountNumber, String expenditureINList) {
 

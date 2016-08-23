@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -19,11 +19,11 @@
 package org.kuali.kfs.module.cg.document.validation.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 import org.kuali.kfs.module.cg.businessobject.SubContractor;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
 import org.kuali.rice.location.api.country.Country;
 import org.kuali.rice.location.api.country.CountryService;
 import org.kuali.rice.location.api.state.State;
@@ -66,11 +66,11 @@ public class SubcontractorRule extends MaintenanceDocumentRuleBase {
         boolean valid = true;
 
         // Perform lookup for state code provided
-        if ( StringUtils.isNotBlank(stateCode) && StringUtils.isNotBlank(countryCode) ) {
+        if (StringUtils.isNotBlank(stateCode) && StringUtils.isNotBlank(countryCode)) {
             State state = SpringContext.getBean(StateService.class).getState(countryCode, stateCode);
 
             // If no values returned, state code is invalid, throw error
-            if (state== null) {
+            if (state == null) {
                 putFieldError("subcontractorStateCode", KFSKeyConstants.ERROR_STATE_CODE_INVALID, stateCode);
                 valid = false;
             }
@@ -89,7 +89,7 @@ public class SubcontractorRule extends MaintenanceDocumentRuleBase {
     protected boolean validateCountryCode(String countryCode) {
         boolean valid = true;
 
-        if ( StringUtils.isNotBlank(countryCode) ) {
+        if (StringUtils.isNotBlank(countryCode)) {
             Country country = SpringContext.getBean(CountryService.class).getCountry(countryCode);
 
             // If no values returned, country code is invalid, throw error

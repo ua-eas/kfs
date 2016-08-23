@@ -1,36 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.document.service.impl;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.math.BigDecimal;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.PdfWriter;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.BCKeyConstants;
 import org.kuali.kfs.module.bc.BCPropertyConstants;
@@ -54,16 +46,23 @@ import org.kuali.kfs.sys.service.OptionsService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
-import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.pdf.PdfWriter;
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.math.BigDecimal;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PayrateImportServiceImpl implements PayrateImportService {
 
@@ -77,7 +76,6 @@ public class PayrateImportServiceImpl implements PayrateImportService {
     protected SalarySettingService salarySettingService;
 
     /**
-     *
      * @see org.kuali.kfs.module.bc.service.PayrateImportService#importFile(java.io.InputStream)
      */
     @Transactional
@@ -91,7 +89,7 @@ public class PayrateImportServiceImpl implements PayrateImportService {
         this.importCount = 0;
 
         try {
-            while(fileReader.ready()) {
+            while (fileReader.ready()) {
                 BudgetConstructionPayRateHolding budgetConstructionPayRateHolding = new BudgetConstructionPayRateHolding();
                 String line = fileReader.readLine();
                 ObjectUtil.convertLineToBusinessObject(budgetConstructionPayRateHolding, line, DefaultImportFileFormat.fieldLengths, Arrays.asList(DefaultImportFileFormat.fieldNames));
@@ -100,18 +98,16 @@ public class PayrateImportServiceImpl implements PayrateImportService {
                 businessObjectService.save(budgetConstructionPayRateHolding);
                 this.importCount++;
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             this.businessObjectService.deleteMatching(BudgetConstructionPayRateHolding.class, payRateHoldingPersonUniversalIdentifierKey);
             messageList.add(new ExternalizedMessageWrapper(BCKeyConstants.ERROR_PAYRATE_IMPORT_ABORTED));
 
             return false;
         }
 
-        if (importCount == 0 ) {
+        if (importCount == 0) {
             messageList.add(new ExternalizedMessageWrapper(BCKeyConstants.MSG_PAYRATE_IMPORT_NO_IMPORT_RECORDS));
-        }
-        else {
+        } else {
             messageList.add(new ExternalizedMessageWrapper(BCKeyConstants.MSG_PAYRATE_IMPORT_COUNT, String.valueOf(importCount)));
         }
 
@@ -119,7 +115,6 @@ public class PayrateImportServiceImpl implements PayrateImportService {
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.bc.service.PayrateImportService#update()
      */
     @Transactional
@@ -132,7 +127,7 @@ public class PayrateImportServiceImpl implements PayrateImportService {
         payRateHoldingPersonUniversalIdentifierKey.put(KFSPropertyConstants.PERSON_UNIVERSAL_IDENTIFIER, principalId);
         List<BudgetConstructionPayRateHolding> records = (List<BudgetConstructionPayRateHolding>) this.businessObjectService.findMatching(BudgetConstructionPayRateHolding.class, payRateHoldingPersonUniversalIdentifierKey);
 
-        if ( !getPayrateLock(lockedFundingRecords, messageList, budgetYear, user, records) ) {
+        if (!getPayrateLock(lockedFundingRecords, messageList, budgetYear, user, records)) {
             messageList.add(new ExternalizedMessageWrapper(BCKeyConstants.ERROR_PAYRATE_UPDATE_ABORTED, String.valueOf(this.updateCount)));
             doRollback();
             return;
@@ -140,7 +135,7 @@ public class PayrateImportServiceImpl implements PayrateImportService {
 
         Collection<String> biweeklyPayObjectCodes = BudgetParameterFinder.getBiweeklyPayObjectCodes();
         for (BudgetConstructionPayRateHolding holdingRecord : records) {
-            if (holdingRecord.getAppointmentRequestedPayRate().equals( -1.0)) {
+            if (holdingRecord.getAppointmentRequestedPayRate().equals(-1.0)) {
                 messageList.add(new ExternalizedMessageWrapper(BCKeyConstants.ERROR_PAYRATE_IMPORT_NO_PAYROLL_MATCH, holdingRecord.getEmplid(), holdingRecord.getPositionNumber()));
                 updateContainsErrors = true;
                 continue;
@@ -155,7 +150,7 @@ public class PayrateImportServiceImpl implements PayrateImportService {
 
             for (PendingBudgetConstructionAppointmentFunding fundingRecord : fundingRecords) {
 
-                if ( !fundingRecord.getAppointmentRequestedPayRate().equals(holdingRecord.getAppointmentRequestedPayRate()) ) {
+                if (!fundingRecord.getAppointmentRequestedPayRate().equals(holdingRecord.getAppointmentRequestedPayRate())) {
                     if (fundingRecord.getAppointmentRequestedFteQuantity().equals(0) || fundingRecord.getAppointmentRequestedFteQuantity() == null) {
                         messageList.add(new ExternalizedMessageWrapper(BCKeyConstants.ERROR_PAYRATE_NO_UPDATE_FTE_ZERO_OR_BLANK, holdingRecord.getEmplid(), holdingRecord.getPositionNumber(), fundingRecord.getChartOfAccountsCode(), fundingRecord.getAccountNumber(), fundingRecord.getSubAccountNumber()));
                         updateContainsErrors = true;
@@ -169,7 +164,7 @@ public class PayrateImportServiceImpl implements PayrateImportService {
                     KualiInteger updateAmount = annualAmount.subtract(fundingRecord.getAppointmentRequestedAmount());
 
                     BudgetConstructionHeader header = budgetDocumentService.getBudgetConstructionHeader(fundingRecord);
-                    if (header == null ) {
+                    if (header == null) {
                         messageList.add(new ExternalizedMessageWrapper(BCKeyConstants.ERROR_PAYRATE_NO_BUDGET_DOCUMENT, budgetYear.toString(), fundingRecord.getChartOfAccountsCode(), fundingRecord.getAccountNumber(), fundingRecord.getSubAccountNumber()));
                         messageList.add(new ExternalizedMessageWrapper(BCKeyConstants.ERROR_PAYRATE_OBJECT_LEVEL_ERROR, fundingRecord.getEmplid(), fundingRecord.getPositionNumber(), fundingRecord.getChartOfAccountsCode(), fundingRecord.getAccountNumber(), fundingRecord.getSubAccountNumber()));
                         updateContainsErrors = true;
@@ -187,7 +182,7 @@ public class PayrateImportServiceImpl implements PayrateImportService {
                     this.businessObjectService.save(fundingRecord);
                 }
             }
-            this.updateCount ++;
+            this.updateCount++;
         }
 
         messageList.add(new ExternalizedMessageWrapper(BCKeyConstants.MSG_PAYRATE_IMPORT_UPDATE_COMPLETE, String.valueOf(updateCount)));
@@ -198,7 +193,6 @@ public class PayrateImportServiceImpl implements PayrateImportService {
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.bc.service.PayrateImportService#generatePdf(java.lang.StringBuilder, java.io.ByteArrayOutputStream)
      */
     @NonTransactional
@@ -208,12 +202,11 @@ public class PayrateImportServiceImpl implements PayrateImportService {
         document.open();
         for (ExternalizedMessageWrapper messageWrapper : logMessages) {
             String message;
-            if (messageWrapper.getParams().length == 0 ) {
+            if (messageWrapper.getParams().length == 0) {
                 message = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(messageWrapper.getMessageKey());
-            }
-            else {
+            } else {
                 String temp = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(messageWrapper.getMessageKey());
-                message = MessageFormat.format(temp, (Object[])messageWrapper.getParams());
+                message = MessageFormat.format(temp, (Object[]) messageWrapper.getParams());
             }
             document.add(new Paragraph(message));
         }
@@ -263,6 +256,7 @@ public class PayrateImportServiceImpl implements PayrateImportService {
 
     /**
      * Sets the budgetDocumentService attribute value.
+     *
      * @param budgetDocumentService The budgetDocumentService to set.
      */
     @NonTransactional
@@ -304,25 +298,25 @@ public class PayrateImportServiceImpl implements PayrateImportService {
     protected boolean getPayrateLock(List<PendingBudgetConstructionAppointmentFunding> lockedRecords, List<ExternalizedMessageWrapper> messageList, Integer budgetYear, Person user, List<BudgetConstructionPayRateHolding> records) {
         Collection<String> biweeklyPayObjectCodes = BudgetParameterFinder.getBiweeklyPayObjectCodes();
 
-        for (BudgetConstructionPayRateHolding record: records) {
+        for (BudgetConstructionPayRateHolding record : records) {
             List<PendingBudgetConstructionAppointmentFunding> fundingRecords = this.payrateImportDao.getFundingRecords(record, budgetYear, biweeklyPayObjectCodes);
             try {
                 lockedRecords.addAll(this.lockService.lockPendingBudgetConstructionAppointmentFundingRecords(fundingRecords, user));
-            } catch(BudgetConstructionLockUnavailableException e) {
+            } catch (BudgetConstructionLockUnavailableException e) {
                 BudgetConstructionLockStatus lockStatus = e.getLockStatus();
-                if ( lockStatus.getLockStatus().equals(BCConstants.LockStatus.BY_OTHER) ) {
+                if (lockStatus.getLockStatus().equals(BCConstants.LockStatus.BY_OTHER)) {
                     messageList.add(new ExternalizedMessageWrapper(BCKeyConstants.ERROR_PAYRATE_ACCOUNT_LOCK_EXISTS));
 
                     return false;
-                } else if ( lockStatus.getLockStatus().equals(BCConstants.LockStatus.FLOCK_FOUND) ) {
+                } else if (lockStatus.getLockStatus().equals(BCConstants.LockStatus.FLOCK_FOUND)) {
                     messageList.add(new ExternalizedMessageWrapper(BCKeyConstants.ERROR_PAYRATE_FUNDING_LOCK_EXISTS));
 
                     return false;
-                } else if ( !lockStatus.getLockStatus().equals(BCConstants.LockStatus.SUCCESS) ) {
+                } else if (!lockStatus.getLockStatus().equals(BCConstants.LockStatus.SUCCESS)) {
                     messageList.add(new ExternalizedMessageWrapper(BCKeyConstants.ERROR_PAYRATE_BATCH_ACCOUNT_LOCK_FAILED));
                     return false;
                 }
-          }
+            }
 
         }
 
@@ -331,22 +325,20 @@ public class PayrateImportServiceImpl implements PayrateImportService {
 
     /**
      * File format for payrate import file
-     *
      */
     protected static class DefaultImportFileFormat {
-        private static final int[] fieldLengths = new int[] {11, 8, 50, 5, 4, 3, 3, 10, 8};
-        private static final String[] fieldNames = new String[] {KFSPropertyConstants.EMPLID, KFSPropertyConstants.POSITION_NUMBER, KFSPropertyConstants.PERSON_NAME, BCPropertyConstants.SET_SALARY_ID, BCPropertyConstants.SALARY_ADMINISTRATION_PLAN, BCPropertyConstants.GRADE, "unionCode", BCPropertyConstants.APPOINTMENT_REQUESTED_PAY_RATE, BCPropertyConstants.CSF_FREEZE_DATE};
+        private static final int[] fieldLengths = new int[]{11, 8, 50, 5, 4, 3, 3, 10, 8};
+        private static final String[] fieldNames = new String[]{KFSPropertyConstants.EMPLID, KFSPropertyConstants.POSITION_NUMBER, KFSPropertyConstants.PERSON_NAME, BCPropertyConstants.SET_SALARY_ID, BCPropertyConstants.SALARY_ADMINISTRATION_PLAN, BCPropertyConstants.GRADE, "unionCode", BCPropertyConstants.APPOINTMENT_REQUESTED_PAY_RATE, BCPropertyConstants.CSF_FREEZE_DATE};
     }
 
     /**
      * If retrieving budget locks fails, this method rolls back previous changes
-     *
      */
     protected void doRollback() {
         PlatformTransactionManager transactionManager = SpringContext.getBean(PlatformTransactionManager.class);
         DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
         TransactionStatus transactionStatus = transactionManager.getTransaction(defaultTransactionDefinition);
-        transactionManager.rollback( transactionStatus );
+        transactionManager.rollback(transactionStatus);
 
     }
 

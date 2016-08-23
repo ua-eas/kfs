@@ -1,35 +1,35 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.document.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.KRADPropertyConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemPropertyConstants.TemProfileProperties;
 import org.kuali.kfs.module.tem.businessobject.TemProfileArranger;
 import org.kuali.kfs.module.tem.document.TravelArrangerDocument;
 import org.kuali.kfs.module.tem.document.service.TravelArrangerDocumentService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.KRADPropertyConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("rawtypes")
 public class TravelArrangerDocumentServiceImpl implements TravelArrangerDocumentService {
@@ -42,8 +42,8 @@ public class TravelArrangerDocumentServiceImpl implements TravelArrangerDocument
         String arrangerId = arrangerDoc.getArrangerId();
 
         TemProfileArranger profileArranger = findProfileArranger(arrangerId, profileId);
-        if(ObjectUtils.isNull(profileArranger)) {
-           profileArranger = createNewTravelProfileArranger(arrangerDoc);
+        if (ObjectUtils.isNull(profileArranger)) {
+            profileArranger = createNewTravelProfileArranger(arrangerDoc);
         } else {
             //update the existing profile
             profileArranger.setActive(true);
@@ -60,7 +60,7 @@ public class TravelArrangerDocumentServiceImpl implements TravelArrangerDocument
         Integer profileId = arrangerDoc.getProfileId();
         String arrangerId = arrangerDoc.getArrangerId();
         TemProfileArranger profileArranger = findTemProfileArranger(arrangerId, profileId);
-        if(ObjectUtils.isNotNull(profileArranger)) {
+        if (ObjectUtils.isNotNull(profileArranger)) {
             profileArranger.setActive(Boolean.FALSE);
             businessObjectService.save(profileArranger);
         }
@@ -72,10 +72,10 @@ public class TravelArrangerDocumentServiceImpl implements TravelArrangerDocument
         Map fieldValues = new HashMap();
         fieldValues.put("profileId", profileId);
 
-        List<TemProfileArranger> profileArrangers = new ArrayList<TemProfileArranger>( businessObjectService.findMatching(TemProfileArranger.class, fieldValues));
+        List<TemProfileArranger> profileArrangers = new ArrayList<TemProfileArranger>(businessObjectService.findMatching(TemProfileArranger.class, fieldValues));
 
-        for(TemProfileArranger profileArranger: profileArrangers) {
-            if(profileArranger.getPrimary() && !profileArranger.getPrincipalId().equals(arrangerId)) {
+        for (TemProfileArranger profileArranger : profileArrangers) {
+            if (profileArranger.getPrimary() && !profileArranger.getPrincipalId().equals(arrangerId)) {
                 return profileArranger;
             }
         }
@@ -83,7 +83,6 @@ public class TravelArrangerDocumentServiceImpl implements TravelArrangerDocument
     }
 
     /**
-     *
      * @param arrangerDoc
      * @return
      */
@@ -104,8 +103,8 @@ public class TravelArrangerDocumentServiceImpl implements TravelArrangerDocument
         fieldValues.put(TemProfileProperties.PRINCIPAL_ID, principalId);
         fieldValues.put(TemProfileProperties.PROFILE_ID, profileId);
 
-        List<TemProfileArranger> profileArrangers = new ArrayList<TemProfileArranger>( businessObjectService.findMatching(TemProfileArranger.class, fieldValues));
-        if(profileArrangers.size() == 1) {
+        List<TemProfileArranger> profileArrangers = new ArrayList<TemProfileArranger>(businessObjectService.findMatching(TemProfileArranger.class, fieldValues));
+        if (profileArrangers.size() == 1) {
             return profileArrangers.get(0);
         } else if (profileArrangers.size() == 0) {
             return null;
@@ -124,8 +123,8 @@ public class TravelArrangerDocumentServiceImpl implements TravelArrangerDocument
         //find active profile arrangers only
         fieldValues.put(KRADPropertyConstants.ACTIVE, "Y");
 
-        List<TemProfileArranger> profileArrangers = new ArrayList<TemProfileArranger>( businessObjectService.findMatching(TemProfileArranger.class, fieldValues));
-        if(profileArrangers.size() == 1) {
+        List<TemProfileArranger> profileArrangers = new ArrayList<TemProfileArranger>(businessObjectService.findMatching(TemProfileArranger.class, fieldValues));
+        if (profileArrangers.size() == 1) {
             return profileArrangers.get(0);
         } else if (profileArrangers.size() == 0) {
             return null;

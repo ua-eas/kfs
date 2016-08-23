@@ -1,17 +1,20 @@
 /*
- * Copyright 2005-2015 The Kuali Foundation
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Licensed under the Educational Community License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Copyright 2005-2016 The Kuali Foundation
  *
- * http://www.opensource.org/licenses/ecl2.php
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
  * Submits the form through an ajax submit, the response is the new page html
@@ -24,31 +27,31 @@
  * For the above reason, the renderFullView below is set to false so that the script content between <head></head> is left out
  */
 
-function ajaxSubmitForm(methodToCall, successCallback, additionalData, elementToBlock){
-	var data;
+function ajaxSubmitForm(methodToCall, successCallback, additionalData, elementToBlock) {
+    var data;
     //methodToCall checks
-	if(methodToCall != null){
-		data = {methodToCall: methodToCall, renderFullView: false};
-	}
-	else{
+    if (methodToCall != null) {
+        data = {methodToCall: methodToCall, renderFullView: false};
+    }
+    else {
         var methodToCallInput = jq("input[name='methodToCall']");
-        if(methodToCallInput.length > 0){
+        if (methodToCallInput.length > 0) {
             methodToCall = jq("input[name='methodToCall']").val();
         }
         //check to see if methodToCall is still null
-        if(methodToCall == null || methodToCall === ""){
+        if (methodToCall == null || methodToCall === "") {
             data = {renderFullView: false};
         }
-        else{
+        else {
             data = {methodToCall: methodToCall, renderFullView: false};
         }
-	}
+    }
     //remove this since the methodToCall was passed in or extracted from the page, to avoid issues
     jq("input[name='methodToCall']").remove();
-	
-	if(additionalData != null){
-		jq.extend(data, additionalData);
-	}
+
+    if (additionalData != null) {
+        jq.extend(data, additionalData);
+    }
 
     var viewState = jq(document).data("ViewState");
     if (!jq.isEmptyObject(viewState)) {
@@ -58,90 +61,90 @@ function ajaxSubmitForm(methodToCall, successCallback, additionalData, elementTo
         jsonViewState = jsonViewState.replace(/"/g, "'");
         jq.extend(data, {clientViewState: jsonViewState});
     }
-	
-	var submitOptions = {
-			data: data, 
-			success: function(response){
-				var tempDiv = document.createElement('div');
-				tempDiv.innerHTML = response;
-				var hasError = handleIncidentReport(response);
-				if(!hasError){
-                    var newServerErrors = jq("#errorsFieldForPage_div", tempDiv).clone();
-					successCallback(tempDiv);
-                    if(successCallback !== replacePage){
-                        jq("#errorsFieldForPage_div").replaceWith(newServerErrors);
-                        runHiddenScripts("errorsFieldForPage_div");
-                    }
-				}
-				jq("#formComplete").html("");
-			},
-            error: function(jqXHR, textStatus) {
-                alert( "Request failed: " + textStatus );
+
+    var submitOptions = {
+        data: data,
+        success: function (response) {
+            var tempDiv = document.createElement('div');
+            tempDiv.innerHTML = response;
+            var hasError = handleIncidentReport(response);
+            if (!hasError) {
+                var newServerErrors = jq("#errorsFieldForPage_div", tempDiv).clone();
+                successCallback(tempDiv);
+                if (successCallback !== replacePage) {
+                    jq("#errorsFieldForPage_div").replaceWith(newServerErrors);
+                    runHiddenScripts("errorsFieldForPage_div");
+                }
             }
-	};
-	
-	if(elementToBlock != null && elementToBlock.length){
-		var elementBlockingOptions = {
-				beforeSend: function() {
-					if(elementToBlock.hasClass("unrendered")){
-						elementToBlock.append('<img src="' + getConfigParam("kradImageLocation") + 'loader.gif" alt="working..." /> Loading...');
-						elementToBlock.show();
-					}
-					else{
-						elementToBlock.block({
-			                message: '<img src="' + getConfigParam("kradImageLocation") + 'loader.gif" alt="working..." /> Updating...',
-			                fadeIn:  400,
-			                fadeOut:  800
-			            });
-					}
-				},
-				complete: function(){
-					// note that if you want to unblock simultaneous with showing the new retrieval
-					// you must do so in the successCallback
-					elementToBlock.unblock();
-				},
-				error: function(){
-					if(elementToBlock.hasClass("unrendered")){
-						elementToBlock.hide();
-					}
-					else{
-						elementToBlock.unblock();
-					}
-				}
-		};
-	}
-	
-	jq.extend(submitOptions, elementBlockingOptions);
-	var form = jq("#kualiForm");
-	form.ajaxSubmit(submitOptions);
+            jq("#formComplete").html("");
+        },
+        error: function (jqXHR, textStatus) {
+            alert("Request failed: " + textStatus);
+        }
+    };
+
+    if (elementToBlock != null && elementToBlock.length) {
+        var elementBlockingOptions = {
+            beforeSend: function () {
+                if (elementToBlock.hasClass("unrendered")) {
+                    elementToBlock.append('<img src="' + getConfigParam("kradImageLocation") + 'loader.gif" alt="working..." /> Loading...');
+                    elementToBlock.show();
+                }
+                else {
+                    elementToBlock.block({
+                        message: '<img src="' + getConfigParam("kradImageLocation") + 'loader.gif" alt="working..." /> Updating...',
+                        fadeIn: 400,
+                        fadeOut: 800
+                    });
+                }
+            },
+            complete: function () {
+                // note that if you want to unblock simultaneous with showing the new retrieval
+                // you must do so in the successCallback
+                elementToBlock.unblock();
+            },
+            error: function () {
+                if (elementToBlock.hasClass("unrendered")) {
+                    elementToBlock.hide();
+                }
+                else {
+                    elementToBlock.unblock();
+                }
+            }
+        };
+    }
+
+    jq.extend(submitOptions, elementBlockingOptions);
+    var form = jq("#kualiForm");
+    form.ajaxSubmit(submitOptions);
 }
 
 //Called when a form is being persisted to assure all validation passes
-function validateAndSubmit(methodToCall, successCallback){
-	jq.watermark.hideAll();
+function validateAndSubmit(methodToCall, successCallback) {
+    jq.watermark.hideAll();
 
     var validForm = true;
-    if(validateClient){
+    if (validateClient) {
         validForm = jq("#kualiForm").valid();
     }
 
-	if(validForm){
-		jq.watermark.showAll();
-		ajaxSubmitForm(methodToCall, successCallback, null, null);
-	}
-	else{
-		jq.watermark.showAll();
-		jq("#formComplete").html("");
-		jumpToTop();
-		alert("The form contains errors.  Please correct these errors and try again.");
-	}
+    if (validForm) {
+        jq.watermark.showAll();
+        ajaxSubmitForm(methodToCall, successCallback, null, null);
+    }
+    else {
+        jq.watermark.showAll();
+        jq("#formComplete").html("");
+        jumpToTop();
+        alert("The form contains errors.  Please correct these errors and try again.");
+    }
 }
 
 /**
  * Validate form.  When no validation errors exists the form is submitted with the methodToCall of the form.
  * The page is then replaced with the result of the ajax call.
  */
-function validateAndSubmitUsingFormMethodToCall(){
+function validateAndSubmitUsingFormMethodToCall() {
     validateAndSubmit(null, replacePage);
 }
 
@@ -149,20 +152,20 @@ function validateAndSubmitUsingFormMethodToCall(){
  * Submits a form via ajax using the jquery form plugin
  * The methodToCall parameter is used to determine the controller method to invoke
  */
-function submitForm(){
-	var methodToCall = jq("input[name='methodToCall']").val();
-	ajaxSubmitForm(methodToCall, replacePage, null, null);
+function submitForm() {
+    var methodToCall = jq("input[name='methodToCall']").val();
+    ajaxSubmitForm(methodToCall, replacePage, null, null);
 }
 
-function replacePage(contentDiv){
-	var page = jq("#viewpage_div", contentDiv);
+function replacePage(contentDiv) {
+    var page = jq("#viewpage_div", contentDiv);
     page.hide();
-	jq("#viewpage_div").replaceWith(page);
+    jq("#viewpage_div").replaceWith(page);
 
-	setPageBreadcrumb();
+    setPageBreadcrumb();
 
-	pageValidatorReady = false;
-	runHiddenScripts("viewpage_div");
+    pageValidatorReady = false;
+    runHiddenScripts("viewpage_div");
 
     jq("#viewpage_div").show();
 }
@@ -177,7 +180,7 @@ function replacePage(contentDiv){
  *          the id for the page that the link should navigate to
  */
 function handleActionLink(methodToCall, navigateToPageId) {
-	ajaxSubmitForm(methodToCall, replacePage, {navigateToPageId: navigateToPageId}, null);
+    ajaxSubmitForm(methodToCall, replacePage, {navigateToPageId: navigateToPageId}, null);
 }
 
 /**
@@ -192,53 +195,54 @@ function handleActionLink(methodToCall, navigateToPageId) {
  * @param baseId - base id (without suffixes) for the component that should be refreshed
  * @param methodToCall - name of the method that should be invoked for the refresh call (if custom method is needed)
  */
-function retrieveComponent(id, baseId, methodToCall){
-	var elementToBlock = jq("#" + id + "_refreshWrapper");
+function retrieveComponent(id, baseId, methodToCall) {
+    var elementToBlock = jq("#" + id + "_refreshWrapper");
 
-	var updateRefreshableComponentCallback = function(htmlContent){
-		var component = jq("#" + id + "_refreshWrapper", htmlContent);
+    var updateRefreshableComponentCallback = function (htmlContent) {
+        var component = jq("#" + id + "_refreshWrapper", htmlContent);
 
         var displayWithId = id;
         if (id.indexOf('_attribute') > 0) {
             displayWithId = id.replace('_attribute', '');
         }
 
-		// special label handling, if any
-		var theLabel = jq("#" + displayWithId + "_label_span", htmlContent);
-		if(jq(".displayWith-" + displayWithId).length && theLabel.length){
-			theLabel.addClass("displayWith-" + displayWithId);
-			jq("span.displayWith-" + displayWithId).replaceWith(theLabel);
-			component.remove("#" + displayWithId + "_label_span");
-		}
+        // special label handling, if any
+        var theLabel = jq("#" + displayWithId + "_label_span", htmlContent);
+        if (jq(".displayWith-" + displayWithId).length && theLabel.length) {
+            theLabel.addClass("displayWith-" + displayWithId);
+            jq("span.displayWith-" + displayWithId).replaceWith(theLabel);
+            component.remove("#" + displayWithId + "_label_span");
+        }
 
-		elementToBlock.unblock({onUnblock: function(){
+        elementToBlock.unblock({
+            onUnblock: function () {
                 var origColor = jq(component).css("background-color");
                 jq(component).css("background-color", "");
                 jq(component).addClass("uif-progressiveDisclosure-highlight");
 
-				// replace component
-				if(jq("#" + id + "_refreshWrapper").length){
-					jq("#" + id + "_refreshWrapper").replaceWith(component);
-				}
+                // replace component
+                if (jq("#" + id + "_refreshWrapper").length) {
+                    jq("#" + id + "_refreshWrapper").replaceWith(component);
+                }
 
-				runHiddenScripts(id + "_refreshWrapper");
-                if(origColor == ""){
+                runHiddenScripts(id + "_refreshWrapper");
+                if (origColor == "") {
                     origColor = "transparent";
                 }
 
                 jq("#" + id + "_refreshWrapper").animate({backgroundColor: origColor}, 5000);
-			}
-		});
+            }
+        });
 
-		jq(".displayWith-" + displayWithId).show();
-	};
+        jq(".displayWith-" + displayWithId).show();
+    };
 
     if (!methodToCall) {
         methodToCall = "updateComponent";
     }
-	
-	ajaxSubmitForm(methodToCall, updateRefreshableComponentCallback,
-			{reqComponentId: id, skipViewInit: "true"}, elementToBlock);
+
+    ajaxSubmitForm(methodToCall, updateRefreshableComponentCallback,
+        {reqComponentId: id, skipViewInit: "true"}, elementToBlock);
 }
 
 /**
@@ -253,74 +257,75 @@ function retrieveComponent(id, baseId, methodToCall){
  */
 function toggleInactiveRecordDisplay(collectionGroupId, showInactive) {
     var elementToBlock = jq("#" + collectionGroupId + "_div");
-    var updateCollectionCallback = function(htmlContent){
-    	var component = jq("#" + collectionGroupId + "_div", htmlContent);
+    var updateCollectionCallback = function (htmlContent) {
+        var component = jq("#" + collectionGroupId + "_div", htmlContent);
 
-		elementToBlock.unblock({onUnblock: function(){
-				//replace component
-				if(jq("#" + collectionGroupId + "_div").length){
-					jq("#" + collectionGroupId + "_div").replaceWith(component);
-				}
-				runHiddenScripts(collectionGroupId + "_div");
-			}
-		});
+        elementToBlock.unblock({
+            onUnblock: function () {
+                //replace component
+                if (jq("#" + collectionGroupId + "_div").length) {
+                    jq("#" + collectionGroupId + "_div").replaceWith(component);
+                }
+                runHiddenScripts(collectionGroupId + "_div");
+            }
+        });
     };
-    
-    ajaxSubmitForm("toggleInactiveRecordDisplay", updateCollectionCallback, 
-			{reqComponentId: collectionGroupId, skipViewInit: "true", showInactiveRecords : showInactive}, 
-			elementToBlock);
+
+    ajaxSubmitForm("toggleInactiveRecordDisplay", updateCollectionCallback,
+        {reqComponentId: collectionGroupId, skipViewInit: "true", showInactiveRecords: showInactive},
+        elementToBlock);
 }
 
-function performCollectionAction(collectionGroupId){
-	if(collectionGroupId){
-		var elementToBlock = jq("#" + collectionGroupId + "_div");
-	    var updateCollectionCallback = function(htmlContent){
-	    	var component = jq("#" + collectionGroupId + "_div", htmlContent);
+function performCollectionAction(collectionGroupId) {
+    if (collectionGroupId) {
+        var elementToBlock = jq("#" + collectionGroupId + "_div");
+        var updateCollectionCallback = function (htmlContent) {
+            var component = jq("#" + collectionGroupId + "_div", htmlContent);
 
-			elementToBlock.unblock({onUnblock: function(){
-					//replace component
-					if(jq("#" + collectionGroupId + "_div").length){
-						jq("#" + collectionGroupId + "_div").replaceWith(component);
-					}
-					runHiddenScripts(collectionGroupId + "_div");
-				}
-			});
-	    };
-	    
-	    var methodToCall = jq("input[name='methodToCall']").val();
-		ajaxSubmitForm(methodToCall, updateCollectionCallback, {reqComponentId: collectionGroupId, skipViewInit: "true"},
-				elementToBlock);
-	}
+            elementToBlock.unblock({
+                onUnblock: function () {
+                    //replace component
+                    if (jq("#" + collectionGroupId + "_div").length) {
+                        jq("#" + collectionGroupId + "_div").replaceWith(component);
+                    }
+                    runHiddenScripts(collectionGroupId + "_div");
+                }
+            });
+        };
+
+        var methodToCall = jq("input[name='methodToCall']").val();
+        ajaxSubmitForm(methodToCall, updateCollectionCallback, {reqComponentId: collectionGroupId, skipViewInit: "true"},
+            elementToBlock);
+    }
 }
-
 
 
 //called when a line is added to a collection
-function addLineToCollection(collectionGroupId, collectionBaseId){
-	if(collectionBaseId){
-		var addFields = jq("." + collectionBaseId + "-addField:visible");
-		jq.watermark.hideAll();
+function addLineToCollection(collectionGroupId, collectionBaseId) {
+    if (collectionBaseId) {
+        var addFields = jq("." + collectionBaseId + "-addField:visible");
+        jq.watermark.hideAll();
 
-		var valid = true;
-		addFields.each(function(){
-			jq(this).removeClass("ignoreValid");
-			jq(this).valid();
-			if(jq(this).hasClass("error")){
-				valid = false;
-			}
-			jq(this).addClass("ignoreValid");
-		});
+        var valid = true;
+        addFields.each(function () {
+            jq(this).removeClass("ignoreValid");
+            jq(this).valid();
+            if (jq(this).hasClass("error")) {
+                valid = false;
+            }
+            jq(this).addClass("ignoreValid");
+        });
 
-		jq.watermark.showAll();
+        jq.watermark.showAll();
 
-		if(valid){
-			performCollectionAction(collectionGroupId);
-		}
-		else{
-			jq("#formComplete").html("");
-			alert("This addition contains errors.  Please correct these errors and try again.");
-		}
-	}
+        if (valid) {
+            performCollectionAction(collectionGroupId);
+        }
+        else {
+            jq("#formComplete").html("");
+            alert("This addition contains errors.  Please correct these errors and try again.");
+        }
+    }
 }
 
 /** Progressive Disclosure */
@@ -334,8 +339,10 @@ function addLineToCollection(collectionGroupId, collectionBaseId){
  * @param baseId - base id (without suffixes) for the component that should be refreshed
  * @param methodToCall - name of the method that should be invoked for the refresh call (if custom method is needed)
  */
-function setupOnChangeRefresh(controlName, refreshId, baseId, methodToCall){
-	setupRefreshCheck(controlName, refreshId, baseId, function(){return true;}, methodToCall);
+function setupOnChangeRefresh(controlName, refreshId, baseId, methodToCall) {
+    setupRefreshCheck(controlName, refreshId, baseId, function () {
+        return true;
+    }, methodToCall);
 }
 
 /**
@@ -350,16 +357,16 @@ function setupOnChangeRefresh(controlName, refreshId, baseId, methodToCall){
  * @param condition - function which returns true to refresh, false otherwise
  * @param methodToCall - name of the method that should be invoked for the refresh call (if custom method is needed)
  */
-function setupRefreshCheck(controlName, refreshId, baseId, condition, methodToCall){
-	jq("[name='"+ escapeName(controlName) +"']").live('change', function() {
-		// visible check because a component must logically be visible to refresh
-		var refreshComp = jq("#" + refreshId + "_refreshWrapper");
-		if(refreshComp.length){
-			if(condition()){
-				retrieveComponent(refreshId, baseId, methodToCall);
-			}
-		}
-	});
+function setupRefreshCheck(controlName, refreshId, baseId, condition, methodToCall) {
+    jq("[name='" + escapeName(controlName) + "']").live('change', function () {
+        // visible check because a component must logically be visible to refresh
+        var refreshComp = jq("#" + refreshId + "_refreshWrapper");
+        if (refreshComp.length) {
+            if (condition()) {
+                retrieveComponent(refreshId, baseId, methodToCall);
+            }
+        }
+    });
 }
 
 /**
@@ -375,45 +382,45 @@ function setupRefreshCheck(controlName, refreshId, baseId, condition, methodToCa
  * @param condition - function which returns true to disclose, false otherwise
  * @param methodToCall - name of the method that should be invoked for the retrieve call (if custom method is needed)
  */
-function setupProgressiveCheck(controlName, disclosureId, baseId, condition, alwaysRetrieve, methodToCall){
-	if (!baseId.match("\_c0$")) {
-		jq("[name='"+ escapeName(controlName) +"']").live('change', function() {
-			var refreshDisclosure = jq("#" + disclosureId + "_refreshWrapper");
-			if(refreshDisclosure.length){
+function setupProgressiveCheck(controlName, disclosureId, baseId, condition, alwaysRetrieve, methodToCall) {
+    if (!baseId.match("\_c0$")) {
+        jq("[name='" + escapeName(controlName) + "']").live('change', function () {
+            var refreshDisclosure = jq("#" + disclosureId + "_refreshWrapper");
+            if (refreshDisclosure.length) {
                 var displayWithId = disclosureId;
                 if (disclosureId.indexOf('_attribute') > 0) {
                     displayWithId = disclosureId.replace('_attribute', '');
                 }
 
-				if(condition()){
-					if(refreshDisclosure.hasClass("unrendered") || alwaysRetrieve){
-						retrieveComponent(disclosureId, baseId, methodToCall);
-					}
-					else{
+                if (condition()) {
+                    if (refreshDisclosure.hasClass("unrendered") || alwaysRetrieve) {
+                        retrieveComponent(disclosureId, baseId, methodToCall);
+                    }
+                    else {
                         var origColor = refreshDisclosure.css("background-color");
                         refreshDisclosure.css("background-color", "");
                         refreshDisclosure.addClass("uif-progressiveDisclosure-highlight");
-						refreshDisclosure.show();
-                        if(origColor == ""){
-                           origColor = "transparent";
+                        refreshDisclosure.show();
+                        if (origColor == "") {
+                            origColor = "transparent";
                         }
                         refreshDisclosure.animate({backgroundColor: origColor}, 5000);
 
-						//re-enable validation on now shown inputs
-						hiddenInputValidationToggle(disclosureId + "_refreshWrapper");
-						jq(".displayWith-" + displayWithId).show();
+                        //re-enable validation on now shown inputs
+                        hiddenInputValidationToggle(disclosureId + "_refreshWrapper");
+                        jq(".displayWith-" + displayWithId).show();
 
-					}
-				}
-				else{
-					refreshDisclosure.hide();
-					// ignore validation on hidden inputs
-					hiddenInputValidationToggle(disclosureId + "_refreshWrapper");
-					jq(".displayWith-" + displayWithId).hide();
-				}
-			}
-		});
-	}
+                    }
+                }
+                else {
+                    refreshDisclosure.hide();
+                    // ignore validation on hidden inputs
+                    hiddenInputValidationToggle(disclosureId + "_refreshWrapper");
+                    jq(".displayWith-" + displayWithId).hide();
+                }
+            }
+        });
+    }
 }
 
 /**
@@ -423,20 +430,20 @@ function setupProgressiveCheck(controlName, disclosureId, baseId, condition, alw
  *
  * @param id - id for the component for which the input hiddens should be processed
  */
-function hiddenInputValidationToggle(id){
-	var element = jq("#" + id);
-	if(element.length){
-		if(element.css("display") == "none"){
-			jq(":input:hidden", element).each(function(){
-				jq(this).addClass("ignoreValid");
-			});
-		}
-		else{
-			jq(":input:visible", element).each(function(){
-				jq(this).removeClass("ignoreValid");
-			});
-		}
-	}
+function hiddenInputValidationToggle(id) {
+    var element = jq("#" + id);
+    if (element.length) {
+        if (element.css("display") == "none") {
+            jq(":input:hidden", element).each(function () {
+                jq(this).addClass("ignoreValid");
+            });
+        }
+        else {
+            jq(":input:visible", element).each(function () {
+                jq(this).removeClass("ignoreValid");
+            });
+        }
+    }
 }
 
 /**
@@ -457,14 +464,14 @@ function clearServerSideForm() {
         var postUrl = getConfigParam("kradUrl") + "/listener";
 
         jq.ajax({
-            url:postUrl,
-            dataType:"json",
-            data:queryData,
-            async:false,
-            beforeSend:null,
-            complete:null,
-            error:null,
-            success:null
+            url: postUrl,
+            dataType: "json",
+            data: queryData,
+            async: false,
+            beforeSend: null,
+            complete: null,
+            error: null,
+            success: null
         });
     }
 }

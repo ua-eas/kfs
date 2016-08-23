@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -25,96 +25,95 @@ import org.kuali.kfs.krad.datadictionary.validation.capability.ExistenceConstrai
  * Common class for attribute definitions in the DataDictionary, which contains
  * information relating to the display, validation, and general maintenance of a
  * specific attribute of an entry. An attribute can be a simple or complex attribute.
- *  
  */
-public abstract class AttributeDefinitionBase extends DataDictionaryDefinitionBase implements ExistenceConstrainable{
+public abstract class AttributeDefinitionBase extends DataDictionaryDefinitionBase implements ExistenceConstrainable {
 
-	protected String name;
+    protected String name;
 
-	protected String label;
-	protected String shortLabel;
-	protected String displayLabelAttribute;
+    protected String label;
+    protected String shortLabel;
+    protected String displayLabelAttribute;
 
-	protected String messageKey;
+    protected String messageKey;
     protected String constraintText;
-	protected String summary;
-	protected String description;
-	
-	protected Boolean required = Boolean.FALSE;
-	
-	public String getName() {
-		return name;
-	}
+    protected String summary;
+    protected String description;
 
-	/*
-	 * name = name of attribute
-	 */
-	public void setName(String name) {
-		if (StringUtils.isBlank(name)) {
-			throw new IllegalArgumentException("invalid (blank) name");
-		}
-		this.name = name;
-	}
+    protected Boolean required = Boolean.FALSE;
 
-	public String getLabel() {
-		return label;
-	}
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 * The label element is the field or collection name that will be shown on
-	 * inquiry and maintenance screens. This will be overridden by presence of
-	 * displayLabelAttribute element.
-	 */
-	public void setLabel(String label) {
-		if (StringUtils.isBlank(label)) {
-			throw new IllegalArgumentException("invalid (blank) label");
-		}
-		this.label = label;
-	}
+    /*
+     * name = name of attribute
+     */
+    public void setName(String name) {
+        if (StringUtils.isBlank(name)) {
+            throw new IllegalArgumentException("invalid (blank) name");
+        }
+        this.name = name;
+    }
 
-	/**
-	 * @return the shortLabel, or the label if no shortLabel has been set
-	 */
-	public String getShortLabel() {
-		return (shortLabel != null) ? shortLabel : getLabel();
-	}
+    public String getLabel() {
+        return label;
+    }
 
-	/**
-	 * @return the shortLabel directly, without substituting in the label
-	 */
-	protected String getDirectShortLabel() {
-		return shortLabel;
-	}
+    /**
+     * The label element is the field or collection name that will be shown on
+     * inquiry and maintenance screens. This will be overridden by presence of
+     * displayLabelAttribute element.
+     */
+    public void setLabel(String label) {
+        if (StringUtils.isBlank(label)) {
+            throw new IllegalArgumentException("invalid (blank) label");
+        }
+        this.label = label;
+    }
 
-	/**
-	 * The shortLabel element is the field or collection name that will be used
-	 * in applications when a shorter name (than the label element) is required.
-	 * This will be overridden by presence of displayLabelAttribute element.
-	 */
-	public void setShortLabel(String shortLabel) {
-		if (StringUtils.isBlank(shortLabel)) {
-			throw new IllegalArgumentException("invalid (blank) shortLabel");
-		}
-		this.shortLabel = shortLabel;
-	}
-	
-	/**
-	 * The required element allows values of "true" or "false". A value of
-	 * "true" indicates that a value must be entered for this business object
-	 * when creating or editing a new business object.
-	 */
-	public void setRequired(Boolean required) {
-		this.required = required;
-	}
+    /**
+     * @return the shortLabel, or the label if no shortLabel has been set
+     */
+    public String getShortLabel() {
+        return (shortLabel != null) ? shortLabel : getLabel();
+    }
 
-	@Override
-	public Boolean isRequired() {
-		return this.required;
-	}
+    /**
+     * @return the shortLabel directly, without substituting in the label
+     */
+    protected String getDirectShortLabel() {
+        return shortLabel;
+    }
+
+    /**
+     * The shortLabel element is the field or collection name that will be used
+     * in applications when a shorter name (than the label element) is required.
+     * This will be overridden by presence of displayLabelAttribute element.
+     */
+    public void setShortLabel(String shortLabel) {
+        if (StringUtils.isBlank(shortLabel)) {
+            throw new IllegalArgumentException("invalid (blank) shortLabel");
+        }
+        this.shortLabel = shortLabel;
+    }
+
+    /**
+     * The required element allows values of "true" or "false". A value of
+     * "true" indicates that a value must be entered for this business object
+     * when creating or editing a new business object.
+     */
+    public void setRequired(Boolean required) {
+        this.required = required;
+    }
+
+    @Override
+    public Boolean isRequired() {
+        return this.required;
+    }
 
     /**
      * Text that display a restriction on the value a field can hold
-     *
+     * <p>
      * <p>
      * For example when the value must be a valid format (phone number, email), certain length, min/max value and
      * so on this text can be used to indicate the constraint to the user. Generally displays with the control so
@@ -135,46 +134,46 @@ public abstract class AttributeDefinitionBase extends DataDictionaryDefinitionBa
     public void setConstraintText(String constraintText) {
         this.constraintText = constraintText;
     }
-	
-	public String getSummary() {
-		return summary;
-	}
 
-	/**
-	 * The summary element is used to provide a short description of the
-	 * attribute or collection. This is designed to be used for help purposes.
-	 */
-	public void setSummary(String summary) {
-		this.summary = summary;
-	}
+    public String getSummary() {
+        return summary;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    /**
+     * The summary element is used to provide a short description of the
+     * attribute or collection. This is designed to be used for help purposes.
+     */
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
 
-	/**
-	 * The description element is used to provide a long description of the
-	 * attribute or collection. This is designed to be used for help purposes.
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
-	public String getDisplayLabelAttribute() {
-		return displayLabelAttribute;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	/**
-	 * The displayLabelAttribute element is used to indicate that the label and
-	 * short label should be obtained from another attribute.
-	 * 
-	 * The label element and short label element defined for this attribute will
-	 * be overridden. Instead, the label and short label values will be obtained
-	 * by referencing the corresponding values from the attribute indicated by
-	 * this element.
-	 */
-	public void setDisplayLabelAttribute(String displayLabelAttribute) {
-		this.displayLabelAttribute = displayLabelAttribute;
-	}
+    /**
+     * The description element is used to provide a long description of the
+     * attribute or collection. This is designed to be used for help purposes.
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDisplayLabelAttribute() {
+        return displayLabelAttribute;
+    }
+
+    /**
+     * The displayLabelAttribute element is used to indicate that the label and
+     * short label should be obtained from another attribute.
+     * <p>
+     * The label element and short label element defined for this attribute will
+     * be overridden. Instead, the label and short label values will be obtained
+     * by referencing the corresponding values from the attribute indicated by
+     * this element.
+     */
+    public void setDisplayLabelAttribute(String displayLabelAttribute) {
+        this.displayLabelAttribute = displayLabelAttribute;
+    }
 
 }

@@ -1,32 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.coreservice.api.style;
-
-import java.io.Serializable;
-import java.util.Collection;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAnyElement;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.rice.core.api.CoreConstants;
@@ -34,269 +24,271 @@ import org.kuali.rice.core.api.mo.AbstractDataTransferObject;
 import org.kuali.rice.core.api.mo.ModelBuilder;
 import org.w3c.dom.Element;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyElement;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
+import java.util.Collection;
+
 /**
  * An immutable representation of a Style.  A style is essentially a block of
  * XML containing and XSL stylesheet. These can be used in various places for
  * the transformation of XML data from one form to another.
- *
  */
 @XmlRootElement(name = Style.Constants.ROOT_ELEMENT_NAME)
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlType(name = Style.Constants.TYPE_NAME, propOrder = {
-		Style.Elements.ID,
-		Style.Elements.NAME,
-		Style.Elements.XML_CONTENT,
-		Style.Elements.ACTIVE,
-        CoreConstants.CommonElements.VERSION_NUMBER,
-        CoreConstants.CommonElements.OBJECT_ID,
-        CoreConstants.CommonElements.FUTURE_ELEMENTS
+    Style.Elements.ID,
+    Style.Elements.NAME,
+    Style.Elements.XML_CONTENT,
+    Style.Elements.ACTIVE,
+    CoreConstants.CommonElements.VERSION_NUMBER,
+    CoreConstants.CommonElements.OBJECT_ID,
+    CoreConstants.CommonElements.FUTURE_ELEMENTS
 })
 public final class Style extends AbstractDataTransferObject implements StyleContract {
 
-	private static final long serialVersionUID = -26426318682076660L;
-	
-	@XmlElement(name = Elements.ID, required = false)
-	private final String id;
-	
-	@XmlElement(name = Elements.NAME, required = true)
+    private static final long serialVersionUID = -26426318682076660L;
+
+    @XmlElement(name = Elements.ID, required = false)
+    private final String id;
+
+    @XmlElement(name = Elements.NAME, required = true)
     private final String name;
-	
-	@XmlElement(name = Elements.XML_CONTENT, required = false)
+
+    @XmlElement(name = Elements.XML_CONTENT, required = false)
     private final String xmlContent;
-	
-	@XmlElement(name = Elements.ACTIVE, required = true)
+
+    @XmlElement(name = Elements.ACTIVE, required = true)
     private final boolean active;
-    
-	@XmlElement(name = CoreConstants.CommonElements.VERSION_NUMBER, required = false)
+
+    @XmlElement(name = CoreConstants.CommonElements.VERSION_NUMBER, required = false)
     private final Long versionNumber;
-	
-	@XmlElement(name = CoreConstants.CommonElements.OBJECT_ID, required = false)
-	private final String objectId;
+
+    @XmlElement(name = CoreConstants.CommonElements.OBJECT_ID, required = false)
+    private final String objectId;
 
     @SuppressWarnings("unused")
     @XmlAnyElement
     private final Collection<Element> _futureElements = null;
-	
+
     /**
      * Private constructor used only by JAXB.
      */
     private Style() {
-    	this.id = null;
-    	this.name = null;
-    	this.xmlContent = null;
-    	this.active = false;
-    	this.versionNumber = null;
-    	this.objectId = null;
+        this.id = null;
+        this.name = null;
+        this.xmlContent = null;
+        this.active = false;
+        this.versionNumber = null;
+        this.objectId = null;
     }
-    
+
     private Style(Builder builder) {
-    	this.id = builder.getId();
-    	this.name = builder.getName();
-    	this.xmlContent = builder.getXmlContent();
-    	this.active = builder.isActive();
-    	this.versionNumber = builder.getVersionNumber();
-    	this.objectId = builder.getObjectId();
+        this.id = builder.getId();
+        this.name = builder.getName();
+        this.xmlContent = builder.getXmlContent();
+        this.active = builder.isActive();
+        this.versionNumber = builder.getVersionNumber();
+        this.objectId = builder.getObjectId();
     }
 
     @Override
     public String getId() {
-		return this.id;
-	}
+        return this.id;
+    }
 
     @Override
     public String getName() {
-		return this.name;
-	}
+        return this.name;
+    }
 
     @Override
     public String getXmlContent() {
-		return this.xmlContent;
-	}
-	
+        return this.xmlContent;
+    }
+
     @Override
     public boolean isActive() {
-		return this.active;
-	}
-        
-	@Override
-	public Long getVersionNumber() {
-		return this.versionNumber;
-	}
-	
-	@Override
-	public String getObjectId() {
-		return this.objectId;
-	}
+        return this.active;
+    }
 
-	/**
-	 * A builder which can be used to construct {@link Style} instances.
-	 * Enforces the constraints of the {@link StyleContract}.
-	 *
-	 */
-	public static final class Builder implements StyleContract, ModelBuilder, Serializable  {
-    	
-    	private static final long serialVersionUID = -219369603932108436L;
-    	
-		private String id;
+    @Override
+    public Long getVersionNumber() {
+        return this.versionNumber;
+    }
+
+    @Override
+    public String getObjectId() {
+        return this.objectId;
+    }
+
+    /**
+     * A builder which can be used to construct {@link Style} instances.
+     * Enforces the constraints of the {@link StyleContract}.
+     */
+    public static final class Builder implements StyleContract, ModelBuilder, Serializable {
+
+        private static final long serialVersionUID = -219369603932108436L;
+
+        private String id;
         private String name;
         private String xmlContent;
         private boolean active;
         private Long versionNumber;
         private String objectId;
-        
+
         private Builder(String name) {
-        	setName(name);
-        	setActive(true);
+            setName(name);
+            setActive(true);
         }
-        
+
         /**
          * Creates a style builder with the given required values.  The builder
          * is the only means by which a {@link Style} object should be created.
-         * 
+         * <p>
          * <p>Will default the active flag to true.
-         * 
+         *
          * @param name the name of the style to create, must not be null or blank
-         * 
          * @return a builder with the required values already initialized
-         * 
          * @throws IllegalArgumentException if the given name is null or blank
          */
         public static Builder create(String name) {
-        	return new Builder(name);
+            return new Builder(name);
         }
-        
+
         /**
          * Creates a populates a builder with the data on the given StyleContract.
          * This is similar in nature to a "copy constructor" for Style.
-         * 
+         *
          * @param contract an object implementing the StyleContract from which
-         * to copy property values
-         *  
+         *                 to copy property values
          * @return a builder with the values from the contract already initialized
-         * 
          * @throws IllegalArgumentException if the given contract is null
          */
         public static Builder create(StyleContract contract) {
-        	if (contract == null) {
-        		throw new IllegalArgumentException("contract was null");
-        	}
-        	Builder builder = create(contract.getName());
-        	builder.setId(contract.getId());
-        	builder.setXmlContent(contract.getXmlContent());
-        	builder.setActive(contract.isActive());
-        	builder.setVersionNumber(contract.getVersionNumber());
-        	builder.setObjectId(contract.getObjectId());
-        	return builder;
-        }
-        
-        @Override
-        public Style build() {
-        	return new Style(this);
+            if (contract == null) {
+                throw new IllegalArgumentException("contract was null");
+            }
+            Builder builder = create(contract.getName());
+            builder.setId(contract.getId());
+            builder.setXmlContent(contract.getXmlContent());
+            builder.setActive(contract.isActive());
+            builder.setVersionNumber(contract.getVersionNumber());
+            builder.setObjectId(contract.getObjectId());
+            return builder;
         }
 
         @Override
-		public String getId() {
-			return this.id;
-		}
+        public Style build() {
+            return new Style(this);
+        }
+
+        @Override
+        public String getId() {
+            return this.id;
+        }
 
         /**
          * Sets the id for the style that will be returned by this builder.
-         * 
+         *
          * @param id the id to set
          */
-		public void setId(String id) {
-			this.id = id;
-		}
+        public void setId(String id) {
+            this.id = id;
+        }
 
-		@Override
-		public String getName() {
-			return this.name;
-		}
+        @Override
+        public String getName() {
+            return this.name;
+        }
 
-		/**
+        /**
          * Sets the name for the style that will be returned by this builder.
          * The name must not be blank or null.
-         * 
+         *
          * @param name the name to set on this builder, must not be null or
-         * blank
-         * 
+         *             blank
          * @throws IllegalArgumentException if the given name is null or blank
          */
-		public void setName(String name) {
-			if (StringUtils.isBlank(name)) {
-				throw new IllegalArgumentException("name is blank");
-			}
-			this.name = name;
-		}
+        public void setName(String name) {
+            if (StringUtils.isBlank(name)) {
+                throw new IllegalArgumentException("name is blank");
+            }
+            this.name = name;
+        }
 
-		@Override
-		public String getXmlContent() {
-			return this.xmlContent;
-		}
+        @Override
+        public String getXmlContent() {
+            return this.xmlContent;
+        }
 
-		/**
-		 * Sets the XML content for the style that will be returned by this
-		 * builder.
-		 * 
-		 * @param xmlContent the xmlContent to set on this builder
-		 */
-		public void setXmlContent(String xmlContent) {
-			this.xmlContent = xmlContent;
-		}
+        /**
+         * Sets the XML content for the style that will be returned by this
+         * builder.
+         *
+         * @param xmlContent the xmlContent to set on this builder
+         */
+        public void setXmlContent(String xmlContent) {
+            this.xmlContent = xmlContent;
+        }
 
-		@Override
-		public boolean isActive() {
-			return this.active;
-		}
+        @Override
+        public boolean isActive() {
+            return this.active;
+        }
 
-		/**
+        /**
          * Sets the active flag for the style that will be returned by this
          * builder.
-         * 
+         *
          * @param active the active flag to set
          */
-		public void setActive(boolean active) {
-			this.active = active;
-		}
+        public void setActive(boolean active) {
+            this.active = active;
+        }
 
-		@Override
-		public Long getVersionNumber() {
-			return this.versionNumber;
-		}
+        @Override
+        public Long getVersionNumber() {
+            return this.versionNumber;
+        }
 
-		/**
+        /**
          * Sets the version number for the style that will be returned by this
          * builder.
-         * 
+         * <p>
          * <p>In general, this value should not be manually set on the builder,
          * but rather copied from an existing {@link StyleContract} when
          * invoking {@link Builder#create(StyleContract)}.
-         * 
+         *
          * @param versionNumber the version number to set
          */
-		public void setVersionNumber(Long versionNumber) {
-			this.versionNumber = versionNumber;
-		}
+        public void setVersionNumber(Long versionNumber) {
+            this.versionNumber = versionNumber;
+        }
 
-		@Override
-		public String getObjectId() {
-			return objectId;
-		}
-		
-		/**
+        @Override
+        public String getObjectId() {
+            return objectId;
+        }
+
+        /**
          * Sets the globally unique object ID for the style that will be
          * returned by this builder.
-         * 
+         * <p>
          * <p>In general, this value should not be manually set on the builder,
          * but rather copied from an existing {@link StyleContract} when
          * invoking {@link Builder#create(StyleContract)}.
-         * 
+         *
          * @param objectId the object ID to set
          */
-		public void setObjectId(String objectId) {
-			this.objectId = objectId;
-		}
-    	
+        public void setObjectId(String objectId) {
+            this.objectId = objectId;
+        }
+
     }
 
     /**

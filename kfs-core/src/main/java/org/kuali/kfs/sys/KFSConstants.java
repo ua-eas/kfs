@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -813,7 +813,7 @@ public class KFSConstants {
          */
         public static final String PURGE_PENDING_ATTACHMENTS_STEP_MAX_AGE = "MAX_AGE";
 
-        public static final String NUMBER_OF_DAYS_SINCE_LAST_UPDATE  = "NUMBER_OF_DAYS_SINCE_LAST_UPDATE";
+        public static final String NUMBER_OF_DAYS_SINCE_LAST_UPDATE = "NUMBER_OF_DAYS_SINCE_LAST_UPDATE";
 
         public static final String ACCOUNTS_CAN_CROSS_CHARTS_IND = "ACCOUNTS_CAN_CROSS_CHARTS_IND";
 
@@ -1047,7 +1047,7 @@ public class KFSConstants {
     @Deprecated
     public static final String CUSTOMER_INVOICE_WRITEOFF_LOOKUP_RESULT_ERRORS = "customerInvoiceWriteoffLookupResults";
 
-    public static final class ReportGeneration{
+    public static final class ReportGeneration {
         public final static String PARAMETER_NAME_SUBREPORT_DIR = "SUBREPORT_DIR";
         public final static String PARAMETER_NAME_SUBREPORT_TEMPLATE_NAME = "SUBREPORT_TEMPLATE_NAMES";
         public final static String DESIGN_FILE_EXTENSION = ".jrxml";
@@ -1184,7 +1184,7 @@ public class KFSConstants {
 
         public static final List<String> ELIGIBLE_SUB_ACCOUNT_TYPE_CODES = getEligibleSubAccountTypeCodes();
 
-        private static final List<String> getEligibleSubAccountTypeCodes(){
+        private static final List<String> getEligibleSubAccountTypeCodes() {
             List<String> subAccountTypeCodesList = new ArrayList<String>();
             subAccountTypeCodesList.add(KFSConstants.SubAccountType.COST_SHARE);
             subAccountTypeCodesList.add(KFSConstants.SubAccountType.EXPENSE);
@@ -1237,6 +1237,7 @@ public class KFSConstants {
 
     @Deprecated
     public static final String PAYMENT_APPLICATION_DOCUMENT_ERRORS = "document";
+
     @Deprecated
     public static class PaymentApplicationTabErrorCodes {
         public static final String NON_AR_TAB = "nonInvoicedAddLine*";
@@ -1245,7 +1246,7 @@ public class KFSConstants {
     }
 
     // define a set of indicators related to payments, including payee types, tax review requirements and others
-    public static class AdHocPaymentIndicator{
+    public static class AdHocPaymentIndicator {
         public static final String EMPLOYEE_VENDOR = "E";
         public static final String ALIEN_VENDOR = "A";
         public static final String EMPLOYEE_PAYEE = "E";
@@ -1255,7 +1256,7 @@ public class KFSConstants {
         public static final String OTHER = "N";
     }
 
-    public static class SysKimApiConstants{
+    public static class SysKimApiConstants {
         public static final String ACCOUNT_SUPERVISOR_KIM_ROLE_NAME = "Account Supervisor";
         public static final String CONTRACTS_AND_GRANTS_PROJECT_DIRECTOR = "Contracts & Grants Project Director";
         public static final String FISCAL_OFFICER_KIM_ROLE_NAME = "Fiscal Officer";
@@ -1288,8 +1289,8 @@ public class KFSConstants {
     }
 
     public enum PermissionTemplate {
-        DEFAULT( KRADConstants.DEFAULT_NAMESPACE, "Default"),
-        ERROR_CORRECT_DOCUMENT( KFSConstants.CoreModuleNamespaces.KFS, "Error Correct Document"),
+        DEFAULT(KRADConstants.DEFAULT_NAMESPACE, "Default"),
+        ERROR_CORRECT_DOCUMENT(KFSConstants.CoreModuleNamespaces.KFS, "Error Correct Document"),
         MODIFY_ACCOUNTING_LINES(KFSConstants.CoreModuleNamespaces.KFS, "Modify Accounting Lines"),
         CLAIM_ELECTRONIC_PAYMENT(KFSConstants.CoreModuleNamespaces.KFS, "Claim Electronic Payment"),
         MODIFY_BATCH_JOB(KFSConstants.CoreModuleNamespaces.KFS, "Modify Batch Job"),
@@ -1302,6 +1303,7 @@ public class KFSConstants {
 
         public final String name;
         public final String namespace;
+
         private PermissionTemplate(String namespace, String name) {
             this.namespace = namespace;
             this.name = name;
@@ -1309,14 +1311,15 @@ public class KFSConstants {
     }
 
     public enum PermissionNames {
-        EDIT_INACTIVE_ACCOUNT( KFSConstants.CoreModuleNamespaces.CHART, "Edit Inactive Account" ),
-        SERVE_AS_ACCOUNT_MANAGER( KFSConstants.CoreModuleNamespaces.CHART, "Serve As Account Manager" ),
-        SERVE_AS_ACCOUNT_SUPERVISOR( KFSConstants.CoreModuleNamespaces.CHART, "Serve As Account Supervisor" ),
-        SERVE_AS_FISCAL_OFFICER( KFSConstants.CoreModuleNamespaces.CHART, "Serve As Fiscal Officer" ),
-        SERVE_AS_FISCAL_OFFICER_DELEGATE( KFSConstants.CoreModuleNamespaces.CHART, "Serve As Fiscal Officer Delegate" );
+        EDIT_INACTIVE_ACCOUNT(KFSConstants.CoreModuleNamespaces.CHART, "Edit Inactive Account"),
+        SERVE_AS_ACCOUNT_MANAGER(KFSConstants.CoreModuleNamespaces.CHART, "Serve As Account Manager"),
+        SERVE_AS_ACCOUNT_SUPERVISOR(KFSConstants.CoreModuleNamespaces.CHART, "Serve As Account Supervisor"),
+        SERVE_AS_FISCAL_OFFICER(KFSConstants.CoreModuleNamespaces.CHART, "Serve As Fiscal Officer"),
+        SERVE_AS_FISCAL_OFFICER_DELEGATE(KFSConstants.CoreModuleNamespaces.CHART, "Serve As Fiscal Officer Delegate");
 
         public final String name;
         public final String namespace;
+
         private PermissionNames(String namespace, String name) {
             this.namespace = namespace;
             this.name = name;
@@ -1346,7 +1349,7 @@ public class KFSConstants {
     public static final String FINANCIAL_SYSTEM_SIMPLE_MAINTENANCE_DOCUMENT = "FSSM";
     public static final String FINANCIAL_SYSTEM_LEDGER_ONLY_ROOT_DOCUMENT_TYPE = "FSLO";
 
-    public static class COAConstants{
+    public static class COAConstants {
         public static final String ORG_REVIEW_ROLE_ORG_ACC_ONLY_CODE = "A";
         public static final String ORG_REVIEW_ROLE_ORG_ACC_ONLY_TEXT = "Organization Accounting Only";
         public static final String ORG_REVIEW_ROLE_ORG_ONLY_CODE = "O";
@@ -1361,7 +1364,7 @@ public class KFSConstants {
 
     }
 
-    public static class ReportConstants{
+    public static class ReportConstants {
         public static final String EMPTY_CELL_ENTRY_KEY_PREFIX = "EMPTY_CELL";
 
         public static final String TABLE_HEADER_LINE_KEY = "tableHeaderLine";
@@ -1381,7 +1384,7 @@ public class KFSConstants {
     // System Parameters
     public static final String RESULT_SUMMARY_TO_EMAIL_ADDRESSES = "RESULT_SUMMARY_TO_EMAIL_ADDRESSES";
     public static final String SOURCE_URL_PARAMETER = "SOURCE_URL";
-    
+
     public static final String REPORT_WRITER_SERVICE_PAGE_NUMBER_PLACEHOLDER = "${pageNumber}";
 
     @Deprecated
@@ -1425,13 +1428,14 @@ public class KFSConstants {
 
     public static final String OVERRIDE_ACCOUNT_FOR_EXPIRED_QUESTION_ID = "OverrideAccountForExpiredQuestion";
 
-	public static final String NOTIFICATION_TEXT_KEY = "notificationText";
+    public static final String NOTIFICATION_TEXT_KEY = "notificationText";
     public static final int NOTIFICATION_TEXT_LINE_LENGTH = 80;
 
     public static final String PROCUREMENT_CARD_DEFAULT_SEQUENCE_NAME = "FP_PRCRMNT_CARD_DFLT_SEQ";
     public static final String W8_OWNERSHIP_SEQUENCE_NAME = "PUR_VNDR_W8_OWNRSHP_ID_SEQ";
 
     private static Integer MAX_LENGTH_OF_DOCUMENT_DESCRIPTION = null;
+
     public static Integer getMaxLengthOfDocumentDescription() {
         if (MAX_LENGTH_OF_DOCUMENT_DESCRIPTION == null) {
             MAX_LENGTH_OF_DOCUMENT_DESCRIPTION = SpringContext.getBean(DataDictionaryService.class).getAttributeMaxLength(DocumentHeader.class, KFSPropertyConstants.DOCUMENT_DESCRIPTION);
@@ -1460,12 +1464,13 @@ public class KFSConstants {
         public static final String BATCH_SUMMARY_RUNNING_TIMESTAMP_FORMAT = "BATCH_SUMMARY_RUNNING_TIMESTAMP_FORMAT";
         public static final String BATCH_SUMMARY_POSTING_DATE_FORMAT = "BATCH_SUMMARY_POSTING_DATE_FORMAT";
         public static final String PCARD_BATCH_LOAD_STEP = "ProcurementCardLoadStep";
-        public static final String PCARD_BATCH_CREATE_DOC_STEP="ProcurementCardCreateDocumentsStep";
+        public static final String PCARD_BATCH_CREATE_DOC_STEP = "ProcurementCardCreateDocumentsStep";
     }
+
     public static final String BATCH_LOGGER_DEFAULT_CONVERSION_PATTERN = "%d [%t] u:%X{user}/d:%X{docId} %-5p %c :: %m%n";
     public static final Layout BATCH_LOGGER_DEFAULT_PATTERN_LAYOUT = new PatternLayout(BATCH_LOGGER_DEFAULT_CONVERSION_PATTERN);
 
-	    public static final String MONTH_DAY_YEAR_DATE_FORMAT = "MM/dd/yyyy";
+    public static final String MONTH_DAY_YEAR_DATE_FORMAT = "MM/dd/yyyy";
 
     public static class PaymentSourceConstants {
         public static final String PAYMENT_METHOD_CHECK = "P";
@@ -1507,6 +1512,7 @@ public class KFSConstants {
             return String.format("%s - %s", this.code, this.name);
         }
     }
+
     public static class Booleans {
         public static final String TRUE = "true";
         public static final String FALSE = "false";
@@ -1552,21 +1558,21 @@ public class KFSConstants {
         public static final String REFERENCE = "reference";
         public static final String ADMINISTRATION = "administration";
     }
-    
+
     public static class DevelopmentMailServerConstants {
-    	public static final String EMAIL_INFO_START_LINE = "*********************** EMAIL SEND *****************************";
-    	public static final String FROM = "FROM : ";
-    	public static final String TO = "TO   : ";
-    	public static final String CC = "CC : ";
-    	public static final String BCC = "BCC : ";
-    	public static final String SUBJECT = "SUBJECT : ";
-    	public static final String MESSAGE = "MESSAGE : \n";
-    	public static final String EMAIL_INFO_END_LINE = "*********************** END EMAIL  *****************************";
-    	public static final String HTML_MESSAGE = "HTML Message: ";
-    	public static final String ATTACHMENT_INFO_LINE = "ATTACHMENT: \n";
-    	public static final String ATTACHMENT_FILE_NAME = "\t FILE NAME : ";
-    	public static final String ATTACHMENT_FILE_SIZE = "\t SIZE      : ";
-    	public static final String ATTACHMENT_FILE_MIME_TYPE = "\t MIME TYPE : ";
+        public static final String EMAIL_INFO_START_LINE = "*********************** EMAIL SEND *****************************";
+        public static final String FROM = "FROM : ";
+        public static final String TO = "TO   : ";
+        public static final String CC = "CC : ";
+        public static final String BCC = "BCC : ";
+        public static final String SUBJECT = "SUBJECT : ";
+        public static final String MESSAGE = "MESSAGE : \n";
+        public static final String EMAIL_INFO_END_LINE = "*********************** END EMAIL  *****************************";
+        public static final String HTML_MESSAGE = "HTML Message: ";
+        public static final String ATTACHMENT_INFO_LINE = "ATTACHMENT: \n";
+        public static final String ATTACHMENT_FILE_NAME = "\t FILE NAME : ";
+        public static final String ATTACHMENT_FILE_SIZE = "\t SIZE      : ";
+        public static final String ATTACHMENT_FILE_MIME_TYPE = "\t MIME TYPE : ";
     }
 
 }

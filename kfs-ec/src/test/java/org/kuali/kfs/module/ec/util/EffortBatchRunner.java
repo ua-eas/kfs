@@ -1,32 +1,32 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ec.util;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.ld.LaborLedgerBalance;
 import org.kuali.kfs.integration.ld.LaborLedgerEntry;
 import org.kuali.kfs.integration.ld.LaborModuleService;
+import org.kuali.kfs.krad.UserSession;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.module.ec.batch.service.EffortCertificationCreateService;
 import org.kuali.kfs.module.ec.batch.service.EffortCertificationExtractService;
 import org.kuali.kfs.module.ec.testdata.EffortTestDataPropertyConstants;
@@ -37,11 +37,11 @@ import org.kuali.kfs.sys.TestDataPreparator;
 import org.kuali.kfs.sys.context.Log4jConfigurer;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.SpringContextForBatchRunner;
-import org.kuali.kfs.krad.UserSession;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 
 /**
@@ -127,10 +127,9 @@ public class EffortBatchRunner {
 
         Integer fiscalYear = 2007;
         String reportPeriod = "A01";
-        if(args.length < 1) {
+        if (args.length < 1) {
             throw new IllegalArgumentException("Wrong argument -- The argument only can be -load, -extract or -create");
-        }
-        else if(args.length >= 3) {
+        } else if (args.length >= 3) {
             fiscalYear = StringUtils.isNumeric(args[1]) ? Integer.parseInt(args[1]) : fiscalYear;
             reportPeriod = StringUtils.isNotBlank(args[2]) ? StringUtils.trim(args[2]).toUpperCase() : reportPeriod;
         }
@@ -139,18 +138,15 @@ public class EffortBatchRunner {
             if (StringUtils.equalsIgnoreCase("-load", args[0])) {
                 System.out.println("Loading data into labor Entry and balance tables ...");
                 batchRunner.loadData();
-            }
-            else if (StringUtils.equalsIgnoreCase("-extract", args[0])) {
+            } else if (StringUtils.equalsIgnoreCase("-extract", args[0])) {
                 System.out.println("Extracting Effort Certifications ...");
                 EffortCertificationExtractService effortCertificationExtractService = SpringContext.getBean(EffortCertificationExtractService.class);
                 effortCertificationExtractService.extract(fiscalYear, reportPeriod);
-            }
-            else if (StringUtils.equalsIgnoreCase("-create", args[0])) {
+            } else if (StringUtils.equalsIgnoreCase("-create", args[0])) {
                 System.out.println("Creating Effort Certifications ...");
                 EffortCertificationCreateService effortCertificationCreateService = SpringContext.getBean(EffortCertificationCreateService.class);
                 effortCertificationCreateService.create(fiscalYear, reportPeriod);
-            }
-            else {
+            } else {
                 //throw new IllegalArgumentException("Wrong argument -- The argument only can be -load, -extract or -create");
                 //batchRunner.loadData();
 
@@ -160,11 +156,9 @@ public class EffortBatchRunner {
                 EffortCertificationCreateService effortCertificationCreateService = SpringContext.getBean(EffortCertificationCreateService.class);
                 effortCertificationCreateService.create(fiscalYear, reportPeriod);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             System.exit(0);
         }
     }

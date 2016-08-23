@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,11 +18,10 @@
  */
 package org.kuali.kfs.module.cg.document;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cg.businessobject.Proposal;
 import org.kuali.kfs.module.cg.businessobject.ProposalProjectDirector;
 import org.kuali.kfs.module.cg.businessobject.ProposalResearchRisk;
@@ -36,9 +35,10 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
 import org.kuali.rice.kim.api.identity.principal.Principal;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Methods for the Proposal maintenance document UI.
@@ -170,8 +170,7 @@ public class ProposalMaintainableImpl extends FinancialSystemMaintainable {
         if (refreshFromLookup) {
             getNewCollectionLine(KFSPropertyConstants.PROPOSAL_PROJECT_DIRECTORS).refreshNonUpdateableReferences();
             refreshNonUpdateableReferences(getProposal().getProposalProjectDirectors());
-        }
-        else {
+        } else {
             refreshWithSecondaryKey((ProposalProjectDirector) getNewCollectionLine(KFSPropertyConstants.PROPOSAL_PROJECT_DIRECTORS));
             for (ProposalProjectDirector ppd : getProposal().getProposalProjectDirectors()) {
                 refreshWithSecondaryKey(ppd);

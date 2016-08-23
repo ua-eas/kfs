@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -46,9 +46,9 @@ public class BalanceForwardStepTest extends OriginEntryTestBase {
     /**
      * Test the encumbrance forwarding process in one fell swoop. IF THIS TEST FAILS, READ
      * KULRNE-34 regarding reference numbers and the year end dates
-     * 
+     *
      * @throws Exception ## WARNING: DO NOT run this test or rename this method. WARNING ## ## WARNING: This one test takes just
-     *         under 3 hours to run WARNING ## ## WARNING: over the vpn. WARNING ##
+     *                   under 3 hours to run WARNING ## ## WARNING: over the vpn. WARNING ##
      */
     public void testAll() throws Exception {
 
@@ -56,7 +56,7 @@ public class BalanceForwardStepTest extends OriginEntryTestBase {
 //        populateBalanceTable();
 //
 //        DateTimeService dateTimeService = SpringContext.getBean(DateTimeService.class);
-//        
+//
 //        // Execute the step ...
 //        BalanceForwardStep step = SpringContext.getBean(BalanceForwardStep.class);
 //        step.execute(getClass().getName(), dateTimeService.getCurrentDate());
@@ -142,7 +142,7 @@ public class BalanceForwardStepTest extends OriginEntryTestBase {
 
     /**
      * This method resets the application params to values that are appropriate for year end dates
-     * 
+     *
      * @see org.kuali.kfs.gl.businessobject.OriginEntryTestBase#setApplicationConfigurationFlag(java.lang.String, boolean)
      */
     @Override
@@ -154,7 +154,7 @@ public class BalanceForwardStepTest extends OriginEntryTestBase {
 
     /**
      * Removes the sequence number from the origin entry line
-     * 
+     *
      * @param line the original origin entry line
      * @return the filtered origin entry line
      */
@@ -163,7 +163,7 @@ public class BalanceForwardStepTest extends OriginEntryTestBase {
         line = line.substring(0, 109) + line.substring(119); // remove date
         return line;
     }
-    
+
     /**
      * Adds a set of predefined balances to the gl balance tables, meaning the BalanceForwardStepTest will
      * have highly predictable results.

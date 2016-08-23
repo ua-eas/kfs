@@ -1,17 +1,33 @@
+/*
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.kuali.kfs.module.purap.service.impl;
 
-import org.apache.commons.lang.StringUtils;
-import org.bouncycastle.ocsp.Req;
 import org.junit.Assert;
 import org.junit.Test;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.purap.document.RequisitionDocument;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,8 +47,11 @@ public class MyOrdersServiceImplTest {
 
     interface RequisitionRetriever {
         RequisitionDocument getRequisitionDocument(String docNumber);
+
         List<FinancialSystemDocumentHeader> getLatestRequisitionDocumentHeaders();
+
         String getPrincipalId();
+
         String getPrincipalName();
     }
 
@@ -333,8 +352,8 @@ public class MyOrdersServiceImplTest {
         public <T extends BusinessObject> Collection<T> findMatching(Class<T> clazz, Map<String, ?> fieldValues) {
             if (RequisitionDocument.class.isAssignableFrom(clazz)) {
                 List<RequisitionDocument> reqs = new ArrayList<>();
-                reqs.add(requisitionRetriever.getRequisitionDocument((String)fieldValues.get(KFSPropertyConstants.DOCUMENT_NUMBER)));
-                return (List<T>)reqs;
+                reqs.add(requisitionRetriever.getRequisitionDocument((String) fieldValues.get(KFSPropertyConstants.DOCUMENT_NUMBER)));
+                return (List<T>) reqs;
             }
             return new ArrayList<>();
         }
@@ -352,7 +371,7 @@ public class MyOrdersServiceImplTest {
         @Override
         public <T extends BusinessObject> Collection<T> findMatchingOrderBy(Class<T> clazz, Map<String, ?> fieldValues, String sortField, boolean sortAscending) {
             if (FinancialSystemDocumentHeader.class.isAssignableFrom(clazz)) {
-                return (List<T>)requisitionRetriever.getLatestRequisitionDocumentHeaders();
+                return (List<T>) requisitionRetriever.getLatestRequisitionDocumentHeaders();
             }
             return new ArrayList<>();
         }

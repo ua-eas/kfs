@@ -1,27 +1,34 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
+import org.kuali.kfs.coa.businessobject.Account;
+import org.kuali.kfs.coa.businessobject.Chart;
+import org.kuali.kfs.coa.businessobject.Organization;
+import org.kuali.kfs.coa.businessobject.ProjectCode;
+import org.kuali.kfs.coa.businessobject.SubAccount;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.service.KRADServiceLocator;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.tem.service.TemProfileService;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.kim.api.identity.Person;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,18 +39,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import org.kuali.kfs.coa.businessobject.Account;
-import org.kuali.kfs.coa.businessobject.Chart;
-import org.kuali.kfs.coa.businessobject.Organization;
-import org.kuali.kfs.coa.businessobject.ProjectCode;
-import org.kuali.kfs.coa.businessobject.SubAccount;
-import org.kuali.kfs.module.tem.service.TemProfileService;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.service.KRADServiceLocator;
-import org.kuali.kfs.krad.util.ObjectUtils;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 
 @Entity
@@ -298,7 +297,7 @@ public class TemProfile extends BaseTemProfile {
      */
     @Column(length = 2, nullable = true)
     public String getDefaultChartCode() {
-        if(defaultChartCode == null && homeDeptChartOfAccountsCode != null) {
+        if (defaultChartCode == null && homeDeptChartOfAccountsCode != null) {
             defaultChartCode = homeDeptChartOfAccountsCode;
         }
 
@@ -539,8 +538,8 @@ public class TemProfile extends BaseTemProfile {
     public TemProfileAddress getTemProfileAddress() {
         TemProfileService profileService = SpringContext.getBean(TemProfileService.class);
 
-        if(ObjectUtils.isNull(temProfileAddress)) {
-        	temProfileAddress = new TemProfileAddress();
+        if (ObjectUtils.isNull(temProfileAddress)) {
+            temProfileAddress = new TemProfileAddress();
         }
 
         return profileService.getAddressFromProfile(this, temProfileAddress);
@@ -562,26 +561,28 @@ public class TemProfile extends BaseTemProfile {
     /**
      * @return true if only the arrangees of the current user should be displayed in the lookup, false otherwise
      */
-	public boolean isOnlyArrangeesInLookup() {
+    public boolean isOnlyArrangeesInLookup() {
         return onlyArrangeesInLookup;
     }
 
-	/**
-	 * Do not use this method.  It's really for the framework to determine if only the current users's arrangees should appear in the lookup.
-	 * Otherwise, the field is transient and only has meaning within the lookup
-	 * @param onlyArrangeesInLookup whether the lookup should only include arrangees of the current user or not
-	 */
+    /**
+     * Do not use this method.  It's really for the framework to determine if only the current users's arrangees should appear in the lookup.
+     * Otherwise, the field is transient and only has meaning within the lookup
+     *
+     * @param onlyArrangeesInLookup whether the lookup should only include arrangees of the current user or not
+     */
     public void setOnlyArrangeesInLookup(boolean onlyArrangeesInLookup) {
         this.onlyArrangeesInLookup = onlyArrangeesInLookup;
     }
 
     /**
-	 * Sets the accounts attribute value.
-	 * @param accounts The accounts to set.
-	 */
-	public void setAccounts(List<TemProfileAccount> accounts) {
-		this.accounts = accounts;
-	}
+     * Sets the accounts attribute value.
+     *
+     * @param accounts The accounts to set.
+     */
+    public void setAccounts(List<TemProfileAccount> accounts) {
+        this.accounts = accounts;
+    }
 
     public List<TemProfileEmergencyContact> getEmergencyContacts() {
         return emergencyContacts;
@@ -597,7 +598,7 @@ public class TemProfile extends BaseTemProfile {
      *
      * @return
      */
-    public void setBoNotes(List<Note>notes){
+    public void setBoNotes(List<Note> notes) {
         this.boNotes = notes;
     }
 
@@ -606,8 +607,8 @@ public class TemProfile extends BaseTemProfile {
      *
      * @return
      */
-    public List<Note> getBoNotes(){
-        if (ObjectUtils.isNull(boNotes)){
+    public List<Note> getBoNotes() {
+        if (ObjectUtils.isNull(boNotes)) {
             List<Note> noteList = KRADServiceLocator.getNoteService().getByRemoteObjectId(getObjectId());
             boNotes = noteList;
         }

@@ -1,41 +1,39 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.krad.document;
 
+import org.kuali.kfs.krad.bo.DataObjectAuthorizer;
 import org.kuali.kfs.krad.datadictionary.DocumentEntry;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.bo.DataObjectAuthorizer;
 
 /**
  * Authorizer class for {@link Document} instances
- *
+ * <p>
  * <p>
  * Authorizer provides user based authorization
  * </p>
- *
+ * <p>
  * <p>
  * The document authorizer is associated with a document type through its data dictionary
  * {@link DocumentEntry}. This is then used by the framework to authorize certain
  * actions and in addition used for view presentation logic
  * </p>
- *
- * 
  */
 public interface DocumentAuthorizer extends DataObjectAuthorizer {
 
@@ -80,10 +78,10 @@ public interface DocumentAuthorizer extends DataObjectAuthorizer {
     public boolean canAddNoteAttachment(Document document, String attachmentTypeCode, Person user);
 
     public boolean canDeleteNoteAttachment(Document document, String attachmentTypeCode,
-            String authorUniversalIdentifier, Person user);
+                                           String authorUniversalIdentifier, Person user);
 
     public boolean canViewNoteAttachment(Document document, String attachmentTypeCode, String authorUniversalIdentifier,
-            Person user);
+                                         Person user);
 
     public boolean canSendAdHocRequests(Document document, String actionRequestCd, Person user);
 

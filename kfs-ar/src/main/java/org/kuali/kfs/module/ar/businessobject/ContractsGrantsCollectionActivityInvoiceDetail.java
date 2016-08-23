@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,16 +18,16 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.sql.Date;
-import java.util.Arrays;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.ObjectUtil;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.util.Arrays;
 
 /**
  * Defines a Collection Activity Invoice Detail object.
@@ -90,7 +90,7 @@ public class ContractsGrantsCollectionActivityInvoiceDetail extends PersistableB
             if (this.getClass().equals(obj.getClass())) {
                 ContractsGrantsCollectionActivityInvoiceDetail other = (ContractsGrantsCollectionActivityInvoiceDetail) obj;
                 return (StringUtils.equalsIgnoreCase(this.documentNumber, other.documentNumber) &&
-                        StringUtils.equalsIgnoreCase(this.invoiceNumber, other.invoiceNumber));
+                    StringUtils.equalsIgnoreCase(this.invoiceNumber, other.invoiceNumber));
             }
         }
         return false;

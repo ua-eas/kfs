@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -20,7 +20,6 @@ package org.kuali.kfs.krad.util;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.kuali.kfs.krad.util.BeanPropertyComparator;
 import org.kuali.kfs.krad.util.BeanPropertyComparator.BeanComparisonException;
 
 import java.text.DateFormat;
@@ -36,32 +35,33 @@ import java.util.List;
  */
 public class BeanPropertyComparatorTest {
 
-    @Test public void testConstructor_nullList() {
+    @Test
+    public void testConstructor_nullList() {
         boolean failedAsExpected = false;
 
         try {
             new BeanPropertyComparator(null);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             failedAsExpected = true;
         }
 
         Assert.assertTrue(failedAsExpected);
     }
 
-    @Test public void testConstructor_emptyList() {
+    @Test
+    public void testConstructor_emptyList() {
         boolean failedAsExpected = false;
         try {
             new BeanPropertyComparator(new ArrayList());
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             failedAsExpected = true;
         }
         Assert.assertTrue(failedAsExpected);
     }
 
-    @Test public void testCompare_unknownPropertyNames() {
-        List unknownProperties = Arrays.asList(new String[] { "one", "two", "three" });
+    @Test
+    public void testCompare_unknownPropertyNames() {
+        List unknownProperties = Arrays.asList(new String[]{"one", "two", "three"});
 
         BeanPropertyComparator bpc = new BeanPropertyComparator(unknownProperties);
         A a = new A("something", new Integer(0), Boolean.valueOf(false));
@@ -71,8 +71,7 @@ public class BeanPropertyComparatorTest {
         boolean failedAsExpected = false;
         try {
             bpc.compare(a, b);
-        }
-        catch (BeanComparisonException e) {
+        } catch (BeanComparisonException e) {
             if (e.getCause() instanceof NullPointerException) {
                 failedAsExpected = true;
             }
@@ -80,8 +79,9 @@ public class BeanPropertyComparatorTest {
         Assert.assertTrue(failedAsExpected);
     }
 
-    @Test public void testCompare_propertyTypeMismatch() {
-        List mismatchedProperties = Arrays.asList(new String[] { "i", "b" });
+    @Test
+    public void testCompare_propertyTypeMismatch() {
+        List mismatchedProperties = Arrays.asList(new String[]{"i", "b"});
 
         BeanPropertyComparator bpc = new BeanPropertyComparator(mismatchedProperties);
         A a = new A("something", new Integer(0), Boolean.valueOf(false));
@@ -91,15 +91,15 @@ public class BeanPropertyComparatorTest {
         boolean failedAsExpected = false;
         try {
             bpc.compare(a, c);
-        }
-        catch (ClassCastException e) {
+        } catch (ClassCastException e) {
             failedAsExpected = true;
         }
         Assert.assertTrue(failedAsExpected);
     }
 
-    @Test public void testCompare_privateProperty() {
-        List privateProperty = Arrays.asList(new String[] { "s" });
+    @Test
+    public void testCompare_privateProperty() {
+        List privateProperty = Arrays.asList(new String[]{"s"});
 
         BeanPropertyComparator bpc = new BeanPropertyComparator(privateProperty);
         C c = new C("something else", 1, true);
@@ -109,8 +109,7 @@ public class BeanPropertyComparatorTest {
         boolean failedAsExpected = false;
         try {
             bpc.compare(c, a);
-        }
-        catch (BeanComparisonException e) {
+        } catch (BeanComparisonException e) {
             if (e.getCause() instanceof NullPointerException) {
                 failedAsExpected = true;
             }
@@ -119,8 +118,9 @@ public class BeanPropertyComparatorTest {
     }
 
 
-    @Test public void testCompare_oneProperty_string() {
-        List properties = Arrays.asList(new String[] { "s" });
+    @Test
+    public void testCompare_oneProperty_string() {
+        List properties = Arrays.asList(new String[]{"s"});
 
         BeanPropertyComparator bpc = new BeanPropertyComparator(properties);
         A lesser = new A("One", new Integer(0), Boolean.valueOf(false));
@@ -136,8 +136,9 @@ public class BeanPropertyComparatorTest {
         Assert.assertTrue(equal == 0);
     }
 
-    @Test public void testCompare_oneProperty_integer() {
-        List properties = Arrays.asList(new String[] { "i" });
+    @Test
+    public void testCompare_oneProperty_integer() {
+        List properties = Arrays.asList(new String[]{"i"});
 
         BeanPropertyComparator bpc = new BeanPropertyComparator(properties);
         A lesser = new A("One", new Integer(-1), Boolean.valueOf(false));
@@ -153,8 +154,9 @@ public class BeanPropertyComparatorTest {
         Assert.assertTrue(equal == 0);
     }
 
-    @Test public void testCompare_oneProperty_boolean() {
-        List properties = Arrays.asList(new String[] { "b" });
+    @Test
+    public void testCompare_oneProperty_boolean() {
+        List properties = Arrays.asList(new String[]{"b"});
 
         BeanPropertyComparator bpc = new BeanPropertyComparator(properties);
         A lesser = new A("One", new Integer(0), Boolean.valueOf(false));
@@ -170,8 +172,9 @@ public class BeanPropertyComparatorTest {
         Assert.assertTrue(equal == 0);
     }
 
-    @Test public void testCompare_oneLevel() {
-        List propertiesSIB = Arrays.asList(new String[] { "s", "i", "b" });
+    @Test
+    public void testCompare_oneLevel() {
+        List propertiesSIB = Arrays.asList(new String[]{"s", "i", "b"});
 
         BeanPropertyComparator bpcSIB = new BeanPropertyComparator(propertiesSIB);
         A lesser = new A("One", new Integer(0), Boolean.valueOf(false));
@@ -187,8 +190,9 @@ public class BeanPropertyComparatorTest {
         Assert.assertTrue(equal == 0);
     }
 
-    @Test public void testCompare_twoLevels() {
-        List propertiesSIB = Arrays.asList(new String[] { "s", "i", "b" });
+    @Test
+    public void testCompare_twoLevels() {
+        List propertiesSIB = Arrays.asList(new String[]{"s", "i", "b"});
 
         BeanPropertyComparator bpc = new BeanPropertyComparator(propertiesSIB);
         A lesser = new A("Same", new Integer(-1), Boolean.valueOf(false));
@@ -204,8 +208,9 @@ public class BeanPropertyComparatorTest {
         Assert.assertTrue(equal == 0);
     }
 
-    @Test public void testCompare_threeLevels() {
-        List propertiesSIB = Arrays.asList(new String[] { "s", "i", "b" });
+    @Test
+    public void testCompare_threeLevels() {
+        List propertiesSIB = Arrays.asList(new String[]{"s", "i", "b"});
 
         BeanPropertyComparator bpc = new BeanPropertyComparator(propertiesSIB);
         A lesser = new A("Same", new Integer(1), Boolean.valueOf(false));
@@ -221,8 +226,9 @@ public class BeanPropertyComparatorTest {
         Assert.assertTrue(equal == 0);
     }
 
-    @Test public void testCompare_differentCases() {
-        List propertiesSIB = Arrays.asList(new String[] { "s", "i", "b" });
+    @Test
+    public void testCompare_differentCases() {
+        List propertiesSIB = Arrays.asList(new String[]{"s", "i", "b"});
 
         BeanPropertyComparator sensitive = new BeanPropertyComparator(propertiesSIB, false);
         BeanPropertyComparator insensitive = new BeanPropertyComparator(propertiesSIB, true);
@@ -236,74 +242,77 @@ public class BeanPropertyComparatorTest {
         int inequal = sensitive.compare(greater, lesser);
         Assert.assertTrue(inequal != 0);
     }
-    
-    @Test public void testCompare_differentDates() throws ParseException {
-    	List propertiesD = Arrays.asList(new String[] { "d" });
-    	
-    	DateFormat dateFormat = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
-    	
-    	BeanPropertyComparator comparator = new BeanPropertyComparator(propertiesD);
-    	
-    	D lesser = new D(dateFormat.parse("01/01/1990"));
-    	D greater = new D(dateFormat.parse("01/02/1990"));
-    	
-    	int result = comparator.compare(greater, lesser);
-    	Assert.assertEquals(1, result);
-    	
-    	result = comparator.compare(lesser, greater);
-    	Assert.assertEquals(-1, result);
-    	
-    	result = comparator.compare(lesser, lesser);
-    	Assert.assertEquals(0, result);
-    	
-    	result = comparator.compare(greater, greater);
-    	Assert.assertEquals(0, result);
+
+    @Test
+    public void testCompare_differentDates() throws ParseException {
+        List propertiesD = Arrays.asList(new String[]{"d"});
+
+        DateFormat dateFormat = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
+
+        BeanPropertyComparator comparator = new BeanPropertyComparator(propertiesD);
+
+        D lesser = new D(dateFormat.parse("01/01/1990"));
+        D greater = new D(dateFormat.parse("01/02/1990"));
+
+        int result = comparator.compare(greater, lesser);
+        Assert.assertEquals(1, result);
+
+        result = comparator.compare(lesser, greater);
+        Assert.assertEquals(-1, result);
+
+        result = comparator.compare(lesser, lesser);
+        Assert.assertEquals(0, result);
+
+        result = comparator.compare(greater, greater);
+        Assert.assertEquals(0, result);
     }
-    
-    @Test public void testCompare_firstNullDates() throws ParseException {
-    	List propertiesD = Arrays.asList(new String[] { "d" });
-    	
-    	DateFormat dateFormat = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
-    	
-    	BeanPropertyComparator comparator = new BeanPropertyComparator(propertiesD);
-    	
-    	D lesser = new D(null);
-    	D greater = new D(dateFormat.parse("01/02/1990"));
-    	
-    	int result = comparator.compare(greater, lesser);
-    	Assert.assertEquals(1, result);
-    	
-    	result = comparator.compare(lesser, greater);
-    	Assert.assertEquals(-1, result);
-    	
-    	result = comparator.compare(lesser, lesser);
-    	Assert.assertEquals(0, result);
-    	
-    	result = comparator.compare(greater, greater);
-    	Assert.assertEquals(0, result);
+
+    @Test
+    public void testCompare_firstNullDates() throws ParseException {
+        List propertiesD = Arrays.asList(new String[]{"d"});
+
+        DateFormat dateFormat = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
+
+        BeanPropertyComparator comparator = new BeanPropertyComparator(propertiesD);
+
+        D lesser = new D(null);
+        D greater = new D(dateFormat.parse("01/02/1990"));
+
+        int result = comparator.compare(greater, lesser);
+        Assert.assertEquals(1, result);
+
+        result = comparator.compare(lesser, greater);
+        Assert.assertEquals(-1, result);
+
+        result = comparator.compare(lesser, lesser);
+        Assert.assertEquals(0, result);
+
+        result = comparator.compare(greater, greater);
+        Assert.assertEquals(0, result);
     }
-    
-    @Test public void testCompare_secondNullDates() throws ParseException {
-    	List propertiesD = Arrays.asList(new String[] { "d" });
-    	
-    	DateFormat dateFormat = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
-    	
-    	BeanPropertyComparator comparator = new BeanPropertyComparator(propertiesD);
-    	
-    	D lesser = new D(dateFormat.parse("01/02/1990"));
-    	D greater = new D(null);
-    	
-    	int result = comparator.compare(greater, lesser);
-    	Assert.assertEquals(-1, result);
-    	
-    	result = comparator.compare(lesser, greater);
-    	Assert.assertEquals(1, result);
-    	
-    	result = comparator.compare(lesser, lesser);
-    	Assert.assertEquals(0, result);
-    	
-    	result = comparator.compare(greater, greater);
-    	Assert.assertEquals(0, result);
+
+    @Test
+    public void testCompare_secondNullDates() throws ParseException {
+        List propertiesD = Arrays.asList(new String[]{"d"});
+
+        DateFormat dateFormat = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
+
+        BeanPropertyComparator comparator = new BeanPropertyComparator(propertiesD);
+
+        D lesser = new D(dateFormat.parse("01/02/1990"));
+        D greater = new D(null);
+
+        int result = comparator.compare(greater, lesser);
+        Assert.assertEquals(-1, result);
+
+        result = comparator.compare(lesser, greater);
+        Assert.assertEquals(1, result);
+
+        result = comparator.compare(lesser, lesser);
+        Assert.assertEquals(0, result);
+
+        result = comparator.compare(greater, greater);
+        Assert.assertEquals(0, result);
     }
 
     public static class A {
@@ -383,16 +392,16 @@ public class BeanPropertyComparatorTest {
             return b;
         }
     }
-    
+
     public static class D {
-    	private Date d;
-    	
-    	public D(Date d) {
-    		this.d = d;
-    	}
-    	
-    	public Date getD() {
-    		return d;
-    	}
+        private Date d;
+
+        public D(Date d) {
+            this.d = d;
+        }
+
+        public Date getD() {
+            return d;
+        }
     }
 }

@@ -1,33 +1,34 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document.web.struts;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Properties;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.question.ConfirmationQuestion;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapConstants.CorrectionReceivingDocumentStrings;
 import org.kuali.kfs.module.purap.PurapConstants.PREQDocumentsStrings;
@@ -49,14 +50,12 @@ import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.KimConstants;
-import org.kuali.kfs.kns.question.ConfirmationQuestion;
-import org.kuali.kfs.kns.service.DocumentHelperService;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.kfs.krad.service.KualiRuleService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Properties;
 
 public class LineItemReceivingAction extends ReceivingBaseAction {
 
@@ -65,19 +64,19 @@ public class LineItemReceivingAction extends ReceivingBaseAction {
 
         super.createDocument(kualiDocumentFormBase);
 
-        LineItemReceivingForm rlf = (LineItemReceivingForm)kualiDocumentFormBase;
-        LineItemReceivingDocument rlDoc = (LineItemReceivingDocument)rlf.getDocument();
+        LineItemReceivingForm rlf = (LineItemReceivingForm) kualiDocumentFormBase;
+        LineItemReceivingDocument rlDoc = (LineItemReceivingDocument) rlf.getDocument();
 
         //set identifier from form value
-        rlDoc.setPurchaseOrderIdentifier( rlf.getPurchaseOrderId() );
+        rlDoc.setPurchaseOrderIdentifier(rlf.getPurchaseOrderId());
 
         rlDoc.initiateDocument();
 
     }
 
     public ActionForward continueReceivingLine(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        LineItemReceivingForm rlf = (LineItemReceivingForm)form;
-        LineItemReceivingDocument rlDoc = (LineItemReceivingDocument)rlf.getDocument();
+        LineItemReceivingForm rlf = (LineItemReceivingForm) form;
+        LineItemReceivingDocument rlDoc = (LineItemReceivingDocument) rlf.getDocument();
 
         GlobalVariables.getMessageMap().clearErrorPath();
         GlobalVariables.getMessageMap().addToErrorPath(KFSPropertyConstants.DOCUMENT);
@@ -95,7 +94,7 @@ public class LineItemReceivingAction extends ReceivingBaseAction {
         }
 
         //exit early as the po is null, no need to proceed further until this is taken care of
-        if(poNotNull == false){
+        if (poNotNull == false) {
             return mapping.findForward(KFSConstants.MAPPING_BASIC);
         }
 
@@ -108,23 +107,23 @@ public class LineItemReceivingAction extends ReceivingBaseAction {
             if (!SpringContext.getBean(DocumentHelperService.class).getDocumentAuthorizer(rlDoc).isAuthorizedByTemplate(rlDoc, KRADConstants.KNS_NAMESPACE, KimConstants.PermissionTemplateNames.OPEN_DOCUMENT, GlobalVariables.getUserSession().getPrincipalId())) {
                 throw buildAuthorizationException("initiate document", rlDoc);
             }
-        }else{
+        } else {
             GlobalVariables.getMessageMap().putError(PurapPropertyConstants.PURCHASE_ORDER_IDENTIFIER, PurapKeyConstants.ERROR_PURCHASE_ORDER_NOT_EXIST);
             return mapping.findForward(KFSConstants.MAPPING_BASIC);
         }
 
         //perform duplicate check
         ActionForward forward = performDuplicateReceivingLineCheck(mapping, form, request, response, rlDoc);
-        if( forward != null ){
+        if (forward != null) {
             return forward;
         }
 
-        if (!SpringContext.getBean(ReceivingService.class).isPurchaseOrderActiveForLineItemReceivingDocumentCreation(rlDoc.getPurchaseOrderIdentifier())){
+        if (!SpringContext.getBean(ReceivingService.class).isPurchaseOrderActiveForLineItemReceivingDocumentCreation(rlDoc.getPurchaseOrderIdentifier())) {
             GlobalVariables.getMessageMap().putError(PurapPropertyConstants.PURCHASE_ORDER_IDENTIFIER, PurapKeyConstants.ERROR_RECEIVING_LINE_DOCUMENT_PO_NOT_ACTIVE, rlDoc.getPurchaseOrderIdentifier().toString());
             valid &= false;
         }
 
-        if( SpringContext.getBean(ReceivingService.class).canCreateLineItemReceivingDocument(rlDoc.getPurchaseOrderIdentifier(), rlDoc.getDocumentNumber()) == false){
+        if (SpringContext.getBean(ReceivingService.class).canCreateLineItemReceivingDocument(rlDoc.getPurchaseOrderIdentifier(), rlDoc.getDocumentNumber()) == false) {
             String inProcessDocNum = "";
             List<String> inProcessDocNumbers = SpringContext.getBean(ReceivingService.class).getLineItemReceivingDocumentNumbersInProcessForPurchaseOrder(rlDoc.getPurchaseOrderIdentifier(), rlDoc.getDocumentNumber());
             if (!inProcessDocNumbers.isEmpty()) {    // should not be empty if we reach this point
@@ -135,7 +134,7 @@ public class LineItemReceivingAction extends ReceivingBaseAction {
         }
 
         //populate and save Receiving Line Document from Purchase Order, only if we passed all the rules
-        if(valid){
+        if (valid) {
             SpringContext.getBean(ReceivingService.class).populateAndSaveLineItemReceivingDocument(rlDoc);
         }
 
@@ -161,12 +160,12 @@ public class LineItemReceivingAction extends ReceivingBaseAction {
             }
 
             @Override
-            public boolean isQuestionComplete(){
+            public boolean isQuestionComplete() {
                 return this.questionComplete;
             }
 
             @Override
-            public void setQuestionComplete(boolean questionComplete){
+            public void setQuestionComplete(boolean questionComplete) {
                 this.questionComplete = questionComplete;
             }
 
@@ -185,7 +184,7 @@ public class LineItemReceivingAction extends ReceivingBaseAction {
         ActionForward forward = askQuestionWithInput(mapping, form, request, response, CorrectionReceivingDocumentStrings.NOTE_QUESTION, CorrectionReceivingDocumentStrings.NOTE_PREFIX, operation, PurapKeyConstants.MESSAGE_RECEIVING_CORRECTION_NOTE, callback);
 
         //if question asked is complete, then route
-        if(callback.isQuestionComplete()){
+        if (callback.isQuestionComplete()) {
 
             //set parameters
             String basePath = getApplicationBaseUrl();
@@ -196,7 +195,7 @@ public class LineItemReceivingAction extends ReceivingBaseAction {
             parameters.put(KFSConstants.DISPATCH_REQUEST_PARAMETER, methodToCallDocHandler);
             parameters.put(KFSConstants.PARAMETER_COMMAND, methodToCallReceivingCorrection);
             parameters.put(KFSConstants.DOCUMENT_TYPE_NAME, "RCVC");
-            parameters.put("receivingLineDocId", document.getDocumentHeader().getDocumentNumber() );
+            parameters.put("receivingLineDocId", document.getDocumentHeader().getDocumentNumber());
             parameters.put(PurapConstants.CorrectionReceivingDocumentStrings.CORRECTION_RECEIVING_CREATION_NOTE_PARAMETER, callback.getCorrectionDocumentCreationNoteText());
 
             //create url
@@ -235,15 +234,16 @@ public class LineItemReceivingAction extends ReceivingBaseAction {
 
         return forward;
     }
+
     /**
      * Add a new item to the document.
      *
-     * @param mapping An ActionMapping
-     * @param form An ActionForm
-     * @param request The HttpServletRequest
+     * @param mapping  An ActionMapping
+     * @param form     An ActionForm
+     * @param request  The HttpServletRequest
      * @param response The HttpServletResponse
-     * @throws Exception
      * @return An ActionForward
+     * @throws Exception
      */
     public ActionForward addItem(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         LineItemReceivingForm lineItemReceivingForm = (LineItemReceivingForm) form;
@@ -276,7 +276,7 @@ public class LineItemReceivingAction extends ReceivingBaseAction {
 
         LineItemReceivingDocument lineItemReceivingDocument = (LineItemReceivingDocument) lineItemReceivingForm.getDocument();
 
-        for(LineItemReceivingItem item : (List <LineItemReceivingItem>)lineItemReceivingDocument.getItems()){
+        for (LineItemReceivingItem item : (List<LineItemReceivingItem>) lineItemReceivingDocument.getItems()) {
             item.setItemReceivedTotalQuantity(KualiDecimal.ZERO);
         }
 
@@ -298,11 +298,11 @@ public class LineItemReceivingAction extends ReceivingBaseAction {
 
         LineItemReceivingDocument lineItemReceivingDocument = (LineItemReceivingDocument) lineItemReceivingForm.getDocument();
 
-        for(LineItemReceivingItem item : (List <LineItemReceivingItem>)lineItemReceivingDocument.getItems()){
-            if (item.isOrderedItem()){
-                if( item.getItemOrderedQuantity().subtract(item.getItemReceivedPriorQuantity()).isGreaterEqual(KualiDecimal.ZERO)  ){
-                    item.setItemReceivedTotalQuantity( item.getItemOrderedQuantity().subtract(item.getItemReceivedPriorQuantity()) );
-                }else{
+        for (LineItemReceivingItem item : (List<LineItemReceivingItem>) lineItemReceivingDocument.getItems()) {
+            if (item.isOrderedItem()) {
+                if (item.getItemOrderedQuantity().subtract(item.getItemReceivedPriorQuantity()).isGreaterEqual(KualiDecimal.ZERO)) {
+                    item.setItemReceivedTotalQuantity(item.getItemOrderedQuantity().subtract(item.getItemReceivedPriorQuantity()));
+                } else {
                     item.setItemReceivedTotalQuantity(KualiDecimal.ZERO);
                 }
             }
@@ -315,15 +315,15 @@ public class LineItemReceivingAction extends ReceivingBaseAction {
      * Gives a warning before showing the add new unordered line item; if the user confirms the action, proceeds;
      * otherwise cancels the action and returns to the current LineItemReceivingDocument.
      *
-     * @param mapping An ActionMapping
-     * @param form An ActionForm
-     * @param request The HttpServletRequest
+     * @param mapping  An ActionMapping
+     * @param form     An ActionForm
+     * @param request  The HttpServletRequest
      * @param response The HttpServletResponse
-     * @throws Exception
      * @return An ActionForward
+     * @throws Exception
      */
     public ActionForward showAddUnorderedItem(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        LineItemReceivingForm lineItemReceivingForm = (LineItemReceivingForm)form;
+        LineItemReceivingForm lineItemReceivingForm = (LineItemReceivingForm) form;
 
         boolean shouldGiveWarning = lineItemReceivingForm.shouldGiveAddUnorderedItemWarning();
         if (!shouldGiveWarning) {

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -25,6 +25,8 @@ import org.kuali.kfs.coa.service.OffsetDefinitionService;
 import org.kuali.kfs.fp.document.YearEndDocument;
 import org.kuali.kfs.fp.document.service.YearEndPendingEntryService;
 import org.kuali.kfs.gl.service.SufficientFundsService;
+import org.kuali.kfs.krad.document.TransactionalDocument;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
@@ -32,8 +34,6 @@ import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail;
 import org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseConstants;
 import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.kfs.krad.document.TransactionalDocument;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * The default implementation of the YearEndPendingEntryService
@@ -75,8 +75,7 @@ public class YearEndPendingEntryServiceImpl implements YearEndPendingEntryServic
             if (offsetObjectCode.equals(AccountingDocumentRuleBaseConstants.GENERAL_LEDGER_PENDING_ENTRY_CODE.getBlankFinancialObjectCode())) {
                 // no BO, so punt
                 offsetEntry.setAcctSufficientFundsFinObjCd(AccountingDocumentRuleBaseConstants.GENERAL_LEDGER_PENDING_ENTRY_CODE.getBlankFinancialObjectCode());
-            }
-            else {
+            } else {
                 offsetDefinition.refreshReferenceObject(KFSPropertyConstants.FINANCIAL_OBJECT);
                 ObjectCode financialObject = offsetDefinition.getFinancialObject();
                 // The ObjectCode reference may be invalid because a flexible offset account changed its chart code.

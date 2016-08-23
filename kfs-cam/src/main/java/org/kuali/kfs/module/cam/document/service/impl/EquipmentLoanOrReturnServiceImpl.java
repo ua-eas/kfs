@@ -1,27 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cam.document.service.impl;
 
-import java.sql.Timestamp;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.businessobject.Asset;
@@ -30,9 +30,9 @@ import org.kuali.kfs.module.cam.document.EquipmentLoanOrReturnDocument;
 import org.kuali.kfs.module.cam.document.service.EquipmentLoanOrReturnService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Timestamp;
+import java.util.List;
 
 public class EquipmentLoanOrReturnServiceImpl implements EquipmentLoanOrReturnService {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(EquipmentLoanOrReturnServiceImpl.class);
@@ -41,13 +41,13 @@ public class EquipmentLoanOrReturnServiceImpl implements EquipmentLoanOrReturnSe
 
     /**
      * @see org.kuali.kfs.module.cam.document.service.EquipmentLoanOrReturnService#processApprovedEquipmentLoanOrReturn(org.kuali.module.cams.document.EquipmentLoanOrReturn)
-     *      This method is called when the work flow document is reached its final approval
-     *      <ol>
-     *      <li>Gets the latest equipmentLoanOrReturn details from DB</li>
-     *      <li>Save asset data changes</li>
-     *      <li>Save borrower's location changes </li>
-     *      <li>Save store at location changes</li>
-     *      </ol>
+     * This method is called when the work flow document is reached its final approval
+     * <ol>
+     * <li>Gets the latest equipmentLoanOrReturn details from DB</li>
+     * <li>Save asset data changes</li>
+     * <li>Save borrower's location changes </li>
+     * <li>Save store at location changes</li>
+     * </ol>
      */
     public void processApprovedEquipmentLoanOrReturn(EquipmentLoanOrReturnDocument document) {
         Asset updateAsset = new Asset();
@@ -111,8 +111,7 @@ public class EquipmentLoanOrReturnServiceImpl implements EquipmentLoanOrReturnSe
             borrowerLocation.setAssetLocationCountryCode(document.getBorrowerCountryCode());
             borrowerLocation.setAssetLocationZipCode(document.getBorrowerZipCode());
             getBusinessObjectService().save(borrowerLocation);
-        }
-        else {
+        } else {
             if (borrowerLocation != null) {
                 updateAsset.getAssetLocations().remove(borrowerLocation);
                 getBusinessObjectService().delete(borrowerLocation);
@@ -146,8 +145,7 @@ public class EquipmentLoanOrReturnServiceImpl implements EquipmentLoanOrReturnSe
             storeAtLocation.setAssetLocationCountryCode(document.getBorrowerStorageCountryCode());
             storeAtLocation.setAssetLocationZipCode(document.getBorrowerStorageZipCode());
             getBusinessObjectService().save((PersistableBusinessObject) storeAtLocation);
-        }
-        else {
+        } else {
             if (storeAtLocation != null) {
                 updateAsset.getAssetLocations().remove(storeAtLocation);
                 getBusinessObjectService().delete((PersistableBusinessObject) storeAtLocation);

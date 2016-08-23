@@ -1,29 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.BCPropertyConstants;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionPosition;
@@ -32,11 +31,12 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.web.format.BooleanFormatter;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * Lookupable helper service implementation for the position lookup..
@@ -56,8 +56,7 @@ public class PositionLookupableHelperServiceImpl extends SelectLookupableHelperS
             if (!showSalaryByPosition) {
                 return getPositionCustomActionUrls(businessObject, pkNames);
             }
-        }
-        else {
+        } else {
             return getPositionCustomActionUrls(businessObject, pkNames);
         }
         return getSalarySettingByPositionUrls(businessObject);
@@ -86,10 +85,10 @@ public class PositionLookupableHelperServiceImpl extends SelectLookupableHelperS
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#getActionUrlHref(org.kuali.rice.krad.bo.BusinessObject, java.lang.String, java.util.List)
      */
     @Override
-    protected String getActionUrlHref(BusinessObject businessObject, String methodToCall, List pkNames){
+    protected String getActionUrlHref(BusinessObject businessObject, String methodToCall, List pkNames) {
         String href = super.getActionUrlHref(businessObject, methodToCall, pkNames);
         href = StringUtils.replace(href, KFSConstants.MAINTENANCE_ACTION,
-                KFSConstants.RICE_PATH_PREFIX + KFSConstants.MAINTENANCE_ACTION);
+            KFSConstants.RICE_PATH_PREFIX + KFSConstants.MAINTENANCE_ACTION);
         return href;
     }
 
@@ -108,7 +107,7 @@ public class PositionLookupableHelperServiceImpl extends SelectLookupableHelperS
         return true;
     }
 
-    private Properties getSalarySettingByPositionParameters(BusinessObject businessObject){
+    private Properties getSalarySettingByPositionParameters(BusinessObject businessObject) {
         BudgetConstructionPosition position = (BudgetConstructionPosition) businessObject;
 
         Properties parameters = new Properties();
@@ -126,16 +125,14 @@ public class PositionLookupableHelperServiceImpl extends SelectLookupableHelperS
             if (addNewFunding) {
                 linkToNewWindow = false;
             }
-        }
-        else {
+        } else {
             parameters.put(BCPropertyConstants.ADD_LINE, "false");
         }
 
         if (requestParameters.containsKey(KRADConstants.DOC_FORM_KEY)) {
             String[] requestParm = (String[]) requestParameters.get(KRADConstants.DOC_FORM_KEY);
             parameters.put(BCConstants.RETURN_FORM_KEY, requestParm[0]);
-        }
-        else  if (requestParameters.containsKey(KFSConstants.FORM_KEY)) {
+        } else if (requestParameters.containsKey(KFSConstants.FORM_KEY)) {
             String[] requestParm = (String[]) requestParameters.get(KFSConstants.FORM_KEY);
             parameters.put(BCConstants.RETURN_FORM_KEY, requestParm[0]);
         }
@@ -183,8 +180,7 @@ public class PositionLookupableHelperServiceImpl extends SelectLookupableHelperS
         if (requestParameters.containsKey(BCPropertyConstants.SINGLE_ACCOUNT_MODE)) {
             String[] requestParm = (String[]) requestParameters.get(BCPropertyConstants.SINGLE_ACCOUNT_MODE);
             parameters.put(BCPropertyConstants.SINGLE_ACCOUNT_MODE, requestParm[0]);
-        }
-        else {
+        } else {
             parameters.put(BCPropertyConstants.SINGLE_ACCOUNT_MODE, "false");
         }
         parameters.put(BCConstants.REFRESH_POSITION_BEFORE_SALARY_SETTING, "false");

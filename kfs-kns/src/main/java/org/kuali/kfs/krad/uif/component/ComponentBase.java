@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -20,10 +20,10 @@ package org.kuali.kfs.krad.uif.component;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
-import org.kuali.kfs.krad.uif.modifier.ComponentModifier;
 import org.kuali.kfs.krad.uif.CssConstants;
 import org.kuali.kfs.krad.uif.UifConstants.ViewStatus;
 import org.kuali.kfs.krad.uif.control.ControlBase;
+import org.kuali.kfs.krad.uif.modifier.ComponentModifier;
 import org.kuali.kfs.krad.uif.util.ExpressionUtils;
 import org.kuali.kfs.krad.uif.view.View;
 import org.kuali.kfs.krad.util.ObjectUtils;
@@ -36,15 +36,13 @@ import java.util.Map;
 /**
  * Base implementation of <code>Component</code> which other component
  * implementations should extend
- *
+ * <p>
  * <p>
  * Provides base component properties such as id and template. Also provides
  * default implementation for the <code>ScriptEventSupport</code> and
  * <code>Ordered</code> interfaces. By default no script events except the
  * onDocumentReady are supported.
  * </p>
- *
- * 
  */
 public abstract class ComponentBase extends ConfigurableBase implements Component {
     private static final long serialVersionUID = -4449335748129894350L;
@@ -160,7 +158,7 @@ public abstract class ComponentBase extends ConfigurableBase implements Componen
 
     /**
      * The following updates are done here:
-     *
+     * <p>
      * <ul>
      * <li></li>
      * </ul>
@@ -173,7 +171,7 @@ public abstract class ComponentBase extends ConfigurableBase implements Componen
 
     /**
      * The following updates are done here:
-     *
+     * <p>
      * <ul>
      * <li>Evaluate the progressive render condition (if set) and combine with the current render status to set the
      * render status</li>
@@ -185,7 +183,7 @@ public abstract class ComponentBase extends ConfigurableBase implements Componen
         if (StringUtils.isNotEmpty(progressiveRender)) {
             // progressive anded with conditional render, will not render at least one of the two are false
             Boolean progRenderEval = (Boolean) KRADServiceLocatorWeb.getExpressionEvaluatorService().evaluateExpression(
-                    model, context, progressiveRender);
+                model, context, progressiveRender);
 
             this.setRender(progRenderEval && this.render);
         }
@@ -193,7 +191,7 @@ public abstract class ComponentBase extends ConfigurableBase implements Componen
 
     /**
      * The following finalization is done here:
-     *
+     * <p>
      * <ul>
      * <li>progressiveRender and conditionalRefresh variables are processed if set</li>
      * <li>If any of the style properties were given, sets the style string on
@@ -208,14 +206,14 @@ public abstract class ComponentBase extends ConfigurableBase implements Componen
             progressiveRender = ExpressionUtils.replaceBindingPrefixes(view, this, progressiveRender);
             progressiveDisclosureControlNames = new ArrayList<String>();
             progressiveDisclosureConditionJs = ExpressionUtils.parseExpression(progressiveRender,
-                    progressiveDisclosureControlNames);
+                progressiveDisclosureControlNames);
         }
 
         if (StringUtils.isNotEmpty(conditionalRefresh)) {
             conditionalRefresh = ExpressionUtils.replaceBindingPrefixes(view, this, conditionalRefresh);
             conditionalRefreshControlNames = new ArrayList<String>();
             conditionalRefreshConditionJs = ExpressionUtils.parseExpression(conditionalRefresh,
-                    conditionalRefreshControlNames);
+                conditionalRefreshControlNames);
         }
 
         if (StringUtils.isNotEmpty(refreshWhenChanged)) {
@@ -716,7 +714,7 @@ public abstract class ComponentBase extends ConfigurableBase implements Componen
 
     /**
      * @see Component#pushObjectToContext(java.lang.String,
-     *      java.lang.Object)
+     * java.lang.Object)
      */
     public void pushObjectToContext(String objectName, Object object) {
         if (this.context == null) {
@@ -1234,7 +1232,7 @@ public abstract class ComponentBase extends ConfigurableBase implements Componen
 
             boolean isNumber = false;
             if (StringUtils.isNotBlank(optionValue) && (StringUtils.isNumeric(optionValue.trim().substring(0, 1))
-                    || optionValue.trim().substring(0, 1).equals("-"))) {
+                || optionValue.trim().substring(0, 1).equals("-"))) {
                 try {
                     Double.parseDouble(optionValue.trim());
                     isNumber = true;
@@ -1286,13 +1284,13 @@ public abstract class ComponentBase extends ConfigurableBase implements Componen
      * form property names, and, or, logical comparison operators (non-arithmetic), and the matches
      * clause are allowed. String and regex values must use single quotes ('), booleans must be either true or false,
      * numbers must be a valid double, either negative or positive.
-     *
+     * <p>
      * <p>
      * DO NOT use progressiveRender and a conditional refresh statement on the same component
      * unless it is known that the component will always be visible in all cases when a conditional refresh happens
      * (ie conditional refresh has progressiveRender's condition anded with its own condition).
      * </p>
-     *
+     * <p>
      * <p>
      * <b>If a component should be refreshed every time it is shown, use the progressiveRenderAndRefresh option
      * with this property instead.</b>
@@ -1496,14 +1494,14 @@ public abstract class ComponentBase extends ConfigurableBase implements Componen
 
     /**
      * Name of a method on the controller that should be invoked as part of the component refresh and disclosure process
-     *
+     * <p>
      * <p>
      * During the component refresh or disclosure process it might be necessary to perform other operations, such as
      * preparing data or executing a business process. This allows the configuration of a method on the underlying
      * controller that should be called for the component refresh action. In this method, the necessary logic can be
      * performed and then the base component update method invoked to carry out the component refresh.
      * </p>
-     *
+     * <p>
      * <p>
      * Controller method to invoke must accept the form, binding result, request, and response arguments
      * </p>

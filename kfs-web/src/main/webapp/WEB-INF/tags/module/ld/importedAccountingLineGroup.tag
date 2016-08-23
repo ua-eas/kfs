@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -32,7 +32,7 @@ It's followed by 0 or more rows for the accounting lines that have already been 
 <%@ attribute name="columnCount" required="true"
               description="the total number of columns in the accounting lines table." %>
 <%@ attribute name="editingMode" required="true" type="java.util.Map"
-              description='magic values like "viewOnly", "fullEntry", "unviewable", etc 
+              description='magic values like "viewOnly", "fullEntry", "unviewable", etc
               which affect which rows and fields of the accounting lines are displayed or editable.
               These values might come from the AuthorizationConstants class.' %>
 <%@ attribute name="editableAccounts" required="true" type="java.util.Map"
@@ -43,10 +43,10 @@ It's followed by 0 or more rows for the accounting lines that have already been 
               description="A comma separated list of names of accounting line fields
               to be appended to the required field columns, before the amount column.
               The optional columns appear in both source and target groups
-              of accounting lines." %>              
+              of accounting lines." %>
 <%@ attribute name="isOptionalFieldsInNewRow" required="false" type="java.lang.Boolean"
-	description="indicate if the oprtional fields are put in a new row under the default accouting line"%> 
-	              
+	description="indicate if the oprtional fields are put in a new row under the default accouting line"%>
+
 <%@ attribute name="extraRowFields" required="false"
               description="A comma seperated list of names of any non-standard fields
               required on this group of accounting lines for this eDoc.
@@ -82,9 +82,9 @@ It's followed by 0 or more rows for the accounting lines that have already been 
               description="A boolean whether the monthy amounts table is displayed
               below each accounting line (needed for budget adjustment document).
               As with all boolean tag attributes, if it is not provided, it defaults to false." %>
-              
+
 <%@ attribute name="accountingLineAttributes" required="false" type="java.util.Map"
-              description="A parameter to specify an data dictionary entry for a sub-classed accounting line." %>            
+              description="A parameter to specify an data dictionary entry for a sub-classed accounting line." %>
 
 <%@ attribute name="forcedReadOnlyFields" required="false" type="java.util.Map"
               description="map containing accounting line field names that should be marked as read only." %>
@@ -115,7 +115,7 @@ It's followed by 0 or more rows for the accounting lines that have already been 
 
 </c:if>
 
-<c:choose>  
+<c:choose>
 	<c:when test="${empty accountPrefix}">
 		<c:set var="accountPrefix" value="document." />
 		<c:set var="newAccountPrefix" value="" />
@@ -155,7 +155,7 @@ It's followed by 0 or more rows for the accounting lines that have already been 
         <td class="error" colspan="${columnCount}">
             <kul:errors keyMatch="${errorPattern}" errorTitle='Errors found in ${errorSectionTitle} section:'/>
         </td>
-    </tr>    
+    </tr>
 </kul:displayIfErrors>
 <c:choose>
     <c:when test="${empty importRowOverride}">
@@ -186,11 +186,11 @@ It's followed by 0 or more rows for the accounting lines that have already been 
     <kul:htmlAttributeHeaderCell attributeEntry="${accountingLineAttributes.financialSubObjectCode}" rowspan="2"/>
     <kul:htmlAttributeHeaderCell attributeEntry="${accountingLineAttributes.projectCode}" rowspan="2"/>
     <kul:htmlAttributeHeaderCell attributeEntry="${accountingLineAttributes.organizationReferenceId}" rowspan="2"/>
-    
+
 	<c:forTokens items="${optionalFields}" delims=" ," var="currentField">
 	   <kul:htmlAttributeHeaderCell attributeEntry="${accountingLineAttributes[currentField]}" rowspan="2"/>
 	</c:forTokens>
-    
+
     <c:set var="delimitedhideFields" value=",${hideFields}," />
 	<%-- this is hard coded here but could be done in a more general purpose way --%>
 	<c:set var="delimitedField" value=",amount," />
@@ -226,8 +226,8 @@ It's followed by 0 or more rows for the accounting lines that have already been 
       <c:otherwise>
         <c:set var="valuesMap" value="${KualiForm.newTargetLine.valuesMap}"/>
       </c:otherwise>
-    </c:choose>  
-    
+    </c:choose>
+
     <c:choose>
       <c:when test="${not empty accountingAddLineIndex}">
     	<c:set var="newActionGroup" value="newGroupLine"/>
@@ -235,8 +235,8 @@ It's followed by 0 or more rows for the accounting lines that have already been 
       <c:otherwise>
     	<c:set var="newActionGroup" value="newLine"/>
       </c:otherwise>
-    </c:choose>    
-    
+    </c:choose>
+
 </c:if>
 <logic:iterate indexId="ctr" name="KualiForm" property="${accountPrefix}${sourceOrTarget}AccountingLines" id="currentLine">
     <%-- readonlyness of accountingLines depends on editingMode and user's account-list --%>
@@ -258,7 +258,7 @@ It's followed by 0 or more rows for the accounting lines that have already been 
         </c:otherwise>
     </c:choose>
 
-    <c:if test="${empty newAccountPrefix}"> 
+    <c:if test="${empty newAccountPrefix}">
 		<c:set var="baselineLine" value="${baselineSourceOrTarget}AccountingLine[${ctr}]" />
 	</c:if>
 

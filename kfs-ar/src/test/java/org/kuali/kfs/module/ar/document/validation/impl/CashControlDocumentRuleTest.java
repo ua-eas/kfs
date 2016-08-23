@@ -1,26 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
 import org.kuali.kfs.fp.document.GeneralErrorCorrectionDocument;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.AccountsReceivableDocumentHeader;
 import org.kuali.kfs.module.ar.businessobject.CashControlDetail;
@@ -35,10 +37,8 @@ import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 /**
  * This class tests the rules in CashControlDocumentRule
@@ -92,8 +92,8 @@ public class CashControlDocumentRuleTest extends KualiTestBase {
 
         try {
             documentService.saveDocument(doc);
-        } catch ( ValidationException ex ) {
-            fail( "Unable to save document - failed validation: \n" + dumpMessageMapErrors() + "\nDocument: " + doc);
+        } catch (ValidationException ex) {
+            fail("Unable to save document - failed validation: \n" + dumpMessageMapErrors() + "\nDocument: " + doc);
         }
 
         return doc;
@@ -172,11 +172,11 @@ public class CashControlDocumentRuleTest extends KualiTestBase {
     public void testCheckGLPEsCreated_True() throws WorkflowException {
 
         Document tempDocument = DocumentTestUtils.createDocument(SpringContext.getBean(DocumentService.class), GeneralErrorCorrectionDocument.class);
-        GeneralLedgerPendingEntry tempEntry =  new GeneralLedgerPendingEntry();
+        GeneralLedgerPendingEntry tempEntry = new GeneralLedgerPendingEntry();
         documentService.saveDocument(tempDocument);
         document.getGeneralLedgerPendingEntries().add(tempEntry);
 
-        assertTrue("GLPE's should have been created: " + dumpMessageMapErrors(),rule.checkGLPEsCreated(document));
+        assertTrue("GLPE's should have been created: " + dumpMessageMapErrors(), rule.checkGLPEsCreated(document));
     }
 
     /**
@@ -231,7 +231,7 @@ public class CashControlDocumentRuleTest extends KualiTestBase {
         document.setCustomerPaymentMediumCode(ArConstants.PaymentMediumCode.CASH);
         document.setReferenceFinancialDocumentNumber(tempDoc.getDocumentNumber());
 
-        assertTrue("Business Rules should not have failed: " + dumpMessageMapErrors(),rule.checkRefDocNumber(document));
+        assertTrue("Business Rules should not have failed: " + dumpMessageMapErrors(), rule.checkRefDocNumber(document));
     }
 
     /**

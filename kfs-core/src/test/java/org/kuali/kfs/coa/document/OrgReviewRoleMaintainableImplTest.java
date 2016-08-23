@@ -1,25 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.coa.document;
-
-import java.util.HashMap;
-import java.util.List;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
@@ -28,23 +25,26 @@ import org.apache.log4j.Logger;
 import org.kuali.kfs.coa.identity.OrgReviewRole;
 import org.kuali.kfs.coa.service.impl.OrgReviewRoleServiceImpl;
 import org.kuali.kfs.coa.service.impl.OrgReviewRoleTestBase;
-import org.kuali.kfs.sys.ConfigureContext;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.fixture.UserNameFixture;
-import org.kuali.rice.core.api.delegation.DelegationType;
 import org.kuali.kfs.kns.document.MaintenanceDocument;
 import org.kuali.kfs.kns.maintenance.Maintainable;
 import org.kuali.kfs.kns.web.ui.Field;
 import org.kuali.kfs.kns.web.ui.Row;
 import org.kuali.kfs.kns.web.ui.Section;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.ConfigureContext;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.fixture.UserNameFixture;
+import org.kuali.rice.core.api.delegation.DelegationType;
+import org.kuali.rice.krad.bo.BusinessObject;
 
-@ConfigureContext(session=UserNameFixture.khuntley)
+import java.util.HashMap;
+import java.util.List;
+
+@ConfigureContext(session = UserNameFixture.khuntley)
 public class OrgReviewRoleMaintainableImplTest extends OrgReviewRoleTestBase {
 
     protected static final String ORG_REVIEW_DOC_TYPE = "ORR";
@@ -67,19 +67,19 @@ public class OrgReviewRoleMaintainableImplTest extends OrgReviewRoleTestBase {
     public void testPrepareFieldsCommon() {
         Field f = new Field(OrgReviewRole.REVIEW_ROLES_INDICATOR_FIELD_NAME, "This Value Doesn't Matter");
         newMaint.prepareFieldsCommon(f, true, false);
-        assertTrue( "Field should have been read only after prepareFieldsCommon", f.isReadOnly() );
+        assertTrue("Field should have been read only after prepareFieldsCommon", f.isReadOnly());
     }
 
     public void testPrepareBusinessObject_OrgHier_RoleMember_New() {
         orgHierOrgReviewRole.setMethodToCall("");
         newMaint.prepareBusinessObject(orgHierOrgReviewRole);
-        assertFalse( "ORR should not be in edit mode", orgHierOrgReviewRole.isEdit() );
-        assertFalse( "ORR should not be in copy mode", orgHierOrgReviewRole.isCopy() );
-        assertFalse( "ORR should not think it's a delegate", orgHierOrgReviewRole.isDelegate() );
+        assertFalse("ORR should not be in edit mode", orgHierOrgReviewRole.isEdit());
+        assertFalse("ORR should not be in copy mode", orgHierOrgReviewRole.isCopy());
+        assertFalse("ORR should not think it's a delegate", orgHierOrgReviewRole.isDelegate());
 //        assertFalse( "ORR should not be in edit role member mode", orgHierOrgReviewRole.isEditRoleMember() );
 //        assertFalse( "ORR should not be in edit delegate member mode", orgHierOrgReviewRole.isEditDelegation() );
 //        assertFalse( "ORR should not be in create delegate member mode", orgHierOrgReviewRole.isCreateDelegation() );
-        assertTrue( "ORR should be in new role member mode", orgHierOrgReviewRole.isCreateRoleMember() );
+        assertTrue("ORR should be in new role member mode", orgHierOrgReviewRole.isCreateRoleMember());
     }
 
     public void testPrepareBusinessObject_OrgHier_RoleMember_Edit() {
@@ -91,14 +91,14 @@ public class OrgReviewRoleMaintainableImplTest extends OrgReviewRoleTestBase {
         orgHierOrgReviewRole.setMethodToCall(KRADConstants.MAINTENANCE_EDIT_METHOD_TO_CALL);
         newMaint.prepareBusinessObject(orgHierOrgReviewRole);
 
-        assertTrue( "ORR should be in edit mode", orgHierOrgReviewRole.isEdit() );
-        assertFalse( "ORR should not be in copy mode", orgHierOrgReviewRole.isCopy() );
-        assertFalse( "ORR should not think it's a delegate", orgHierOrgReviewRole.isDelegate() );
-        assertTrue( "ORR should be in edit role member mode", orgHierOrgReviewRole.isEditRoleMember() );
-        assertFalse( "ORR should not be in new role member mode", orgHierOrgReviewRole.isCreateRoleMember() );
+        assertTrue("ORR should be in edit mode", orgHierOrgReviewRole.isEdit());
+        assertFalse("ORR should not be in copy mode", orgHierOrgReviewRole.isCopy());
+        assertFalse("ORR should not think it's a delegate", orgHierOrgReviewRole.isDelegate());
+        assertTrue("ORR should be in edit role member mode", orgHierOrgReviewRole.isEditRoleMember());
+        assertFalse("ORR should not be in new role member mode", orgHierOrgReviewRole.isCreateRoleMember());
 
-        assertEquals( "The marker ORMId value should be blank", "", orgHierOrgReviewRole.getORMId() );
-        assertFalse( "The roleMemberId should not have been blank", StringUtils.isBlank(orgHierOrgReviewRole.getRoleMemberId() ) );
+        assertEquals("The marker ORMId value should be blank", "", orgHierOrgReviewRole.getORMId());
+        assertFalse("The roleMemberId should not have been blank", StringUtils.isBlank(orgHierOrgReviewRole.getRoleMemberId()));
     }
 
     public void testPrepareBusinessObject_OrgHier_RoleMember_Copy() {
@@ -110,14 +110,14 @@ public class OrgReviewRoleMaintainableImplTest extends OrgReviewRoleTestBase {
         orgHierOrgReviewRole.setMethodToCall(KRADConstants.MAINTENANCE_COPY_METHOD_TO_CALL);
         newMaint.prepareBusinessObject(orgHierOrgReviewRole);
 
-        assertFalse( "ORR should not be in edit mode", orgHierOrgReviewRole.isEdit() );
-        assertTrue( "ORR should be in copy mode", orgHierOrgReviewRole.isCopy() );
-        assertFalse( "ORR should not think it's a delegate", orgHierOrgReviewRole.isDelegate() );
-        assertTrue( "ORR should be in copy role member mode", orgHierOrgReviewRole.isCopyRoleMember() );
-        assertFalse( "ORR should not be in new role member mode", orgHierOrgReviewRole.isCreateRoleMember() );
+        assertFalse("ORR should not be in edit mode", orgHierOrgReviewRole.isEdit());
+        assertTrue("ORR should be in copy mode", orgHierOrgReviewRole.isCopy());
+        assertFalse("ORR should not think it's a delegate", orgHierOrgReviewRole.isDelegate());
+        assertTrue("ORR should be in copy role member mode", orgHierOrgReviewRole.isCopyRoleMember());
+        assertFalse("ORR should not be in new role member mode", orgHierOrgReviewRole.isCreateRoleMember());
 
-        assertEquals( "The marker ORMId value should be blank", "", orgHierOrgReviewRole.getORMId() );
-        assertEquals( "The roleMemberId should have been blank", "", orgHierOrgReviewRole.getRoleMemberId() );
+        assertEquals("The marker ORMId value should be blank", "", orgHierOrgReviewRole.getORMId());
+        assertEquals("The roleMemberId should have been blank", "", orgHierOrgReviewRole.getRoleMemberId());
     }
 
 //    public void testPrepareBusinessObject_OrgHier_Delegate_New() throws Exception {
@@ -178,16 +178,16 @@ public class OrgReviewRoleMaintainableImplTest extends OrgReviewRoleTestBase {
 
         // populate the new side
         List<Section> newSections = document.getNewMaintainableObject().getSections(document, document.getNewMaintainableObject());
-        for ( Section section : newSections ) {
-            for ( Row row : section.getRows() ) {
-                for ( Field field : row.getFields() ) {
-                    if ( ArrayUtils.contains(FIELDS_TO_IGNORE, field.getPropertyName()) ) {
+        for (Section section : newSections) {
+            for (Row row : section.getRows()) {
+                for (Field field : row.getFields()) {
+                    if (ArrayUtils.contains(FIELDS_TO_IGNORE, field.getPropertyName())) {
                         continue;
                     }
-                    if ( field.getPropertyName().equals(OrgReviewRole.DELEGATION_TYPE_CODE) ) {
-                        assertEquals( "Delegation type Field should have been hidden: ", Field.HIDDEN, field.getFieldType() );
+                    if (field.getPropertyName().equals(OrgReviewRole.DELEGATION_TYPE_CODE)) {
+                        assertEquals("Delegation type Field should have been hidden: ", Field.HIDDEN, field.getFieldType());
                     } else {
-                        assertFalse( field.getPropertyName() + " should have been editable and not hidden", field.isReadOnly() || field.getFieldType().equals(Field.HIDDEN) );
+                        assertFalse(field.getPropertyName() + " should have been editable and not hidden", field.isReadOnly() || field.getFieldType().equals(Field.HIDDEN));
                     }
                 }
             }
@@ -203,16 +203,16 @@ public class OrgReviewRoleMaintainableImplTest extends OrgReviewRoleTestBase {
 
         // populate the new side
         List<Section> newSections = document.getNewMaintainableObject().getSections(document, document.getNewMaintainableObject());
-        for ( Section section : newSections ) {
-            for ( Row row : section.getRows() ) {
-                for ( Field field : row.getFields() ) {
-                    if ( ArrayUtils.contains(FIELDS_TO_IGNORE, field.getPropertyName()) ) {
+        for (Section section : newSections) {
+            for (Row row : section.getRows()) {
+                for (Field field : row.getFields()) {
+                    if (ArrayUtils.contains(FIELDS_TO_IGNORE, field.getPropertyName())) {
                         continue;
                     }
-                    if ( field.getPropertyName().equals(OrgReviewRole.DELEGATION_TYPE_CODE) ) {
-                        assertEquals( "Delegation type Field should have been hidden: ", Field.HIDDEN, field.getFieldType() );
+                    if (field.getPropertyName().equals(OrgReviewRole.DELEGATION_TYPE_CODE)) {
+                        assertEquals("Delegation type Field should have been hidden: ", Field.HIDDEN, field.getFieldType());
                     } else {
-                        assertFalse( field.getPropertyName() + " should have been editable and not hidden", field.isReadOnly() || field.getFieldType().equals(Field.HIDDEN) );
+                        assertFalse(field.getPropertyName() + " should have been editable and not hidden", field.isReadOnly() || field.getFieldType().equals(Field.HIDDEN));
                     }
                 }
             }
@@ -223,35 +223,35 @@ public class OrgReviewRoleMaintainableImplTest extends OrgReviewRoleTestBase {
         // create an org hierarchy role member on which to create a delegation
         orgHierOrgReviewRole.setEdit(false);
         orgReviewRoleService.saveOrgReviewRoleToKim(orgHierOrgReviewRole);
-        MaintenanceDocument document = createNewDocument_OrgHier_Delegation( orgHierOrgReviewRole.getRoleMemberId() );
+        MaintenanceDocument document = createNewDocument_OrgHier_Delegation(orgHierOrgReviewRole.getRoleMemberId());
 
         // populate the old side (should be blank)
         List<Section> oldSections = document.getNewMaintainableObject().getSections(document, null);
 
         // populate the new side
         List<Section> newSections = document.getNewMaintainableObject().getSections(document, document.getNewMaintainableObject());
-        for ( Section section : newSections ) {
-            for ( Row row : section.getRows() ) {
-                for ( Field field : row.getFields() ) {
-                    if ( ArrayUtils.contains(FIELDS_TO_IGNORE, field.getPropertyName()) ) {
+        for (Section section : newSections) {
+            for (Row row : section.getRows()) {
+                for (Field field : row.getFields()) {
+                    if (ArrayUtils.contains(FIELDS_TO_IGNORE, field.getPropertyName())) {
                         continue;
                     }
                     boolean fieldChecked = false;
-                    for ( String readOnlyPropertyName : ORG_HIER_READ_ONLY_PROP_NAMES ) {
-                        if ( field.getPropertyName().equals(readOnlyPropertyName) ) {
-                            assertTrue( readOnlyPropertyName + " should have been read only", field.isReadOnly() );
+                    for (String readOnlyPropertyName : ORG_HIER_READ_ONLY_PROP_NAMES) {
+                        if (field.getPropertyName().equals(readOnlyPropertyName)) {
+                            assertTrue(readOnlyPropertyName + " should have been read only", field.isReadOnly());
                             fieldChecked = true;
                         }
                     }
-                    for ( String fieldName : DELEGATE_READ_ONLY_PROP_NAMES ) {
-                        if ( StringUtils.equals(fieldName, field.getPropertyName() ) ) {
-                            assertTrue( fieldName + " should have been read only", field.isReadOnly() );
+                    for (String fieldName : DELEGATE_READ_ONLY_PROP_NAMES) {
+                        if (StringUtils.equals(fieldName, field.getPropertyName())) {
+                            assertTrue(fieldName + " should have been read only", field.isReadOnly());
                             fieldChecked = true;
                         }
                     }
-                    if ( !fieldChecked ) {
-                        assertFalse( field.getPropertyName() + " should not be read only.", field.isReadOnly() );
-                        assertFalse( field.getPropertyName() + " should not be hidden", field.getFieldType().equals(Field.HIDDEN) );
+                    if (!fieldChecked) {
+                        assertFalse(field.getPropertyName() + " should not be read only.", field.isReadOnly());
+                        assertFalse(field.getPropertyName() + " should not be hidden", field.getFieldType().equals(Field.HIDDEN));
                     }
                 }
             }
@@ -260,39 +260,39 @@ public class OrgReviewRoleMaintainableImplTest extends OrgReviewRoleTestBase {
 
     public void testGetSections_OrgHier_RoleMember_Edit() throws Exception {
 
-        MaintenanceDocument document = createEditDocument_OrgHier_RoleMember( buildOrgHierData() );
+        MaintenanceDocument document = createEditDocument_OrgHier_RoleMember(buildOrgHierData());
 
         // populate the old side (should be blank)
         List<Section> oldSections = document.getNewMaintainableObject().getSections(document, null);
 
         // populate the new side
         List<Section> newSections = document.getNewMaintainableObject().getSections(document, document.getNewMaintainableObject());
-        for ( Section section : newSections ) {
-            for ( Row row : section.getRows() ) {
-                for ( Field field : row.getFields() ) {
-                    if ( ArrayUtils.contains(FIELDS_TO_IGNORE, field.getPropertyName()) ) {
+        for (Section section : newSections) {
+            for (Row row : section.getRows()) {
+                for (Field field : row.getFields()) {
+                    if (ArrayUtils.contains(FIELDS_TO_IGNORE, field.getPropertyName())) {
                         continue;
                     }
                     boolean fieldChecked = false;
-                    if ( field.getPropertyName().equals(OrgReviewRole.DELEGATION_TYPE_CODE) ) {
-                        assertEquals( "Delegation type Field should have been hidden: ", Field.HIDDEN, field.getFieldType() );
+                    if (field.getPropertyName().equals(OrgReviewRole.DELEGATION_TYPE_CODE)) {
+                        assertEquals("Delegation type Field should have been hidden: ", Field.HIDDEN, field.getFieldType());
                         fieldChecked = true;
                     }
-                    for ( String fieldName : EDIT_READ_ONLY_PROP_NAMES ) {
-                        if ( StringUtils.equals(fieldName, field.getPropertyName() ) ) {
-                            assertTrue( fieldName + " should have been read only", field.isReadOnly() );
+                    for (String fieldName : EDIT_READ_ONLY_PROP_NAMES) {
+                        if (StringUtils.equals(fieldName, field.getPropertyName())) {
+                            assertTrue(fieldName + " should have been read only", field.isReadOnly());
                             fieldChecked = true;
                         }
                     }
-                    for ( String readOnlyPropertyName : ORG_HIER_READ_ONLY_PROP_NAMES ) {
-                        if ( field.getPropertyName().equals(readOnlyPropertyName) ) {
-                            assertTrue( readOnlyPropertyName + " should have been read only", field.isReadOnly() );
+                    for (String readOnlyPropertyName : ORG_HIER_READ_ONLY_PROP_NAMES) {
+                        if (field.getPropertyName().equals(readOnlyPropertyName)) {
+                            assertTrue(readOnlyPropertyName + " should have been read only", field.isReadOnly());
                             fieldChecked = true;
                         }
                     }
-                    if ( !fieldChecked ) {
-                        assertFalse( field.getPropertyName() + " should not be read only.", field.isReadOnly() );
-                        assertFalse( field.getPropertyName() + " should not be hidden", field.getFieldType().equals(Field.HIDDEN) );
+                    if (!fieldChecked) {
+                        assertFalse(field.getPropertyName() + " should not be read only.", field.isReadOnly());
+                        assertFalse(field.getPropertyName() + " should not be hidden", field.getFieldType().equals(Field.HIDDEN));
                     }
                 }
             }
@@ -309,14 +309,14 @@ public class OrgReviewRoleMaintainableImplTest extends OrgReviewRoleTestBase {
         document.getNewMaintainableObject().setBusinessObject((PersistableBusinessObject) ObjectUtils.deepCopy(oldBo));
         document.getNewMaintainableObject().setBoClass(OrgReviewRole.class);
         document.getNewMaintainableObject().setGenerateDefaultValues(ORG_REVIEW_DOC_TYPE);
-        document.getNewMaintainableObject().processAfterNew( document, new HashMap<String, String[]>() );
+        document.getNewMaintainableObject().processAfterNew(document, new HashMap<String, String[]>());
         document.getNewMaintainableObject().setMaintenanceAction(KRADConstants.MAINTENANCE_NEW_ACTION);
 
         return document;
     }
 
     @SuppressWarnings("deprecation")
-    protected MaintenanceDocument createEditDocument_OrgHier_RoleMember( OrgReviewRole existingOrr ) throws Exception {
+    protected MaintenanceDocument createEditDocument_OrgHier_RoleMember(OrgReviewRole existingOrr) throws Exception {
         MaintenanceDocument document = (MaintenanceDocument) KRADServiceLocatorWeb.getDocumentService().getNewDocument(ORG_REVIEW_DOC_TYPE);
         existingOrr.setMethodToCall("edit");
         document.getOldMaintainableObject().prepareBusinessObject((BusinessObject) ObjectUtils.deepCopy(existingOrr));
@@ -325,7 +325,7 @@ public class OrgReviewRoleMaintainableImplTest extends OrgReviewRoleTestBase {
         document.getOldMaintainableObject().setBoClass(OrgReviewRole.class);
         document.getNewMaintainableObject().setBusinessObject((PersistableBusinessObject) ObjectUtils.deepCopy(oldBo));
         document.getNewMaintainableObject().setBoClass(OrgReviewRole.class);
-        document.getNewMaintainableObject().processAfterEdit( document, new HashMap<String, String[]>() );
+        document.getNewMaintainableObject().processAfterEdit(document, new HashMap<String, String[]>());
         document.getNewMaintainableObject().setMaintenanceAction(KRADConstants.MAINTENANCE_EDIT_ACTION);
 
         return document;
@@ -335,19 +335,19 @@ public class OrgReviewRoleMaintainableImplTest extends OrgReviewRoleTestBase {
         // create an org hierarchy role member on which to create a delegation
         orgHierOrgReviewRole.setEdit(false);
         orgReviewRoleService.saveOrgReviewRoleToKim(orgHierOrgReviewRole);
-        MaintenanceDocument doc = createNewDocument_OrgHier_Delegation( orgHierOrgReviewRole.getRoleMemberId() );
+        MaintenanceDocument doc = createNewDocument_OrgHier_Delegation(orgHierOrgReviewRole.getRoleMemberId());
 
-        ((OrgReviewRole)doc.getNewMaintainableObject().getBusinessObject()).setDelegationTypeCode(DelegationType.PRIMARY.getCode());
+        ((OrgReviewRole) doc.getNewMaintainableObject().getBusinessObject()).setDelegationTypeCode(DelegationType.PRIMARY.getCode());
         doc.getDocumentHeader().setDocumentDescription("Unit Test");
 
         SpringContext.getBean(BusinessObjectService.class).linkUserFields(doc);
-        ((OrgReviewRole)doc.getNewMaintainableObject().getBusinessObject()).setPerson(UserNameFixture.day.getPerson());
+        ((OrgReviewRole) doc.getNewMaintainableObject().getBusinessObject()).setPerson(UserNameFixture.day.getPerson());
 
         KRADServiceLocatorWeb.getDocumentService().routeDocument(doc, null, null);
     }
 
     @SuppressWarnings("deprecation")
-    protected MaintenanceDocument createCopyDocument_OrgHier_RoleMember( String roleMemberId ) throws Exception {
+    protected MaintenanceDocument createCopyDocument_OrgHier_RoleMember(String roleMemberId) throws Exception {
         // kr/maintenance.do?
         // businessObjectClassName=org.kuali.kfs.coa.identity.OrgReviewRole
         // &cpKys=ODelMId%2CORMId%2CmethodToCall
@@ -370,12 +370,12 @@ public class OrgReviewRoleMaintainableImplTest extends OrgReviewRoleTestBase {
         // clear the primary key fields and the version number and objectId
         //for issue KULRice 3072
         existingOrr.setOrgReviewRoleMemberId(null);
-        ((OrgReviewRole)document.getNewMaintainableObject().getBusinessObject()).setOrgReviewRoleMemberId(null);
-        ((OrgReviewRole)document.getNewMaintainableObject().getBusinessObject()).setDelegate(false);
+        ((OrgReviewRole) document.getNewMaintainableObject().getBusinessObject()).setOrgReviewRoleMemberId(null);
+        ((OrgReviewRole) document.getNewMaintainableObject().getBusinessObject()).setDelegate(false);
 
         Maintainable maintainable = document.getNewMaintainableObject();
 
-        document.getNewMaintainableObject().processAfterCopy( document, new HashMap<String, String[]>() );
+        document.getNewMaintainableObject().processAfterCopy(document, new HashMap<String, String[]>());
 
         // mark so that blank required fields will be populated with default values
         maintainable.setGenerateBlankRequiredValues(ORG_REVIEW_DOC_TYPE);
@@ -388,7 +388,7 @@ public class OrgReviewRoleMaintainableImplTest extends OrgReviewRoleTestBase {
     }
 
     @SuppressWarnings("deprecation")
-    protected MaintenanceDocument createNewDocument_OrgHier_Delegation( String roleMemberId ) throws Exception {
+    protected MaintenanceDocument createNewDocument_OrgHier_Delegation(String roleMemberId) throws Exception {
         // kr/maintenance.do?
         // businessObjectClassName=org.kuali.kfs.coa.identity.OrgReviewRole
         // &cpKys=ODelMId%2CORMId%2CmethodToCall
@@ -407,7 +407,7 @@ public class OrgReviewRoleMaintainableImplTest extends OrgReviewRoleTestBase {
         document.getOldMaintainableObject().setBoClass(OrgReviewRole.class);
         document.getNewMaintainableObject().setBusinessObject((PersistableBusinessObject) ObjectUtils.deepCopy(existingOrr));
         document.getNewMaintainableObject().setBoClass(OrgReviewRole.class);
-        document.getNewMaintainableObject().processAfterEdit( document, new HashMap<String, String[]>() );
+        document.getNewMaintainableObject().processAfterEdit(document, new HashMap<String, String[]>());
         document.getNewMaintainableObject().setMaintenanceAction(KRADConstants.MAINTENANCE_EDIT_ACTION);
 
         return document;

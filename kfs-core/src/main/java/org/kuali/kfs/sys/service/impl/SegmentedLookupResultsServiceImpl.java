@@ -1,38 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.sys.service.impl;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.service.SegmentedLookupResultsService;
-import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.kfs.kns.lookup.LookupResultsServiceImpl;
 import org.kuali.kfs.kns.lookup.LookupUtils;
 import org.kuali.kfs.kns.web.ui.ResultRow;
@@ -41,7 +30,18 @@ import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.bo.SelectedObjectIds;
 import org.kuali.kfs.krad.exception.AuthorizationException;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.service.SegmentedLookupResultsService;
+import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Used for segemented lookup results
@@ -55,7 +55,7 @@ public class SegmentedLookupResultsServiceImpl extends LookupResultsServiceImpl 
 
     /**
      * Retrieve the Date Time Service
-     * 
+     *
      * @return Date Time Service
      */
     public DateTimeService getDateTimeService() {
@@ -64,7 +64,7 @@ public class SegmentedLookupResultsServiceImpl extends LookupResultsServiceImpl 
 
     /**
      * Assign the Date Time Service
-     * 
+     *
      * @param dateTimeService
      */
     public void setDateTimeService(DateTimeService dateTimeService) {
@@ -126,9 +126,9 @@ public class SegmentedLookupResultsServiceImpl extends LookupResultsServiceImpl 
      * Returns a list of BOs that were selected. This implementation makes an attempt to retrieve all BOs with the given object IDs,
      * unless they have been deleted or the object ID changed. Since data may have changed since the search, the returned BOs may
      * not match the criteria used to search.
-     * 
+     *
      * @see org.kuali.rice.kns.lookup.LookupResultsService#retrieveSelectedResultBOs(java.lang.String, java.lang.Class,
-     *      java.lang.String)
+     * java.lang.String)
      */
     public Collection<PersistableBusinessObject> retrieveSelectedResultBOs(String lookupResultsSequenceNumber, Class boClass, String personId) throws Exception {
         Set<String> setOfSelectedObjIds = retrieveSetOfSelectedObjectIds(lookupResultsSequenceNumber, personId);

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -41,7 +41,7 @@ public class AccountStatusBaseFunds extends LedgerBalance {
 
     /**
      * Gets the baseBudgetAmount attribute.
-     * 
+     *
      * @return Returns the baseBudgetAmount.
      */
     public KualiDecimal getBaseBudgetAmount() {
@@ -50,7 +50,7 @@ public class AccountStatusBaseFunds extends LedgerBalance {
 
     /**
      * Sets the baseBudgetAmount attribute value.
-     * 
+     *
      * @param baseBudgetAmount The baseBudgetAmount to set.
      */
     public void setBaseBudgetAmount(KualiDecimal baseBudgetAmount) {
@@ -59,7 +59,7 @@ public class AccountStatusBaseFunds extends LedgerBalance {
 
     /**
      * Gets the baseCSFVarianceAmount attribute.
-     * 
+     *
      * @return Returns the baseCSFVarianceAmount.
      */
     public KualiDecimal getBaseCSFVarianceAmount() {
@@ -68,7 +68,7 @@ public class AccountStatusBaseFunds extends LedgerBalance {
 
     /**
      * Sets the baseCSFVarianceAmount attribute value.
-     * 
+     *
      * @param baseCSFVarianceAmount The baseCSFVarianceAmount to set.
      */
     public void setBaseCSFVarianceAmount(KualiDecimal baseCSFVarianceAmount) {
@@ -77,7 +77,7 @@ public class AccountStatusBaseFunds extends LedgerBalance {
 
     /**
      * Gets the csfAmount attribute.
-     * 
+     *
      * @return Returns the csfAmount.
      */
     public KualiDecimal getCsfAmount() {
@@ -86,7 +86,7 @@ public class AccountStatusBaseFunds extends LedgerBalance {
 
     /**
      * Sets the csfAmount attribute value.
-     * 
+     *
      * @param csfAmount The csfAmount to set.
      */
     public void setCsfAmount(KualiDecimal csfAmount) {
@@ -126,48 +126,42 @@ public class AccountStatusBaseFunds extends LedgerBalance {
         if (getAccountNumber() == null) {
             if (other.getAccountNumber() != null)
                 return false;
-        }
-        else if (!getAccountNumber().equals(other.getAccountNumber())) {
+        } else if (!getAccountNumber().equals(other.getAccountNumber())) {
             return false;
         }
 
         if (getChartOfAccountsCode() == null) {
             if (other.getChartOfAccountsCode() != null)
                 return false;
-        }
-        else if (!getChartOfAccountsCode().equals(other.getChartOfAccountsCode())) {
+        } else if (!getChartOfAccountsCode().equals(other.getChartOfAccountsCode())) {
             return false;
         }
 
         if (getFinancialObjectCode() == null) {
             if (other.getFinancialObjectCode() != null)
                 return false;
-        }
-        else if (!getFinancialObjectCode().equals(other.getFinancialObjectCode())) {
+        } else if (!getFinancialObjectCode().equals(other.getFinancialObjectCode())) {
             return false;
         }
 
         if (getFinancialSubObjectCode() == null) {
             if (other.getFinancialSubObjectCode() != null)
                 return false;
-        }
-        else if (!getFinancialSubObjectCode().equals(other.getFinancialSubObjectCode())) {
+        } else if (!getFinancialSubObjectCode().equals(other.getFinancialSubObjectCode())) {
             return false;
         }
 
         if (getSubAccountNumber() == null) {
             if (other.getSubAccountNumber() != null)
                 return false;
-        }
-        else if (!getSubAccountNumber().equals(other.getSubAccountNumber())) {
+        } else if (!getSubAccountNumber().equals(other.getSubAccountNumber())) {
             return false;
         }
 
         if (getUniversityFiscalYear() == null) {
             if (other.getUniversityFiscalYear() != null)
                 return false;
-        }
-        else if (!getUniversityFiscalYear().equals(other.getUniversityFiscalYear())) {
+        } else if (!getUniversityFiscalYear().equals(other.getUniversityFiscalYear())) {
             return false;
         }
 

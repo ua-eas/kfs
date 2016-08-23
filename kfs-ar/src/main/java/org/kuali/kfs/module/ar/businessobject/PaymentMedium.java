@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,88 +18,82 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
+import java.util.LinkedHashMap;
 
 
 public class PaymentMedium extends PersistableBusinessObjectBase implements MutableInactivatable {
 
-	private String customerPaymentMediumCode;
-	private String customerPaymentMediumDescription;
-	private boolean active;
+    private String customerPaymentMediumCode;
+    private String customerPaymentMediumDescription;
+    private boolean active;
 
-	/**
-	 * Gets the customerPaymentMediumCode attribute.
-	 *
-	 * @return Returns the customerPaymentMediumCode
-	 *
-	 */
-	public String getCustomerPaymentMediumCode() {
-		return customerPaymentMediumCode;
-	}
+    /**
+     * Gets the customerPaymentMediumCode attribute.
+     *
+     * @return Returns the customerPaymentMediumCode
+     */
+    public String getCustomerPaymentMediumCode() {
+        return customerPaymentMediumCode;
+    }
 
-	/**
-	 * Sets the customerPaymentMediumCode attribute.
-	 *
-	 * @param customerPaymentMediumCode The customerPaymentMediumCode to set.
-	 *
-	 */
-	public void setCustomerPaymentMediumCode(String customerPaymentMediumCode) {
-		this.customerPaymentMediumCode = customerPaymentMediumCode;
-	}
+    /**
+     * Sets the customerPaymentMediumCode attribute.
+     *
+     * @param customerPaymentMediumCode The customerPaymentMediumCode to set.
+     */
+    public void setCustomerPaymentMediumCode(String customerPaymentMediumCode) {
+        this.customerPaymentMediumCode = customerPaymentMediumCode;
+    }
 
 
-	/**
-	 * Gets the customerPaymentMediumDescription attribute.
-	 *
-	 * @return Returns the customerPaymentMediumDescription
-	 *
-	 */
-	public String getCustomerPaymentMediumDescription() {
-		return customerPaymentMediumDescription;
-	}
+    /**
+     * Gets the customerPaymentMediumDescription attribute.
+     *
+     * @return Returns the customerPaymentMediumDescription
+     */
+    public String getCustomerPaymentMediumDescription() {
+        return customerPaymentMediumDescription;
+    }
 
-	/**
-	 * Sets the customerPaymentMediumDescription attribute.
-	 *
-	 * @param customerPaymentMediumDescription The customerPaymentMediumDescription to set.
-	 *
-	 */
-	public void setCustomerPaymentMediumDescription(String customerPaymentMediumDescription) {
-		this.customerPaymentMediumDescription = customerPaymentMediumDescription;
-	}
+    /**
+     * Sets the customerPaymentMediumDescription attribute.
+     *
+     * @param customerPaymentMediumDescription The customerPaymentMediumDescription to set.
+     */
+    public void setCustomerPaymentMediumDescription(String customerPaymentMediumDescription) {
+        this.customerPaymentMediumDescription = customerPaymentMediumDescription;
+    }
 
 
-	/**
-	 * Gets the active attribute.
-	 *
-	 * @return Returns the active
-	 *
-	 */
-	@Override
+    /**
+     * Gets the active attribute.
+     *
+     * @return Returns the active
+     */
+    @Override
     public boolean isActive() {
-		return active;
-	}
+        return active;
+    }
 
-	/**
-	 * Sets the active attribute.
-	 *
-	 * @param active The active to set.
-	 *
-	 */
-	@Override
+    /**
+     * Sets the active attribute.
+     *
+     * @param active The active to set.
+     */
+    @Override
     public void setActive(boolean active) {
-		this.active = active;
-	}
+        this.active = active;
+    }
 
-	/**
-	 * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
-	 */
-	protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
-	    LinkedHashMap m = new LinkedHashMap();
+    /**
+     * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
+     */
+    protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
+        LinkedHashMap m = new LinkedHashMap();
         m.put("customerPaymentMediumCode", this.customerPaymentMediumCode);
-	    return m;
+        return m;
     }
 }

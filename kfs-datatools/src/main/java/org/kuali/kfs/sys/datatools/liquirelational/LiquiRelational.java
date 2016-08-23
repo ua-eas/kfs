@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,7 +18,6 @@
  */
 package org.kuali.kfs.sys.datatools.liquirelational;
 
-import org.kuali.kfs.sys.datatools.util.PropertyLoadingFactoryBean;
 import liquibase.Liquibase;
 import liquibase.database.Database;
 import liquibase.database.DatabaseFactory;
@@ -31,6 +30,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.sys.datatools.util.PropertyLoadingFactoryBean;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.ResourcePatternUtils;
@@ -124,7 +124,7 @@ public class LiquiRelational {
             String liquibaseContext = PropertyLoadingFactoryBean.getBaseProperty(UPDATE_DATABASE_CONTEXT);
 
             runUpdatesPhase(database, resourceAccessor, liquibaseContext, packages);
-        } catch (SQLException |DatabaseException e) {
+        } catch (SQLException | DatabaseException e) {
             LOG.error("Failed to get datasource.", e);
             throw new RuntimeException(e);
         } finally {
@@ -142,7 +142,7 @@ public class LiquiRelational {
 
     private List<String> getPhasesToRun(List<String> packages) {
         List<String> phases = getManualPhasesToRun(packages);
-        if ( phases == null ) {
+        if (phases == null) {
             phases = getAutoPhasesToRun(packages);
         }
         return phases;
@@ -151,7 +151,7 @@ public class LiquiRelational {
     private List<String> getManualPhasesToRun(List<String> packages) {
         String start = PropertyLoadingFactoryBean.getBaseProperty(UPDATE_DATABASE_MANUAL_START);
         String end = PropertyLoadingFactoryBean.getBaseProperty(UPDATE_DATABASE_MANUAL_END);
-        if ( start == null ) {
+        if (start == null) {
             return null;
         }
 
@@ -169,10 +169,10 @@ public class LiquiRelational {
             throw new RuntimeException("Invalid parameter: " + UPDATE_DATABASE_MANUAL_END);
         }
 
-        if ( startNumber < 1 || startNumber > 5 ) {
+        if (startNumber < 1 || startNumber > 5) {
             throw new RuntimeException("Invalid parameter: " + UPDATE_DATABASE_MANUAL_START);
         }
-        if ( endNumber < 1 || endNumber > 5 ) {
+        if (endNumber < 1 || endNumber > 5) {
             throw new RuntimeException("Invalid parameter: " + UPDATE_DATABASE_MANUAL_END);
         }
 
@@ -190,7 +190,7 @@ public class LiquiRelational {
         List<String> phaseFilenames = new ArrayList<>();
         if (Boolean.parseBoolean(updateDatabaseFullRebuild)) {
             LOG.info("getAutoPhasesToRun() Running all phases");
-            for (int i=1; i<5;i++) {
+            for (int i = 1; i < 5; i++) {
                 phaseFilenames.addAll(findFilenamesForPhase(i, packages));
             }
         } else {

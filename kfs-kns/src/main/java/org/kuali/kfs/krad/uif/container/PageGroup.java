@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -33,7 +33,7 @@ public class PageGroup extends Group {
      * setupValidator js function for setting up the validator for this view.
      *
      * @see ContainerBase#performFinalize(View,
-     *      java.lang.Object, Component)
+     * java.lang.Object, Component)
      */
     @Override
     public void performFinalize(View view, Object model, Component parent) {
@@ -46,8 +46,7 @@ public class PageGroup extends Group {
 
         if (view instanceof FormView && ((FormView) view).isValidateClientSide()) {
             this.setOnDocumentReadyScript(prefixScript + "\nsetupPage(true);");
-        }
-        else{
+        } else {
             this.setOnDocumentReadyScript(prefixScript + "\nsetupPage(false);");
         }
     }

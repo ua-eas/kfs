@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -122,8 +122,8 @@ public class MaintenanceDocumentBase extends org.kuali.kfs.krad.maintenance.Main
             //fileAttachment isn't filled, populate from bo if it exists
             PersistableAttachment boAttachment = (PersistableAttachment) newMaintainableObject.getDataObject();
             if (attachment == null
-                    && boAttachment != null
-                    && boAttachment.getAttachmentContent() != null) {
+                && boAttachment != null
+                && boAttachment.getAttachmentContent() != null) {
                 DocumentAttachment newAttachment = new DocumentAttachment();
                 newAttachment.setDocumentNumber(getDocumentNumber());
                 newAttachment.setAttachmentContent(boAttachment.getAttachmentContent());
@@ -142,48 +142,48 @@ public class MaintenanceDocumentBase extends org.kuali.kfs.krad.maintenance.Main
 
         PersistableAttachment boAttachment = (PersistableAttachment) newMaintainableObject.getDataObject();
 
-    	if (ObjectUtils.isNotNull(getAttachmentPropertyName())) {
-    		String attachmentPropNm = getAttachmentPropertyName();
-    		String attachmentPropNmSetter = "get" + attachmentPropNm.substring(0, 1).toUpperCase() + attachmentPropNm.substring(1, attachmentPropNm.length());
-    		FormFile attachmentFromBusinessObject;
+        if (ObjectUtils.isNotNull(getAttachmentPropertyName())) {
+            String attachmentPropNm = getAttachmentPropertyName();
+            String attachmentPropNmSetter = "get" + attachmentPropNm.substring(0, 1).toUpperCase() + attachmentPropNm.substring(1, attachmentPropNm.length());
+            FormFile attachmentFromBusinessObject;
 
-    		if((boAttachment.getFileName() == null) && (boAttachment instanceof PersistableAttachment)) {
-    			try {
-    				Method[] methods = boAttachment.getClass().getMethods();
-    				for (Method method : methods) {
-    					if (method.getName().equals(attachmentPropNmSetter)) {
-    						attachmentFromBusinessObject =  (FormFile)(boAttachment.getClass().getDeclaredMethod(attachmentPropNmSetter).invoke(boAttachment));
-    						if (attachmentFromBusinessObject != null) {
-    							//boAttachment.setAttachmentContent(attachmentFromBusinessObject.getFileData());
-    							boAttachment.setFileName(attachmentFromBusinessObject.getFileName());
-    							boAttachment.setContentType(attachmentFromBusinessObject.getContentType());
-    						}
-    						break;
-    					}
-    				}
-    		   } catch (Exception e) {
-    				LOG.error("Not able to get the attachment " + e.getMessage());
-    				throw new RuntimeException("Not able to get the attachment " + e.getMessage());
-    		   }
-    	  }
-      }
+            if ((boAttachment.getFileName() == null) && (boAttachment instanceof PersistableAttachment)) {
+                try {
+                    Method[] methods = boAttachment.getClass().getMethods();
+                    for (Method method : methods) {
+                        if (method.getName().equals(attachmentPropNmSetter)) {
+                            attachmentFromBusinessObject = (FormFile) (boAttachment.getClass().getDeclaredMethod(attachmentPropNmSetter).invoke(boAttachment));
+                            if (attachmentFromBusinessObject != null) {
+                                //boAttachment.setAttachmentContent(attachmentFromBusinessObject.getFileData());
+                                boAttachment.setFileName(attachmentFromBusinessObject.getFileName());
+                                boAttachment.setContentType(attachmentFromBusinessObject.getContentType());
+                            }
+                            break;
+                        }
+                    }
+                } catch (Exception e) {
+                    LOG.error("Not able to get the attachment " + e.getMessage());
+                    throw new RuntimeException("Not able to get the attachment " + e.getMessage());
+                }
+            }
+        }
 
-      if((boAttachment.getFileName() == null) && (boAttachment instanceof PersistableAttachment) && (attachment != null)) {
-    	  //byte[] fileContents;
-          //fileContents = attachment.getAttachmentContent();
-          if (attachment.getFileName() != null) {
-              boAttachment.setAttachmentContent(null);
-              boAttachment.setFileName(attachment.getFileName());
-              boAttachment.setContentType(attachment.getContentType());
-          }
-       }
+        if ((boAttachment.getFileName() == null) && (boAttachment instanceof PersistableAttachment) && (attachment != null)) {
+            //byte[] fileContents;
+            //fileContents = attachment.getAttachmentContent();
+            if (attachment.getFileName() != null) {
+                boAttachment.setAttachmentContent(null);
+                boAttachment.setFileName(attachment.getFileName());
+                boAttachment.setContentType(attachment.getContentType());
+            }
+        }
     }
 
     @Override
     public void populateAttachmentBeforeSave() {
         PersistableAttachment boAttachment = (PersistableAttachment) newMaintainableObject.getDataObject();
         if (attachment != null
-                && attachment.getAttachmentContent() != null) {
+            && attachment.getAttachmentContent() != null) {
             boAttachment.setAttachmentContent(attachment.getAttachmentContent());
         } else {
             boAttachment.setAttachmentContent(null);
@@ -235,9 +235,9 @@ public class MaintenanceDocumentBase extends org.kuali.kfs.krad.maintenance.Main
 
 
             for (PersistableAttachment persistableAttachment : boAttachments.getAttachments()) {
-                if((persistableAttachment.getFileName() == null)) {
+                if ((persistableAttachment.getFileName() == null)) {
                     try {
-                        FormFile attachmentFromBusinessObject =  (FormFile)(persistableAttachment.getClass().getDeclaredMethod(attachmentPropNmSetter).invoke(persistableAttachment));
+                        FormFile attachmentFromBusinessObject = (FormFile) (persistableAttachment.getClass().getDeclaredMethod(attachmentPropNmSetter).invoke(persistableAttachment));
                         if (attachmentFromBusinessObject != null) {
                             //persistableAttachment.setAttachmentContent(
                             //        attachmentFromBusinessObject.getFileData());
@@ -251,8 +251,8 @@ public class MaintenanceDocumentBase extends org.kuali.kfs.krad.maintenance.Main
                 }
             }
         }
-        if((CollectionUtils.isEmpty(boAttachments.getAttachments())
-                && (CollectionUtils.isNotEmpty(attachments)))) {
+        if ((CollectionUtils.isEmpty(boAttachments.getAttachments())
+            && (CollectionUtils.isNotEmpty(attachments)))) {
 
             List<PersistableAttachment> attachmentList = new ArrayList<PersistableAttachment>();
             for (MultiDocumentAttachment multiAttach : attachments) {
@@ -271,7 +271,7 @@ public class MaintenanceDocumentBase extends org.kuali.kfs.krad.maintenance.Main
         PersistableAttachment persistableAttachment = new PersistableAttachmentBase();
 
         if (copyFile
-                && multiAttach.getAttachmentContent() != null) {
+            && multiAttach.getAttachmentContent() != null) {
             persistableAttachment.setAttachmentContent(multiAttach.getAttachmentContent());
         }
         persistableAttachment.setFileName(multiAttach.getFileName());
@@ -304,7 +304,7 @@ public class MaintenanceDocumentBase extends org.kuali.kfs.krad.maintenance.Main
 
             for (PersistableAttachment persistableAttachment : boAttachmentList.getAttachments()) {
                 try {
-                    FormFile attachmentFromBusinessObject =  (FormFile)(persistableAttachment.getClass().getDeclaredMethod(attachmentPropNmSetter).invoke(persistableAttachment));
+                    FormFile attachmentFromBusinessObject = (FormFile) (persistableAttachment.getClass().getDeclaredMethod(attachmentPropNmSetter).invoke(persistableAttachment));
                     if (attachmentFromBusinessObject != null) {
                         //
                         //byte[] fileContents = attachmentFromBusinessObject.getFileData();
@@ -330,7 +330,7 @@ public class MaintenanceDocumentBase extends org.kuali.kfs.krad.maintenance.Main
                         }
                     } else {
                         if (persistableAttachment.getFileName() != null
-                                && persistableAttachment.getAttachmentContent() != null) {
+                            && persistableAttachment.getAttachmentContent() != null) {
                             MultiDocumentAttachment attach = new MultiDocumentAttachment();
                             attach.setFileName(persistableAttachment.getFileName());
                             attach.setContentType(persistableAttachment.getContentType());

@@ -1,25 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.service;
 
-import static org.apache.commons.lang.StringUtils.isBlank;
-import static org.apache.commons.lang.StringUtils.replace;
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.log4j.Logger;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationHandler;
@@ -30,9 +31,8 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.log4j.Logger;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
+import static org.apache.commons.lang.StringUtils.isBlank;
+import static org.apache.commons.lang.StringUtils.replace;
 
 
 /**
@@ -40,12 +40,12 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
  *
  * @see org.kuali.kfs.module.tem.businessobject.GroupTravelerCsvRecord;
  */
-public class CsvRecordFactory<RecordType>  {
+public class CsvRecordFactory<RecordType> {
 
     public static Logger LOG = Logger.getLogger(CsvRecordFactory.class);
 
     final Class<RecordType> recordType;
-    private Map<String,String> headerMap;
+    private Map<String, String> headerMap;
 
     public CsvRecordFactory(final Class<RecordType> recordType) {
         this.recordType = recordType;
@@ -77,7 +77,7 @@ public class CsvRecordFactory<RecordType>  {
         }
 
         protected PropertyDescriptor propertyFor(final PropertyDescriptor[] properties, final Method method) {
-            for (final PropertyDescriptor property: properties) {
+            for (final PropertyDescriptor property : properties) {
                 if (method.getName().equals(property.getReadMethod().getName())) {
                     return property;
                 }
@@ -91,7 +91,7 @@ public class CsvRecordFactory<RecordType>  {
             if (headerMap.size() < 1) {
                 LOG.warn("Your header map is empty. Won't ever resolve any properties");
             }
-            for (final Map.Entry<String,String> entry : headerMap.entrySet()) {
+            for (final Map.Entry<String, String> entry : headerMap.entrySet()) {
                 LOG.debug("Checking " + entry.getValue());
                 if (property.getName().equalsIgnoreCase(entry.getValue())) {
                     if (header.containsKey(entry.getKey())) {
@@ -124,29 +124,24 @@ public class CsvRecordFactory<RecordType>  {
                     return KualiDecimal.ZERO;
                 }
                 retval = new KualiDecimal(convertToBigDecimal(value.toString().trim()));
-            }
-            else if (BigDecimal.class.equals(method.getReturnType())) {
+            } else if (BigDecimal.class.equals(method.getReturnType())) {
                 if (value == null || isBlank(value.toString())) {
                     return BigDecimal.ZERO;
                 }
                 retval = convertToBigDecimal(value.toString().trim());
-            }
-            else if (Boolean.class.equals(method.getReturnType())
-                     || boolean.class.equals(method.getReturnType())) {
+            } else if (Boolean.class.equals(method.getReturnType())
+                || boolean.class.equals(method.getReturnType())) {
                 retval = new Boolean(value.toString().trim());
                 LOG.debug(headerField + " is " + retval);
-            }
-            else if (java.sql.Date.class.equals(method.getReturnType())) {
+            } else if (java.sql.Date.class.equals(method.getReturnType())) {
                 if (!isBlank(value.toString())) {
                     try {
                         retval = new java.sql.Date(new SimpleDateFormat("MM/dd/yyyy").parse(value.toString().trim()).getTime());
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         // Ignore
                     }
                 }
-            }
-            else {
+            } else {
                 retval = value.toString().trim();
             }
             return retval;
@@ -162,7 +157,7 @@ public class CsvRecordFactory<RecordType>  {
 
     public RecordType newInstance(final Map<String, List<Integer>> header, final String[] record) throws Exception {
         return (RecordType) Proxy.newProxyInstance(recordType.getClassLoader(),
-                                                   new Class[] { recordType },
-                                                   new CsvRecordInvocationHandler(header, record));
+            new Class[]{recordType},
+            new CsvRecordInvocationHandler(header, record));
     }
 }

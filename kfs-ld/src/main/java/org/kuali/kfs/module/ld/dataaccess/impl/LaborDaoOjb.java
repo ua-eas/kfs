@@ -1,29 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.dataaccess.impl;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.Query;
@@ -43,6 +36,13 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * OJB Implementation of Labor Distribution DAO database queries.
@@ -70,7 +70,7 @@ public class LaborDaoOjb extends PlatformAwareDaoBaseOjb implements LaborDao {
 
         String[] groupBy = (String[]) groupByList.toArray(new String[groupByList.size()]);
 
-        query.setAttributes(new String[] { ConsolidationUtil.sum(LaborConstants.BalanceInquiries.ANNUAL_BALANCE) + " + " + ConsolidationUtil.sum(LaborConstants.BalanceInquiries.CONTRACT_GRANT_BB_AMOUNT) });
+        query.setAttributes(new String[]{ConsolidationUtil.sum(LaborConstants.BalanceInquiries.ANNUAL_BALANCE) + " + " + ConsolidationUtil.sum(LaborConstants.BalanceInquiries.CONTRACT_GRANT_BB_AMOUNT)});
         query.addGroupBy(groupBy);
 
         Object[] encumbrances = null;
@@ -126,12 +126,11 @@ public class LaborDaoOjb extends PlatformAwareDaoBaseOjb implements LaborDao {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Building criteria from map fields: " + fieldValues.entrySet());
         }
-        
+
         Criteria criteria = new Criteria();
         try {
             criteria.addAndCriteria(OJBUtility.buildCriteriaFromMap(fieldValues, clazz.newInstance()));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("Could not add and criteria properly for " + clazz);
             throw new RuntimeException(e);
         }
@@ -140,7 +139,7 @@ public class LaborDaoOjb extends PlatformAwareDaoBaseOjb implements LaborDao {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Built query: " + query);
         }
-        
+
         // if consolidated, then ignore subaccount number and balance type code
         if (isConsolidated) {
             ConsolidationUtil.buildConsolidatedQuery(query, ConsolidationUtil.sum(AccountingPeriodProperties.JULY.propertyName));

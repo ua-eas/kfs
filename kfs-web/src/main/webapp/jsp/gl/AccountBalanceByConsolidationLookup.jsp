@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -96,34 +96,34 @@
                     <c:set var="offset" value="0"/>
                     <a id="search-results"></a>
                     <div class="main-panel search-results">
-                    <display:table class="datatable-100" name="${reqSearchResults}" id="row"
-                                   export="true" pagesize="100" offset="${offset}"
-                                   requestURI="glAccountBalanceByConsolidationLookup.do?methodToCall=viewResults&reqSearchResultsSize=${reqSearchResultsSize}&searchResultKey=${searchResultKey}">
-                        <c:forEach items="${row.columns}" var="column" varStatus="status">
+                        <display:table class="datatable-100" name="${reqSearchResults}" id="row"
+                                       export="true" pagesize="100" offset="${offset}"
+                                       requestURI="glAccountBalanceByConsolidationLookup.do?methodToCall=viewResults&reqSearchResultsSize=${reqSearchResultsSize}&searchResultKey=${searchResultKey}">
+                            <c:forEach items="${row.columns}" var="column" varStatus="status">
 
-                            <c:if test="${!empty column.columnAnchor.title}">
-                                <c:set var="title" value="${column.columnAnchor.title}"/>
-                            </c:if>
-                            <c:if test="${empty column.columnAnchor.title}">
-                                <c:set var="title" value="${column.propertyValue}"/>
-                            </c:if>
+                                <c:if test="${!empty column.columnAnchor.title}">
+                                    <c:set var="title" value="${column.columnAnchor.title}"/>
+                                </c:if>
+                                <c:if test="${empty column.columnAnchor.title}">
+                                    <c:set var="title" value="${column.propertyValue}"/>
+                                </c:if>
 
-                            <display:column
-                                    class="${(column.formatter.implementationClass == 'org.kuali.rice.core.web.format.CurrencyFormatter') ? 'numbercell' : 'inofocell'}"
-                                    title="${column.columnTitle}" comparator="${column.comparator}"
-                                    sortable="${('dummyBusinessObject.linkButtonOption' ne column.propertyName) && column.sortable}">
-                                <c:choose>
-                                    <c:when test="${column.propertyURL != \"\" && param['d-16544-e'] == null}">
-                                        <a href="<c:out value="${column.propertyURL}"/>" title="<c:out value="${title}" />"
-                                           target="blank"><c:out value="${column.propertyValue}"/></a>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <c:out value="${column.propertyValue}"/>
-                                    </c:otherwise>
-                                </c:choose>
-                            </display:column>
-                        </c:forEach>
-                    </display:table></div>
+                                <display:column
+                                        class="${(column.formatter.implementationClass == 'org.kuali.rice.core.web.format.CurrencyFormatter') ? 'numbercell' : 'inofocell'}"
+                                        title="${column.columnTitle}" comparator="${column.comparator}"
+                                        sortable="${('dummyBusinessObject.linkButtonOption' ne column.propertyName) && column.sortable}">
+                                    <c:choose>
+                                        <c:when test="${column.propertyURL != \"\" && param['d-16544-e'] == null}">
+                                            <a href="<c:out value="${column.propertyURL}"/>" title="<c:out value="${title}" />"
+                                               target="blank"><c:out value="${column.propertyValue}"/></a>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:out value="${column.propertyValue}"/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </display:column>
+                            </c:forEach>
+                        </display:table></div>
 
                     <c:if test="${not empty totalsTable}">
                         <table class="datatable-80" id="row" align="center">

@@ -1,37 +1,37 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.document.web.struts;
 
-import static org.kuali.kfs.module.tem.TemPropertyConstants.NEW_ATTENDEE_LINE;
+import org.kuali.kfs.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.module.tem.businessobject.Attendee;
+import org.kuali.kfs.module.tem.document.TravelEntertainmentDocument;
+import org.kuali.kfs.module.tem.document.service.TravelEntertainmentDocumentService;
+import org.kuali.kfs.module.tem.document.validation.event.AddAttendeeLineEvent;
+import org.kuali.kfs.module.tem.document.web.bean.TravelEntertainmentMvcWrapperBean;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import org.kuali.kfs.module.tem.businessobject.Attendee;
-import org.kuali.kfs.module.tem.document.TravelEntertainmentDocument;
-import org.kuali.kfs.module.tem.document.service.TravelEntertainmentDocumentService;
-import org.kuali.kfs.module.tem.document.validation.event.AddAttendeeLineEvent;
-import org.kuali.kfs.module.tem.document.web.bean.TravelEntertainmentMvcWrapperBean;
-import org.kuali.kfs.krad.service.KualiRuleService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+import static org.kuali.kfs.module.tem.TemPropertyConstants.NEW_ATTENDEE_LINE;
 
 public class AddAttendeesEvent implements Observer {
     private KualiRuleService kualiRuleService;
@@ -44,7 +44,7 @@ public class AddAttendeesEvent implements Observer {
         }
         final TravelEntertainmentMvcWrapperBean wrapper = (TravelEntertainmentMvcWrapperBean) arg;
 
-        final TravelEntertainmentDocument document = (TravelEntertainmentDocument)wrapper.getTravelDocument();
+        final TravelEntertainmentDocument document = (TravelEntertainmentDocument) wrapper.getTravelDocument();
         final Attendee newAttendeeLine = wrapper.getNewAttendeeLine();
 
         if (newAttendeeLine != null) {
@@ -53,9 +53,9 @@ public class AddAttendeesEvent implements Observer {
 
         getTravelEntertainmentDocumentService().handleNewAttendee(newAttendeeLine);
         int errCount = GlobalVariables.getMessageMap().getErrorCount();
-        if(errCount > 0) {
+        if (errCount > 0) {
             return;
-        } 
+        }
 
         boolean rulePassed = true;
 
@@ -79,8 +79,7 @@ public class AddAttendeesEvent implements Observer {
                     selectedLine = 0;
                     attendeeLine = new Attendee();
                     newAttendeeLines.add(attendeeLine);
-                }
-                else {
+                } else {
                     if (attendeeLine.equals(newAttendee)) {
                         Attendee line = new Attendee();
                         line.setAttendeeType(attendeeLine.getAttendeeType());
@@ -89,8 +88,7 @@ public class AddAttendeesEvent implements Observer {
                         line.setName(attendeeLine.getName());
 
                         newAttendeeLines.add(line);
-                    }
-                    else {
+                    } else {
                         newAttendeeLines.add(attendeeLine);
                     }
                 }
@@ -133,7 +131,7 @@ public class AddAttendeesEvent implements Observer {
 
     /**
      * Sets the kualiRulesService attribute.
-     * 
+     *
      * @return Returns the kualiRuleService.
      */
     public void setRuleService(final KualiRuleService kualiRuleService) {
@@ -142,7 +140,7 @@ public class AddAttendeesEvent implements Observer {
 
     /**
      * Gets the kualiRulesService attribute.
-     * 
+     *
      * @return Returns the kualiRuleseService.
      */
     protected KualiRuleService getRuleService() {

@@ -1,41 +1,38 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.batch.service.impl;
 
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
-import org.kuali.kfs.module.tem.TemKeyConstants;
-import org.kuali.kfs.module.tem.TemParameterConstants;
-import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.TemConstants.AgencyMatchProcessParameter;
 import org.kuali.kfs.module.tem.TemConstants.AgencyStagingDataErrorCodes;
 import org.kuali.kfs.module.tem.TemConstants.AgencyStagingDataValidation;
 import org.kuali.kfs.module.tem.TemConstants.CreditCardStagingDataErrorCodes;
 import org.kuali.kfs.module.tem.TemConstants.TravelParameters;
+import org.kuali.kfs.module.tem.TemKeyConstants;
+import org.kuali.kfs.module.tem.TemParameterConstants;
+import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.batch.AgencyDataImportStep;
 import org.kuali.kfs.module.tem.batch.service.ExpenseImportByTripService;
 import org.kuali.kfs.module.tem.batch.service.ImportedExpensePendingEntryService;
@@ -59,10 +56,13 @@ import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ErrorMessage;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Service for handling imported expenses using the IU method or "By Trip Id" method.
@@ -70,7 +70,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @see org.kuali.kfs.module.tem.document.validation.impl.AgencyStagingDataRule
  */
 @Transactional
-public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase implements ExpenseImportByTripService  {
+public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase implements ExpenseImportByTripService {
 
     public static Logger LOG = Logger.getLogger(ExpenseImportByTripServiceImpl.class);
 
@@ -84,7 +84,6 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
     private TravelEncumbranceService travelEncumbranceService;
 
     /**
-     *
      * @see org.kuali.kfs.module.tem.batch.service.ExpenseImportByTripService#areMandatoryFieldsPresent(org.kuali.kfs.module.tem.businessobject.AgencyStagingData)
      */
     @Override
@@ -124,9 +123,9 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
     }
 
     /**
-     *
      * This method loops through the {@link TripAccountingInformation} and
      * verifies that each one has a Chart Code and Account Number.
+     *
      * @param agencyData
      * @return
      */
@@ -146,12 +145,11 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.tem.batch.service.ExpenseImportByTripService#validateAgencyData(org.kuali.kfs.module.tem.businessobject.AgencyStagingData)
      */
     @Override
     public List<ErrorMessage> validateAgencyData(AgencyStagingData agencyData) {
-        LOG.info("Validating agency data. tripId: "+ agencyData.getTripId());
+        LOG.info("Validating agency data. tripId: " + agencyData.getTripId());
 
         List<ErrorMessage> errorMessages = validateMandatoryFieldsPresent(agencyData);
         if (!errorMessages.isEmpty()) {
@@ -175,7 +173,7 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
 
         errorMessages.addAll(validateDistributionCode(agencyData));
 
-        LOG.info("Finished validating agency data. tripId:"+ agencyData.getTripId());
+        LOG.info("Finished validating agency data. tripId:" + agencyData.getTripId());
         agencyData.setProcessingTimestamp(dateTimeService.getCurrentTimestamp());
         if (ObjectUtils.isNull(agencyData.getCreationTimestamp())) {
             agencyData.setCreationTimestamp(dateTimeService.getCurrentTimestamp());
@@ -184,7 +182,6 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.tem.batch.service.ExpenseImportByTripService#validateTripId(org.kuali.kfs.module.tem.businessobject.AgencyStagingData)
      */
     @Override
@@ -197,7 +194,7 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
             return errorMessages;
         }
 
-        LOG.error("Unable to retrieve a travel document for tripId: "+ agencyData.getTripId());
+        LOG.error("Unable to retrieve a travel document for tripId: " + agencyData.getTripId());
         setErrorCode(agencyData, AgencyStagingDataErrorCodes.AGENCY_INVALID_TRIPID);
         errorMessages.add(new ErrorMessage(TemKeyConstants.MESSAGE_AGENCY_DATA_INVALID_TRIP_ID));
 
@@ -205,7 +202,6 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.tem.batch.service.ExpenseImportByTripService#validateAccountingInfo(org.kuali.kfs.module.tem.businessobject.TemProfile, org.kuali.kfs.module.tem.businessobject.AgencyStagingData)
      */
     @Override
@@ -232,18 +228,19 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
     /**
      * This method is called by the AgencyStagingData maintainable for validating the new accounting line.
      * It won't need to set the error codes on the agency staging data object
+     *
      * @see org.kuali.kfs.module.tem.batch.service.ExpenseImportByTripService#validateAccountingInfo(org.kuali.kfs.module.tem.businessobject.TripAccountingInformation)
      */
     @Override
-    public Map<String,ErrorMessage> validateAccountingInfoLine(TripAccountingInformation accountingLine) {
+    public Map<String, ErrorMessage> validateAccountingInfoLine(TripAccountingInformation accountingLine) {
         return validateAccountingInfoLine(null, accountingLine, null);
     }
 
     /**
      * @see org.kuali.kfs.module.tem.batch.service.ExpenseImportByTripService#validateAccountingInfo(org.kuali.kfs.module.tem.businessobject.TripAccountingInformation)
      */
-    protected Map<String,ErrorMessage> validateAccountingInfoLine(AgencyStagingData agencyData, TripAccountingInformation accountingLine, Collection<String> validationParameters) {
-        Map<String,ErrorMessage> errorMap = new HashMap<String,ErrorMessage>();
+    protected Map<String, ErrorMessage> validateAccountingInfoLine(AgencyStagingData agencyData, TripAccountingInformation accountingLine, Collection<String> validationParameters) {
+        Map<String, ErrorMessage> errorMap = new HashMap<String, ErrorMessage>();
 
         if (ObjectUtils.isNull(validationParameters)) {
             // Get ACCOUNTING_LINE_VALIDATION parameter to determine which fields to validate
@@ -269,7 +266,7 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
             if (!isAccountNumberValid(accountingLine.getTripChartCode(), accountingLine.getTripAccountNumber())) {
 
                 if (setAgencyDataErrorCode) {
-                    LOG.error("Invalid Account in Agency Data record. tripId: "+ tripId + " chart code: " + accountingLine.getTripChartCode() + " account: " + accountingLine.getTripAccountNumber());
+                    LOG.error("Invalid Account in Agency Data record. tripId: " + tripId + " chart code: " + accountingLine.getTripChartCode() + " account: " + accountingLine.getTripAccountNumber());
                     setErrorCode(agencyData, AgencyStagingDataErrorCodes.AGENCY_INVALID_ACCOUNT);
                 }
 
@@ -284,7 +281,7 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
                 !isSubAccountNumberValid(accountingLine.getTripChartCode(), accountingLine.getTripAccountNumber(), accountingLine.getTripSubAccountNumber())) {
 
                 if (setAgencyDataErrorCode) {
-                    LOG.error("Invalid SubAccount in Agency Data record. tripId: "+ tripId + " chart code: " + accountingLine.getTripChartCode() + " account: " + accountingLine.getTripAccountNumber() + " subaccount: " + accountingLine.getTripSubAccountNumber());
+                    LOG.error("Invalid SubAccount in Agency Data record. tripId: " + tripId + " chart code: " + accountingLine.getTripChartCode() + " account: " + accountingLine.getTripAccountNumber() + " subaccount: " + accountingLine.getTripSubAccountNumber());
                     setErrorCode(agencyData, AgencyStagingDataErrorCodes.AGENCY_INVALID_SUBACCOUNT);
                 }
                 error = new ErrorMessage(TemKeyConstants.MESSAGE_AGENCY_DATA_INVALID_SUBACCOUNT, accountingLine.getTripSubAccountNumber());
@@ -297,7 +294,7 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
             !isProjectCodeValid(accountingLine.getProjectCode())) {
 
             if (setAgencyDataErrorCode) {
-                LOG.error("Invalid Project in Agency Data record. tripId: "+ tripId + " project code: " + accountingLine.getProjectCode());
+                LOG.error("Invalid Project in Agency Data record. tripId: " + tripId + " project code: " + accountingLine.getProjectCode());
                 setErrorCode(agencyData, AgencyStagingDataErrorCodes.AGENCY_INVALID_PROJECT);
             }
             error = new ErrorMessage(TemKeyConstants.MESSAGE_AGENCY_DATA_INVALID_PROJECT_CODE, accountingLine.getProjectCode());
@@ -308,7 +305,6 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.tem.batch.service.ExpenseImportByTripService#isDuplicate(org.kuali.kfs.module.tem.businessobject.AgencyStagingData)
      */
     @Override
@@ -326,10 +322,10 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
             boolean isDuplicate = false;
             String errorMessage = "Found a duplicate entry for Agency Staging Data: Duplicate Ids ";
 
-            for(AgencyStagingData duplicate : agencyDataList) {
+            for (AgencyStagingData duplicate : agencyDataList) {
                 Integer duplicateId = duplicate.getId();
                 if (ObjectUtils.isNotNull(agencyData.getId()) && (agencyData.getId().intValue() != duplicateId.intValue())) {
-                    errorMessage += duplicate.getId() +" ";
+                    errorMessage += duplicate.getId() + " ";
                     isDuplicate = true;
                 }
             }
@@ -337,7 +333,7 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
                 LOG.error(errorMessage);
 
                 ErrorMessage error = new ErrorMessage(TemKeyConstants.MESSAGE_AGENCY_DATA_TRIP_DUPLICATE_RECORD, agencyData.getTripId(), agencyData.getAgency(),
-                        agencyData.getTransactionPostingDate().toString(), agencyData.getTripExpenseAmount().toString(), agencyData.getItineraryDataString());
+                    agencyData.getTransactionPostingDate().toString(), agencyData.getTripExpenseAmount().toString(), agencyData.getItineraryDataString());
                 errorMessages.add(error);
             }
         }
@@ -397,7 +393,7 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
         if (ObjectUtils.isNotNull(distributionCode)) {
             AgencyServiceFee serviceFee = getAgencyServiceFee(distributionCode);
             if (ObjectUtils.isNull(serviceFee)) {
-                LOG.error("Invalid Distribution Code: "+ distributionCode);
+                LOG.error("Invalid Distribution Code: " + distributionCode);
                 setErrorCode(agencyData, AgencyStagingDataErrorCodes.AGENCY_INVALID_DI_CD);
                 errorMessages.add(new ErrorMessage(TemKeyConstants.MESSAGE_AGENCY_DATA_INVALID_DISTRIBUTION_CODE, distributionCode));
             }
@@ -407,14 +403,13 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.tem.batch.service.ExpenseImportByTripService#reconciliateExpense(org.kuali.kfs.module.tem.businessobject.AgencyStagingData, org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper)
      */
     @SuppressWarnings("null")
     @Override
     public List<ErrorMessage> reconciliateExpense(AgencyStagingData agencyData, GeneralLedgerPendingEntrySequenceHelper sequenceHelper) {
 
-        LOG.info("Reconciling expense for agency data: "+ agencyData.getId()+ " tripId: "+ agencyData.getTripId());
+        LOG.info("Reconciling expense for agency data: " + agencyData.getId() + " tripId: " + agencyData.getTripId());
 
         List<ErrorMessage> errors = new ArrayList<ErrorMessage>();
 
@@ -430,18 +425,16 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
                 if (expenseTypeCategory == TemConstants.ExpenseTypeMetaCategory.AIRFARE) {
                     // see if there's a CC that matches ticket number, service fee number, amount
                     ccData = travelExpenseService.findImportedCreditCardExpense(agencyData.getTripExpenseAmount(), agencyData.getAirTicketNumber(), agencyData.getAirServiceFeeNumber());
-                }
-                else if (expenseTypeCategory == TemConstants.ExpenseTypeMetaCategory.LODGING) {
+                } else if (expenseTypeCategory == TemConstants.ExpenseTypeMetaCategory.LODGING) {
                     // see if there's a CC that matches lodging itinerary number and amount
                     ccData = travelExpenseService.findImportedCreditCardExpense(agencyData.getTripExpenseAmount(), agencyData.getLodgingItineraryNumber());
-                }
-                else if (expenseTypeCategory == TemConstants.ExpenseTypeMetaCategory.RENTAL_CAR) {
+                } else if (expenseTypeCategory == TemConstants.ExpenseTypeMetaCategory.RENTAL_CAR) {
                     // see if there's a CC that matches rental car itinerary number and amount
                     ccData = travelExpenseService.findImportedCreditCardExpense(agencyData.getTripExpenseAmount(), agencyData.getRentalCarItineraryNumber());
                 }
 
                 if (ObjectUtils.isNotNull(ccData)) {
-                    LOG.info("Found a match for Agency: "+ agencyData.getId()+ " Credit Card: "+ ccData.getId()+ " tripId: "+ agencyData.getTripId());
+                    LOG.info("Found a match for Agency: " + agencyData.getId() + " Credit Card: " + ccData.getId() + " tripId: " + agencyData.getTripId());
 
                     final TravelDocument travelDocument = getTravelDocumentService().getParentTravelDocument(agencyData.getTripId());
 
@@ -480,8 +473,7 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
                                     if (i < accountingInfo.size() - 1) {
                                         remainingAmount = remainingAmount.subtract(currentAmount);
                                         remainingFeeAmount = remainingFeeAmount.subtract(currentFeeAmount);
-                                    }
-                                    else {
+                                    } else {
                                         currentAmount = remainingAmount;
                                         currentFeeAmount = remainingFeeAmount;
                                     }
@@ -495,7 +487,7 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
 
                                     if (ObjectUtils.isNotNull(serviceFee)) {
                                         // Agency Data has a DI Code that maps to an Agency Service Fee, create GLPEs for it.
-                                        LOG.info("Processing Service Fee GLPE for agency: "+ agencyData.getId()+ " tripId: "+ agencyData.getTripId());
+                                        LOG.info("Processing Service Fee GLPE for agency: " + agencyData.getId() + " tripId: " + agencyData.getTripId());
 
                                         final boolean generateOffset = true;
                                         List<GeneralLedgerPendingEntry> pendingEntries = importedExpensePendingEntryService.buildDebitPendingEntry(agencyData, info, sequenceHelper, objectCode, currentFeeAmount, generateOffset);
@@ -534,55 +526,45 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
 
                                     // nota bene: agency staging data object can NOT be saved here b/c the AgencyStagingDataMaint doc calls this method and will save it itself once processing completes.
                                     // batch steps which call this method need to save the business object after calling this method
-                                }
-                                else {
-                                    LOG.error("An error occurred while creating GLPEs for agency data: "+ agencyData.getId()+ ", tripId: "+ agencyData.getTripId()+ ". Will not reconcile expense.");
+                                } else {
+                                    LOG.error("An error occurred while creating GLPEs for agency data: " + agencyData.getId() + ", tripId: " + agencyData.getTripId() + ". Will not reconcile expense.");
                                     errors.add(new ErrorMessage(TemKeyConstants.MESSAGE_AGENCY_DATA_RECON_GLPE_CREATION));
                                 }
-                            }
-                            else {
-                                LOG.error("The accounting lines on the agency data record do not have a match on the travel document. Agency data: "+ agencyData.getId() +"; tripId: "+ agencyData.getTripId() +"; documentNumber: "+ travelDocument.getDocumentNumber());
+                            } else {
+                                LOG.error("The accounting lines on the agency data record do not have a match on the travel document. Agency data: " + agencyData.getId() + "; tripId: " + agencyData.getTripId() + "; documentNumber: " + travelDocument.getDocumentNumber());
                                 errors.add(new ErrorMessage(TemKeyConstants.MESSAGE_AGENCY_DATA_RECON_ACCOUNTING_LINE_MATCH, travelDocument.getDocumentNumber()));
                             }
-                        }
-                        else {
-                            LOG.error("The document has not been approved. Document Number: "+ travelDocument.getDocumentNumber());
+                        } else {
+                            LOG.error("The document has not been approved. Document Number: " + travelDocument.getDocumentNumber());
                             errors.add(new ErrorMessage(TemKeyConstants.MESSAGE_AGECNY_DATA_RECON_DOCUMENT_STATUS, travelDocument.getDocumentNumber()));
                         }
-                    }
-                    else {
-                        LOG.info("No expense type object code could be found for agency data: "+agencyData.getId()+" tripId: "+agencyData.getTripId());
+                    } else {
+                        LOG.info("No expense type object code could be found for agency data: " + agencyData.getId() + " tripId: " + agencyData.getTripId());
                         errors.add(new ErrorMessage(TemKeyConstants.MESSAGE_AGENCY_DATA_RECON_EXPENSE_TYPE_OBJECT_CODE, expenseTypeCategory.getCode(), travelDocument.getDocumentTypeName(), travelDocument.getTripTypeCode(), travelDocument.getTraveler().getTravelerTypeCode()));
                     }
-                }
-                else {
-                    LOG.info("No match found for agency data: "+ agencyData.getId()+ " tripId:"+ agencyData.getTripId());
+                } else {
+                    LOG.info("No match found for agency data: " + agencyData.getId() + " tripId:" + agencyData.getTripId());
 
                     if (expenseTypeCategory == TemConstants.ExpenseTypeMetaCategory.AIRFARE) {
                         errors.add(new ErrorMessage(TemKeyConstants.MESSAGE_AGENCY_DATA_RECON_TRIP_MATCH_AIR, agencyData.getTripExpenseAmount().toString(), agencyData.getAirTicketNumber(), agencyData.getAirServiceFeeNumber()));
-                    }
-                    else if (expenseTypeCategory == TemConstants.ExpenseTypeMetaCategory.LODGING) {
+                    } else if (expenseTypeCategory == TemConstants.ExpenseTypeMetaCategory.LODGING) {
                         errors.add(new ErrorMessage(TemKeyConstants.MESSAGE_AGENCY_DATA_RECON_TRIP_MATCH, agencyData.getTripExpenseAmount().toString(), agencyData.getLodgingItineraryNumber()));
-                    }
-                    else if (expenseTypeCategory == TemConstants.ExpenseTypeMetaCategory.RENTAL_CAR) {
+                    } else if (expenseTypeCategory == TemConstants.ExpenseTypeMetaCategory.RENTAL_CAR) {
                         errors.add(new ErrorMessage(TemKeyConstants.MESSAGE_AGENCY_DATA_RECON_TRIP_MATCH, agencyData.getTripExpenseAmount().toString(), agencyData.getRentalCarItineraryNumber()));
-                    }
-                    else {
+                    } else {
                         errors.add(new ErrorMessage(TemKeyConstants.MESSAGE_AGENCY_DATA_RECON_INVALID_EXPENSE_TYPE_CATEGORY));
                     }
                 }
-            }
-            else {
-                LOG.info("Agency Data: "+ agencyData.getId() +"; expected errorCode="+ AgencyStagingDataErrorCodes.AGENCY_NO_ERROR +", received errorCode="+ agencyData.getErrorCode() +". Will not attempt to reconcile expense.");
+            } else {
+                LOG.info("Agency Data: " + agencyData.getId() + "; expected errorCode=" + AgencyStagingDataErrorCodes.AGENCY_NO_ERROR + ", received errorCode=" + agencyData.getErrorCode() + ". Will not attempt to reconcile expense.");
                 errors.add(new ErrorMessage(TemKeyConstants.MESSAGE_AGENCY_DATA_RECON_INVALID_ERROR_CODE, AgencyStagingDataErrorCodes.AGENCY_NO_ERROR, agencyData.getErrorCode()));
             }
-        }
-        else {
-            LOG.info("Agency Data: "+ agencyData.getId() +", is not active. Will not attempt to reconcile expense.");
+        } else {
+            LOG.info("Agency Data: " + agencyData.getId() + ", is not active. Will not attempt to reconcile expense.");
             errors.add(new ErrorMessage(TemKeyConstants.MESSAGE_AGENCY_DATA_RECON_ACTIVE));
         }
 
-        LOG.info("Finished reconciling expense for agency data: "+ agencyData.getId()+ ", Trip Id: "+ agencyData.getTripId() +". Agency data "+ (errors.isEmpty() ? "was":"was not") +" reconciled.");
+        LOG.info("Finished reconciling expense for agency data: " + agencyData.getId() + ", Trip Id: " + agencyData.getTripId() + ". Agency data " + (errors.isEmpty() ? "was" : "was not") + " reconciled.");
         return errors;
     }
 
@@ -603,15 +585,15 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
         // Get ACCOUNTING_LINE_VALIDATION parameter to determine which fields to validate
         Collection<String> validationParams = getParameterService().getParameterValuesAsString(AgencyDataImportStep.class, TravelParameters.ACCOUNTING_LINE_VALIDATION);
         if (ObjectUtils.isNull(validationParams)) {
-           LOG.info("Did not find the parameter, "+ TravelParameters.ACCOUNTING_LINE_VALIDATION +". Will not validate matching accounting lines.");
-           return true;
+            LOG.info("Did not find the parameter, " + TravelParameters.ACCOUNTING_LINE_VALIDATION + ". Will not validate matching accounting lines.");
+            return true;
         }
 
-        for(TripAccountingInformation agencyAccount : agencyDataAccountingLines) {
+        for (TripAccountingInformation agencyAccount : agencyDataAccountingLines) {
 
             boolean foundAMatch = false;
             String documentNumbers = "";
-            for(TemSourceAccountingLine sourceAccountingLine : tripSourceAccountingLines) {
+            for (TemSourceAccountingLine sourceAccountingLine : tripSourceAccountingLines) {
 
                 boolean account = true, subaccount = true, objectcode = true, subobjectcode = true;
 
@@ -620,7 +602,7 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
                     String agencyAccountNumber = StringUtils.trimToEmpty(agencyAccount.getTripAccountNumber());
                     String sourceAccountNumber = StringUtils.trimToEmpty(sourceAccountingLine.getAccountNumber());
 
-                    if ( !StringUtils.equals(agencyAccountNumber, sourceAccountNumber)) {
+                    if (!StringUtils.equals(agencyAccountNumber, sourceAccountNumber)) {
                         account = false;
                     }
                 }
@@ -628,23 +610,22 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
                     String agencySubAccountNumber = StringUtils.trimToEmpty(agencyAccount.getTripSubAccountNumber());
                     String sourceSubAccountNumber = StringUtils.trimToEmpty(sourceAccountingLine.getSubAccountNumber());
 
-                    if ( !StringUtils.equals(agencySubAccountNumber, sourceSubAccountNumber) ) {
+                    if (!StringUtils.equals(agencySubAccountNumber, sourceSubAccountNumber)) {
                         subaccount = false;
                     }
                 }
 
                 if (account && subaccount && objectcode && subobjectcode) {
-                    LOG.debug("Found accounting line match on DocumentId: "+ sourceAccountingLine.getDocumentNumber() +", "+ sourceAccountingLine);
+                    LOG.debug("Found accounting line match on DocumentId: " + sourceAccountingLine.getDocumentNumber() + ", " + sourceAccountingLine);
                     foundAMatch = true;
                     break;
-                }
-                else {
-                    documentNumbers += sourceAccountingLine.getDocumentNumber() +",";
+                } else {
+                    documentNumbers += sourceAccountingLine.getDocumentNumber() + ",";
                 }
             }
             //the agency data accounting line does not have a matching source account on the trip- return false
             if (!foundAMatch) {
-                LOG.info("Agency accounting line did not match any document accounting lines: AgencyStgDataId: "+ agencyAccount.getAgencyStagingDataId() +",trpAcctInfoId: "+ agencyAccount.getId() +", documentNumbers:["+ documentNumbers +"]");
+                LOG.info("Agency accounting line did not match any document accounting lines: AgencyStgDataId: " + agencyAccount.getAgencyStagingDataId() + ",trpAcctInfoId: " + agencyAccount.getId() + ", documentNumbers:[" + documentNumbers + "]");
                 return false;
             }
         }
@@ -653,8 +634,8 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
     }
 
     /**
-     *
      * This method gets the {@link TemTravelExpenseTypeCode} associated with the expense type and travel document
+     *
      * @param expenseTypeParamCode
      * @param travelDocumentIdentifier
      * @return
@@ -668,7 +649,7 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
 
             ExpenseTypeObjectCode expenseTypeObjectCode = travelExpenseService.getExpenseType(expenseType.getCode(), travelDoc.getDocumentTypeName(), travelDoc.getTripTypeCode(), travelDoc.getTraveler().getTravelerTypeCode());
             if (expenseTypeObjectCode == null) {
-                LOG.error("Unable to retrieve ExpenseTypeObjectCode for ExpenseTypeCode:"+ expenseType.getCode() +", DocTypeName:"+ travelDoc.getDocumentTypeName() +", TripType:"+ travelDoc.getTripTypeCode() +", TravelerType:"+ travelDoc.getTraveler().getTravelerTypeCode());
+                LOG.error("Unable to retrieve ExpenseTypeObjectCode for ExpenseTypeCode:" + expenseType.getCode() + ", DocTypeName:" + travelDoc.getDocumentTypeName() + ", TripType:" + travelDoc.getTripTypeCode() + ", TravelerType:" + travelDoc.getTraveler().getTravelerTypeCode());
             }
 
             return expenseTypeObjectCode;
@@ -678,14 +659,14 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
     }
 
     /**
-     *
      * This method returns the {@link AgencyServiceFee} by distribution code (distributionCode).
+     *
      * @param distributionCode
      * @return
      */
     protected AgencyServiceFee getAgencyServiceFee(String distributionCode) {
         if (StringUtils.isNotEmpty(distributionCode)) {
-            Map<String,String> criteria = new HashMap<String,String>(1);
+            Map<String, String> criteria = new HashMap<String, String>(1);
             criteria.put(TemPropertyConstants.DISTRIBUTION_CODE, distributionCode);
             criteria.put(TemPropertyConstants.ACTIVE_IND, TemConstants.YES);
             List<AgencyServiceFee> serviceFee = (List<AgencyServiceFee>) getBusinessObjectService().findMatching(AgencyServiceFee.class, criteria);
@@ -699,7 +680,7 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
     protected List<TemSourceAccountingLine> getSourceAccountingLinesByTrip(String travelDocumentIdentifier) {
 
         Collection<String> travelDocumentNumbers = getTravelDocumentService().getApprovedTravelDocumentNumbersByTrip(travelDocumentIdentifier);
-        LOG.info("Will attempt to retrieve source accounting lines for the following documents: "+ travelDocumentNumbers);
+        LOG.info("Will attempt to retrieve source accounting lines for the following documents: " + travelDocumentNumbers);
 
         ArrayList temSourceAccountingLines = new ArrayList<TemSourceAccountingLine>();
 
@@ -723,6 +704,7 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
 
     /**
      * Gets the travelAuthorizationService attribute.
+     *
      * @return Returns the travelAuthorizationService.
      */
     public TravelAuthorizationService getTravelAuthorizationService() {
@@ -731,6 +713,7 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
 
     /**
      * Sets the travelAuthorizationService attribute value.
+     *
      * @param travelAuthorizationService The travelAuthorizationService to set.
      */
     public void setTravelAuthorizationService(TravelAuthorizationService travelAuthorizationService) {
@@ -739,6 +722,7 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
 
     /**
      * Gets the temProfileService attribute.
+     *
      * @return Returns the temProfileService.
      */
     public TemProfileService getTemProfileService() {
@@ -747,6 +731,7 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
 
     /**
      * Sets the temProfileService attribute value.
+     *
      * @param temProfileService The temProfileService to set.
      */
     public void setTemProfileService(TemProfileService temProfileService) {
@@ -755,6 +740,7 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
 
     /**
      * Gets the businessObjectService attribute.
+     *
      * @return Returns the businessObjectService.
      */
     public BusinessObjectService getBusinessObjectService() {
@@ -763,6 +749,7 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
 
     /**
      * Sets the businessObjectService attribute value.
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
@@ -771,6 +758,7 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
 
     /**
      * Gets the dateTimeService attribute.
+     *
      * @return Returns the dateTimeService.
      */
     public DateTimeService getDateTimeService() {
@@ -779,6 +767,7 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
 
     /**
      * Sets the dateTimeService attribute value.
+     *
      * @param dateTimeService The dateTimeService to set.
      */
     public void setDateTimeService(DateTimeService dateTimeService) {
@@ -787,6 +776,7 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
 
     /**
      * Gets the travelExpenseService attribute.
+     *
      * @return Returns the travelExpenseService.
      */
     public TravelExpenseService getTravelExpenseService() {
@@ -795,6 +785,7 @@ public class ExpenseImportByTripServiceImpl extends ExpenseImportServiceBase imp
 
     /**
      * Sets the travelExpenseService attribute value.
+     *
      * @param travelExpenseService The travelExpenseService to set.
      */
     public void setTravelExpenseService(TravelExpenseService travelExpenseService) {

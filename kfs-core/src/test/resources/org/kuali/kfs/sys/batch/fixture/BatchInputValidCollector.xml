@@ -1,128 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <batch xmlns="http://www.kuali.org/modules/gl/collector"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<header>
-		<chartOfAccountsCode>IN</chartOfAccountsCode>
-		<organizationCode>MDEP</organizationCode>
-		<transmissionDate>2005-10-05</transmissionDate>
-		<batchSequenceNumber>0</batchSequenceNumber>
-		<personUserId>broc</personUserId>
-		<campusCode>BL</campusCode>
-		<departmentName>UITS</departmentName>
-		<phoneNumber>31240143</phoneNumber>
-		<mailingAddress>425 POPLARS</mailingAddress>
-		<workgroupName>@batch-mailing-list@</workgroupName>
-	</header>
-	<glEntry>
-		<universityFiscalYear>2006</universityFiscalYear>
-		<chartOfAccountsCode>IN</chartOfAccountsCode>
-		<accountNumber>6182560</accountNumber>
-		<subAccountNumber>XXXXX</subAccountNumber>
-		<objectCode>4707</objectCode>
-		<subObjectCode>XXX</subObjectCode>
-		<balanceTypeCode>AC</balanceTypeCode>
-		<objectTypeCode>EX</objectTypeCode>
-		<universityFiscalAccountingPeriod>04</universityFiscalAccountingPeriod>
-		<documentTypeCode>REQ</documentTypeCode>
-		<originationCode>EP</originationCode>
-		<documentNumber>1000000</documentNumber>
-		<transactionEntrySequenceId>1</transactionEntrySequenceId>
-		<transactionLedgerEntryDescription>Description</transactionLedgerEntryDescription>
-		<transactionLedgerEntryAmount>189.00</transactionLedgerEntryAmount>
-		<debitOrCreditCode>C</debitOrCreditCode>
-		<transactionDate>2005-10-05</transactionDate>
-		<organizationDocumentNumber>ODN</organizationDocumentNumber>
-		<projectCode>PROJCD</projectCode>
-		<organizationReferenceId>ORI</organizationReferenceId>
-		<referenceDocumentTypeCode>XXXX</referenceDocumentTypeCode>
-		<referenceOriginationCode>01</referenceOriginationCode>
-		<referenceDocumentNumber>1234</referenceDocumentNumber>
-		<documentReversalDate>2005-10-31</documentReversalDate>
-		<encumbranceUpdateCode>D</encumbranceUpdateCode>
-	</glEntry>
-	<detail>
-		<universityFiscalAccountingPeriod>06</universityFiscalAccountingPeriod>
-		<universityFiscalYear>2006</universityFiscalYear>
-		<chartOfAccountsCode>IN</chartOfAccountsCode>
-		<accountNumber>6182560</accountNumber>
-		<subAccountNumber>6182</subAccountNumber>
-		<objectCode>4707</objectCode>
-		<createDate>2007-07-15</createDate>
-		<subObjectCode>XX</subObjectCode>
-		<collectorDetailSequenceNumber>47</collectorDetailSequenceNumber>
-		<originationCode>XX</originationCode>
-		<documentTypeCode>REQ</documentTypeCode>
-		<documentNumber>1000000</documentNumber>
-		<amount>1000000</amount>
-		<balanceTypeCode>AC</balanceTypeCode>
-		<objectTypeCode>EX</objectTypeCode>
-		<detailText>Line 1b</detailText>
-	</detail>
-	<glEntry>
-		<universityFiscalYear>2006</universityFiscalYear>
-		<chartOfAccountsCode>IN</chartOfAccountsCode>
-		<accountNumber>6182560</accountNumber>
-		<subAccountNumber>XXXXX</subAccountNumber>
-		<objectCode>4707</objectCode>
-		<subObjectCode>XXX</subObjectCode>
-		<balanceTypeCode>AC</balanceTypeCode>
-		<objectTypeCode>EX</objectTypeCode>
-		<universityFiscalAccountingPeriod>04</universityFiscalAccountingPeriod>
-		<documentTypeCode>REQ</documentTypeCode>
-		<originationCode>EP</originationCode>
-		<documentNumber>1000000</documentNumber>
-		<transactionEntrySequenceId>1</transactionEntrySequenceId>
-		<transactionLedgerEntryDescription>Description</transactionLedgerEntryDescription>
-		<transactionLedgerEntryAmount>189.00</transactionLedgerEntryAmount>
-		<debitOrCreditCode>C</debitOrCreditCode>
-		<transactionDate>2005-10-05</transactionDate>
-		<organizationDocumentNumber>ODN</organizationDocumentNumber>
-		<projectCode>PROJCD</projectCode>
-		<organizationReferenceId>ORI</organizationReferenceId>
-		<referenceDocumentTypeCode>XXXX</referenceDocumentTypeCode>
-		<referenceOriginationCode>01</referenceOriginationCode>
-		<referenceDocumentNumber>1234</referenceDocumentNumber>
-		<documentReversalDate>2005-10-31</documentReversalDate>
-		<encumbranceUpdateCode>D</encumbranceUpdateCode>
-	</glEntry>
-	<detail>
-		<universityFiscalAccountingPeriod>06</universityFiscalAccountingPeriod>
-		<universityFiscalYear>2006</universityFiscalYear>
-		<balanceTypeCode>AC</balanceTypeCode>
-		<objectTypeCode>EX</objectTypeCode>
-		<chartOfAccountsCode>IN</chartOfAccountsCode>
-		<accountNumber>6182560</accountNumber>
-		<subAccountNumber>6182</subAccountNumber>
-		<objectCode>4707</objectCode>
-		<subObjectCode>XX</subObjectCode>
-		<collectorDetailSequenceNumber>47</collectorDetailSequenceNumber>
-		<originationCode>XX</originationCode>
-		<createDate>2007-07-15</createDate>
-		<documentTypeCode>REQ</documentTypeCode>
-		<documentNumber>1000000</documentNumber>
-		<amount>1000000</amount>
-		<detailText>Line 1b</detailText>
-	</detail>
-	<trailer>
-		<totalRecords>4</totalRecords>
-		<totalAmount>600.00</totalAmount>
-	</trailer>
+>
+    <header>
+        <chartOfAccountsCode>IN</chartOfAccountsCode>
+        <organizationCode>MDEP</organizationCode>
+        <transmissionDate>2005-10-05</transmissionDate>
+        <batchSequenceNumber>0</batchSequenceNumber>
+        <personUserId>broc</personUserId>
+        <campusCode>BL</campusCode>
+        <departmentName>UITS</departmentName>
+        <phoneNumber>31240143</phoneNumber>
+        <mailingAddress>425 POPLARS</mailingAddress>
+        <workgroupName>@batch-mailing-list@</workgroupName>
+    </header>
+    <glEntry>
+        <universityFiscalYear>2006</universityFiscalYear>
+        <chartOfAccountsCode>IN</chartOfAccountsCode>
+        <accountNumber>6182560</accountNumber>
+        <subAccountNumber>XXXXX</subAccountNumber>
+        <objectCode>4707</objectCode>
+        <subObjectCode>XXX</subObjectCode>
+        <balanceTypeCode>AC</balanceTypeCode>
+        <objectTypeCode>EX</objectTypeCode>
+        <universityFiscalAccountingPeriod>04</universityFiscalAccountingPeriod>
+        <documentTypeCode>REQ</documentTypeCode>
+        <originationCode>EP</originationCode>
+        <documentNumber>1000000</documentNumber>
+        <transactionEntrySequenceId>1</transactionEntrySequenceId>
+        <transactionLedgerEntryDescription>Description</transactionLedgerEntryDescription>
+        <transactionLedgerEntryAmount>189.00</transactionLedgerEntryAmount>
+        <debitOrCreditCode>C</debitOrCreditCode>
+        <transactionDate>2005-10-05</transactionDate>
+        <organizationDocumentNumber>ODN</organizationDocumentNumber>
+        <projectCode>PROJCD</projectCode>
+        <organizationReferenceId>ORI</organizationReferenceId>
+        <referenceDocumentTypeCode>XXXX</referenceDocumentTypeCode>
+        <referenceOriginationCode>01</referenceOriginationCode>
+        <referenceDocumentNumber>1234</referenceDocumentNumber>
+        <documentReversalDate>2005-10-31</documentReversalDate>
+        <encumbranceUpdateCode>D</encumbranceUpdateCode>
+    </glEntry>
+    <detail>
+        <universityFiscalAccountingPeriod>06</universityFiscalAccountingPeriod>
+        <universityFiscalYear>2006</universityFiscalYear>
+        <chartOfAccountsCode>IN</chartOfAccountsCode>
+        <accountNumber>6182560</accountNumber>
+        <subAccountNumber>6182</subAccountNumber>
+        <objectCode>4707</objectCode>
+        <createDate>2007-07-15</createDate>
+        <subObjectCode>XX</subObjectCode>
+        <collectorDetailSequenceNumber>47</collectorDetailSequenceNumber>
+        <originationCode>XX</originationCode>
+        <documentTypeCode>REQ</documentTypeCode>
+        <documentNumber>1000000</documentNumber>
+        <amount>1000000</amount>
+        <balanceTypeCode>AC</balanceTypeCode>
+        <objectTypeCode>EX</objectTypeCode>
+        <detailText>Line 1b</detailText>
+    </detail>
+    <glEntry>
+        <universityFiscalYear>2006</universityFiscalYear>
+        <chartOfAccountsCode>IN</chartOfAccountsCode>
+        <accountNumber>6182560</accountNumber>
+        <subAccountNumber>XXXXX</subAccountNumber>
+        <objectCode>4707</objectCode>
+        <subObjectCode>XXX</subObjectCode>
+        <balanceTypeCode>AC</balanceTypeCode>
+        <objectTypeCode>EX</objectTypeCode>
+        <universityFiscalAccountingPeriod>04</universityFiscalAccountingPeriod>
+        <documentTypeCode>REQ</documentTypeCode>
+        <originationCode>EP</originationCode>
+        <documentNumber>1000000</documentNumber>
+        <transactionEntrySequenceId>1</transactionEntrySequenceId>
+        <transactionLedgerEntryDescription>Description</transactionLedgerEntryDescription>
+        <transactionLedgerEntryAmount>189.00</transactionLedgerEntryAmount>
+        <debitOrCreditCode>C</debitOrCreditCode>
+        <transactionDate>2005-10-05</transactionDate>
+        <organizationDocumentNumber>ODN</organizationDocumentNumber>
+        <projectCode>PROJCD</projectCode>
+        <organizationReferenceId>ORI</organizationReferenceId>
+        <referenceDocumentTypeCode>XXXX</referenceDocumentTypeCode>
+        <referenceOriginationCode>01</referenceOriginationCode>
+        <referenceDocumentNumber>1234</referenceDocumentNumber>
+        <documentReversalDate>2005-10-31</documentReversalDate>
+        <encumbranceUpdateCode>D</encumbranceUpdateCode>
+    </glEntry>
+    <detail>
+        <universityFiscalAccountingPeriod>06</universityFiscalAccountingPeriod>
+        <universityFiscalYear>2006</universityFiscalYear>
+        <balanceTypeCode>AC</balanceTypeCode>
+        <objectTypeCode>EX</objectTypeCode>
+        <chartOfAccountsCode>IN</chartOfAccountsCode>
+        <accountNumber>6182560</accountNumber>
+        <subAccountNumber>6182</subAccountNumber>
+        <objectCode>4707</objectCode>
+        <subObjectCode>XX</subObjectCode>
+        <collectorDetailSequenceNumber>47</collectorDetailSequenceNumber>
+        <originationCode>XX</originationCode>
+        <createDate>2007-07-15</createDate>
+        <documentTypeCode>REQ</documentTypeCode>
+        <documentNumber>1000000</documentNumber>
+        <amount>1000000</amount>
+        <detailText>Line 1b</detailText>
+    </detail>
+    <trailer>
+        <totalRecords>4</totalRecords>
+        <totalAmount>600.00</totalAmount>
+    </trailer>
 </batch>

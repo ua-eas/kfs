@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -49,6 +49,7 @@ public class TemKimAttributes extends KfsKimAttributes {
 
     /**
      * Sets the traveler type code
+     *
      * @param travelerTypeCode the traveler type code
      */
     public void setTravelerTypeCode(String travelerTypeCode) {
@@ -64,6 +65,7 @@ public class TemKimAttributes extends KfsKimAttributes {
 
     /**
      * Sets the the job classification code
+     *
      * @param jobClassificationCode the job classification code
      */
     public void setJobClsCode(String jobClassificationCode) {
@@ -79,6 +81,7 @@ public class TemKimAttributes extends KfsKimAttributes {
 
     /**
      * Sets the amounted being reimbursed
+     *
      * @param reimbursementAmount the reimbursement amount
      */
     public void setReimbursementAmount(KualiDecimal reimbursementAmount) {
@@ -94,6 +97,7 @@ public class TemKimAttributes extends KfsKimAttributes {
 
     /**
      * Sets the total amount authorized
+     *
      * @param authorizationAmount the authorization amount
      */
     public void setAuthorizationAmount(KualiDecimal authorizationAmount) {
@@ -109,6 +113,7 @@ public class TemKimAttributes extends KfsKimAttributes {
 
     /**
      * Sets the reimbursement overage percentage
+     *
      * @param reimbursementOveragePercentage the positive reimbursement overage percentage
      */
     public void setReimbursementOveragePercentage(KualiDecimal reimbursementOveragePercentage) {
@@ -124,6 +129,7 @@ public class TemKimAttributes extends KfsKimAttributes {
 
     /**
      * Sets the traveler type
+     *
      * @param travelerType the related traveler type
      */
     public void setTravelerType(TravelerType travelerType) {
@@ -139,6 +145,7 @@ public class TemKimAttributes extends KfsKimAttributes {
 
     /**
      * Sets the related job classification
+     *
      * @param jobClassification the related job classification
      */
     public void setJobClassification(JobClassification jobClassification) {

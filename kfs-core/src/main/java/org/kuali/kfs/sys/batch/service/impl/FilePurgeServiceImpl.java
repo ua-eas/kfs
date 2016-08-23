@@ -1,29 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.batch.service.impl;
 
-import java.io.File;
-import java.util.List;
-
 import org.apache.commons.io.filefilter.AndFileFilter;
 import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.io.filefilter.OrFileFilter;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.sys.FileUtil;
 import org.kuali.kfs.sys.batch.FilePurgeCustomAge;
 import org.kuali.kfs.sys.batch.FilePurgeDirectoryWalker;
@@ -31,7 +29,9 @@ import org.kuali.kfs.sys.batch.FilePurgeStep;
 import org.kuali.kfs.sys.batch.MaxAgePurgeFileFilter;
 import org.kuali.kfs.sys.batch.NotAmongDirectoriesFileFilter;
 import org.kuali.kfs.sys.batch.service.FilePurgeService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+
+import java.io.File;
+import java.util.List;
 
 /**
  * Default implementation of the FilePurgeService
@@ -39,25 +39,27 @@ import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 public class FilePurgeServiceImpl implements FilePurgeService {
     protected org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(FilePurgeServiceImpl.class);
     private ParameterService parameterService;
-    
+
     protected static final String DAYS_BEFORE_PURGE_PARAMETER_SUFFIX = "_NUMBER_OF_DAYS_OLD";
     protected static final String DAYS_BEFORE_PURGE_PARAMETER_PREFIX = "DEFAULT";
-    
+
     /**
      * Uses a FilePurgeDirectoryWalker to get a List of Files to purge, then purges each
+     *
      * @see org.kuali.kfs.gl.batch.service.FilePurgeService#purgeFiles(java.lang.String, java.util.List)
      */
     public void purgeFiles(String directory, List<FilePurgeCustomAge> customAges) {
         //add a step to check for directory existence
         FileUtil.createDirectory(directory);
-        
+
         purgeCustomAgeFiles(directory, customAges);
         purgeDefaultFiles(directory, customAges);
     }
-    
+
     /**
      * Purges any files in the given directory associated with custom ages
-     * @param directory the directory to purge files from
+     *
+     * @param directory  the directory to purge files from
      * @param customAges custom ages to purge files for
      */
     protected void purgeCustomAgeFiles(String directory, List<FilePurgeCustomAge> customAges) {
@@ -66,15 +68,16 @@ public class FilePurgeServiceImpl implements FilePurgeService {
             FilePurgeDirectoryWalker directoryWalker = getCustomAgesDirectoryWalker(customAges);
             List<File> filesToPurge = directoryWalker.getFilesToPurge(directory);
             for (File fileToPurge : filesToPurge) {
-                LOG.info("Purging file "+fileToPurge.getPath());
+                LOG.info("Purging file " + fileToPurge.getPath());
                 fileToPurge.delete();
             }
         }
     }
-    
+
     /**
      * Purges any files in the given directory not associated with custom ages
-     * @param directory the directory to purge files from
+     *
+     * @param directory  the directory to purge files from
      * @param customAges the custom ages with directories to avoid
      */
     protected void purgeDefaultFiles(String directory, List<FilePurgeCustomAge> customAges) {
@@ -82,13 +85,14 @@ public class FilePurgeServiceImpl implements FilePurgeService {
         FilePurgeDirectoryWalker directoryWalker = getDefaultDirectoryWalker(customAges);
         List<File> filesToPurge = directoryWalker.getFilesToPurge(directory);
         for (File fileToPurge : filesToPurge) {
-            LOG.info("Purging file "+fileToPurge.getPath());
+            LOG.info("Purging file " + fileToPurge.getPath());
             fileToPurge.delete();
         }
     }
-    
+
     /**
-     * Gets a directory walker which will 
+     * Gets a directory walker which will
+     *
      * @param customAges the custom ages to purge files for
      * @return a new FilePurgeDirectoryWalker which will walk directories for us
      */
@@ -99,9 +103,10 @@ public class FilePurgeServiceImpl implements FilePurgeService {
         }
         return new FilePurgeDirectoryWalker(fileFilter);
     }
-    
+
     /**
      * Gets the directory walker for the default directories
+     *
      * @param customAges the custom ages, because custom age directories will not be purged
      * @return a new FilePurgeDirectoryWalker
      */
@@ -116,9 +121,10 @@ public class FilePurgeServiceImpl implements FilePurgeService {
             return new FilePurgeDirectoryWalker(ageFileFilter);
         }
     }
-    
+
     /**
      * Builds a file filter which will skip the directories taken by the CustomAges
+     *
      * @param customAges the customAges to avoid
      * @return a file filter
      */
@@ -131,10 +137,10 @@ public class FilePurgeServiceImpl implements FilePurgeService {
      * @see org.kuali.kfs.gl.batch.service.FilePurgeService#getAgeInDaysForCustomAge(org.kuali.kfs.sys.batch.FilePurgeCustomAge)
      */
     public int getDaysBeforePurgeForCustomAge(FilePurgeCustomAge customAge) {
-        final String parameterName = customAge.getParameterPrefix()+getDaysBeforePurgeSuffix();
+        final String parameterName = customAge.getParameterPrefix() + getDaysBeforePurgeSuffix();
         return retrieveDaysBeforePurgeParameterValue(parameterName);
     }
-    
+
     /**
      * @return the standard suffix of parameter names from a custom age
      */
@@ -149,16 +155,17 @@ public class FilePurgeServiceImpl implements FilePurgeService {
         final String parameterName = getStandardDaysBeforePurgeParameterName();
         return retrieveDaysBeforePurgeParameterValue(parameterName);
     }
-    
+
     /**
      * @return the parameter name to find the default days before purging files
      */
     protected String getStandardDaysBeforePurgeParameterName() {
-        return FilePurgeServiceImpl.DAYS_BEFORE_PURGE_PARAMETER_PREFIX+FilePurgeServiceImpl.DAYS_BEFORE_PURGE_PARAMETER_SUFFIX;
+        return FilePurgeServiceImpl.DAYS_BEFORE_PURGE_PARAMETER_PREFIX + FilePurgeServiceImpl.DAYS_BEFORE_PURGE_PARAMETER_SUFFIX;
     }
-    
+
     /**
      * Retrieves the parameter value of the KFS-SYS / FilePurgeStep / parameterName parameter and converts it to an integer number of days
+     *
      * @param parameterName the name of the parameter to retrieve the value of
      * @return the integer number of days
      */
@@ -171,6 +178,7 @@ public class FilePurgeServiceImpl implements FilePurgeService {
 
     /**
      * Builds an age file filter for the default removal run
+     *
      * @return a properly constructed IOFileFilter
      */
     protected IOFileFilter buildDefaultAgeFileFilter() {
@@ -178,7 +186,8 @@ public class FilePurgeServiceImpl implements FilePurgeService {
     }
 
     /**
-     * Gets the parameterService attribute. 
+     * Gets the parameterService attribute.
+     *
      * @return Returns the parameterService.
      */
     public ParameterService getParameterService() {
@@ -187,6 +196,7 @@ public class FilePurgeServiceImpl implements FilePurgeService {
 
     /**
      * Sets the parameterService attribute value.
+     *
      * @param parameterService The parameterService to set.
      */
     public void setParameterService(ParameterService parameterService) {

@@ -1,30 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.batch;
 
+import org.kuali.kfs.kns.lookup.LookupResultsService;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
+
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
-
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.kfs.kns.lookup.LookupResultsService;
 
 public class PurgeOldLookupResultsStep extends AbstractStep {
     private LookupResultsService lookupResultsService;
@@ -48,8 +48,7 @@ public class PurgeOldLookupResultsStep extends AbstractStep {
             lookupResultsService.deleteOldLookupResults(expirationDate);
             lookupResultsService.deleteOldSelectedObjectIds(expirationDate);
             return true;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("error occured trying to purge old lookup results: ", e);
             return false;
         }

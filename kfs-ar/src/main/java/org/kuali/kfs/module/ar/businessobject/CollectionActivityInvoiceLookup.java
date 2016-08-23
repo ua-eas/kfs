@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -70,7 +70,6 @@ public class CollectionActivityInvoiceLookup extends TransientBusinessObjectBase
     public void setProposalNumber(String proposalNumber) {
         this.proposalNumber = proposalNumber;
     }
-
 
 
     public Long getAgencyNumber() {
@@ -163,7 +162,6 @@ public class CollectionActivityInvoiceLookup extends TransientBusinessObjectBase
     }
 
 
-
     public String getBillingPeriod() {
         return billingPeriod;
     }
@@ -219,7 +217,7 @@ public class CollectionActivityInvoiceLookup extends TransientBusinessObjectBase
         if (this.proposalNumber != null) {
             m.put(KFSPropertyConstants.PROPOSAL_NUMBER, this.proposalNumber.toString());
         }
-                return m;
+        return m;
     }
 
     public List<String> getAwardAttributesForDisplay() {

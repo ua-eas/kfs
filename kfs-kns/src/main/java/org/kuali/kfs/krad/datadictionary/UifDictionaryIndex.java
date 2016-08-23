@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -23,13 +23,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 import org.kuali.kfs.krad.uif.UifConstants;
+import org.kuali.kfs.krad.uif.UifConstants.ViewType;
+import org.kuali.kfs.krad.uif.service.ViewTypeService;
 import org.kuali.kfs.krad.uif.util.ViewModelUtils;
 import org.kuali.kfs.krad.uif.view.View;
-import org.kuali.kfs.krad.uif.service.ViewTypeService;
 import org.springframework.beans.PropertyValues;
 import org.springframework.beans.factory.config.BeanDefinition;
-import org.kuali.kfs.krad.datadictionary.DefaultListableBeanFactory;
-import org.kuali.kfs.krad.uif.UifConstants.ViewType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,14 +38,12 @@ import java.util.Map.Entry;
 
 /**
  * Indexes <code>View</code> bean entries for retrieval
- *
+ * <p>
  * <p>
  * This is used to retrieve a <code>View</code> instance by its unique id.
  * Furthermore, view of certain types (that have a <code>ViewTypeService</code>
  * are indexed by their type to support retrieval of views based on parameters.
  * </p>
- *
- * 
  */
 public class UifDictionaryIndex implements Runnable {
     private static final Log LOG = LogFactory.getLog(UifDictionaryIndex.class);
@@ -91,11 +88,11 @@ public class UifDictionaryIndex implements Runnable {
      * the index key
      *
      * @param viewTypeName - type name for the view
-     * @param indexKey - Map of index key parameters, these are the parameters the
-     * indexer used to index the view initially and needs to identify
-     * an unique view instance
+     * @param indexKey     - Map of index key parameters, these are the parameters the
+     *                     indexer used to index the view initially and needs to identify
+     *                     an unique view instance
      * @return View instance that matches the given index or Null if one is not
-     *         found
+     * found
      */
     public View getViewByTypeIndex(ViewType viewTypeName, Map<String, String> indexKey) {
         String index = buildTypeIndex(indexKey);
@@ -114,8 +111,8 @@ public class UifDictionaryIndex implements Runnable {
      * Indicates whether a <code>View</code> exists for the given view type and index information
      *
      * @param viewTypeName - type name for the view
-     * @param indexKey - Map of index key parameters, these are the parameters the indexer used to index
-     * the view initially and needs to identify an unique view instance
+     * @param indexKey     - Map of index key parameters, these are the parameters the indexer used to index
+     *                     the view initially and needs to identify an unique view instance
      * @return boolean true if view exists, false if not
      */
     public boolean viewByTypeExist(ViewType viewTypeName, Map<String, String> indexKey) {
@@ -134,7 +131,7 @@ public class UifDictionaryIndex implements Runnable {
 
     /**
      * Retrieves the configured property values for the view bean definition associated with the given id
-     *
+     * <p>
      * <p>
      * Since constructing the View object can be expensive, when metadata only is needed this method can be used
      * to retrieve the configured property values. Note this looks at the merged bean definition
@@ -157,15 +154,15 @@ public class UifDictionaryIndex implements Runnable {
     /**
      * Retrieves the configured property values for the view bean definition associated with the given type and
      * index
-     *
+     * <p>
      * <p>
      * Since constructing the View object can be expensive, when metadata only is needed this method can be used
      * to retrieve the configured property values. Note this looks at the merged bean definition
      * </p>
      *
      * @param viewTypeName - type name for the view
-     * @param indexKey - Map of index key parameters, these are the parameters the indexer used to index
-     * the view initially and needs to identify an unique view instance
+     * @param indexKey     - Map of index key parameters, these are the parameters the indexer used to index
+     *                     the view initially and needs to identify an unique view instance
      * @return PropertyValues configured on the view bean definition, or null if view is not found
      */
     public PropertyValues getViewPropertiesByType(ViewType viewTypeName, Map<String, String> indexKey) {
@@ -189,7 +186,7 @@ public class UifDictionaryIndex implements Runnable {
      *
      * @param viewTypeName - view type name to retrieve
      * @return List<View> view prototypes with the given type name, or empty
-     *         list
+     * list
      */
     public List<View> getViewsForType(ViewType viewTypeName) {
         List<View> typeViews = new ArrayList<View>();
@@ -244,10 +241,10 @@ public class UifDictionaryIndex implements Runnable {
      * used to key the entry
      *
      * @param propertyValues - property values configured on the view bean definition
-     * @param beanName - name of the view's bean in Spring
+     * @param beanName       - name of the view's bean in Spring
      */
     protected void indexViewForType(PropertyValues propertyValues, String beanName) {
-        String viewTypeName = ViewModelUtils.getStringValFromPVs(propertyValues,  "viewTypeName");
+        String viewTypeName = ViewModelUtils.getStringValFromPVs(propertyValues, "viewTypeName");
         if (StringUtils.isBlank(viewTypeName)) {
             return;
         }

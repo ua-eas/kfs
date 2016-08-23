@@ -1,30 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.report;
 
+import org.kuali.kfs.module.bc.BCConstants.Report.BuildMode;
+import org.kuali.kfs.module.bc.businessobject.BudgetConstructionPullup;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-
-import org.kuali.kfs.module.bc.BCConstants.Report.BuildMode;
-import org.kuali.kfs.module.bc.businessobject.BudgetConstructionPullup;
 
 /**
  * Holds information on the current build configuration of the report control list table, and a requested configuration.
@@ -44,7 +44,7 @@ public class ReportControlListBuildHelper implements Serializable {
 
     /**
      * Determines whether a build is needed based on the current and requested states
-     * 
+     *
      * @return true if build is needed, false otherwise
      */
     public boolean isBuildNeeded() {
@@ -52,11 +52,9 @@ public class ReportControlListBuildHelper implements Serializable {
 
         if (this.isForceRebuild()) {
             buildNeeded = true;
-        }
-        else if (this.getCurrentState() == null && this.getRequestedState() != null) {
+        } else if (this.getCurrentState() == null && this.getRequestedState() != null) {
             buildNeeded = true;
-        }
-        else if (this.getRequestedState() != null && !this.getCurrentState().equals(this.getRequestedState())) {
+        } else if (this.getRequestedState() != null && !this.getCurrentState().equals(this.getRequestedState())) {
             buildNeeded = true;
         }
 
@@ -65,10 +63,10 @@ public class ReportControlListBuildHelper implements Serializable {
 
     /**
      * Helper method to add a requestState
-     * 
-     * @param pointOfView - request point of view
+     *
+     * @param pointOfView           - request point of view
      * @param selectedOrganizations - organizations selected for the report
-     * @param buildMode - mode in which the control list should be build
+     * @param buildMode             - mode in which the control list should be build
      * @see org.kuali.kfs.module.bc.BCConstants.Report.BuildMode
      */
     public void addBuildRequest(String pointOfView, Collection<BudgetConstructionPullup> selectedOrganizations, BuildMode buildMode) {
@@ -91,8 +89,7 @@ public class ReportControlListBuildHelper implements Serializable {
 
             this.setRequestedState(null);
             this.setForceRebuild(false);
-        }
-        else {
+        } else {
             throw new RuntimeException("Requested state does not exist. Control list build state has been lost.");
         }
     }
@@ -113,10 +110,10 @@ public class ReportControlListBuildHelper implements Serializable {
 
         /**
          * Constructs a ReportControlListBuildHelper.java.
-         * 
-         * @param pointOfView - chart/org point of view string
+         *
+         * @param pointOfView           - chart/org point of view string
          * @param selectedOrganizations - organizations selected for reporting
-         * @param buildMode - mode for restricting report data
+         * @param buildMode             - mode for restricting report data
          */
         public BuildState(String pointOfView, Collection<BudgetConstructionPullup> selectedOrganizations, BuildMode buildMode) {
             this.pointOfView = pointOfView;
@@ -126,7 +123,7 @@ public class ReportControlListBuildHelper implements Serializable {
 
         /**
          * Gets the buildMode attribute.
-         * 
+         *
          * @return Returns the buildMode.
          */
         public BuildMode getBuildMode() {
@@ -135,7 +132,7 @@ public class ReportControlListBuildHelper implements Serializable {
 
         /**
          * Sets the buildMode attribute value.
-         * 
+         *
          * @param buildMode The buildMode to set.
          */
         public void setBuildMode(BuildMode buildMode) {
@@ -144,7 +141,7 @@ public class ReportControlListBuildHelper implements Serializable {
 
         /**
          * Gets the pointOfView attribute.
-         * 
+         *
          * @return Returns the pointOfView.
          */
         public String getPointOfView() {
@@ -153,7 +150,7 @@ public class ReportControlListBuildHelper implements Serializable {
 
         /**
          * Sets the pointOfView attribute value.
-         * 
+         *
          * @param pointOfView The pointOfView to set.
          */
         public void setPointOfView(String pointOfView) {
@@ -162,7 +159,7 @@ public class ReportControlListBuildHelper implements Serializable {
 
         /**
          * Gets the selectedOrganizations attribute.
-         * 
+         *
          * @return Returns the selectedOrganizations.
          */
         public Collection<BudgetConstructionPullup> getSelectedOrganizations() {
@@ -171,7 +168,7 @@ public class ReportControlListBuildHelper implements Serializable {
 
         /**
          * Sets the selectedOrganizations attribute value.
-         * 
+         *
          * @param selectedOrganizations The selectedOrganizations to set.
          */
         public void setSelectedOrganizations(Collection<BudgetConstructionPullup> selectedOrganizations) {
@@ -188,8 +185,7 @@ public class ReportControlListBuildHelper implements Serializable {
 
                 if (obj == null) {
                     isEqual = false;
-                }
-                else {
+                } else {
                     BuildState compareState = (BuildState) obj;
 
                     if (!this.getPointOfView().equals(compareState.getPointOfView())) {
@@ -206,8 +202,7 @@ public class ReportControlListBuildHelper implements Serializable {
                 }
 
                 return isEqual;
-            }
-            else {
+            } else {
                 return super.equals(obj);
             }
         }
@@ -215,8 +210,8 @@ public class ReportControlListBuildHelper implements Serializable {
         /**
          * Compares two collections of BudgetConstructionPullup objects for equality. BudgetConstructionPullup objects are compared
          * by primary key.
-         * 
-         * @param currentOrgs - current org build
+         *
+         * @param currentOrgs   - current org build
          * @param requestedOrgs - requested org build
          * @return boolean indicating true if the collections are equal, false otherwise
          */
@@ -243,7 +238,7 @@ public class ReportControlListBuildHelper implements Serializable {
 
     /**
      * Gets the currentState attribute.
-     * 
+     *
      * @return Returns the currentState.
      */
     public BuildState getCurrentState() {
@@ -252,7 +247,7 @@ public class ReportControlListBuildHelper implements Serializable {
 
     /**
      * Sets the currentState attribute value.
-     * 
+     *
      * @param currentState The currentState to set.
      */
     public void setCurrentState(BuildState currentState) {
@@ -261,7 +256,7 @@ public class ReportControlListBuildHelper implements Serializable {
 
     /**
      * Gets the requestedState attribute.
-     * 
+     *
      * @return Returns the requestedState.
      */
     public BuildState getRequestedState() {
@@ -270,7 +265,7 @@ public class ReportControlListBuildHelper implements Serializable {
 
     /**
      * Sets the requestedState attribute value.
-     * 
+     *
      * @param requestedState The requestedState to set.
      */
     public void setRequestedState(BuildState requestedState) {
@@ -279,7 +274,7 @@ public class ReportControlListBuildHelper implements Serializable {
 
     /**
      * Gets the forceRebuild attribute.
-     * 
+     *
      * @return Returns the forceRebuild.
      */
     public boolean isForceRebuild() {
@@ -288,7 +283,7 @@ public class ReportControlListBuildHelper implements Serializable {
 
     /**
      * Sets the forceRebuild attribute value.
-     * 
+     *
      * @param forceRebuild The forceRebuild to set.
      */
     public void setForceRebuild(boolean forceRebuild) {

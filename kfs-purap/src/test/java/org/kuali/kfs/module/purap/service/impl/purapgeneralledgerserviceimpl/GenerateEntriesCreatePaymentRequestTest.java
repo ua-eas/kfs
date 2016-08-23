@@ -83,10 +83,10 @@ public class GenerateEntriesCreatePaymentRequestTest extends PurapGeneralLedgerT
         EasyMock.expect(purapAccountingService.generateSummaryAccountsWithNoZeroTotalsNoUseTax(paymentRequestDocument)).andReturn(new ArrayList<>());
         paymentRequestDocument.setGeneralLedgerPendingEntries(new ArrayList<>());
         EasyMock.expect(paymentRequestDocument.getDocumentNumber()).andReturn("1111");
-        Map<String,Object> matcher = new HashMap<>();
-        matcher.put("financialSystemOriginationCode","01");
-        matcher.put("documentNumber","1111");
-        EasyMock.expect(businessObjectService.countMatching(GeneralLedgerPendingEntry.class,matcher)).andReturn(0);
+        Map<String, Object> matcher = new HashMap<>();
+        matcher.put("financialSystemOriginationCode", "01");
+        matcher.put("documentNumber", "1111");
+        EasyMock.expect(businessObjectService.countMatching(GeneralLedgerPendingEntry.class, matcher)).andReturn(0);
         paymentRequestDocument.setDebitCreditCodeForGLEntries("C");
         paymentRequestDocument.setGenerateEncumbranceEntries(true);
         EasyMock.expect(paymentRequestDocument.getGeneralLedgerPendingEntries()).andReturn(new ArrayList<>());
@@ -104,24 +104,24 @@ public class GenerateEntriesCreatePaymentRequestTest extends PurapGeneralLedgerT
         EasyMock.expect(purchaseOrderService.getCurrentPurchaseOrder(1000)).andReturn(purchaseOrderDocument);
 
         List<PurApItem> preqItems = new ArrayList<>();
-        preqItems.add(getPaymentRequestItem(paymentRequestDocument,100,null,null,ITEM));
-        preqItems.add(getPaymentRequestItem(paymentRequestDocument,1,null,null,ITEM));
-        preqItems.add(getPaymentRequestItem(paymentRequestDocument,2,null,null,ITEM));
-        preqItems.add(getPaymentRequestItem(paymentRequestDocument,3,KDONE,BigDecimal.ZERO,ITEM));
-        preqItems.add(getPaymentRequestItem(paymentRequestDocument,4,KDTWO,BigDecimal.ZERO,ITEM));
-        preqItems.add(getPaymentRequestItem(paymentRequestDocument,5,KDONE,BigDecimal.ZERO,ITEM));
-        preqItems.add(getPaymentRequestItem(paymentRequestDocument,6,KDONE,BigDecimal.ZERO,ITEM));
-        preqItems.add(getPaymentRequestItem(paymentRequestDocument,7,KDONE,new BigDecimal("2.00"),ITEM));
+        preqItems.add(getPaymentRequestItem(paymentRequestDocument, 100, null, null, ITEM));
+        preqItems.add(getPaymentRequestItem(paymentRequestDocument, 1, null, null, ITEM));
+        preqItems.add(getPaymentRequestItem(paymentRequestDocument, 2, null, null, ITEM));
+        preqItems.add(getPaymentRequestItem(paymentRequestDocument, 3, KDONE, BigDecimal.ZERO, ITEM));
+        preqItems.add(getPaymentRequestItem(paymentRequestDocument, 4, KDTWO, BigDecimal.ZERO, ITEM));
+        preqItems.add(getPaymentRequestItem(paymentRequestDocument, 5, KDONE, BigDecimal.ZERO, ITEM));
+        preqItems.add(getPaymentRequestItem(paymentRequestDocument, 6, KDONE, BigDecimal.ZERO, ITEM));
+        preqItems.add(getPaymentRequestItem(paymentRequestDocument, 7, KDONE, new BigDecimal("2.00"), ITEM));
         EasyMock.expect(paymentRequestDocument.getItems()).andReturn(preqItems);
 
         List<PurApItem> poItems = new ArrayList<>();
-        poItems.add(getPurchaseOrderItem(purchaseOrderDocument,1,null,null,null,null,null,null,ITEM));
-        poItems.add(getPurchaseOrderItem(purchaseOrderDocument,2,KDONE,BigDecimal.ZERO,null,null,null,null,ITEM));
-        poItems.add(getPurchaseOrderItem(purchaseOrderDocument,3,KDONE,BigDecimal.ZERO,null,null,null,null,ITEM));
-        poItems.add(getPurchaseOrderItem(purchaseOrderDocument,4,KDONE,BigDecimal.ZERO,KDONE,null,null,null,ITEM));
-        poItems.add(getPurchaseOrderItem(purchaseOrderDocument,5,KDTWO,BigDecimal.ZERO,KDONE,null,null,null,ITEM));
-        poItems.add(getPurchaseOrderItem(purchaseOrderDocument,6,KDTWO,BigDecimal.ZERO,KDONE,KDONE,null,null,ITEM));
-        poItems.add(getPurchaseOrderItem(purchaseOrderDocument,7,KDTWO,BigDecimal.ONE,KDONE,KDONE,new KualiDecimal("0.50"),new KualiDecimal("0.75"),ITEM));
+        poItems.add(getPurchaseOrderItem(purchaseOrderDocument, 1, null, null, null, null, null, null, ITEM));
+        poItems.add(getPurchaseOrderItem(purchaseOrderDocument, 2, KDONE, BigDecimal.ZERO, null, null, null, null, ITEM));
+        poItems.add(getPurchaseOrderItem(purchaseOrderDocument, 3, KDONE, BigDecimal.ZERO, null, null, null, null, ITEM));
+        poItems.add(getPurchaseOrderItem(purchaseOrderDocument, 4, KDONE, BigDecimal.ZERO, KDONE, null, null, null, ITEM));
+        poItems.add(getPurchaseOrderItem(purchaseOrderDocument, 5, KDTWO, BigDecimal.ZERO, KDONE, null, null, null, ITEM));
+        poItems.add(getPurchaseOrderItem(purchaseOrderDocument, 6, KDTWO, BigDecimal.ZERO, KDONE, KDONE, null, null, ITEM));
+        poItems.add(getPurchaseOrderItem(purchaseOrderDocument, 7, KDTWO, BigDecimal.ONE, KDONE, KDONE, new KualiDecimal("0.50"), new KualiDecimal("0.75"), ITEM));
 
         EasyMock.expect(purchaseOrderDocument.getItems()).andReturn(poItems).times(8);
 
@@ -130,10 +130,10 @@ public class GenerateEntriesCreatePaymentRequestTest extends PurapGeneralLedgerT
         EasyMock.expect(purapAccountingService.generateSummaryAccountsWithNoZeroTotalsNoUseTax(paymentRequestDocument)).andReturn(new ArrayList<>());
         paymentRequestDocument.setGeneralLedgerPendingEntries(new ArrayList<>());
         EasyMock.expect(paymentRequestDocument.getDocumentNumber()).andReturn("1111");
-        Map<String,Object> matcher = new HashMap<>();
-        matcher.put("financialSystemOriginationCode","01");
-        matcher.put("documentNumber","1111");
-        EasyMock.expect(businessObjectService.countMatching(GeneralLedgerPendingEntry.class,matcher)).andReturn(0);
+        Map<String, Object> matcher = new HashMap<>();
+        matcher.put("financialSystemOriginationCode", "01");
+        matcher.put("documentNumber", "1111");
+        EasyMock.expect(businessObjectService.countMatching(GeneralLedgerPendingEntry.class, matcher)).andReturn(0);
         paymentRequestDocument.setDebitCreditCodeForGLEntries("C");
         paymentRequestDocument.setGenerateEncumbranceEntries(true);
         EasyMock.expect(paymentRequestDocument.getGeneralLedgerPendingEntries()).andReturn(new ArrayList<>());
@@ -151,24 +151,24 @@ public class GenerateEntriesCreatePaymentRequestTest extends PurapGeneralLedgerT
         EasyMock.expect(purchaseOrderService.getCurrentPurchaseOrder(1000)).andReturn(purchaseOrderDocument);
 
         List<PurApItem> preqItems = new ArrayList<>();
-        preqItems.add(getPaymentRequestItem(paymentRequestDocument,100,null,null,MISC));
-        preqItems.add(getPaymentRequestItem(paymentRequestDocument,1,null,null,MISC));
-        preqItems.add(getPaymentRequestItem(paymentRequestDocument,2,null,null,MISC));
-        preqItems.add(getPaymentRequestItem(paymentRequestDocument,3,KDONE,BigDecimal.ZERO,MISC));
-        preqItems.add(getPaymentRequestItem(paymentRequestDocument,4,KDTWO,BigDecimal.ZERO,MISC));
-        preqItems.add(getPaymentRequestItem(paymentRequestDocument,5,KDONE,BigDecimal.ZERO,MISC));
-        preqItems.add(getPaymentRequestItem(paymentRequestDocument,6,KDONE,BigDecimal.ZERO,MISC));
-        preqItems.add(getPaymentRequestItem(paymentRequestDocument,7,KDONE,new BigDecimal("2.00"),MISC));
+        preqItems.add(getPaymentRequestItem(paymentRequestDocument, 100, null, null, MISC));
+        preqItems.add(getPaymentRequestItem(paymentRequestDocument, 1, null, null, MISC));
+        preqItems.add(getPaymentRequestItem(paymentRequestDocument, 2, null, null, MISC));
+        preqItems.add(getPaymentRequestItem(paymentRequestDocument, 3, KDONE, BigDecimal.ZERO, MISC));
+        preqItems.add(getPaymentRequestItem(paymentRequestDocument, 4, KDTWO, BigDecimal.ZERO, MISC));
+        preqItems.add(getPaymentRequestItem(paymentRequestDocument, 5, KDONE, BigDecimal.ZERO, MISC));
+        preqItems.add(getPaymentRequestItem(paymentRequestDocument, 6, KDONE, BigDecimal.ZERO, MISC));
+        preqItems.add(getPaymentRequestItem(paymentRequestDocument, 7, KDONE, new BigDecimal("2.00"), MISC));
         EasyMock.expect(paymentRequestDocument.getItems()).andReturn(preqItems);
 
         List<PurApItem> poItems = new ArrayList<>();
-        poItems.add(getPurchaseOrderItem(purchaseOrderDocument,1,null,null,null,null,KualiDecimal.ZERO,KualiDecimal.ZERO,ITEM));
-        poItems.add(getPurchaseOrderItem(purchaseOrderDocument,2,KDONE,BigDecimal.ZERO,null,null,KualiDecimal.ZERO,KualiDecimal.ZERO,MISC));
-        poItems.add(getPurchaseOrderItem(purchaseOrderDocument,3,KDONE,BigDecimal.ZERO,null,null,KualiDecimal.ZERO,KualiDecimal.ZERO,MISC));
-        poItems.add(getPurchaseOrderItem(purchaseOrderDocument,4,KDONE,BigDecimal.ZERO,KDONE,null,KualiDecimal.ZERO,KualiDecimal.ZERO,MISC));
-        poItems.add(getPurchaseOrderItem(purchaseOrderDocument,5,KDTWO,BigDecimal.ZERO,KDONE,null,KualiDecimal.ZERO,KualiDecimal.ZERO,MISC));
-        poItems.add(getPurchaseOrderItem(purchaseOrderDocument,6,KDTWO,BigDecimal.ZERO,KDONE,KDONE,KualiDecimal.ZERO,KualiDecimal.ZERO,MISC));
-        poItems.add(getPurchaseOrderItem(purchaseOrderDocument,7,KDTWO,BigDecimal.ONE,KDONE,KDONE,new KualiDecimal("0.50"),new KualiDecimal("0.75"),MISC));
+        poItems.add(getPurchaseOrderItem(purchaseOrderDocument, 1, null, null, null, null, KualiDecimal.ZERO, KualiDecimal.ZERO, ITEM));
+        poItems.add(getPurchaseOrderItem(purchaseOrderDocument, 2, KDONE, BigDecimal.ZERO, null, null, KualiDecimal.ZERO, KualiDecimal.ZERO, MISC));
+        poItems.add(getPurchaseOrderItem(purchaseOrderDocument, 3, KDONE, BigDecimal.ZERO, null, null, KualiDecimal.ZERO, KualiDecimal.ZERO, MISC));
+        poItems.add(getPurchaseOrderItem(purchaseOrderDocument, 4, KDONE, BigDecimal.ZERO, KDONE, null, KualiDecimal.ZERO, KualiDecimal.ZERO, MISC));
+        poItems.add(getPurchaseOrderItem(purchaseOrderDocument, 5, KDTWO, BigDecimal.ZERO, KDONE, null, KualiDecimal.ZERO, KualiDecimal.ZERO, MISC));
+        poItems.add(getPurchaseOrderItem(purchaseOrderDocument, 6, KDTWO, BigDecimal.ZERO, KDONE, KDONE, KualiDecimal.ZERO, KualiDecimal.ZERO, MISC));
+        poItems.add(getPurchaseOrderItem(purchaseOrderDocument, 7, KDTWO, BigDecimal.ONE, KDONE, KDONE, new KualiDecimal("0.50"), new KualiDecimal("0.75"), MISC));
 
         EasyMock.expect(purchaseOrderDocument.getItems()).andReturn(poItems).times(8);
 
@@ -177,10 +177,10 @@ public class GenerateEntriesCreatePaymentRequestTest extends PurapGeneralLedgerT
         EasyMock.expect(purapAccountingService.generateSummaryAccountsWithNoZeroTotalsNoUseTax(paymentRequestDocument)).andReturn(new ArrayList<>());
         paymentRequestDocument.setGeneralLedgerPendingEntries(new ArrayList<>());
         EasyMock.expect(paymentRequestDocument.getDocumentNumber()).andReturn("1111");
-        Map<String,Object> matcher = new HashMap<>();
-        matcher.put("financialSystemOriginationCode","01");
-        matcher.put("documentNumber","1111");
-        EasyMock.expect(businessObjectService.countMatching(GeneralLedgerPendingEntry.class,matcher)).andReturn(0);
+        Map<String, Object> matcher = new HashMap<>();
+        matcher.put("financialSystemOriginationCode", "01");
+        matcher.put("documentNumber", "1111");
+        EasyMock.expect(businessObjectService.countMatching(GeneralLedgerPendingEntry.class, matcher)).andReturn(0);
         paymentRequestDocument.setDebitCreditCodeForGLEntries("C");
         paymentRequestDocument.setGenerateEncumbranceEntries(true);
         EasyMock.expect(paymentRequestDocument.getGeneralLedgerPendingEntries()).andReturn(new ArrayList<>());
@@ -198,13 +198,13 @@ public class GenerateEntriesCreatePaymentRequestTest extends PurapGeneralLedgerT
         EasyMock.expect(purchaseOrderService.getCurrentPurchaseOrder(1000)).andReturn(purchaseOrderDocument);
 
         List<PurApItem> preqItems = new ArrayList<>();
-        preqItems.add(getPaymentRequestItem(paymentRequestDocument,1,KDONE,new BigDecimal("2.00"),MISC));
+        preqItems.add(getPaymentRequestItem(paymentRequestDocument, 1, KDONE, new BigDecimal("2.00"), MISC));
         EasyMock.expect(paymentRequestDocument.getItems()).andReturn(preqItems);
 
         List<PurApItem> poItems = new ArrayList<>();
-        PurchaseOrderItem poItem = (PurchaseOrderItem)getPurchaseOrderItem(purchaseOrderDocument,1,KDTWO,BigDecimal.ONE,KDONE,KDONE,new KualiDecimal("0.50"),new KualiDecimal("0.75"),MISC);
+        PurchaseOrderItem poItem = (PurchaseOrderItem) getPurchaseOrderItem(purchaseOrderDocument, 1, KDTWO, BigDecimal.ONE, KDONE, KDONE, new KualiDecimal("0.50"), new KualiDecimal("0.75"), MISC);
         List<PurApAccountingLine> als = new ArrayList<>();
-        als.add(getPurchaseOrderAccount(new KualiDecimal("10.00"),new KualiDecimal("5.00")));
+        als.add(getPurchaseOrderAccount(new KualiDecimal("10.00"), new KualiDecimal("5.00")));
         poItem.setSourceAccountingLines(als);
         poItems.add(poItem);
 
@@ -218,13 +218,13 @@ public class GenerateEntriesCreatePaymentRequestTest extends PurapGeneralLedgerT
         EasyMock.expect(purapAccountingService.generateSummaryAccountsWithNoZeroTotalsNoUseTax(paymentRequestDocument)).andReturn(new ArrayList<>());
         paymentRequestDocument.setGeneralLedgerPendingEntries(new ArrayList<>());
         EasyMock.expect(paymentRequestDocument.getDocumentNumber()).andReturn("1111");
-        Map<String,Object> matcher = new HashMap<>();
-        matcher.put("financialSystemOriginationCode","01");
-        matcher.put("documentNumber","1111");
-        EasyMock.expect(businessObjectService.countMatching(GeneralLedgerPendingEntry.class,matcher)).andReturn(0);
+        Map<String, Object> matcher = new HashMap<>();
+        matcher.put("financialSystemOriginationCode", "01");
+        matcher.put("documentNumber", "1111");
+        EasyMock.expect(businessObjectService.countMatching(GeneralLedgerPendingEntry.class, matcher)).andReturn(0);
         paymentRequestDocument.setDebitCreditCodeForGLEntries("C");
         paymentRequestDocument.setGenerateEncumbranceEntries(true);
-        EasyMock.expect(paymentRequestDocument.generateGeneralLedgerPendingEntries(EasyMock.anyObject(),EasyMock.anyObject())).andReturn(true);
+        EasyMock.expect(paymentRequestDocument.generateGeneralLedgerPendingEntries(EasyMock.anyObject(), EasyMock.anyObject())).andReturn(true);
         EasyMock.expect(paymentRequestDocument.getGeneralLedgerPendingEntries()).andReturn(new ArrayList<>());
         EasyMock.expect(businessObjectService.save(new ArrayList<>())).andReturn(new ArrayList<>());
         replayAll();
@@ -235,12 +235,12 @@ public class GenerateEntriesCreatePaymentRequestTest extends PurapGeneralLedgerT
     }
 
     private void replayAll() {
-        EasyMock.replay(paymentRequestDocument,purchaseOrderService,purchaseOrderDocument,businessObjectService,purapAccountingService,accountService);
+        EasyMock.replay(paymentRequestDocument, purchaseOrderService, purchaseOrderDocument, businessObjectService, purapAccountingService, accountService);
         PowerMock.replay(SpringContext.class);
     }
 
     private void verifyAll() {
-        EasyMock.verify(paymentRequestDocument,purchaseOrderService,purchaseOrderDocument,businessObjectService,purapAccountingService,accountService);
+        EasyMock.verify(paymentRequestDocument, purchaseOrderService, purchaseOrderDocument, businessObjectService, purapAccountingService, accountService);
         PowerMock.verify(SpringContext.class);
     }
 

@@ -1,44 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.document.service.impl;
 
-import static org.kuali.kfs.module.tem.TemKeyConstants.TA_MESSAGE_CLOSE_DOCUMENT_TEXT;
-import static org.kuali.kfs.module.tem.TemPropertyConstants.TRAVEL_DOCUMENT_IDENTIFIER;
-
-import java.beans.PropertyChangeListener;
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.Callable;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomer;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomerAddress;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomerInvoice;
@@ -49,6 +32,20 @@ import org.kuali.kfs.integration.ar.AccountsReceivableDocumentHeader;
 import org.kuali.kfs.integration.ar.AccountsReceivableModuleService;
 import org.kuali.kfs.integration.ar.AccountsReceivableOrganizationOptions;
 import org.kuali.kfs.integration.ar.AccountsReceivableSystemInformation;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.UserSession;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.dao.DocumentDao;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.KeyValuesService;
+import org.kuali.kfs.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.service.NoteService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemConstants.TravelAuthorizationParameters;
 import org.kuali.kfs.module.tem.TemConstants.TravelAuthorizationStatusCodeKeys;
@@ -82,26 +79,29 @@ import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.kfs.sys.util.ObjectPopulationUtils;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.IdentityService;
 import org.kuali.rice.kim.api.identity.principal.Principal;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.UserSession;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.dao.DocumentDao;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.KeyValuesService;
-import org.kuali.kfs.krad.service.KualiRuleService;
-import org.kuali.kfs.krad.service.NoteService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.beans.PropertyChangeListener;
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.Callable;
+
+import static org.kuali.kfs.module.tem.TemKeyConstants.TA_MESSAGE_CLOSE_DOCUMENT_TEXT;
+import static org.kuali.kfs.module.tem.TemPropertyConstants.TRAVEL_DOCUMENT_IDENTIFIER;
 
 @Transactional
 public class TravelAuthorizationServiceImpl implements TravelAuthorizationService {
@@ -138,16 +138,16 @@ public class TravelAuthorizationServiceImpl implements TravelAuthorizationServic
             KualiDecimal amount = travelAuthorizationDocument.getTravelAdvance().getTravelAdvanceRequested();
             if (KualiDecimal.ZERO.isLessThan(amount)) {
                 TemProfile profile = travelAuthorizationDocument.getTemProfile();
-                if (profile == null){
+                if (profile == null) {
                     //Get the TEM Profile associated with this TA
                     profile = temProfileService.findTemProfileById(travelAuthorizationDocument.getTemProfileId());
                 }
                 AccountsReceivableCustomer customer = profile.getCustomer();
 
                 if (ObjectUtils.isNull(customer)) {
-                  customer = createNewCustomer(profile);
-                  // associate customer with traveler
-                  travelAuthorizationDocument.getTraveler().setCustomerNumber(customer.getCustomerNumber());
+                    customer = createNewCustomer(profile);
+                    // associate customer with traveler
+                    travelAuthorizationDocument.getTraveler().setCustomerNumber(customer.getCustomerNumber());
                 }
 
                 createCustomerInvoiceFromAdvance(travelAuthorizationDocument, travelAuthorizationDocument.getTravelAdvance(), amount);
@@ -193,7 +193,7 @@ public class TravelAuthorizationServiceImpl implements TravelAuthorizationServic
 
                     final int documentDescriptionMaxLength = getDataDictionaryService().getAttributeMaxLength(customerInvoiceDocument.getDocumentHeader().getClass(), KFSPropertyConstants.DOCUMENT_DESCRIPTION);
                     if (customerInvoiceDocument.getDocumentHeader().getDocumentDescription().length() >= documentDescriptionMaxLength) {
-                        String truncatedDocumentDescription = customerInvoiceDocument.getDocumentHeader().getDocumentDescription().substring(0, documentDescriptionMaxLength-1);
+                        String truncatedDocumentDescription = customerInvoiceDocument.getDocumentHeader().getDocumentDescription().substring(0, documentDescriptionMaxLength - 1);
                         customerInvoiceDocument.getDocumentHeader().setDocumentDescription(truncatedDocumentDescription);
                     }
                     customerInvoiceDocument.getAccountsReceivableDocumentHeader().setCustomerNumber(customerNumber);
@@ -205,14 +205,14 @@ public class TravelAuthorizationServiceImpl implements TravelAuthorizationServic
                     AccountsReceivableCustomerAddress customerBillToAddress = null;
                     TravelerDetail traveler = travelAuthorizationDocument.getTraveler();
                     TemProfile profile = travelAuthorizationDocument.getTemProfile();
-                    if (profile == null){
+                    if (profile == null) {
                         //Get the TEM Profile associated with this TA
                         profile = temProfileService.findTemProfileById(travelAuthorizationDocument.getTemProfileId());
                     }
                     AccountsReceivableCustomer customer = profile.getCustomer();
 
                     //Compare the address from the TA to the addresses for this customer to see if it already exists
-                    for(AccountsReceivableCustomerAddress address: customer.getAccountsReceivableCustomerAddresses()) {
+                    for (AccountsReceivableCustomerAddress address : customer.getAccountsReceivableCustomerAddresses()) {
                         if (!compareAddress(address, traveler)) {
                             //Address found
                             customerBillToAddress = address;
@@ -220,17 +220,17 @@ public class TravelAuthorizationServiceImpl implements TravelAuthorizationServic
                         }
                     }
 
-                    if (customerBillToAddress == null){
+                    if (customerBillToAddress == null) {
                         //This address from the TA was not found as a customer address so create a new one for this customer
                         customerBillToAddress = accountsReceivableModuleService.createCustomerAddress();
                         customerBillToAddress.setCustomerAddressTypeCodeAsAlternate();
 
                         //Customer's name as the customer address name
                         String tempName = profile.getFirstName() + " " + (StringUtils.isEmpty(profile.getMiddleName()) ? "" : profile.getMiddleName() + " ") + profile.getLastName();
-                        if (tempName.length() > 40){
+                        if (tempName.length() > 40) {
                             tempName = profile.getFirstName() + " " + profile.getLastName();
-                            while (tempName.length() > 40){
-                                tempName = tempName.substring(0, tempName.length()-1);
+                            while (tempName.length() > 40) {
+                                tempName = tempName.substring(0, tempName.length() - 1);
                             }
                         }
 
@@ -298,14 +298,12 @@ public class TravelAuthorizationServiceImpl implements TravelAuthorizationServic
                             customerInvoiceDocument.getDocumentHeader().setWorkflowDocument(newWorkflowDocument);
 
                             accountsReceivableModuleService.blanketApproveCustomerInvoiceDocument(customerInvoiceDocument);
-                        }
-                        finally {
+                        } finally {
                             customerInvoiceDocument.getDocumentHeader().setWorkflowDocument(originalWorkflowDocument);
                         }
-                        LOG.info("Submitted customer invoice document "+ customerInvoiceDocument.getDocumentNumber() + " for " + customerNumber + " - " + dateTimeService.toDateString(billingDate) + "\n\n");
+                        LOG.info("Submitted customer invoice document " + customerInvoiceDocument.getDocumentNumber() + " for " + customerNumber + " - " + dateTimeService.toDateString(billingDate) + "\n\n");
 
-                    }
-                    catch (WorkflowException e) {
+                    } catch (WorkflowException e) {
                         throw new RuntimeException("Customer Invoice Document routing failed.");
                     }
                     return null;
@@ -319,36 +317,34 @@ public class TravelAuthorizationServiceImpl implements TravelAuthorizationServic
     }
 
     /**
-     *
      * @param customerAddress
      * @param traveler
      * @return
      */
     protected boolean compareAddress(AccountsReceivableCustomerAddress customerAddress, TravelerDetail traveler) {
-    	if(!StringUtils.equalsIgnoreCase(customerAddress.getCustomerLine1StreetAddress(), traveler.getStreetAddressLine1())) {
-    		return true;
-    	}
-    	if(!StringUtils.equalsIgnoreCase(customerAddress.getCustomerLine2StreetAddress(), traveler.getStreetAddressLine2())) {
-    		return true;
-    	}
-    	if(!StringUtils.equalsIgnoreCase(customerAddress.getCustomerCityName(), traveler.getCityName())) {
-    		return true;
-    	}
-    	if(!StringUtils.equalsIgnoreCase(customerAddress.getCustomerStateCode(), traveler.getStateCode())) {
-    		return true;
-    	}
-    	if(!StringUtils.equalsIgnoreCase(customerAddress.getCustomerZipCode(), traveler.getZipCode())) {
-    		return true;
-    	}
-    	if(!StringUtils.equalsIgnoreCase(customerAddress.getCustomerCountryCode(), traveler.getCountryCode())) {
-    		return true;
-    	}
+        if (!StringUtils.equalsIgnoreCase(customerAddress.getCustomerLine1StreetAddress(), traveler.getStreetAddressLine1())) {
+            return true;
+        }
+        if (!StringUtils.equalsIgnoreCase(customerAddress.getCustomerLine2StreetAddress(), traveler.getStreetAddressLine2())) {
+            return true;
+        }
+        if (!StringUtils.equalsIgnoreCase(customerAddress.getCustomerCityName(), traveler.getCityName())) {
+            return true;
+        }
+        if (!StringUtils.equalsIgnoreCase(customerAddress.getCustomerStateCode(), traveler.getStateCode())) {
+            return true;
+        }
+        if (!StringUtils.equalsIgnoreCase(customerAddress.getCustomerZipCode(), traveler.getZipCode())) {
+            return true;
+        }
+        if (!StringUtils.equalsIgnoreCase(customerAddress.getCustomerCountryCode(), traveler.getCountryCode())) {
+            return true;
+        }
 
         return false;
     }
 
     /**
-     *
      * @param document
      * @param chartOfAccountsCode
      * @param organizationCode
@@ -424,7 +420,7 @@ public class TravelAuthorizationServiceImpl implements TravelAuthorizationServic
         // run rules
         boolean rulePassed = true;
         // check any business rules
-        rulePassed &= kualiRuleService.applyRules(new AddAccountingLineEvent(KFSConstants.NEW_SOURCE_ACCT_LINE_PROPERTY_NAME, (Document)customerInvoiceDocument, (AccountingLine)detail));
+        rulePassed &= kualiRuleService.applyRules(new AddAccountingLineEvent(KFSConstants.NEW_SOURCE_ACCT_LINE_PROPERTY_NAME, (Document) customerInvoiceDocument, (AccountingLine) detail));
 
         LOG.debug("running rules on new source line : " + rulePassed);
         // add accountingLine
@@ -516,8 +512,7 @@ public class TravelAuthorizationServiceImpl implements TravelAuthorizationServic
                     doc.getDocumentHeader().setWorkflowDocument(workflowDocument);
                 }
                 return doc;
-            }
-            catch (WorkflowException e) {
+            } catch (WorkflowException e) {
                 String errorMessage = "Error getting travel authorization document from document service";
                 LOG.error("getTravelAuthorizationByDocumentNumber() " + errorMessage, e);
                 throw new RuntimeException(errorMessage, e);
@@ -545,7 +540,7 @@ public class TravelAuthorizationServiceImpl implements TravelAuthorizationServic
             authorizationClose = authorization.toCopyTAC();
             final Note newNoteTAC = documentService.createNoteFromDocument(authorizationClose, note);
             newNoteTAC.setAuthorUniversalIdentifier(kfsSystemUser.getPrincipalId());
-           authorizationClose.addNote(newNoteTAC);
+            authorizationClose.addNote(newNoteTAC);
             authorizationClose.setTravelReimbursementDocumentNumber(reimbursementDocNum);
 
             // add relationship
@@ -556,8 +551,7 @@ public class TravelAuthorizationServiceImpl implements TravelAuthorizationServic
             GlobalVariables.setUserSession(new UserSession(KRADConstants.SYSTEM_USER));
             authorizationClose.setApplicationDocumentStatus(TravelAuthorizationStatusCodeKeys.CLOSED);
             documentService.routeDocument(authorizationClose, annotation, null);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.error("Could not create TAC or route it with travel id " + authorization.getTravelDocumentIdentifier());
             LOG.error(e.getMessage(), e);
         }
@@ -600,14 +594,15 @@ public class TravelAuthorizationServiceImpl implements TravelAuthorizationServic
         List<TravelReimbursementDocument> reimbursementDocumentList = travelDocumentService.findReimbursementDocuments(authorization.getTravelDocumentIdentifier());
 
         //look for enroute TR document - return the first document if any is found
-        for (TravelReimbursementDocument document : reimbursementDocumentList){
+        for (TravelReimbursementDocument document : reimbursementDocumentList) {
             WorkflowDocument workflowDocument = document.getDocumentHeader().getWorkflowDocument();
-            if (workflowDocument.isEnroute() || workflowDocument.isFinal() || workflowDocument.isProcessed()){
+            if (workflowDocument.isEnroute() || workflowDocument.isFinal() || workflowDocument.isProcessed()) {
                 reimbursement = document;
             }
         }
         return reimbursement;
     }
+
     /**
      * This method checks to see if the travel expense type code is a prepaid expense
      *
@@ -641,25 +636,24 @@ public class TravelAuthorizationServiceImpl implements TravelAuthorizationServic
 
             List<TravelReimbursementDocument> travelReimbursementDocuments = travelDocumentService.findReimbursementDocuments(authorizationDocument.getTravelDocumentIdentifier());
 
-            if(!ObjectUtils.isNull(travelReimbursementDocuments) && !travelReimbursementDocuments.isEmpty()) {
-                 boolean matchFound = matchReimbursements(travelReimbursementDocuments, tripBeginBufferDate, tripEndBufferDate);
-                 if(matchFound) {
-                     duplicateTrips.add(authorizationDocument.getDocumentNumber());
-                 }
-            }
-            else {
+            if (!ObjectUtils.isNull(travelReimbursementDocuments) && !travelReimbursementDocuments.isEmpty()) {
+                boolean matchFound = matchReimbursements(travelReimbursementDocuments, tripBeginBufferDate, tripEndBufferDate);
+                if (matchFound) {
+                    duplicateTrips.add(authorizationDocument.getDocumentNumber());
+                }
+            } else {
                 // look for TA's
-                    Date tripBeginDate = convertToSqlDate(authorizationDocument.getTripBegin());
-                    Date tripEndDate = convertToSqlDate(authorizationDocument.getTripEnd());
-                    if(!authorization.getDocumentNumber().equals(authorizationDocument.getDocumentNumber()) && doesDatesOverlap(tripBeginBufferDate, tripEndBufferDate, tripBeginDate,tripEndDate)){
+                Date tripBeginDate = convertToSqlDate(authorizationDocument.getTripBegin());
+                Date tripEndDate = convertToSqlDate(authorizationDocument.getTripEnd());
+                if (!authorization.getDocumentNumber().equals(authorizationDocument.getDocumentNumber()) && doesDatesOverlap(tripBeginBufferDate, tripEndBufferDate, tripBeginDate, tripEndDate)) {
 
-                        duplicateTrips.add(authorizationDocument.getDocumentNumber());
-                    }
+                    duplicateTrips.add(authorizationDocument.getDocumentNumber());
+                }
             }
         }
 
 
-     return duplicateTrips;
+        return duplicateTrips;
 
     }
 
@@ -668,8 +662,7 @@ public class TravelAuthorizationServiceImpl implements TravelAuthorizationServic
         try {
             convertedDate = dateTimeService.convertToSqlDate(date);
 
-        }
-        catch (ParseException ex) {
+        } catch (ParseException ex) {
             LOG.error("Parse exception " + ex);
         }
 
@@ -678,13 +671,13 @@ public class TravelAuthorizationServiceImpl implements TravelAuthorizationServic
 
     public boolean doesDatesOverlap(Date tripBeginBufferDate, Date tripEndBufferDate, Date tripBeginDate, Date tripEndDate) {
         if ((tripBeginDate.compareTo(tripBeginBufferDate) >= 0 && tripBeginDate.compareTo(tripEndBufferDate) <= 0) ||
-            (tripEndDate.compareTo(tripBeginBufferDate) >= 0 && tripEndDate.compareTo(tripEndBufferDate) <=0 )) {
-                      return true;
-                    }
+            (tripEndDate.compareTo(tripBeginBufferDate) >= 0 && tripEndDate.compareTo(tripEndBufferDate) <= 0)) {
+            return true;
+        }
         return false;
     }
 
-    private  boolean matchReimbursements(List<TravelReimbursementDocument> travelReimbursementDocuments, Date tripBeginBufferDate, Date tripEndBufferDate) {
+    private boolean matchReimbursements(List<TravelReimbursementDocument> travelReimbursementDocuments, Date tripBeginBufferDate, Date tripEndBufferDate) {
         Timestamp earliestTripBeginDate = null;
         Timestamp greatestTripEndDate = null;
 
@@ -694,17 +687,16 @@ public class TravelAuthorizationServiceImpl implements TravelAuthorizationServic
             if (ObjectUtils.isNull(earliestTripBeginDate) && ObjectUtils.isNull(greatestTripEndDate)) {
                 earliestTripBeginDate = tripBegin;
                 greatestTripEndDate = tripEnd;
+            } else {
+                earliestTripBeginDate = tripBegin.before(earliestTripBeginDate) ? tripBegin : earliestTripBeginDate;
+                greatestTripEndDate = tripEnd.after(greatestTripEndDate) ? tripEnd : greatestTripEndDate;
+
             }
-            else {
-                earliestTripBeginDate = tripBegin.before(earliestTripBeginDate) ? tripBegin :earliestTripBeginDate;
-                greatestTripEndDate = tripEnd.after(greatestTripEndDate)? tripEnd : greatestTripEndDate;
+        }
 
-                }
-         }
-
-       if(doesDatesOverlap(tripBeginBufferDate, tripEndBufferDate, convertToSqlDate(earliestTripBeginDate), convertToSqlDate(greatestTripEndDate))) {
-           return true;
-       }
+        if (doesDatesOverlap(tripBeginBufferDate, tripEndBufferDate, convertToSqlDate(earliestTripBeginDate), convertToSqlDate(greatestTripEndDate))) {
+            return true;
+        }
 
 
         return false;
@@ -715,16 +707,16 @@ public class TravelAuthorizationServiceImpl implements TravelAuthorizationServic
         Integer days = null;
         if (!StringUtils.isNumeric(tripDateRangeDays)) {
             days = TemConstants.DEFAULT_DUPLICATE_TRIP_DATE_RANGE_DAYS;
-       }
+        }
 
-       days = Integer.parseInt(tripDateRangeDays);
-       return days;
+        days = Integer.parseInt(tripDateRangeDays);
+        return days;
 
     }
 
     private Date getTripBeginDate(Timestamp tripBeginDate) {
-       Date tripBegin = null;
-       Integer days = getDuplicateTripDateRangeDays();
+        Date tripBegin = null;
+        Integer days = getDuplicateTripDateRangeDays();
         try {
             tripBegin = dateTimeService.convertToSqlDate(dateTimeService.toDateString(DateUtils.addDays(tripBeginDate, (days * -1))));
 
@@ -739,17 +731,16 @@ public class TravelAuthorizationServiceImpl implements TravelAuthorizationServic
     private Date getTripEndDate(Timestamp tripEndDate) {
         Date tripEnd = null;
         Integer days = getDuplicateTripDateRangeDays();
-         try {
-             tripEnd = dateTimeService.convertToSqlDate(dateTimeService.toDateString((DateUtils.addDays(tripEndDate, days ))));
+        try {
+            tripEnd = dateTimeService.convertToSqlDate(dateTimeService.toDateString((DateUtils.addDays(tripEndDate, days))));
 
-         } catch (ParseException pe) {
-             LOG.error("Exception while parsing trip end date" + pe);
-         }
+        } catch (ParseException pe) {
+            LOG.error("Exception while parsing trip end date" + pe);
+        }
 
-         return tripEnd;
+        return tripEnd;
 
     }
-
 
 
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
@@ -796,9 +787,9 @@ public class TravelAuthorizationServiceImpl implements TravelAuthorizationServic
         this.accountingDocumentRelationshipService = accountingDocumentRelationshipService;
     }
 
-	public void setTemProfileService(TemProfileService temProfileService) {
-		this.temProfileService = temProfileService;
-	}
+    public void setTemProfileService(TemProfileService temProfileService) {
+        this.temProfileService = temProfileService;
+    }
 
     public void setDocumentDao(DocumentDao documentDao) {
         this.documentDao = documentDao;
@@ -813,6 +804,7 @@ public class TravelAuthorizationServiceImpl implements TravelAuthorizationServic
 
     /**
      * Injects an implementation of the DataDictionaryService
+     *
      * @param dataDictionaryService an implementation of the DataDictionaryService to inject
      */
     public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {
@@ -838,7 +830,6 @@ public class TravelAuthorizationServiceImpl implements TravelAuthorizationServic
     public void setTravelAuthorizationDao(TravelAuthorizationDao travelAuthorizationDao) {
         this.travelAuthorizationDao = travelAuthorizationDao;
     }
-
 
 
 }

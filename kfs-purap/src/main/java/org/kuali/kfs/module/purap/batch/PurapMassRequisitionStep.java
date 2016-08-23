@@ -1,33 +1,38 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.batch;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
-import org.directwebremoting.annotations.Param;
+import org.kuali.kfs.coreservice.api.parameter.EvaluationOperator;
+import org.kuali.kfs.coreservice.api.parameter.Parameter;
+import org.kuali.kfs.coreservice.api.parameter.Parameter.Builder;
+import org.kuali.kfs.coreservice.api.parameter.ParameterType;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.integration.purap.CapitalAssetLocation;
+import org.kuali.kfs.krad.UserSession;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.PersistenceStructureService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapConstants.POCostSources;
 import org.kuali.kfs.module.purap.PurapConstants.POTransmissionMethods;
@@ -51,22 +56,15 @@ import org.kuali.kfs.sys.batch.AbstractStep;
 import org.kuali.kfs.sys.batch.Job;
 import org.kuali.kfs.sys.batch.TestingStep;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.coreservice.api.parameter.EvaluationOperator;
-import org.kuali.kfs.coreservice.api.parameter.Parameter;
-import org.kuali.kfs.coreservice.api.parameter.Parameter.Builder;
-import org.kuali.kfs.coreservice.api.parameter.ParameterType;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.UserSession;
-import org.kuali.kfs.krad.bo.DocumentHeader;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.PersistenceStructureService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PurapMassRequisitionStep extends AbstractStep implements TestingStep {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PurapMassRequisitionStep.class);
@@ -88,8 +86,8 @@ public class PurapMassRequisitionStep extends AbstractStep implements TestingSte
     public boolean execute(String jobName, Date jobRunDate) throws InterruptedException {
         LOG.debug("Starting execution of PurapMassRequisitionStep");
 
-        Parameter runIndicatorParameter = SpringContext.getBean(ParameterService.class).getParameter(PurapMassRequisitionStep.class,Job.STEP_RUN_PARM_NM);
-        
+        Parameter runIndicatorParameter = SpringContext.getBean(ParameterService.class).getParameter(PurapMassRequisitionStep.class, Job.STEP_RUN_PARM_NM);
+
         if (runIndicatorParameter == null || "Y".equals(runIndicatorParameter.getValue())) {
             // save runParameter as "N" so that the job won't run until DB has been cleared
             setInitiatedRunParameter();
@@ -105,8 +103,7 @@ public class PurapMassRequisitionStep extends AbstractStep implements TestingSte
                     LOG.info("Blanket approving quantity requisition document.");
                     // route it
                     documentService.blanketApproveDocument(reqDoc, "auto-routing: Test Requisition Job.", null);
-                }
-                catch (WorkflowException e) {
+                } catch (WorkflowException e) {
                     e.printStackTrace();
                 }
                 Thread.sleep(5000);
@@ -122,8 +119,7 @@ public class PurapMassRequisitionStep extends AbstractStep implements TestingSte
                     LOG.info("Blanket approving non-quantity requisition document.");
                     // route it
                     documentService.blanketApproveDocument(reqDoc, "auto-routing: Test Requisition Job.", null);
-                }
-                catch (WorkflowException e) {
+                } catch (WorkflowException e) {
                     e.printStackTrace();
                 }
                 Thread.sleep(5000);
@@ -241,7 +237,7 @@ public class PurapMassRequisitionStep extends AbstractStep implements TestingSte
             reqDoc.setBillingPostalCode("47402");
             reqDoc.setBillingCountryCode("US");
             reqDoc.setBillingPhoneNumber("111-111-1111");
-            reqDoc.setPurchaseOrderAutomaticIndicator(false);            
+            reqDoc.setPurchaseOrderAutomaticIndicator(false);
             reqDoc.setApplicationDocumentStatus(RequisitionStatuses.APPDOC_IN_PROCESS);
             reqDoc.setVendorHeaderGeneratedIdentifier(1002);
             reqDoc.setVendorDetailAssignedIdentifier(0);
@@ -279,8 +275,7 @@ public class PurapMassRequisitionStep extends AbstractStep implements TestingSte
             item1.getSourceAccountingLines().add(account1);
             reqDoc.getItems().add(item1);
             reqDoc.fixItemReferences();
-        }
-        catch (WorkflowException e1) {
+        } catch (WorkflowException e1) {
             e1.printStackTrace();
         }
         return reqDoc;
@@ -359,8 +354,7 @@ public class PurapMassRequisitionStep extends AbstractStep implements TestingSte
             item1.getSourceAccountingLines().add(account1);
             reqDoc.getItems().add(item1);
             reqDoc.fixItemReferences();
-        }
-        catch (WorkflowException e1) {
+        } catch (WorkflowException e1) {
             e1.printStackTrace();
         }
         return reqDoc;
@@ -487,8 +481,7 @@ public class PurapMassRequisitionStep extends AbstractStep implements TestingSte
 
             purchasingCapitalAssetItems.add(capitalAssetItem);
             reqDoc.setPurchasingCapitalAssetItems(purchasingCapitalAssetItems);
-        }
-        catch (WorkflowException e1) {
+        } catch (WorkflowException e1) {
             e1.printStackTrace();
         }
         return reqDoc;
@@ -584,8 +577,7 @@ public class PurapMassRequisitionStep extends AbstractStep implements TestingSte
 
             purchasingCapitalAssetItems.add(capitalAssetItem);
             reqDoc.setPurchasingCapitalAssetItems(purchasingCapitalAssetItems);
-        }
-        catch (WorkflowException e1) {
+        } catch (WorkflowException e1) {
             e1.printStackTrace();
         }
         return reqDoc;
@@ -596,23 +588,23 @@ public class PurapMassRequisitionStep extends AbstractStep implements TestingSte
      */
     private void setInitiatedRunParameter() {
         // First, see if we can find an existing Parameter object with this key.
-        Parameter runIndicatorParameter = SpringContext.getBean(ParameterService.class).getParameter(PurapMassRequisitionStep.class,Job.STEP_RUN_PARM_NM);
+        Parameter runIndicatorParameter = SpringContext.getBean(ParameterService.class).getParameter(PurapMassRequisitionStep.class, Job.STEP_RUN_PARM_NM);
         if (runIndicatorParameter == null) {
             Parameter.Builder newParameter = Builder.create(KFSConstants.APPLICATION_NAMESPACE_CODE, PurapConstants.PURAP_NAMESPACE, RUN_INDICATOR_PARAMETER_NAMESPACE_STEP, Job.STEP_RUN_PARM_NM, ParameterType.Builder.create("CONFG"));
             newParameter.setDescription(RUN_INDICATOR_PARAMETER_DESCRIPTION);
             newParameter.setEvaluationOperator(EvaluationOperator.ALLOW);
             newParameter.setValue(RUN_INDICATOR_PARAMETER_VALUE);
-            SpringContext.getBean(ParameterService.class).createParameter( newParameter.build() );
+            SpringContext.getBean(ParameterService.class).createParameter(newParameter.build());
         } else {
             Parameter.Builder newParameter = Builder.create(runIndicatorParameter);
             newParameter.setValue(RUN_INDICATOR_PARAMETER_VALUE);
-            SpringContext.getBean(ParameterService.class).updateParameter( newParameter.build() );
+            SpringContext.getBean(ParameterService.class).updateParameter(newParameter.build());
         }
     }
 
     /**
      * Used by setInitiatedRunParameter to build a Map of search keys to obtain the exact needed Run parameter from the database.
-     * 
+     *
      * @return A Map<String,Object> where the Objects are the attributes of the Run parameter
      */
     private Map<String, Object> buildRunParameterSearchKeyMap() {
@@ -649,15 +641,12 @@ public class PurapMassRequisitionStep extends AbstractStep implements TestingSte
             ChangeWaiter waiter = new ChangeWaiter(documentService, acmDoc.getDocumentNumber(), "F");
             try {
                 waiter.waitUntilChange(waiter, ROUTE_TO_FINAL_SECONDS_LIMIT, 5);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 throw new RuntimeException("ContractManagerAssignmentDocument timed out in routing to final.");
             }
-        }
-        catch (WorkflowException we) {
+        } catch (WorkflowException we) {
             we.printStackTrace();
-        }
-        catch (ValidationException ve) {
+        } catch (ValidationException ve) {
             ve.printStackTrace();
         }
         return acmDoc;
@@ -677,15 +666,12 @@ public class PurapMassRequisitionStep extends AbstractStep implements TestingSte
                 ChangeWaiter waiter = new ChangeWaiter(documentService, poDoc.getDocumentNumber(), "F");
                 try {
                     waiter.waitUntilChange(waiter, ROUTE_TO_FINAL_SECONDS_LIMIT, 5);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     throw new RuntimeException("ContractManagerAssignmentDocument timed out in routing to final.");
                 }
-            }
-            catch (WorkflowException e) {
+            } catch (WorkflowException e) {
                 e.printStackTrace();
-            }
-            catch (ValidationException ve) {
+            } catch (ValidationException ve) {
                 ve.printStackTrace();
             }
         }
@@ -744,7 +730,7 @@ public class PurapMassRequisitionStep extends AbstractStep implements TestingSte
         public ChangeWaiter(DocumentService documentService, String docHeaderId, String desiredWorkflowStatus) {
             this.documentService = documentService;
             this.docHeaderId = docHeaderId;
-            this.desiredWorkflowStates = new String[] { desiredWorkflowStatus };
+            this.desiredWorkflowStates = new String[]{desiredWorkflowStatus};
         }
 
         public boolean valueChanged() throws Exception {
@@ -778,8 +764,7 @@ public class PurapMassRequisitionStep extends AbstractStep implements TestingSte
                         LOG.debug("sleeping for " + pauseMs + " ms");
                     }
                     Thread.sleep(pauseMs);
-                }
-                catch (InterruptedException e) {
+                } catch (InterruptedException e) {
                     interrupted = true;
                 }
                 LOG.debug("checking wait loop sentinel");
@@ -788,7 +773,7 @@ public class PurapMassRequisitionStep extends AbstractStep implements TestingSte
             if (LOG.isDebugEnabled()) {
                 LOG.debug("finished wait loop (" + valueChanged + ")");
             }
-            
+
             return valueChanged;
         }
     }

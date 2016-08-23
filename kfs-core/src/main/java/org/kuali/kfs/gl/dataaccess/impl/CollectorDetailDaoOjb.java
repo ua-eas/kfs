@@ -1,26 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.dataaccess.impl;
-
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.util.Iterator;
 
 import org.apache.ojb.broker.metadata.ClassDescriptor;
 import org.apache.ojb.broker.metadata.ClassNotPersistenceCapableException;
@@ -32,9 +28,13 @@ import org.apache.ojb.broker.query.QueryFactory;
 import org.apache.ojb.broker.query.ReportQueryByCriteria;
 import org.kuali.kfs.gl.businessobject.CollectorDetail;
 import org.kuali.kfs.gl.dataaccess.CollectorDetailDao;
+import org.kuali.kfs.krad.exception.ClassNotPersistableException;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
-import org.kuali.kfs.krad.exception.ClassNotPersistableException;
+
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.util.Iterator;
 
 /**
  * An OJB implementation of the CollectorDetailDao
@@ -51,8 +51,8 @@ public class CollectorDetailDaoOjb extends PlatformAwareDaoBaseOjb implements Co
 
     /**
      * Purge the table by year/chart.  Clears persistence broker template at the end to ensure OJB has to to DB again
-     * to retrieve the post-purged state of the DB. 
-     * 
+     * to retrieve the post-purged state of the DB.
+     *
      * @see org.kuali.kfs.gl.dataaccess.CollectorDetailDao#purgeYearByChart(java.lang.String, int)
      */
     public void purgeYearByChart(String chartOfAccountsCode, int universityFiscalYear) {
@@ -61,7 +61,7 @@ public class CollectorDetailDaoOjb extends PlatformAwareDaoBaseOjb implements Co
         Criteria criteria = new Criteria();
         criteria.addEqualTo(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, chartOfAccountsCode);
         criteria.addLessThan(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, new Integer(universityFiscalYear));
-        
+
         getPersistenceBrokerTemplate().deleteByQuery(new QueryByCriteria(CollectorDetail.class, criteria));
 
         // This is required because if any deleted items are in the cache, deleteByQuery doesn't
@@ -72,7 +72,8 @@ public class CollectorDetailDaoOjb extends PlatformAwareDaoBaseOjb implements Co
 
     /**
      * Retrieves the DB table name that's mapped to instances of CollectorDetail by finding the class descriptor name from the
-     * class descriptor respository 
+     * class descriptor respository
+     *
      * @return the table name where collector details are saved to
      * @see org.kuali.kfs.gl.dataaccess.CollectorDetailDao#retrieveCollectorDetailTableName()
      */
@@ -81,8 +82,7 @@ public class CollectorDetailDaoOjb extends PlatformAwareDaoBaseOjb implements Co
         DescriptorRepository globalRepository = descriptorRepository;
         try {
             classDescriptor = globalRepository.getDescriptorFor(CollectorDetail.class);
-        }
-        catch (ClassNotPersistenceCapableException e) {
+        } catch (ClassNotPersistenceCapableException e) {
             throw new ClassNotPersistableException("class '" + CollectorDetail.class.getName() + "' is not persistable", e);
         }
 
@@ -95,17 +95,17 @@ public class CollectorDetailDaoOjb extends PlatformAwareDaoBaseOjb implements Co
         crit.addEqualTo("CREATE_DT", date);
 
         ReportQueryByCriteria q = QueryFactory.newReportQuery(CollectorDetail.class, crit);
-        q.setAttributes(new String[] { "max(transactionLedgerEntrySequenceNumber)" });
+        q.setAttributes(new String[]{"max(transactionLedgerEntrySequenceNumber)"});
 
         Iterator<Object[]> iter = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(q);
         if (iter.hasNext()) {
             Object[] result = iter.next();
             if (result[0] != null) {
-                return new Integer(((BigDecimal)result[0]).intValue());
+                return new Integer(((BigDecimal) result[0]).intValue());
             }
         }
         return null;
     }
-    
-    
+
+
 }

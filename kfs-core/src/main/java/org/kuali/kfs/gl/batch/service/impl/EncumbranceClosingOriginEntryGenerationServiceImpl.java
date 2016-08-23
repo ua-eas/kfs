@@ -1,29 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.batch.service.impl;
-
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.kuali.kfs.coa.businessobject.A21SubAccount;
@@ -39,6 +32,7 @@ import org.kuali.kfs.coa.service.ObjectTypeService;
 import org.kuali.kfs.coa.service.OffsetDefinitionService;
 import org.kuali.kfs.coa.service.SubFundGroupService;
 import org.kuali.kfs.coa.service.SubObjectCodeService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.GeneralLedgerConstants;
 import org.kuali.kfs.gl.batch.EncumbranceForwardStep;
 import org.kuali.kfs.gl.batch.ScrubberStep;
@@ -47,6 +41,8 @@ import org.kuali.kfs.gl.batch.service.EncumbranceClosingOriginEntryGenerationSer
 import org.kuali.kfs.gl.batch.service.impl.exception.FatalErrorException;
 import org.kuali.kfs.gl.businessobject.Encumbrance;
 import org.kuali.kfs.gl.businessobject.OriginEntryFull;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -56,9 +52,13 @@ import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.parameter.ParameterEvaluator;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The default implementation of the EncumbranceClosingOriginEntryGenerationService
@@ -103,11 +103,9 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
             sb.append(fromDesc);
             fromDesc = sb.toString();
             description += fromDesc;
-        }
-        else if ((description.length() + fromDesc.length()) > descLength) {
+        } else if ((description.length() + fromDesc.length()) > descLength) {
             description = description.substring(0, (descLength - fromDesc.length())) + fromDesc;
-        }
-        else {
+        } else {
             description += fromDesc;
         }
         entry.setTransactionLedgerEntryDescription(description);
@@ -149,20 +147,19 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
             }
             financialObjectCode = param;
 
-         // Lookup the new object code
+            // Lookup the new object code
             ObjectCode newObjectCode = accountingCycleCachingService.getObjectCode(entry.getUniversityFiscalYear(), entry.getChartOfAccountsCode(), financialObjectCode);
             if (newObjectCode != null) {
                 entry.setFinancialObjectTypeCode(newObjectCode.getFinancialObjectTypeCode());
                 entry.setFinancialObjectCode(financialObjectCode);
-            }
-            else {
-                LOG.error("Error retrieving ObjectCode("+entry.getUniversityFiscalYear()+"/"+entry.getChartOfAccountsCode()+"/"+financialObjectCode+")");
+            } else {
+                LOG.error("Error retrieving ObjectCode(" + entry.getUniversityFiscalYear() + "/" + entry.getChartOfAccountsCode() + "/" + financialObjectCode + ")");
                 pair.setFatalErrorFlag(true);
                 return pair;
             }
         } else {
 
-            LOG.error("Error retrieving ObjectCode("+entry.getUniversityFiscalYear()+"/"+entry.getChartOfAccountsCode()+"/"+entry.getFinancialObjectCode()+")");
+            LOG.error("Error retrieving ObjectCode(" + entry.getUniversityFiscalYear() + "/" + entry.getChartOfAccountsCode() + "/" + entry.getFinancialObjectCode() + ")");
             pair.setFatalErrorFlag(true);
             return pair;
 
@@ -181,8 +178,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
         if (delta.isPositive()) {
             entry.setTransactionDebitCreditCode(KFSConstants.GL_DEBIT_CODE);
             entry.setTransactionLedgerEntryAmount(delta);
-        }
-        else {
+        } else {
             entry.setTransactionDebitCreditCode(KFSConstants.GL_CREDIT_CODE);
             entry.setTransactionLedgerEntryAmount(delta.negated());
         }
@@ -212,8 +208,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
 
             offset.setFinancialObjectCode(offsetDefinition.getFinancialObjectCode());
             offset.setFinancialSubObjectCode(KFSConstants.getDashFinancialSubObjectCode());
-        }
-        else { // Log an exception if the offset definition was not found.
+        } else { // Log an exception if the offset definition was not found.
 
             LOG.info("FATAL ERROR: One of the following errors occurred (no way to know exactly which):\n\t" + "- OFFSET DEFINITION NOT FOUND\n\t" + "- ERROR ACCESSING OFSD TABLE");
             pair.setFatalErrorFlag(true);
@@ -225,8 +220,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
         ObjectCode objectCode = getObjectCodeService().getByPrimaryId(offset.getUniversityFiscalYear(), offset.getChartOfAccountsCode(), offset.getFinancialObjectCode());
         if (null != objectCode) {
             offset.setFinancialObjectTypeCode(objectCode.getFinancialObjectTypeCode());
-        }
-        else {
+        } else {
             LOG.info("FATAL ERROR: One of the following errors occurred (no way to know exactly which):\n\t" + "- NO OBJECT FOR OBJECT ON OFSD\n\t" + "- ERROR ACCESSING OBJECT TABLE");
             pair.setFatalErrorFlag(true);
             return pair;
@@ -237,8 +231,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
         if (delta.isPositive()) {
             offset.setTransactionDebitCreditCode(KFSConstants.GL_CREDIT_CODE);
             offset.setTransactionLedgerEntryAmount(delta);
-        }
-        else {
+        } else {
             offset.setTransactionDebitCreditCode(KFSConstants.GL_DEBIT_CODE);
             offset.setTransactionLedgerEntryAmount(delta.negated());
         }
@@ -286,19 +279,15 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
 
                 entry.setFinancialObjectCode(objectCode.getNextYearFinancialObjectCode());
 
-            }
-            else {
+            } else {
 
                 entry.setFinancialObjectCode(encumbrance.getObjectCode());
 
             }
 
-        }
+        } else {
 
-
-        else {
-
-            LOG.error("Error retrieving ObjectCode("+entry.getUniversityFiscalYear()+"/"+entry.getChartOfAccountsCode()+"/"+entry.getFinancialObjectCode()+")");
+            LOG.error("Error retrieving ObjectCode(" + entry.getUniversityFiscalYear() + "/" + entry.getChartOfAccountsCode() + "/" + entry.getFinancialObjectCode() + ")");
             pair.setFatalErrorFlag(true);
             return pair;
 
@@ -310,8 +299,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
 
             entry.setFinancialSubObjectCode(subObjectCode.getFinancialSubObjectCode());
 
-        }
-        else {
+        } else {
 
             entry.setFinancialSubObjectCode(KFSConstants.getDashFinancialSubObjectCode());
 
@@ -329,8 +317,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
             entry.setTransactionLedgerEntryAmount(entry.getTransactionLedgerEntryAmount().negated());
             entry.setTransactionDebitCreditCode(KFSConstants.GL_CREDIT_CODE);
 
-        }
-        else {
+        } else {
 
             entry.setTransactionDebitCreditCode(KFSConstants.GL_DEBIT_CODE);
 
@@ -363,8 +350,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
 
             offset.setFinancialObjectCode(OBJECT_CODE_FOR_BALANCE_TYPE_PRE_ENCUMBRANCE);
 
-        }
-        else if (KFSConstants.BALANCE_TYPE_EXTERNAL_ENCUMBRANCE.equals(entry.getFinancialBalanceTypeCode())) {
+        } else if (KFSConstants.BALANCE_TYPE_EXTERNAL_ENCUMBRANCE.equals(entry.getFinancialBalanceTypeCode())) {
 
             offset.setFinancialObjectCode(OBJECT_CODE_FOR_BALANCE_TYPE_EXTERNAL_ENCUMBRANCE);
 
@@ -377,8 +363,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
 
             offset.setTransactionDebitCreditCode(KFSConstants.GL_CREDIT_CODE);
 
-        }
-        else {
+        } else {
 
             offset.setTransactionDebitCreditCode(KFSConstants.GL_DEBIT_CODE);
 
@@ -409,11 +394,10 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
 
         if (getEncumbranceBalanceTypeCodes().contains(encumbrance.getBalanceTypeCode())) {
 
-            ParameterEvaluator evaluator = /*REFACTORME*/SpringContext.getBean(ParameterEvaluatorService.class).getParameterEvaluator(EncumbranceForwardStep.class, GeneralLedgerConstants.EncumbranceClosingOriginEntry.FORWARD_ENCUMBRANCE_BALANCE_TYPE_AND_ORIGIN_CODE,encumbrance.getBalanceTypeCode(),  encumbrance.getOriginCode());
+            ParameterEvaluator evaluator = /*REFACTORME*/SpringContext.getBean(ParameterEvaluatorService.class).getParameterEvaluator(EncumbranceForwardStep.class, GeneralLedgerConstants.EncumbranceClosingOriginEntry.FORWARD_ENCUMBRANCE_BALANCE_TYPE_AND_ORIGIN_CODE, encumbrance.getBalanceTypeCode(), encumbrance.getOriginCode());
             if (!evaluator.evaluationSucceeds()) {
                 return false;
-            }
-            else if (KFSConstants.BALANCE_TYPE_PRE_ENCUMBRANCE.equals(encumbrance.getBalanceTypeCode())) {
+            } else if (KFSConstants.BALANCE_TYPE_PRE_ENCUMBRANCE.equals(encumbrance.getBalanceTypeCode())) {
                 // pre-encumbrances are forwarded, but only if they're related to contracts and grants accounts
                 PriorYearAccount priorYearAccount = retrievePriorYearAccount(encumbrance.getChartOfAccountsCode(), encumbrance.getAccountNumber());
                 // the account on the encumbrance must be valid
@@ -424,8 +408,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
                 // the sub fund group must exist for the prior year account and the
                 // encumbrance must not be closed.
                 return priorYearAccount.isForContractsAndGrants();
-            }
-            else {
+            } else {
                 // we're still here? because we're an external encumbrance, and we always get forwarded
                 return true;
             }
@@ -447,9 +430,9 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
         keys.put("finBalanceTypeEncumIndicator", Boolean.TRUE);
         Collection balanceTypes = businessObjectService.findMatching(BalanceType.class, keys);
         for (Object balanceTypeAsObject : balanceTypes) {
-            ParameterEvaluator evaluator = /*REFACTORME*/SpringContext.getBean(ParameterEvaluatorService.class).getParameterEvaluator(EncumbranceForwardStep.class, GeneralLedgerConstants.EncumbranceClosingOriginEntry.FORWARDING_ENCUMBRANCE_BALANCE_TYPES, ((BalanceType)balanceTypeAsObject).getCode());
+            ParameterEvaluator evaluator = /*REFACTORME*/SpringContext.getBean(ParameterEvaluatorService.class).getParameterEvaluator(EncumbranceForwardStep.class, GeneralLedgerConstants.EncumbranceClosingOriginEntry.FORWARDING_ENCUMBRANCE_BALANCE_TYPES, ((BalanceType) balanceTypeAsObject).getCode());
             if (evaluator.evaluationSucceeds())
-                balanceTypeCodes.add(((BalanceType)balanceTypeAsObject).getCode());
+                balanceTypeCodes.add(((BalanceType) balanceTypeAsObject).getCode());
         }
 
         return balanceTypeCodes;
@@ -460,7 +443,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
      *
      * @param encumbrance the encumbrance to qualify
      * @return true if the amount closed on the encumbrance is NOT equal to the amount of the encumbrance itself, e.g. if the
-     *         encumbrance has not yet been paid off.
+     * encumbrance has not yet been paid off.
      */
     @Override
     public boolean isEncumbranceClosed(Encumbrance encumbrance) {
@@ -473,9 +456,9 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
     /**
      * Do some validation and make sure that the encumbrance A21SubAccount is a cost share sub-account.
      *
-     * @param entry not used in this implementation
-     * @param offset not used in this implementation
-     * @param encumbrance the encumbrance whose A21SubAccount must be qualified
+     * @param entry          not used in this implementation
+     * @param offset         not used in this implementation
+     * @param encumbrance    the encumbrance whose A21SubAccount must be qualified
      * @param objectTypeCode the object type code of the generated entries
      * @return true if the encumbrance is eligible for cost share.
      * @throws FatalErrorException thrown if a given A21SubAccount, SubFundGroup, or PriorYearAccount record is not found in the database
@@ -488,8 +471,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
         String subFundGroupCode = null;
         if (null != priorYearAccount) {
             subFundGroupCode = priorYearAccount.getSubFundGroupCode();
-        }
-        else {
+        } else {
             // this message was carried over from the cobol.
             throw new FatalErrorException("ERROR ACCESSING PRIOR YR ACCT TABLE FOR " + encumbrance.getAccountNumber());
         }
@@ -499,8 +481,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
             if (!priorYearAccount.isForContractsAndGrants()) {
                 return false;
             }
-        }
-        else {
+        } else {
             throw new FatalErrorException("ERROR ACCESSING SUB FUND GROUP TABLE FOR " + subFundGroupCode);
         }
 
@@ -513,14 +494,13 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
         ObjectTypeService objectTypeService = (ObjectTypeService) SpringContext.getBean(ObjectTypeService.class);
         List<String> expenseObjectCodeTypes = objectTypeService.getCurrentYearExpenseObjectTypes();
 
-        String[] encumbranceBalanceTypeCodes = new String[] { KFSConstants.BALANCE_TYPE_EXTERNAL_ENCUMBRANCE, KFSConstants.BALANCE_TYPE_INTERNAL_ENCUMBRANCE, KFSConstants.BALANCE_TYPE_PRE_ENCUMBRANCE };
+        String[] encumbranceBalanceTypeCodes = new String[]{KFSConstants.BALANCE_TYPE_EXTERNAL_ENCUMBRANCE, KFSConstants.BALANCE_TYPE_INTERNAL_ENCUMBRANCE, KFSConstants.BALANCE_TYPE_PRE_ENCUMBRANCE};
 
         // the object type code must be an expense and the encumbrance balance type code must correspond to an internal, external or
         // pre-encumbrance
         if (!expenseObjectCodeTypes.contains(objectTypeCode) || !ArrayUtils.contains(encumbranceBalanceTypeCodes, encumbrance.getBalanceTypeCode())) {
             return false;
-        }
-        else if (!encumbrance.getSubAccountNumber().equals(KFSConstants.getDashSubAccountNumber())) {
+        } else if (!encumbrance.getSubAccountNumber().equals(KFSConstants.getDashSubAccountNumber())) {
             A21SubAccount a21SubAccount = getA21SubAccountService().getByPrimaryKey(encumbrance.getChartOfAccountsCode(), encumbrance.getAccountNumber(), encumbrance.getSubAccountNumber());
             if (null == a21SubAccount) {
                 // Error message carried over from cobol. not very well descriptive.
@@ -529,8 +509,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
             }
             // everything is valid, return true if the a21 sub account is a cost share sub-account
             return KFSConstants.SubAccountType.COST_SHARE.equals(a21SubAccount.getSubAccountTypeCode());
-        }
-        else {
+        } else {
             return false;
         }
 
@@ -538,8 +517,9 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
 
     /**
      * Retrieves a prior year account from the persistence store
+     *
      * @param chartOfAccountsCode the chart of accounts for the prior year account
-     * @param accountNumber the account number for the prior year account
+     * @param accountNumber       the account number for the prior year account
      * @return the PriorYearAccount
      */
     protected PriorYearAccount retrievePriorYearAccount(String chartOfAccountsCode, String accountNumber) {
@@ -547,23 +527,24 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
         pks.put(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, chartOfAccountsCode);
         pks.put(KFSPropertyConstants.ACCOUNT_NUMBER, accountNumber);
 
-        return (PriorYearAccount)this.getBusinessObjectService().findByPrimaryKey(PriorYearAccount.class, pks);
+        return (PriorYearAccount) this.getBusinessObjectService().findByPrimaryKey(PriorYearAccount.class, pks);
     }
 
     /**
-     *
      * This method eases the institutional customization for Cost Sharing Object Codes for OriginEntries
-     * @param levelCode of the originEntry
+     *
+     * @param levelCode  of the originEntry
      * @param objectCode of the originEntry
      * @return the new objectCode
      */
 
-    protected String overrideCostShareObjectCode(String levelCode, String objectCode){
+    protected String overrideCostShareObjectCode(String levelCode, String objectCode) {
         return objectCode;
     }
 
     /**
      * Gets the parameterService attribute.
+     *
      * @return Returns the parameterService.
      */
     public ParameterService getParameterService() {
@@ -572,6 +553,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
 
     /**
      * Sets the parameterService attribute value.
+     *
      * @param parameterService The parameterService to set.
      */
     public void setParameterService(ParameterService parameterService) {
@@ -580,6 +562,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
 
     /**
      * Gets the offsetDefinitionService attribute.
+     *
      * @return Returns the offsetDefinitionService.
      */
     public OffsetDefinitionService getOffsetDefinitionService() {
@@ -588,6 +571,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
 
     /**
      * Sets the offsetDefinitionService attribute value.
+     *
      * @param offsetDefinitionService The offsetDefinitionService to set.
      */
     public void setOffsetDefinitionService(OffsetDefinitionService offsetDefinitionService) {
@@ -596,6 +580,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
 
     /**
      * Gets the objectCodeService attribute.
+     *
      * @return Returns the objectCodeService.
      */
     public ObjectCodeService getObjectCodeService() {
@@ -604,6 +589,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
 
     /**
      * Sets the objectCodeService attribute value.
+     *
      * @param objectCodeService The objectCodeService to set.
      */
     public void setObjectCodeService(ObjectCodeService objectCodeService) {
@@ -612,6 +598,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
 
     /**
      * Gets the dataDictionaryService attribute.
+     *
      * @return Returns the dataDictionaryService.
      */
     public DataDictionaryService getDataDictionaryService() {
@@ -620,6 +607,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
 
     /**
      * Sets the dataDictionaryService attribute value.
+     *
      * @param dataDictionaryService The dataDictionaryService to set.
      */
     public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {
@@ -628,6 +616,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
 
     /**
      * Gets the flexibleOffsetAccountService attribute.
+     *
      * @return Returns the flexibleOffsetAccountService.
      */
     public FlexibleOffsetAccountService getFlexibleOffsetAccountService() {
@@ -636,6 +625,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
 
     /**
      * Sets the flexibleOffsetAccountService attribute value.
+     *
      * @param flexibleOffsetAccountService The flexibleOffsetAccountService to set.
      */
     public void setFlexibleOffsetAccountService(FlexibleOffsetAccountService flexibleOffsetAccountService) {
@@ -644,6 +634,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
 
     /**
      * Gets the a21SubAccountService attribute.
+     *
      * @return Returns the a21SubAccountService.
      */
     public A21SubAccountService getA21SubAccountService() {
@@ -652,6 +643,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
 
     /**
      * Sets the a21SubAccountService attribute value.
+     *
      * @param subAccountService The a21SubAccountService to set.
      */
     public void setA21SubAccountService(A21SubAccountService subAccountService) {
@@ -660,6 +652,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
 
     /**
      * Gets the subObjectCodeService attribute.
+     *
      * @return Returns the subObjectCodeService.
      */
     public SubObjectCodeService getSubObjectCodeService() {
@@ -668,6 +661,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
 
     /**
      * Sets the subObjectCodeService attribute value.
+     *
      * @param subObjectCodeService The subObjectCodeService to set.
      */
     public void setSubObjectCodeService(SubObjectCodeService subObjectCodeService) {
@@ -676,6 +670,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
 
     /**
      * Gets the optionsService attribute.
+     *
      * @return Returns the optionsService.
      */
     public OptionsService getOptionsService() {
@@ -684,6 +679,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
 
     /**
      * Sets the optionsService attribute value.
+     *
      * @param optionsService The optionsService to set.
      */
     public void setOptionsService(OptionsService optionsService) {
@@ -692,6 +688,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
 
     /**
      * Gets the subFundGroupService attribute.
+     *
      * @return Returns the subFundGroupService.
      */
     public SubFundGroupService getSubFundGroupService() {
@@ -700,6 +697,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
 
     /**
      * Sets the subFundGroupService attribute value.
+     *
      * @param subFundGroupService The subFundGroupService to set.
      */
     public void setSubFundGroupService(SubFundGroupService subFundGroupService) {
@@ -708,6 +706,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
 
     /**
      * Gets the businessObjectService attribute.
+     *
      * @return Returns the businessObjectService.
      */
     public BusinessObjectService getBusinessObjectService() {
@@ -716,6 +715,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
 
     /**
      * Sets the businessObjectService attribute value.
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
@@ -724,6 +724,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
 
     /**
      * Gets the accountingCycleCachingService attribute.
+     *
      * @return Returns the accountingCycleCachingService.
      */
     public AccountingCycleCachingService getAccountingCycleCachingService() {
@@ -732,6 +733,7 @@ public class EncumbranceClosingOriginEntryGenerationServiceImpl implements Encum
 
     /**
      * Sets the accountingCycleCachingService attribute value.
+     *
      * @param accountingCycleCachingService The accountingCycleCachingService to set.
      */
     public void setAccountingCycleCachingService(AccountingCycleCachingService accountingCycleCachingService) {

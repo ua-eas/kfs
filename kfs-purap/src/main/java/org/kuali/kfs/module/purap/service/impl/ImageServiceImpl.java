@@ -1,29 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.service.impl;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.document.ContractManagerAssignmentDocument;
 import org.kuali.kfs.module.purap.exception.PurapConfigurationException;
@@ -31,7 +29,9 @@ import org.kuali.kfs.module.purap.service.ImageService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 /**
  * Implementation of ImageService.
@@ -90,10 +90,10 @@ public class ImageServiceImpl implements ImageService {
 
     /**
      * Copy a file from a web location to the local system.
-     * 
-     * @param prefix - Prefix for the file name
-     * @param fileKey - File key for file
-     * @param key - Unique key for the file
+     *
+     * @param prefix   - Prefix for the file name
+     * @param fileKey  - File key for file
+     * @param key      - Unique key for the file
      * @param location - location of file
      * @return - location to copied file
      */
@@ -106,7 +106,7 @@ public class ImageServiceImpl implements ImageService {
         if (StringUtils.isEmpty(urlpath)) {
             urlpath = configurationService.getPropertyValueAsString(KFSConstants.EXTERNALIZABLE_IMAGES_URL_KEY);
         }
-        
+
         if (urlpath == null) {
             throw new PurapConfigurationException("Application Setting " + KFSConstants.EXTERNALIZABLE_IMAGES_URL_KEY + " is missing");
         }

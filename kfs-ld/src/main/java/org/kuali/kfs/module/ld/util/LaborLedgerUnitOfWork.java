@@ -1,33 +1,33 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.util;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ld.LaborConstants;
 import org.kuali.kfs.module.ld.businessobject.LaborOriginEntry;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.ObjectUtil;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is a working unit of labor origin entry. It is formed by a group of slimilar labor origin entries. If any two entries
@@ -47,7 +47,7 @@ public class LaborLedgerUnitOfWork {
 
     /**
      * Constructs a LaborLedgerUnitOfWork.java.
-     * 
+     *
      * @param laborOriginEntry the given origin entry
      */
     public LaborLedgerUnitOfWork(LaborOriginEntry laborOriginEntry) {
@@ -56,7 +56,7 @@ public class LaborLedgerUnitOfWork {
 
     /**
      * Intialize the default key fields of the labor ledger unit of work with the given origin entry
-     * 
+     *
      * @param laborOriginEntry the given origin entry
      */
     public void resetLaborLedgerUnitOfWork(LaborOriginEntry laborOriginEntry) {
@@ -65,9 +65,9 @@ public class LaborLedgerUnitOfWork {
 
     /**
      * Intialize the specified key fields of the labor ledger unit of work with the given origin entry
-     * 
+     *
      * @param laborOriginEntry the given origin entry
-     * @param keyFields the keys to which values will be assigned
+     * @param keyFields        the keys to which values will be assigned
      */
     public void resetLaborLedgerUnitOfWork(LaborOriginEntry laborOriginEntry, List<String> keyFields) {
         this.workingEntry = new LaborOriginEntry();
@@ -88,7 +88,7 @@ public class LaborLedgerUnitOfWork {
 
     /**
      * add the given origin entry as a member of the working unit
-     * 
+     *
      * @param laborOriginEntry the given origin entry
      * @return true if the given origin entry is successfully added into the current unit of work; otherwise, false
      */
@@ -111,7 +111,7 @@ public class LaborLedgerUnitOfWork {
 
     /**
      * Determine if the given origin entry belongs to the current unit of work
-     * 
+     *
      * @param laborOriginEntry the given origin entry
      * @return true if the given origin entry belongs to the current unit of work; otherwise, false
      */
@@ -121,15 +121,15 @@ public class LaborLedgerUnitOfWork {
 
     /**
      * Determine if the given origin entry has the same key as the current unit of work
-     * 
+     *
      * @param laborOriginEntry the given origin entry
      * @return true if the given origin entry has the same key as the current unit of work; otherwise, false
      */
     public boolean hasSameKey(LaborOriginEntry laborOriginEntry) {
-        if(ObjectUtils.isNull(laborOriginEntry)) {
+        if (ObjectUtils.isNull(laborOriginEntry)) {
             return false;
         }
-        
+
         return ObjectUtil.equals(workingEntry, laborOriginEntry, this.getKeyFields());
     }
 
@@ -145,7 +145,7 @@ public class LaborLedgerUnitOfWork {
 
     /**
      * Gets the workingEntry attribute.
-     * 
+     *
      * @return Returns the workingEntry.
      */
     public LaborOriginEntry getWorkingEntry() {
@@ -154,7 +154,7 @@ public class LaborLedgerUnitOfWork {
 
     /**
      * Sets the workingEntry attribute value.
-     * 
+     *
      * @param workingEntry The workingEntry to set.
      */
     public void setWorkingEntry(LaborOriginEntry workingEntry) {
@@ -163,7 +163,7 @@ public class LaborLedgerUnitOfWork {
 
     /**
      * Gets the keyFields attribute.
-     * 
+     *
      * @return Returns the keyFields.
      */
     public List<String> getKeyFields() {
@@ -172,7 +172,7 @@ public class LaborLedgerUnitOfWork {
 
     /**
      * Sets the keyFields attribute value.
-     * 
+     *
      * @param keyFields The keyFields to set.
      */
     public void setKeyFields(List<String> keyFields) {
@@ -181,7 +181,7 @@ public class LaborLedgerUnitOfWork {
 
     /**
      * Gets the numOfMember attribute.
-     * 
+     *
      * @return Returns the numOfMember.
      */
     public int getNumOfMember() {
@@ -190,7 +190,7 @@ public class LaborLedgerUnitOfWork {
 
     /**
      * Sets the numOfMember attribute value.
-     * 
+     *
      * @param numOfMember The numOfMember to set.
      */
     public void setNumOfMember(int numOfMember) {

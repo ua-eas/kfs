@@ -1,27 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cam.document.validation.impl;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
@@ -30,7 +25,14 @@ import org.kuali.kfs.coa.businessobject.OffsetDefinition;
 import org.kuali.kfs.coa.businessobject.Organization;
 import org.kuali.kfs.coa.service.ObjectCodeService;
 import org.kuali.kfs.coa.service.OffsetDefinitionService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.document.TransferOfFundsDocument;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.DocumentDictionaryService;
+import org.kuali.kfs.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsKeyConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
@@ -52,19 +54,18 @@ import org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocu
 import org.kuali.kfs.sys.document.validation.impl.GeneralLedgerPostingDocumentRuleBase;
 import org.kuali.kfs.sys.service.GeneralLedgerPendingEntryService;
 import org.kuali.kfs.sys.service.UniversityDateService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.service.DocumentDictionaryService;
-import org.kuali.kfs.krad.util.ErrorMessage;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.util.AutoPopulatingList;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class AssetTransferDocumentRule extends GeneralLedgerPostingDocumentRuleBase {
     private static final Map<LocationField, String> LOCATION_FIELD_MAP = new HashMap<LocationField, String>();
+
     static {
         LOCATION_FIELD_MAP.put(LocationField.CAMPUS_CODE, CamsPropertyConstants.AssetTransferDocument.CAMPUS_CODE);
         LOCATION_FIELD_MAP.put(LocationField.BUILDING_CODE, CamsPropertyConstants.AssetTransferDocument.BUILDING_CODE);
@@ -105,7 +106,7 @@ public class AssetTransferDocumentRule extends GeneralLedgerPostingDocumentRuleB
 
     /**
      * Retrieve asset number need to be locked.
-     * 
+     *
      * @param document
      * @return
      */
@@ -120,7 +121,7 @@ public class AssetTransferDocumentRule extends GeneralLedgerPostingDocumentRuleB
 
     protected boolean validateAssetObjectCodeDefn(AssetTransferDocument assetTransferDocument, Asset asset) {
 
-        if ( !isNonCapitalAsset(asset) && StringUtils.isNotBlank(assetTransferDocument.getOrganizationOwnerChartOfAccountsCode()) && StringUtils.isNotBlank(assetTransferDocument.getOrganizationOwnerAccountNumber())) {
+        if (!isNonCapitalAsset(asset) && StringUtils.isNotBlank(assetTransferDocument.getOrganizationOwnerChartOfAccountsCode()) && StringUtils.isNotBlank(assetTransferDocument.getOrganizationOwnerAccountNumber())) {
             boolean valid = true;
             List<AssetPayment> assetPayments = asset.getAssetPayments();
             ObjectCodeService objectCodeService = (ObjectCodeService) SpringContext.getBean(ObjectCodeService.class);
@@ -144,8 +145,7 @@ public class AssetTransferDocumentRule extends GeneralLedgerPostingDocumentRuleB
                 }
             }
             return valid;
-        }
-        else {
+        } else {
             return true;
         }
 
@@ -153,7 +153,7 @@ public class AssetTransferDocumentRule extends GeneralLedgerPostingDocumentRuleB
 
     /**
      * Asset Object Code must exist as an active status.
-     * 
+     *
      * @param asset
      * @param assetPayment
      * @return
@@ -161,11 +161,11 @@ public class AssetTransferDocumentRule extends GeneralLedgerPostingDocumentRuleB
     protected boolean validateAssetObjectCode(AssetObjectCode assetObjectCode, String chartOfAccountsCode, String finObjectSubTypeCode) {
         boolean valid = true;
         if (ObjectUtils.isNull(assetObjectCode)) {
-            putError(CamsConstants.DOCUMENT_NUMBER_PATH, CamsKeyConstants.GLPosting.ERROR_ASSET_OBJECT_CODE_NOT_FOUND, new String[] { chartOfAccountsCode, finObjectSubTypeCode });
+            putError(CamsConstants.DOCUMENT_NUMBER_PATH, CamsKeyConstants.GLPosting.ERROR_ASSET_OBJECT_CODE_NOT_FOUND, new String[]{chartOfAccountsCode, finObjectSubTypeCode});
             valid &= false;
         }// check Asset Object Code active
         else if (!assetObjectCode.isActive()) {
-            putError(CamsConstants.DOCUMENT_NUMBER_PATH, CamsKeyConstants.GLPosting.ERROR_ASSET_OBJECT_CODE_INACTIVE, new String[] { chartOfAccountsCode, finObjectSubTypeCode });
+            putError(CamsConstants.DOCUMENT_NUMBER_PATH, CamsKeyConstants.GLPosting.ERROR_ASSET_OBJECT_CODE_INACTIVE, new String[]{chartOfAccountsCode, finObjectSubTypeCode});
             valid = false;
         }
 
@@ -174,7 +174,7 @@ public class AssetTransferDocumentRule extends GeneralLedgerPostingDocumentRuleB
 
     /**
      * Check Financial Object Code for GLPE.
-     * 
+     *
      * @param asset
      * @param assetPayment
      * @return
@@ -203,7 +203,7 @@ public class AssetTransferDocumentRule extends GeneralLedgerPostingDocumentRuleB
 
     /**
      * check existence and active status for given financial Object Code BO.
-     * 
+     *
      * @param chartCode
      * @param finObjectCode
      * @param finObject
@@ -213,17 +213,17 @@ public class AssetTransferDocumentRule extends GeneralLedgerPostingDocumentRuleB
         boolean valid = true;
         // not defined in Asset Object Code table
         if (StringUtils.isBlank(finObjectCode)) {
-            putError(CamsConstants.DOCUMENT_NUMBER_PATH, CamsKeyConstants.GLPosting.ERROR_OBJECT_CODE_FROM_ASSET_OBJECT_CODE_NOT_FOUND, new String[] { glPostingType, chartOfAccountsCode });
+            putError(CamsConstants.DOCUMENT_NUMBER_PATH, CamsKeyConstants.GLPosting.ERROR_OBJECT_CODE_FROM_ASSET_OBJECT_CODE_NOT_FOUND, new String[]{glPostingType, chartOfAccountsCode});
             valid = false;
         }
         // check Object Code existing
         else if (ObjectUtils.isNull(finObject)) {
-            putError(CamsConstants.DOCUMENT_NUMBER_PATH, CamsKeyConstants.GLPosting.ERROR_OBJECT_CODE_FROM_ASSET_OBJECT_CODE_INVALID, new String[] { glPostingType, finObjectCode, chartOfAccountsCode });
+            putError(CamsConstants.DOCUMENT_NUMBER_PATH, CamsKeyConstants.GLPosting.ERROR_OBJECT_CODE_FROM_ASSET_OBJECT_CODE_INVALID, new String[]{glPostingType, finObjectCode, chartOfAccountsCode});
             valid = false;
         }
         // check Object Code active
         else if (!finObject.isActive()) {
-            putError(CamsConstants.DOCUMENT_NUMBER_PATH, CamsKeyConstants.GLPosting.ERROR_OBJECT_CODE_FROM_ASSET_OBJECT_CODE_INACTIVE, new String[] { glPostingType, finObjectCode, chartOfAccountsCode });
+            putError(CamsConstants.DOCUMENT_NUMBER_PATH, CamsKeyConstants.GLPosting.ERROR_OBJECT_CODE_FROM_ASSET_OBJECT_CODE_INACTIVE, new String[]{glPostingType, finObjectCode, chartOfAccountsCode});
             valid = false;
         }
         return valid;
@@ -237,7 +237,7 @@ public class AssetTransferDocumentRule extends GeneralLedgerPostingDocumentRuleB
         if (!super.processCustomRouteDocumentBusinessRules(document) || GlobalVariables.getMessageMap().hasErrors())
             return false;
 
-        Asset asset = ((AssetTransferDocument)document).getAsset();
+        Asset asset = ((AssetTransferDocument) document).getAsset();
         boolean valid = true;
         if (SpringContext.getBean(AssetService.class).isAssetRetired(asset)) {
             valid &= false;
@@ -256,7 +256,7 @@ public class AssetTransferDocumentRule extends GeneralLedgerPostingDocumentRuleB
 
     /**
      * This method applies business rules
-     * 
+     *
      * @param document Transfer Document
      * @return true if all rules are pass
      */
@@ -288,7 +288,7 @@ public class AssetTransferDocumentRule extends GeneralLedgerPostingDocumentRuleB
 
     /**
      * This method validates location information provided by the user
-     * 
+     *
      * @param assetTransferDocument Transfer Document
      * @return true is location information is valid for the asset type
      */
@@ -305,7 +305,7 @@ public class AssetTransferDocumentRule extends GeneralLedgerPostingDocumentRuleB
 
     /**
      * This method checks if reference objects exist in the database or not
-     * 
+     *
      * @param assetTransferDocument Transfer document
      * @return true if all objects exists in db
      */
@@ -368,8 +368,7 @@ public class AssetTransferDocumentRule extends GeneralLedgerPostingDocumentRuleB
             if (person != null) {
                 assetTransferDocument.setAssetRepresentative(person);
                 assetTransferDocument.setRepresentativeUniversalIdentifier(person.getPrincipalId());
-            }
-            else {
+            } else {
                 putError(CamsPropertyConstants.AssetTransferDocument.REP_USER_AUTH_ID, CamsKeyConstants.Transfer.ERROR_INVALID_USER_AUTH_ID, assetTransferDocument.getAssetRepresentative().getPrincipalName());
                 valid &= false;
             }
@@ -380,13 +379,13 @@ public class AssetTransferDocumentRule extends GeneralLedgerPostingDocumentRuleB
 
     /**
      * This method validates the new owner organization and account provided
-     * 
+     *
      * @param assetTransferDocument
      * @return
      */
     protected boolean validateOwnerAccount(AssetTransferDocument assetTransferDocument) {
         boolean valid = true;
-        
+
         Asset asset = assetTransferDocument.getAsset();
         /*
         String finObjectSubTypeCode = asset.getFinancialObjectSubTypeCode();
@@ -400,17 +399,17 @@ public class AssetTransferDocumentRule extends GeneralLedgerPostingDocumentRuleB
         }
         boolean assetMovable = getAssetService().isAssetMovableCheckByPayment(finObjectSubTypeCode);
         */
-        
+
         /*
          * Note: The following authorization checking on non-movable asset is already done when Transfer link is generated upon asset lookup.
-         * It is redundant here. Consider removing it. 
-         */        
-        boolean assetMovable = getAssetService().isAssetMovableCheckByPayment(asset);        
+         * It is redundant here. Consider removing it.
+         */
+        boolean assetMovable = getAssetService().isAssetMovableCheckByPayment(asset);
         FinancialSystemTransactionalDocumentAuthorizerBase documentAuthorizer = (FinancialSystemTransactionalDocumentAuthorizerBase) SpringContext.getBean(DocumentDictionaryService.class).getDocumentAuthorizer(assetTransferDocument);
         boolean isAuthorizedTransferMovable = documentAuthorizer.isAuthorized(assetTransferDocument, CamsConstants.CAM_MODULE_CODE, CamsConstants.PermissionNames.TRANSFER_NON_MOVABLE_ASSETS, GlobalVariables.getUserSession().getPerson().getPrincipalId());
-        
+
         // KFSMI-6169 - Not check permission for Transfer Non-Movable Assets when user approve the doc.
-        if (!assetTransferDocument.getDocumentHeader().getWorkflowDocument().isApprovalRequested()){
+        if (!assetTransferDocument.getDocumentHeader().getWorkflowDocument().isApprovalRequested()) {
             if (!assetMovable && !isAuthorizedTransferMovable) {
                 GlobalVariables.getMessageMap().putErrorForSectionId(CamsPropertyConstants.COMMON_ERROR_SECTION_ID, CamsKeyConstants.Transfer.ERROR_INVALID_USER_GROUP_FOR_TRANSFER_NONMOVABLE_ASSET, asset.getCapitalAssetNumber().toString());
                 valid &= false;
@@ -422,8 +421,7 @@ public class AssetTransferDocumentRule extends GeneralLedgerPostingDocumentRuleB
         if (ObjectUtils.isNotNull(organizationOwnerAccount) && (organizationOwnerAccount.isExpired())) {
             putError(CamsPropertyConstants.AssetTransferDocument.ORGANIZATION_OWNER_ACCOUNT_NUMBER, CamsKeyConstants.Transfer.ERROR_OWNER_ACCT_INVALID, assetTransferDocument.getOrganizationOwnerAccountNumber(), assetTransferDocument.getOrganizationOwnerChartOfAccountsCode());
             valid &= false;
-        }
-        else if (getAssetService().isCapitalAsset(asset) && !asset.getAssetPayments().isEmpty()) {
+        } else if (getAssetService().isCapitalAsset(asset) && !asset.getAssetPayments().isEmpty()) {
             // for a capital asset, check if plant account is defined
             Organization ownerOrg = organizationOwnerAccount.getOrganization();
             Account campusPlantAccount = ownerOrg.getCampusPlantAccount();
@@ -444,7 +442,7 @@ public class AssetTransferDocumentRule extends GeneralLedgerPostingDocumentRuleB
     /**
      * checks that all the asset payments to be transfer has a valid object code in the new Chart of account code and current fiscal
      * year
-     * 
+     *
      * @param assetTransferDocument
      * @return
      */
@@ -458,7 +456,7 @@ public class AssetTransferDocumentRule extends GeneralLedgerPostingDocumentRuleB
         for (AssetPayment assetPayment : assetPayments) {
             if (!CamsConstants.AssetPayment.TRANSFER_PAYMENT_CODE_Y.equals(assetPayment.getTransferPaymentCode())) {
                 if (this.getObjectCodeService().getByPrimaryId(fiscalYear, chartOfAccountsCode, assetPayment.getFinancialObjectCode()) == null) {
-                    putError(CamsPropertyConstants.AssetTransferDocument.ORGANIZATION_OWNER_CHART_OF_ACCOUNTS_CODE, CamsKeyConstants.Transfer.ERROR_PAYMENT_OBJECT_CODE_NOT_FOUND, new String[] { assetPayment.getFinancialObjectCode(), fiscalYear.toString() });
+                    putError(CamsPropertyConstants.AssetTransferDocument.ORGANIZATION_OWNER_CHART_OF_ACCOUNTS_CODE, CamsKeyConstants.Transfer.ERROR_PAYMENT_OBJECT_CODE_NOT_FOUND, new String[]{assetPayment.getFinancialObjectCode(), fiscalYear.toString()});
                     valid = false;
                 }
             }
@@ -475,22 +473,22 @@ public class AssetTransferDocumentRule extends GeneralLedgerPostingDocumentRuleB
 
     private boolean isNonCapitalAsset(Asset asset) {
         boolean isNonCapitalAsset = false;
-        
+
         List<String> capitalAssetAquisitionTypeCodes = new ArrayList<String>();
-        
+
         capitalAssetAquisitionTypeCodes.addAll(SpringContext.getBean(ParameterService.class).getParameterValuesAsString(AssetGlobal.class, CamsConstants.AssetGlobal.CAPITAL_OBJECT_ACQUISITION_CODE_PARAM));
         capitalAssetAquisitionTypeCodes.addAll(SpringContext.getBean(ParameterService.class).getParameterValuesAsString(AssetGlobal.class, CamsConstants.AssetGlobal.NON_NEW_ACQUISITION_GROUP_PARAM));
         capitalAssetAquisitionTypeCodes.addAll(SpringContext.getBean(ParameterService.class).getParameterValuesAsString(AssetGlobal.class, CamsConstants.AssetGlobal.NEW_ACQUISITION_CODE_PARAM));
         capitalAssetAquisitionTypeCodes.addAll(SpringContext.getBean(ParameterService.class).getParameterValuesAsString(Asset.class, CamsConstants.AssetGlobal.FABRICATED_ACQUISITION_CODE));
         capitalAssetAquisitionTypeCodes.addAll(SpringContext.getBean(ParameterService.class).getParameterValuesAsString(AssetGlobal.class, CamsConstants.AssetGlobal.PRE_TAGGING_ACQUISITION_CODE));
-        
-        if( ObjectUtils.isNotNull(asset.getAcquisitionTypeCode()) &&
-                capitalAssetAquisitionTypeCodes.contains(asset.getAcquisitionTypeCode()) ) isNonCapitalAsset = false;
+
+        if (ObjectUtils.isNotNull(asset.getAcquisitionTypeCode()) &&
+            capitalAssetAquisitionTypeCodes.contains(asset.getAcquisitionTypeCode())) isNonCapitalAsset = false;
         else isNonCapitalAsset = true;
-        
+
         return isNonCapitalAsset;
     }
-    
+
     public UniversityDateService getUniversityDateService() {
         if (this.universityDateService == null) {
             this.universityDateService = SpringContext.getBean(UniversityDateService.class);

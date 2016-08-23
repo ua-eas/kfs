@@ -18,17 +18,16 @@
  */
 package org.kuali.kfs.sys.datatools.handler;
 
-import org.kuali.kfs.sys.datatools.liquimongo.change.DeleteDocumentsHandler;
-import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.easymock.EasyMock;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.kuali.kfs.sys.datatools.liquimongo.change.DeleteDocumentsHandler;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 
 public class DeleteDocumentsHandlerTest {
     private DeleteDocumentsHandler deleteDocumentsHandler;
@@ -63,16 +62,16 @@ public class DeleteDocumentsHandlerTest {
     @Test
     public void testMakeChangeDeletesDocuments() throws Exception {
         Query q = new Query(Criteria.where("myId").is("10"));
-        
+
         mongoTemplate.remove(q, "collection");
         EasyMock.expectLastCall();
         EasyMock.replay(mongoTemplate);
-        
-        String testJson = "{ \"changeType\": \"deleteDocument\",\"collectionName\": \"collection\",\"query\": { \"myId\": \"10\"} }";    
-        
+
+        String testJson = "{ \"changeType\": \"deleteDocument\",\"collectionName\": \"collection\",\"query\": { \"myId\": \"10\"} }";
+
         deleteDocumentsHandler.setMongoTemplate(mongoTemplate);
 
-        
+
         ObjectMapper mapper = new ObjectMapper();
         JsonNode testNode = mapper.readValue(testJson, JsonNode.class);
 

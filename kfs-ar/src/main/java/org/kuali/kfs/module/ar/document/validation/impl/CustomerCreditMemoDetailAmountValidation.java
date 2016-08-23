@@ -1,40 +1,40 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import static org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseConstants.ERROR_PATH.DOCUMENT_ERROR_PREFIX;
-
-import java.math.BigDecimal;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.CustomerCreditMemoDetail;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+
+import static org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseConstants.ERROR_PATH.DOCUMENT_ERROR_PREFIX;
 
 public class CustomerCreditMemoDetailAmountValidation extends GenericValidation {
 
     private CustomerCreditMemoDetail customerCreditMemoDetail;
-    
+
     public boolean validate(AttributedDocumentEvent event) {
 
         BigDecimal quantity = customerCreditMemoDetail.getCreditMemoItemQuantity();
@@ -43,7 +43,7 @@ public class CustomerCreditMemoDetailAmountValidation extends GenericValidation 
         boolean isValid;
 
         if (ObjectUtils.isNotNull(creditMemoItemAmount) && ObjectUtils.isNull(quantity)) {
-            
+
             // customer credit memo total amount must be greater than zero
             isValid = creditMemoItemAmount.isPositive();
             if (!isValid) {
@@ -59,8 +59,8 @@ public class CustomerCreditMemoDetailAmountValidation extends GenericValidation 
             }
         }
         return true;
-    }    
-    
+    }
+
     public CustomerCreditMemoDetail getCustomerCreditMemoDetail() {
         return customerCreditMemoDetail;
     }
@@ -68,7 +68,6 @@ public class CustomerCreditMemoDetailAmountValidation extends GenericValidation 
     public void setCustomerCreditMemoDetail(CustomerCreditMemoDetail customerCreditMemoDetail) {
         this.customerCreditMemoDetail = customerCreditMemoDetail;
     }
-
 
 
 }

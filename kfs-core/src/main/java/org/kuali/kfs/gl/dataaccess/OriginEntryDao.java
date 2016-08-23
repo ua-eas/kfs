@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,14 +18,14 @@
  */
 package org.kuali.kfs.gl.dataaccess;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
-
 import org.kuali.kfs.gl.businessobject.OriginEntryFull;
 import org.kuali.kfs.gl.businessobject.OriginEntryGroup;
 import org.kuali.kfs.gl.businessobject.OriginEntryInformation;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map;
 
 
 public interface OriginEntryDao {
@@ -48,7 +48,8 @@ public interface OriginEntryDao {
 
     /**
      * Get the total amount of transactions in a group
-     * @param the id of the origin entry group to total
+     *
+     * @param the      id of the origin entry group to total
      * @param isCredit whether the total should be of credits or not
      * @return the sum of all queried origin entries
      */
@@ -56,6 +57,7 @@ public interface OriginEntryDao {
 
     /**
      * Counts the number of entries in a group
+     *
      * @param the id of an origin entry group
      * @return the count of the entries in that group
      */
@@ -86,7 +88,7 @@ public interface OriginEntryDao {
     /**
      * Return an iterator to all the entries in a group
      *
-     * @param oeg the origin entry group to get entries in
+     * @param oeg  the origin entry group to get entries in
      * @param sort the Sort Order (one of the Sort Orders defined by the SORT_ constants defined in this class)
      * @return Iterator of entries in the specified group
      */

@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -193,7 +193,6 @@ public class ContractsGrantsPaymentHistoryReport extends TransientBusinessObject
     }
 
 
-
     /**
      * Gets the awardNumber attribute.
      *
@@ -215,6 +214,7 @@ public class ContractsGrantsPaymentHistoryReport extends TransientBusinessObject
 
     /**
      * Gets the reversedIndicator attribute.
+     *
      * @return the reversedIndicator
      */
     public boolean isReversedIndicator() {
@@ -223,6 +223,7 @@ public class ContractsGrantsPaymentHistoryReport extends TransientBusinessObject
 
     /**
      * Sets the reversedIndicator attribute value.
+     *
      * @param reversedIndicator the reversedIndicator to set
      */
     public void setReversedIndicator(boolean reversedIndicator) {
@@ -231,6 +232,7 @@ public class ContractsGrantsPaymentHistoryReport extends TransientBusinessObject
 
     /**
      * Gets the appliedIndicator attribute.
+     *
      * @return the appliedIndicator
      */
     public boolean isAppliedIndicator() {
@@ -239,6 +241,7 @@ public class ContractsGrantsPaymentHistoryReport extends TransientBusinessObject
 
     /**
      * Sets the appliedIndicator attribute value.
+     *
      * @param appliedIndicator the appliedIndicator to set
      */
     public void setAppliedIndicator(boolean appliedIndicator) {

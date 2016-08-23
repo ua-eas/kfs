@@ -1,7 +1,7 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
    -
-   - Copyright 2005-2014 The Kuali Foundation
+   - Copyright 2005-2016 The Kuali Foundation
    -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
@@ -20,26 +20,26 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <documentTypes xmlns="ns:workflow/DocumentType"
                    xsi:schemaLocation="ns:workflow/DocumentType resource:DocumentType">
-		<!-- Billing Frequency BO has moved from CG to AR.  Given that, we updated the parent of the document type to reflect its new home.  The new parent ARSM is the only change. -->
+        <!-- Billing Frequency BO has moved from CG to AR.  Given that, we updated the parent of the document type to reflect its new home.  The new parent ARSM is the only change. -->
         <documentType>
-			<name>
-				BILF
-			</name>
-			<parent>
-				ARSM
-			</parent>
-			<label>
-				Billing Frequency
-			</label>
-			<helpDefinitionURL>
-				default.htm?turl=WordDocuments%2Fbillingfrequency.htm
-			</helpDefinitionURL>
-			<active>
-				true
-			</active>
-			<routingVersion>
-				2
-			</routingVersion>
-		</documentType>
+            <name>
+                BILF
+            </name>
+            <parent>
+                ARSM
+            </parent>
+            <label>
+                Billing Frequency
+            </label>
+            <helpDefinitionURL>
+                default.htm?turl=WordDocuments%2Fbillingfrequency.htm
+            </helpDefinitionURL>
+            <active>
+                true
+            </active>
+            <routingVersion>
+                2
+            </routingVersion>
+        </documentType>
     </documentTypes>
 </data>

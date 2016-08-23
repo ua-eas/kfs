@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -40,7 +40,7 @@ import java.util.Map;
 public class AwardAccountServiceImpl implements ExternalizableBusinessObjectService {
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AwardAccountServiceImpl.class);
 
-    protected  AwardAccountService getWebService() {
+    protected AwardAccountService getWebService() {
         // first attempt to get the service from the KSB - works when KFS & KC share a Rice instance
         AwardAccountService awardAccountService = (AwardAccountService) GlobalResourceLoader.getService(KcConstants.AwardAccount.SERVICE);
 
@@ -51,8 +51,7 @@ public class AwardAccountServiceImpl implements ExternalizableBusinessObjectServ
             AwardAccountSoapService soapService = null;
             try {
                 soapService = new AwardAccountSoapService();
-            }
-            catch (MalformedURLException ex) {
+            } catch (MalformedURLException ex) {
                 LOG.error("Could not intialize AwardAccountSoapService: " + ex.getMessage());
                 throw new RuntimeException("Could not intialize AwardAccountSoapService: " + ex.getMessage());
             }
@@ -65,20 +64,20 @@ public class AwardAccountServiceImpl implements ExternalizableBusinessObjectServ
     public ExternalizableBusinessObject findByPrimaryKey(Map primaryKeys) {
         Collection ebos = findMatching(primaryKeys);
 
-        if(ebos != null && ebos.iterator().hasNext()){
+        if (ebos != null && ebos.iterator().hasNext()) {
             return (ExternalizableBusinessObject) ebos.iterator().next();
-        }else{
+        } else {
             return null;
         }
     }
 
     @Override
     public Collection findMatching(Map fieldValues) {
-        String accountNumber = (String)fieldValues.get(KFSPropertyConstants.ACCOUNT_NUMBER);
+        String accountNumber = (String) fieldValues.get(KFSPropertyConstants.ACCOUNT_NUMBER);
         if (StringUtils.isBlank(accountNumber)) {
             accountNumber = null; // don't pass an empty string account number to KC
         }
-        String chartOfAccountsCode = (String)fieldValues.get(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE);
+        String chartOfAccountsCode = (String) fieldValues.get(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE);
         if (StringUtils.isBlank(chartOfAccountsCode)) {
             chartOfAccountsCode = null; // don't pass an empty string chart code to KC
         }
@@ -87,18 +86,18 @@ public class AwardAccountServiceImpl implements ExternalizableBusinessObjectServ
         List<AwardAccountDTO> awardAccountDTOs = null;
 
         //get award account DTO
-        try{
+        try {
             awardAccountDTOs = getWebService().getAwardAccounts(accountNumber, chartOfAccountsCode);
         } catch (WebServiceException ex) {
-            LOG.error("Could not retrieve award accounts: "+ ex.getMessage());
+            LOG.error("Could not retrieve award accounts: " + ex.getMessage());
         }
 
         if (awardAccountDTOs != null && !awardAccountDTOs.isEmpty()) {
             ContractsAndGrantsBillingAwardAccount awardAccountInfo = null;
 
-            for(AwardAccountDTO awardAccount : awardAccountDTOs){
+            for (AwardAccountDTO awardAccount : awardAccountDTOs) {
                 //create if no error messages
-                if(StringUtils.isEmpty(awardAccount.getErrorMessage())){
+                if (StringUtils.isEmpty(awardAccount.getErrorMessage())) {
                     awardAccountInfo = new AwardAccount(awardAccount);
                     awardAccounts.add(awardAccountInfo);
                 }

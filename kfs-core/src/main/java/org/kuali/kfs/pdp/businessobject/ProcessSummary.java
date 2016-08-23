@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -22,14 +22,14 @@
  */
 package org.kuali.kfs.pdp.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.pdp.service.PaymentGroupService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.TimestampedBusinessObjectBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.api.util.type.KualiInteger;
+
+import java.util.LinkedHashMap;
 
 
 public class ProcessSummary extends TimestampedBusinessObjectBase {
@@ -138,17 +138,17 @@ public class ProcessSummary extends TimestampedBusinessObjectBase {
         this.processId = processId;
     }
 
-    public String getSortGroupName(){
-       PaymentGroupService paymentGroupService = SpringContext.getBean(PaymentGroupService.class);
-       String sortGroupName = paymentGroupService.getSortGroupName(sortGroupId.intValue());
-       return sortGroupName;
+    public String getSortGroupName() {
+        PaymentGroupService paymentGroupService = SpringContext.getBean(PaymentGroupService.class);
+        String sortGroupName = paymentGroupService.getSortGroupName(sortGroupId.intValue());
+        return sortGroupName;
     }
 
-    public void setSortGroupName(){
+    public void setSortGroupName() {
 
     }
 
-      /**
+    /**
      * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
      */
 

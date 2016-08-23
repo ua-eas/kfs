@@ -1,31 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.service;
 
-import java.util.Collection;
-import java.util.Map;
-
+import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.kns.web.ui.Row;
 import org.kuali.kfs.module.ld.businessobject.AccountStatusCurrentFunds;
 import org.kuali.kfs.module.ld.businessobject.LedgerBalance;
 import org.kuali.kfs.module.ld.businessobject.LedgerEntry;
-import org.kuali.kfs.kns.web.ui.Field;
-import org.kuali.kfs.kns.web.ui.Row;
+
+import java.util.Collection;
+import java.util.Map;
 
 /**
  * The LaborInquiryOptionsService interface provides hooks for Pending Ledger and Consilidation options for balance inquiries.
@@ -74,10 +74,10 @@ public interface LaborInquiryOptionsService {
     /**
      * update a given balance collection with the pending entry obtained from the given field values and pending entry option
      *
-     * @param balanceCollection the given ledger balance collection
-     * @param fieldValues the given field values
+     * @param balanceCollection  the given ledger balance collection
+     * @param fieldValues        the given field values
      * @param pendingEntryOption the given pending entry option: all, approved or none
-     * @param isConsolidated indicate if the collection balances have been consolidated
+     * @param isConsolidated     indicate if the collection balances have been consolidated
      * @see org.kuali.kfs.module.ld.businessobject.LedgerBalance
      */
     public void updateLedgerBalanceByPendingLedgerEntry(Collection<LedgerBalance> balanceCollection, Map fieldValues, String pendingEntryOption, boolean isConsolidated);
@@ -85,10 +85,10 @@ public interface LaborInquiryOptionsService {
     /**
      * update a given balance collection with the pending entry obtained from the given field values and pending entry option
      *
-     * @param balanceCollection the given ledger balance collection
-     * @param fieldValues the given field values
+     * @param balanceCollection  the given ledger balance collection
+     * @param fieldValues        the given field values
      * @param pendingEntryOption the given pending entry option: all, approved or none
-     * @param isConsolidated indicate if the collection balances have been consolidated
+     * @param isConsolidated     indicate if the collection balances have been consolidated
      * @see org.kuali.kfs.module.ld.businessobject.LedgerBalance
      */
     public void updateCurrentFundsByPendingLedgerEntry(Collection<AccountStatusCurrentFunds> balanceCollection, Map fieldValues, String pendingEntryOption, boolean isConsolidated);
@@ -96,8 +96,8 @@ public interface LaborInquiryOptionsService {
     /**
      * update a given ledger entry collection with the pending entry obtained from the given field values and pending entry option
      *
-     * @param entryCollection the given ledger entry collection
-     * @param fieldValues the given field values
+     * @param entryCollection    the given ledger entry collection
+     * @param fieldValues        the given field values
      * @param pendingEntryOption the given pending entry option: all, approved or none
      * @see org.kuali.kfs.module.ld.businessobject.LedgerEntry
      */

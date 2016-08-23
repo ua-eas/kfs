@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -66,8 +66,8 @@ public class CustomerInvoiceForm extends KualiAccountingDocumentFormBase {
     }
 
     /**
-     *
      * This method...
+     *
      * @return
      */
     public CustomerInvoiceDocument getCustomerInvoiceDocument() {
@@ -100,7 +100,7 @@ public class CustomerInvoiceForm extends KualiAccountingDocumentFormBase {
      * By overriding this method, we can add the invoice total and open amount to the document header.
      *
      * @see org.kuali.rice.kns.web.struts.form.KualiForm#getDocInfo()
-     *
+     * <p>
      * KRAD Conversion: Performs the customization of the header fields.
      * No data dictionary is involved here.
      */
@@ -144,7 +144,7 @@ public class CustomerInvoiceForm extends KualiAccountingDocumentFormBase {
      * Build additional customer invoice specific buttons and set extraButtons list.
      *
      * @return - list of extra buttons to be displayed to the user
-     *
+     * <p>
      * KRAD Conversion: Performs the creation of extra buttons.
      * No data dictionary is involved here.
      */
@@ -158,7 +158,7 @@ public class CustomerInvoiceForm extends KualiAccountingDocumentFormBase {
         CustomerInvoiceDocument invoiceDocument = (CustomerInvoiceDocument) getDocument();
         DocumentHelperService docHelperService = SpringContext.getBean(DocumentHelperService.class);
         CustomerInvoiceDocumentPresentationController presoController =
-                (CustomerInvoiceDocumentPresentationController) docHelperService.getDocumentPresentationController(invoiceDocument);
+            (CustomerInvoiceDocumentPresentationController) docHelperService.getDocumentPresentationController(invoiceDocument);
         Set<String> editModes = presoController.getEditModes(invoiceDocument);
 
         //  draw the Print File button if appropriate
@@ -188,11 +188,11 @@ public class CustomerInvoiceForm extends KualiAccountingDocumentFormBase {
      * Adds a new button to the extra buttons collection.
      *
      * @param property - property for button
-     * @param source - location of image
-     * @param altText - alternate text for button if images don't appear
-     *
-     * KRAD Conversion: Performs extra button customization.
-     * No data dictionary is involved here.
+     * @param source   - location of image
+     * @param altText  - alternate text for button if images don't appear
+     *                 <p>
+     *                 KRAD Conversion: Performs extra button customization.
+     *                 No data dictionary is involved here.
      */
     protected void addExtraButton(String property, String source, String altText) {
 

@@ -1,38 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.report.service.impl;
-
-import static java.awt.Color.BLACK;
-import static net.sf.jasperreports.crosstabs.JRCellContents.POSITION_X_LEFT;
-import static net.sf.jasperreports.crosstabs.JRCellContents.POSITION_Y_TOP;
-import static net.sf.jasperreports.crosstabs.JRCrosstab.RUN_DIRECTION_LTR;
-import static net.sf.jasperreports.engine.JRElement.MODE_OPAQUE;
-import static net.sf.jasperreports.engine.JRVariable.CALCULATION_SUM;
-
-import java.awt.Color;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
 
 import net.sf.jasperreports.crosstabs.design.JRDesignCellContents;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstab;
@@ -65,7 +49,6 @@ import net.sf.jasperreports.engine.design.JRDesignSubreport;
 import net.sf.jasperreports.engine.design.JRDesignTextElement;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
 import net.sf.jasperreports.engine.design.JasperDesign;
-
 import org.apache.log4j.Logger;
 import org.kuali.kfs.module.tem.report.RString;
 import org.kuali.kfs.module.tem.report.RTextStyle;
@@ -82,32 +65,47 @@ import org.kuali.kfs.module.tem.report.annotations.Summary;
 import org.kuali.kfs.module.tem.report.service.TravelReportFactoryService;
 import org.kuali.kfs.sys.report.ReportInfo;
 
+import java.awt.*;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
+
+import static java.awt.Color.BLACK;
+import static net.sf.jasperreports.crosstabs.JRCellContents.POSITION_X_LEFT;
+import static net.sf.jasperreports.crosstabs.JRCellContents.POSITION_Y_TOP;
+import static net.sf.jasperreports.crosstabs.JRCrosstab.RUN_DIRECTION_LTR;
+import static net.sf.jasperreports.engine.JRElement.MODE_OPAQUE;
+import static net.sf.jasperreports.engine.JRVariable.CALCULATION_SUM;
+
 /**
  * Service interface for creating travel reports. Uses annotations from the {@link org.kuali.kfs.module.tem.report.annotations}
  * package to build reports on a {@link ReportInfo} instance. Primarily utilizes classes from
  * {@link net.sf.jasperreports.engine.design}
- *
  */
 @SuppressWarnings("deprecation")
 public class TravelReportFactoryServiceImpl implements TravelReportFactoryService {
 
     public static Logger LOG = Logger.getLogger(TravelReportFactoryServiceImpl.class);
 
-    private static final int MARGIN            = 10;
+    private static final int MARGIN = 10;
     private static final int PAGEHEADER_HEIGHT = 25;
-    private static final int REPORT_HEIGHT     = 842 - MARGIN;
-    private static final int TITLE_HEIGHT      = 842 / 9;                                             // 1/9 of total height
-    private static final int DETAIL_HEIGHT     = (REPORT_HEIGHT - TITLE_HEIGHT);
-    private static final int SUMMARY_HEIGHT    = ((DETAIL_HEIGHT) / 5) + PAGEHEADER_HEIGHT;           // 20% of remaining height
-    private static final int SUBREPORT_HEIGHT  = (DETAIL_HEIGHT - SUMMARY_HEIGHT) / 3;                // 3 subreports allowed
-    private static final int COLHEADER_HEIGHT  = 20;
+    private static final int REPORT_HEIGHT = 842 - MARGIN;
+    private static final int TITLE_HEIGHT = 842 / 9;                                             // 1/9 of total height
+    private static final int DETAIL_HEIGHT = (REPORT_HEIGHT - TITLE_HEIGHT);
+    private static final int SUMMARY_HEIGHT = ((DETAIL_HEIGHT) / 5) + PAGEHEADER_HEIGHT;           // 20% of remaining height
+    private static final int SUBREPORT_HEIGHT = (DETAIL_HEIGHT - SUMMARY_HEIGHT) / 3;                // 3 subreports allowed
+    private static final int COLHEADER_HEIGHT = 20;
     private static final int PAGEFOOTER_HEIGHT = 17;
-    private static final int COLFOOTER_HEIGHT  = 16;
-    private static final int CT_HEADER_WIDTH   = 175;
-    private static final int CELL_WIDTH        = 50;
-    private static final int CELL_HEIGHT       = 18;
-    private static final int GROUP_HEIGHT      = (DETAIL_HEIGHT / 3);
-    protected Map<String,RTextStyle> styles;
+    private static final int COLFOOTER_HEIGHT = 16;
+    private static final int CT_HEADER_WIDTH = 175;
+    private static final int CELL_WIDTH = 50;
+    private static final int CELL_HEIGHT = 18;
+    private static final int GROUP_HEIGHT = (DETAIL_HEIGHT / 3);
+    protected Map<String, RTextStyle> styles;
 
     /**
      * Creates a level 1 header preset
@@ -207,9 +205,9 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
      * Retrieves the names of crosstabs. Names are determined by the {@link Field} names of the {@link Field}s in
      * the {@link ReportInfo} class with the {@link Crosstab} annotation.
      *
-     * @see org.kuali.kfs.module.tem.report.annotations.Crosstab
      * @param report instance to get crosstab names for
      * @return a {@link Collection} of names for the crosstabs
+     * @see org.kuali.kfs.module.tem.report.annotations.Crosstab
      */
     protected Collection<String> getCrosstabNames(final ReportInfo report) {
         final Collection<String> retval = new ArrayList<String>();
@@ -226,12 +224,12 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
      * the {@link ReportInfo} class with the {@link Crosstab} annotation. Also, only gets {@link Crosstab}
      * {@link Field}s by additional annotations that may describe them.
      *
-     * @see org.kuali.kfs.module.tem.report.annotations.Crosstab
-     * @param report instance to get crosstab names for
+     * @param report      instance to get crosstab names for
      * @param annotations {@link Class} instances of additional annotations that must be present on the {@link Field}
      * @return a {@link Collection} of names for the crosstabs
+     * @see org.kuali.kfs.module.tem.report.annotations.Crosstab
      */
-    protected Collection<String> getCrosstabNames(final ReportInfo report, final Class ... annotations) {
+    protected Collection<String> getCrosstabNames(final ReportInfo report, final Class... annotations) {
         final Collection<String> retval = new ArrayList<String>();
         for (final Field f : report.getClass().getDeclaredFields()) {
             boolean valid = false;
@@ -325,7 +323,7 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
      * is a very general method used to find things like {@link ColumnFooter} instances or {@link PageHeader}
      * instances
      *
-     * @param report is the {@link ReportInfo} instance
+     * @param report     is the {@link ReportInfo} instance
      * @param annotation to look for that would be on a field like {@link SubReport} or {@link Summary}
      * @return true if the annotation exists, false otherwise
      */
@@ -347,15 +345,15 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
 
         retval.setHeight(SUBREPORT_HEIGHT - 25);
 
-        LOG.debug("Subreport Detail band has height of "+ retval.getHeight());
+        LOG.debug("Subreport Detail band has height of " + retval.getHeight());
 
         // In this case, we are creating a subreport and subreports have either a crosstab or not
-        LOG.debug("Checking if "+ subReport+ " is a crosstab "+ isCrosstab(subReport));
+        LOG.debug("Checking if " + subReport + " is a crosstab " + isCrosstab(subReport));
         if (isCrosstab(subReport)) {
             final JRDesignCrosstab crosstab = createCrosstab();
-            LOG.debug("Got crosstab of height "+ crosstab.getHeight()+
-                  " and width "+ crosstab.getWidth()+
-                  " adding to design of height "+ retval.getHeight());
+            LOG.debug("Got crosstab of height " + crosstab.getHeight() +
+                " and width " + crosstab.getWidth() +
+                " adding to design of height " + retval.getHeight());
 
             retval.addElement(crosstab);
         }
@@ -367,7 +365,6 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
      * Create a summary section in a {@link JasperReport}. Checks the {@link JasperReport} fields for a
      * {@link Summary} annotation and processes that {@link Summary} field.
      *
-     * @return subreport is the {@link SubReport} {@link Field}
      * @return {@link JRBand} of the summary that goes into a subreport
      */
     public JRBand createSummary(final Field subReport) throws Exception {
@@ -375,13 +372,13 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
 
         retval.setHeight(SUBREPORT_HEIGHT);
 
-        LOG.debug("Summary band has height of "+ retval.getHeight());
+        LOG.debug("Summary band has height of " + retval.getHeight());
 
         // In this case, we are creating a subreport and subreports have either a crosstab or not
-        LOG.debug("Checking if "+ subReport+ " is a crosstab "+ isCrosstab(subReport));
+        LOG.debug("Checking if " + subReport + " is a crosstab " + isCrosstab(subReport));
         if (isCrosstab(subReport)) {
             final JRDesignCrosstab crosstab = createCrosstab();
-            LOG.debug("Got crosstab of height "+ crosstab.getHeight()+ " and width "+ crosstab.getWidth()+ " adding to design of height "+ retval.getHeight());
+            LOG.debug("Got crosstab of height " + crosstab.getHeight() + " and width " + crosstab.getWidth() + " adding to design of height " + retval.getHeight());
 
             retval.addElement(crosstab);
         }
@@ -397,11 +394,11 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
         final JRDesignBand retval = new JRDesignBand();
 
         int maxHeight = DETAIL_HEIGHT;
-        LOG.debug("Summary: Initial height is "+ DETAIL_HEIGHT);
+        LOG.debug("Summary: Initial height is " + DETAIL_HEIGHT);
 
         retval.setHeight(CELL_HEIGHT + 5);
 
-        LOG.debug("Summary: Detail band has height of "+ maxHeight);
+        LOG.debug("Summary: Detail band has height of " + maxHeight);
         int y = 0;
 
         LOG.info("Summary: Adding fields for detail");
@@ -412,14 +409,13 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
             for (final JRChild element : elements) {
                 final JRDesignCrosstab crosstab = (JRDesignCrosstab) element;
 
-                LOG.debug("Adding crosstab to summary "+ crosstab+ " with height "+ crosstab.getHeight());
+                LOG.debug("Adding crosstab to summary " + crosstab + " with height " + crosstab.getHeight());
                 crosstab.setY(y);
                 retval.addElement(crosstab);
                 y += crosstab.getHeight() + PAGEHEADER_HEIGHT;
                 retval.setHeight(y);
             }
-        }
-        else {
+        } else {
             // No crosstab, so use the detail
             final JRDesignTextField nameField = normal("$F{name}").toTextField();
             addDesignElementTo(retval, nameField, (CELL_WIDTH * 3 + 5) * 0, 0, CELL_WIDTH * 3, CELL_HEIGHT);
@@ -440,8 +436,8 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
 
         if (!(hasDetail(report) || hasSubreport(report))) {
             LOG.info("No detail for this report");
-            LOG.debug("Has detail "+ hasDetail(report));
-            LOG.debug("Has Subreport "+ hasSubreport(report));
+            LOG.debug("Has detail " + hasDetail(report));
+            LOG.debug("Has Subreport " + hasSubreport(report));
             if (reportIndex > 0) {
                 return null;
             }
@@ -450,7 +446,7 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
         }
 
         int maxHeight = DETAIL_HEIGHT;
-        LOG.debug("Initial height is "+ DETAIL_HEIGHT);
+        LOG.debug("Initial height is " + DETAIL_HEIGHT);
 
         retval.setHeight(0);
 
@@ -468,7 +464,7 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
             maxHeight -= COLFOOTER_HEIGHT;
         }
 
-        LOG.debug("Detail band has height of "+ maxHeight);
+        LOG.debug("Detail band has height of " + maxHeight);
 
         // Detail includes subreports. This really means besides subreports.
         if (hasDetail(report)) {
@@ -488,8 +484,8 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
         int upperBound = 19;
 
         final Collection<JRChild> elements = processFields(report, SubReport.class);
-        LOG.debug("Building report detail starting at position "+ y);
-        LOG.debug("Adding "+ elements.size()+ " elements to the report");
+        LOG.debug("Building report detail starting at position " + y);
+        LOG.debug("Adding " + elements.size() + " elements to the report");
         for (final JRChild obj : elements) {
 
             if (obj != null && obj instanceof JRDesignElement) {
@@ -505,7 +501,7 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
                 // it is in a subreport or a group
                 if (element instanceof JRDesignCrosstab) {
                     final JRDesignCrosstab crosstab = (JRDesignCrosstab) element;
-                    final String crosstabName       = crosstab.getDataset().getDatasetRun().getDatasetName();
+                    final String crosstabName = crosstab.getDataset().getDatasetRun().getDatasetName();
                     final JRDesignStaticText headerLine4 = h4(crosstabName).toStaticText();
 
                     if (pageidx == reportIndex) {
@@ -514,18 +510,18 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
                     y += 25;
                 }
 
-                LOG.debug("Adding element to detail "+ element.getClass()+ " " + element+ " with height "+ element.getHeight()+ " at y = "+ y);
+                LOG.debug("Adding element to detail " + element.getClass() + " " + element + " with height " + element.getHeight() + " at y = " + y);
 
                 // When we're on the correct page index, we add elements
-                LOG.debug("pageIdx = "+ pageidx);
-                LOG.debug("reportIndex = "+ reportIndex);
+                LOG.debug("pageIdx = " + pageidx);
+                LOG.debug("reportIndex = " + reportIndex);
                 if (pageidx == reportIndex) {
                     element.setY(y);
                     retval.addElement(element);
                 }
                 y += element.getHeight() + 30;
                 upperBound = Math.max(upperBound, y);
-                LOG.debug("upperbound = "+ upperBound);
+                LOG.debug("upperbound = " + upperBound);
             }
         }
 
@@ -538,7 +534,7 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
             return null;
         }
 
-        LOG.debug("Setting height to "+ upperBound);
+        LOG.debug("Setting height to " + upperBound);
         retval.setHeight(upperBound);
 
         return retval;
@@ -563,7 +559,7 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
     /**
      * Convenience method for creating buckets ({@link JRDesignCrosstabBucket}) instances for things like groups and crosstabs.
      *
-     * @param text is the {@link String} value of an expression used for the bucket
+     * @param text       is the {@link String} value of an expression used for the bucket
      * @param valueClass is a {@link Class} that the text is eventually translated to
      */
     protected JRDesignCrosstabBucket bucket(final String text, final Class valueClass) {
@@ -578,11 +574,11 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
     /**
      * Convenience method for adding an element to a parent whilst adjusting the size and location
      *
-     * @param band is a {@link JRDesignElementGroup} you want to add to
-     * @param toAdd is the {@link JRDesignTextElement} you'd like to add to the aforementioned band.
-     * @param x is the x-location
-     * @param y is the y-location
-     * @param width is the width to set to
+     * @param band   is a {@link JRDesignElementGroup} you want to add to
+     * @param toAdd  is the {@link JRDesignTextElement} you'd like to add to the aforementioned band.
+     * @param x      is the x-location
+     * @param y      is the y-location
+     * @param width  is the width to set to
      * @param height is the height to set to
      */
     protected void addDesignElementTo(final JRDesignElementGroup band, final JRDesignTextElement toAdd, int x, int y, int width, int height) {
@@ -602,7 +598,7 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
      * @return
      */
     protected String getReportTitle(final ReportInfo report) {
-        if(report.getReportTitle() != null){
+        if (report.getReportTitle() != null) {
             return report.getReportTitle();
         }
 
@@ -630,6 +626,7 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
 
     /**
      * Adds spaces at upper case characters thus splitting up the camel case of a string like in a class name
+     *
      * @param toSplit is a {@link String} to split
      * @return a {@link String} instance that has added spaces before uppercase characters
      */
@@ -639,7 +636,7 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
 
         int inc = 0;
         for (int i = 1; i < str_arr.length; i++) {
-            if (str_arr[i] >= 'A' && str_arr[i] <= 'Z' ) {
+            if (str_arr[i] >= 'A' && str_arr[i] <= 'Z') {
                 retval.insert(i + inc, ' '); // Add a space after uppercase characters
                 inc++;
             }
@@ -651,13 +648,13 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
      * Systematically retrieves groups from a {@link ReportInfo} instances, creates a {@link JRDesignGroup} from the info,
      * then adds the {@link JRDesignGroup} instance to a {@link JasperDesign} for each group.
      *
-     * @param report the {@link ReportInfo} instance to get groups for
+     * @param report    the {@link ReportInfo} instance to get groups for
      * @param designObj is the {@link JasperDesign} instance to add {@link JRDesignGroup} instances to
      */
     protected void addGroupsFor(final ReportInfo report, final JasperDesign designObj) throws Exception {
         for (final Field field : report.getClass().getDeclaredFields()) {
             if (isGroup(field)) {
-                LOG.info("Adding a group for field "+ field.getName());
+                LOG.info("Adding a group for field " + field.getName());
                 final JRDesignGroup group = createGroup(report, field);
                 designObj.addGroup(group);
             }
@@ -668,7 +665,7 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
      * Determines from the {@link Class} of a {@link ReportInfo} instance what {@link Field}s attached to it are
      * qualified as {@link JRDesignParameter}s to add to your {@link JasperDesign}.
      *
-     * @param report the {@link ReportInfo} instance representing the report
+     * @param report    the {@link ReportInfo} instance representing the report
      * @param designObj the {@link JasperDesign} instance to add parameters to
      */
     protected void addReportParametersFor(final ReportInfo report, final JasperDesign designObj) throws Exception {
@@ -679,16 +676,15 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
                 designParameter.setName(field.getName());
                 designParameter.setValueClass(field.getType());
                 designObj.addParameter(designParameter);
-                LOG.debug("Added parameter "+ designParameter.getName());
+                LOG.debug("Added parameter " + designParameter.getName());
             }
             if (isSubreport(field)) {
                 final JRDesignParameter designParameter = new JRDesignParameter();
                 designParameter.setName(field.getName() + "Subreport");
                 designParameter.setValueClass(JasperReport.class);
                 designObj.addParameter(designParameter);
-                LOG.debug("Added parameter "+ designParameter.getName());
-            }
-            else if (isCrosstab(field)) {
+                LOG.debug("Added parameter " + designParameter.getName());
+            } else if (isCrosstab(field)) {
                 final JRDesignDataset dataset = new JRDesignDataset(false);
                 addReportFieldsFor(report, dataset);
                 dataset.setName(initialCaps(field.getName()));
@@ -700,19 +696,19 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
         designParameter.setName("report");
         designParameter.setValueClass(report.getClass());
         designObj.addParameter(designParameter);
-        LOG.debug("Added parameter "+ designParameter.getName());
+        LOG.debug("Added parameter " + designParameter.getName());
     }
 
     /**
      * Determines from the {@link Class} of a {@link ReportInfo} instance what {@link Field}s attached to it are
      * qualified as {@link JRDesignParameter}s to add to your {@link JasperDesign}
      *
-     * @param report the {@link ReportInfo} instance representing the report
+     * @param report    the {@link ReportInfo} instance representing the report
      * @param designObj the {@link JasperDesign} instance to add parameters to
      */
     protected void addReportFieldsFor(final ReportInfo report, final JasperDesign designObj) throws Exception {
         final Class dataClass = findDataClassFor(report);
-        LOG.debug("Found data class "+ dataClass);
+        LOG.debug("Found data class " + dataClass);
 
         for (final Field field : dataClass.getDeclaredFields()) {
             final JRDesignField designField = new JRDesignField();
@@ -727,12 +723,12 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
      * Determines from the {@link Class} of a {@link ReportInfo} instance what {@link Field}s attached to it are
      * qualified as {@link JRDesignField}s to add to your {@link JasperDesign}.
      *
-     * @param report the {@link ReportInfo} instance representing the report
+     * @param report    the {@link ReportInfo} instance representing the report
      * @param designObj the {@link JasperDesign} instance to add {@link JRDesignField}s to
      */
     protected void addReportFieldsFor(final ReportInfo report, final JRDesignDataset dataset) throws Exception {
         final Class dataClass = findDataClassFor(report);
-        LOG.debug("Found data class "+ dataClass);
+        LOG.debug("Found data class " + dataClass);
 
         for (final Field field : dataClass.getDeclaredFields()) {
             final JRDesignField designField = new JRDesignField();
@@ -754,12 +750,12 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
 
         // Digging up all the setters
         for (final Field field : reportClass.getDeclaredFields()) {
-            LOG.debug("Examinine field "+ field+ " with type "+ field.getType());
+            LOG.debug("Examinine field " + field + " with type " + field.getType());
             if (field.getType().equals(JRDataSource.class)) {
                 // get the dataset for this class
                 final String setterName = "set" + field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
-                final Method setter = reportClass.getMethod(setterName, new Class[] {Collection.class});
-                LOG.debug("Determining what that data class should be. Found dataset setter method "+ setter.getName());
+                final Method setter = reportClass.getMethod(setterName, new Class[]{Collection.class});
+                LOG.debug("Determining what that data class should be. Found dataset setter method " + setter.getName());
 
                 // Should only have one parameter
                 final ParameterizedType methodParamType = (ParameterizedType) (setter.getGenericParameterTypes()[0]);
@@ -773,22 +769,21 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
      * A lot like {@link #designReport(ReportInfo)} except it is intended for {@link SubReport}s
      *
      * @param report is an instance of the {@link ReportInfo} which represents a report.
-     * @param field {@link Field} instance with a {@link SubReport} annotation
+     * @param field  {@link Field} instance with a {@link SubReport} annotation
      * @return a {@link JasperDesign} instance used in a {@link JasperReport}
      * @see org.kuali.kfs.module.tem.report.service.TravelReportFactoryService#designReport(org.kuali.kfs.sys.report.ReportInfo)
      */
     public JasperDesign designReport(final ReportInfo report, final Field field) throws Exception {
-        LOG.info("Designing a subreport for field "+ field.getName());
+        LOG.info("Designing a subreport for field " + field.getName());
 
-        LOG.debug("Checking the "+ field.getName()+ " for data");
+        LOG.debug("Checking the " + field.getName() + " for data");
         try {
             field.setAccessible(true);
             if (field.get(report) == null) {
                 return null;
             }
             LOG.debug("Subreport has data. Proceeding to design subreport.");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
@@ -818,8 +813,7 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
         if (hasDetail(report)) {
             LOG.debug("Creating detail for subreport");
             designObj.setDetail(createDetail(report, 0));
-        }
-        else {
+        } else {
             LOG.debug("Creating summary for subreport");
             designObj.setSummary(createSummary(field));
         }
@@ -914,8 +908,7 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
 
         if (detail != null) {
             designObj.setDetail(detail);
-        }
-        else {
+        } else {
             return null;
         }
 
@@ -926,26 +919,25 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
      * Determines what to do with a {@link Field} in a {@link ReportInfo} instance by the annotations on that
      * {@link Field} and creates a {@link JRDesignElement} from it.
      *
-     *
      * @param param
      * @param field
      * @return {@link JRDesignElement} instance
      * @throws Exception
      */
     protected JRChild createElementForField(final ReportInfo report, final Field field) throws Exception {
-        LOG.info("Processing field "+ field.getName());
+        LOG.info("Processing field " + field.getName());
         if (isSubreport(field)) {
-            LOG.debug("Creating a report element from field "+ field.getName());
+            LOG.debug("Creating a report element from field " + field.getName());
             return createSubreport(report, field);
         }
 
         if (isCrosstab(field)) {
-            LOG.debug("Creating a crosstab from field "+ field.getName());
-            final JRDesignCrosstab crosstab       = createCrosstab(report, field);
+            LOG.debug("Creating a crosstab from field " + field.getName());
+            final JRDesignCrosstab crosstab = createCrosstab(report, field);
             final JRDesignCrosstabDataset dataset = new JRDesignCrosstabDataset();
-            final JRDesignDatasetRun dsRun        = new JRDesignDatasetRun();
+            final JRDesignDatasetRun dsRun = new JRDesignDatasetRun();
             final JRDesignExpression dsExpression = new JRDesignExpression();
-            final String getterName               = "get" + field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
+            final String getterName = "get" + field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
             dsExpression.setText("$P{report}." + getterName + "()");
             dsExpression.setValueClass(JRDataSource.class);
             dsRun.setDatasetName(initialCaps(field.getName()));
@@ -971,7 +963,7 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
                 addDesignElementTo(summary, headerField, (CELL_WIDTH * 3 + 5) * fieldIdx, PAGEHEADER_HEIGHT, CELL_WIDTH * 2, CELL_HEIGHT);
 
                 final JRDesignTextField textElement = normal("$F{" + dataField.getName() + "}").toTextField(dataField.getType());
-                LOG.debug("Adding summary field "+ dataField.getName()+ " at ("+ (CELL_WIDTH + 5) * fieldIdx+ "+ 0");
+                LOG.debug("Adding summary field " + dataField.getName() + " at (" + (CELL_WIDTH + 5) * fieldIdx + "+ 0");
                 addDesignElementTo(summary, textElement, (CELL_WIDTH * 3 + 5) * fieldIdx, PAGEHEADER_HEIGHT + CELL_HEIGHT, CELL_WIDTH * 3, CELL_HEIGHT);
                 fieldIdx++;
             }
@@ -1008,8 +1000,8 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
      * parent report to place the sub report. This does not actually create another report.
      *
      * @param report is the parent report
-     * @field is the field that is a {@link SubReport}
      * @return {@link JRDesignSubreport} to be added to report
+     * @field is the field that is a {@link SubReport}
      */
     protected JRDesignSubreport createSubreport(final ReportInfo report, final Field field) throws Exception {
         final JRDesignSubreport retval = new JRDesignSubreport(new JasperDesign());
@@ -1102,7 +1094,7 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
      * reports that have at least 1 {@link Field} with a {@link Group} annotation and implements the {@link DetailedReport} interface.
      *
      * @param report instance the {@link JRDesignGroup} belongs to
-     * @param field that the {@link Group} will draw data from
+     * @param field  that the {@link Group} will draw data from
      * @return {@link JRDesignGroup} instance that can be set on a {@link JasperDesign}
      */
     protected JRDesignGroup createGroup(final ReportInfo report, final Field field) {
@@ -1132,8 +1124,7 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
                     retval++;
                 }
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.warn("Unable to get group count");
         }
 
@@ -1159,8 +1150,7 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
                     retval++;
                 }
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.warn("Unable to get subreport count");
         }
 
@@ -1177,10 +1167,10 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
      * @param report {@link ReportInfo} instance to process fields on
      * @return {@link Collection} of {@link JRDesignElement} instances that are part of the {@link ReportInfo}
      * @throws Exception because there are a lot of I/O and Reflection actions performed that can
-     * potentially cause problems.
+     *                   potentially cause problems.
      */
     protected Collection<JRChild> processFields(final ReportInfo report) throws Exception {
-        return processFields(report, new Class[] {});
+        return processFields(report, new Class[]{});
     }
 
     /**
@@ -1188,13 +1178,13 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
      * This method tries to be smart about what fields in the {@link ReportInfo} are to be used and how they
      * are used in the input.
      *
-     * @param report {@link ReportInfo} instance to process fields on
+     * @param report      {@link ReportInfo} instance to process fields on
      * @param annotations is a filter on what fields by the {@link Annotation} they might have.
      * @return {@link Collection} of {@link JRDesignElement} instances that are part of the {@link ReportInfo}
      * @throws Exception because there are a lot of I/O and Reflection actions performed that can
-     * potentially cause problems.
+     *                   potentially cause problems.
      */
-    protected Collection<JRChild> processFields(final ReportInfo report, final Class ... annotations) throws Exception {
+    protected Collection<JRChild> processFields(final ReportInfo report, final Class... annotations) throws Exception {
         final Collection<JRChild> retval = new ArrayList<JRChild>();
 
         for (final Field field : report.getClass().getDeclaredFields()) {
@@ -1212,9 +1202,9 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
     /**
      * Overloaded convenience method for creating {@link JRDesignCrosstabCell} instances. This instance assumes there is no column group.
      *
-     * @param type is a {@link Class} is used to determine how to render the {@link JRDesignTextField} contained
-     * in the {@link JRDesignCrosstabCell}
-     * @param value is the {@link String} value to render in the {@link JRDesignCrosstabCell}
+     * @param type     is a {@link Class} is used to determine how to render the {@link JRDesignTextField} contained
+     *                 in the {@link JRDesignCrosstabCell}
+     * @param value    is the {@link String} value to render in the {@link JRDesignCrosstabCell}
      * @param rowGroup is the name of the rowgroup this cell is part of.
      */
     protected JRDesignCrosstabCell crosstabCell(final Class type, final String value, final String rowGroup) {
@@ -1224,14 +1214,14 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
     /**
      * Convenience method for creating {@link JRDesignCrosstabCell} instances. It is possible to be part of a row group and a column group.
      *
-     * @param type is a {@link Class} is used to determine how to render the {@link JRDesignTextField} contained
-     * in the {@link JRDesignCrosstabCell}
-     * @param value is the {@link String} value to render in the {@link JRDesignCrosstabCell}
+     * @param type     is a {@link Class} is used to determine how to render the {@link JRDesignTextField} contained
+     *                 in the {@link JRDesignCrosstabCell}
+     * @param value    is the {@link String} value to render in the {@link JRDesignCrosstabCell}
      * @param rowGroup is the name of the rowgroup this cell is part of.
      * @param colGroup is the name of the column group this cell is part of.
      */
     protected JRDesignCrosstabCell crosstabCell(final Class type, final String value, final String rowGroup, final String colGroup) {
-        LOG.debug("Creating cell with row group = "+ rowGroup+ " and column group = "+ colGroup);
+        LOG.debug("Creating cell with row group = " + rowGroup + " and column group = " + colGroup);
         final JRDesignCrosstabCell retval = new JRDesignCrosstabCell();
         final JRDesignCellContents contents = new JRDesignCellContents();
         final JRDesignTextField field = normal(value).toTextField(type);
@@ -1253,8 +1243,8 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
     /**
      * Overloaded convenience method for creating {@link JRDesignCrosstabCell} instances. This case assumes there is no row or column group
      *
-     * @param type is a {@link Class} is used to determine how to render the {@link JRDesignTextField} contained
-     * in the {@link JRDesignCrosstabCell}
+     * @param type  is a {@link Class} is used to determine how to render the {@link JRDesignTextField} contained
+     *              in the {@link JRDesignCrosstabCell}
      * @param value is the {@link String} value to render in the {@link JRDesignCrosstabCell}
      */
     protected JRDesignCrosstabCell crosstabCell(final Class type, final String value) {
@@ -1341,6 +1331,7 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
 
     /**
      * Creates a crosstab. Intended for a subreport because this assumes the main dataset.
+     *
      * @return a {@link JRDesignCrosstab} instance
      */
     protected JRDesignCrosstab createCrosstab() throws Exception {
@@ -1428,11 +1419,11 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
         return false;
     }
 
-    protected boolean hasFieldWithAnnotations(final ReportInfo report, final Class ... annotations) {
+    protected boolean hasFieldWithAnnotations(final ReportInfo report, final Class... annotations) {
         return hasFieldWithAnnotations(report.getClass(), annotations);
     }
 
-    protected boolean hasFieldWithAnnotations(final Class reportClass, final Class ... annotations) {
+    protected boolean hasFieldWithAnnotations(final Class reportClass, final Class... annotations) {
         for (final Field field : reportClass.getDeclaredFields()) {
             if (hasAnnotations(field, annotations)) {
                 return true;
@@ -1442,15 +1433,15 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
     }
 
     @Override
-    public Field getFieldWithAnnotation(final ReportInfo report, final Class ... annotations) {
+    public Field getFieldWithAnnotation(final ReportInfo report, final Class... annotations) {
         return getFieldsWithAnnotation(report.getClass(), annotations).iterator().next();
     }
 
-    protected Field getFieldWithAnnotation(final Class searchClass, final Class ... annotations) {
+    protected Field getFieldWithAnnotation(final Class searchClass, final Class... annotations) {
         return getFieldsWithAnnotation(searchClass, annotations).iterator().next();
     }
 
-    protected Collection<Field> getFieldsWithAnnotation(final Class searchClass, final Class ... annotations) {
+    protected Collection<Field> getFieldsWithAnnotation(final Class searchClass, final Class... annotations) {
         final Collection<Field> retval = new ArrayList<Field>();
         for (final Field field : searchClass.getDeclaredFields()) {
             if (hasAnnotations(field, annotations)) {
@@ -1460,9 +1451,9 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
         return retval;
     }
 
-    protected boolean hasAnnotations(final Field field, final Class ... annotations) {
+    protected boolean hasAnnotations(final Field field, final Class... annotations) {
         for (final Class annotation : annotations) {
-            LOG.debug("Checking if field "+ field.getName()+ " has annotation "+ annotation.getSimpleName());
+            LOG.debug("Checking if field " + field.getName() + " has annotation " + annotation.getSimpleName());
             if (field.getAnnotation(annotation) == null) {
                 return false;
             }
@@ -1475,7 +1466,7 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
      * Determine whether a {@link Field} in the {@link ReportInfo} instance is a report {@link Subreport} or not.
      *
      * @param field a {@link Field} instance in a {@link ReportInfo} class
-     * @param true if the {@link Subreport} annotation is on a {@link Field}
+     * @param true  if the {@link Subreport} annotation is on a {@link Field}
      */
     protected boolean isSubreport(final Field field) {
         return field.getAnnotation(SubReport.class) != null;
@@ -1485,7 +1476,7 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
      * Determine whether a {@link Field} in the {@link ReportInfo} instance is a report {@link Summary} or not.
      *
      * @param field a {@link Field} instance in a {@link ReportInfo} class
-     * @param true if the {@link Summary} annotation is on a {@link Field}
+     * @param true  if the {@link Summary} annotation is on a {@link Field}
      */
     @Override
     public boolean isSummary(final Field field) {
@@ -1496,7 +1487,7 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
      * Determine whether a {@link Field} in the {@link ReportInfo} instance is a report {@link Crosstab} or not.
      *
      * @param field a {@link Field} instance in a {@link ReportInfo} class
-     * @param true if the {@link Crosstab} annotation is on a {@link Field}
+     * @param true  if the {@link Crosstab} annotation is on a {@link Field}
      */
     protected boolean isCrosstab(final Field field) {
         for (final Annotation annotation : field.getDeclaredAnnotations()) {
@@ -1511,7 +1502,7 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
      * Determine whether a {@link Field} in the {@link ReportInfo} instance is a report {@link Group} or not.
      *
      * @param field a {@link Field} instance in a {@link ReportInfo} class
-     * @param true if the {@link Group} annotation is on a {@link Field}
+     * @param true  if the {@link Group} annotation is on a {@link Field}
      */
     protected boolean isGroup(final Field field) {
         for (final Annotation annotation : field.getDeclaredAnnotations()) {
@@ -1526,7 +1517,7 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
      * Determine whether a {@link Field} in the {@link ReportInfo} instance is a report {@link Parameter} or not.
      *
      * @param field a {@link Field} instance in a {@link ReportInfo} class
-     * @param true if the {@link Parameter} annotation is on a {@link Field}
+     * @param true  if the {@link Parameter} annotation is on a {@link Field}
      */
     protected boolean isParameter(final Field field) {
         for (final Annotation annotation : field.getDeclaredAnnotations()) {
@@ -1539,17 +1530,19 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
 
     /**
      * Gets the styles property.
+     *
      * @return Returns the styles.
      */
-    public Map<String,RTextStyle> getStyles() {
+    public Map<String, RTextStyle> getStyles() {
         return styles;
     }
 
     /**
      * Sets the styles property value.
+     *
      * @param styles The styles to set.
      */
-    public void setStyles(final Map<String,RTextStyle> styles) {
+    public void setStyles(final Map<String, RTextStyle> styles) {
         this.styles = styles;
     }
 
@@ -1558,21 +1551,21 @@ public class TravelReportFactoryServiceImpl implements TravelReportFactoryServic
             super(container);
 
             final JRBaseBoxPen pen = new JRBaseBoxPen(this) {
-                    @Override
-                    public Color getLineColor() {
-                        return BLACK;
-                    }
+                @Override
+                public Color getLineColor() {
+                    return BLACK;
+                }
 
-                    @Override
-                    public Byte getLineStyle() {
-                        return LINE_STYLE_SOLID;
-                    }
+                @Override
+                public Byte getLineStyle() {
+                    return LINE_STYLE_SOLID;
+                }
 
-                    @Override
-                    public Float getLineWidth() {
-                        return 0.5f;
-                    }
-                };
+                @Override
+                public Float getLineWidth() {
+                    return 0.5f;
+                }
+            };
 
             this.pen = pen;
         }

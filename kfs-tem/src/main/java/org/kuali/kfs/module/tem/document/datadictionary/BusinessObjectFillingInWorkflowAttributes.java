@@ -1,35 +1,34 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.module.tem.document.datadictionary;
 
-import static org.apache.commons.lang.StringUtils.isBlank;
+import org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kuali.kfs.krad.datadictionary.SearchingTypeDefinition;
+import static org.apache.commons.lang.StringUtils.isBlank;
 
 /**
  * Generic BusinessObjectFillingInWorkflowAttributes that are aware of the business object. This makes it so that we can specify
  * attributes per business object if we need to and reduce the amount of repitious code.
- *
  */
 public class BusinessObjectFillingInWorkflowAttributes extends org.kuali.kfs.krad.datadictionary.WorkflowAttributes {
     private static final long serialVersionUID = -3426603523049661524L;
@@ -70,6 +69,7 @@ public class BusinessObjectFillingInWorkflowAttributes extends org.kuali.kfs.kra
 
         /**
          * Gets the businessObjectClassName attribute.
+         *
          * @return Returns the businessObjectClassName.
          */
         public String getBusinessObjectClassName() {
@@ -78,6 +78,7 @@ public class BusinessObjectFillingInWorkflowAttributes extends org.kuali.kfs.kra
 
         /**
          * Sets the businessObjectClassName attribute value.
+         *
          * @param businessObjectClassName The businessObjectClassName to set.
          */
         public void setBusinessObjectClassName(final String businessObjectClassName) {

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -54,7 +54,7 @@ public class PredeterminedBillingScheduleMaintainableImpl extends FinancialSyste
      * This method is called to check if the award already has bills set, and to validate on refresh
      *
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#refresh(java.lang.String, java.util.Map,
-     *      org.kuali.rice.kns.document.MaintenanceDocument)
+     * org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
     public void refresh(String refreshCaller, Map fieldValues, MaintenanceDocument document) {
@@ -62,19 +62,18 @@ public class PredeterminedBillingScheduleMaintainableImpl extends FinancialSyste
             if (PredeterminedBillingScheduleRuleUtil.checkIfBillsExist(getPredeterminedBillingSchedule())) {
                 String pathToMaintainable = DOCUMENT + "." + NEW_MAINTAINABLE_OBJECT;
                 GlobalVariables.getMessageMap().addToErrorPath(pathToMaintainable);
-                GlobalVariables.getMessageMap().putError(KFSPropertyConstants.PROPOSAL_NUMBER, ArKeyConstants.ERROR_AWARD_PREDETERMINED_BILLING_SCHEDULE_EXISTS, new String[] { getPredeterminedBillingSchedule().getProposalNumber().toString() });
+                GlobalVariables.getMessageMap().putError(KFSPropertyConstants.PROPOSAL_NUMBER, ArKeyConstants.ERROR_AWARD_PREDETERMINED_BILLING_SCHEDULE_EXISTS, new String[]{getPredeterminedBillingSchedule().getProposalNumber().toString()});
                 GlobalVariables.getMessageMap().removeFromErrorPath(pathToMaintainable);
             }
-        }
-        else {
+        } else {
             super.refresh(refreshCaller, fieldValues, document);
         }
     }
 
-   /**
-    * Not to copy over the Bills billed and billIdentifier values to prevent
-    * bad data and PK issues when saving new Bills.
-    */
+    /**
+     * Not to copy over the Bills billed and billIdentifier values to prevent
+     * bad data and PK issues when saving new Bills.
+     */
     @Override
     public void processAfterCopy(MaintenanceDocument document, Map<String, String[]> parameters) {
         super.processAfterCopy(document, parameters);
@@ -83,7 +82,7 @@ public class PredeterminedBillingScheduleMaintainableImpl extends FinancialSyste
         // reset billed indicator in case bill we're copying from was already billed
         List<Bill> bills = getPredeterminedBillingSchedule().getBills();
         if (ObjectUtils.isNotNull(bills)) {
-            for (Bill bill:bills) {
+            for (Bill bill : bills) {
                 bill.setBilled(false);
                 bill.setBillIdentifier(null);
             }
@@ -132,7 +131,8 @@ public class PredeterminedBillingScheduleMaintainableImpl extends FinancialSyste
 
     /**
      * Sets the Bill in the passed in section to be readonly if it has been copied to a CG Invoice doc.
-     *  @param section Bill section to review and possibly set readonly
+     *
+     * @param section        Bill section to review and possibly set readonly
      * @param proposalNumber used to look for CG Invoice docs
      */
     protected void prepareBillsTab(Section section, String proposalNumber) {

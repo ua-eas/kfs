@@ -1,38 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.document.service.impl;
 
-import static org.kuali.kfs.module.tem.TemConstants.TravelParameters.TRAVEL_COVERSHEET_INSTRUCTIONS;
-import static org.kuali.kfs.module.tem.TemPropertyConstants.TRAVEL_DOCUMENT_IDENTIFIER;
-import static org.kuali.kfs.sys.KFSConstants.EXTERNALIZABLE_HELP_URL_KEY;
-
-import java.beans.PropertyChangeListener;
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.tem.TemParameterConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.businessobject.ActualExpense;
@@ -43,14 +33,24 @@ import org.kuali.kfs.module.tem.document.service.TravelRelocationService;
 import org.kuali.kfs.module.tem.pdf.Coversheet;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
 
-public class TravelRelocationServiceImpl implements TravelRelocationService{
+import java.beans.PropertyChangeListener;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.kuali.kfs.module.tem.TemConstants.TravelParameters.TRAVEL_COVERSHEET_INSTRUCTIONS;
+import static org.kuali.kfs.module.tem.TemPropertyConstants.TRAVEL_DOCUMENT_IDENTIFIER;
+import static org.kuali.kfs.sys.KFSConstants.EXTERNALIZABLE_HELP_URL_KEY;
+
+public class TravelRelocationServiceImpl implements TravelRelocationService {
 
     protected static Logger LOG = Logger.getLogger(TravelRelocationServiceImpl.class);
 
@@ -94,7 +94,7 @@ public class TravelRelocationServiceImpl implements TravelRelocationService{
 
     /**
      * @see org.kuali.kfs.module.tem.service.TravelRelocationService#generateCoversheetFor(java.lang.String, java.lang.String,
-     *      org.kuali.kfs.module.tem.document.TravelRelocationDocument, java.io.OutputStream)
+     * org.kuali.kfs.module.tem.document.TravelRelocationDocument, java.io.OutputStream)
      */
     @Override
     public Coversheet generateCoversheetFor(final TravelRelocationDocument document) throws Exception {
@@ -148,27 +148,27 @@ public class TravelRelocationServiceImpl implements TravelRelocationService{
         return cover;
     }
 
-    public void setBusinessObjectService(final BusinessObjectService businessObjectService){
+    public void setBusinessObjectService(final BusinessObjectService businessObjectService) {
         this.businessObjectService = businessObjectService;
     }
 
-    protected BusinessObjectService getBusinessObjectService(){
+    protected BusinessObjectService getBusinessObjectService() {
         return this.businessObjectService;
     }
 
-    public void setDocumentService(final DocumentService documentService){
+    public void setDocumentService(final DocumentService documentService) {
         this.documentService = documentService;
     }
 
-    protected DocumentService getDocumentService(){
+    protected DocumentService getDocumentService() {
         return this.documentService;
     }
 
-    public void setConfigurationService(final ConfigurationService ConfigurationService){
+    public void setConfigurationService(final ConfigurationService ConfigurationService) {
         this.ConfigurationService = ConfigurationService;
     }
 
-    protected ConfigurationService getConfigurationService(){
+    protected ConfigurationService getConfigurationService() {
         return this.ConfigurationService;
     }
 
@@ -180,19 +180,19 @@ public class TravelRelocationServiceImpl implements TravelRelocationService{
         return personService;
     }
 
-    public void setTravelDocumentService(final TravelDocumentService travelDocumentService){
+    public void setTravelDocumentService(final TravelDocumentService travelDocumentService) {
         this.travelDocumentService = travelDocumentService;
     }
 
-    protected TravelDocumentService getTravelDocumentService(){
+    protected TravelDocumentService getTravelDocumentService() {
         return this.travelDocumentService;
     }
 
-    public void setParameterService(final ParameterService parameterService){
+    public void setParameterService(final ParameterService parameterService) {
         this.parameterService = parameterService;
     }
 
-    protected ParameterService getParameterService(){
+    protected ParameterService getParameterService() {
         return this.parameterService;
     }
 

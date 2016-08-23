@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,33 +18,22 @@
  */
 package org.kuali.kfs.module.ar.report.service.impl;
 
-import java.io.ByteArrayOutputStream;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.ResourceBundle;
-import java.util.Set;
-
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-
 import org.apache.commons.lang.time.DateUtils;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
+import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.report.ContractsGrantsReportDataHolder;
 import org.kuali.kfs.module.ar.report.service.ContractsGrantsReportHelperService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSConstants.ReportGeneration;
-import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.report.ReportInfo;
 import org.kuali.kfs.sys.service.ReportGenerationService;
 import org.kuali.rice.core.api.config.property.ConfigContext;
@@ -59,13 +48,22 @@ import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
-import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.kfs.krad.util.UrlFactory;
 import org.springframework.util.StringUtils;
+
+import java.io.ByteArrayOutputStream;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.ResourceBundle;
+import java.util.Set;
 
 /**
  * A number of methods which help the C&G Billing reports build their PDFs and do look-ups
@@ -183,7 +181,6 @@ public class ContractsGrantsReportHelperServiceImpl implements ContractsGrantsRe
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.ar.report.service.ContractsGrantsReportHelperService#formatByType(java.lang.Object, org.kuali.rice.core.web.format.Formatter)
      */
     @Override
@@ -205,9 +202,8 @@ public class ContractsGrantsReportHelperServiceImpl implements ContractsGrantsRe
         }
 
         if (ObjectUtils.isNotNull(formatter)) {
-            return (String)formatter.format(prop);
-        }
-        else {
+            return (String) formatter.format(prop);
+        } else {
             return prop.toString();
         }
     }
@@ -221,15 +217,13 @@ public class ContractsGrantsReportHelperServiceImpl implements ContractsGrantsRe
             final Date dateDate = DateUtils.addDays(dateTimeService.convertToDate(dateString), 1);
             final String newDateString = dateTimeService.toString(dateDate, KFSConstants.MONTH_DAY_YEAR_DATE_FORMAT);
             return newDateString;
-        }
-        catch (ParseException ex) {
+        } catch (ParseException ex) {
             LOG.warn("invalid date format for errorDate: " + dateString);
         }
         return KFSConstants.EMPTY_STRING;
     }
 
     /**
-     *
      * @see org.kuali.kfs.module.ar.report.service.ContractsGrantsReportHelperService#fixDateCriteria(java.lang.String, java.lang.String, boolean)
      */
     @Override
@@ -237,13 +231,13 @@ public class ContractsGrantsReportHelperServiceImpl implements ContractsGrantsRe
         final String correctedUpperBound = includeTime && StringUtils.hasText(dateUpperBound) ? correctEndDateForTime(dateUpperBound) : dateUpperBound;
         if (StringUtils.hasText(dateLowerBound)) {
             if (StringUtils.hasText(dateUpperBound)) {
-                return dateLowerBound+SearchOperator.BETWEEN.op()+correctedUpperBound;
+                return dateLowerBound + SearchOperator.BETWEEN.op() + correctedUpperBound;
             } else {
-                return SearchOperator.GREATER_THAN_EQUAL.op()+dateLowerBound;
+                return SearchOperator.GREATER_THAN_EQUAL.op() + dateLowerBound;
             }
         } else {
             if (StringUtils.hasText(dateUpperBound)) {
-                return SearchOperator.LESS_THAN_EQUAL.op()+correctedUpperBound;
+                return SearchOperator.LESS_THAN_EQUAL.op() + correctedUpperBound;
             }
         }
         return null;
@@ -297,8 +291,8 @@ public class ContractsGrantsReportHelperServiceImpl implements ContractsGrantsRe
         parameters.put(KFSConstants.PARAMETER_COMMAND, KFSConstants.INITIATE_METHOD);
         parameters.put(KFSConstants.DOCUMENT_TYPE_NAME, ArConstants.ArDocumentTypeCodes.CONTRACTS_GRANTS_COLLECTION_ACTIVTY);
         final String baseUrl = StringUtils.hasText(proposalNumber)
-                ? getBaseContractsGrantsCollectionActivityDocumentUrl()
-                : KFSConstants.EMPTY_STRING;
+            ? getBaseContractsGrantsCollectionActivityDocumentUrl()
+            : KFSConstants.EMPTY_STRING;
         initiateUrl = UrlFactory.parameterizeUrl(baseUrl, parameters);
 
         return initiateUrl;

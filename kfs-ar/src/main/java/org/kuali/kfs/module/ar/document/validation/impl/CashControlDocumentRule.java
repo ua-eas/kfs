@@ -1,28 +1,34 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.document.validation.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.service.DictionaryValidationService;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.rules.TransactionalDocumentRuleBase;
+import org.kuali.kfs.krad.rules.rule.event.ApproveDocumentEvent;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArAuthorizationConstants;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArKeyConstants;
@@ -43,16 +49,10 @@ import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.BankService;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.kns.service.DictionaryValidationService;
-import org.kuali.kfs.kns.service.DocumentHelperService;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.rules.TransactionalDocumentRuleBase;
-import org.kuali.kfs.krad.rules.rule.event.ApproveDocumentEvent;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class holds the business rules for the AR Cash Control Document
@@ -128,7 +128,7 @@ public class CashControlDocumentRule extends TransactionalDocumentRuleBase imple
      * This method checks the CashControlDetail line amount is not zero or negative.
      *
      * @param document the CashControldocument
-     * @param detail the CashControlDetail
+     * @param detail   the CashControlDetail
      * @return true is amount is valid, false otherwise
      */
     public boolean checkLineAmount(CashControlDocument document, CashControlDetail detail) {
@@ -215,16 +215,14 @@ public class CashControlDocumentRule extends TransactionalDocumentRuleBase imple
                 if (StringUtils.isBlank(refDocNumber)) {
                     GlobalVariables.getMessageMap().putError(ArPropertyConstants.CashControlDocumentFields.REFERENCE_FINANCIAL_DOC_NBR, ArKeyConstants.ERROR_REFERENCE_DOC_NUMBER_CANNOT_BE_NULL_FOR_PAYMENT_MEDIUM_CASH);
                     isValid = false;
-                }
-                else {
+                } else {
                     boolean docExists = SpringContext.getBean(DocumentService.class).documentExists(refDocNumber);
                     if (!docExists) {
                         GlobalVariables.getMessageMap().putError(ArPropertyConstants.CashControlDocumentFields.REFERENCE_FINANCIAL_DOC_NBR, ArKeyConstants.ERROR_REFERENCE_DOC_NUMBER_MUST_BE_VALID_FOR_PAYMENT_MEDIUM_CASH);
                         isValid = false;
                     }
                 }
-            }
-            catch (NumberFormatException nfe) {
+            } catch (NumberFormatException nfe) {
                 GlobalVariables.getMessageMap().putError(ArPropertyConstants.CashControlDocumentFields.REFERENCE_FINANCIAL_DOC_NBR, ArKeyConstants.ERROR_REFERENCE_DOC_NUMBER_MUST_BE_VALID_FOR_PAYMENT_MEDIUM_CASH);
                 isValid = false;
             }
@@ -266,7 +264,7 @@ public class CashControlDocumentRule extends TransactionalDocumentRuleBase imple
 
     /**
      * @see org.kuali.kfs.module.ar.document.validation.AddCashControlDetailRule#processAddCashControlDetailBusinessRules(org.kuali.rice.krad.document.TransactionalDocument,
-     *      org.kuali.kfs.module.ar.businessobject.CashControlDetail)
+     * org.kuali.kfs.module.ar.businessobject.CashControlDetail)
      */
     @Override
     public boolean processAddCashControlDetailBusinessRules(CashControlDocument transactionalDocument, CashControlDetail cashControlDetail) {
@@ -288,7 +286,7 @@ public class CashControlDocumentRule extends TransactionalDocumentRuleBase imple
     /**
      * This method validates CashControlDetail
      *
-     * @param document CashControlDocument
+     * @param document          CashControlDocument
      * @param cashControlDetail CashControlDetail
      * @return true if CashControlDetail is valid, false otherwise
      */
@@ -426,7 +424,7 @@ public class CashControlDocumentRule extends TransactionalDocumentRuleBase imple
 
     /**
      * @see org.kuali.kfs.module.ar.document.validation.DeleteCashControlDetailRule#processDeleteCashControlDetailBusinessRules(org.kuali.rice.krad.document.TransactionalDocument,
-     *      org.kuali.kfs.module.ar.businessobject.CashControlDetail)
+     * org.kuali.kfs.module.ar.businessobject.CashControlDetail)
      */
     @Override
     public boolean processDeleteCashControlDetailBusinessRules(CashControlDocument transactionalDocument, CashControlDetail cashControlDetail) {
@@ -474,16 +472,14 @@ public class CashControlDocumentRule extends TransactionalDocumentRuleBase imple
             if (ObjectUtils.isNull(bank)) {
                 isValid = false;
                 GlobalVariables.getMessageMap().putError(ArPropertyConstants.CashControlDocumentFields.BANK_CODE, ArKeyConstants.ERROR_INVALID_BANK_CODE);
-            }
-            else {
+            } else {
                 // make sure the bank is eligible for deposit activity
                 if (!bank.isBankDepositIndicator()) {
                     isValid = false;
                     GlobalVariables.getMessageMap().putError(ArPropertyConstants.CashControlDocumentFields.BANK_CODE, ArKeyConstants.ERROR_BANK_NOT_ELIGIBLE_FOR_DEPOSIT_ACTIVITY);
                 }
             }
-        }
-        else {
+        } else {
             if (SpringContext.getBean(BankService.class).isBankSpecificationEnabled()) {
                 isValid = false;
                 GlobalVariables.getMessageMap().putError(ArPropertyConstants.CashControlDocumentFields.BANK_CODE, ArKeyConstants.ERROR_BANK_CODE_REQUIRED);

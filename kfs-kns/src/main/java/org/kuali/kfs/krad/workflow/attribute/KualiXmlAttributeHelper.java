@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -21,13 +21,13 @@ package org.kuali.kfs.krad.workflow.attribute;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.kuali.rice.kew.rule.xmlrouting.StandardGenericXMLRuleAttribute;
-import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.rice.core.api.util.xml.XmlJotter;
-import org.kuali.rice.kew.rule.xmlrouting.XPathHelper;
 import org.kuali.kfs.krad.keyvalues.KeyValuesFinder;
 import org.kuali.kfs.krad.service.DataDictionaryService;
 import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.rice.core.api.util.KeyValue;
+import org.kuali.rice.core.api.util.xml.XmlJotter;
+import org.kuali.rice.kew.rule.xmlrouting.StandardGenericXMLRuleAttribute;
+import org.kuali.rice.kew.rule.xmlrouting.XPathHelper;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -172,7 +172,7 @@ public class KualiXmlAttributeHelper {
                                     KeyValuesFinder finder = (KeyValuesFinder) finderClass.newInstance();
                                     NamedNodeMap valuesNodeAttributes = displayTagChildNode.getAttributes();
                                     Node potentialSelectedAttribute = (valuesNodeAttributes != null) ? valuesNodeAttributes.getNamedItem("selected") : null;
-                                    for (Iterator iter = finder.getKeyValues().iterator(); iter.hasNext();) {
+                                    for (Iterator iter = finder.getKeyValues().iterator(); iter.hasNext(); ) {
                                         KeyValue keyValue = (KeyValue) iter.next();
                                         Element newValuesElement = root.getOwnerDocument().createElement("values");
                                         newValuesElement.appendChild(root.getOwnerDocument().createTextNode(keyValue.getKey()));
@@ -203,7 +203,7 @@ public class KualiXmlAttributeHelper {
                         }
                     }
                 }
-                for (Iterator iter = valuesElementsToAdd.iterator(); iter.hasNext();) {
+                for (Iterator iter = valuesElementsToAdd.iterator(); iter.hasNext(); ) {
                     Element valuesElementToAdd = (Element) iter.next();
                     displayTag.appendChild(valuesElementToAdd);
                 }
@@ -223,7 +223,7 @@ public class KualiXmlAttributeHelper {
                             fieldEvaluationTag.removeChild(fieldEvaluationChildNode);
                         }
                     }
-                    for (Iterator iter = tagsToAdd.iterator(); iter.hasNext();) {
+                    for (Iterator iter = tagsToAdd.iterator(); iter.hasNext(); ) {
                         Element elementToAdd = (Element) iter.next();
                         fieldEvaluationTag.appendChild(elementToAdd);
                     }

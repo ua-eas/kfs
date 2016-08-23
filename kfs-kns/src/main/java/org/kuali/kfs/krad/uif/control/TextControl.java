@@ -1,74 +1,72 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.krad.uif.control;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.uif.component.Component;
 import org.kuali.kfs.krad.uif.component.ComponentBase;
-import org.kuali.kfs.krad.uif.widget.DatePicker;
 import org.kuali.kfs.krad.uif.field.InputField;
 import org.kuali.kfs.krad.uif.view.View;
-import org.kuali.kfs.krad.uif.component.Component;
+import org.kuali.kfs.krad.uif.widget.DatePicker;
 
 import java.util.List;
 
 /**
  * Represents a HTML Text control, generally rendered as a input field of type
  * 'text'. This can display and receive a single value
- * 
- * 
  */
 public class TextControl extends ControlBase implements SizedControl {
-	private static final long serialVersionUID = -8267606288443759880L;
+    private static final long serialVersionUID = -8267606288443759880L;
 
-	private int size;
+    private int size;
     private Integer maxLength;
     private Integer minLength;
 
-	private DatePicker datePicker;
-	private String watermarkText = StringUtils.EMPTY;
-	private boolean textExpand;
-	
-	public TextControl() {
-		super();
-	}
+    private DatePicker datePicker;
+    private String watermarkText = StringUtils.EMPTY;
+    private boolean textExpand;
 
-	/**
-	 * @see ComponentBase#getComponentsForLifecycle()
-	 */
-	@Override
-	public List<Component> getComponentsForLifecycle() {
-		List<Component> components = super.getComponentsForLifecycle();
+    public TextControl() {
+        super();
+    }
 
-		components.add(datePicker);
+    /**
+     * @see ComponentBase#getComponentsForLifecycle()
+     */
+    @Override
+    public List<Component> getComponentsForLifecycle() {
+        List<Component> components = super.getComponentsForLifecycle();
 
-		return components;
-	}
+        components.add(datePicker);
+
+        return components;
+    }
 
     /**
      * The following actions are performed:
-     *
+     * <p>
      * <ul>
      * <li>Defaults maxLength, minLength (if not set) to maxLength of parent field</li>
      * </ul>
      *
      * @see ComponentBase#performFinalize(View,
-     *      java.lang.Object, Component)
+     * java.lang.Object, Component)
      */
     @Override
     public void performFinalize(View view, Object model, Component parent) {
@@ -87,11 +85,11 @@ public class TextControl extends ControlBase implements SizedControl {
     }
 
     /**
-	 * @see SizedControl#getSize()
-	 */
-	public int getSize() {
-		return this.size;
-	}
+     * @see SizedControl#getSize()
+     */
+    public int getSize() {
+        return this.size;
+    }
 
     /**
      * @see SizedControl#setSize(int)
@@ -102,7 +100,7 @@ public class TextControl extends ControlBase implements SizedControl {
 
     /**
      * Maximum number of characters that can be inputted
-     *
+     * <p>
      * <p>If not set on control, max length of field will be used</p>
      *
      * @return int max number of characters
@@ -122,7 +120,7 @@ public class TextControl extends ControlBase implements SizedControl {
 
     /**
      * Minimum number of characters that can be inputted
-     *
+     * <p>
      * <p>If not set on control, min length of field will be used</p>
      *
      * @return int max number of characters
@@ -141,45 +139,47 @@ public class TextControl extends ControlBase implements SizedControl {
     }
 
     /**
-	 * Renders a calendar that can be used to select a date value for the text
-	 * control. The <code>Calendar</code> instance contains configuration such
-	 * as the date format string
-	 * 
-	 * @return Calendar
-	 */
-	public DatePicker getDatePicker() {
-		return this.datePicker;
-	}
+     * Renders a calendar that can be used to select a date value for the text
+     * control. The <code>Calendar</code> instance contains configuration such
+     * as the date format string
+     *
+     * @return Calendar
+     */
+    public DatePicker getDatePicker() {
+        return this.datePicker;
+    }
 
-	public void setDatePicker(DatePicker datePicker) {
-		this.datePicker = datePicker;
-	}
+    public void setDatePicker(DatePicker datePicker) {
+        this.datePicker = datePicker;
+    }
 
-	/**
+    /**
      * Gets the watermark text for this TextControl.
      * <p>
      * A watermark typically appears as light gray text within the text input element whenever the
      * element is empty and does not have focus. This provides a hint to the user as to what the input
      * is used for, or the type of input that is required.
      * </p>
-	 * @return the watermarkText
-	 */
-	public String getWatermarkText() {
-		return this.watermarkText;
-	}
+     *
+     * @return the watermarkText
+     */
+    public String getWatermarkText() {
+        return this.watermarkText;
+    }
 
-	/**
+    /**
      * Sets the watermark text for this TextControl
-	 * @param watermarkText the watermarkText to set
-	 */
-	public void setWatermarkText(String watermarkText) {
-		//to avoid users from putting in the same value as the watermark adding some spaces here
-		//see watermark troubleshooting for more info
-		if (StringUtils.isNotEmpty(watermarkText)) {
-			watermarkText = watermarkText + "   ";
-		}
-		this.watermarkText = watermarkText;
-	}
+     *
+     * @param watermarkText the watermarkText to set
+     */
+    public void setWatermarkText(String watermarkText) {
+        //to avoid users from putting in the same value as the watermark adding some spaces here
+        //see watermark troubleshooting for more info
+        if (StringUtils.isNotEmpty(watermarkText)) {
+            watermarkText = watermarkText + "   ";
+        }
+        this.watermarkText = watermarkText;
+    }
 
     /**
      * If set to true, this control will have a button which can be clicked to expand the text area through
@@ -193,11 +193,12 @@ public class TextControl extends ControlBase implements SizedControl {
 
     /**
      * Sets whether this control will have a button to expand the text area through a popup window.
+     *
      * @param textExpand the textExpand to set
      */
     public void setTextExpand(boolean textExpand) {
         this.textExpand = textExpand;
     }
-	
-	
+
+
 }

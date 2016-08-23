@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,32 +18,31 @@
  */
 package org.kuali.kfs.module.ar.document.service.impl;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.Callable;
-
+import com.lowagie.text.DocumentException;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.ObjectCodeCurrent;
 import org.kuali.kfs.coa.service.AccountService;
 import org.kuali.kfs.coa.service.ObjectCodeService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.gl.businessobject.Balance;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsModuleBillingService;
+import org.kuali.kfs.krad.UserSession;
+import org.kuali.kfs.krad.bo.Attachment;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.bo.ModuleConfiguration;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.service.AttachmentService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.service.NoteService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArAuthorizationConstants;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArKeyConstants;
@@ -95,7 +94,6 @@ import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.search.SearchOperator;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.IdentityService;
@@ -103,22 +101,23 @@ import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.identity.principal.Principal;
 import org.kuali.rice.kim.api.permission.PermissionService;
-import org.kuali.kfs.krad.UserSession;
-import org.kuali.kfs.krad.bo.Attachment;
-import org.kuali.kfs.krad.bo.DocumentHeader;
-import org.kuali.kfs.krad.bo.ModuleConfiguration;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.service.AttachmentService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.service.KualiRuleService;
-import org.kuali.kfs.krad.service.NoteService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.lowagie.text.DocumentException;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.Callable;
 
 /**
  * This class implements the services required for Contracts & Grants Invoice Document.
@@ -171,14 +170,12 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
                     // If its bill by Account , irrespective of it is by contract control account, there would be a single source accounting line with award account specified by the user.
                     CustomerInvoiceDetail cide = createSourceAccountingLine(contractsGrantsInvoiceDocument.getDocumentNumber(), awardAccounts.get(0).getChartOfAccountsCode(), awardAccounts.get(0).getAccountNumber(), organizationAccountingDefault.getDefaultInvoiceFinancialObjectCode(), getAccountingLineAmountForDocument(contractsGrantsInvoiceDocument), new Integer(1));
                     contractsGrantsInvoiceDocument.getSourceAccountingLines().add(cide);
-                }
-                else if (StringUtils.equalsIgnoreCase(award.getInvoicingOptionCode(), ArConstants.INV_CONTRACT_CONTROL_ACCOUNT)) {
+                } else if (StringUtils.equalsIgnoreCase(award.getInvoicingOptionCode(), ArConstants.INV_CONTRACT_CONTROL_ACCOUNT)) {
                     // by control account
                     // If its bill by Contract Control Account there would be a single source accounting line.
                     CustomerInvoiceDetail cide = createSourceAccountingLinesByContractControlAccount(contractsGrantsInvoiceDocument, organizationAccountingDefault);
                     contractsGrantsInvoiceDocument.getSourceAccountingLines().add(cide);
-                }
-                else {
+                } else {
                     // by award
                     List<CustomerInvoiceDetail> awardAccountingLines = createSourceAccountingLinesByAward(contractsGrantsInvoiceDocument, organizationAccountingDefault);
                     contractsGrantsInvoiceDocument.getSourceAccountingLines().addAll(awardAccountingLines);
@@ -189,6 +186,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
 
     /**
      * Determines the total amount for the given document, based on billing frequency of the award
+     *
      * @param invoice the contracts & grants invoice to find a total amount for
      * @return the total amount of the document
      */
@@ -204,8 +202,9 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
 
     /**
      * Generates the source accounting lines for a Contracts & Grants Invoice from the award accounts associated with an award (in the form of the pre-generated invoice account details)
+     *
      * @param contractsGrantsInvoiceDocument the Contracts & Grants Invoice to create invoice details for
-     * @param organizationAccountingDefault the
+     * @param organizationAccountingDefault  the
      * @return a List of generated accounting lines
      */
     protected List<CustomerInvoiceDetail> createSourceAccountingLinesByAward(ContractsGrantsInvoiceDocument contractsGrantsInvoiceDocument, final OrganizationAccountingDefault organizationAccountingDefault) {
@@ -225,18 +224,16 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
                     if (totalMilestoneAmount != KualiDecimal.ZERO) {
                         totalAmount = totalMilestoneAmount;
                     }
-                }
-                else if (ArConstants.BillingFrequencyValues.isPredeterminedBilling(contractsGrantsInvoiceDocument.getInvoiceGeneralDetail())) {
+                } else if (ArConstants.BillingFrequencyValues.isPredeterminedBilling(contractsGrantsInvoiceDocument.getInvoiceGeneralDetail())) {
                     final KualiDecimal totalBillAmount = getBillAmountTotal(contractsGrantsInvoiceDocument);
                     if (totalBillAmount != KualiDecimal.ZERO) {
                         totalAmount = totalBillAmount;
                     }
-                }
-                else {
-                    final String accountKey = StringUtils.join(new String[] { invAcctD.getChartOfAccountsCode(), invAcctD.getAccountNumber() }, "-");
+                } else {
+                    final String accountKey = StringUtils.join(new String[]{invAcctD.getChartOfAccountsCode(), invAcctD.getAccountNumber()}, "-");
                     totalAmount = accountExpenditureAmounts.containsKey(accountKey)
-                            ? accountExpenditureAmounts.get(accountKey)
-                            : KualiDecimal.ZERO;
+                        ? accountExpenditureAmounts.get(accountKey)
+                        : KualiDecimal.ZERO;
                 }
 
                 CustomerInvoiceDetail cide = createSourceAccountingLine(contractsGrantsInvoiceDocument.getDocumentNumber(), coaCode, accountNumber, objectCode, totalAmount, sequenceNumber);
@@ -248,13 +245,14 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
 
     /**
      * Totals the current expenditure amounts of any invoice detail account object codes on the document which have set categories by account numbers
+     *
      * @param contractsGrantsInvoiceDocument the document holding invoice detail account object codes
      * @return a Map where the key is the concatenation of chartOfAccountsCode-accountNumber and the value is the expenditure amount on that account
      */
     protected Map<String, KualiDecimal> getCategoryExpenditureAmountsForInvoiceAccountDetail(ContractsGrantsInvoiceDocument contractsGrantsInvoiceDocument) {
         Map<String, KualiDecimal> expenditureAmounts = new HashMap<>();
         for (InvoiceDetailAccountObjectCode invoiceDetailAccountObjectCode : contractsGrantsInvoiceDocument.getInvoiceDetailAccountObjectCodes()) {
-            final String accountKey = StringUtils.join(new String[] { invoiceDetailAccountObjectCode.getChartOfAccountsCode(), invoiceDetailAccountObjectCode.getAccountNumber() }, "-");
+            final String accountKey = StringUtils.join(new String[]{invoiceDetailAccountObjectCode.getChartOfAccountsCode(), invoiceDetailAccountObjectCode.getAccountNumber()}, "-");
             if (!StringUtils.isBlank(invoiceDetailAccountObjectCode.getCategoryCode())) {
                 KualiDecimal total = expenditureAmounts.get(accountKey);
                 if (ObjectUtils.isNull(total)) {
@@ -268,8 +266,9 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
 
     /**
      * Creates source accounting lines using the contract control account to populate
+     *
      * @param contractsGrantsInvoiceDocument the Contracts & Grants Invoice to add lines to
-     * @param organizationAccountingDefault the organization accounting default associated with the invoice
+     * @param organizationAccountingDefault  the organization accounting default associated with the invoice
      */
     protected CustomerInvoiceDetail createSourceAccountingLinesByContractControlAccount(ContractsGrantsInvoiceDocument contractsGrantsInvoiceDocument, final OrganizationAccountingDefault organizationAccountingDefault) {
         // To get the account number and coa code for contract control account.
@@ -289,6 +288,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
 
     /**
      * Calculates the total of bill amounts if the given CINV doc is a pre-determined billing kind of CINV doc
+     *
      * @param contractsGrantsInvoiceDocument the document to total bills on
      * @return the total from the bills, or 0 if no bills exist or the CINV is not a pre-determined billing kind of CINV
      */
@@ -307,6 +307,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
 
     /**
      * Calculates the total of milestones on the given CINV, assuming the CINV is a milestone kind of CINV
+     *
      * @param contractsGrantsInvoiceDocument the document to find total milestones on
      * @return the total of the milestones, or 0 if no milestones exist or if the CINV is not a milestone schedule CINV
      */
@@ -325,8 +326,9 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
 
     /**
      * Retrieves the OrganizationAccountingDefault record for the given billing organization
+     *
      * @param billByChartOfAccountsCode the chart of the billing organization
-     * @param billByOrganizationCode the organization code of the billing organization
+     * @param billByOrganizationCode    the organization code of the billing organization
      * @return the OrganizationAccountingDefault for the given chart and organization code
      */
     protected OrganizationAccountingDefault retrieveBillingOrganizationAccountingDefault(final String billByChartOfAccountsCode, final String billByOrganizationCode) {
@@ -389,7 +391,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
 
             // Set expenditures to Direct Cost invoice Details
             ContractsGrantsInvoiceDetail totalDirectCostInvoiceDetail = contractsGrantsInvoiceDocument.getTotalDirectCostInvoiceDetail();
-            if (ObjectUtils.isNotNull(totalDirectCostInvoiceDetail)){
+            if (ObjectUtils.isNotNull(totalDirectCostInvoiceDetail)) {
                 totalDirectCostInvoiceDetail.setInvoiceAmount(totalDirectCostExpenditures);
             }
 
@@ -398,12 +400,12 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
 
             // Set expenditures to Indirect Cost invoice Details
             ContractsGrantsInvoiceDetail totalInDirectCostInvoiceDetail = contractsGrantsInvoiceDocument.getTotalIndirectCostInvoiceDetail();
-            if (ObjectUtils.isNotNull(totalInDirectCostInvoiceDetail)){
+            if (ObjectUtils.isNotNull(totalInDirectCostInvoiceDetail)) {
                 totalInDirectCostInvoiceDetail.setInvoiceAmount(totalInDirectCostExpenditures);
             }
 
             // Set the total for Total Cost Invoice Details section.
-            if(ObjectUtils.isNotNull(totalCostInvoiceDetail)) {
+            if (ObjectUtils.isNotNull(totalCostInvoiceDetail)) {
                 totalCostInvoiceDetail.setInvoiceAmount(totalDirectCostInvoiceDetail.getInvoiceAmount().add(totalInDirectCostExpenditures));
             }
             recalculateAccountDetails(contractsGrantsInvoiceDocument.getAccountDetails(), contractsGrantsInvoiceDocument.getInvoiceDetailAccountObjectCodes());
@@ -432,7 +434,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
 
         Map<String, String> fieldValuesForInvoice = new HashMap<>();
         fieldValuesForInvoice.put(ArPropertyConstants.ContractsGrantsInvoiceDocumentFields.PROPOSAL_NUMBER, contractsGrantsInvoiceDocument.getInvoiceGeneralDetail().getProposalNumber().toString());
-        fieldValuesForInvoice.put(ArPropertyConstants.INVOICE_GENERAL_DETAIL+"."+ArPropertyConstants.BILLING_PERIOD, contractsGrantsInvoiceDocument.getInvoiceGeneralDetail().getBillingPeriod());
+        fieldValuesForInvoice.put(ArPropertyConstants.INVOICE_GENERAL_DETAIL + "." + ArPropertyConstants.BILLING_PERIOD, contractsGrantsInvoiceDocument.getInvoiceGeneralDetail().getBillingPeriod());
         String docNumberCriteriaString = SearchOperator.NOT + contractsGrantsInvoiceDocument.getDocumentNumber();
         if (ObjectUtils.isNotNull(contractsGrantsInvoiceDocument.getFinancialSystemDocumentHeader()) && StringUtils.isNotBlank(contractsGrantsInvoiceDocument.getFinancialSystemDocumentHeader().getFinancialDocumentInErrorNumber())) {
             docNumberCriteriaString += SearchOperator.NOT + contractsGrantsInvoiceDocument.getFinancialSystemDocumentHeader().getFinancialDocumentInErrorNumber();
@@ -441,7 +443,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
         fieldValuesForInvoice.put(ArPropertyConstants.DOCUMENT_STATUS_CODE, SearchOperator.NOT + KFSConstants.DocumentStatusCodes.PROCESSED + SearchOperator.NOT + KFSConstants.DocumentStatusCodes.APPROVED);
 
         Collection<ContractsGrantsInvoiceDocument> cgInvoiceDocuments = retrieveAllCGInvoicesByCriteria(fieldValuesForInvoice);
-        for (ContractsGrantsInvoiceDocument cgInvoiceDocument: cgInvoiceDocuments) {
+        for (ContractsGrantsInvoiceDocument cgInvoiceDocument : cgInvoiceDocuments) {
             for (InvoiceAccountDetail invAcctD : cgInvoiceDocument.getAccountDetails()) {
                 newTotalBilled = newTotalBilled.add(invAcctD.getInvoiceAmount());
             }
@@ -486,8 +488,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
                 CustomerInvoiceDetail cide = (CustomerInvoiceDetail) sourceAccountingLines.get(0);
                 cide.setInvoiceItemUnitPrice(invoiceAccountDetails.get(0).getInvoiceAmount());
                 cide.setAmount(invoiceAccountDetails.get(0).getInvoiceAmount());
-            }
-            else {// Invoice By Contract Control Account
+            } else {// Invoice By Contract Control Account
                 for (InvoiceAccountDetail invoiceAccountDetail : invoiceAccountDetails) {
                     totalExpenditureAmount = totalExpenditureAmount.add(invoiceAccountDetail.getInvoiceAmount());
                 }
@@ -565,8 +566,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
             if (awardAccountObjectCodeTotalBilledList != null && !awardAccountObjectCodeTotalBilledList.isEmpty()) {
                 awardAccountObjectCodeTotalBilled = awardAccountObjectCodeTotalBilledList.get(0);
                 awardAccountObjectCodeTotalBilled.setTotalBilled(awardAccountObjectCodeTotalBilled.getTotalBilled().add(invoiceDetailAccountObjectCode.getCurrentExpenditures()));
-            }
-            else {
+            } else {
                 awardAccountObjectCodeTotalBilled.setProposalNumber(invoiceDetailAccountObjectCode.getProposalNumber());
                 awardAccountObjectCodeTotalBilled.setChartOfAccountsCode(invoiceDetailAccountObjectCode.getChartOfAccountsCode());
                 awardAccountObjectCodeTotalBilled.setAccountNumber(invoiceDetailAccountObjectCode.getAccountNumber());
@@ -638,9 +638,10 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
 
     /**
      * This method recalculates the invoiceDetailAccountObjectCode in one category that sits behind the scenes of the invoice document.
+     *
      * @param contractsGrantsInvoiceDocument
      * @param invoiceDetail
-     * @param total is the sum of the current expenditures from all the object codes in that category
+     * @param total                           is the sum of the current expenditures from all the object codes in that category
      * @param invoiceDetailAccountObjectCodes
      */
     protected void recalculateObjectCodeByCategory(ContractsGrantsInvoiceDocument contractsGrantsInvoiceDocument, ContractsGrantsInvoiceDetail invoiceDetail, KualiDecimal total, List<InvoiceDetailAccountObjectCode> invoiceDetailAccountObjectCodes) {
@@ -658,12 +659,10 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
                         newTotalAmount = newTotalAmount.add(newAmount);
                     }
                 }
-            }
-            else { // if the list is null, then there are no account/object code in the gl_balance_t. So assign the amount to the first object code in the category
+            } else { // if the list is null, then there are no account/object code in the gl_balance_t. So assign the amount to the first object code in the category
                 assignCurrentExpenditureToNonExistingAccountObjectCode(contractsGrantsInvoiceDocument, invoiceDetail);
             }
-        }
-        else {
+        } else {
 
             for (InvoiceDetailAccountObjectCode invoiceDetailAccountObjectCode : invoiceDetailAccountObjectCodes) {
                 // this may rarely happen
@@ -730,8 +729,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
                 if (remainder.isGreaterThan(KualiDecimal.ZERO)) {
                     amount = amount.add(oneCent);
                     remainder = remainder.subtract(oneCent);
-                }
-                else if (remainder.isLessThan(KualiDecimal.ZERO)) {
+                } else if (remainder.isLessThan(KualiDecimal.ZERO)) {
                     amount = amount.subtract(oneCent);
                     remainder = remainder.add(oneCent);
                 }
@@ -748,8 +746,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
                     contractsGrantsInvoiceDocument.getInvoiceDetailAccountObjectCodes().add(invoiceDetailAccountObjectCode);
                 }
             }
-        }
-        else {
+        } else {
             LOG.error("Category Code cannot be found from the category list during recalculation of account object code for Contracts & Grants Invoice Document.");
         }
     }
@@ -773,8 +770,8 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
 
         for (InvoiceAccountDetail invoiceAccountDetail : invoiceAccountDetails) {
             final KualiDecimal expenditureAmount = ObjectUtils.isNull(currentExpenditureByAccountNumberMap.get(invoiceAccountDetail.getAccountNumber()))
-                    ? KualiDecimal.ZERO
-                    : currentExpenditureByAccountNumberMap.get(invoiceAccountDetail.getAccountNumber());
+                ? KualiDecimal.ZERO
+                : currentExpenditureByAccountNumberMap.get(invoiceAccountDetail.getAccountNumber());
             invoiceAccountDetail.setInvoiceAmount(expenditureAmount);
         }
     }
@@ -981,7 +978,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
 
     /**
      * @see org.kuali.kfs.module.ar.document.service.ContractsGrantsInvoiceDocumentService#getExpiredAccountsOfAward(org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward)
-     *      Retrive all the expired accounts of an award
+     * Retrive all the expired accounts of an award
      */
     @Override
     public Collection<Account> getExpiredAccountsOfAward(ContractsAndGrantsBillingAward award) {
@@ -1105,7 +1102,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
                         // generating original invoice
                         outputFileName = document.getDocumentNumber() + "_" + invoiceAddressDetail.getCustomerAddressName() + getDateTimeService().toDateStringForFilename(getDateTimeService().getCurrentDate()) + ArConstants.TemplateUploadSystem.EXTENSION;
                         Map<String, String> replacementList = getTemplateParameterList(document);
-                        replacementList.put(ArPropertyConstants.CustomerInvoiceDocumentFields.CUSTOMER+"."+ArPropertyConstants.FULL_ADDRESS, contractsGrantsBillingUtilityService.buildFullAddress(invoiceAddressDetail.getCustomerAddress()));
+                        replacementList.put(ArPropertyConstants.CustomerInvoiceDocumentFields.CUSTOMER + "." + ArPropertyConstants.FULL_ADDRESS, contractsGrantsBillingUtilityService.buildFullAddress(invoiceAddressDetail.getCustomerAddress()));
                         reportStream = PdfFormFillerUtil.populateTemplate(templateFile, replacementList);
                         // creating and saving the original note with an attachment
                         if (ObjectUtils.isNotNull(document.getInvoiceGeneralDetail()) && document.getInvoiceGeneralDetail().isFinalBillIndicator()) {
@@ -1165,6 +1162,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
      * tricks with Map implementations.  First, we wrap the document in a ReflectionMap, which means that all nested properties from the document can be read via Map notation.  We still have a number of properties
      * we want to add, though, for instance for the payee and the award.  So we wrap ReflectionMap in a FallbackMap, which will treat a regular HashMap and the ReflectionMap as if they were one Map for the sake of
      * getting at least.  Finally, we wrap the map of all properties into a PdfFormattingMap, which formats any values to be returned through get() into properly formatted Strings.
+     *
      * @param document the ContractsGrantsInvoiceDocument to convert into a Map form
      * @return a Map.  With everything.
      */
@@ -1187,161 +1185,161 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
             parameterMap.put(ArPropertyConstants.FINAL_STATUS_DATE, getDateTimeService().toDateString(document.getDocumentHeader().getWorkflowDocument().getDateFinalized().toDate()));
         }
         parameterMap.put(KFSPropertyConstants.PROPOSAL_NUMBER, document.getInvoiceGeneralDetail().getProposalNumber());
-        parameterMap.put(KFSPropertyConstants.PAYEE+"."+KFSPropertyConstants.NAME, document.getBillingAddressName());
-        parameterMap.put(KFSPropertyConstants.PAYEE+"."+KFSPropertyConstants.ADDRESS_LINE1, document.getBillingLine1StreetAddress());
-        parameterMap.put(KFSPropertyConstants.PAYEE+"."+KFSPropertyConstants.ADDRESS_LINE2, document.getBillingLine2StreetAddress());
-        parameterMap.put(KFSPropertyConstants.PAYEE+"."+KFSPropertyConstants.CITY, document.getBillingCityName());
-        parameterMap.put(KFSPropertyConstants.PAYEE+"."+KFSPropertyConstants.STATE, document.getBillingStateCode());
-        parameterMap.put(KFSPropertyConstants.PAYEE+"."+KFSPropertyConstants.ZIPCODE, document.getBillingZipCode());
+        parameterMap.put(KFSPropertyConstants.PAYEE + "." + KFSPropertyConstants.NAME, document.getBillingAddressName());
+        parameterMap.put(KFSPropertyConstants.PAYEE + "." + KFSPropertyConstants.ADDRESS_LINE1, document.getBillingLine1StreetAddress());
+        parameterMap.put(KFSPropertyConstants.PAYEE + "." + KFSPropertyConstants.ADDRESS_LINE2, document.getBillingLine2StreetAddress());
+        parameterMap.put(KFSPropertyConstants.PAYEE + "." + KFSPropertyConstants.CITY, document.getBillingCityName());
+        parameterMap.put(KFSPropertyConstants.PAYEE + "." + KFSPropertyConstants.STATE, document.getBillingStateCode());
+        parameterMap.put(KFSPropertyConstants.PAYEE + "." + KFSPropertyConstants.ZIPCODE, document.getBillingZipCode());
         parameterMap.put(ArPropertyConstants.ADVANCE_FLAG, ArConstants.BillingFrequencyValues.isPredeterminedBilling(document.getInvoiceGeneralDetail()));
         parameterMap.put(ArPropertyConstants.REIMBURSEMENT_FLAG, !ArConstants.BillingFrequencyValues.isPredeterminedBilling(document.getInvoiceGeneralDetail()));
-        parameterMap.put(ArPropertyConstants.ACCOUNT_DETAILS+"."+KFSPropertyConstants.CONTRACT_CONTROL_ACCOUNT_NUMBER, getRecipientAccountNumber(document.getAccountDetails()));
+        parameterMap.put(ArPropertyConstants.ACCOUNT_DETAILS + "." + KFSPropertyConstants.CONTRACT_CONTROL_ACCOUNT_NUMBER, getRecipientAccountNumber(document.getAccountDetails()));
         if (ObjectUtils.isNotNull(sysInfo)) {
-            parameterMap.put(ArPropertyConstants.SYSTEM_INFORMATION+"."+ArPropertyConstants.SystemInformationFields.FEIN_NUMBER, sysInfo.getUniversityFederalEmployerIdentificationNumber());
-            parameterMap.put(ArPropertyConstants.SYSTEM_INFORMATION+"."+KFSPropertyConstants.NAME, sysInfo.getOrganizationRemitToAddressName());
-            parameterMap.put(ArPropertyConstants.SYSTEM_INFORMATION+"."+KFSPropertyConstants.ADDRESS_LINE1, sysInfo.getOrganizationRemitToLine1StreetAddress());
-            parameterMap.put(ArPropertyConstants.SYSTEM_INFORMATION+"."+KFSPropertyConstants.ADDRESS_LINE2, sysInfo.getOrganizationRemitToLine2StreetAddress());
-            parameterMap.put(ArPropertyConstants.SYSTEM_INFORMATION+"."+KFSPropertyConstants.CITY, sysInfo.getOrganizationRemitToCityName());
-            parameterMap.put(ArPropertyConstants.SYSTEM_INFORMATION+"."+KFSPropertyConstants.STATE, sysInfo.getOrganizationRemitToStateCode());
-            parameterMap.put(ArPropertyConstants.SYSTEM_INFORMATION+"."+KFSPropertyConstants.ZIPCODE, sysInfo.getOrganizationRemitToZipCode());
+            parameterMap.put(ArPropertyConstants.SYSTEM_INFORMATION + "." + ArPropertyConstants.SystemInformationFields.FEIN_NUMBER, sysInfo.getUniversityFederalEmployerIdentificationNumber());
+            parameterMap.put(ArPropertyConstants.SYSTEM_INFORMATION + "." + KFSPropertyConstants.NAME, sysInfo.getOrganizationRemitToAddressName());
+            parameterMap.put(ArPropertyConstants.SYSTEM_INFORMATION + "." + KFSPropertyConstants.ADDRESS_LINE1, sysInfo.getOrganizationRemitToLine1StreetAddress());
+            parameterMap.put(ArPropertyConstants.SYSTEM_INFORMATION + "." + KFSPropertyConstants.ADDRESS_LINE2, sysInfo.getOrganizationRemitToLine2StreetAddress());
+            parameterMap.put(ArPropertyConstants.SYSTEM_INFORMATION + "." + KFSPropertyConstants.CITY, sysInfo.getOrganizationRemitToCityName());
+            parameterMap.put(ArPropertyConstants.SYSTEM_INFORMATION + "." + KFSPropertyConstants.STATE, sysInfo.getOrganizationRemitToStateCode());
+            parameterMap.put(ArPropertyConstants.SYSTEM_INFORMATION + "." + KFSPropertyConstants.ZIPCODE, sysInfo.getOrganizationRemitToZipCode());
         }
         if (CollectionUtils.isNotEmpty(document.getDirectCostInvoiceDetails())) {
             ContractsGrantsInvoiceDetail firstInvoiceDetail = document.getDirectCostInvoiceDetails().get(0);
 
             for (int i = 0; i < document.getDirectCostInvoiceDetails().size(); i++) {
-                parameterMap.put(ArPropertyConstants.INVOICE_DETAIL+"[" + i + "]."+ArPropertyConstants.INVOICE_DETAIL_IDENTIFIER, document.getDirectCostInvoiceDetails().get(i).getInvoiceDetailIdentifier());
-                parameterMap.put(ArPropertyConstants.INVOICE_DETAIL+"[" + i + "]."+KFSPropertyConstants.DOCUMENT_NUMBER, document.getDirectCostInvoiceDetails().get(i).getDocumentNumber());
-                parameterMap.put(ArPropertyConstants.INVOICE_DETAIL+"[" + i + "]."+ArPropertyConstants.CATEGORY, document.getDirectCostInvoiceDetails().get(i).getCostCategory().getCategoryName());
-                parameterMap.put(ArPropertyConstants.INVOICE_DETAIL+"[" + i + "]."+ArPropertyConstants.TOTAL_BUDGET, document.getDirectCostInvoiceDetails().get(i).getTotalBudget());
-                parameterMap.put(ArPropertyConstants.INVOICE_DETAIL+"[" + i + "]."+ArPropertyConstants.INVOICE_AMOUNT, document.getDirectCostInvoiceDetails().get(i).getInvoiceAmount());
-                parameterMap.put(ArPropertyConstants.INVOICE_DETAIL+"[" + i + "]."+ArPropertyConstants.CUMULATIVE_EXPENDITURES, document.getDirectCostInvoiceDetails().get(i).getCumulativeExpenditures());
-                parameterMap.put(ArPropertyConstants.INVOICE_DETAIL+"[" + i + "]."+ArPropertyConstants.BUDGET_REMAINING, document.getDirectCostInvoiceDetails().get(i).getBudgetRemaining());
-                parameterMap.put(ArPropertyConstants.INVOICE_DETAIL+"[" + i + "]."+ArPropertyConstants.TOTAL_PREVIOUSLY_BILLED, document.getDirectCostInvoiceDetails().get(i).getTotalPreviouslyBilled());
-                parameterMap.put(ArPropertyConstants.INVOICE_DETAIL+"[" + i + "]."+ArPropertyConstants.TOTAL_AMOUNT_BILLED_TO_DATE, document.getDirectCostInvoiceDetails().get(i).getTotalAmountBilledToDate());
-                parameterMap.put(ArPropertyConstants.INVOICE_DETAIL+"[" + i + "]."+ArPropertyConstants.AMOUNT_REMAINING_TO_BILL, firstInvoiceDetail.getAmountRemainingToBill());
+                parameterMap.put(ArPropertyConstants.INVOICE_DETAIL + "[" + i + "]." + ArPropertyConstants.INVOICE_DETAIL_IDENTIFIER, document.getDirectCostInvoiceDetails().get(i).getInvoiceDetailIdentifier());
+                parameterMap.put(ArPropertyConstants.INVOICE_DETAIL + "[" + i + "]." + KFSPropertyConstants.DOCUMENT_NUMBER, document.getDirectCostInvoiceDetails().get(i).getDocumentNumber());
+                parameterMap.put(ArPropertyConstants.INVOICE_DETAIL + "[" + i + "]." + ArPropertyConstants.CATEGORY, document.getDirectCostInvoiceDetails().get(i).getCostCategory().getCategoryName());
+                parameterMap.put(ArPropertyConstants.INVOICE_DETAIL + "[" + i + "]." + ArPropertyConstants.TOTAL_BUDGET, document.getDirectCostInvoiceDetails().get(i).getTotalBudget());
+                parameterMap.put(ArPropertyConstants.INVOICE_DETAIL + "[" + i + "]." + ArPropertyConstants.INVOICE_AMOUNT, document.getDirectCostInvoiceDetails().get(i).getInvoiceAmount());
+                parameterMap.put(ArPropertyConstants.INVOICE_DETAIL + "[" + i + "]." + ArPropertyConstants.CUMULATIVE_EXPENDITURES, document.getDirectCostInvoiceDetails().get(i).getCumulativeExpenditures());
+                parameterMap.put(ArPropertyConstants.INVOICE_DETAIL + "[" + i + "]." + ArPropertyConstants.BUDGET_REMAINING, document.getDirectCostInvoiceDetails().get(i).getBudgetRemaining());
+                parameterMap.put(ArPropertyConstants.INVOICE_DETAIL + "[" + i + "]." + ArPropertyConstants.TOTAL_PREVIOUSLY_BILLED, document.getDirectCostInvoiceDetails().get(i).getTotalPreviouslyBilled());
+                parameterMap.put(ArPropertyConstants.INVOICE_DETAIL + "[" + i + "]." + ArPropertyConstants.TOTAL_AMOUNT_BILLED_TO_DATE, document.getDirectCostInvoiceDetails().get(i).getTotalAmountBilledToDate());
+                parameterMap.put(ArPropertyConstants.INVOICE_DETAIL + "[" + i + "]." + ArPropertyConstants.AMOUNT_REMAINING_TO_BILL, firstInvoiceDetail.getAmountRemainingToBill());
             }
         }
         ContractsGrantsInvoiceDetail totalDirectCostInvoiceDetail = document.getTotalDirectCostInvoiceDetail();
         if (ObjectUtils.isNotNull(totalDirectCostInvoiceDetail)) {
-            parameterMap.put(ArPropertyConstants.DIRECT_COST_INVOICE_DETAIL+"."+ArPropertyConstants.INVOICE_DETAIL_IDENTIFIER, totalDirectCostInvoiceDetail.getInvoiceDetailIdentifier());
-            parameterMap.put(ArPropertyConstants.DIRECT_COST_INVOICE_DETAIL+"."+KFSPropertyConstants.DOCUMENT_NUMBER, totalDirectCostInvoiceDetail.getDocumentNumber());
-            parameterMap.put(ArPropertyConstants.DIRECT_COST_INVOICE_DETAIL+"."+ArPropertyConstants.CATEGORY, getConfigurationService().getPropertyValueAsString(ArKeyConstants.CONTRACTS_GRANTS_INVOICE_DETAILS_DIRECT_SUBTOTAL_LABEL));
-            parameterMap.put(ArPropertyConstants.DIRECT_COST_INVOICE_DETAIL+"."+ArPropertyConstants.TOTAL_BUDGET, totalDirectCostInvoiceDetail.getTotalBudget());
-            parameterMap.put(ArPropertyConstants.DIRECT_COST_INVOICE_DETAIL+"."+ArPropertyConstants.INVOICE_AMOUNT, totalDirectCostInvoiceDetail.getInvoiceAmount());
-            parameterMap.put(ArPropertyConstants.DIRECT_COST_INVOICE_DETAIL+"."+ArPropertyConstants.CUMULATIVE_EXPENDITURES, totalDirectCostInvoiceDetail.getCumulativeExpenditures());
-            parameterMap.put(ArPropertyConstants.DIRECT_COST_INVOICE_DETAIL+"."+ArPropertyConstants.BUDGET_REMAINING, totalDirectCostInvoiceDetail.getBudgetRemaining());
-            parameterMap.put(ArPropertyConstants.DIRECT_COST_INVOICE_DETAIL+"."+ArPropertyConstants.TOTAL_PREVIOUSLY_BILLED, totalDirectCostInvoiceDetail.getTotalPreviouslyBilled());
-            parameterMap.put(ArPropertyConstants.DIRECT_COST_INVOICE_DETAIL+"."+ArPropertyConstants.TOTAL_AMOUNT_BILLED_TO_DATE, totalDirectCostInvoiceDetail.getTotalAmountBilledToDate());
-            parameterMap.put(ArPropertyConstants.DIRECT_COST_INVOICE_DETAIL+"."+ArPropertyConstants.AMOUNT_REMAINING_TO_BILL, totalDirectCostInvoiceDetail.getAmountRemainingToBill());
+            parameterMap.put(ArPropertyConstants.DIRECT_COST_INVOICE_DETAIL + "." + ArPropertyConstants.INVOICE_DETAIL_IDENTIFIER, totalDirectCostInvoiceDetail.getInvoiceDetailIdentifier());
+            parameterMap.put(ArPropertyConstants.DIRECT_COST_INVOICE_DETAIL + "." + KFSPropertyConstants.DOCUMENT_NUMBER, totalDirectCostInvoiceDetail.getDocumentNumber());
+            parameterMap.put(ArPropertyConstants.DIRECT_COST_INVOICE_DETAIL + "." + ArPropertyConstants.CATEGORY, getConfigurationService().getPropertyValueAsString(ArKeyConstants.CONTRACTS_GRANTS_INVOICE_DETAILS_DIRECT_SUBTOTAL_LABEL));
+            parameterMap.put(ArPropertyConstants.DIRECT_COST_INVOICE_DETAIL + "." + ArPropertyConstants.TOTAL_BUDGET, totalDirectCostInvoiceDetail.getTotalBudget());
+            parameterMap.put(ArPropertyConstants.DIRECT_COST_INVOICE_DETAIL + "." + ArPropertyConstants.INVOICE_AMOUNT, totalDirectCostInvoiceDetail.getInvoiceAmount());
+            parameterMap.put(ArPropertyConstants.DIRECT_COST_INVOICE_DETAIL + "." + ArPropertyConstants.CUMULATIVE_EXPENDITURES, totalDirectCostInvoiceDetail.getCumulativeExpenditures());
+            parameterMap.put(ArPropertyConstants.DIRECT_COST_INVOICE_DETAIL + "." + ArPropertyConstants.BUDGET_REMAINING, totalDirectCostInvoiceDetail.getBudgetRemaining());
+            parameterMap.put(ArPropertyConstants.DIRECT_COST_INVOICE_DETAIL + "." + ArPropertyConstants.TOTAL_PREVIOUSLY_BILLED, totalDirectCostInvoiceDetail.getTotalPreviouslyBilled());
+            parameterMap.put(ArPropertyConstants.DIRECT_COST_INVOICE_DETAIL + "." + ArPropertyConstants.TOTAL_AMOUNT_BILLED_TO_DATE, totalDirectCostInvoiceDetail.getTotalAmountBilledToDate());
+            parameterMap.put(ArPropertyConstants.DIRECT_COST_INVOICE_DETAIL + "." + ArPropertyConstants.AMOUNT_REMAINING_TO_BILL, totalDirectCostInvoiceDetail.getAmountRemainingToBill());
         }
         ContractsGrantsInvoiceDetail totalInDirectCostInvoiceDetail = document.getTotalIndirectCostInvoiceDetail();
         if (ObjectUtils.isNotNull(totalInDirectCostInvoiceDetail)) {
-            parameterMap.put(ArPropertyConstants.IN_DIRECT_COST_INVOICE_DETAIL+"."+ArPropertyConstants.INVOICE_DETAIL_IDENTIFIER, totalInDirectCostInvoiceDetail.getInvoiceDetailIdentifier());
-            parameterMap.put(ArPropertyConstants.IN_DIRECT_COST_INVOICE_DETAIL+"."+KFSPropertyConstants.DOCUMENT_NUMBER, totalInDirectCostInvoiceDetail.getDocumentNumber());
-            parameterMap.put(ArPropertyConstants.IN_DIRECT_COST_INVOICE_DETAIL+"."+ArPropertyConstants.CATEGORIES, getConfigurationService().getPropertyValueAsString(ArKeyConstants.CONTRACTS_GRANTS_INVOICE_DETAILS_INDIRECT_SUBTOTAL_LABEL));
-            parameterMap.put(ArPropertyConstants.IN_DIRECT_COST_INVOICE_DETAIL+"."+ArPropertyConstants.TOTAL_BUDGET, totalInDirectCostInvoiceDetail.getTotalBudget());
-            parameterMap.put(ArPropertyConstants.IN_DIRECT_COST_INVOICE_DETAIL+"."+ArPropertyConstants.INVOICE_AMOUNT, totalInDirectCostInvoiceDetail.getInvoiceAmount());
-            parameterMap.put(ArPropertyConstants.IN_DIRECT_COST_INVOICE_DETAIL+"."+ArPropertyConstants.CUMULATIVE_EXPENDITURES, totalInDirectCostInvoiceDetail.getCumulativeExpenditures());
-            parameterMap.put(ArPropertyConstants.IN_DIRECT_COST_INVOICE_DETAIL+"."+ArPropertyConstants.BUDGET_REMAINING, totalInDirectCostInvoiceDetail.getBudgetRemaining());
-            parameterMap.put(ArPropertyConstants.IN_DIRECT_COST_INVOICE_DETAIL+"."+ArPropertyConstants.TOTAL_PREVIOUSLY_BILLED, totalInDirectCostInvoiceDetail.getTotalPreviouslyBilled());
-            parameterMap.put(ArPropertyConstants.IN_DIRECT_COST_INVOICE_DETAIL+"."+ArPropertyConstants.TOTAL_AMOUNT_BILLED_TO_DATE, totalInDirectCostInvoiceDetail.getTotalAmountBilledToDate());
-            parameterMap.put(ArPropertyConstants.IN_DIRECT_COST_INVOICE_DETAIL+"."+ArPropertyConstants.AMOUNT_REMAINING_TO_BILL, totalInDirectCostInvoiceDetail.getAmountRemainingToBill());
+            parameterMap.put(ArPropertyConstants.IN_DIRECT_COST_INVOICE_DETAIL + "." + ArPropertyConstants.INVOICE_DETAIL_IDENTIFIER, totalInDirectCostInvoiceDetail.getInvoiceDetailIdentifier());
+            parameterMap.put(ArPropertyConstants.IN_DIRECT_COST_INVOICE_DETAIL + "." + KFSPropertyConstants.DOCUMENT_NUMBER, totalInDirectCostInvoiceDetail.getDocumentNumber());
+            parameterMap.put(ArPropertyConstants.IN_DIRECT_COST_INVOICE_DETAIL + "." + ArPropertyConstants.CATEGORIES, getConfigurationService().getPropertyValueAsString(ArKeyConstants.CONTRACTS_GRANTS_INVOICE_DETAILS_INDIRECT_SUBTOTAL_LABEL));
+            parameterMap.put(ArPropertyConstants.IN_DIRECT_COST_INVOICE_DETAIL + "." + ArPropertyConstants.TOTAL_BUDGET, totalInDirectCostInvoiceDetail.getTotalBudget());
+            parameterMap.put(ArPropertyConstants.IN_DIRECT_COST_INVOICE_DETAIL + "." + ArPropertyConstants.INVOICE_AMOUNT, totalInDirectCostInvoiceDetail.getInvoiceAmount());
+            parameterMap.put(ArPropertyConstants.IN_DIRECT_COST_INVOICE_DETAIL + "." + ArPropertyConstants.CUMULATIVE_EXPENDITURES, totalInDirectCostInvoiceDetail.getCumulativeExpenditures());
+            parameterMap.put(ArPropertyConstants.IN_DIRECT_COST_INVOICE_DETAIL + "." + ArPropertyConstants.BUDGET_REMAINING, totalInDirectCostInvoiceDetail.getBudgetRemaining());
+            parameterMap.put(ArPropertyConstants.IN_DIRECT_COST_INVOICE_DETAIL + "." + ArPropertyConstants.TOTAL_PREVIOUSLY_BILLED, totalInDirectCostInvoiceDetail.getTotalPreviouslyBilled());
+            parameterMap.put(ArPropertyConstants.IN_DIRECT_COST_INVOICE_DETAIL + "." + ArPropertyConstants.TOTAL_AMOUNT_BILLED_TO_DATE, totalInDirectCostInvoiceDetail.getTotalAmountBilledToDate());
+            parameterMap.put(ArPropertyConstants.IN_DIRECT_COST_INVOICE_DETAIL + "." + ArPropertyConstants.AMOUNT_REMAINING_TO_BILL, totalInDirectCostInvoiceDetail.getAmountRemainingToBill());
         }
         ContractsGrantsInvoiceDetail totalCostInvoiceDetail = document.getTotalCostInvoiceDetail();
         if (ObjectUtils.isNotNull(totalCostInvoiceDetail)) {
-            parameterMap.put(ArPropertyConstants.TOTAL_INVOICE_DETAIL+"."+ArPropertyConstants.INVOICE_DETAIL_IDENTIFIER, totalCostInvoiceDetail.getInvoiceDetailIdentifier());
-            parameterMap.put(ArPropertyConstants.TOTAL_INVOICE_DETAIL+"."+KFSPropertyConstants.DOCUMENT_NUMBER, totalCostInvoiceDetail.getDocumentNumber());
-            parameterMap.put(ArPropertyConstants.TOTAL_INVOICE_DETAIL+"."+ArPropertyConstants.CATEGORIES, getConfigurationService().getPropertyValueAsString(ArKeyConstants.CONTRACTS_GRANTS_INVOICE_DETAILS_TOTAL_LABEL));
-            parameterMap.put(ArPropertyConstants.TOTAL_INVOICE_DETAIL+"."+ArPropertyConstants.TOTAL_BUDGET, totalCostInvoiceDetail.getTotalBudget());
-            parameterMap.put(ArPropertyConstants.TOTAL_INVOICE_DETAIL+"."+ArPropertyConstants.INVOICE_AMOUNT, totalCostInvoiceDetail.getInvoiceAmount());
-            parameterMap.put(ArPropertyConstants.TOTAL_INVOICE_DETAIL+"."+ArPropertyConstants.CUMULATIVE_EXPENDITURES, totalCostInvoiceDetail.getCumulativeExpenditures());
-            parameterMap.put(ArPropertyConstants.TOTAL_INVOICE_DETAIL+"."+ArPropertyConstants.BUDGET_REMAINING, totalCostInvoiceDetail.getBudgetRemaining());
-            parameterMap.put(ArPropertyConstants.TOTAL_INVOICE_DETAIL+"."+ArPropertyConstants.TOTAL_PREVIOUSLY_BILLED, totalCostInvoiceDetail.getTotalPreviouslyBilled());
-            parameterMap.put(ArPropertyConstants.TOTAL_INVOICE_DETAIL+"."+ArPropertyConstants.ESTIMATED_COST, totalCostInvoiceDetail.getTotalPreviouslyBilled().add(totalCostInvoiceDetail.getInvoiceAmount()));
-            parameterMap.put(ArPropertyConstants.TOTAL_INVOICE_DETAIL+"."+ArPropertyConstants.TOTAL_AMOUNT_BILLED_TO_DATE, totalCostInvoiceDetail.getTotalAmountBilledToDate());
-            parameterMap.put(ArPropertyConstants.TOTAL_INVOICE_DETAIL+"."+ArPropertyConstants.AMOUNT_REMAINING_TO_BILL, totalCostInvoiceDetail.getAmountRemainingToBill());
+            parameterMap.put(ArPropertyConstants.TOTAL_INVOICE_DETAIL + "." + ArPropertyConstants.INVOICE_DETAIL_IDENTIFIER, totalCostInvoiceDetail.getInvoiceDetailIdentifier());
+            parameterMap.put(ArPropertyConstants.TOTAL_INVOICE_DETAIL + "." + KFSPropertyConstants.DOCUMENT_NUMBER, totalCostInvoiceDetail.getDocumentNumber());
+            parameterMap.put(ArPropertyConstants.TOTAL_INVOICE_DETAIL + "." + ArPropertyConstants.CATEGORIES, getConfigurationService().getPropertyValueAsString(ArKeyConstants.CONTRACTS_GRANTS_INVOICE_DETAILS_TOTAL_LABEL));
+            parameterMap.put(ArPropertyConstants.TOTAL_INVOICE_DETAIL + "." + ArPropertyConstants.TOTAL_BUDGET, totalCostInvoiceDetail.getTotalBudget());
+            parameterMap.put(ArPropertyConstants.TOTAL_INVOICE_DETAIL + "." + ArPropertyConstants.INVOICE_AMOUNT, totalCostInvoiceDetail.getInvoiceAmount());
+            parameterMap.put(ArPropertyConstants.TOTAL_INVOICE_DETAIL + "." + ArPropertyConstants.CUMULATIVE_EXPENDITURES, totalCostInvoiceDetail.getCumulativeExpenditures());
+            parameterMap.put(ArPropertyConstants.TOTAL_INVOICE_DETAIL + "." + ArPropertyConstants.BUDGET_REMAINING, totalCostInvoiceDetail.getBudgetRemaining());
+            parameterMap.put(ArPropertyConstants.TOTAL_INVOICE_DETAIL + "." + ArPropertyConstants.TOTAL_PREVIOUSLY_BILLED, totalCostInvoiceDetail.getTotalPreviouslyBilled());
+            parameterMap.put(ArPropertyConstants.TOTAL_INVOICE_DETAIL + "." + ArPropertyConstants.ESTIMATED_COST, totalCostInvoiceDetail.getTotalPreviouslyBilled().add(totalCostInvoiceDetail.getInvoiceAmount()));
+            parameterMap.put(ArPropertyConstants.TOTAL_INVOICE_DETAIL + "." + ArPropertyConstants.TOTAL_AMOUNT_BILLED_TO_DATE, totalCostInvoiceDetail.getTotalAmountBilledToDate());
+            parameterMap.put(ArPropertyConstants.TOTAL_INVOICE_DETAIL + "." + ArPropertyConstants.AMOUNT_REMAINING_TO_BILL, totalCostInvoiceDetail.getAmountRemainingToBill());
         }
 
         if (ObjectUtils.isNotNull(award)) {
             KualiDecimal billing = getAwardBilledToDateAmountByProposalNumber(award.getProposalNumber());
             KualiDecimal payments = calculateTotalPaymentsToDateByAward(award);
             KualiDecimal receivable = billing.subtract(payments);
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.BILLINGS, billing);
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.PAYMENTS, payments);
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.RECEIVABLES, receivable);
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+KFSPropertyConstants.PROPOSAL_NUMBER, award.getProposalNumber());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.BILLINGS, billing);
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.PAYMENTS, payments);
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.RECEIVABLES, receivable);
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + KFSPropertyConstants.PROPOSAL_NUMBER, award.getProposalNumber());
             if (ObjectUtils.isNotNull(award.getAwardBeginningDate())) {
-                parameterMap.put(KFSPropertyConstants.AWARD+"."+KFSPropertyConstants.AWARD_BEGINNING_DATE, getDateTimeService().toDateString(award.getAwardBeginningDate()));
+                parameterMap.put(KFSPropertyConstants.AWARD + "." + KFSPropertyConstants.AWARD_BEGINNING_DATE, getDateTimeService().toDateString(award.getAwardBeginningDate()));
             }
             if (ObjectUtils.isNotNull(award.getAwardEndingDate())) {
-                parameterMap.put(KFSPropertyConstants.AWARD+"."+KFSPropertyConstants.AWARD_ENDING_DATE, getDateTimeService().toDateString(award.getAwardEndingDate()));
+                parameterMap.put(KFSPropertyConstants.AWARD + "." + KFSPropertyConstants.AWARD_ENDING_DATE, getDateTimeService().toDateString(award.getAwardEndingDate()));
             }
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+KFSPropertyConstants.AWARD_TOTAL_AMOUNT, award.getAwardTotalAmount());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.AWARD_ADDENDUM_NUMBER, award.getAwardAddendumNumber());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.AWARD_ALLOCATED_UNIVERSITY_COMPUTING_SERVICES_AMOUNT, award.getAwardAllocatedUniversityComputingServicesAmount());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+KFSPropertyConstants.FEDERAL_PASS_THROUGH_FUNDED_AMOUNT, award.getFederalPassThroughFundedAmount());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + KFSPropertyConstants.AWARD_TOTAL_AMOUNT, award.getAwardTotalAmount());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.AWARD_ADDENDUM_NUMBER, award.getAwardAddendumNumber());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.AWARD_ALLOCATED_UNIVERSITY_COMPUTING_SERVICES_AMOUNT, award.getAwardAllocatedUniversityComputingServicesAmount());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + KFSPropertyConstants.FEDERAL_PASS_THROUGH_FUNDED_AMOUNT, award.getFederalPassThroughFundedAmount());
             if (ObjectUtils.isNotNull(award.getAwardEntryDate())) {
-                parameterMap.put(KFSPropertyConstants.AWARD+"."+KFSPropertyConstants.AWARD_ENTRY_DATE, getDateTimeService().toDateString(award.getAwardEntryDate()));
+                parameterMap.put(KFSPropertyConstants.AWARD + "." + KFSPropertyConstants.AWARD_ENTRY_DATE, getDateTimeService().toDateString(award.getAwardEntryDate()));
             }
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.AGENCY_FUTURE_1_AMOUNT, award.getAgencyFuture1Amount());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.AGENCY_FUTURE_2_AMOUNT, award.getAgencyFuture2Amount());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.AGENCY_FUTURE_3_AMOUNT, award.getAgencyFuture3Amount());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+KFSPropertyConstants.AWARD_DOCUMENT_NUMBER, award.getAwardDocumentNumber());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.AGENCY_FUTURE_1_AMOUNT, award.getAgencyFuture1Amount());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.AGENCY_FUTURE_2_AMOUNT, award.getAgencyFuture2Amount());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.AGENCY_FUTURE_3_AMOUNT, award.getAgencyFuture3Amount());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + KFSPropertyConstants.AWARD_DOCUMENT_NUMBER, award.getAwardDocumentNumber());
             if (ObjectUtils.isNotNull(award.getAwardLastUpdateDate())) {
-                parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.AWARD_LAST_UPDATE_DATE, getDateTimeService().toDateString(award.getAwardLastUpdateDate()));
+                parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.AWARD_LAST_UPDATE_DATE, getDateTimeService().toDateString(award.getAwardLastUpdateDate()));
             }
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+KFSPropertyConstants.FEDERAL_PASS_THROUGH_INDICATOR, award.getFederalPassThroughIndicator());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.OLD_PROPOSAL_NUMBER, award.getOldProposalNumber());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.AWARD_DIRECT_COST_AMOUNT, award.getAwardDirectCostAmount());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.AWARD_INDIRECT_COST_AMOUNT, award.getAwardIndirectCostAmount());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.FEDERAL_FUNDED_AMOUNT, award.getFederalFundedAmount());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.AWARD_CREATE_TIMESTAMP, award.getAwardCreateTimestamp());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + KFSPropertyConstants.FEDERAL_PASS_THROUGH_INDICATOR, award.getFederalPassThroughIndicator());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.OLD_PROPOSAL_NUMBER, award.getOldProposalNumber());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.AWARD_DIRECT_COST_AMOUNT, award.getAwardDirectCostAmount());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.AWARD_INDIRECT_COST_AMOUNT, award.getAwardIndirectCostAmount());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.FEDERAL_FUNDED_AMOUNT, award.getFederalFundedAmount());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.AWARD_CREATE_TIMESTAMP, award.getAwardCreateTimestamp());
             if (ObjectUtils.isNotNull(award.getAwardClosingDate())) {
-                parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.AWARD_CLOSING_DATE, getDateTimeService().toDateString(award.getAwardClosingDate()));
+                parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.AWARD_CLOSING_DATE, getDateTimeService().toDateString(award.getAwardClosingDate()));
             }
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.PROPOSAL_AWARD_TYPE_CODE, award.getProposalAwardTypeCode());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+KFSPropertyConstants.AWARD_STATUS_CODE, award.getAwardStatusCode());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.PROPOSAL_AWARD_TYPE_CODE, award.getProposalAwardTypeCode());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + KFSPropertyConstants.AWARD_STATUS_CODE, award.getAwardStatusCode());
             if (ObjectUtils.isNotNull(award.getLetterOfCreditFund())) {
-                parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.LETTER_OF_CREDIT_FUND_GROUP_CODE, award.getLetterOfCreditFund().getLetterOfCreditFundGroupCode());
+                parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.LETTER_OF_CREDIT_FUND_GROUP_CODE, award.getLetterOfCreditFund().getLetterOfCreditFundGroupCode());
             }
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.LETTER_OF_CREDIT_FUND_CODE, award.getLetterOfCreditFundCode());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+KFSPropertyConstants.GRANT_DESCRIPTION_CODE, award.getGrantDescriptionCode());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.LETTER_OF_CREDIT_FUND_CODE, award.getLetterOfCreditFundCode());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + KFSPropertyConstants.GRANT_DESCRIPTION_CODE, award.getGrantDescriptionCode());
             if (ObjectUtils.isNotNull(award.getProposal())) {
-                parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.GRANT_NUMBER, award.getProposal().getGrantNumber());
+                parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.GRANT_NUMBER, award.getProposal().getGrantNumber());
             }
             parameterMap.put(KFSPropertyConstants.AGENCY_NUMBER, award.getAgencyNumber());
-            parameterMap.put(KFSPropertyConstants.AGENCY+"."+KFSPropertyConstants.FULL_NAME, award.getAgency().getFullName());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+KFSPropertyConstants.FEDERAL_PASS_THROUGH_AGENCY_NUMBER, award.getFederalPassThroughAgencyNumber());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.AGENCY_ANALYST_NAME, award.getAgencyAnalystName());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.ANALYST_TELEPHONE_NUMBER, award.getAnalystTelephoneNumber());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.BILLING_FREQUENCY_CODE, award.getBillingFrequencyCode());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+KFSPropertyConstants.AWARD_PROJECT_TITLE, award.getAwardProjectTitle());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.AWARD_PURPOSE_CODE, award.getAwardPurposeCode());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+KFSPropertyConstants.ACTIVE, award.isActive());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.KIM_GROUP_NAMES, award.getKimGroupNames());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.ROUTING_ORG, award.getRoutingOrg());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.ROUTING_CHART, award.getRoutingChart());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.EXCLUDED_FROM_INVOICING, award.isExcludedFromInvoicing());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.ADDITIONAL_FORMS_REQUIRED, award.isAdditionalFormsRequiredIndicator());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.ADDITIONAL_FORMS_DESCRIPTION, award.getAdditionalFormsDescription());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.INSTRUMENT_TYPE_CODE, award.getInstrumentTypeCode());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.MIN_INVOICE_AMOUNT, award.getMinInvoiceAmount());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.AUTO_APPROVE, award.getAutoApproveIndicator());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.LOOKUP_PERSON_UNIVERSAL_IDENTIFIER, award.getLookupPersonUniversalIdentifier());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.LOOKUP_PERSON, award.getLookupPerson().getPrincipalName());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.USER_LOOKUP_ROLE_NAMESPACE_CODE, award.getUserLookupRoleNamespaceCode());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.USER_LOOKUP_ROLE_NAME, award.getUserLookupRoleName());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.FUNDING_EXPIRATION_DATE, award.getFundingExpirationDate());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.STOP_WORK_INDICATOR, award.isStopWorkIndicator());
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+KFSPropertyConstants.STOP_WORK_REASON, award.getStopWorkReason());
+            parameterMap.put(KFSPropertyConstants.AGENCY + "." + KFSPropertyConstants.FULL_NAME, award.getAgency().getFullName());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + KFSPropertyConstants.FEDERAL_PASS_THROUGH_AGENCY_NUMBER, award.getFederalPassThroughAgencyNumber());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.AGENCY_ANALYST_NAME, award.getAgencyAnalystName());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.ANALYST_TELEPHONE_NUMBER, award.getAnalystTelephoneNumber());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.BILLING_FREQUENCY_CODE, award.getBillingFrequencyCode());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + KFSPropertyConstants.AWARD_PROJECT_TITLE, award.getAwardProjectTitle());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.AWARD_PURPOSE_CODE, award.getAwardPurposeCode());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + KFSPropertyConstants.ACTIVE, award.isActive());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.KIM_GROUP_NAMES, award.getKimGroupNames());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.ROUTING_ORG, award.getRoutingOrg());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.ROUTING_CHART, award.getRoutingChart());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.EXCLUDED_FROM_INVOICING, award.isExcludedFromInvoicing());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.ADDITIONAL_FORMS_REQUIRED, award.isAdditionalFormsRequiredIndicator());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.ADDITIONAL_FORMS_DESCRIPTION, award.getAdditionalFormsDescription());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.INSTRUMENT_TYPE_CODE, award.getInstrumentTypeCode());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.MIN_INVOICE_AMOUNT, award.getMinInvoiceAmount());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.AUTO_APPROVE, award.getAutoApproveIndicator());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.LOOKUP_PERSON_UNIVERSAL_IDENTIFIER, award.getLookupPersonUniversalIdentifier());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.LOOKUP_PERSON, award.getLookupPerson().getPrincipalName());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.USER_LOOKUP_ROLE_NAMESPACE_CODE, award.getUserLookupRoleNamespaceCode());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.USER_LOOKUP_ROLE_NAME, award.getUserLookupRoleName());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.FUNDING_EXPIRATION_DATE, award.getFundingExpirationDate());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.STOP_WORK_INDICATOR, award.isStopWorkIndicator());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + KFSPropertyConstants.STOP_WORK_REASON, award.getStopWorkReason());
             if (ObjectUtils.isNotNull(award.getAwardPrimaryProjectDirector())) {
-                parameterMap.put(KFSPropertyConstants.AWARD+"."+ArConstants.AWARD_PROJECT_DIRECTOR+"."+KFSPropertyConstants.NAME, award.getAwardPrimaryProjectDirector().getProjectDirector().getName());
+                parameterMap.put(KFSPropertyConstants.AWARD + "." + ArConstants.AWARD_PROJECT_DIRECTOR + "." + KFSPropertyConstants.NAME, award.getAwardPrimaryProjectDirector().getProjectDirector().getName());
             }
-            parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.LETTER_OF_CREDIT_FUND_CODE, award.getLetterOfCreditFundCode());
+            parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.LETTER_OF_CREDIT_FUND_CODE, award.getLetterOfCreditFundCode());
             if (ObjectUtils.isNotNull(award.getAwardPrimaryFundManager())) {
-                parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.PRIMARY_FUND_MANAGER+"."+KFSPropertyConstants.NAME, award.getAwardPrimaryFundManager().getFundManager().getName());
-                parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.PRIMARY_FUND_MANAGER+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.EMAIL, award.getAwardPrimaryFundManager().getFundManager().getEmailAddress());
-                parameterMap.put(KFSPropertyConstants.AWARD+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.PRIMARY_FUND_MANAGER+"."+ArPropertyConstants.ContractsAndGrantsBillingAwardFields.PHONE, award.getAwardPrimaryFundManager().getFundManager().getPhoneNumber());
+                parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.PRIMARY_FUND_MANAGER + "." + KFSPropertyConstants.NAME, award.getAwardPrimaryFundManager().getFundManager().getName());
+                parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.PRIMARY_FUND_MANAGER + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.EMAIL, award.getAwardPrimaryFundManager().getFundManager().getEmailAddress());
+                parameterMap.put(KFSPropertyConstants.AWARD + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.PRIMARY_FUND_MANAGER + "." + ArPropertyConstants.ContractsAndGrantsBillingAwardFields.PHONE, award.getAwardPrimaryFundManager().getFundManager().getPhoneNumber());
             }
             if (ObjectUtils.isNotNull(document.getInvoiceGeneralDetail())) {
                 parameterMap.put(ArPropertyConstants.TOTAL_AMOUNT_DUE, receivable.add(document.getInvoiceGeneralDetail().getTotalAmountBilledToDate()));
@@ -1423,8 +1421,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
                         // The dates would be null if the user is correcting the first invoice created for the award.
                         // Then the award last billed date should also be null.
                         awdLastBilledDate = null;
-                    }
-                    else if (ObjectUtils.isNotNull(awdLastBilledDate) && ObjectUtils.isNotNull(award.getActiveAwardAccounts().get(i).getCurrentLastBilledDate())) {
+                    } else if (ObjectUtils.isNotNull(awdLastBilledDate) && ObjectUtils.isNotNull(award.getActiveAwardAccounts().get(i).getCurrentLastBilledDate())) {
                         if (awdLastBilledDate.after(award.getActiveAwardAccounts().get(i).getCurrentLastBilledDate())) {
                             awdLastBilledDate = award.getActiveAwardAccounts().get(i).getCurrentLastBilledDate();
                         }
@@ -1467,6 +1464,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
 
     /**
      * Update Milestone objects billed value.
+     *
      * @param billed
      * @param invoiceMilestones
      */
@@ -1495,7 +1493,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
         List<Milestone> milestones = null;
         Map<String, Object> fieldValues = new HashMap<String, Object>();
         fieldValues.put(ArPropertyConstants.MilestoneFields.MILESTONE_IDENTIFIER, milestoneIds);
-        milestones = (List<Milestone>)getBusinessObjectService().findMatching(Milestone.class, fieldValues);
+        milestones = (List<Milestone>) getBusinessObjectService().findMatching(Milestone.class, fieldValues);
 
         if (ObjectUtils.isNotNull(milestones)) {
             for (Milestone milestone : milestones) {
@@ -1507,6 +1505,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
 
     /**
      * Update Bill objects billed value.
+     *
      * @param billed
      * @param invoiceBills
      */
@@ -1534,7 +1533,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
         List<Bill> bills = null;
         Map<String, Object> fieldValues = new HashMap<String, Object>();
         fieldValues.put(ArPropertyConstants.BillFields.BILL_IDENTIFIER, billIds);
-        bills = (List<Bill>)getBusinessObjectService().findMatching(Bill.class, fieldValues);
+        bills = (List<Bill>) getBusinessObjectService().findMatching(Bill.class, fieldValues);
 
         if (ObjectUtils.isNotNull(bills)) {
             for (Bill bill : bills) {
@@ -1641,27 +1640,26 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
             document.getInvoiceGeneralDetail().setTotalPreviouslyBilled(getMilestonesBilledToDateAmount(document.getInvoiceGeneralDetail().getProposalNumber()));
             // update the new total billed for the invoice.
             document.getInvoiceGeneralDetail().setTotalAmountBilledToDate(document.getInvoiceGeneralDetail().getTotalAmountBilledToDate().add(totalMilestonesAmount));
-        }
-        else if (ArConstants.BillingFrequencyValues.isPredeterminedBilling(document.getInvoiceGeneralDetail()) && CollectionUtils.isNotEmpty(document.getInvoiceBills())) {
+        } else if (ArConstants.BillingFrequencyValues.isPredeterminedBilling(document.getInvoiceGeneralDetail()) && CollectionUtils.isNotEmpty(document.getInvoiceBills())) {
             // check if award has bills
             document.getInvoiceGeneralDetail().setTotalPreviouslyBilled(getPredeterminedBillingBilledToDateAmount(document.getInvoiceGeneralDetail().getProposalNumber()));
             // update the new total billed for the invoice.
             document.getInvoiceGeneralDetail().setTotalAmountBilledToDate(document.getInvoiceGeneralDetail().getTotalAmountBilledToDate().add(totalBillingAmount));
-        }
-        else {
+        } else {
             document.getInvoiceGeneralDetail().setTotalPreviouslyBilled(getAwardBilledToDateAmountByProposalNumber(document.getInvoiceGeneralDetail().getProposalNumber()));
             KualiDecimal newTotalBilled = document.getTotalCostInvoiceDetail().getInvoiceAmount().add(document.getInvoiceGeneralDetail().getTotalPreviouslyBilled());
             newTotalBilled = newTotalBilled.add(getOtherTotalBilledForAwardPeriod(document));
             document.getInvoiceGeneralDetail().setTotalAmountBilledToDate(newTotalBilled);
         }
 
-        for (InvoiceAddressDetail invoiceAddressDetail: document.getInvoiceAddressDetails()) {
+        for (InvoiceAddressDetail invoiceAddressDetail : document.getInvoiceAddressDetails()) {
             invoiceAddressDetail.setInitialTransmissionDate(null);
         }
     }
 
     /**
      * Error corrects an invoice detail
+     *
      * @param invoiceDetail the invoice detail to error correct
      */
     protected void correctInvoiceDetail(ContractsGrantsInvoiceDetail invoiceDetail) {
@@ -1673,6 +1671,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
 
     /**
      * Error corrects an invoice account detail
+     *
      * @param invoiceAccountDetail the invoice account detail to error correct
      */
     protected void correctInvoiceAccountDetail(InvoiceAccountDetail invoiceAccountDetail) {
@@ -1748,8 +1747,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
                 if (!isValid) {
                     errorString.add(ArKeyConstants.AwardConstants.ERROR_NO_CTRL_ACCT);
                     errorString.add(award.getInvoicingOptionDescription());
-                }
-                else {
+                } else {
                     if (accountNum != 1) {
                         Account tmpAcct1, tmpAcct2;
 
@@ -1774,6 +1772,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
     /**
      * Determines whether the given ContractsGrantsInvoiceDocument is "effective" or not: if it is disapproved, cancelled, or error corrected then it is NOT effective,
      * and in all other cases, it is effective
+     *
      * @param invoiceDocument the invoice document to check
      * @return true if the document is "effective" given the rules above, false otherwise
      */
@@ -1792,6 +1791,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
 
     /**
      * Determines if an error correction is "effective" - ie, currently locking resources like milestones and pre-determined billing from the original CINV
+     *
      * @param errorCorrectionDocumentNumber the document number to check for the effectiveness of
      * @return true if the document is effectively locking resources, false otherwise
      */
@@ -1814,7 +1814,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
     @Override
     public boolean isTemplateValidForContractsGrantsInvoiceDocument(InvoiceTemplate invoiceTemplate, ContractsGrantsInvoiceDocument contractsGrantsInvoiceDocument) {
         if (ObjectUtils.isNotNull(contractsGrantsInvoiceDocument)) {
-            return StringUtils.equals(invoiceTemplate.getBillByChartOfAccountCode(), contractsGrantsInvoiceDocument.getBillByChartOfAccountCode()) && StringUtils.equals(invoiceTemplate.getBilledByOrganizationCode(),contractsGrantsInvoiceDocument.getBilledByOrganizationCode());
+            return StringUtils.equals(invoiceTemplate.getBillByChartOfAccountCode(), contractsGrantsInvoiceDocument.getBillByChartOfAccountCode()) && StringUtils.equals(invoiceTemplate.getBilledByOrganizationCode(), contractsGrantsInvoiceDocument.getBilledByOrganizationCode());
         }
         return true;
     }
@@ -1861,8 +1861,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
             String proposalNumber = invoice.getInvoiceGeneralDetail().getProposalNumber();
             if (invoicesByAward.containsKey(proposalNumber)) {
                 invoicesByAward.get(proposalNumber).add(invoice);
-            }
-            else {
+            } else {
                 List<ContractsGrantsInvoiceDocument> invoicesByProposalNumber = new ArrayList<ContractsGrantsInvoiceDocument>();
                 invoicesByProposalNumber.add(invoice);
                 invoicesByAward.put(proposalNumber, invoicesByProposalNumber);
@@ -1874,19 +1873,20 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
     /**
      * If the document has only one CustomerInvoiceDetail, update the amount with the total expenditures from the cost categories; otherwise,
      * split the amounts by account
+     *
      * @see org.kuali.kfs.module.ar.document.service.ContractsGrantsInvoiceDocumentService#recalculateSourceAccountingLineTotals(org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument)
      */
     @Override
     public void recalculateSourceAccountingLineTotals(ContractsGrantsInvoiceDocument contractsGrantsInvoiceDocument) {
         if (!CollectionUtils.isEmpty(contractsGrantsInvoiceDocument.getSourceAccountingLines())) {
             if (contractsGrantsInvoiceDocument.getSourceAccountingLines().size() == 1) {
-                final CustomerInvoiceDetail customerInvoiceDetail = (CustomerInvoiceDetail)contractsGrantsInvoiceDocument.getSourceAccountingLine(0);
+                final CustomerInvoiceDetail customerInvoiceDetail = (CustomerInvoiceDetail) contractsGrantsInvoiceDocument.getSourceAccountingLine(0);
                 customerInvoiceDetail.setAmount(getAccountingLineAmountForDocument(contractsGrantsInvoiceDocument));
             } else {
                 final Map<String, KualiDecimal> accountExpenditureAmounts = getCategoryExpenditureAmountsForInvoiceAccountDetail(contractsGrantsInvoiceDocument);
                 for (Object al : contractsGrantsInvoiceDocument.getSourceAccountingLines()) {
-                    final CustomerInvoiceDetail customerInvoiceDetail = (CustomerInvoiceDetail)al;
-                    final String accountKey = StringUtils.join(new String[] { customerInvoiceDetail.getChartOfAccountsCode(), customerInvoiceDetail.getAccountNumber() }, "-");
+                    final CustomerInvoiceDetail customerInvoiceDetail = (CustomerInvoiceDetail) al;
+                    final String accountKey = StringUtils.join(new String[]{customerInvoiceDetail.getChartOfAccountsCode(), customerInvoiceDetail.getAccountNumber()}, "-");
                     if (accountExpenditureAmounts.containsKey(accountKey)) {
                         customerInvoiceDetail.setAmount(accountExpenditureAmounts.get(accountKey));
                     } else {
@@ -1901,6 +1901,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
      * Checks the KFS-AR / ContractsGrantsInvoiceDocumentBatchStep / User parameter, or, if no value is found for that parameter, the KFS system user to see if they are the
      * initiator of the document.  If the KFS-AR / ContractsGrantsInvoiceDocumentBatchStep / User parameter is set to a value of a principal who creates CINVs outside of batch
      * - well, okay, that's an interesting business process, that also means that the results of this method may be incorrect.  But you can always override, right?
+     *
      * @see org.kuali.kfs.module.ar.document.service.ContractsGrantsInvoiceDocumentService#isDocumentBatchCreated(org.kuali.kfs.module.ar.document.ContractsGrantsInvoiceDocument)
      */
     @Override
@@ -1934,21 +1935,22 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
             return result.booleanValue();
         } catch (Exception e) {
             // validation actually caused an exception?  Um, let's log that, and maybe we'll say we didn't pass validation here, okay?
-            LOG.error("Running validation on Contracts & Grants Invoice "+document.getDocumentNumber()+" caused an exception", e);
+            LOG.error("Running validation on Contracts & Grants Invoice " + document.getDocumentNumber() + " caused an exception", e);
             return false;
         }
     }
 
     /**
      * Determines the user who creates CINV documents via the batch job
+     *
      * @return the principal for the user who creates CINV documents via the batch job
      */
     protected Principal getContractsGrantsInvoiceBatchCreationUserPrincipal() {
         final String batchJobInitiatorPrincipalName = getParameterService().getParameterValueAsString(ContractsGrantsInvoiceDocumentBatchStep.class, Job.STEP_USER_PARM_NM, KFSConstants.SYSTEM_USER);
         final Principal batchJobInitiatorPrincipal = getIdentityService().getPrincipalByPrincipalName(batchJobInitiatorPrincipalName);
         return ObjectUtils.isNull(batchJobInitiatorPrincipal)
-                ? getIdentityService().getPrincipalByPrincipalName(KFSConstants.SYSTEM_USER)
-                : batchJobInitiatorPrincipal;
+            ? getIdentityService().getPrincipalByPrincipalName(KFSConstants.SYSTEM_USER)
+            : batchJobInitiatorPrincipal;
     }
 
     public ContractsAndGrantsModuleBillingService getContractsAndGrantsModuleBillingService() {
@@ -1974,6 +1976,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
 
     /**
      * Gets the objectCodeService attribute.
+     *
      * @return Returns the objectCodeService.
      */
     public ObjectCodeService getObjectCodeService() {
@@ -1982,6 +1985,7 @@ public class ContractsGrantsInvoiceDocumentServiceImpl implements ContractsGrant
 
     /**
      * Sets the objectCodeService attribute value.
+     *
      * @param objectCodeService The objectCodeService to set.
      */
     public void setObjectCodeService(ObjectCodeService objectCodeService) {

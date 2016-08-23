@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -78,7 +78,7 @@ public class ContractsGrantsInvoiceBatchCreateDocumentServiceTest extends Contra
     }
 
     protected ContractsGrantsInvoiceBatchCreateDocumentServiceImpl setInvoiceCreateServiceOnInvoiceBatchCreateService(ContractsGrantsInvoiceCreateDocumentServiceImpl contractsGrantsInvoiceCreateDocumentService) throws Exception {
-        ContractsGrantsInvoiceBatchCreateDocumentServiceImpl contractsGrantsInvoiceBatchCreateDocumentService =  (ContractsGrantsInvoiceBatchCreateDocumentServiceImpl) TestUtils.getUnproxiedService("contractsGrantsInvoiceBatchCreateDocumentService");
+        ContractsGrantsInvoiceBatchCreateDocumentServiceImpl contractsGrantsInvoiceBatchCreateDocumentService = (ContractsGrantsInvoiceBatchCreateDocumentServiceImpl) TestUtils.getUnproxiedService("contractsGrantsInvoiceBatchCreateDocumentService");
         contractsGrantsInvoiceBatchCreateDocumentService.setContractsGrantsInvoiceCreateDocumentService(contractsGrantsInvoiceCreateDocumentService);
         return contractsGrantsInvoiceBatchCreateDocumentService;
     }
@@ -97,7 +97,7 @@ public class ContractsGrantsInvoiceBatchCreateDocumentServiceTest extends Contra
 
         Collection<ContractsGrantsInvoiceDocumentErrorLog> persistedErrors = businessObjectService.findAll(ContractsGrantsInvoiceDocumentErrorLog.class);
         assertTrue("one error should be persisted", persistedErrors.size() == 1);
-        for (ContractsGrantsInvoiceDocumentErrorLog persistedError: persistedErrors) {
+        for (ContractsGrantsInvoiceDocumentErrorLog persistedError : persistedErrors) {
             assertTrue("process type should be batch", persistedError.getCreationProcessTypeCode().equals(ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.BATCH.getCode()));
             assertTrue("error message text should match", persistedError.getErrorMessages().get(0).getErrorMessageText().equals(errorMessage));
         }
@@ -117,7 +117,7 @@ public class ContractsGrantsInvoiceBatchCreateDocumentServiceTest extends Contra
 
         Collection<ContractsGrantsInvoiceDocumentErrorLog> persistedErrors = businessObjectService.findAll(ContractsGrantsInvoiceDocumentErrorLog.class);
         assertTrue("one error should be persisted", persistedErrors.size() == 1);
-        for (ContractsGrantsInvoiceDocumentErrorLog persistedError: persistedErrors) {
+        for (ContractsGrantsInvoiceDocumentErrorLog persistedError : persistedErrors) {
             assertTrue("process type should be batch", persistedError.getCreationProcessTypeCode().equals(ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.BATCH.getCode()));
             assertTrue("error message text should match", persistedError.getErrorMessages().get(0).getErrorMessageText().equals(errorMessage));
         }
@@ -125,7 +125,7 @@ public class ContractsGrantsInvoiceBatchCreateDocumentServiceTest extends Contra
 
     public void testBatchCreateCGInvoiceDocumentsByAwardsNoOrg() throws IOException {
         List<ContractsAndGrantsBillingAward> awards = setupAwards();
-        Award award = (Award)awards.get(0);
+        Award award = (Award) awards.get(0);
         award.setAwardOrganizations(new ArrayList<AwardOrganization>());
 
         contractsGrantsInvoiceBatchCreateDocumentService.createCGInvoiceDocumentsByAwards(awards, errorOutputFile);
@@ -140,7 +140,7 @@ public class ContractsGrantsInvoiceBatchCreateDocumentServiceTest extends Contra
 
         Collection<ContractsGrantsInvoiceDocumentErrorLog> persistedErrors = businessObjectService.findAll(ContractsGrantsInvoiceDocumentErrorLog.class);
         assertTrue("one error should be persisted", persistedErrors.size() == 1);
-        for (ContractsGrantsInvoiceDocumentErrorLog persistedError: persistedErrors) {
+        for (ContractsGrantsInvoiceDocumentErrorLog persistedError : persistedErrors) {
             assertTrue("process type should be batch", persistedError.getCreationProcessTypeCode().equals(ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.BATCH.getCode()));
             assertTrue("error message text should match", persistedError.getErrorMessages().get(0).getErrorMessageText().equals(errorMessage));
         }
@@ -148,7 +148,7 @@ public class ContractsGrantsInvoiceBatchCreateDocumentServiceTest extends Contra
 
     public void testBatchCreateCGInvoiceDocumentsByAccountNonBillable() throws WorkflowException, IOException {
         List<ContractsAndGrantsBillingAward> awards = setupAwards();
-        Award award = ((Award)awards.get(0));
+        Award award = ((Award) awards.get(0));
         award.setBillingFrequencyCode(ArConstants.BillingFrequencyValues.PREDETERMINED_BILLING.getCode());
         List<ErrorMessage> errorMessages = new ArrayList<ErrorMessage>();
         ContractsGrantsInvoiceDocument cgInvoice = contractsGrantsInvoiceCreateDocumentService.createCGInvoiceDocumentByAwardInfo(award, award.getActiveAwardAccounts(), "BL", "PSY", errorMessages, null, null);
@@ -157,7 +157,7 @@ public class ContractsGrantsInvoiceBatchCreateDocumentServiceTest extends Contra
         documentService.saveDocument(cgInvoice);
 
         List<ContractsAndGrantsBillingAward> awards2 = setupAwards();
-        Award award2 = (Award)awards2.get(0);
+        Award award2 = (Award) awards2.get(0);
         award2.setInvoicingOptionCode(ArConstants.INV_ACCOUNT);
 
         contractsGrantsInvoiceBatchCreateDocumentService.createCGInvoiceDocumentsByAwards(awards2, errorOutputFile);
@@ -172,7 +172,7 @@ public class ContractsGrantsInvoiceBatchCreateDocumentServiceTest extends Contra
 
         Collection<ContractsGrantsInvoiceDocumentErrorLog> persistedErrors = businessObjectService.findAll(ContractsGrantsInvoiceDocumentErrorLog.class);
         assertTrue("one error should be persisted", persistedErrors.size() == 1);
-        for (ContractsGrantsInvoiceDocumentErrorLog persistedError: persistedErrors) {
+        for (ContractsGrantsInvoiceDocumentErrorLog persistedError : persistedErrors) {
             assertTrue("process type should be batch", persistedError.getCreationProcessTypeCode().equals(ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.BATCH.getCode()));
             assertTrue("error message text should match", persistedError.getErrorMessages().get(0).getErrorMessageText().equals(errorMessage));
         }
@@ -182,7 +182,7 @@ public class ContractsGrantsInvoiceBatchCreateDocumentServiceTest extends Contra
         contractsGrantsInvoiceCreateDocumentService.setUniversityDateService(buildMockUniversityDateService());
 
         List<ContractsAndGrantsBillingAward> awards = setupBillableAwards();
-        Award award = ((Award)awards.get(0));
+        Award award = ((Award) awards.get(0));
         award.setInvoicingOptionCode(ArConstants.INV_ACCOUNT);
         AwardAccount awardAccount_2 = ARAwardAccountFixture.AWD_ACCT_WITH_CCA_2.createAwardAccount();
         awardAccount_2.setCurrentLastBilledDate(new java.sql.Date(System.currentTimeMillis()));
@@ -201,7 +201,7 @@ public class ContractsGrantsInvoiceBatchCreateDocumentServiceTest extends Contra
 
         Collection<ContractsGrantsInvoiceDocumentErrorLog> persistedErrors = businessObjectService.findAll(ContractsGrantsInvoiceDocumentErrorLog.class);
         assertEquals("one error should be persisted", 1, persistedErrors.size());
-        for (ContractsGrantsInvoiceDocumentErrorLog persistedError: persistedErrors) {
+        for (ContractsGrantsInvoiceDocumentErrorLog persistedError : persistedErrors) {
             assertTrue("process type should be batch", persistedError.getCreationProcessTypeCode().equals(ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.BATCH.getCode()));
             assertTrue("error message text should match", persistedError.getErrorMessages().get(0).getErrorMessageText().equals(errorMessage));
         }
@@ -211,7 +211,7 @@ public class ContractsGrantsInvoiceBatchCreateDocumentServiceTest extends Contra
 
     public void testBatchCreateCGInvoiceDocumentsByCCAContractAccountNotBillable() throws WorkflowException, IOException {
         List<ContractsAndGrantsBillingAward> awards = setupAwards();
-        Award award = ((Award)awards.get(0));
+        Award award = ((Award) awards.get(0));
         award.setBillingFrequencyCode(ArConstants.BillingFrequencyValues.PREDETERMINED_BILLING.getCode());
         List<ErrorMessage> errorMessages = new ArrayList<ErrorMessage>();
         ContractsGrantsInvoiceDocument cgInvoice = contractsGrantsInvoiceCreateDocumentService.createCGInvoiceDocumentByAwardInfo(award, award.getActiveAwardAccounts(), "BL", "PSY", errorMessages, null, null);
@@ -220,7 +220,7 @@ public class ContractsGrantsInvoiceBatchCreateDocumentServiceTest extends Contra
         documentService.saveDocument(cgInvoice);
 
         List<ContractsAndGrantsBillingAward> awards2 = setupAwards();
-        Award award2 = (Award)awards2.get(0);
+        Award award2 = (Award) awards2.get(0);
         award2.setInvoicingOptionCode(ArConstants.INV_CONTRACT_CONTROL_ACCOUNT);
 
         contractsGrantsInvoiceBatchCreateDocumentService.createCGInvoiceDocumentsByAwards(awards2, errorOutputFile);
@@ -235,7 +235,7 @@ public class ContractsGrantsInvoiceBatchCreateDocumentServiceTest extends Contra
 
         Collection<ContractsGrantsInvoiceDocumentErrorLog> persistedErrors = businessObjectService.findAll(ContractsGrantsInvoiceDocumentErrorLog.class);
         assertTrue("one error should be persisted", persistedErrors.size() == 1);
-        for (ContractsGrantsInvoiceDocumentErrorLog persistedError: persistedErrors) {
+        for (ContractsGrantsInvoiceDocumentErrorLog persistedError : persistedErrors) {
             assertTrue("process type should be batch", persistedError.getCreationProcessTypeCode().equals(ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.BATCH.getCode()));
             assertTrue("error message text should match", persistedError.getErrorMessages().get(0).getErrorMessageText().equals(errorMessage));
         }
@@ -243,7 +243,7 @@ public class ContractsGrantsInvoiceBatchCreateDocumentServiceTest extends Contra
 
     public void testBatchCreateCGInvoiceDocumentsByAwardNotAllBillableAccounts() throws WorkflowException, IOException {
         List<ContractsAndGrantsBillingAward> awards = setupAwards();
-        Award award = ((Award)awards.get(0));
+        Award award = ((Award) awards.get(0));
         award.setBillingFrequencyCode(ArConstants.BillingFrequencyValues.PREDETERMINED_BILLING.getCode());
         List<ErrorMessage> errorMessages = new ArrayList<ErrorMessage>();
         ContractsGrantsInvoiceDocument cgInvoice = contractsGrantsInvoiceCreateDocumentService.createCGInvoiceDocumentByAwardInfo(award, award.getActiveAwardAccounts(), "BL", "PSY", errorMessages, null, null);
@@ -252,7 +252,7 @@ public class ContractsGrantsInvoiceBatchCreateDocumentServiceTest extends Contra
         documentService.saveDocument(cgInvoice);
 
         List<ContractsAndGrantsBillingAward> awards2 = setupAwards();
-        Award award2 = (Award)awards2.get(0);
+        Award award2 = (Award) awards2.get(0);
         award2.setInvoicingOptionCode(ArConstants.INV_AWARD);
 
         contractsGrantsInvoiceBatchCreateDocumentService.createCGInvoiceDocumentsByAwards(awards2, errorOutputFile);
@@ -267,7 +267,7 @@ public class ContractsGrantsInvoiceBatchCreateDocumentServiceTest extends Contra
 
         Collection<ContractsGrantsInvoiceDocumentErrorLog> persistedErrors = businessObjectService.findAll(ContractsGrantsInvoiceDocumentErrorLog.class);
         assertTrue("one error should be persisted", persistedErrors.size() == 1);
-        for (ContractsGrantsInvoiceDocumentErrorLog persistedError: persistedErrors) {
+        for (ContractsGrantsInvoiceDocumentErrorLog persistedError : persistedErrors) {
             assertTrue("process type should be batch", persistedError.getCreationProcessTypeCode().equals(ArConstants.ContractsAndGrantsInvoiceDocumentCreationProcessType.BATCH.getCode()));
             assertTrue("error message text should match", persistedError.getErrorMessages().get(0).getErrorMessageText().equals(errorMessage));
         }

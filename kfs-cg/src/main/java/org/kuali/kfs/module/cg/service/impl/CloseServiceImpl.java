@@ -1,28 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cg.service.impl;
 
-import java.sql.Date;
-import java.text.MessageFormat;
-import java.util.Collection;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.cg.CGConstants;
 import org.kuali.kfs.module.cg.CGKeyConstants;
 import org.kuali.kfs.module.cg.businessobject.Award;
@@ -33,9 +31,11 @@ import org.kuali.kfs.module.cg.service.CloseService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Date;
+import java.text.MessageFormat;
+import java.util.Collection;
 
 @Transactional
 public class CloseServiceImpl implements CloseService {
@@ -79,9 +79,9 @@ public class CloseServiceImpl implements CloseService {
 
         boolean result = true;
         String noteText = null;
-        if (max.getDocumentHeader().getWorkflowDocument().getCurrentNodeNames().contains( CGConstants.CGKimApiConstants.UNPROCESSED_ROUTING_NODE_NAME) ) {
+        if (max.getDocumentHeader().getWorkflowDocument().getCurrentNodeNames().contains(CGConstants.CGKimApiConstants.UNPROCESSED_ROUTING_NODE_NAME)) {
 
-           try {
+            try {
 
                 Collection<Proposal> proposals = closeDao.getProposalsToClose(max);
                 Long proposalCloseCount = new Long(proposals.size());
@@ -103,12 +103,10 @@ public class CloseServiceImpl implements CloseService {
                 businessObjectService.save(max);
                 noteText = configService.getPropertyValueAsString(CGKeyConstants.MESSAGE_CLOSE_JOB_SUCCEEDED);
 
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 String messageProperty = configService.getPropertyValueAsString(CGKeyConstants.ERROR_CLOSE_JOB_FAILED);
                 noteText = MessageFormat.format(messageProperty, e.getMessage(), e.getCause().getMessage());
-            }
-            finally {
+            } finally {
                 result = this.addDocumentNoteAfterClosing(max, noteText);
             }
         }
@@ -125,12 +123,10 @@ public class CloseServiceImpl implements CloseService {
         if (StringUtils.isNotBlank(documentNumber)) {
             try {
                 return (ProposalAwardCloseDocument) documentService.getByDocumentHeaderId(documentNumber);
-            }
-            catch (WorkflowException we) {
+            } catch (WorkflowException we) {
                 throw new RuntimeException(we);
             }
-        }
-        else {
+        } else {
             return null;
         }
 
@@ -143,8 +139,7 @@ public class CloseServiceImpl implements CloseService {
         try {
             documentService.createNoteFromDocument(close, noteText);
             documentService.approveDocument(close, noteText, null);
-        }
-        catch (WorkflowException we) {
+        } catch (WorkflowException we) {
             LOG.error("problem during CloseServiceImpl.addDocumentNoteAfterClosing()", we);
             return false;
         }
@@ -161,12 +156,10 @@ public class CloseServiceImpl implements CloseService {
 
             try {
                 return (ProposalAwardCloseDocument) documentService.getByDocumentHeaderId(documentNumber);
-            }
-            catch (WorkflowException we) {
+            } catch (WorkflowException we) {
                 throw new RuntimeException(we);
             }
-        }
-        else {
+        } else {
             return null;
         }
     }

@@ -1,32 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.gl.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.LinkedHashMap;
 
 /**
  * This class represents a pending balances move
- * 
  */
 public class PendingBalancesMove extends PersistableBusinessObjectBase {
 
@@ -47,7 +46,7 @@ public class PendingBalancesMove extends PersistableBusinessObjectBase {
 
     /**
      * Gets the principalId attribute.
-     * 
+     *
      * @return Returns the principalId
      */
     public String getPrincipalId() {
@@ -56,7 +55,7 @@ public class PendingBalancesMove extends PersistableBusinessObjectBase {
 
     /**
      * Sets the principalId attribute.
-     * 
+     *
      * @param principalId The principalId to set.
      */
     public void setPrincipalId(String principalId) {
@@ -66,7 +65,7 @@ public class PendingBalancesMove extends PersistableBusinessObjectBase {
 
     /**
      * Gets the appropriationBudget attribute.
-     * 
+     *
      * @return Returns the appropriationBudget
      */
     public KualiDecimal getAppropriationBudget() {
@@ -75,7 +74,7 @@ public class PendingBalancesMove extends PersistableBusinessObjectBase {
 
     /**
      * Sets the appropriationBudget attribute.
-     * 
+     *
      * @param appropriationBudget The appropriationBudget to set.
      */
     public void setAppropriationBudget(KualiDecimal appropriationBudget) {
@@ -85,7 +84,7 @@ public class PendingBalancesMove extends PersistableBusinessObjectBase {
 
     /**
      * Gets the appropriationActual attribute.
-     * 
+     *
      * @return Returns the appropriationActual
      */
     public KualiDecimal getAppropriationActual() {
@@ -94,7 +93,7 @@ public class PendingBalancesMove extends PersistableBusinessObjectBase {
 
     /**
      * Sets the appropriationActual attribute.
-     * 
+     *
      * @param appropriationActual The appropriationActual to set.
      */
     public void setAppropriationActual(KualiDecimal appropriationActual) {
@@ -104,7 +103,7 @@ public class PendingBalancesMove extends PersistableBusinessObjectBase {
 
     /**
      * Gets the appropriationEncumbrance attribute.
-     * 
+     *
      * @return Returns the appropriationEncumbrance
      */
     public KualiDecimal getAppropriationEncumbrance() {
@@ -113,7 +112,7 @@ public class PendingBalancesMove extends PersistableBusinessObjectBase {
 
     /**
      * Sets the appropriationEncumbrance attribute.
-     * 
+     *
      * @param appropriationEncumbrance The appropriationEncumbrance to set.
      */
     public void setAppropriationEncumbrance(KualiDecimal appropriationEncumbrance) {
@@ -123,7 +122,7 @@ public class PendingBalancesMove extends PersistableBusinessObjectBase {
 
     /**
      * Gets the pendingBudget attribute.
-     * 
+     *
      * @return Returns the pendingBudget
      */
     public KualiDecimal getPendingBudget() {
@@ -132,7 +131,7 @@ public class PendingBalancesMove extends PersistableBusinessObjectBase {
 
     /**
      * Sets the pendingBudget attribute.
-     * 
+     *
      * @param pendingBudget The pendingBudget to set.
      */
     public void setPendingBudget(KualiDecimal pendingBudget) {
@@ -142,7 +141,7 @@ public class PendingBalancesMove extends PersistableBusinessObjectBase {
 
     /**
      * Gets the pendingActual attribute.
-     * 
+     *
      * @return Returns the pendingActual
      */
     public KualiDecimal getPendingActual() {
@@ -151,7 +150,7 @@ public class PendingBalancesMove extends PersistableBusinessObjectBase {
 
     /**
      * Sets the pendingActual attribute.
-     * 
+     *
      * @param pendingActual The pendingActual to set.
      */
     public void setPendingActual(KualiDecimal pendingActual) {
@@ -161,7 +160,7 @@ public class PendingBalancesMove extends PersistableBusinessObjectBase {
 
     /**
      * Gets the pendingEncumbrance attribute.
-     * 
+     *
      * @return Returns the pendingEncumbrance
      */
     public KualiDecimal getPendingEncumbrance() {
@@ -170,7 +169,7 @@ public class PendingBalancesMove extends PersistableBusinessObjectBase {
 
     /**
      * Sets the pendingEncumbrance attribute.
-     * 
+     *
      * @param pendingEncumbrance The pendingEncumbrance to set.
      */
     public void setPendingEncumbrance(KualiDecimal pendingEncumbrance) {

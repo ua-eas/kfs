@@ -1,3 +1,21 @@
+/*
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.kuali.kfs.web.filter;
 
 import org.easymock.EasyMock;
@@ -78,8 +96,8 @@ public class ResourceLoginFilterTest {
 
         replayAll();
 
-        filter.doFilter(request,response,filterChain);
-        
+        filter.doFilter(request, response, filterChain);
+
         verifyAll();
     }
 
@@ -91,8 +109,8 @@ public class ResourceLoginFilterTest {
 
         replayAll();
 
-        filter.doFilter(request,response,filterChain);
-        
+        filter.doFilter(request, response, filterChain);
+
         verifyAll();
     }
 
@@ -105,8 +123,8 @@ public class ResourceLoginFilterTest {
 
         replayAll();
 
-        filter.doFilter(request,response,filterChain);
-        
+        filter.doFilter(request, response, filterChain);
+
         verifyAll();
     }
 
@@ -117,8 +135,8 @@ public class ResourceLoginFilterTest {
 
         replayAll();
 
-        filter.doFilter(request,response,filterChain);
-        
+        filter.doFilter(request, response, filterChain);
+
         verifyAll();
     }
 
@@ -129,8 +147,8 @@ public class ResourceLoginFilterTest {
 
         replayAll();
 
-        filter.doFilter(request,response,filterChain);
-        
+        filter.doFilter(request, response, filterChain);
+
         verifyAll();
     }
 
@@ -141,8 +159,8 @@ public class ResourceLoginFilterTest {
 
         replayAll();
 
-        filter.doFilter(request,response,filterChain);
-        
+        filter.doFilter(request, response, filterChain);
+
         verifyAll();
     }
 
@@ -153,8 +171,8 @@ public class ResourceLoginFilterTest {
 
         replayAll();
 
-        filter.doFilter(request,response,filterChain);
-        
+        filter.doFilter(request, response, filterChain);
+
         verifyAll();
     }
 
@@ -167,8 +185,8 @@ public class ResourceLoginFilterTest {
 
         replayAll();
 
-        filter.doFilter(request,response,filterChain);
-        
+        filter.doFilter(request, response, filterChain);
+
         verifyAll();
     }
 
@@ -176,14 +194,14 @@ public class ResourceLoginFilterTest {
     public void testNonCoreGoodHeader() throws Exception {
         EasyMock.expect(request.getHeader("Authorization")).andReturn("Bearer GOOD");
         EasyMock.expect(coreApiKeyAuthenticationService.useCore()).andReturn(false);
-        JwtData data = new JwtData("user",1000);
+        JwtData data = new JwtData("user", 1000);
         EasyMock.expect(jwtService.decodeJwt("GOOD")).andReturn(data);
-        filterChain.doFilter(request,response);
+        filterChain.doFilter(request, response);
 
         replayAll();
 
-        filter.doFilter(request,response,filterChain);
-        
+        filter.doFilter(request, response, filterChain);
+
         verifyAll();
     }
 
@@ -196,8 +214,8 @@ public class ResourceLoginFilterTest {
 
         replayAll();
 
-        filter.doFilter(request,response,filterChain);
-        
+        filter.doFilter(request, response, filterChain);
+
         verifyAll();
     }
 
@@ -206,19 +224,19 @@ public class ResourceLoginFilterTest {
         EasyMock.expect(request.getHeader("Authorization")).andReturn("Bearer GOOD");
         EasyMock.expect(coreApiKeyAuthenticationService.useCore()).andReturn(true);
         EasyMock.expect(coreApiKeyAuthenticationService.getPrincipalIdFromApiKey("GOOD")).andReturn(Optional.of("user"));
-        filterChain.doFilter(request,response);
+        filterChain.doFilter(request, response);
 
         replayAll();
 
-        filter.doFilter(request,response,filterChain);
-        
+        filter.doFilter(request, response, filterChain);
+
         verifyAll();
     }
 
     private void replayAll() {
         EasyMock.replay(request, response, writer, session, filterChain, authenticationService, jwtService, coreApiKeyAuthenticationService);
     }
-    
+
     private void verifyAll() {
         EasyMock.verify(request, response, writer, session, filterChain, authenticationService, jwtService, coreApiKeyAuthenticationService);
     }

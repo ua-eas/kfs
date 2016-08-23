@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -24,14 +24,14 @@ import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
 
 
 public class MaintenanceDocumentPresentationControllerBase extends DocumentPresentationControllerBase
-        implements MaintenanceDocumentPresentationController {
+    implements MaintenanceDocumentPresentationController {
     private static final long serialVersionUID = 2849921477944820474L;
 
     private transient DocumentDictionaryService documentDictionaryService;
 
     public boolean canCreate(Class boClass) {
         return getDocumentDictionaryService().getAllowsNewOrCopy(
-                getDocumentDictionaryService().getMaintenanceDocumentTypeName(boClass));
+            getDocumentDictionaryService().getMaintenanceDocumentTypeName(boClass));
     }
 
     public boolean canMaintain(Object dataObject) {

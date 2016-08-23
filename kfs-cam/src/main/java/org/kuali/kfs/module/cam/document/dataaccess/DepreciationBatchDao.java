@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,7 +39,7 @@ public interface DepreciationBatchDao {
      * period
      *
      * @param assetPayments Batch of asset payments
-     * @param fiscalPeriod Current fiscal period
+     * @param fiscalPeriod  Current fiscal period
      */
     void updateAssetPayments(List<AssetPaymentInfo> assetPayments, Integer fiscalPeriod);
 
@@ -62,8 +62,8 @@ public interface DepreciationBatchDao {
     /**
      * Gets the list of depreciable asset payment list and corresponding details
      *
-     * @param fiscalYear Fiscal year
-     * @param fiscalMonth Fiscal period
+     * @param fiscalYear       Fiscal year
+     * @param fiscalMonth      Fiscal period
      * @param depreciationDate Depreciation Date
      * @return List found matching depreciation criteria
      */
@@ -117,9 +117,10 @@ public interface DepreciationBatchDao {
      * @return
      */
     Integer getTransferDocLockedAssetCount();
-    
+
     /**
-     * Assets with pending transfer docs 
+     * Assets with pending transfer docs
+     *
      * @return
      */
     Set<Long> getTransferDocPendingAssets();
@@ -147,6 +148,7 @@ public interface DepreciationBatchDao {
      * <li>Asset has depreciation convention restricted by parameter
      * <li>Asset are movable assets. Movable assets are defined by system parameter MOVABLE_EQUIPMENT_OBJECT_SUB_TYPES
      * </ul>
+     *
      * @param lastFiscalYearDate
      * @param movableEquipmentObjectSubTypes
      * @param depreciationConventionCd
@@ -157,9 +159,10 @@ public interface DepreciationBatchDao {
     /**
      * Depreciation (end of year) Period 13 assets incorrect depreciation start date
      * <P> Update asset in service date and depreciation date
+     *
      * @param selectedAssets
      * @param inServiceDate
      * @param depreciationDate
      */
-    void updateAssetInServiceAndDepreciationDate(List<String>selectedAssets, Date inServiceDate, Date depreciationDate);
+    void updateAssetInServiceAndDepreciationDate(List<String> selectedAssets, Date inServiceDate, Date depreciationDate);
 }

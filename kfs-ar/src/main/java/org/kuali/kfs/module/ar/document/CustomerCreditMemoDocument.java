@@ -1,32 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.document;
 
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomerCreditMemo;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.AccountsReceivableDocumentHeader;
 import org.kuali.kfs.module.ar.businessobject.CustomerCreditMemoDetail;
@@ -55,10 +52,13 @@ import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase implements GeneralLedgerPendingEntrySource, AmountTotaling, AccountsReceivableCustomerCreditMemo {
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CustomerCreditMemoDocument.class);
@@ -89,6 +89,7 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
 
     /**
      * Gets the creditMemoDetails attribute.
+     *
      * @return Returns the creditMemoDetails.
      */
     public List<CustomerCreditMemoDetail> getCreditMemoDetails() {
@@ -97,6 +98,7 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
 
     /**
      * Sets the creditMemoDetails attribute value.
+     *
      * @param creditMemoDetails The creditMemoDetails to set.
      */
     public void setCreditMemoDetails(List<CustomerCreditMemoDetail> creditMemoDetails) {
@@ -105,6 +107,7 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
 
     /**
      * Gets the financialDocumentReferenceInvoiceNumber attribute.
+     *
      * @return Returns the financialDocumentReferenceInvoiceNumber.
      */
     public String getFinancialDocumentReferenceInvoiceNumber() {
@@ -113,6 +116,7 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
 
     /**
      * Sets the financialDocumentReferenceInvoiceNumber attribute value.
+     *
      * @param financialDocumentReferenceInvoiceNumber The financialDocumentReferenceInvoiceNumber to set.
      */
     public void setFinancialDocumentReferenceInvoiceNumber(String financialDocumentReferenceInvoiceNumber) {
@@ -125,10 +129,11 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
 
     /**
      * Gets the invoice attribute.
+     *
      * @return Returns the invoice.
      */
     public CustomerInvoiceDocument getInvoice() {
-        if (ObjectUtils.isNull(invoice) && StringUtils.isNotEmpty(financialDocumentReferenceInvoiceNumber)){
+        if (ObjectUtils.isNull(invoice) && StringUtils.isNotEmpty(financialDocumentReferenceInvoiceNumber)) {
             refreshReferenceObject("invoice");
         }
 
@@ -137,6 +142,7 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
 
     /**
      * Sets the invoice attribute value.
+     *
      * @param invoice The invoice to set.
      */
     public void setInvoice(CustomerInvoiceDocument invoice) {
@@ -145,6 +151,7 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
 
     /**
      * Gets the statusCode attribute.
+     *
      * @return Returns the statusCode.
      */
     public String getStatusCode() {
@@ -153,6 +160,7 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
 
     /**
      * Sets the statusCode attribute value.
+     *
      * @param statusCode The statusCode to set.
      */
     public void setStatusCode(String statusCode) {
@@ -179,6 +187,7 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
 
     /**
      * Gets the crmTotalAmount attribute.
+     *
      * @return Returns the crmTotalAmount.
      */
     public KualiDecimal getCrmTotalAmount() {
@@ -187,6 +196,7 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
 
     /**
      * This method returns the crmTotalAmount as a currency formatted string.
+     *
      * @return String
      */
     public String getCurrencyFormattedCrmTotalAmount() {
@@ -195,6 +205,7 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
 
     /**
      * Sets the crmTotalAmount attribute value.
+     *
      * @param crmTotalAmount The crmTotalAmount to set.
      */
     public void setCrmTotalAmount(KualiDecimal crmTotalAmount) {
@@ -203,6 +214,7 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
 
     /**
      * Gets the crmTotalItemAmount attribute.
+     *
      * @return Returns the crmTotalItemAmount.
      */
     public KualiDecimal getCrmTotalItemAmount() {
@@ -211,6 +223,7 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
 
     /**
      * This method returns the crmTotalItemAmount as a currency formatted string.
+     *
      * @return String
      */
     public String getCurrencyFormattedCrmTotalItemAmount() {
@@ -219,6 +232,7 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
 
     /**
      * Sets the crmTotalItemAmount attribute value.
+     *
      * @param crmTotalItemAmount The crmTotalItemAmount to set.
      */
     public void setCrmTotalItemAmount(KualiDecimal crmTotalItemAmount) {
@@ -227,6 +241,7 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
 
     /**
      * Gets the crmTotalTaxAmount attribute.
+     *
      * @return Returns the crmTotalTaxAmount.
      */
     public KualiDecimal getCrmTotalTaxAmount() {
@@ -235,6 +250,7 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
 
     /**
      * This method returns the crmTotalTaxAmount as a currency formatted string.
+     *
      * @return String
      */
     public String getCurrencyFormattedCrmTotalTaxAmount() {
@@ -243,6 +259,7 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
 
     /**
      * Sets the crmTotalTaxAmount attribute value.
+     *
      * @param crmTotalTaxAmount The crmTotalTaxAmount to set.
      */
     public void setCrmTotalTaxAmount(KualiDecimal crmTotalTaxAmount) {
@@ -251,6 +268,7 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
 
     /**
      * Gets the invOutstandingDays attribute.
+     *
      * @return Returns the invOutstandingDays.
      */
     public Integer getInvOutstandingDays() {
@@ -264,6 +282,7 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
 
     /**
      * Sets the invOutstandingDays attribute value.
+     *
      * @param invOutstandingDays The invOutstandingDays to set.
      */
     public void setInvOutstandingDays(Integer invOutstandingDays) {
@@ -276,10 +295,10 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
 
         // substract the 'old' item amount, tax amount, and total amount accordingly from totals
         if (ObjectUtils.isNotNull(duplicateCreditMemoItemTotalAmount)) {
-            prepareTotalsForUpdate(duplicateCreditMemoItemTotalAmount,getArTaxService().isCustomerInvoiceDetailTaxable(getInvoice(), customerCreditMemoDetail.getCustomerInvoiceDetail()));
+            prepareTotalsForUpdate(duplicateCreditMemoItemTotalAmount, getArTaxService().isCustomerInvoiceDetailTaxable(getInvoice(), customerCreditMemoDetail.getCustomerInvoiceDetail()));
         }
 
-        recalculateTotals(creditMemoItemTotalAmount,getArTaxService().isCustomerInvoiceDetailTaxable(getInvoice(), customerCreditMemoDetail.getCustomerInvoiceDetail()));
+        recalculateTotals(creditMemoItemTotalAmount, getArTaxService().isCustomerInvoiceDetailTaxable(getInvoice(), customerCreditMemoDetail.getCustomerInvoiceDetail()));
 
         // update duplicate credit memo item amount with 'new' value
         customerCreditMemoDetail.setDuplicateCreditMemoItemTotalAmount(creditMemoItemTotalAmount);
@@ -290,7 +309,7 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
 
         // substract the 'old' item amount, tax amount, and total amount accordingly from totals
         if (ObjectUtils.isNotNull(duplicateCreditMemoItemTotalAmount)) {
-            prepareTotalsForUpdate(duplicateCreditMemoItemTotalAmount,getArTaxService().isCustomerInvoiceDetailTaxable(getInvoice(), customerCreditMemoDetail.getCustomerInvoiceDetail()));
+            prepareTotalsForUpdate(duplicateCreditMemoItemTotalAmount, getArTaxService().isCustomerInvoiceDetailTaxable(getInvoice(), customerCreditMemoDetail.getCustomerInvoiceDetail()));
             customerCreditMemoDetail.setDuplicateCreditMemoItemTotalAmount(null);
         }
     }
@@ -332,7 +351,7 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
         setStatusCode(ArConstants.CustomerCreditMemoStatuses.IN_PROCESS);
 
         //set accounts receivable document header if not already set
-        if (getAccountsReceivableDocumentHeader() == null){
+        if (getAccountsReceivableDocumentHeader() == null) {
             AccountsReceivableDocumentHeader accountsReceivableDocumentHeader = SpringContext.getBean(AccountsReceivableDocumentHeaderService.class).getNewAccountsReceivableDocumentHeaderForCurrentUser();
             accountsReceivableDocumentHeader.setDocumentNumber(getDocumentNumber());
             accountsReceivableDocumentHeader.setCustomerNumber(invoice.getAccountsReceivableDocumentHeader().getCustomerNumber());
@@ -343,7 +362,7 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
         for (CustomerInvoiceDetail customerInvoiceDetail : customerInvoiceDetails) {
             customerCreditMemoDetail = new CustomerCreditMemoDetail();
 
-            if(ObjectUtils.isNull(customerInvoiceDetail.getInvoiceItemTaxAmount())){
+            if (ObjectUtils.isNull(customerInvoiceDetail.getInvoiceItemTaxAmount())) {
                 customerInvoiceDetail.setInvoiceItemTaxAmount(KualiDecimal.ZERO);
             }
             customerCreditMemoDetail.setInvoiceLineTotalAmount(customerInvoiceDetail.getInvoiceItemTaxAmount(), customerInvoiceDetail.getInvoiceItemPreTaxAmount());
@@ -381,7 +400,7 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
 
             creditMemoDetail.setInvoiceOpenItemQuantity(getInvoiceOpenItemQuantity(creditMemoDetail, customerInvoiceDetail));
 
-            if(ObjectUtils.isNull(customerInvoiceDetail.getInvoiceItemTaxAmount())){
+            if (ObjectUtils.isNull(customerInvoiceDetail.getInvoiceItemTaxAmount())) {
                 customerInvoiceDetail.setInvoiceItemTaxAmount(KualiDecimal.ZERO);
             }
             creditMemoDetail.setInvoiceLineTotalAmount(customerInvoiceDetail.getInvoiceItemTaxAmount(), customerInvoiceDetail.getInvoiceItemPreTaxAmount());
@@ -389,10 +408,9 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
             creditMemoItemAmount = creditMemoDetail.getCreditMemoItemTotalAmount();
             creditMemoDetail.setDuplicateCreditMemoItemTotalAmount(creditMemoItemAmount);
             if (ObjectUtils.isNotNull(creditMemoItemAmount)) {
-                if( getArTaxService().isCustomerInvoiceDetailTaxable(invoice, customerInvoiceDetail) ) {
+                if (getArTaxService().isCustomerInvoiceDetailTaxable(invoice, customerInvoiceDetail)) {
                     creditMemoTaxAmount = getTaxService().getTotalSalesTaxAmount(invoice.getBillingDate(), getPostalCode(), creditMemoItemAmount);
-                }
-                else {
+                } else {
                     creditMemoTaxAmount = KualiDecimal.ZERO;
                 }
                 creditMemoDetail.setCreditMemoItemTaxAmount(creditMemoTaxAmount);
@@ -408,16 +426,15 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
         }
     }
 
-    public BigDecimal getInvoiceOpenItemQuantity(CustomerCreditMemoDetail customerCreditMemoDetail,CustomerInvoiceDetail customerInvoiceDetail) {
+    public BigDecimal getInvoiceOpenItemQuantity(CustomerCreditMemoDetail customerCreditMemoDetail, CustomerInvoiceDetail customerInvoiceDetail) {
         BigDecimal invoiceOpenItemQuantity;
         BigDecimal invoiceItemUnitPrice = customerInvoiceDetail.getInvoiceItemUnitPrice();
         if (ObjectUtils.isNull(invoiceItemUnitPrice) || invoiceItemUnitPrice.equals(BigDecimal.ZERO)) {
             invoiceOpenItemQuantity = BigDecimal.ZERO;
-        }
-        else {
+        } else {
             KualiDecimal invoiceOpenItemAmount = customerCreditMemoDetail.getInvoiceOpenItemAmount();
             KualiDecimal invoiceOpenItemPretaxAmount = invoiceOpenItemAmount;
-            if( getArTaxService().isCustomerInvoiceDetailTaxable(getInvoice(), customerInvoiceDetail)) {
+            if (getArTaxService().isCustomerInvoiceDetailTaxable(getInvoice(), customerInvoiceDetail)) {
                 invoiceOpenItemPretaxAmount = getCustomerInvoiceDetailOpenPretaxAmount(invoiceOpenItemAmount);
             }
 
@@ -436,13 +453,14 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
     /**
      * do all the calculations before the document gets saved
      * gets called for 'Submit', 'Save', and 'Blanket Approved'
+     *
      * @see org.kuali.rice.krad.document.Document#prepareForSave(org.kuali.rice.krad.rule.event.KualiDocumentEvent)
      */
     @Override
     public void prepareForSave(KualiDocumentEvent event) {
-        CustomerCreditMemoDocument customerCreditMemoDocument = (CustomerCreditMemoDocument)event.getDocument();
+        CustomerCreditMemoDocument customerCreditMemoDocument = (CustomerCreditMemoDocument) event.getDocument();
         CustomerCreditMemoDocumentService customerCreditMemoDocumentService = SpringContext.getBean(CustomerCreditMemoDocumentService.class);
-        customerCreditMemoDocumentService.recalculateCustomerCreditMemoDocument(customerCreditMemoDocument,false);
+        customerCreditMemoDocumentService.recalculateCustomerCreditMemoDocument(customerCreditMemoDocument, false);
 
         // generate GLPEs
         if (!SpringContext.getBean(GeneralLedgerPendingEntryService.class).generateGeneralLedgerPendingEntries(this)) {
@@ -488,7 +506,7 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
             CustomerCreditMemoDetail customerCreditMemoDetail;
             KualiDecimal amount;
             while (iter.hasNext()) {
-                customerCreditMemoDetail = (CustomerCreditMemoDetail)iter.next();
+                customerCreditMemoDetail = (CustomerCreditMemoDetail) iter.next();
                 amount = customerCreditMemoDetail.getCreditMemoItemTotalAmount();
 
                 // get only non empty credit memo details to generate GLPEs
@@ -518,6 +536,7 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
 
     /**
      * Returns the general ledger input type code for the given document, using the DataDictionaryService
+     *
      * @return the general ledger input type code for the given document
      */
     @Override
@@ -538,14 +557,14 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
 
     /**
      * When document is processed do the following:
-     *
+     * <p>
      * 1) Apply amounts to writeoff invoice
      * 2) Mark off invoice indiciator
      *
      * @see org.kuali.kfs.sys.document.GeneralLedgerPostingDocumentBase#doRouteStatusChange()
      */
     @Override
-    public void doRouteStatusChange(DocumentRouteStatusChange statusChangeEvent){
+    public void doRouteStatusChange(DocumentRouteStatusChange statusChangeEvent) {
         super.doRouteStatusChange(statusChangeEvent);
         if (getDocumentHeader().getWorkflowDocument().isProcessed()) {
 
@@ -560,7 +579,7 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
 
     /**
      * This method creates the following GLPE's for the customer credit memo
-     *
+     * <p>
      * 1. Credit to receivable object for total line amount (excluding sales tax)
      * 2. Debit to income object for total line amount (excluding sales tax)
      * 3. Credit to receivable object in sales tax account(if sales tax exists)
@@ -579,8 +598,8 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
 
         //if sales tax is enabled generate GLPEs
         CustomerInvoiceDetail invoiceDetail = ((CustomerCreditMemoDetail) glpeSourceDetail).getCustomerInvoiceDetail();
-        if( getArTaxService().isCustomerInvoiceDetailTaxable(getInvoice(), invoiceDetail) ) {
-            addSalesTaxGLPEs( sequenceHelper, glpeSourceDetail);
+        if (getArTaxService().isCustomerInvoiceDetailTaxable(getInvoice(), invoiceDetail)) {
+            addSalesTaxGLPEs(sequenceHelper, glpeSourceDetail);
         }
 
         return true;
@@ -596,7 +615,7 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
      */
     protected void addReceivableGLPEs(GeneralLedgerPendingEntrySequenceHelper sequenceHelper, GeneralLedgerPendingEntrySourceDetail glpeSourceDetail) {
 
-        CustomerCreditMemoDetail customerCreditMemoDetail = (CustomerCreditMemoDetail)glpeSourceDetail;
+        CustomerCreditMemoDetail customerCreditMemoDetail = (CustomerCreditMemoDetail) glpeSourceDetail;
         CustomerInvoiceDetail customerInvoiceDetail = customerCreditMemoDetail.getCustomerInvoiceDetail();
         ReceivableCustomerInvoiceDetail receivableCustomerInvoiceDetail = new ReceivableCustomerInvoiceDetail(customerInvoiceDetail, this.getInvoice());
         boolean isDebit = false;
@@ -615,7 +634,7 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
      */
     protected void addIncomeGLPEs(GeneralLedgerPendingEntrySequenceHelper sequenceHelper, GeneralLedgerPendingEntrySourceDetail glpeSourceDetail) {
 
-        CustomerCreditMemoDetail customerCreditMemoDetail = (CustomerCreditMemoDetail)glpeSourceDetail;
+        CustomerCreditMemoDetail customerCreditMemoDetail = (CustomerCreditMemoDetail) glpeSourceDetail;
         boolean isDebit = true;
 
         AccountsReceivablePendingEntryService service = SpringContext.getBean(AccountsReceivablePendingEntryService.class);
@@ -629,9 +648,9 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
      * @param glpeSourceDetail
      * @param hasClaimOnCashOffset
      */
-    protected void addSalesTaxGLPEs(GeneralLedgerPendingEntrySequenceHelper sequenceHelper, GeneralLedgerPendingEntrySourceDetail glpeSourceDetail){
+    protected void addSalesTaxGLPEs(GeneralLedgerPendingEntrySequenceHelper sequenceHelper, GeneralLedgerPendingEntrySourceDetail glpeSourceDetail) {
 
-        CustomerCreditMemoDetail customerCreditMemoDetail = (CustomerCreditMemoDetail)glpeSourceDetail;
+        CustomerCreditMemoDetail customerCreditMemoDetail = (CustomerCreditMemoDetail) glpeSourceDetail;
         boolean isDebit = false;
 
         String postalCode = getPostalCode();
@@ -642,9 +661,9 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
         AccountsReceivablePendingEntryService service = SpringContext.getBean(AccountsReceivablePendingEntryService.class);
         SalesTaxCustomerCreditMemoDetail salesTaxCustomerCreditMemoDetail;
         ReceivableCustomerCreditMemoDetail receivableCustomerCreditMemoDetail;
-        for( TaxDetail salesTaxDetail : salesTaxDetails ){
+        for (TaxDetail salesTaxDetail : salesTaxDetails) {
 
-            salesTaxCustomerCreditMemoDetail = new SalesTaxCustomerCreditMemoDetail( salesTaxDetail, customerCreditMemoDetail );
+            salesTaxCustomerCreditMemoDetail = new SalesTaxCustomerCreditMemoDetail(salesTaxDetail, customerCreditMemoDetail);
             salesTaxCustomerCreditMemoDetail.setCustomerInvoiceDetail(customerCreditMemoDetail.getCustomerInvoiceDetail());
             receivableCustomerCreditMemoDetail = new ReceivableCustomerCreditMemoDetail(salesTaxCustomerCreditMemoDetail, this);
             receivableCustomerCreditMemoDetail.setCustomerInvoiceDetail(customerCreditMemoDetail.getCustomerInvoiceDetail());
@@ -678,6 +697,7 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
 
     /**
      * Gets the taxService attribute.
+     *
      * @return Returns the taxService.
      */
     public TaxService getTaxService() {
@@ -690,6 +710,7 @@ public class CustomerCreditMemoDocument extends GeneralLedgerPostingDocumentBase
 
     /**
      * Gets the arTaxService attribute.
+     *
      * @return Returns the arTaxService.
      */
     public AccountsReceivableTaxService getArTaxService() {

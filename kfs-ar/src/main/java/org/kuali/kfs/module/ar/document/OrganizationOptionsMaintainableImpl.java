@@ -1,26 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.document;
 
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.maintenance.MaintenanceLock;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.businessobject.OrganizationOptions;
@@ -33,9 +33,9 @@ import org.kuali.kfs.sys.document.FinancialSystemMaintainable;
 import org.kuali.kfs.sys.service.FinancialSystemUserService;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.krad.maintenance.MaintenanceLock;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.List;
+import java.util.Map;
 
 public class OrganizationOptionsMaintainableImpl extends FinancialSystemMaintainable {
 
@@ -43,7 +43,6 @@ public class OrganizationOptionsMaintainableImpl extends FinancialSystemMaintain
     private OrganizationOptions oldOptions;
 
     /**
-     *
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#generateMaintenanceLocks()
      */
     @Override
@@ -54,11 +53,10 @@ public class OrganizationOptionsMaintainableImpl extends FinancialSystemMaintain
     }
 
     /**
-     *
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#processAfterNew(org.kuali.rice.kns.document.MaintenanceDocument, java.util.Map)
      */
     @Override
-    public void processAfterNew(MaintenanceDocument document, Map<String,String[]> parameters) {
+    public void processAfterNew(MaintenanceDocument document, Map<String, String[]> parameters) {
         super.processAfterNew(document, parameters);
 
         initializeAttributes(document);
@@ -75,9 +73,9 @@ public class OrganizationOptionsMaintainableImpl extends FinancialSystemMaintain
     }
 
     @Override
-	public void setGenerateBlankRequiredValues(String docTypeName) {
+    public void setGenerateBlankRequiredValues(String docTypeName) {
 
-	}
+    }
 
     /**
      * This method gets old and new maintainable objects and creates convenience handles to them
@@ -94,7 +92,6 @@ public class OrganizationOptionsMaintainableImpl extends FinancialSystemMaintain
     }
 
     /**
-     *
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#refresh(java.lang.String, java.util.Map, org.kuali.rice.kns.document.MaintenanceDocument)
      */
     @Override
@@ -104,16 +101,16 @@ public class OrganizationOptionsMaintainableImpl extends FinancialSystemMaintain
         this.initializeAttributes(document);
 
         // Handle refreshing remit to address if processing chart and org have changed
-        String chartCode = (String)fieldValues.get(KFSConstants.MAINTENANCE_NEW_MAINTAINABLE + KFSPropertyConstants.PROCESSING_CHART_OF_ACCT_CD);
-        String orgCode = (String)fieldValues.get(KFSConstants.MAINTENANCE_NEW_MAINTAINABLE + KFSPropertyConstants.PROCESSING_ORGANIZATION_CODE);
-        if(chartCode!=null && orgCode!=null) {
+        String chartCode = (String) fieldValues.get(KFSConstants.MAINTENANCE_NEW_MAINTAINABLE + KFSPropertyConstants.PROCESSING_CHART_OF_ACCT_CD);
+        String orgCode = (String) fieldValues.get(KFSConstants.MAINTENANCE_NEW_MAINTAINABLE + KFSPropertyConstants.PROCESSING_ORGANIZATION_CODE);
+        if (chartCode != null && orgCode != null) {
             updateRemitToAddress(chartCode, orgCode);
         }
     }
 
     /**
-     *
      * This method...
+     *
      * @param chartCode
      * @param orgCode
      */
@@ -121,7 +118,7 @@ public class OrganizationOptionsMaintainableImpl extends FinancialSystemMaintain
         UniversityDateService universityDateService = SpringContext.getBean(UniversityDateService.class);
         SystemInformation sysInfo = SpringContext.getBean(SystemInformationService.class).getByProcessingChartOrgAndFiscalYear(chartCode, orgCode, universityDateService.getCurrentFiscalYear());
 
-        if(sysInfo != null) {
+        if (sysInfo != null) {
             newOptions.setOrganizationRemitToAddressName(sysInfo.getOrganizationRemitToAddressName());
             newOptions.setOrganizationRemitToLine1StreetAddress(sysInfo.getOrganizationRemitToLine1StreetAddress());
             newOptions.setOrganizationRemitToLine2StreetAddress(sysInfo.getOrganizationRemitToLine2StreetAddress());
@@ -129,9 +126,8 @@ public class OrganizationOptionsMaintainableImpl extends FinancialSystemMaintain
             newOptions.setOrganizationRemitToStateCode(sysInfo.getOrganizationRemitToStateCode());
             newOptions.setOrganizationRemitToZipCode(sysInfo.getOrganizationRemitToZipCode());
             // Add message here to notify user that remit to address has been updated
-        }
-        else {
-            GlobalVariables.getMessageMap().putError(KFSConstants.MAINTENANCE_NEW_MAINTAINABLE + KFSPropertyConstants.PROCESSING_CHART_OF_ACCT_CD, ArKeyConstants.OrganizationOptionsErrors.SYS_INFO_DOES_NOT_EXIST_FOR_PROCESSING_CHART_AND_ORG, new String[] {chartCode, orgCode});
+        } else {
+            GlobalVariables.getMessageMap().putError(KFSConstants.MAINTENANCE_NEW_MAINTAINABLE + KFSPropertyConstants.PROCESSING_CHART_OF_ACCT_CD, ArKeyConstants.OrganizationOptionsErrors.SYS_INFO_DOES_NOT_EXIST_FOR_PROCESSING_CHART_AND_ORG, new String[]{chartCode, orgCode});
         }
     }
 

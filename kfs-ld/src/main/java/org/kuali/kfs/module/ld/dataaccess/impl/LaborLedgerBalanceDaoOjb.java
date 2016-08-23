@@ -1,47 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.dataaccess.impl;
-
-import static org.kuali.kfs.module.ld.LaborPropertyConstants.AccountingPeriodProperties.APRIL;
-import static org.kuali.kfs.module.ld.LaborPropertyConstants.AccountingPeriodProperties.AUGUST;
-import static org.kuali.kfs.module.ld.LaborPropertyConstants.AccountingPeriodProperties.DECEMBER;
-import static org.kuali.kfs.module.ld.LaborPropertyConstants.AccountingPeriodProperties.FEBRUARY;
-import static org.kuali.kfs.module.ld.LaborPropertyConstants.AccountingPeriodProperties.JANUARY;
-import static org.kuali.kfs.module.ld.LaborPropertyConstants.AccountingPeriodProperties.JULY;
-import static org.kuali.kfs.module.ld.LaborPropertyConstants.AccountingPeriodProperties.JUNE;
-import static org.kuali.kfs.module.ld.LaborPropertyConstants.AccountingPeriodProperties.MARCH;
-import static org.kuali.kfs.module.ld.LaborPropertyConstants.AccountingPeriodProperties.MAY;
-import static org.kuali.kfs.module.ld.LaborPropertyConstants.AccountingPeriodProperties.NOVEMBER;
-import static org.kuali.kfs.module.ld.LaborPropertyConstants.AccountingPeriodProperties.OCTOBER;
-import static org.kuali.kfs.module.ld.LaborPropertyConstants.AccountingPeriodProperties.SEPTEMBER;
-import static org.kuali.kfs.module.ld.LaborPropertyConstants.AccountingPeriodProperties.YEAR_END;
-import static org.kuali.kfs.module.ld.util.ConsolidationUtil.buildConsolidatedQuery;
-import static org.kuali.kfs.module.ld.util.ConsolidationUtil.buildGroupByCollection;
-import static org.kuali.kfs.module.ld.util.ConsolidationUtil.sum;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.ojb.broker.query.Criteria;
@@ -63,9 +38,34 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.ObjectUtil;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import static org.kuali.kfs.module.ld.LaborPropertyConstants.AccountingPeriodProperties.APRIL;
+import static org.kuali.kfs.module.ld.LaborPropertyConstants.AccountingPeriodProperties.AUGUST;
+import static org.kuali.kfs.module.ld.LaborPropertyConstants.AccountingPeriodProperties.DECEMBER;
+import static org.kuali.kfs.module.ld.LaborPropertyConstants.AccountingPeriodProperties.FEBRUARY;
+import static org.kuali.kfs.module.ld.LaborPropertyConstants.AccountingPeriodProperties.JANUARY;
+import static org.kuali.kfs.module.ld.LaborPropertyConstants.AccountingPeriodProperties.JULY;
+import static org.kuali.kfs.module.ld.LaborPropertyConstants.AccountingPeriodProperties.JUNE;
+import static org.kuali.kfs.module.ld.LaborPropertyConstants.AccountingPeriodProperties.MARCH;
+import static org.kuali.kfs.module.ld.LaborPropertyConstants.AccountingPeriodProperties.MAY;
+import static org.kuali.kfs.module.ld.LaborPropertyConstants.AccountingPeriodProperties.NOVEMBER;
+import static org.kuali.kfs.module.ld.LaborPropertyConstants.AccountingPeriodProperties.OCTOBER;
+import static org.kuali.kfs.module.ld.LaborPropertyConstants.AccountingPeriodProperties.SEPTEMBER;
+import static org.kuali.kfs.module.ld.LaborPropertyConstants.AccountingPeriodProperties.YEAR_END;
+import static org.kuali.kfs.module.ld.util.ConsolidationUtil.buildConsolidatedQuery;
+import static org.kuali.kfs.module.ld.util.ConsolidationUtil.buildGroupByCollection;
+import static org.kuali.kfs.module.ld.util.ConsolidationUtil.sum;
+
 /**
  * This is the data access object for ledger balance.
- * 
+ *
  * @see org.kuali.kfs.module.ld.businessobject.LedgerBalance
  */
 public class LaborLedgerBalanceDaoOjb extends PlatformAwareDaoBaseOjb implements LaborLedgerBalanceDao, LedgerBalanceBalancingDao {
@@ -183,7 +183,7 @@ public class LaborLedgerBalanceDaoOjb extends PlatformAwareDaoBaseOjb implements
         ReportQueryByCriteria query = QueryFactory.newReportQuery(LedgerBalance.class, criteria);
 
         // set the selection attributes
-        query.setAttributes(new String[] { "count(*)" });
+        query.setAttributes(new String[]{"count(*)"});
 
         Collection<String> groupByList = buildGroupByCollection();
         groupByList.remove(KFSPropertyConstants.SUB_ACCOUNT_NUMBER);
@@ -198,11 +198,11 @@ public class LaborLedgerBalanceDaoOjb extends PlatformAwareDaoBaseOjb implements
 
     /**
      * This method builds the query criteria based on the input field map
-     * 
+     *
      * @param fieldValues
      * @param balance
      * @param encumbranceBalanceTypes
-     * @param noZeroAmounts makes sure at least one of the 13 monthly buckets has an amount not equals to zero
+     * @param noZeroAmounts           makes sure at least one of the 13 monthly buckets has an amount not equals to zero
      * @return a query criteria
      */
     protected Criteria buildCriteriaFromMap(Map fieldValues, LedgerBalance balance, List<String> encumbranceBalanceTypes, boolean noZeroAmounts) {
@@ -449,7 +449,7 @@ public class LaborLedgerBalanceDaoOjb extends PlatformAwareDaoBaseOjb implements
 
     /**
      * @see org.kuali.kfs.module.ld.dataaccess.LaborLedgerBalanceDao#findBalancesForFiscalYear(java.lang.Integer, java.util.Map,
-     *      java.util.List, java.util.List)
+     * java.util.List, java.util.List)
      */
     public Iterator<LedgerBalanceForYearEndBalanceForward> findBalancesForFiscalYear(Integer fiscalYear, Map<String, String> fieldValues, List<String> subFundGroupCodes, List<String> fundGroupCodes) {
         Criteria criteria = OJBUtility.buildCriteriaFromMap(fieldValues, new LedgerBalanceForYearEndBalanceForward());
@@ -484,7 +484,7 @@ public class LaborLedgerBalanceDaoOjb extends PlatformAwareDaoBaseOjb implements
 
     /**
      * @see org.kuali.kfs.module.ld.dataaccess.LaborLedgerBalanceDao#findAccountsInFundGroups(java.lang.Integer, java.util.Map,
-     *      java.util.List, java.util.List)
+     * java.util.List, java.util.List)
      */
     public List<List<String>> findAccountsInFundGroups(Integer fiscalYear, Map<String, String> fieldValues, List<String> subFundGroupCodes, List<String> fundGroupCodes) {
         Criteria criteria = OJBUtility.buildCriteriaFromMap(fieldValues, new LedgerBalanceForYearEndBalanceForward());
@@ -528,7 +528,7 @@ public class LaborLedgerBalanceDaoOjb extends PlatformAwareDaoBaseOjb implements
 
     /**
      * @see org.kuali.kfs.module.ld.dataaccess.LaborLedgerBalanceDao#findLedgerBalances(java.util.Map, java.util.Map, java.util.Set,
-     *      java.util.List, java.util.List)
+     * java.util.List, java.util.List)
      */
     public Collection<LedgerBalance> findLedgerBalances(Map<String, List<String>> fieldValues, Map<String, List<String>> excludedFieldValues, Set<Integer> fiscalYears, List<String> balanceTypeList, List<String> positionObjectGroupCodes) {
         Criteria criteria = new Criteria();
@@ -569,7 +569,7 @@ public class LaborLedgerBalanceDaoOjb extends PlatformAwareDaoBaseOjb implements
 
     /**
      * @see org.kuali.kfs.module.ld.dataaccess.LaborLedgerBalanceDao#deleteLedgerBalancesPriorToYear(java.lang.Integer,
-     *      java.lang.String)
+     * java.lang.String)
      */
     public void deleteLedgerBalancesPriorToYear(Integer fiscalYear, String chartOfAccountsCode) {
         LOG.debug("deleteLedgerBalancesPriorToYear() started");

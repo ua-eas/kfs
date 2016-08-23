@@ -1,28 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.businessobject.lookup;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.Constant;
@@ -31,14 +25,20 @@ import org.kuali.kfs.gl.batch.service.EncumbranceCalculator;
 import org.kuali.kfs.gl.businessobject.Encumbrance;
 import org.kuali.kfs.gl.businessobject.inquiry.EncumbranceInquirableImpl;
 import org.kuali.kfs.gl.service.EncumbranceService;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
-import org.kuali.kfs.kns.lookup.HtmlData;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * An extension of KualiLookupableImpl to support encumbrance lookups
@@ -50,7 +50,8 @@ public class EncumbranceLookupableHelperServiceImpl extends AbstractGeneralLedge
 
     /**
      * Returns the url for any drill down links within the lookup
-     * @param bo the business object with a property being drilled down on
+     *
+     * @param bo           the business object with a property being drilled down on
      * @param propertyName the name of the property being drilled down on
      * @return a String with the URL of the property
      * @see org.kuali.rice.kns.lookup.Lookupable#getInquiryUrl(org.kuali.rice.krad.bo.BusinessObject, java.lang.String)
@@ -59,9 +60,10 @@ public class EncumbranceLookupableHelperServiceImpl extends AbstractGeneralLedge
     public HtmlData getInquiryUrl(BusinessObject businessObject, String propertyName) {
         return (new EncumbranceInquirableImpl()).getInquiryUrl(businessObject, propertyName);
     }
-    
+
     /**
      * Validates the fiscal year searched for in the inquiry
+     *
      * @param fieldValues the values of the query
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#validateSearchParameters(java.util.Map)
      */
@@ -73,44 +75,46 @@ public class EncumbranceLookupableHelperServiceImpl extends AbstractGeneralLedge
         if (!StringUtils.isEmpty(valueFiscalYear)) {
             try {
                 int year = Integer.parseInt(valueFiscalYear);
-            }
-            catch (NumberFormatException e) {
-                GlobalVariables.getMessageMap().putError(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, KFSKeyConstants.ERROR_CUSTOM, new String[] { KFSKeyConstants.PendingEntryLookupableImpl.FISCAL_YEAR_FOUR_DIGIT });
+            } catch (NumberFormatException e) {
+                GlobalVariables.getMessageMap().putError(KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, KFSKeyConstants.ERROR_CUSTOM, new String[]{KFSKeyConstants.PendingEntryLookupableImpl.FISCAL_YEAR_FOUR_DIGIT});
                 throw new ValidationException("errors in search criteria");
             }
         }
-        
+
         if (!allRequiredsForAccountSearch(fieldValues) && !allRequiredsForDocumentSearch(fieldValues)) {
-            GlobalVariables.getMessageMap().putError("universityFiscalYear", KFSKeyConstants.ERROR_GL_LOOKUP_ENCUMBRANCE_NON_MATCHING_REQUIRED_FIELDS, new String[] {});
+            GlobalVariables.getMessageMap().putError("universityFiscalYear", KFSKeyConstants.ERROR_GL_LOOKUP_ENCUMBRANCE_NON_MATCHING_REQUIRED_FIELDS, new String[]{});
             throw new ValidationException("errors in search criteria");
         }
     }
-    
+
     /**
      * Determines if all the required values for an account based search are present - fiscal year, chart, account number, and fiscal period code
+     *
      * @param fieldValues field values to check
      * @return true if all the account-based required search fields are present; false otherwise
      */
     protected boolean allRequiredsForAccountSearch(Map fieldValues) {
-        final String fiscalYearAsString = (String)fieldValues.get("universityFiscalYear");
-        final String chartOfAccountsCode = (String)fieldValues.get("chartOfAccountsCode");
-        final String accountNumber = (String)fieldValues.get("accountNumber");
+        final String fiscalYearAsString = (String) fieldValues.get("universityFiscalYear");
+        final String chartOfAccountsCode = (String) fieldValues.get("chartOfAccountsCode");
+        final String accountNumber = (String) fieldValues.get("accountNumber");
         return !StringUtils.isBlank(fiscalYearAsString) && !StringUtils.isBlank(chartOfAccountsCode) && !StringUtils.isBlank(accountNumber);
     }
-    
+
     /**
      * Determines if all the required values for an document based search are present - fiscal year and document number
+     *
      * @param fieldValues field values to check
      * @return true if all the document-based required search fields are present; false otherwise
      */
     protected boolean allRequiredsForDocumentSearch(Map fieldValues) {
-        final String fiscalYearAsString = (String)fieldValues.get("universityFiscalYear");
-        final String documentNumber = (String)fieldValues.get("documentNumber");
+        final String fiscalYearAsString = (String) fieldValues.get("universityFiscalYear");
+        final String documentNumber = (String) fieldValues.get("documentNumber");
         return !StringUtils.isBlank(fiscalYearAsString) && !StringUtils.isBlank(documentNumber);
     }
 
     /**
      * Generates the list of search results for this inquiry
+     *
      * @param fieldValues the field values of the query to carry out
      * @return List the search results returned by the lookup
      * @see org.kuali.rice.kns.lookup.Lookupable#getSearchResults(java.util.Map)
@@ -122,7 +126,7 @@ public class EncumbranceLookupableHelperServiceImpl extends AbstractGeneralLedge
 
         // get the pending entry option. This method must be prior to the get search results
         String pendingEntryOption = this.getSelectedPendingEntryOption(fieldValues);
-        
+
         final String zeroEncumbranceOption = getSelectedZeroEncumbranceOption(fieldValues); // store in a temporary variable, because the method removes the key from the map
         final boolean includeZeroEncumbrances = (StringUtils.isBlank(zeroEncumbranceOption) || zeroEncumbranceOption.equals(Constant.ZERO_ENCUMBRANCE_INCLUDE));
 
@@ -142,14 +146,14 @@ public class EncumbranceLookupableHelperServiceImpl extends AbstractGeneralLedge
 
     /**
      * Updates pending entries before their results are included in the lookup results
-     * 
-     * @param entryCollection a collection of balance entries
-     * @param fieldValues the map containing the search fields and values
-     * @param isApproved flag whether the approved entries or all entries will be processed
-     * @param isConsolidated flag whether the results are consolidated or not
+     *
+     * @param entryCollection     a collection of balance entries
+     * @param fieldValues         the map containing the search fields and values
+     * @param isApproved          flag whether the approved entries or all entries will be processed
+     * @param isConsolidated      flag whether the results are consolidated or not
      * @param isCostShareExcluded flag whether the user selects to see the results with cost share subaccount
      * @see org.kuali.module.gl.web.lookupable.AbstractGLLookupableImpl#updateEntryCollection(java.util.Collection, java.util.Map,
-     *      boolean, boolean, boolean)
+     * boolean, boolean, boolean)
      */
     @Override
     protected void updateEntryCollection(Collection entryCollection, Map fieldValues, boolean isApproved, boolean isConsolidated, boolean isCostShareInclusive) {
@@ -168,6 +172,7 @@ public class EncumbranceLookupableHelperServiceImpl extends AbstractGeneralLedge
 
     /**
      * go through the given iterator to get encumbrances and put them into a collection
+     *
      * @param iterator an iterator of encumbrances
      * @return a collection of those encumbrances
      */
@@ -180,19 +185,20 @@ public class EncumbranceLookupableHelperServiceImpl extends AbstractGeneralLedge
         }
         return encumbranceCollection;
     }
-    
+
     /**
      * Method tests to see if the user selected to include or exclude zero encumbrances
+     *
      * @param fieldValues the lookup field values
      * @return the value of the zero encumbrance option
      */
     protected String getSelectedZeroEncumbranceOption(Map fieldValues) {
-        return (String)fieldValues.remove(Constant.ZERO_ENCUMBRANCE_OPTION);
+        return (String) fieldValues.remove(Constant.ZERO_ENCUMBRANCE_OPTION);
     }
 
     /**
      * Sets the postEncumbrance attribute value.
-     * 
+     *
      * @param postEncumbrance The postEncumbrance to set.
      */
     public void setPostEncumbrance(EncumbranceCalculator postEncumbrance) {
@@ -201,7 +207,7 @@ public class EncumbranceLookupableHelperServiceImpl extends AbstractGeneralLedge
 
     /**
      * Sets the encumbranceService attribute value.
-     * 
+     *
      * @param encumbranceService The encumbranceService to set.
      */
     public void setEncumbranceService(EncumbranceService encumbranceService) {

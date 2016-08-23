@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -119,6 +119,7 @@ public class Asset extends PersistableBusinessObjectBase implements CapitalAsset
     public void setVendorName(String vendorName) {
         this.vendorName = vendorName;
     }
+
     /**
      * Gets the campusCode attribute.
      *
@@ -216,6 +217,7 @@ public class Asset extends PersistableBusinessObjectBase implements CapitalAsset
     public void setCampusTagNumber(String campusTagNumber) {
         this.campusTagNumber = campusTagNumber;
     }
+
     /**
      * Gets the manufacturerName attribute.
      *
@@ -276,7 +278,8 @@ public class Asset extends PersistableBusinessObjectBase implements CapitalAsset
     }
 
     @Override
-    public void refresh() {}
+    public void refresh() {
+    }
 
     @Override
     public Integer getQuantity() {

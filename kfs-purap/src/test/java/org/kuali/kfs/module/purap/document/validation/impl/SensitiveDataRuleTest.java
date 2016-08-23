@@ -1,30 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
-
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.kns.document.MaintenanceDocumentBase;
+import org.kuali.kfs.kns.maintenance.Maintainable;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.businessobject.PurchaseOrderSensitiveData;
 import org.kuali.kfs.module.purap.businessobject.SensitiveData;
 import org.kuali.kfs.module.purap.businessobject.SensitiveDataAssignment;
@@ -39,32 +37,33 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.document.MaintenanceDocumentBase;
-import org.kuali.kfs.kns.maintenance.Maintainable;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.parke;
 
 public class SensitiveDataRuleTest extends PurapRuleTestBase {
 
-    private SensitiveDataRule sensitiveDataRule;    
+    private SensitiveDataRule sensitiveDataRule;
     private Map<String, GenericValidation> validations;
     PurchaseOrderDocument po;
-    
+
     @Override
     protected void setUp() throws Exception {
         super.setUp();
         sensitiveDataRule = new SensitiveDataRule();
-        validations = SpringContext.getBeansOfType(GenericValidation.class);        
+        validations = SpringContext.getBeansOfType(GenericValidation.class);
         po = PurchaseOrderDocumentFixture.PO_ONLY_REQUIRED_FIELDS_MULTI_ITEMS.createPurchaseOrderDocument();
     }
-    
-    private MaintenanceDocumentBase getMaintenanceDocument(SensitiveDataFixture oldSDFixture, SensitiveDataFixture newSDFixture){
+
+    private MaintenanceDocumentBase getMaintenanceDocument(SensitiveDataFixture oldSDFixture, SensitiveDataFixture newSDFixture) {
         MaintenanceDocumentBase doc = null;
         try {
             doc = (MaintenanceDocumentBase) SpringContext.getBean(DocumentService.class).getNewDocument("PMSN");
-        }
-        catch (WorkflowException e) {
+        } catch (WorkflowException e) {
             throw new RuntimeException("Document creation failed.");
         }
         doc.getDocumentHeader().setExplanation("JUnit test document");
@@ -74,65 +73,65 @@ public class SensitiveDataRuleTest extends PurapRuleTestBase {
         newObj.setBusinessObject(newSDFixture.getSensitiveDataBO());
         return doc;
     }
-    
+
     @ConfigureContext(session = parke)
     public final void testAssignSensitiveDataReasonEmpty() {
         List<SensitiveData> sds = new ArrayList<SensitiveData>();
         sds.add(SensitiveDataFixture.SENSITIVE_DATA_ACTIVE.getSensitiveDataBO());
 
-        PurchaseOrderAssignSensitiveDataValidation validation = (PurchaseOrderAssignSensitiveDataValidation)validations.get("PurchaseOrder-assignSensitiveDataValidation-test");
+        PurchaseOrderAssignSensitiveDataValidation validation = (PurchaseOrderAssignSensitiveDataValidation) validations.get("PurchaseOrder-assignSensitiveDataValidation-test");
         validation.setAccountingDocumentForValidation(po);
         validation.setSensitiveDataAssignmentReason(null);
         validation.setSensitiveDatasAssigned(sds);
-        assertFalse( validation.validate(null) );               
+        assertFalse(validation.validate(null));
     }
-    
+
     @ConfigureContext(session = parke)
     public final void testAssignSensitiveDataInactive() {
         List<SensitiveData> sds = new ArrayList<SensitiveData>();
         sds.add(SensitiveDataFixture.SENSITIVE_DATA_INACTIVE.getSensitiveDataBO());
 
-        PurchaseOrderAssignSensitiveDataValidation validation = (PurchaseOrderAssignSensitiveDataValidation)validations.get("PurchaseOrder-assignSensitiveDataValidation-test");
+        PurchaseOrderAssignSensitiveDataValidation validation = (PurchaseOrderAssignSensitiveDataValidation) validations.get("PurchaseOrder-assignSensitiveDataValidation-test");
         validation.setAccountingDocumentForValidation(po);
         validation.setSensitiveDatasAssigned(sds);
-        assertFalse( validation.validate(null) );               
+        assertFalse(validation.validate(null));
     }
-    
+
     @ConfigureContext(session = parke)
     public final void testAssignSensitiveDataIDuplicate() {
         List<SensitiveData> sds = new ArrayList<SensitiveData>();
         sds.add(SensitiveDataFixture.SENSITIVE_DATA_ACTIVE.getSensitiveDataBO());
         sds.add(SensitiveDataFixture.SENSITIVE_DATA_ACTIVE.getSensitiveDataBO());
 
-        PurchaseOrderAssignSensitiveDataValidation validation = (PurchaseOrderAssignSensitiveDataValidation)validations.get("PurchaseOrder-assignSensitiveDataValidation-test");
+        PurchaseOrderAssignSensitiveDataValidation validation = (PurchaseOrderAssignSensitiveDataValidation) validations.get("PurchaseOrder-assignSensitiveDataValidation-test");
         validation.setAccountingDocumentForValidation(po);
         validation.setSensitiveDatasAssigned(sds);
-        assertFalse( validation.validate(null) );               
+        assertFalse(validation.validate(null));
     }
-    
+
     /**
      * This test combines the test for SensitiveDataService and SensitiveDataRule on InactivationBlocking
-     * since the latter involves all major operations provided by the service class. 
+     * since the latter involves all major operations provided by the service class.
      */
     @ConfigureContext(session = parke)
     public final void testSensitiveDataInactivationBlocking() {
-        // create a new sensitive data entry and save it (if not exists yet) for this test     
+        // create a new sensitive data entry and save it (if not exists yet) for this test
         BusinessObjectService boService = SpringContext.getBean(BusinessObjectService.class);
         SensitiveData sdNew = SensitiveDataFixture.SENSITIVE_DATA_TO_INACTIVATE.getSensitiveDataBO();
         if (boService.retrieve(sdNew) == null) {
             boService.save(sdNew);
         }
-        
+
         // add an active sensitive data entry for the PO, update all 3 tables to keep consistency
         List<SensitiveData> sds = new ArrayList<SensitiveData>();
-        sds.add(sdNew);        
-        SensitiveDataService sdService = SpringContext.getBean(SensitiveDataService.class); 
-        
+        sds.add(sdNew);
+        SensitiveDataService sdService = SpringContext.getBean(SensitiveDataService.class);
+
         Integer poId = po.getPurapDocumentIdentifier();
         if (poId == null) {
             poId = new Integer(1000);
         }
-        
+
         // update table SensitiveDataAssignment
         Date currentDate = SpringContext.getBean(DateTimeService.class).getCurrentSqlDate();
         SensitiveDataAssignment sda = new SensitiveDataAssignment();
@@ -140,7 +139,7 @@ public class SensitiveDataRuleTest extends PurapRuleTestBase {
         sda.setSensitiveDataAssignmentReasonText("test");
         sda.setSensitiveDataAssignmentChangeDate(currentDate);
         sda.setSensitiveDataAssignmentPersonIdentifier("parke");
-        sdService.saveSensitiveDataAssignment(sda);        
+        sdService.saveSensitiveDataAssignment(sda);
 
         // update table SensitiveDataAssignmentDetail
         Integer sdaId = sdService.getLastSensitiveDataAssignmentId(poId);
@@ -151,8 +150,8 @@ public class SensitiveDataRuleTest extends PurapRuleTestBase {
             sdad.setSensitiveDataCode(sd.getSensitiveDataCode());
             sdads.add(sdad);
         }
-        sdService.saveSensitiveDataAssignmentDetails(sdads);        
-        
+        sdService.saveSensitiveDataAssignmentDetails(sdads);
+
         // update table PurchaseOrderSensitiveData
         sdService.deletePurchaseOrderSensitiveDatas(poId);
         List<PurchaseOrderSensitiveData> posds = new ArrayList<PurchaseOrderSensitiveData>();
@@ -165,7 +164,7 @@ public class SensitiveDataRuleTest extends PurapRuleTestBase {
         }
         sdService.deletePurchaseOrderSensitiveDatas(poId);
         sdService.savePurchaseOrderSensitiveDatas(posds);
-        
+
         // try to inactivate the sensitive data just assigned to the PO, should fail rule
         GlobalVariables.getUserSession().setBackdoorUser("khuntley");
         MaintenanceDocumentBase maintDoc = getMaintenanceDocument(SensitiveDataFixture.SENSITIVE_DATA_TO_INACTIVATE, SensitiveDataFixture.SENSITIVE_DATA_INACTIVATED);
@@ -174,5 +173,5 @@ public class SensitiveDataRuleTest extends PurapRuleTestBase {
         assertFalse(sensitiveDataRule.processCustomApproveDocumentBusinessRules(maintDoc));
         GlobalVariables.getUserSession().clearBackdoorUser();
     }
-        
+
 }

@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -160,7 +160,7 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
 
     /**
      * @see org.kuali.kfs.module.cam.document.dataaccess.DepreciationBatchDao#getListOfDepreciableAssetPaymentInfo(java.lang.Integer,
-     *      java.lang.Integer, java.util.Calendar)
+     * java.lang.Integer, java.util.Calendar)
      */
     @Override
     public Collection<AssetPaymentInfo> getListOfDepreciableAssetPaymentInfo(Integer fiscalYear, Integer fiscalMonth, final Calendar depreciationDate) {
@@ -286,7 +286,7 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
 
     /**
      * @see org.kuali.kfs.module.cam.document.dataaccess.DepreciationBatchDao#getAssetAndPaymentCount(java.lang.Integer,
-     *      java.lang.Integer, java.util.Calendar, boolean, java.util.List)
+     * java.lang.Integer, java.util.Calendar, boolean, java.util.List)
      */
     @Override
     public Object[] getAssetAndPaymentCount(Integer fiscalYear, Integer fiscalMonth, final Calendar depreciationDate, boolean includePending) {
@@ -316,7 +316,7 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
 
     /**
      * @see org.kuali.kfs.module.cam.document.dataaccess.DepreciationBatchDao#getFederallyOwnedAssetAndPaymentCount(java.lang.Integer,
-     *      java.lang.Integer, java.util.Calendar)
+     * java.lang.Integer, java.util.Calendar)
      */
     @Override
     public Object[] getFederallyOwnedAssetAndPaymentCount(Integer fiscalYear, Integer fiscalMonth, final Calendar depreciationDate) {
@@ -395,19 +395,19 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
 
         return getJdbcTemplate().queryForInt("select count(1) from CM_AST_TRNFR_DOC_T t inner join FS_DOC_HEADER_T h on t.fdoc_nbr = h.fdoc_nbr where h.fdoc_status_cd ='" + KFSConstants.DocumentStatusCodes.ENROUTE + "'");
     }
-    
+
     /**
      * @see org.kuali.kfs.module.cam.document.dataaccess.DepreciationBatchDao#getTransferDocPendingAssets()
      */
     @Override
     public Set<Long> getTransferDocPendingAssets() {
         LOG.debug("getTransferDocPendingAssets() started");
-        
-        final Set<Long> assets = new HashSet<>();        
+
+        final Set<Long> assets = new HashSet<>();
         getJdbcTemplate().query("select t.cptlast_nbr from CM_AST_TRNFR_DOC_T t inner join FS_DOC_HEADER_T h on t.fdoc_nbr = h.fdoc_nbr where h.fdoc_status_cd = '" + KFSConstants.DocumentStatusCodes.ENROUTE + "'", new ResultSetExtractor() {
             @Override
             public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
-                while (rs!= null && rs.next()) {
+                while (rs != null && rs.next()) {
                     assets.add(rs.getLong(1));
                 }
                 return assets;
@@ -480,14 +480,14 @@ public class DepreciationBatchDaoJdbc extends PlatformAwareDaoBaseJdbc implement
         LOG.debug("getAssetsByDepreciationConvention() started");
 
         String sql = "SELECT A0.CPTLAST_NBR FROM CM_CPTLAST_T A0, CM_AST_DEPR_CNVNTN_T A1, CM_ASSET_TYPE_T A2 WHERE A0.CPTLAST_CRT_DT > ? AND A0.FIN_OBJ_SUB_TYP_CD IN (" + buildINValues(movableEquipmentObjectSubTypes) + ")" + " AND A0.FIN_OBJ_SUB_TYP_CD = A1.FIN_OBJ_SUB_TYPE_CD AND A1.CPTL_AST_DEPR_CNVNTN_CD = ? AND A2.CPTLAST_TYP_CD=A0.CPTLAST_TYP_CD AND A0.CPTLAST_TYP_CD IS NOT NULL AND A2.CPTLAST_DEPRLF_LMT IS NOT NULL AND A2.CPTLAST_DEPRLF_LMT != 0";
-        return getJdbcTemplate().queryForList(sql, new Object[] {lastFiscalYearDate, depreciationConventionCd});
+        return getJdbcTemplate().queryForList(sql, new Object[]{lastFiscalYearDate, depreciationConventionCd});
     }
 
     /**
      * @see org.kuali.kfs.module.cam.document.dataaccess.DepreciationBatchDao#updateAssetInServiceAndDepreciationDate(java.util.List, org.kuali.kfs.sys.businessobject.UniversityDate, java.sql.Date)
      */
     @Override
-    public void updateAssetInServiceAndDepreciationDate(List<String>selectedAssets, final Date inServiceDate, final Date depreciationDate) {
+    public void updateAssetInServiceAndDepreciationDate(List<String> selectedAssets, final Date inServiceDate, final Date depreciationDate) {
         LOG.debug("updateAssetInServiceAndDepreciationDate() started");
 
         final AccountingPeriod acctPeriod = SpringContext.getBean(AccountingPeriodService.class).getByDate(inServiceDate);

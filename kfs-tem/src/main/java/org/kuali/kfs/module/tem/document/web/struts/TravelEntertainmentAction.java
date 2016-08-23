@@ -1,40 +1,35 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.document.web.struts;
-
-import static org.kuali.kfs.module.tem.TemConstants.COVERSHEET_FILENAME_FORMAT;
-import static org.kuali.kfs.module.tem.TemConstants.SHOW_REPORTS_ATTRIBUTE;
-import static org.kuali.kfs.sys.KFSPropertyConstants.DOCUMENT_NUMBER;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.util.List;
-import java.util.Properties;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.util.WebUtils;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.UrlFactory;
+import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.businessobject.AccountingDocumentRelationship;
@@ -57,13 +52,17 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.util.WebUtils;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.kfs.krad.util.UrlFactory;
-import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.util.List;
+import java.util.Properties;
+
+import static org.kuali.kfs.module.tem.TemConstants.COVERSHEET_FILENAME_FORMAT;
+import static org.kuali.kfs.module.tem.TemConstants.SHOW_REPORTS_ATTRIBUTE;
+import static org.kuali.kfs.sys.KFSPropertyConstants.DOCUMENT_NUMBER;
 
 /**
  * This class...
@@ -72,8 +71,8 @@ public class TravelEntertainmentAction extends TravelActionBase {
 
     public static Logger LOG = Logger.getLogger(TravelEntertainmentAction.class);
 
-    public static final String[] ATTENDEE_ATTRIBUTE_NAMES = { TemPropertyConstants.AttendeeProperties.ATTENDEE_TYPE, TemPropertyConstants.AttendeeProperties.COMPANY, TemPropertyConstants.AttendeeProperties.TITLE,TemPropertyConstants.AttendeeProperties.NAME};
-    public static final Integer[] MAX_LENGTH={10,40,40,40};
+    public static final String[] ATTENDEE_ATTRIBUTE_NAMES = {TemPropertyConstants.AttendeeProperties.ATTENDEE_TYPE, TemPropertyConstants.AttendeeProperties.COMPANY, TemPropertyConstants.AttendeeProperties.TITLE, TemPropertyConstants.AttendeeProperties.NAME};
+    public static final Integer[] MAX_LENGTH = {10, 40, 40, 40};
 
     /**
      * Constructs a TravelEntertainmentDocumentAction.java.
@@ -97,6 +96,7 @@ public class TravelEntertainmentAction extends TravelActionBase {
 
     /**
      * Initiates the document based on another entertainment reimbursement if the expected query fields (needed: travelDocumentIdentifier; maybe: fromDocumentNumber) are filled in
+     *
      * @see org.kuali.kfs.module.tem.document.web.struts.TravelActionBase#createDocument(org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase)
      */
     @Override
@@ -109,48 +109,46 @@ public class TravelEntertainmentAction extends TravelActionBase {
         final String identifierStr = entForm.getTravelDocumentIdentifier();
         final String fromDocumentNumber = entForm.getFromDocumentNumber();
 
-        if (!StringUtils.isBlank(identifierStr) && !StringUtils.isBlank(fromDocumentNumber)){
+        if (!StringUtils.isBlank(identifierStr) && !StringUtils.isBlank(fromDocumentNumber)) {
 
-                LOG.debug("Creating reimbursement for document number "+ identifierStr);
-                document.setTravelDocumentIdentifier(identifierStr);
-                TravelEntertainmentDocument travelDocument = (TravelEntertainmentDocument) getDocumentService().getByDocumentHeaderId(fromDocumentNumber);
+            LOG.debug("Creating reimbursement for document number " + identifierStr);
+            document.setTravelDocumentIdentifier(identifierStr);
+            TravelEntertainmentDocument travelDocument = (TravelEntertainmentDocument) getDocumentService().getByDocumentHeaderId(fromDocumentNumber);
 
-                LOG.debug("Setting traveler with id "+ travelDocument.getTravelerDetailId());
-                document.setTravelerDetailId(travelDocument.getTravelerDetailId());
-                document.refreshReferenceObject(TemPropertyConstants.TRAVELER);
-                LOG.debug("Traveler is "+ document.getTraveler()+ " with customer number "+ document.getTraveler().getCustomerNumber());
+            LOG.debug("Setting traveler with id " + travelDocument.getTravelerDetailId());
+            document.setTravelerDetailId(travelDocument.getTravelerDetailId());
+            document.refreshReferenceObject(TemPropertyConstants.TRAVELER);
+            LOG.debug("Traveler is " + document.getTraveler() + " with customer number " + document.getTraveler().getCustomerNumber());
 
-                if (document.getTraveler().getPrincipalId() != null) {
-                    document.getTraveler().setPrincipalName(getPersonService().getPerson(document.getTraveler().getPrincipalId()).getPrincipalName());
-                }
+            if (document.getTraveler().getPrincipalId() != null) {
+                document.getTraveler().setPrincipalName(getPersonService().getPerson(document.getTraveler().getPrincipalId()).getPrincipalName());
+            }
 
-                document.setHostProfileId(travelDocument.getHostProfileId());
-                document.setHostName(travelDocument.getHostName());
-                document.setHostAsPayee(travelDocument.getHostAsPayee());
-                document.setEventTitle(travelDocument.getEventTitle());
-                document.setPurposeCode(travelDocument.getPurposeCode());
-                document.setTripBegin(travelDocument.getTripBegin());
-                document.setTripEnd(travelDocument.getTripEnd());
-                document.setSpouseIncluded(travelDocument.getSpouseIncluded());
-                document.setDescription(travelDocument.getDescription());
-                document.setAttendeeListAttached(travelDocument.getAttendeeListAttached());
-                document.setAttendee(travelDocument.getAttendee());
-                document.setNumberOfAttendees(travelDocument.getNumberOfAttendees());
-                document.setPrimaryDestinationId(travelDocument.getPrimaryDestinationId());
-                document.setPaymentMethod(travelDocument.getPaymentMethod());
-
-
-                document.setExpenseLimit(travelDocument.getExpenseLimit());
-                document.configureTraveler(travelDocument.getTemProfileId(), travelDocument.getTraveler());
-                document.getDocumentHeader().setOrganizationDocumentNumber(travelDocument.getDocumentHeader().getOrganizationDocumentNumber());
+            document.setHostProfileId(travelDocument.getHostProfileId());
+            document.setHostName(travelDocument.getHostName());
+            document.setHostAsPayee(travelDocument.getHostAsPayee());
+            document.setEventTitle(travelDocument.getEventTitle());
+            document.setPurposeCode(travelDocument.getPurposeCode());
+            document.setTripBegin(travelDocument.getTripBegin());
+            document.setTripEnd(travelDocument.getTripEnd());
+            document.setSpouseIncluded(travelDocument.getSpouseIncluded());
+            document.setDescription(travelDocument.getDescription());
+            document.setAttendeeListAttached(travelDocument.getAttendeeListAttached());
+            document.setAttendee(travelDocument.getAttendee());
+            document.setNumberOfAttendees(travelDocument.getNumberOfAttendees());
+            document.setPrimaryDestinationId(travelDocument.getPrimaryDestinationId());
+            document.setPaymentMethod(travelDocument.getPaymentMethod());
 
 
+            document.setExpenseLimit(travelDocument.getExpenseLimit());
+            document.configureTraveler(travelDocument.getTemProfileId(), travelDocument.getTraveler());
+            document.getDocumentHeader().setOrganizationDocumentNumber(travelDocument.getDocumentHeader().getOrganizationDocumentNumber());
 
-                document.updatePayeeTypeForReimbursable();
 
-                final AccountingDocumentRelationship relationship = buildRelationshipToProgenitorDocument(travelDocument, document);
-                getBusinessObjectService().save(relationship);
+            document.updatePayeeTypeForReimbursable();
 
+            final AccountingDocumentRelationship relationship = buildRelationshipToProgenitorDocument(travelDocument, document);
+            getBusinessObjectService().save(relationship);
 
 
         } else {
@@ -161,6 +159,7 @@ public class TravelEntertainmentAction extends TravelActionBase {
 
     /**
      * Refreshes the collections on the document
+     *
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#loadDocument(org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase)
      */
     @Override
@@ -200,9 +199,8 @@ public class TravelEntertainmentAction extends TravelActionBase {
             entDocument.getDocumentHeader().setWorkflowDocument(entDocWorkflowDocument);
             final AccountingDocumentRelationship relationship = buildRelationshipToProgenitorDocument(entDocument, document);
             getBusinessObjectService().save(relationship);
-        }
-        catch (WorkflowException we) {
-            throw new RuntimeException("Could not load workflow document for old entertainment document "+temDocId, we);
+        } catch (WorkflowException we) {
+            throw new RuntimeException("Could not load workflow document for old entertainment document " + temDocId, we);
         }
 
         // we're not the progenitor so let's force a refresh of notes
@@ -233,11 +231,11 @@ public class TravelEntertainmentAction extends TravelActionBase {
         initializeNames(entForm, document);
         setButtonPermissions(entForm);
 
-        if(ObjectUtils.isNotNull(document.getActualExpenses())){
+        if (ObjectUtils.isNotNull(document.getActualExpenses())) {
             document.enableExpenseTypeSpecificFields(document.getActualExpenses());
         }
 
-        if(!getCalculateIgnoreList().contains(entForm.getMethodToCall())){
+        if (!getCalculateIgnoreList().contains(entForm.getMethodToCall())) {
             recalculateTripDetailTotalOnly(mapping, form, request, response);
         }
 
@@ -264,7 +262,7 @@ public class TravelEntertainmentAction extends TravelActionBase {
     private void initializeNames(final TravelEntertainmentForm entForm, final TravelEntertainmentDocument document) {
         if (document.getHostProfile() != null) {
             document.setHostName(document.getHostProfile().getLastName() + KFSConstants.COMMA + document.getHostProfile().getFirstName() + KFSConstants.BLANK_SPACE +
-                    (document.getHostProfile().getMiddleName() == null ? KFSConstants.BLANK_SPACE : document.getHostProfile().getMiddleName()));
+                (document.getHostProfile().getMiddleName() == null ? KFSConstants.BLANK_SPACE : document.getHostProfile().getMiddleName()));
         }
         entForm.getNewAttendeeLines().get(0).setName(getTravelerCompleteName(document.getAttendeeDetail()));
     }
@@ -273,12 +271,12 @@ public class TravelEntertainmentAction extends TravelActionBase {
         String completeName = KFSConstants.EMPTY_STRING;
         if (validateTravelerDetailName(travelerdetail)) {
             completeName = travelerdetail.getLastName() + KFSConstants.COMMA + travelerdetail.getFirstName() + KFSConstants.BLANK_SPACE +
-                    (travelerdetail.getMiddleName() == null ? KFSConstants.BLANK_SPACE : travelerdetail.getMiddleName());
+                (travelerdetail.getMiddleName() == null ? KFSConstants.BLANK_SPACE : travelerdetail.getMiddleName());
         }
         return completeName;
     }
 
-    private boolean validateTravelerDetailName(TravelerDetail travelerdetail){
+    private boolean validateTravelerDetailName(TravelerDetail travelerdetail) {
         if (travelerdetail == null) {
             return false;
         }
@@ -294,7 +292,6 @@ public class TravelEntertainmentAction extends TravelActionBase {
 
         return true;
     }
-
 
 
     /**
@@ -321,15 +318,15 @@ public class TravelEntertainmentAction extends TravelActionBase {
 
     /**
      * Performs necessary updates after the requester on the relocation document was updated, such as updating the payee type
+     *
      * @param document the document to update
      */
     @Override
     protected void performRequesterRefresh(TravelDocument document, TravelFormBase travelForm, HttpServletRequest request) {
-        TravelEntertainmentDocument entDoc = (TravelEntertainmentDocument)document;
-        if(entDoc.getHostAsPayee()) {
+        TravelEntertainmentDocument entDoc = (TravelEntertainmentDocument) document;
+        if (entDoc.getHostAsPayee()) {
             entDoc.setHostName(document.getTraveler().getFirstName() + " " + document.getTraveler().getLastName());
-        }
-        else {
+        } else {
             entDoc.setHostName(KFSConstants.EMPTY_STRING);
         }
         entDoc.updatePayeeTypeForReimbursable();
@@ -353,7 +350,7 @@ public class TravelEntertainmentAction extends TravelActionBase {
     }
 
     public ActionForward viewNonEmployeeForms(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-    	final TravelEntertainmentForm entForm = (TravelEntertainmentForm) form;
+        final TravelEntertainmentForm entForm = (TravelEntertainmentForm) form;
         entForm.setDocument(getEntertainmentDocumentService().find(request.getParameter(DOCUMENT_NUMBER)));
         final TravelEntertainmentDocument entertainment = entForm.getEntertainmentDocument();
         final NonEmployeeCertificationReport report = getNonEmployeeCertificationReportService().buildReport(entertainment);
@@ -424,25 +421,25 @@ public class TravelEntertainmentAction extends TravelActionBase {
     public ActionForward deleteAttendeeLine(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         final TravelFormBase travelForm = (TravelFormBase) form;
         final TravelMvcWrapperBean mvcWrapper = newMvcDelegate(form);
-        travelForm.getObservable().notifyObservers(new Object[] { mvcWrapper, getSelectedLine(request) });
+        travelForm.getObservable().notifyObservers(new Object[]{mvcWrapper, getSelectedLine(request)});
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
 
     /**
      * Import Attendees to the document from a spreadsheet.
      *
-     * @param mapping An ActionMapping
-     * @param form An ActionForm
-     * @param request The HttpServletRequest
+     * @param mapping  An ActionMapping
+     * @param form     An ActionForm
+     * @param request  The HttpServletRequest
      * @param response The HttpServletResponse
-     * @throws Exception
      * @return An ActionForward
+     * @throws Exception
      */
     public ActionForward importAttendees(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        final TravelEntertainmentForm travelForm           = (TravelEntertainmentForm) form;
+        final TravelEntertainmentForm travelForm = (TravelEntertainmentForm) form;
         final TravelEntertainmentMvcWrapperBean mvcWrapper = newMvcDelegate(form);
 
-        travelForm.getObservable().notifyObservers(new Object[] { mvcWrapper, new String(travelForm.getAttendeesImportFile().getFileData()) });
+        travelForm.getObservable().notifyObservers(new Object[]{mvcWrapper, new String(travelForm.getAttendeesImportFile().getFileData())});
 
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
@@ -458,13 +455,14 @@ public class TravelEntertainmentAction extends TravelActionBase {
      * @throws Exception
      */
     public ActionForward newEntertainment(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        final TravelEntertainmentDocument entDoc = ((TravelEntertainmentForm)form).getEntertainmentDocument();
+        final TravelEntertainmentDocument entDoc = ((TravelEntertainmentForm) form).getEntertainmentDocument();
         final String url = buildNewEntertainmentUrl(entDoc);
         return new ActionForward(url, true);
     }
 
     /**
      * Builds a new entertainment url for the given travel document
+     *
      * @param travelDoc the travel document to create a new reimbursement for
      * @return the url to redirect to to create a new entertainment
      */
@@ -497,7 +495,7 @@ public class TravelEntertainmentAction extends TravelActionBase {
         entForm.setCanUnmask(entForm.isUserDocumentInitiator());
     }
 
-     protected TravelEntertainmentHostCertificationService getEntertainmentHostCertificationService() {
+    protected TravelEntertainmentHostCertificationService getEntertainmentHostCertificationService() {
         return SpringContext.getBean(TravelEntertainmentHostCertificationService.class);
     }
 

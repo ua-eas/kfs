@@ -1,22 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.report;
+
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.ar.service.ContractsGrantsBillingUtilityService;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -25,13 +32,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.kuali.kfs.module.ar.service.ContractsGrantsBillingUtilityService;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 /**
  * Decorator for a Map which guarantees that values returned from get are never null and usefully formatted to substitute into a template PDF
@@ -123,10 +123,10 @@ public class PdfFormattingMap implements Map<String, String> {
         Set<java.util.Map.Entry<String, String>> entrySet = new HashSet<>();
         for (Object entry : wrappedMap.entrySet()) {
             if (entry instanceof java.util.Map.Entry) {
-                final String key = ObjectUtils.isNull(((java.util.Map.Entry)entry).getKey()) ? KFSConstants.EMPTY_STRING : ((java.util.Map.Entry)entry).getKey().toString();
-                final String value = stringifyValue(((java.util.Map.Entry)entry).getValue());
+                final String key = ObjectUtils.isNull(((java.util.Map.Entry) entry).getKey()) ? KFSConstants.EMPTY_STRING : ((java.util.Map.Entry) entry).getKey().toString();
+                final String value = stringifyValue(((java.util.Map.Entry) entry).getValue());
 
-                final java.util.Map.Entry<String,String> stringyEntry = new AbstractMap.SimpleImmutableEntry(key, value);
+                final java.util.Map.Entry<String, String> stringyEntry = new AbstractMap.SimpleImmutableEntry(key, value);
                 entrySet.add(stringyEntry);
             }
         }
@@ -137,24 +137,25 @@ public class PdfFormattingMap implements Map<String, String> {
         if (ObjectUtils.isNull(value)) {
             return KFSConstants.EMPTY_STRING;
         } else if (value instanceof String) {
-            return (String)value;
+            return (String) value;
         } else if (value instanceof java.util.Date) {
-            return getDateTimeService().toDateString((java.util.Date)value);
+            return getDateTimeService().toDateString((java.util.Date) value);
         } else if (value instanceof Boolean || Boolean.TYPE.equals(value.getClass())) {
-            return stringifyBooleanForContractsGrantsInvoiceTemplate((Boolean)value);
+            return stringifyBooleanForContractsGrantsInvoiceTemplate((Boolean) value);
         } else if (value instanceof KualiDecimal) {
-            getContractsGrantsBillingUtilityService().formatForCurrency((KualiDecimal)value);
+            getContractsGrantsBillingUtilityService().formatForCurrency((KualiDecimal) value);
         }
         return org.apache.commons.lang.ObjectUtils.toString(value);
     }
 
     /**
      * Converts boolean to a String to display on pdf report
+     *
      * @param bool a boolean value
      * @return a String for the pdf based on the given boolean value
      */
     protected String stringifyBooleanForContractsGrantsInvoiceTemplate(boolean bool) { // the name is longer than the code : - ?
-       return bool ? "Yes" : "No";
+        return bool ? "Yes" : "No";
     }
 
     protected DateTimeService getDateTimeService() {

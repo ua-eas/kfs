@@ -1,179 +1,179 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-  	<bean id="FloatingPointValidationPattern"
-		class="org.kuali.kfs.kns.datadictionary.validation.fieldlevel.FloatingPointValidationPattern"
-		abstract="true" />
+    <bean id="FloatingPointValidationPattern"
+          class="org.kuali.kfs.kns.datadictionary.validation.fieldlevel.FloatingPointValidationPattern"
+          abstract="true"/>
 
     <bean id="ZipcodeValidationPattern"
-		class="org.kuali.kfs.kns.datadictionary.validation.fieldlevel.ZipcodeValidationPattern"
-		abstract="true" />
-	<bean id="EmailAddressValidationPattern"
-		class="org.kuali.kfs.kns.datadictionary.validation.fieldlevel.EmailAddressValidationPattern"
-		abstract="true" />
-	<bean id="InquiryCollectionDefinition"
-		class="org.kuali.kfs.kns.datadictionary.InquiryCollectionDefinition"
-		abstract="true" />
-	<bean id="MaskFormatter" class="org.kuali.kfs.krad.datadictionary.mask.MaskFormatter"
-		abstract="true" />
-	<bean id="LookupHiddenControlDefinition"
-		class="org.kuali.kfs.kns.datadictionary.control.LookupHiddenControlDefinition"
-		abstract="true" />
-	<bean id="CheckboxControlDefinition"
-		class="org.kuali.kfs.kns.datadictionary.control.CheckboxControlDefinition"
-		abstract="true" />
-	<bean id="TextControlDefinition"
-		class="org.kuali.kfs.kns.datadictionary.control.TextControlDefinition"
-		abstract="true" />
-	<bean id="FileControlDefinition"
-		class="org.kuali.kfs.kns.datadictionary.control.FileControlDefinition"
-		abstract="true" />
-	<bean id="RadioControlDefinition"
-		class="org.kuali.kfs.kns.datadictionary.control.RadioControlDefinition"
-		abstract="true" />
-	<bean id="PhoneNumberValidationPattern"
-		class="org.kuali.kfs.kns.datadictionary.validation.fieldlevel.PhoneNumberValidationPattern"
-		abstract="true" />
+          class="org.kuali.kfs.kns.datadictionary.validation.fieldlevel.ZipcodeValidationPattern"
+          abstract="true"/>
+    <bean id="EmailAddressValidationPattern"
+          class="org.kuali.kfs.kns.datadictionary.validation.fieldlevel.EmailAddressValidationPattern"
+          abstract="true"/>
+    <bean id="InquiryCollectionDefinition"
+          class="org.kuali.kfs.kns.datadictionary.InquiryCollectionDefinition"
+          abstract="true"/>
+    <bean id="MaskFormatter" class="org.kuali.kfs.krad.datadictionary.mask.MaskFormatter"
+          abstract="true"/>
+    <bean id="LookupHiddenControlDefinition"
+          class="org.kuali.kfs.kns.datadictionary.control.LookupHiddenControlDefinition"
+          abstract="true"/>
+    <bean id="CheckboxControlDefinition"
+          class="org.kuali.kfs.kns.datadictionary.control.CheckboxControlDefinition"
+          abstract="true"/>
+    <bean id="TextControlDefinition"
+          class="org.kuali.kfs.kns.datadictionary.control.TextControlDefinition"
+          abstract="true"/>
+    <bean id="FileControlDefinition"
+          class="org.kuali.kfs.kns.datadictionary.control.FileControlDefinition"
+          abstract="true"/>
+    <bean id="RadioControlDefinition"
+          class="org.kuali.kfs.kns.datadictionary.control.RadioControlDefinition"
+          abstract="true"/>
+    <bean id="PhoneNumberValidationPattern"
+          class="org.kuali.kfs.kns.datadictionary.validation.fieldlevel.PhoneNumberValidationPattern"
+          abstract="true"/>
 
-  	<bean id="JavaClassValidationPattern"
-		class="org.kuali.kfs.kns.datadictionary.validation.fieldlevel.JavaClassValidationPattern"
-		abstract="true" />
-	<bean id="NumericValidationPattern"
-		class="org.kuali.kfs.kns.datadictionary.validation.charlevel.NumericValidationPattern"
-		abstract="true" />
+    <bean id="JavaClassValidationPattern"
+          class="org.kuali.kfs.kns.datadictionary.validation.fieldlevel.JavaClassValidationPattern"
+          abstract="true"/>
+    <bean id="NumericValidationPattern"
+          class="org.kuali.kfs.kns.datadictionary.validation.charlevel.NumericValidationPattern"
+          abstract="true"/>
 
-	<bean id="InquirySectionDefinition"
-		class="org.kuali.kfs.kns.datadictionary.InquirySectionDefinition"
-		abstract="true" />
-	<bean id="HeaderNavigation" class="org.kuali.kfs.kns.datadictionary.HeaderNavigation"
-		abstract="true" />
+    <bean id="InquirySectionDefinition"
+          class="org.kuali.kfs.kns.datadictionary.InquirySectionDefinition"
+          abstract="true"/>
+    <bean id="HeaderNavigation" class="org.kuali.kfs.kns.datadictionary.HeaderNavigation"
+          abstract="true"/>
 
-	<bean id="HiddenControlDefinition"
-		class="org.kuali.kfs.kns.datadictionary.control.HiddenControlDefinition"
-		abstract="true" />
-	<bean id="MonthValidationPattern"
-		class="org.kuali.kfs.kns.datadictionary.validation.fieldlevel.MonthValidationPattern"
-		abstract="true" />
+    <bean id="HiddenControlDefinition"
+          class="org.kuali.kfs.kns.datadictionary.control.HiddenControlDefinition"
+          abstract="true"/>
+    <bean id="MonthValidationPattern"
+          class="org.kuali.kfs.kns.datadictionary.validation.fieldlevel.MonthValidationPattern"
+          abstract="true"/>
 
-  	<bean id="LookupReadonlyControlDefinition"
-		class="org.kuali.kfs.kns.datadictionary.control.LookupReadonlyControlDefinition"
-		abstract="true" />
+    <bean id="LookupReadonlyControlDefinition"
+          class="org.kuali.kfs.kns.datadictionary.control.LookupReadonlyControlDefinition"
+          abstract="true"/>
 
-  	<bean id="CharsetValidationPattern"
-		class="org.kuali.kfs.kns.datadictionary.validation.charlevel.CharsetValidationPattern"
-		abstract="true" />
+    <bean id="CharsetValidationPattern"
+          class="org.kuali.kfs.kns.datadictionary.validation.charlevel.CharsetValidationPattern"
+          abstract="true"/>
 
-  	<bean id="DateValidationPattern"
-		class="org.kuali.kfs.kns.datadictionary.validation.fieldlevel.DateValidationPattern"
-		abstract="true" />
-	<bean id="FieldDefinition" class="org.kuali.kfs.kns.datadictionary.FieldDefinition"
-		abstract="true" />
-	<bean id="MaintainableCollectionDefinition"
-		class="org.kuali.kfs.kns.datadictionary.MaintainableCollectionDefinition"
-		abstract="true" />
-	<bean id="AnyCharacterValidationPattern"
-		class="org.kuali.kfs.kns.datadictionary.validation.charlevel.AnyCharacterValidationPattern"
-		abstract="true" />
-  <bean id="UTF8AnyCharacterValidationPattern"
-        class="org.kuali.kfs.kns.datadictionary.validation.charlevel.UTF8AnyCharacterValidationPattern"
-        abstract="true" />
-  	<bean id="InquirySubSectionHeaderDefinition"
-		class="org.kuali.kfs.kns.datadictionary.InquirySubSectionHeaderDefinition"
-		abstract="true" />
+    <bean id="DateValidationPattern"
+          class="org.kuali.kfs.kns.datadictionary.validation.fieldlevel.DateValidationPattern"
+          abstract="true"/>
+    <bean id="FieldDefinition" class="org.kuali.kfs.kns.datadictionary.FieldDefinition"
+          abstract="true"/>
+    <bean id="MaintainableCollectionDefinition"
+          class="org.kuali.kfs.kns.datadictionary.MaintainableCollectionDefinition"
+          abstract="true"/>
+    <bean id="AnyCharacterValidationPattern"
+          class="org.kuali.kfs.kns.datadictionary.validation.charlevel.AnyCharacterValidationPattern"
+          abstract="true"/>
+    <bean id="UTF8AnyCharacterValidationPattern"
+          class="org.kuali.kfs.kns.datadictionary.validation.charlevel.UTF8AnyCharacterValidationPattern"
+          abstract="true"/>
+    <bean id="InquirySubSectionHeaderDefinition"
+          class="org.kuali.kfs.kns.datadictionary.InquirySubSectionHeaderDefinition"
+          abstract="true"/>
 
-  	<bean id="CurrencyControlDefinition"
-		class="org.kuali.kfs.kns.datadictionary.control.CurrencyControlDefinition"
-		abstract="true" />
-	<bean id="YearValidationPattern"
-		class="org.kuali.kfs.kns.datadictionary.validation.fieldlevel.YearValidationPattern"
-		abstract="true" />
+    <bean id="CurrencyControlDefinition"
+          class="org.kuali.kfs.kns.datadictionary.control.CurrencyControlDefinition"
+          abstract="true"/>
+    <bean id="YearValidationPattern"
+          class="org.kuali.kfs.kns.datadictionary.validation.fieldlevel.YearValidationPattern"
+          abstract="true"/>
 
- 	<bean id="TimestampValidationPattern"
-		class="org.kuali.kfs.kns.datadictionary.validation.fieldlevel.TimestampValidationPattern"
-		abstract="true" />
-	<bean id="FixedPointValidationPattern"
-		class="org.kuali.kfs.kns.datadictionary.validation.fieldlevel.FixedPointValidationPattern"
-		abstract="true" />
-	<bean id="InquiryDefinition" class="org.kuali.kfs.kns.datadictionary.InquiryDefinition"
-		abstract="true" />
-	<bean id="TextareaControlDefinition"
-		class="org.kuali.kfs.kns.datadictionary.control.TextareaControlDefinition"
-		abstract="true" />
-	<bean id="KualiUserControlDefinition"
-		class="org.kuali.kfs.kns.datadictionary.control.KualiUserControlDefinition"
-		abstract="true" />
-	<bean id="AlphaNumericValidationPattern"
-		class="org.kuali.kfs.kns.datadictionary.validation.charlevel.AlphaNumericValidationPattern"
-		abstract="true" />
-	<bean id="MaintainableFieldDefinition"
-		class="org.kuali.kfs.kns.datadictionary.MaintainableFieldDefinition"
-		abstract="true" />
-	<bean id="AlphaValidationPattern"
-		class="org.kuali.kfs.kns.datadictionary.validation.charlevel.AlphaValidationPattern"
-		abstract="true" />
+    <bean id="TimestampValidationPattern"
+          class="org.kuali.kfs.kns.datadictionary.validation.fieldlevel.TimestampValidationPattern"
+          abstract="true"/>
+    <bean id="FixedPointValidationPattern"
+          class="org.kuali.kfs.kns.datadictionary.validation.fieldlevel.FixedPointValidationPattern"
+          abstract="true"/>
+    <bean id="InquiryDefinition" class="org.kuali.kfs.kns.datadictionary.InquiryDefinition"
+          abstract="true"/>
+    <bean id="TextareaControlDefinition"
+          class="org.kuali.kfs.kns.datadictionary.control.TextareaControlDefinition"
+          abstract="true"/>
+    <bean id="KualiUserControlDefinition"
+          class="org.kuali.kfs.kns.datadictionary.control.KualiUserControlDefinition"
+          abstract="true"/>
+    <bean id="AlphaNumericValidationPattern"
+          class="org.kuali.kfs.kns.datadictionary.validation.charlevel.AlphaNumericValidationPattern"
+          abstract="true"/>
+    <bean id="MaintainableFieldDefinition"
+          class="org.kuali.kfs.kns.datadictionary.MaintainableFieldDefinition"
+          abstract="true"/>
+    <bean id="AlphaValidationPattern"
+          class="org.kuali.kfs.kns.datadictionary.validation.charlevel.AlphaValidationPattern"
+          abstract="true"/>
 
-  	<bean id="LookupDefinition" class="org.kuali.kfs.kns.datadictionary.LookupDefinition"
-		abstract="true" />
-	<bean id="WorkflowWorkgroupControlDefinition"
-		class="org.kuali.kfs.kns.datadictionary.control.WorkflowWorkgroupControlDefinition"
-		abstract="true" />
-	<bean id="MaintainableSubSectionHeaderDefinition"
-		class="org.kuali.kfs.kns.datadictionary.MaintainableSubSectionHeaderDefinition"
-		abstract="true" />
+    <bean id="LookupDefinition" class="org.kuali.kfs.kns.datadictionary.LookupDefinition"
+          abstract="true"/>
+    <bean id="WorkflowWorkgroupControlDefinition"
+          class="org.kuali.kfs.kns.datadictionary.control.WorkflowWorkgroupControlDefinition"
+          abstract="true"/>
+    <bean id="MaintainableSubSectionHeaderDefinition"
+          class="org.kuali.kfs.kns.datadictionary.MaintainableSubSectionHeaderDefinition"
+          abstract="true"/>
 
     <bean id="SelectControlDefinition"
-		class="org.kuali.kfs.kns.datadictionary.control.SelectControlDefinition"
-		abstract="true" />
-	<bean id="MultiselectControlDefinition"
-		class="org.kuali.kfs.kns.datadictionary.control.MultiselectControlDefinition"
-		abstract="true" />
-	<bean id="MaintainableSectionDefinition"
-		class="org.kuali.kfs.kns.datadictionary.MaintainableSectionDefinition"
-		abstract="true" />
-	<bean id="RegexValidationPattern"
-		class="org.kuali.kfs.kns.datadictionary.validation.charlevel.RegexValidationPattern"
-		abstract="true" />
+          class="org.kuali.kfs.kns.datadictionary.control.SelectControlDefinition"
+          abstract="true"/>
+    <bean id="MultiselectControlDefinition"
+          class="org.kuali.kfs.kns.datadictionary.control.MultiselectControlDefinition"
+          abstract="true"/>
+    <bean id="MaintainableSectionDefinition"
+          class="org.kuali.kfs.kns.datadictionary.MaintainableSectionDefinition"
+          abstract="true"/>
+    <bean id="RegexValidationPattern"
+          class="org.kuali.kfs.kns.datadictionary.validation.charlevel.RegexValidationPattern"
+          abstract="true"/>
 
- 	<bean id="ButtonControlDefinition"
-		class="org.kuali.kfs.kns.datadictionary.control.ButtonControlDefinition"
-		abstract="true" />
-	<bean id="LinkControlDefinition"
-		class="org.kuali.kfs.kns.datadictionary.control.LinkControlDefinition"
-		abstract="true" />
+    <bean id="ButtonControlDefinition"
+          class="org.kuali.kfs.kns.datadictionary.control.ButtonControlDefinition"
+          abstract="true"/>
+    <bean id="LinkControlDefinition"
+          class="org.kuali.kfs.kns.datadictionary.control.LinkControlDefinition"
+          abstract="true"/>
 
-  	<bean id="TransactionalDocumentEntry"
-		class="org.kuali.kfs.kns.datadictionary.TransactionalDocumentEntry"
-		abstract="true" />
+    <bean id="TransactionalDocumentEntry"
+          class="org.kuali.kfs.kns.datadictionary.TransactionalDocumentEntry"
+          abstract="true"/>
 
-  	<bean id="BusinessObjectEntry" class="org.kuali.kfs.kns.datadictionary.BusinessObjectEntry"
-		abstract="true" />
+    <bean id="BusinessObjectEntry" class="org.kuali.kfs.kns.datadictionary.BusinessObjectEntry"
+          abstract="true"/>
 
-  	<bean id="MaintenanceDocumentEntry"
-		class="org.kuali.kfs.kns.datadictionary.MaintenanceDocumentEntry"
-		abstract="true">
+    <bean id="MaintenanceDocumentEntry"
+          class="org.kuali.kfs.kns.datadictionary.MaintenanceDocumentEntry"
+          abstract="true">
         <property name="maintainableClass" value="org.kuali.kfs.kns.maintenance.KualiMaintainableImpl"/>
         <property name="dataObjectClass" value="org.kuali.kfs.kns.document.MaintenanceDocumentBase"/>
         <property name="businessRulesClass" value="org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase"/>
-     </bean>
+    </bean>
 
 </beans>

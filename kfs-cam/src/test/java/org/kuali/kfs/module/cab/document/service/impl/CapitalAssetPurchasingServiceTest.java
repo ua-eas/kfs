@@ -1,23 +1,25 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cab.document.service.impl;
 
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.businessobject.PurchasingCapitalAssetItem;
 import org.kuali.kfs.module.purap.businessobject.PurchasingItem;
 import org.kuali.kfs.module.purap.businessobject.RequisitionItem;
@@ -29,8 +31,6 @@ import org.kuali.kfs.module.purap.fixture.RequisitionItemFixture;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 import java.util.List;
 
@@ -45,7 +45,7 @@ public class CapitalAssetPurchasingServiceTest extends KualiTestBase {
         SpringContext.getBean(PurchasingService.class).setupCapitalAssetItems(requisition);
         List<PurchasingCapitalAssetItem> afterFirstCall = requisition.getPurchasingCapitalAssetItems();
 
-        RequisitionItem item2 = (RequisitionItem)ObjectUtils.deepCopy(requisition.getItem(0));
+        RequisitionItem item2 = (RequisitionItem) ObjectUtils.deepCopy(requisition.getItem(0));
         item2.setItemIdentifier(null);
         requisition.addItem(item2);
 
@@ -81,8 +81,8 @@ public class CapitalAssetPurchasingServiceTest extends KualiTestBase {
 
         try {
             SpringContext.getBean(PurapService.class).saveDocumentNoValidation(requisition);
-        } catch ( ValidationException ex ) {
-            fail( "Validation error when saving document without validation: " + dumpMessageMapErrors() );
+        } catch (ValidationException ex) {
+            fail("Validation error when saving document without validation: " + dumpMessageMapErrors());
         }
         assertEquals(1, afterDeletion.size());
 

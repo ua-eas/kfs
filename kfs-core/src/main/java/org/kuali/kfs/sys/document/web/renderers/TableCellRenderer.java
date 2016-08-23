@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -36,6 +36,7 @@ public class TableCellRenderer implements Renderer {
 
     /**
      * Resets the cell to null
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#clear()
      */
     public void clear() {
@@ -44,6 +45,7 @@ public class TableCellRenderer implements Renderer {
 
     /**
      * Renders the table cell as a header cell as well as rendering all children renderable elements of the cell
+     *
      * @see org.kuali.kfs.sys.document.web.renderers.Renderer#render(javax.servlet.jsp.PageContext, javax.servlet.jsp.tagext.Tag)
      */
     public void render(PageContext pageContext, Tag parentTag) throws JspException {
@@ -56,14 +58,14 @@ public class TableCellRenderer implements Renderer {
                 out.write("&nbsp;");
             }
             out.write(buildEndingTag());
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw new JspException("Difficulty rendering table cell", ioe);
         }
     }
-    
+
     /**
      * Builds the opening cell tag, ie <td>
+     *
      * @return the opening cell tag
      */
     protected String buildBeginningTag() {
@@ -88,14 +90,15 @@ public class TableCellRenderer implements Renderer {
             builder.append(cell.getExtraStyle());
             builder.append("\"");
         } else {
-            builder.append(" class=\""+getStyleClass() + "\"");
+            builder.append(" class=\"" + getStyleClass() + "\"");
         }
         builder.append(">\n");
         return builder.toString();
     }
-    
+
     /**
      * Returns what style class to use - using the styleClassOverride of the cell if possible
+     *
      * @return the styleClassOverride if it exists, otherwise "infoline"
      */
     protected String getStyleClass() {
@@ -106,9 +109,10 @@ public class TableCellRenderer implements Renderer {
         }
         return styleClass;
     }
-    
+
     /**
      * Builds the closing cell tag, ie </td>
+     *
      * @return the closing cell tag
      */
     protected String buildEndingTag() {
@@ -118,9 +122,10 @@ public class TableCellRenderer implements Renderer {
         builder.append(">");
         return builder.toString();
     }
-    
+
     /**
      * Returns the name of the cell tag we want to create - in this case, "td"
+     *
      * @return the String td, which is the tag name of the tags we want to produce
      */
     protected String getTagName() {
@@ -128,7 +133,8 @@ public class TableCellRenderer implements Renderer {
     }
 
     /**
-     * Gets the cell attribute. 
+     * Gets the cell attribute.
+     *
      * @return Returns the cell.
      */
     public AccountingLineTableCell getCell() {
@@ -137,14 +143,16 @@ public class TableCellRenderer implements Renderer {
 
     /**
      * Sets the cell attribute value.
+     *
      * @param cell The cell to set.
      */
     public void setCell(AccountingLineTableCell cell) {
         this.cell = cell;
     }
-    
+
     /**
      * Determines if the cell should be veritically aligned to the top
+     *
      * @return true if the cell should vertically align to the top; false otherwise
      */
     protected boolean verticallyAlignTowardsTop() {

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -37,7 +37,7 @@ public interface KualiRuleService {
      * Retrieves and instantiates the businessRulesClass associated with the event's document type (if any), and calls the
      * appropriate process* method of that businessRule for handling the given event type. This is a helper method that takes in the
      * generic KualiDocumentEvent class and determines which event call to make.
-     * 
+     *
      * @param event
      * @return true if no rule is applied, or all rules are applied successfully, false otherwise
      */
@@ -45,7 +45,7 @@ public interface KualiRuleService {
 
     /**
      * Builds a list containing ad hoc route person events appropriate for the context.
-     * 
+     *
      * @param document
      * @return List
      */
@@ -53,7 +53,7 @@ public interface KualiRuleService {
 
     /**
      * Builds a list containing ad hoc route workgroup events appropriate for the context.
-     * 
+     *
      * @param document
      * @return List
      */
@@ -61,7 +61,7 @@ public interface KualiRuleService {
 
     /**
      * Allows code in actions or business objects to directly access rule methods in the class.
-     * 
+     *
      * @param document
      * @param ruleInterface
      * @return BusinessRule

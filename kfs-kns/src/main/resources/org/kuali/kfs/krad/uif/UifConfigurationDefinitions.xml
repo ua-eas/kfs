@@ -1,18 +1,18 @@
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2015 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
@@ -21,86 +21,86 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-  <!-- ComponentBase -->
+    <!-- ComponentBase -->
 
-  <bean id="Uif-ComponentBase" parent="Uif-ComponentBase-parentBean" abstract="true"/>
-  <bean id="Uif-ComponentBase-parentBean" abstract="true" class="org.kuali.kfs.krad.uif.component.ComponentBase"
-        scope="prototype"/>
+    <bean id="Uif-ComponentBase" parent="Uif-ComponentBase-parentBean" abstract="true"/>
+    <bean id="Uif-ComponentBase-parentBean" abstract="true" class="org.kuali.kfs.krad.uif.component.ComponentBase"
+          scope="prototype"/>
 
-  <!-- History -->
+    <!-- History -->
 
-  <bean id="Uif-HistoryEntry" parent="Uif-HistoryEntry-parentBean"/>
-  <bean id="Uif-HistoryEntry-parentBean" abstract="true" class="org.kuali.kfs.krad.uif.view.HistoryEntry"
-        scope="prototype"/>
+    <bean id="Uif-HistoryEntry" parent="Uif-HistoryEntry-parentBean"/>
+    <bean id="Uif-HistoryEntry-parentBean" abstract="true" class="org.kuali.kfs.krad.uif.view.HistoryEntry"
+          scope="prototype"/>
 
-  <!-- Modifiers -->
+    <!-- Modifiers -->
 
-  <bean id="Uif-CompareFieldCreate-Modifier" parent="Uif-CompareFieldCreate-Modifier-parentBean"/>
-  <bean id="Uif-CompareFieldCreate-Modifier-parentBean" abstract="true"
-        class="org.kuali.kfs.krad.uif.modifier.CompareFieldCreateModifier" scope="prototype"/>
+    <bean id="Uif-CompareFieldCreate-Modifier" parent="Uif-CompareFieldCreate-Modifier-parentBean"/>
+    <bean id="Uif-CompareFieldCreate-Modifier-parentBean" abstract="true"
+          class="org.kuali.kfs.krad.uif.modifier.CompareFieldCreateModifier" scope="prototype"/>
 
-  <bean id="Uif-LabelFieldSeparator-Modifier" parent="Uif-LabelFieldSeparator-Modifier-parentBean"/>
-  <bean id="Uif-LabelFieldSeparator-Modifier-parentBean" abstract="true"
-        class="org.kuali.kfs.krad.uif.modifier.LabelFieldSeparateModifier" scope="prototype"/>
+    <bean id="Uif-LabelFieldSeparator-Modifier" parent="Uif-LabelFieldSeparator-Modifier-parentBean"/>
+    <bean id="Uif-LabelFieldSeparator-Modifier-parentBean" abstract="true"
+          class="org.kuali.kfs.krad.uif.modifier.LabelFieldSeparateModifier" scope="prototype"/>
 
-  <bean id="Uif-ComponentConverter-Modifier" parent="Uif-ComponentConverter-Modifier-parentBean"/>
-  <bean id="Uif-ComponentConverter-Modifier-parentBean" abstract="true"
-        class="org.kuali.kfs.krad.uif.modifier.ComponentConvertModifier" scope="prototype"/>
+    <bean id="Uif-ComponentConverter-Modifier" parent="Uif-ComponentConverter-Modifier-parentBean"/>
+    <bean id="Uif-ComponentConverter-Modifier-parentBean" abstract="true"
+          class="org.kuali.kfs.krad.uif.modifier.ComponentConvertModifier" scope="prototype"/>
 
-  <bean id="Uif-CheckboxToRadioConverter-Modifier" parent="Uif-CheckboxToRadioConverter-Modifier-parentBean"/>
-  <bean id="Uif-CheckboxToRadioConverter-Modifier-parentBean" abstract="true" parent="Uif-ComponentConverter-Modifier">
-    <property name="componentTypeToReplace" value="org.kuali.kfs.krad.uif.control.CheckboxControl"/>
-    <property name="componentReplacementPrototype">
-      <bean parent="Uif-VerticalRadioControl">
-        <property name="options">
-          <list>
-            <bean parent="Uif-KeyLabelPair" p:key="Y" p:value="Yes"/>
-            <bean parent="Uif-KeyLabelPair" p:key="N" p:value="No"/>
-            <bean parent="Uif-KeyLabelPair" p:key="" p:value="Both"/>
-          </list>
+    <bean id="Uif-CheckboxToRadioConverter-Modifier" parent="Uif-CheckboxToRadioConverter-Modifier-parentBean"/>
+    <bean id="Uif-CheckboxToRadioConverter-Modifier-parentBean" abstract="true" parent="Uif-ComponentConverter-Modifier">
+        <property name="componentTypeToReplace" value="org.kuali.kfs.krad.uif.control.CheckboxControl"/>
+        <property name="componentReplacementPrototype">
+            <bean parent="Uif-VerticalRadioControl">
+                <property name="options">
+                    <list>
+                        <bean parent="Uif-KeyLabelPair" p:key="Y" p:value="Yes"/>
+                        <bean parent="Uif-KeyLabelPair" p:key="N" p:value="No"/>
+                        <bean parent="Uif-KeyLabelPair" p:key="" p:value="Both"/>
+                    </list>
+                </property>
+            </bean>
         </property>
-      </bean>
-    </property>
-  </bean>
+    </bean>
 
-  <bean id="Uif-MaintenanceCompare-Modifier" parent="Uif-MaintenanceCompare-Modifier-parentBean"/>
-  <bean id="Uif-MaintenanceCompare-Modifier-parentBean" abstract="true" parent="Uif-CompareFieldCreate-Modifier">
-    <property name="headerFieldPrototype">
-      <bean parent="Uif-HeaderField-Four" p:colSpan="2"/>
-    </property>
-    <property name="comparables">
-      <list>
-        <bean parent="Uif-CompareConfig" p:readOnly="true" p:headerText="Old" p:compareToForValueChange="true"
-              p:bindingObjectPath="document.oldMaintainableObject.dataObject"/>
-        <bean parent="Uif-CompareConfig" p:headerText="New"
-              p:bindingObjectPath="document.newMaintainableObject.dataObject"/>
-      </list>
-    </property>
-  </bean>
+    <bean id="Uif-MaintenanceCompare-Modifier" parent="Uif-MaintenanceCompare-Modifier-parentBean"/>
+    <bean id="Uif-MaintenanceCompare-Modifier-parentBean" abstract="true" parent="Uif-CompareFieldCreate-Modifier">
+        <property name="headerFieldPrototype">
+            <bean parent="Uif-HeaderField-Four" p:colSpan="2"/>
+        </property>
+        <property name="comparables">
+            <list>
+                <bean parent="Uif-CompareConfig" p:readOnly="true" p:headerText="Old" p:compareToForValueChange="true"
+                      p:bindingObjectPath="document.oldMaintainableObject.dataObject"/>
+                <bean parent="Uif-CompareConfig" p:headerText="New"
+                      p:bindingObjectPath="document.newMaintainableObject.dataObject"/>
+            </list>
+        </property>
+    </bean>
 
-  <!-- Other -->
+    <!-- Other -->
 
-  <bean id="Uif-BindingInfo" class="org.kuali.kfs.krad.uif.component.BindingInfo" scope="prototype"/>
+    <bean id="Uif-BindingInfo" class="org.kuali.kfs.krad.uif.component.BindingInfo" scope="prototype"/>
 
-  <bean id="Uif-CompareConfig" class="org.kuali.kfs.krad.uif.modifier.ComparableInfo" scope="prototype"/>
+    <bean id="Uif-CompareConfig" class="org.kuali.kfs.krad.uif.modifier.ComparableInfo" scope="prototype"/>
 
-  <bean id="Uif-KeyLabelPair" class="org.kuali.rice.core.api.util.ConcreteKeyValue" scope="prototype"/>
+    <bean id="Uif-KeyLabelPair" class="org.kuali.rice.core.api.util.ConcreteKeyValue" scope="prototype"/>
 
-  <bean id="Uif-MethodInvokerConfig" class="org.kuali.kfs.krad.uif.component.MethodInvokerConfig" scope="prototype"/>
+    <bean id="Uif-MethodInvokerConfig" class="org.kuali.kfs.krad.uif.component.MethodInvokerConfig" scope="prototype"/>
 
-  <bean id="Uif-ConditionalBeanPropertyReplacer" class="org.kuali.kfs.krad.uif.component.PropertyReplacer" scope="prototype"/>
+    <bean id="Uif-ConditionalBeanPropertyReplacer" class="org.kuali.kfs.krad.uif.component.PropertyReplacer" scope="prototype"/>
 
-  <bean id="Uif-AttributeQueryConfig" class="org.kuali.kfs.krad.uif.field.AttributeQuery" scope="prototype"
-        p:returnMessageStyleClasses="uif-attributeQueryErrorMessage"/>
+    <bean id="Uif-AttributeQueryConfig" class="org.kuali.kfs.krad.uif.field.AttributeQuery" scope="prototype"
+          p:returnMessageStyleClasses="uif-attributeQueryErrorMessage"/>
 
-  <bean id="Uif-RemotableFieldsPlaceholderConfig" class="org.kuali.kfs.krad.uif.field.RemoteFieldsHolder" scope="prototype">
-    <property name="bindingInfo">
-      <bean parent="Uif-BindingInfo"/>
-    </property>
-  </bean>
+    <bean id="Uif-RemotableFieldsPlaceholderConfig" class="org.kuali.kfs.krad.uif.field.RemoteFieldsHolder" scope="prototype">
+        <property name="bindingInfo">
+            <bean parent="Uif-BindingInfo"/>
+        </property>
+    </bean>
 
-  <bean id="Uif-ConditionalCollectionFilter" class="org.kuali.kfs.krad.uif.container.ELCollectionFilter" scope="prototype"/>
-  
-  <bean id="Uif-ViewTheme" class="org.kuali.kfs.krad.uif.view.ViewTheme" scope="prototype"/>
+    <bean id="Uif-ConditionalCollectionFilter" class="org.kuali.kfs.krad.uif.container.ELCollectionFilter" scope="prototype"/>
+
+    <bean id="Uif-ViewTheme" class="org.kuali.kfs.krad.uif.view.ViewTheme" scope="prototype"/>
 
 </beans>

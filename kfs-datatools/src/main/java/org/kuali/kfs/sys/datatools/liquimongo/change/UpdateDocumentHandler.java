@@ -21,7 +21,6 @@ package org.kuali.kfs.sys.datatools.liquimongo.change;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
-
 import org.springframework.data.mongodb.core.query.Query;
 
 /**
@@ -45,9 +44,9 @@ public class UpdateDocumentHandler extends AbstractDocumentStoreChangeHandler im
         verifyKeyExistence(change, DOCUMENT);
 
         String collectionName = change.get(COLLECTION_NAME).asText();
-        JsonNode query = change.get(QUERY); 
+        JsonNode query = change.get(QUERY);
         Query q = JsonUtils.getQueryFromJson(query);
-        
+
         // Delete then add the document
         JsonNode document = change.get(DOCUMENT);
         mongoTemplate.remove(q, collectionName);

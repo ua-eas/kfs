@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -58,11 +58,9 @@ public class CashDrawerStatusCodeFormatter extends Formatter {
 
             if (StringUtils.equals(message, OPEN_MSG)) {
                 result = OPEN_CD;
-            }
-            else if (StringUtils.equals(message, CLOSED_MSG)) {
+            } else if (StringUtils.equals(message, CLOSED_MSG)) {
                 result = CLOSED_CD;
-            }
-            else if (StringUtils.equals(message, LOCKED_MSG)) {
+            } else if (StringUtils.equals(message, LOCKED_MSG)) {
                 result = LOCKED_CD;
             }
         }
@@ -81,11 +79,9 @@ public class CashDrawerStatusCodeFormatter extends Formatter {
 
             if (StringUtils.equals(statusCode, CLOSED_CD)) {
                 formatted = CLOSED_MSG;
-            }
-            else if (StringUtils.equals(statusCode, OPEN_CD)) {
+            } else if (StringUtils.equals(statusCode, OPEN_CD)) {
                 formatted = OPEN_MSG;
-            }
-            else if (StringUtils.equals(statusCode, LOCKED_CD)) {
+            } else if (StringUtils.equals(statusCode, LOCKED_CD)) {
                 formatted = LOCKED_MSG;
             }
         }

@@ -1,39 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cab.service.impl;
 
-import static org.kuali.rice.core.api.criteria.PredicateFactory.and;
-import static org.kuali.rice.core.api.criteria.PredicateFactory.equal;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.coa.businessobject.ObjectCode;
+import org.kuali.kfs.coreservice.api.parameter.Parameter;
+import org.kuali.kfs.coreservice.api.parameter.ParameterRepositoryService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.fp.businessobject.CapitalAccountingLines;
 import org.kuali.kfs.fp.businessobject.CapitalAssetAccountsGroupDetails;
 import org.kuali.kfs.fp.businessobject.CapitalAssetInformation;
@@ -60,6 +51,17 @@ import org.kuali.kfs.integration.purap.ExternalPurApItem;
 import org.kuali.kfs.integration.purap.ItemCapitalAsset;
 import org.kuali.kfs.integration.purap.PurchasingAccountsPayableModuleService;
 import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.service.DictionaryValidationService;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cab.CabConstants;
 import org.kuali.kfs.module.cab.CabKeyConstants;
 import org.kuali.kfs.module.cab.CabParameterConstants;
@@ -115,23 +117,21 @@ import org.kuali.rice.core.api.criteria.QueryByCriteria;
 import org.kuali.rice.core.api.criteria.QueryByCriteria.Builder;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.api.parameter.Parameter;
-import org.kuali.kfs.coreservice.api.parameter.ParameterRepositoryService;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.kns.service.DictionaryValidationService;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.krad.bo.DocumentHeader;
-import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.MessageMap;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.rice.location.api.campus.Campus;
 import org.kuali.rice.location.api.campus.CampusService;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import static org.kuali.rice.core.api.criteria.PredicateFactory.and;
+import static org.kuali.rice.core.api.criteria.PredicateFactory.equal;
 
 public class CapitalAssetBuilderModuleServiceImpl implements CapitalAssetBuilderModuleService {
     private static final Logger LOG = Logger.getLogger(CapitalAssetBuilderModuleService.class);
@@ -550,9 +550,9 @@ public class CapitalAssetBuilderModuleServiceImpl implements CapitalAssetBuilder
         boolean valid = true;
         Builder qbc = QueryByCriteria.Builder.create();
         qbc.setPredicates(and(
-                equal(CabPropertyConstants.Parameter.PARAMETER_NAMESPACE_CODE, CabConstants.Parameters.NAMESPACE),
-                equal(CabPropertyConstants.Parameter.PARAMETER_DETAIL_TYPE_CODE, CabConstants.Parameters.DETAIL_TYPE_DOCUMENT),
-                PredicateFactory.like(CabPropertyConstants.Parameter.PARAMETER_NAME, "CHARTS_REQUIRING%" + documentType)));
+            equal(CabPropertyConstants.Parameter.PARAMETER_NAMESPACE_CODE, CabConstants.Parameters.NAMESPACE),
+            equal(CabPropertyConstants.Parameter.PARAMETER_DETAIL_TYPE_CODE, CabConstants.Parameters.DETAIL_TYPE_DOCUMENT),
+            PredicateFactory.like(CabPropertyConstants.Parameter.PARAMETER_NAME, "CHARTS_REQUIRING%" + documentType)));
 
         List<Parameter> results = parameterRepositoryService.findParameters(qbc.build()).getResults();
         for (Parameter parameter : results) {
@@ -590,10 +590,10 @@ public class CapitalAssetBuilderModuleServiceImpl implements CapitalAssetBuilder
                 //rice20  not sure if this will work trying to replace getBean(ParameterService.class).retrieveParametersGivenLookupCriteria(criteria));
                 Builder qbc = QueryByCriteria.Builder.create();
                 qbc.setPredicates(and(
-                        equal(CabPropertyConstants.Parameter.PARAMETER_NAMESPACE_CODE, CabConstants.Parameters.NAMESPACE),
-                        equal(CabPropertyConstants.Parameter.PARAMETER_DETAIL_TYPE_CODE, CabConstants.Parameters.DETAIL_TYPE_DOCUMENT),
-                        PredicateFactory.like(CabPropertyConstants.Parameter.PARAMETER_NAME, "CHARTS_REQUIRING%" + documentType),
-                        PredicateFactory.like(CabPropertyConstants.Parameter.PARAMETER_VALUE, "%" + coa + "%")));
+                    equal(CabPropertyConstants.Parameter.PARAMETER_NAMESPACE_CODE, CabConstants.Parameters.NAMESPACE),
+                    equal(CabPropertyConstants.Parameter.PARAMETER_DETAIL_TYPE_CODE, CabConstants.Parameters.DETAIL_TYPE_DOCUMENT),
+                    PredicateFactory.like(CabPropertyConstants.Parameter.PARAMETER_NAME, "CHARTS_REQUIRING%" + documentType),
+                    PredicateFactory.like(CabPropertyConstants.Parameter.PARAMETER_VALUE, "%" + coa + "%")));
 
                 List<Parameter> results = (parameterRepositoryService.findParameters(qbc.build())).getResults();
 
@@ -802,7 +802,7 @@ public class CapitalAssetBuilderModuleServiceImpl implements CapitalAssetBuilder
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
-                BusinessObjectEntry boe = (org.kuali.kfs.kns.datadictionary.BusinessObjectEntry)dataDictionaryService.getDataDictionary().getBusinessObjectEntry(offendingClass.getSimpleName());
+                BusinessObjectEntry boe = (org.kuali.kfs.kns.datadictionary.BusinessObjectEntry) dataDictionaryService.getDataDictionary().getBusinessObjectEntry(offendingClass.getSimpleName());
                 List<AttributeDefinition> offendingAttributes = boe.getAttributes();
                 AttributeDefinition offendingAttribute = offendingAttributes.get(0);
                 String fieldName = dataDictionaryService.getAttributeShortLabel(offendingClass, offendingAttribute.getName());
@@ -1471,12 +1471,12 @@ public class CapitalAssetBuilderModuleServiceImpl implements CapitalAssetBuilder
 
         boolean createAsset = (StringUtils.equalsIgnoreCase(capitalAssetInformation.getCapitalAssetActionIndicator(), KFSConstants.CapitalAssets.CAPITAL_ASSET_CREATE_ACTION_INDICATOR) ? true : false);
 
-        if (createAsset && (ObjectUtils.isNotNull(capitalAssetInformation.getCapitalAssetTypeCode()) 
-        		|| ObjectUtils.isNotNull(capitalAssetInformation.getVendorName()) 
-        		|| (ObjectUtils.isNotNull(capitalAssetInformation.getCapitalAssetQuantity()) && capitalAssetInformation.getCapitalAssetQuantity() > 0)
-        		|| ObjectUtils.isNotNull(capitalAssetInformation.getCapitalAssetManufacturerName()) 
-        		|| ObjectUtils.isNotNull(capitalAssetInformation.getCapitalAssetManufacturerModelNumber()) 
-        		|| ObjectUtils.isNotNull(capitalAssetInformation.getCapitalAssetDescription()))) {
+        if (createAsset && (ObjectUtils.isNotNull(capitalAssetInformation.getCapitalAssetTypeCode())
+            || ObjectUtils.isNotNull(capitalAssetInformation.getVendorName())
+            || (ObjectUtils.isNotNull(capitalAssetInformation.getCapitalAssetQuantity()) && capitalAssetInformation.getCapitalAssetQuantity() > 0)
+            || ObjectUtils.isNotNull(capitalAssetInformation.getCapitalAssetManufacturerName())
+            || ObjectUtils.isNotNull(capitalAssetInformation.getCapitalAssetManufacturerModelNumber())
+            || ObjectUtils.isNotNull(capitalAssetInformation.getCapitalAssetDescription()))) {
             isBlank = false;
         }
         return isBlank;
@@ -2620,7 +2620,7 @@ public class CapitalAssetBuilderModuleServiceImpl implements CapitalAssetBuilder
      */
     public boolean hasCAMSCapitalAssetObjectSubType(AccountingLine line) {
         Collection<String> capitalObjectSubTypes = getParameterService().getParameterValuesAsString(
-                AssetGlobal.class, CamsConstants.Parameters.CAPITAL_OBJECT_SUB_TYPES);
+            AssetGlobal.class, CamsConstants.Parameters.CAPITAL_OBJECT_SUB_TYPES);
         ObjectCode objectCode = line.getObjectCode();
         if (ObjectUtils.isNotNull(objectCode)) {
             return capitalObjectSubTypes.contains(objectCode.getFinancialObjectSubTypeCode());
@@ -2769,11 +2769,11 @@ public class CapitalAssetBuilderModuleServiceImpl implements CapitalAssetBuilder
             List<CapitalAssetAccountsGroupDetails> groupAccountLines = capitalAsset.getCapitalAssetAccountsGroupDetails();
             for (CapitalAssetAccountsGroupDetails groupAccountLine : groupAccountLines) {
                 if (groupAccountLine.getCapitalAssetLineNumber().compareTo(capitalAsset.getCapitalAssetLineNumber()) == 0 &&
-                        groupAccountLine.getSequenceNumber().compareTo(capitalAccountingLine.getSequenceNumber()) == 0 &&
-                        groupAccountLine.getFinancialDocumentLineTypeCode().equals(KFSConstants.SOURCE.equals(capitalAccountingLine.getLineType()) ? KFSConstants.SOURCE_ACCT_LINE_TYPE_CODE : KFSConstants.TARGET_ACCT_LINE_TYPE_CODE) &&
-                        groupAccountLine.getChartOfAccountsCode().equals(capitalAccountingLine.getChartOfAccountsCode()) &&
-                        groupAccountLine.getAccountNumber().equals(capitalAccountingLine.getAccountNumber()) &&
-                        groupAccountLine.getFinancialObjectCode().equals(capitalAccountingLine.getFinancialObjectCode())) {
+                    groupAccountLine.getSequenceNumber().compareTo(capitalAccountingLine.getSequenceNumber()) == 0 &&
+                    groupAccountLine.getFinancialDocumentLineTypeCode().equals(KFSConstants.SOURCE.equals(capitalAccountingLine.getLineType()) ? KFSConstants.SOURCE_ACCT_LINE_TYPE_CODE : KFSConstants.TARGET_ACCT_LINE_TYPE_CODE) &&
+                    groupAccountLine.getChartOfAccountsCode().equals(capitalAccountingLine.getChartOfAccountsCode()) &&
+                    groupAccountLine.getAccountNumber().equals(capitalAccountingLine.getAccountNumber()) &&
+                    groupAccountLine.getFinancialObjectCode().equals(capitalAccountingLine.getFinancialObjectCode())) {
                     capitalAccountingLineAmount = capitalAccountingLineAmount.add(groupAccountLine.getAmount());
                 }
             }
@@ -2852,9 +2852,9 @@ public class CapitalAssetBuilderModuleServiceImpl implements CapitalAssetBuilder
      */
     @Override
     public boolean isAssetLineEligibleForCABBatch(
-            CapitalAssetInformation assetLine, Integer postingYear,
-            List<String> includedFinancialObjectSubTypeCodes,
-            List<String> excludedChartCodes, List<String> excludedSubFundCodes) {
+        CapitalAssetInformation assetLine, Integer postingYear,
+        List<String> includedFinancialObjectSubTypeCodes,
+        List<String> excludedChartCodes, List<String> excludedSubFundCodes) {
         boolean eligible = true;
 
         List<CapitalAssetAccountsGroupDetails> acctDetailLines = assetLine.getCapitalAssetAccountsGroupDetails();
@@ -2944,11 +2944,11 @@ public class CapitalAssetBuilderModuleServiceImpl implements CapitalAssetBuilder
             List<CapitalAssetAccountsGroupDetails> groupAccountLines = capitalAsset.getCapitalAssetAccountsGroupDetails();
             for (CapitalAssetAccountsGroupDetails groupAccountLine : groupAccountLines) {
                 if (groupAccountLine.getCapitalAssetLineNumber().compareTo(capitalAsset.getCapitalAssetLineNumber()) == 0 &&
-                        groupAccountLine.getSequenceNumber().compareTo(capitalAccountingLine.getSequenceNumber()) == 0 &&
-                        groupAccountLine.getFinancialDocumentLineTypeCode().equals(KFSConstants.SOURCE.equals(capitalAccountingLine.getLineType()) ? KFSConstants.SOURCE_ACCT_LINE_TYPE_CODE : KFSConstants.TARGET_ACCT_LINE_TYPE_CODE) &&
-                        groupAccountLine.getChartOfAccountsCode().equals(capitalAccountingLine.getChartOfAccountsCode()) &&
-                        groupAccountLine.getAccountNumber().equals(capitalAccountingLine.getAccountNumber()) &&
-                        groupAccountLine.getFinancialObjectCode().equals(capitalAccountingLine.getFinancialObjectCode())) {
+                    groupAccountLine.getSequenceNumber().compareTo(capitalAccountingLine.getSequenceNumber()) == 0 &&
+                    groupAccountLine.getFinancialDocumentLineTypeCode().equals(KFSConstants.SOURCE.equals(capitalAccountingLine.getLineType()) ? KFSConstants.SOURCE_ACCT_LINE_TYPE_CODE : KFSConstants.TARGET_ACCT_LINE_TYPE_CODE) &&
+                    groupAccountLine.getChartOfAccountsCode().equals(capitalAccountingLine.getChartOfAccountsCode()) &&
+                    groupAccountLine.getAccountNumber().equals(capitalAccountingLine.getAccountNumber()) &&
+                    groupAccountLine.getFinancialObjectCode().equals(capitalAccountingLine.getFinancialObjectCode())) {
                     return true;
                 }
             }

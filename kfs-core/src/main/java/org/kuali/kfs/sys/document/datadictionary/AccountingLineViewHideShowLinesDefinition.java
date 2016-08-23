@@ -1,32 +1,32 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.document.datadictionary;
 
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.datadictionary.DataDictionaryDefinitionBase;
+import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.document.web.AccountingLineViewLineFillingElement;
 import org.kuali.kfs.sys.document.web.HideShowLayoutElement;
 import org.kuali.kfs.sys.document.web.TableJoining;
-import org.kuali.kfs.krad.datadictionary.DataDictionaryDefinitionBase;
-import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
+
+import java.util.List;
 
 /**
  * Defines a set of lines of are displayed within a hide/show block
@@ -38,6 +38,7 @@ public class AccountingLineViewHideShowLinesDefinition extends DataDictionaryDef
 
     /**
      * Validates that name has been set and that at least one line element has been specified
+     *
      * @see org.kuali.rice.krad.datadictionary.DataDictionaryDefinition#completeValidation(java.lang.Class, java.lang.Class)
      */
     public void completeValidation(Class rootBusinessObjectClass, Class otherBusinessObjectClass) {
@@ -65,11 +66,12 @@ public class AccountingLineViewHideShowLinesDefinition extends DataDictionaryDef
      * @see org.kuali.kfs.sys.document.datadictionary.AccountingLineViewLineFillingDefinition#createLineFillingLayoutElement(java.lang.Class)
      */
     public AccountingLineViewLineFillingElement createLineFillingLayoutElement(Class<? extends AccountingLine> accountingLineClass) {
-        return (AccountingLineViewLineFillingElement)createLayoutElement(accountingLineClass);
+        return (AccountingLineViewLineFillingElement) createLayoutElement(accountingLineClass);
     }
 
     /**
-     * Gets the label attribute. 
+     * Gets the label attribute.
+     *
      * @return Returns the label.
      */
     public String getLabel() {
@@ -78,6 +80,7 @@ public class AccountingLineViewHideShowLinesDefinition extends DataDictionaryDef
 
     /**
      * Sets the label attribute value.
+     *
      * @param label The label to set.
      */
     public void setLabel(String label) {
@@ -85,7 +88,8 @@ public class AccountingLineViewHideShowLinesDefinition extends DataDictionaryDef
     }
 
     /**
-     * Gets the lines attribute. 
+     * Gets the lines attribute.
+     *
      * @return Returns the lines.
      */
     public List<AccountingLineViewLineFillingDefinition> getLines() {
@@ -94,6 +98,7 @@ public class AccountingLineViewHideShowLinesDefinition extends DataDictionaryDef
 
     /**
      * Sets the lines attribute value.
+     *
      * @param lines The lines to set.
      */
     public void setLines(List<AccountingLineViewLineFillingDefinition> lines) {
@@ -101,7 +106,8 @@ public class AccountingLineViewHideShowLinesDefinition extends DataDictionaryDef
     }
 
     /**
-     * Gets the name attribute. 
+     * Gets the name attribute.
+     *
      * @return Returns the name.
      */
     public String getName() {
@@ -110,10 +116,11 @@ public class AccountingLineViewHideShowLinesDefinition extends DataDictionaryDef
 
     /**
      * Sets the name attribute value.
+     *
      * @param name The name to set.
      */
     public void setName(String name) {
         this.name = name;
     }
-    
+
 }

@@ -1,34 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document.web.struts;
-
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
@@ -49,6 +37,18 @@ import org.kuali.kfs.fp.document.service.CashManagementService;
 import org.kuali.kfs.fp.document.service.CashReceiptService;
 import org.kuali.kfs.fp.exception.CashDrawerStateException;
 import org.kuali.kfs.fp.service.CashDrawerService;
+import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
+import org.kuali.kfs.kns.document.authorization.TransactionalDocumentAuthorizer;
+import org.kuali.kfs.kns.document.authorization.TransactionalDocumentPresentationController;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.kns.web.struts.action.KualiAction;
+import org.kuali.kfs.krad.exception.InfrastructureException;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSConstants.CashDrawerConstants;
 import org.kuali.kfs.sys.KFSConstants.DepositConstants;
@@ -63,18 +63,17 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
-import org.kuali.kfs.kns.document.authorization.TransactionalDocumentAuthorizer;
-import org.kuali.kfs.kns.document.authorization.TransactionalDocumentPresentationController;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.kns.service.DocumentHelperService;
-import org.kuali.kfs.kns.web.struts.action.KualiAction;
-import org.kuali.kfs.krad.exception.InfrastructureException;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
 
 /**
  * This class handles actions for the deposit wizard, which is used to create deposits that bundle groupings of Cash Receipt
@@ -89,7 +88,7 @@ public class DepositWizardAction extends KualiAction {
      * the DepositWizard builds and attaches the new Deposit.
      *
      * @see org.apache.struts.action.Action#execute(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm,
-     *      javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -112,8 +111,7 @@ public class DepositWizardAction extends KualiAction {
 
             try {
                 initializeForm(dwForm, cmDoc, depositTypeCode);
-            }
-            catch (CashDrawerStateException cdse) {
+            } catch (CashDrawerStateException cdse) {
                 dest = new ActionForward(UrlFactory.parameterizeUrl(CASH_MANAGEMENT_STATUS_PAGE, cdse.toProperties()), true);
             }
         } else { // for recalculation
@@ -183,37 +181,34 @@ public class DepositWizardAction extends KualiAction {
      * @param dform
      */
     private void loadCashReceipts(DepositWizardForm dform) {
-        List<CashReceiptDocument> verifiedReceipts = SpringContext.getBean(CashReceiptService.class).getCashReceipts(dform.getCashDrawerCampusCode(), new String[] { CashReceipt.VERIFIED, CashReceipt.INTERIM });
+        List<CashReceiptDocument> verifiedReceipts = SpringContext.getBean(CashReceiptService.class).getCashReceipts(dform.getCashDrawerCampusCode(), new String[]{CashReceipt.VERIFIED, CashReceipt.INTERIM});
         dform.setDepositableCashReceipts(new ArrayList());
         dform.setCheckFreeCashReceipts(new ArrayList<CashReceiptDocument>());
         dform.resetCurrentCheckTotal();
 
         // prepopulate DepositWizardHelpers
         int index = 0;
-        for (Iterator i = verifiedReceipts.iterator(); i.hasNext();) {
+        for (Iterator i = verifiedReceipts.iterator(); i.hasNext(); ) {
             CashReceiptDocument receipt = (CashReceiptDocument) i.next();
             receipt.processAfterRetrieve(); // To populate Currency and Coin details
             String docStatus = receipt.getFinancialSystemDocumentHeader().getFinancialDocumentStatusCode();
             if (docStatus.equalsIgnoreCase(CashReceipt.VERIFIED)) { // for interim or final deposit
                 if (receipt.getCheckCount() == 0 && receipt.getTotalConfirmedCheckAmount().equals(KualiDecimal.ZERO)) {
                     dform.getCheckFreeCashReceipts().add(receipt);
-                }
-                else {
+                } else {
                     dform.getDepositableCashReceipts().add(receipt);
                     DepositWizardHelper d = dform.getDepositWizardHelper(index++);
                     // KFSMI-5232 Jira fix. Convert the time stamp to SQL date format
                     Timestamp ts = new Timestamp(receipt.getDocumentHeader().getWorkflowDocument().getDateCreated().getMillis());
                     try {
                         d.setCashReceiptCreateDate(SpringContext.getBean(DateTimeService.class).convertToSqlDate(ts));
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
 
                     }
                 }
-            }
-            else if (docStatus.equalsIgnoreCase(CashReceipt.INTERIM)) { // for final deposit
+            } else if (docStatus.equalsIgnoreCase(CashReceipt.INTERIM)) { // for final deposit
                 // checks are already deposited but there are cash to be deposited
-            	/* We should check whether the net cash total, i.e. (currency + coin) - (change currency + change coin)
+                /* We should check whether the net cash total, i.e. (currency + coin) - (change currency + change coin)
                  * is greater than 0; and if so, there's cash to deposit.
                  */
                 if (receipt.getTotalConfirmedNetCashAmount().isGreaterThan(KualiDecimal.ZERO)) {
@@ -226,12 +221,13 @@ public class DepositWizardAction extends KualiAction {
 
     /**
      * Loads cashiering transactions for final deposit target amount
+     *
      * @param dwform
      */
     private void calculateTargetFinalDepositAmount(DepositWizardForm dwform) {
         final CashReceiptService cashReceiptService = SpringContext.getBean(CashReceiptService.class);
         final List<CashReceiptDocument> interestingReceipts =
-                cashReceiptService.getCashReceipts(dwform.getCashDrawerCampusCode(), new String[] { CashReceipt.VERIFIED, CashReceipt.INTERIM, CashReceipt.FINAL });
+            cashReceiptService.getCashReceipts(dwform.getCashDrawerCampusCode(), new String[]{CashReceipt.VERIFIED, CashReceipt.INTERIM, CashReceipt.FINAL});
         for (CashReceiptDocument crDoc : interestingReceipts) {
             crDoc.refreshCashDetails();
             dwform.addCashReceiptToTargetTotal(crDoc);
@@ -281,11 +277,12 @@ public class DepositWizardAction extends KualiAction {
      */
     private FinancialSystemTransactionalDocumentEntry getCashManagementDataDictionaryEntry() {
         final DataDictionaryService ddService = SpringContext.getBean(DataDictionaryService.class);
-        return (FinancialSystemTransactionalDocumentEntry)ddService.getDataDictionary().getDocumentEntry(getCashManagementDocumentTypeName());
+        return (FinancialSystemTransactionalDocumentEntry) ddService.getDataDictionary().getDocumentEntry(getCashManagementDocumentTypeName());
     }
 
     /**
      * Returns an instance of the document presentation controller for the cash management class
+     *
      * @param cashManagementEntry the data dictionary entry for the cash management document
      * @return an instance of the proper document presentation controller
      */
@@ -293,12 +290,10 @@ public class DepositWizardAction extends KualiAction {
         final Class presentationControllerClass = cashManagementEntry.getDocumentPresentationControllerClass();
         TransactionalDocumentPresentationController presentationController = null;
         try {
-            presentationController = (TransactionalDocumentPresentationController)presentationControllerClass.newInstance();
-        }
-        catch (InstantiationException ie) {
+            presentationController = (TransactionalDocumentPresentationController) presentationControllerClass.newInstance();
+        } catch (InstantiationException ie) {
             throw new RuntimeException("Could not instantiate cash management presentation controller of class " + presentationControllerClass.getName(), ie);
-        }
-        catch (IllegalAccessException iae) {
+        } catch (IllegalAccessException iae) {
             throw new RuntimeException("Could not instantiate cash management presentation controller of class " + presentationControllerClass.getName(), iae);
         }
         return presentationController;
@@ -306,6 +301,7 @@ public class DepositWizardAction extends KualiAction {
 
     /**
      * Returns an instance of the document authorizer for the cash management class
+     *
      * @param cashManagementEntry the data dictionary entry for the cash management document
      * @return an instance of the proper document authorizer
      */
@@ -313,12 +309,10 @@ public class DepositWizardAction extends KualiAction {
         final Class docAuthorizerClass = cashManagementEntry.getDocumentAuthorizerClass();
         TransactionalDocumentAuthorizer docAuthorizer = null;
         try {
-            docAuthorizer = (TransactionalDocumentAuthorizer)docAuthorizerClass.newInstance();
-        }
-        catch (InstantiationException ie) {
+            docAuthorizer = (TransactionalDocumentAuthorizer) docAuthorizerClass.newInstance();
+        } catch (InstantiationException ie) {
             throw new RuntimeException("Could not instantiate cash management document authorizer of class " + docAuthorizerClass.getName(), ie);
-        }
-        catch (IllegalAccessException iae) {
+        } catch (IllegalAccessException iae) {
             throw new RuntimeException("Could not instantiate cash management document authorizer of class " + docAuthorizerClass.getName(), iae);
         }
         return docAuthorizer;
@@ -326,20 +320,20 @@ public class DepositWizardAction extends KualiAction {
 
     /**
      * Retrieves the edit modes for the given cash management document
-     * @param cashManagementDocId the id of the cash management document to check
+     *
+     * @param cashManagementDocId    the id of the cash management document to check
      * @param presentationController the presentation controller of the cash management document
-     * @param docAuthorizer the cash management document authorizer
+     * @param docAuthorizer          the cash management document authorizer
      * @return a Map of edit modes
      */
     private Map retrieveEditingModes(String cashManagementDocId, TransactionalDocumentPresentationController presentationController, TransactionalDocumentAuthorizer docAuthorizer) {
         Map editModeMap = null;
         try {
-            final CashManagementDocument cmDoc = (CashManagementDocument)SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(cashManagementDocId);
+            final CashManagementDocument cmDoc = (CashManagementDocument) SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(cashManagementDocId);
             Set<String> editModes = presentationController.getEditModes(cmDoc);
             editModes = docAuthorizer.getEditModes(cmDoc, GlobalVariables.getUserSession().getPerson(), editModes);
             editModeMap = convertSetToMap(editModes);
-        }
-        catch (WorkflowException we) {
+        } catch (WorkflowException we) {
             throw new RuntimeException("Workflow exception while retrieving document " + cashManagementDocId, we);
         }
         return editModeMap;
@@ -347,20 +341,20 @@ public class DepositWizardAction extends KualiAction {
 
     /**
      * Retrieves the document actions for the given cash management document
-     * @param cashManagementDocId the id of the cash management document to check
+     *
+     * @param cashManagementDocId    the id of the cash management document to check
      * @param presentationController the presentation controller of the cash management document
-     * @param docAuthorizer the cash management document authorizer
+     * @param docAuthorizer          the cash management document authorizer
      * @return a Map of document actions
      */
     private Map retrieveDocumentActions(String cashManagementDocId, TransactionalDocumentPresentationController presentationController, TransactionalDocumentAuthorizer docAuthorizer) {
         Map documentActionsMap = null;
         try {
-            final CashManagementDocument cmDoc = (CashManagementDocument)SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(cashManagementDocId);
+            final CashManagementDocument cmDoc = (CashManagementDocument) SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(cashManagementDocId);
             Set<String> documentActions = presentationController.getDocumentActions(cmDoc);
             documentActions = docAuthorizer.getEditModes(cmDoc, GlobalVariables.getUserSession().getPerson(), documentActions);
             documentActionsMap = convertSetToMap(documentActions);
-        }
-        catch (WorkflowException we) {
+        } catch (WorkflowException we) {
             throw new RuntimeException("Workflow exception while retrieving document " + cashManagementDocId, we);
         }
         return documentActionsMap;
@@ -368,13 +362,14 @@ public class DepositWizardAction extends KualiAction {
 
     /**
      * Converts a set into a map, where each value in the set becomes a key and each value becomes KNSConstants.KUALI_DEFAULT_TRUE_VALUE
+     *
      * @param s a set
      * @return a map
      */
-    protected Map convertSetToMap(Set s){
+    protected Map convertSetToMap(Set s) {
         Map map = new HashMap();
         Iterator i = s.iterator();
-        while(i.hasNext()) {
+        while (i.hasNext()) {
             Object key = i.next();
             map.put(key, KRADConstants.KUALI_DEFAULT_TRUE_VALUE);
         }
@@ -385,13 +380,13 @@ public class DepositWizardAction extends KualiAction {
      * Reloads the CashReceipts, leaving everything else unchanged
      *
      * @see org.kuali.rice.kns.web.struts.action.KualiAction#refresh(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward refresh(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         loadCashReceipts((DepositWizardForm) form);
         loadUndepositedCashieringChecks((DepositWizardForm) form);
-        if (((DepositWizardForm) form).isDepositFinal() && ((DepositWizardForm)form).getTargetDepositAmount() == null) {
+        if (((DepositWizardForm) form).isDepositFinal() && ((DepositWizardForm) form).getTargetDepositAmount() == null) {
             calculateTargetFinalDepositAmount((DepositWizardForm) form);
         }
         loadEditModesAndDocumentActions((DepositWizardForm) form);
@@ -435,7 +430,7 @@ public class DepositWizardAction extends KualiAction {
 
         // reload edit modes and summary totals - just in case we have to return to the deposit wizard page
         loadCashReceipts((DepositWizardForm) form);
-        if (((DepositWizardForm) form).isDepositFinal() && ((DepositWizardForm)form).getTargetDepositAmount() == null) {
+        if (((DepositWizardForm) form).isDepositFinal() && ((DepositWizardForm) form).getTargetDepositAmount() == null) {
             calculateTargetFinalDepositAmount((DepositWizardForm) form);
         }
         loadEditModesAndDocumentActions(dform);
@@ -444,16 +439,14 @@ public class DepositWizardAction extends KualiAction {
         String bankCode = dform.getBankCode();
         if (StringUtils.isBlank(bankCode)) {
             GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_MISSING_BANK);
-        }
-        else {
+        } else {
             Map keyMap = new HashMap();
             keyMap.put(KFSPropertyConstants.BANK_CODE, bankCode);
 
             Bank bank = boService.findByPrimaryKey(Bank.class, keyMap);
             if (bank == null) {
                 GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_UNKNOWN_BANK, bankCode);
-            }
-            else {
+            } else {
                 dform.setBank(bank);
             }
         }
@@ -462,7 +455,7 @@ public class DepositWizardAction extends KualiAction {
 
         // validate cashReceipt selection
         List selectedIds = new ArrayList();
-        for (Iterator i = dform.getDepositWizardHelpers().iterator(); i.hasNext();) {
+        for (Iterator i = dform.getDepositWizardHelpers().iterator(); i.hasNext(); ) {
             String checkValue = ((DepositWizardHelper) i.next()).getSelectedValue();
 
             if (StringUtils.isNotBlank(checkValue) && !checkValue.equals(KFSConstants.ParameterValues.NO)) {
@@ -474,7 +467,7 @@ public class DepositWizardAction extends KualiAction {
         if (depositIsFinal) {
             // add check free cash receipts to the selected receipts so they are automatically deposited
             dform.setCheckFreeCashReceipts(new ArrayList<CashReceiptDocument>());
-            List<CashReceiptDocument> cashReceipts = cashReceiptService.getCashReceipts(dform.getCashDrawerCampusCode(), new String[] {CashReceipt.VERIFIED, CashReceipt.INTERIM});
+            List<CashReceiptDocument> cashReceipts = cashReceiptService.getCashReceipts(dform.getCashDrawerCampusCode(), new String[]{CashReceipt.VERIFIED, CashReceipt.INTERIM});
             for (Object crDocObj : cashReceipts) {
                 CashReceiptDocument crDoc = (CashReceiptDocument) crDocObj;
                 crDoc.refreshCashDetails();
@@ -482,11 +475,10 @@ public class DepositWizardAction extends KualiAction {
                     // it's check free; it is automatically deposited as part of the final deposit
                     selectedIds.add(crDoc.getDocumentNumber());
                     dform.getCheckFreeCashReceipts().add(crDoc);
-                }
-                else if (crDoc.getFinancialSystemDocumentHeader().getFinancialDocumentStatusCode().equals(CashReceipt.INTERIM) &&
-                        crDoc.getTotalConfirmedNetAmount().isGreaterThan(KualiDecimal.ZERO)) {
-                        selectedIds.add(crDoc.getDocumentNumber());
-                        dform.getCheckFreeCashReceipts().add(crDoc);
+                } else if (crDoc.getFinancialSystemDocumentHeader().getFinancialDocumentStatusCode().equals(CashReceipt.INTERIM) &&
+                    crDoc.getTotalConfirmedNetAmount().isGreaterThan(KualiDecimal.ZERO)) {
+                    selectedIds.add(crDoc.getDocumentNumber());
+                    dform.getCheckFreeCashReceipts().add(crDoc);
                 }
             }
         }
@@ -526,9 +518,8 @@ public class DepositWizardAction extends KualiAction {
                     // have we selected the rest of the undeposited checks?
                     for (Check check : cashManagementService.selectUndepositedCashieringChecks(dform.getCashManagementDocId())) {
                         if (!selectedCashieringChecks.contains(check.getSequenceId())) {
-                            GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_CASHIERING_CHECK_MUST_BE_DEPOSITED, new String[] { check.getCheckNumber() });
-                        }
-                        else {
+                            GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_CASHIERING_CHECK_MUST_BE_DEPOSITED, new String[]{check.getCheckNumber()});
+                        } else {
                             toBeDepositedChecksTotal = toBeDepositedChecksTotal.add(check.getAmount());
                         }
                     }
@@ -542,7 +533,7 @@ public class DepositWizardAction extends KualiAction {
                     checkEnoughCoinForDeposit(dform);
 
                     // does this deposit have currency and coin to match all currency and coin from CRs?
-                    List<CashReceiptDocument> interestingReceipts = cashReceiptService.getCashReceipts(dform.getCashDrawerCampusCode(), new String[] { CashReceipt.VERIFIED, CashReceipt.INTERIM, CashReceipt.FINAL });
+                    List<CashReceiptDocument> interestingReceipts = cashReceiptService.getCashReceipts(dform.getCashDrawerCampusCode(), new String[]{CashReceipt.VERIFIED, CashReceipt.INTERIM, CashReceipt.FINAL});
                     CurrencyDetail currencyTotal = new CurrencyDetail();
                     CoinDetail coinTotal = new CoinDetail();
                     for (CashReceiptDocument receipt : interestingReceipts) {
@@ -562,7 +553,7 @@ public class DepositWizardAction extends KualiAction {
                     cashReceiptCashTotal = cashReceiptCashTotal.subtract(toBeDepositedChecksTotal);
                     KualiDecimal depositedCashTotal = dform.getCurrencyDetail().getTotalAmount().add(dform.getCoinDetail().getTotalAmount());
                     if (!cashReceiptCashTotal.equals(depositedCashTotal)) {
-                        GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_CASH_DEPOSIT_DID_NOT_BALANCE, new String[] { formatter.format(depositedCashTotal).toString(), formatter.format(cashReceiptCashTotal).toString() });
+                        GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_CASH_DEPOSIT_DID_NOT_BALANCE, new String[]{formatter.format(depositedCashTotal).toString(), formatter.format(cashReceiptCashTotal).toString()});
                     }
                 }
 
@@ -576,8 +567,7 @@ public class DepositWizardAction extends KualiAction {
                         if (cashManagementDoc == null) {
                             throw new IllegalStateException("unable to find cashManagementDocument with id " + cashManagementDocId);
                         }
-                    }
-                    catch (WorkflowException e) {
+                    } catch (WorkflowException e) {
                         throw new IllegalStateException("unable to retrieve cashManagementDocument with id " + cashManagementDocId, e);
                     }
 
@@ -609,8 +599,7 @@ public class DepositWizardAction extends KualiAction {
                     // redirect to controlling CashManagementDocument
                     dest = returnToSender(cashManagementDocId);
                 }
-            }
-            catch (WorkflowException e) {
+            } catch (WorkflowException e) {
                 throw new InfrastructureException("unable to retrieve cashReceipts by documentId", e);
             }
         }
@@ -634,7 +623,7 @@ public class DepositWizardAction extends KualiAction {
      * drawer
      *
      * @param depositForm the deposit form we are checking against
-     * @param detail the currency detail to check against the drawer
+     * @param detail      the currency detail to check against the drawer
      * @return true if enough currency, false if otherwise
      */
     private boolean checkEnoughCurrencyForDeposit(DepositWizardForm depositForm) {
@@ -650,49 +639,49 @@ public class DepositWizardAction extends KualiAction {
             CurrencyFormatter formatter = new CurrencyFormatter();
             if (detail.getFinancialDocumentHundredDollarAmount() != null && detail.getFinancialDocumentHundredDollarAmount().isGreaterThan(KualiDecimal.ZERO)) {
                 if (drawer.getFinancialDocumentHundredDollarAmount() == null || drawer.getFinancialDocumentHundredDollarAmount().isLessThan(detail.getFinancialDocumentHundredDollarAmount())) {
-                    GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_NOT_ENOUGH_CASH_TO_COMPLETE_DEPOSIT, new String[] { "hundred dollar amount", formatter.format(detail.getFinancialDocumentHundredDollarAmount()).toString(), formatter.format(drawer.getFinancialDocumentHundredDollarAmount()).toString() });
+                    GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_NOT_ENOUGH_CASH_TO_COMPLETE_DEPOSIT, new String[]{"hundred dollar amount", formatter.format(detail.getFinancialDocumentHundredDollarAmount()).toString(), formatter.format(drawer.getFinancialDocumentHundredDollarAmount()).toString()});
                     success = false;
                 }
             }
             if (detail.getFinancialDocumentFiftyDollarAmount() != null && detail.getFinancialDocumentFiftyDollarAmount().isGreaterThan(KualiDecimal.ZERO)) {
                 if (drawer.getFinancialDocumentFiftyDollarAmount() == null || drawer.getFinancialDocumentFiftyDollarAmount().isLessThan(detail.getFinancialDocumentFiftyDollarAmount())) {
-                    GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_NOT_ENOUGH_CASH_TO_COMPLETE_DEPOSIT, new String[] { "fifty dollar amount", formatter.format(detail.getFinancialDocumentFiftyDollarAmount()).toString(), formatter.format(drawer.getFinancialDocumentFiftyDollarAmount()).toString() });
+                    GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_NOT_ENOUGH_CASH_TO_COMPLETE_DEPOSIT, new String[]{"fifty dollar amount", formatter.format(detail.getFinancialDocumentFiftyDollarAmount()).toString(), formatter.format(drawer.getFinancialDocumentFiftyDollarAmount()).toString()});
                     success = false;
                 }
             }
             if (detail.getFinancialDocumentTwentyDollarAmount() != null && detail.getFinancialDocumentTwentyDollarAmount().isGreaterThan(KualiDecimal.ZERO)) {
                 if (drawer.getFinancialDocumentTwentyDollarAmount() == null || drawer.getFinancialDocumentTwentyDollarAmount().isLessThan(detail.getFinancialDocumentTwentyDollarAmount())) {
-                    GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_NOT_ENOUGH_CASH_TO_COMPLETE_DEPOSIT, new String[] { "twenty dollar amount", formatter.format(detail.getFinancialDocumentTwentyDollarAmount()).toString(), formatter.format(drawer.getFinancialDocumentTwentyDollarAmount()).toString() });
+                    GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_NOT_ENOUGH_CASH_TO_COMPLETE_DEPOSIT, new String[]{"twenty dollar amount", formatter.format(detail.getFinancialDocumentTwentyDollarAmount()).toString(), formatter.format(drawer.getFinancialDocumentTwentyDollarAmount()).toString()});
                     success = false;
                 }
             }
             if (detail.getFinancialDocumentTenDollarAmount() != null && detail.getFinancialDocumentTenDollarAmount().isGreaterThan(KualiDecimal.ZERO)) {
                 if (drawer.getFinancialDocumentTenDollarAmount() == null || drawer.getFinancialDocumentTenDollarAmount().isLessThan(detail.getFinancialDocumentTenDollarAmount())) {
-                    GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_NOT_ENOUGH_CASH_TO_COMPLETE_DEPOSIT, new String[] { "ten dollar amount", formatter.format(detail.getFinancialDocumentTenDollarAmount()).toString(), formatter.format(drawer.getFinancialDocumentTenDollarAmount()).toString() });
+                    GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_NOT_ENOUGH_CASH_TO_COMPLETE_DEPOSIT, new String[]{"ten dollar amount", formatter.format(detail.getFinancialDocumentTenDollarAmount()).toString(), formatter.format(drawer.getFinancialDocumentTenDollarAmount()).toString()});
                     success = false;
                 }
             }
             if (detail.getFinancialDocumentFiveDollarAmount() != null && detail.getFinancialDocumentFiveDollarAmount().isGreaterThan(KualiDecimal.ZERO)) {
                 if (drawer.getFinancialDocumentFiveDollarAmount() == null || drawer.getFinancialDocumentFiveDollarAmount().isLessThan(detail.getFinancialDocumentFiveDollarAmount())) {
-                    GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_NOT_ENOUGH_CASH_TO_COMPLETE_DEPOSIT, new String[] { "five dollar amount", formatter.format(detail.getFinancialDocumentFiveDollarAmount()).toString(), formatter.format(drawer.getFinancialDocumentFiveDollarAmount()).toString() });
+                    GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_NOT_ENOUGH_CASH_TO_COMPLETE_DEPOSIT, new String[]{"five dollar amount", formatter.format(detail.getFinancialDocumentFiveDollarAmount()).toString(), formatter.format(drawer.getFinancialDocumentFiveDollarAmount()).toString()});
                     success = false;
                 }
             }
             if (detail.getFinancialDocumentTwoDollarAmount() != null && detail.getFinancialDocumentTwoDollarAmount().isGreaterThan(KualiDecimal.ZERO)) {
                 if (drawer.getFinancialDocumentTwoDollarAmount() == null || drawer.getFinancialDocumentTwoDollarAmount().isLessThan(detail.getFinancialDocumentTwoDollarAmount())) {
-                    GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_NOT_ENOUGH_CASH_TO_COMPLETE_DEPOSIT, new String[] { "two dollar amount", formatter.format(detail.getFinancialDocumentTwoDollarAmount()).toString(), formatter.format(drawer.getFinancialDocumentTwoDollarAmount()).toString() });
+                    GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_NOT_ENOUGH_CASH_TO_COMPLETE_DEPOSIT, new String[]{"two dollar amount", formatter.format(detail.getFinancialDocumentTwoDollarAmount()).toString(), formatter.format(drawer.getFinancialDocumentTwoDollarAmount()).toString()});
                     success = false;
                 }
             }
             if (detail.getFinancialDocumentOneDollarAmount() != null && detail.getFinancialDocumentOneDollarAmount().isGreaterThan(KualiDecimal.ZERO)) {
                 if (drawer.getFinancialDocumentOneDollarAmount() == null || drawer.getFinancialDocumentOneDollarAmount().isLessThan(detail.getFinancialDocumentOneDollarAmount())) {
-                    GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_NOT_ENOUGH_CASH_TO_COMPLETE_DEPOSIT, new String[] { "one dollar amount", formatter.format(detail.getFinancialDocumentOneDollarAmount()).toString(), formatter.format(drawer.getFinancialDocumentOneDollarAmount()).toString() });
+                    GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_NOT_ENOUGH_CASH_TO_COMPLETE_DEPOSIT, new String[]{"one dollar amount", formatter.format(detail.getFinancialDocumentOneDollarAmount()).toString(), formatter.format(drawer.getFinancialDocumentOneDollarAmount()).toString()});
                     success = false;
                 }
             }
             if (detail.getFinancialDocumentOtherDollarAmount() != null && detail.getFinancialDocumentOtherDollarAmount().isGreaterThan(KualiDecimal.ZERO)) {
                 if (drawer.getFinancialDocumentOtherDollarAmount() == null || drawer.getFinancialDocumentOtherDollarAmount().isLessThan(detail.getFinancialDocumentOtherDollarAmount())) {
-                    GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_NOT_ENOUGH_CASH_TO_COMPLETE_DEPOSIT, new String[] { "other dollar amount", formatter.format(detail.getFinancialDocumentOtherDollarAmount()).toString(), formatter.format(drawer.getFinancialDocumentOtherDollarAmount()).toString() });
+                    GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_NOT_ENOUGH_CASH_TO_COMPLETE_DEPOSIT, new String[]{"other dollar amount", formatter.format(detail.getFinancialDocumentOtherDollarAmount()).toString(), formatter.format(drawer.getFinancialDocumentOtherDollarAmount()).toString()});
                     success = false;
                 }
             }
@@ -704,7 +693,7 @@ public class DepositWizardAction extends KualiAction {
      * Checks that the coin amount requested by the deposit does not exceed the amount actually in the drawer
      *
      * @param depositForm the deposit form we are checking against
-     * @param detail the coin detail to check against the drawer
+     * @param detail      the coin detail to check against the drawer
      * @return true if there is enough coin, false if otherwise
      */
     public boolean checkEnoughCoinForDeposit(DepositWizardForm depositForm) {
@@ -720,43 +709,43 @@ public class DepositWizardAction extends KualiAction {
             CurrencyFormatter formatter = new CurrencyFormatter();
             if (detail.getFinancialDocumentHundredCentAmount() != null && detail.getFinancialDocumentHundredCentAmount().isGreaterThan(KualiDecimal.ZERO)) {
                 if (drawer.getFinancialDocumentHundredCentAmount() == null || drawer.getFinancialDocumentHundredCentAmount().isLessThan(detail.getFinancialDocumentHundredCentAmount())) {
-                    GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_NOT_ENOUGH_CASH_TO_COMPLETE_DEPOSIT, new String[] { "hundred cent amount", formatter.format(detail.getFinancialDocumentHundredCentAmount()).toString(), formatter.format(drawer.getFinancialDocumentHundredCentAmount()).toString() });
+                    GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_NOT_ENOUGH_CASH_TO_COMPLETE_DEPOSIT, new String[]{"hundred cent amount", formatter.format(detail.getFinancialDocumentHundredCentAmount()).toString(), formatter.format(drawer.getFinancialDocumentHundredCentAmount()).toString()});
                     success = false;
                 }
             }
             if (detail.getFinancialDocumentFiftyCentAmount() != null && detail.getFinancialDocumentFiftyCentAmount().isGreaterThan(KualiDecimal.ZERO)) {
                 if (drawer.getFinancialDocumentFiftyCentAmount() == null || drawer.getFinancialDocumentFiftyCentAmount().isLessThan(detail.getFinancialDocumentFiftyCentAmount())) {
-                    GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_NOT_ENOUGH_CASH_TO_COMPLETE_DEPOSIT, new String[] { "fifty cent amount", formatter.format(detail.getFinancialDocumentFiftyCentAmount()).toString(), formatter.format(drawer.getFinancialDocumentFiftyCentAmount()).toString() });
+                    GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_NOT_ENOUGH_CASH_TO_COMPLETE_DEPOSIT, new String[]{"fifty cent amount", formatter.format(detail.getFinancialDocumentFiftyCentAmount()).toString(), formatter.format(drawer.getFinancialDocumentFiftyCentAmount()).toString()});
                     success = false;
                 }
             }
             if (detail.getFinancialDocumentTwentyFiveCentAmount() != null && detail.getFinancialDocumentTwentyFiveCentAmount().isGreaterThan(KualiDecimal.ZERO)) {
                 if (drawer.getFinancialDocumentTwentyFiveCentAmount() == null || drawer.getFinancialDocumentTwentyFiveCentAmount().isLessThan(detail.getFinancialDocumentTwentyFiveCentAmount())) {
-                    GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_NOT_ENOUGH_CASH_TO_COMPLETE_DEPOSIT, new String[] { "twenty five cent amount", formatter.format(detail.getFinancialDocumentTwentyFiveCentAmount()).toString(), formatter.format(drawer.getFinancialDocumentTwentyFiveCentAmount()).toString() });
+                    GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_NOT_ENOUGH_CASH_TO_COMPLETE_DEPOSIT, new String[]{"twenty five cent amount", formatter.format(detail.getFinancialDocumentTwentyFiveCentAmount()).toString(), formatter.format(drawer.getFinancialDocumentTwentyFiveCentAmount()).toString()});
                     success = false;
                 }
             }
             if (detail.getFinancialDocumentTenCentAmount() != null && detail.getFinancialDocumentTenCentAmount().isGreaterThan(KualiDecimal.ZERO)) {
                 if (drawer.getFinancialDocumentTenCentAmount() == null || drawer.getFinancialDocumentTenCentAmount().isLessThan(detail.getFinancialDocumentTenCentAmount())) {
-                    GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_NOT_ENOUGH_CASH_TO_COMPLETE_DEPOSIT, new String[] { "ten cent amount", formatter.format(detail.getFinancialDocumentTenCentAmount()).toString(), formatter.format(drawer.getFinancialDocumentTenCentAmount()).toString() });
+                    GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_NOT_ENOUGH_CASH_TO_COMPLETE_DEPOSIT, new String[]{"ten cent amount", formatter.format(detail.getFinancialDocumentTenCentAmount()).toString(), formatter.format(drawer.getFinancialDocumentTenCentAmount()).toString()});
                     success = false;
                 }
             }
             if (detail.getFinancialDocumentFiveCentAmount() != null && detail.getFinancialDocumentFiveCentAmount().isGreaterThan(KualiDecimal.ZERO)) {
                 if (drawer.getFinancialDocumentFiveCentAmount() == null || drawer.getFinancialDocumentFiveCentAmount().isLessThan(detail.getFinancialDocumentFiveCentAmount())) {
-                    GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_NOT_ENOUGH_CASH_TO_COMPLETE_DEPOSIT, new String[] { "five cent amount", formatter.format(detail.getFinancialDocumentFiveCentAmount()).toString(), formatter.format(drawer.getFinancialDocumentFiveCentAmount()).toString() });
+                    GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_NOT_ENOUGH_CASH_TO_COMPLETE_DEPOSIT, new String[]{"five cent amount", formatter.format(detail.getFinancialDocumentFiveCentAmount()).toString(), formatter.format(drawer.getFinancialDocumentFiveCentAmount()).toString()});
                     success = false;
                 }
             }
             if (detail.getFinancialDocumentOneCentAmount() != null && detail.getFinancialDocumentOneCentAmount().isGreaterThan(KualiDecimal.ZERO)) {
                 if (drawer.getFinancialDocumentOneCentAmount() == null || drawer.getFinancialDocumentOneCentAmount().isLessThan(detail.getFinancialDocumentOneCentAmount())) {
-                    GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_NOT_ENOUGH_CASH_TO_COMPLETE_DEPOSIT, new String[] { "one cent amount", formatter.format(detail.getFinancialDocumentOneCentAmount()).toString(), formatter.format(drawer.getFinancialDocumentOneCentAmount()).toString() });
+                    GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_NOT_ENOUGH_CASH_TO_COMPLETE_DEPOSIT, new String[]{"one cent amount", formatter.format(detail.getFinancialDocumentOneCentAmount()).toString(), formatter.format(drawer.getFinancialDocumentOneCentAmount()).toString()});
                     success = false;
                 }
             }
             if (detail.getFinancialDocumentOtherCentAmount() != null && detail.getFinancialDocumentOtherCentAmount().isGreaterThan(KualiDecimal.ZERO)) {
                 if (drawer.getFinancialDocumentOtherCentAmount() == null || drawer.getFinancialDocumentOtherCentAmount().isLessThan(detail.getFinancialDocumentOtherCentAmount())) {
-                    GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_NOT_ENOUGH_CASH_TO_COMPLETE_DEPOSIT, new String[] { "other cent amount", formatter.format(detail.getFinancialDocumentOtherCentAmount()).toString(), formatter.format(drawer.getFinancialDocumentOtherCentAmount()).toString() });
+                    GlobalVariables.getMessageMap().putError(KFSConstants.DepositConstants.DEPOSIT_WIZARD_DEPOSITHEADER_ERROR, KFSKeyConstants.Deposit.ERROR_NOT_ENOUGH_CASH_TO_COMPLETE_DEPOSIT, new String[]{"other cent amount", formatter.format(detail.getFinancialDocumentOtherCentAmount()).toString(), formatter.format(drawer.getFinancialDocumentOtherCentAmount()).toString()});
                     success = false;
                 }
             }
@@ -786,7 +775,7 @@ public class DepositWizardAction extends KualiAction {
     /**
      * @param cmDocId
      * @return ActionForward which will redirect the user to the docSearchDisplay for the CashManagementDocument with the given
-     *         documentId
+     * documentId
      */
     private ActionForward returnToSender(String cmDocId) {
         Properties params = new Properties();

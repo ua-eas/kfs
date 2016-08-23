@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -45,8 +45,8 @@ public class TransactionalDocumentEntry extends org.kuali.kfs.krad.datadictionar
     public TransactionalDocumentEntry() {
         super();
 
-    documentAuthorizerClass = TransactionalDocumentAuthorizerBase.class;
-    documentPresentationControllerClass = TransactionalDocumentPresentationControllerBase.class;
+        documentAuthorizerClass = TransactionalDocumentAuthorizerBase.class;
+        documentPresentationControllerClass = TransactionalDocumentPresentationControllerBase.class;
     }
 
     @Override
@@ -72,8 +72,8 @@ public class TransactionalDocumentEntry extends org.kuali.kfs.krad.datadictionar
      * class which determines whether the user should be asked any questions prior to running validation.
      *
      * @see KualiDocumentActionBase#promptBeforeValidation(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest,
-     *      javax.servlet.http.HttpServletResponse, String)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest,
+     * javax.servlet.http.HttpServletResponse, String)
      */
     @Override
     public void setPromptBeforeValidationClass(Class<? extends PromptBeforeValidation> preRulesCheckClass) {

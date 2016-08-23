@@ -1,27 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document.web.struts;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.kns.web.ui.ExtraButton;
+import org.kuali.kfs.kns.web.ui.HeaderField;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapAuthorizationConstants;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapParameterConstants;
@@ -30,15 +33,12 @@ import org.kuali.kfs.module.purap.document.LineItemReceivingDocument;
 import org.kuali.kfs.module.purap.document.service.ReceivingService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
-import org.kuali.kfs.kns.service.DocumentHelperService;
-import org.kuali.kfs.kns.web.ui.ExtraButton;
-import org.kuali.kfs.kns.web.ui.HeaderField;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class LineItemReceivingForm extends ReceivingFormBase {
 
@@ -93,16 +93,16 @@ public class LineItemReceivingForm extends ReceivingFormBase {
     @Override
     public void populateHeaderFields(WorkflowDocument workflowDocument) {
         super.populateHeaderFields(workflowDocument);
-        
+
         //leave the first field blank to match the other PURAP docs
         getDocInfo().add(new HeaderField());
 
         String applicationDocumentStatus = PurapConstants.PURAP_APPLICATION_DOCUMENT_STATUS_NOT_AVAILABLE;
-        
+
         if (ObjectUtils.isNotNull(this.getLineItemReceivingDocument().getAppDocStatus())) {
             applicationDocumentStatus = workflowDocument.getApplicationDocumentStatus();
         }
-        
+
         getDocInfo().add(new HeaderField("DataDictionary.LineItemReceivingDocument.attributes.applicationDocumentStatus", applicationDocumentStatus));
     }
 
@@ -120,8 +120,7 @@ public class LineItemReceivingForm extends ReceivingFormBase {
         if (ObjectUtils.isNotNull(displayInitTab) && displayInitTab.equalsIgnoreCase("true")) {
             extraButtons.add((ExtraButton) buttonsMap.get("methodToCall.continueReceivingLine"));
             extraButtons.add((ExtraButton) buttonsMap.get("methodToCall.clearInitFields"));
-        }
-        else {
+        } else {
             if (canCreateCorrection()) {
                 extraButtons.add((ExtraButton) buttonsMap.get("methodToCall.createReceivingCorrection"));
             }
@@ -184,7 +183,7 @@ public class LineItemReceivingForm extends ReceivingFormBase {
      * This method should be overriden (or see accountingLines for an alternate way of doing this with newInstance)
      */
     public LineItemReceivingItem setupNewReceivingItemLine() {
-        LineItemReceivingItem lineItemReceivingItem = new LineItemReceivingItem((LineItemReceivingDocument)getDocument());
+        LineItemReceivingItem lineItemReceivingItem = new LineItemReceivingItem((LineItemReceivingDocument) getDocument());
         newLineItemReceivingItemLine.setItemTypeCode(PurapConstants.ItemTypeCodes.ITEM_TYPE_UNORDERED_ITEM_CODE);
         return lineItemReceivingItem;
     }
@@ -195,7 +194,7 @@ public class LineItemReceivingForm extends ReceivingFormBase {
      *
      * @return
      */
-    public boolean isAbleToShowClearAndLoadQtyButtons(){
+    public boolean isAbleToShowClearAndLoadQtyButtons() {
         return SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(LineItemReceivingDocument.class, PurapParameterConstants.SHOW_CLEAR_AND_LOAD_QTY_BUTTONS);
     }
 
@@ -204,7 +203,7 @@ public class LineItemReceivingForm extends ReceivingFormBase {
      *
      * @return true if the parameter says YES; otherwise faluse.
      */
-    public boolean shouldGiveAddUnorderedItemWarning(){
+    public boolean shouldGiveAddUnorderedItemWarning() {
         return SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(LineItemReceivingDocument.class, PurapParameterConstants.UNORDERED_ITEM_WARNING_IND);
     }
 

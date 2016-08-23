@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -22,6 +22,13 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomerAddress;
 import org.kuali.kfs.integration.ar.AccountsReceivableModuleService;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.kns.web.ui.Row;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.util.BeanPropertyComparator;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
 import org.kuali.kfs.module.tem.businessobject.TemProfileAddress;
 import org.kuali.kfs.module.tem.dataaccess.TravelerDao;
@@ -34,14 +41,7 @@ import org.kuali.rice.kim.api.identity.IdentityService;
 import org.kuali.rice.kim.api.identity.principal.Principal;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.rice.kim.impl.identity.address.EntityAddressBo;
-import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.kfs.kns.web.struts.form.LookupForm;
-import org.kuali.kfs.kns.web.ui.Field;
-import org.kuali.kfs.kns.web.ui.Row;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.lookup.CollectionIncomplete;
-import org.kuali.kfs.krad.util.BeanPropertyComparator;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -58,17 +58,17 @@ public class TemProfileAddressLookupableHelperServiceImpl extends KualiLookupabl
     public static Logger LOG = Logger.getLogger(TemProfileAddressLookupableHelperServiceImpl.class);
 
     /**
-	 * Comment for <code>serialVersionUID</code>
-	 */
-	private static final long serialVersionUID = 5438499177869581678L;
-	private TravelerDao travelerDao;
+     * Comment for <code>serialVersionUID</code>
+     */
+    private static final long serialVersionUID = 5438499177869581678L;
+    private TravelerDao travelerDao;
     private TravelerService travelerService;
-	private IdentityService identityService;
-	private AccountsReceivableModuleService accountsReceivableModuleService;
+    private IdentityService identityService;
+    private AccountsReceivableModuleService accountsReceivableModuleService;
     private Map<String, String> temProfileAddressToKimAddress;
     private Map<String, String> temProfileAddressToCustomerAddress;
 
-	/**
+    /**
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#performLookup(org.kuali.rice.kns.web.struts.form.LookupForm, java.util.Collection, boolean)
      */
     @Override
@@ -81,28 +81,28 @@ public class TemProfileAddressLookupableHelperServiceImpl extends KualiLookupabl
     }
 
 
-	/**
-	 * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#performClear(org.kuali.rice.kns.web.struts.form.LookupForm)
-	 */
-	@Override
-	public void performClear(LookupForm arg0) {
-		for (Iterator iter = this.getRows().iterator(); iter.hasNext();) {
-			 Row row = (Row) iter.next();
-			 for (Iterator iterator = row.getFields().iterator(); iterator.hasNext();) {
-				 Field field = (Field) iterator.next();
+    /**
+     * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#performClear(org.kuali.rice.kns.web.struts.form.LookupForm)
+     */
+    @Override
+    public void performClear(LookupForm arg0) {
+        for (Iterator iter = this.getRows().iterator(); iter.hasNext(); ) {
+            Row row = (Row) iter.next();
+            for (Iterator iterator = row.getFields().iterator(); iterator.hasNext(); ) {
+                Field field = (Field) iterator.next();
 
-				 if (field.isSecure()) {
-					 field.setSecure(false);
-					 field.setDisplayMaskValue(null);
-					 field.setEncryptedValue(null);
-				 }
+                if (field.isSecure()) {
+                    field.setSecure(false);
+                    field.setDisplayMaskValue(null);
+                    field.setEncryptedValue(null);
+                }
 
-				if (!field.getFieldType().equals(Field.RADIO) && !field.getFieldType().equals(Field.HIDDEN)) {
-					field.setPropertyValue(field.getDefaultValue());
-				}
-			}
-		 }
-	}
+                if (!field.getFieldType().equals(Field.RADIO) && !field.getFieldType().equals(Field.HIDDEN)) {
+                    field.setPropertyValue(field.getDefaultValue());
+                }
+            }
+        }
+    }
 
 
     /**
@@ -114,13 +114,13 @@ public class TemProfileAddressLookupableHelperServiceImpl extends KualiLookupabl
         List<TemProfileAddress> searchResults = new ArrayList<TemProfileAddress>();
 
         if (fieldValues.containsKey(TemPropertyConstants.TemProfileProperties.PRINCIPAL_ID) && !StringUtils.isEmpty(fieldValues.get(TemPropertyConstants.TemProfileProperties.PRINCIPAL_ID))) {
-        	final Map<String, String> kimFieldsForLookup = this.getPersonFieldValues(fieldValues);
-        	kimFieldsForLookup.put(KFSPropertyConstants.KUALI_USER_PERSON_ACTIVE_INDICATOR, KFSConstants.ACTIVE_INDICATOR);
+            final Map<String, String> kimFieldsForLookup = this.getPersonFieldValues(fieldValues);
+            kimFieldsForLookup.put(KFSPropertyConstants.KUALI_USER_PERSON_ACTIVE_INDICATOR, KFSConstants.ACTIVE_INDICATOR);
 
             List<EntityAddressBo> addresses = (List<EntityAddressBo>) getLookupService().findCollectionBySearchHelper(EntityAddressBo.class, kimFieldsForLookup, false);
 
-        	for (EntityAddressBo address : addresses) {
-				//TODO: Spaghetti fix
+            for (EntityAddressBo address : addresses) {
+                //TODO: Spaghetti fix
 //        		TemProfileAddress temAddress = getTravelerService().convertToTemProfileAddressFromKimAddress(address);
 //        		temAddress.setPrincipalId(fieldValues.get(TemPropertyConstants.TemProfileProperties.PRINCIPAL_ID));
 //                searchResults.add(temAddress);
@@ -128,28 +128,28 @@ public class TemProfileAddressLookupableHelperServiceImpl extends KualiLookupabl
         }
 
         if (searchResults.isEmpty() && fieldValues.containsKey(TemPropertyConstants.TemProfileProperties.CUSTOMER_NUMBER) && !StringUtils.isEmpty(fieldValues.get(TemPropertyConstants.TemProfileProperties.CUSTOMER_NUMBER))) {
-        	final Map<String, String> customerFieldsForLookup = this.getCustomerFieldValues(fieldValues);
+            final Map<String, String> customerFieldsForLookup = this.getCustomerFieldValues(fieldValues);
 
-            LOG.debug("Using fieldsForLookup "+ customerFieldsForLookup);
+            LOG.debug("Using fieldsForLookup " + customerFieldsForLookup);
 
             Collection<AccountsReceivableCustomerAddress> customerAddresses = getAccountsReceivableModuleService().searchForCustomerAddresses(customerFieldsForLookup);
 
-        	boolean active;
+            boolean active;
             for (AccountsReceivableCustomerAddress customerAddress : customerAddresses) {
-            	active = true;
-            	if (ObjectUtils.isNotNull(customerAddress)) {
+                active = true;
+                if (ObjectUtils.isNotNull(customerAddress)) {
                     if (ObjectUtils.isNotNull(customerAddress.getCustomerAddressEndDate())) {
                         Timestamp currentDateTimestamp = new Timestamp(SpringContext.getBean(DateTimeService.class).getCurrentDate().getTime());
                         Timestamp addressEndDateTimestamp = new Timestamp(customerAddress.getCustomerAddressEndDate().getTime());
                         if (addressEndDateTimestamp.before(currentDateTimestamp)) {
-                        	active = false;
+                            active = false;
                         }
                     }
                 }
 
-            	if(active) {
-            		searchResults.add(getTravelerService().convertToTemProfileAddressFromCustomer(customerAddress));
-            	}
+                if (active) {
+                    searchResults.add(getTravelerService().convertToTemProfileAddressFromCustomer(customerAddress));
+                }
             }
         }
 
@@ -172,13 +172,13 @@ public class TemProfileAddressLookupableHelperServiceImpl extends KualiLookupabl
      * @return Map of values
      */
     protected Map<String, String> getCustomerFieldValues(final Map<String, String> fieldValues) {
-    	Map<String, String> customerFieldValues = new HashMap<String, String>();
+        Map<String, String> customerFieldValues = new HashMap<String, String>();
 
-    	for(Entry<String, String> entry : fieldValues.entrySet()) {
-    		if(temProfileAddressToCustomerAddress.containsKey(entry.getKey()) && !StringUtils.isEmpty(entry.getValue())) {
-    			customerFieldValues.put(temProfileAddressToCustomerAddress.get(entry.getKey()), entry.getValue());
-    		}
-    	}
+        for (Entry<String, String> entry : fieldValues.entrySet()) {
+            if (temProfileAddressToCustomerAddress.containsKey(entry.getKey()) && !StringUtils.isEmpty(entry.getValue())) {
+                customerFieldValues.put(temProfileAddressToCustomerAddress.get(entry.getKey()), entry.getValue());
+            }
+        }
 
         return customerFieldValues;
     }
@@ -191,101 +191,108 @@ public class TemProfileAddressLookupableHelperServiceImpl extends KualiLookupabl
      * @return Map of values
      */
     protected Map<String, String> getPersonFieldValues(final Map<String, String> fieldValues) {
-    	Map<String, String> kimFieldValues = new HashMap<String, String>();
+        Map<String, String> kimFieldValues = new HashMap<String, String>();
 
-    	for(Entry<String, String> entry : fieldValues.entrySet()) {
-    		if (entry.getKey().equalsIgnoreCase(TemPropertyConstants.TemProfileProperties.PRINCIPAL_ID) && !StringUtils.isEmpty(entry.getValue())) {
-    	    	Principal principal = this.getIdentityService().getPrincipal(entry.getValue());
-    			kimFieldValues.put(temProfileAddressToKimAddress.get(entry.getKey()), principal.getEntityId());
-    		}
-    		else if(temProfileAddressToKimAddress.containsKey(entry.getKey()) && !StringUtils.isEmpty(entry.getValue())) {
-    			kimFieldValues.put(temProfileAddressToKimAddress.get(entry.getKey()), entry.getValue());
-    		}
-    	}
+        for (Entry<String, String> entry : fieldValues.entrySet()) {
+            if (entry.getKey().equalsIgnoreCase(TemPropertyConstants.TemProfileProperties.PRINCIPAL_ID) && !StringUtils.isEmpty(entry.getValue())) {
+                Principal principal = this.getIdentityService().getPrincipal(entry.getValue());
+                kimFieldValues.put(temProfileAddressToKimAddress.get(entry.getKey()), principal.getEntityId());
+            } else if (temProfileAddressToKimAddress.containsKey(entry.getKey()) && !StringUtils.isEmpty(entry.getValue())) {
+                kimFieldValues.put(temProfileAddressToKimAddress.get(entry.getKey()), entry.getValue());
+            }
+        }
 
         return kimFieldValues;
     }
 
 
-	/**
-	 * Sets the travelerDao attribute value.
-	 * @param travelerDao The travelerDao to set.
-	 */
-	public void setTravelerDao(TravelerDao travelerDao) {
-		this.travelerDao = travelerDao;
-	}
+    /**
+     * Sets the travelerDao attribute value.
+     *
+     * @param travelerDao The travelerDao to set.
+     */
+    public void setTravelerDao(TravelerDao travelerDao) {
+        this.travelerDao = travelerDao;
+    }
 
 
-	/**
-	 * Gets the travelerDao attribute.
-	 * @return Returns the travelerDao.
-	 */
-	public TravelerDao getTravelerDao() {
-		return travelerDao;
-	}
+    /**
+     * Gets the travelerDao attribute.
+     *
+     * @return Returns the travelerDao.
+     */
+    public TravelerDao getTravelerDao() {
+        return travelerDao;
+    }
 
 
-	/**
-	 * Sets the travelerService attribute value.
-	 * @param travelerService The travelerService to set.
-	 */
-	public void setTravelerService(TravelerService travelerService) {
-		this.travelerService = travelerService;
-	}
+    /**
+     * Sets the travelerService attribute value.
+     *
+     * @param travelerService The travelerService to set.
+     */
+    public void setTravelerService(TravelerService travelerService) {
+        this.travelerService = travelerService;
+    }
 
 
-	/**
-	 * Gets the travelerService attribute.
-	 * @return Returns the travelerService.
-	 */
-	public TravelerService getTravelerService() {
-		return travelerService;
-	}
+    /**
+     * Gets the travelerService attribute.
+     *
+     * @return Returns the travelerService.
+     */
+    public TravelerService getTravelerService() {
+        return travelerService;
+    }
 
 
-	/**
-	 * Gets the temProfileAddressToKimAddress attribute.
-	 * @return Returns the temProfileAddressToKimAddress.
-	 */
-	public Map<String, String> getTemProfileAddressToKimAddress() {
-		return temProfileAddressToKimAddress;
-	}
+    /**
+     * Gets the temProfileAddressToKimAddress attribute.
+     *
+     * @return Returns the temProfileAddressToKimAddress.
+     */
+    public Map<String, String> getTemProfileAddressToKimAddress() {
+        return temProfileAddressToKimAddress;
+    }
 
 
-	/**
-	 * Sets the temProfileAddressToKimAddress attribute value.
-	 * @param temProfileAddressToKimAddress The temProfileAddressToKimAddress to set.
-	 */
-	public void setTemProfileAddressToKimAddress(
-			Map<String, String> temProfileAddressToKimAddress) {
-		this.temProfileAddressToKimAddress = temProfileAddressToKimAddress;
-	}
+    /**
+     * Sets the temProfileAddressToKimAddress attribute value.
+     *
+     * @param temProfileAddressToKimAddress The temProfileAddressToKimAddress to set.
+     */
+    public void setTemProfileAddressToKimAddress(
+        Map<String, String> temProfileAddressToKimAddress) {
+        this.temProfileAddressToKimAddress = temProfileAddressToKimAddress;
+    }
 
 
-	/**
-	 * Gets the temProfileAddressToCustomerAddress attribute.
-	 * @return Returns the temProfileAddressToCustomerAddress.
-	 */
-	public Map<String, String> getTemProfileAddressToCustomerAddress() {
-		return temProfileAddressToCustomerAddress;
-	}
+    /**
+     * Gets the temProfileAddressToCustomerAddress attribute.
+     *
+     * @return Returns the temProfileAddressToCustomerAddress.
+     */
+    public Map<String, String> getTemProfileAddressToCustomerAddress() {
+        return temProfileAddressToCustomerAddress;
+    }
 
 
-	/**
-	 * Sets the temProfileAddressToCustomerAddress attribute value.
-	 * @param temProfileAddressToCustomerAddress The temProfileAddressToCustomerAddress to set.
-	 */
-	public void setTemProfileAddressToCustomerAddress(
-			Map<String, String> temProfileAddressToCustomerAddress) {
-		this.temProfileAddressToCustomerAddress = temProfileAddressToCustomerAddress;
-	}
+    /**
+     * Sets the temProfileAddressToCustomerAddress attribute value.
+     *
+     * @param temProfileAddressToCustomerAddress The temProfileAddressToCustomerAddress to set.
+     */
+    public void setTemProfileAddressToCustomerAddress(
+        Map<String, String> temProfileAddressToCustomerAddress) {
+        this.temProfileAddressToCustomerAddress = temProfileAddressToCustomerAddress;
+    }
 
-	public IdentityService getIdentityService() {
+    public IdentityService getIdentityService() {
         if (identityService == null) {
             identityService = KimApiServiceLocator.getIdentityService();
         }
         return identityService;
-	}
+    }
 
 
     protected AccountsReceivableModuleService getAccountsReceivableModuleService() {

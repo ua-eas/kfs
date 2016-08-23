@@ -1,35 +1,33 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.util;
+
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.KFSConstants;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
-
 /**
  * Utility methods for comparing dates
- *
- *
  */
 public class KfsDateUtils {
     /**
@@ -42,11 +40,9 @@ public class KfsDateUtils {
 
         if ((date1 == null) && (date2 == null)) {
             same = true;
-        }
-        else if ((date1 != null) && (date2 != null)) {
+        } else if ((date1 != null) && (date2 != null)) {
             return org.apache.commons.lang.time.DateUtils.isSameDay(date1, date2);
-        }
-        else {
+        } else {
             same = false;
         }
 
@@ -63,11 +59,9 @@ public class KfsDateUtils {
 
         if ((cal1 == null) && (cal2 == null)) {
             same = true;
-        }
-        else if ((cal1 != null) && (cal2 != null)) {
+        } else if ((cal1 != null) && (cal2 != null)) {
             return org.apache.commons.lang.time.DateUtils.isSameDay(cal1, cal2);
-        }
-        else {
+        } else {
             same = false;
         }
 
@@ -149,7 +143,7 @@ public class KfsDateUtils {
         endCompare.set(Calendar.SECOND, 0);
         endCompare.set(Calendar.MILLISECOND, 0);
 
-        return (endCompare.getTimeInMillis() - startCompare.getTimeInMillis()) / ((double)KFSConstants.MILLSECONDS_PER_DAY);
+        return (endCompare.getTimeInMillis() - startCompare.getTimeInMillis()) / ((double) KFSConstants.MILLSECONDS_PER_DAY);
     }
 
     /**
@@ -181,16 +175,13 @@ public class KfsDateUtils {
     }
 
     /**
-     *
      * This method is a utility method to create a new java.sql.Date in one line.
      *
      * @param year
      * @param month
      * @param day
-     *
      * @return a populated java.sql.Date with the year, month, and day specified, and no values for hour, minute, second,
-     *         millisecond
-     *
+     * millisecond
      */
     public static java.sql.Date newDate(Integer year, Integer month, Integer day) {
 
@@ -218,7 +209,6 @@ public class KfsDateUtils {
     }
 
     /**
-     *
      * This method is a utility method to create a new java.sql.Date in one line.
      *
      * @param year
@@ -227,9 +217,7 @@ public class KfsDateUtils {
      * @param hour
      * @param minute
      * @param second
-     *
      * @return a populated java.sql.Date with the year, month, hour, minute, and second populated, with no value for millisecond.
-     *
      */
     public static java.sql.Date newDate(Integer year, Integer month, Integer day, Integer hour, Integer minute, Integer second) {
 
@@ -267,6 +255,7 @@ public class KfsDateUtils {
 
     /**
      * Determines if the given date d1 is on the same day or an earlier day than the given date d2.
+     *
      * @param d1 a date
      * @param d2 another date, to compare the first date to
      * @return true if d1 is earlier or the same day as d2, false otherwise or if either value is null
@@ -283,6 +272,7 @@ public class KfsDateUtils {
 
     /**
      * Determines if the given date d1 is on the same day or a later day than the given date d2.
+     *
      * @param d1 a date
      * @param d2 another date, to compare the first date to
      * @return true if d1 is later or the same day as d2, false otherwise or if either value is null
@@ -299,6 +289,7 @@ public class KfsDateUtils {
 
     /**
      * Determines if the given date d1 is on the same day or an earlier day than the given date d2.
+     *
      * @param d1 a date
      * @param d2 another date, to compare the first date to
      * @return true if d1 is earlier or the same day as d2, false otherwise or if either value is null

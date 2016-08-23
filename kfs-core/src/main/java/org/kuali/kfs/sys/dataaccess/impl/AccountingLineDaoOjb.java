@@ -1,26 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.dataaccess.impl;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.apache.ojb.broker.metadata.MetadataManager;
@@ -35,6 +31,10 @@ import org.kuali.kfs.sys.businessobject.TargetAccountingLine;
 import org.kuali.kfs.sys.dataaccess.AccountingLineDao;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 import org.springframework.dao.DataAccessException;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * This class is the OJB implementation of the AccountingLineDao interface.
@@ -65,8 +65,7 @@ public class AccountingLineDaoOjb extends PlatformAwareDaoBaseOjb implements Acc
         if (MetadataManager.getInstance().getRepository().getDescriptorFor(clazz).getFieldDescriptorByName("financialDocumentLineTypeCode") != null) {
             if (SourceAccountingLine.class.isAssignableFrom(clazz)) {
                 criteria.addEqualTo("FDOC_LN_TYP_CD", KFSConstants.SOURCE_ACCT_LINE_TYPE_CODE);
-            }
-            else if (TargetAccountingLine.class.isAssignableFrom(clazz)) {
+            } else if (TargetAccountingLine.class.isAssignableFrom(clazz)) {
                 criteria.addEqualTo("FDOC_LN_TYP_CD", KFSConstants.TARGET_ACCT_LINE_TYPE_CODE);
             }
         }
@@ -80,6 +79,7 @@ public class AccountingLineDaoOjb extends PlatformAwareDaoBaseOjb implements Acc
 
     /**
      * Retrieves accounting lines associated with the given document header ID and line type code
+     *
      * @see org.kuali.kfs.sys.dataaccess.AccountingLineDao#findByDocumentHeaderIdAndLineType(java.lang.String, java.lang.String)
      */
     @Override

@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -51,7 +51,7 @@
                     styleClass="btn btn-default"
                     value="Remove Accounts From All Items"/>
         </c:if>
-	
+
         <c:if test="${displayCommodityCodeFields}">
             <html:submit
                     property="methodToCall.clearItemsCommodityCodes"
@@ -60,7 +60,7 @@
                     styleClass="btn btn-default"
                     value="Remove Commodity Codes From All Items"/>
         </c:if>
-    
+
         <html:submit
                 property="methodToCall.showAllAccounts"
                 alt="expand all accounts"
@@ -85,7 +85,7 @@
                 value="Clear All Tax"/>
     </c:if>
 </div>
-	
+
 <c:if test="${!KualiForm.hideDistributeAccounts}">
     <c:choose>
         <c:when test="${(not empty KualiForm.editingMode['amendmentEntry'])}">
@@ -96,9 +96,9 @@
             <c:set var="accountingLineEditingMode" value = "${KualiForm.editingMode}"/>
         </c:otherwise>
     </c:choose>
-    
+
     <table class="datatable standard" style="margin-top: 15px;">
-        <c:if test="${displayCommodityCodeFields}">	
+        <c:if test="${displayCommodityCodeFields}">
             <tr>
                 <th class="right" width="50%">
                     <kul:htmlAttributeLabel attributeEntry="${itemAttributes.purchasingCommodityCode}" />
@@ -129,7 +129,7 @@
     <sys-java:accountingLines>
         <sys-java:accountingLineGroup newLinePropertyName="accountDistributionnewSourceLine" collectionPropertyName="accountDistributionsourceAccountingLines" collectionItemPropertyName="accountDistributionsourceAccountingLine" attributeGroupName="distributeSource" />
     </sys-java:accountingLines>
-		        
+
 	<div class="center">
 		<html:submit
                 property="methodToCall.doDistribution"

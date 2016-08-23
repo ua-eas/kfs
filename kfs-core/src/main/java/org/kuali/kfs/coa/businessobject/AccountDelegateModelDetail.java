@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -19,10 +19,8 @@
 
 package org.kuali.kfs.coa.businessobject;
 
-import java.sql.Date;
-import java.util.LinkedHashMap;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
@@ -30,7 +28,9 @@ import org.kuali.rice.kew.api.doctype.DocumentTypeService;
 import org.kuali.rice.kew.doctype.bo.DocumentType;
 import org.kuali.rice.kew.doctype.bo.DocumentTypeEBO;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.sql.Date;
+import java.util.LinkedHashMap;
 
 
 public class AccountDelegateModelDetail extends PersistableBusinessObjectBase implements MutableInactivatable {
@@ -180,16 +180,17 @@ public class AccountDelegateModelDetail extends PersistableBusinessObjectBase im
 
     /**
      * Gets the financialSystemDocumentTypeCode attribute.
+     *
      * @return Returns the financialSystemDocumentTypeCode.
      */
     public DocumentTypeEBO getFinancialSystemDocumentTypeCode() {
-        if ( StringUtils.isBlank( financialDocumentTypeCode ) ) {
+        if (StringUtils.isBlank(financialDocumentTypeCode)) {
             financialSystemDocumentTypeCode = null;
         } else {
-            if ( financialSystemDocumentTypeCode == null || !StringUtils.equals(financialDocumentTypeCode, financialSystemDocumentTypeCode.getName() ) ) {
+            if (financialSystemDocumentTypeCode == null || !StringUtils.equals(financialDocumentTypeCode, financialSystemDocumentTypeCode.getName())) {
                 org.kuali.rice.kew.api.doctype.DocumentType temp = SpringContext.getBean(DocumentTypeService.class).getDocumentTypeByName(financialDocumentTypeCode);
-                if ( temp != null ) {
-                    financialSystemDocumentTypeCode = DocumentType.from( temp );
+                if (temp != null) {
+                    financialSystemDocumentTypeCode = DocumentType.from(temp);
                 } else {
                     financialSystemDocumentTypeCode = null;
                 }

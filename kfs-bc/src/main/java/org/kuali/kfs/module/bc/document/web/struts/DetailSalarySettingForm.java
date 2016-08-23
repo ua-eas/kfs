@@ -1,38 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.document.web.struts;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Organization;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.kfs.module.bc.BCConstants;
+import org.kuali.kfs.module.bc.BCConstants.LockStatus;
 import org.kuali.kfs.module.bc.BCKeyConstants;
 import org.kuali.kfs.module.bc.BCPropertyConstants;
-import org.kuali.kfs.module.bc.BCConstants.LockStatus;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionLockStatus;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionPosition;
 import org.kuali.kfs.module.bc.businessobject.PendingBudgetConstructionAppointmentFunding;
@@ -50,8 +43,14 @@ import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.role.RoleService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.MessageMap;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * the base struts form for the detail salary setting: by position or by incumbent
@@ -157,7 +156,7 @@ public abstract class DetailSalarySettingForm extends SalarySettingBaseForm {
             if (!positionWasAlreadyLocked) {
                 BudgetConstructionLockStatus positionLockingStatus = lockService.lockPosition(position, this.getPerson());
                 if (!LockStatus.SUCCESS.equals(positionLockingStatus.getLockStatus())) {
-                    errorMap.putError(BCPropertyConstants.NEW_BCAF_LINE, BCKeyConstants.ERROR_FAIL_TO_LOCK_POSITION, "Position Number:"+position.getPositionNumber()+", Fiscal Year:"+position.getUniversityFiscalYear().toString()+", Desc:"+position.getPositionDescription()+", Locked By:"+position.getPositionLockUser().getPrincipalName());
+                    errorMap.putError(BCPropertyConstants.NEW_BCAF_LINE, BCKeyConstants.ERROR_FAIL_TO_LOCK_POSITION, "Position Number:" + position.getPositionNumber() + ", Fiscal Year:" + position.getUniversityFiscalYear().toString() + ", Desc:" + position.getPositionDescription() + ", Locked By:" + position.getPositionLockUser().getPrincipalName());
 
                     // gwp - added if test, unlock all others only when initially loading the screen
                     // not during the add line action
@@ -176,14 +175,13 @@ public abstract class DetailSalarySettingForm extends SalarySettingBaseForm {
 
             if (!LockStatus.SUCCESS.equals(fundingLockingStatus.getLockStatus())) {
                 String lockUserName = SpringContext.getBean(PersonService.class).getPerson(fundingLockingStatus.getAccountLockOwner()).getPrincipalName();
-                errorMap.putError(BCPropertyConstants.NEW_BCAF_LINE, BCKeyConstants.ERROR_FAIL_TO_LOCK_FUNDING, appointmentFunding.getAppointmentFundingString()+", Document Locked By:"+lockUserName);
+                errorMap.putError(BCPropertyConstants.NEW_BCAF_LINE, BCKeyConstants.ERROR_FAIL_TO_LOCK_FUNDING, appointmentFunding.getAppointmentFundingString() + ", Document Locked By:" + lockUserName);
 
                 // gwp - added if test, unlock all others only when initially loading the screen
                 // not during the add line action
                 if (!appointmentFunding.isNewLineIndicator()) {
                     this.releasePositionAndFundingLocks();
-                }
-                else {
+                } else {
                     // adding a new line, just release the earlier position lock
                     // if we just issued it above, not from other line
                     if (!positionWasAlreadyLocked) {
@@ -192,8 +190,7 @@ public abstract class DetailSalarySettingForm extends SalarySettingBaseForm {
                 }
                 return false;
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             this.releasePositionAndFundingLocks();
 
             String errorMessage = "Failed when acquiring position/funding lock for " + appointmentFunding;
@@ -237,8 +234,7 @@ public abstract class DetailSalarySettingForm extends SalarySettingBaseForm {
                 errorMap.putError(BCPropertyConstants.NEW_BCAF_LINE, BCKeyConstants.ERROR_FAIL_TO_UPDATE_FUNDING_ACCESS, appointmentFunding.getAppointmentFundingString());
                 return false;
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             String errorMessage = "Failed to update the access mode of " + appointmentFunding + ".";
             LOG.error(errorMessage, e);
             throw new RuntimeException(errorMessage, e);
@@ -268,8 +264,7 @@ public abstract class DetailSalarySettingForm extends SalarySettingBaseForm {
                     this.releaseTransactionLocks();
                     return false;
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 this.releaseTransactionLocks();
                 this.releasePositionAndFundingLocks();
 
@@ -379,8 +374,7 @@ public abstract class DetailSalarySettingForm extends SalarySettingBaseForm {
             // empty field implies dashes and is fixed in add action
             if (this.getSubAccountNumber().equals(KFSConstants.getDashSubAccountNumber())) {
                 appointmentFunding.setSubAccountNumber(KFSConstants.EMPTY_STRING);
-            }
-            else {
+            } else {
                 appointmentFunding.setSubAccountNumber(this.getSubAccountNumber());
             }
             appointmentFunding.setFinancialObjectCode(this.getFinancialObjectCode());
@@ -388,8 +382,7 @@ public abstract class DetailSalarySettingForm extends SalarySettingBaseForm {
             // empty field implies dashes and is fixed in add action
             if (this.getFinancialSubObjectCode().equals(KFSConstants.getDashFinancialSubObjectCode())) {
                 appointmentFunding.setFinancialSubObjectCode(KFSConstants.EMPTY_STRING);
-            }
-            else {
+            } else {
                 appointmentFunding.setFinancialSubObjectCode(this.getFinancialSubObjectCode());
             }
         }
@@ -464,7 +457,7 @@ public abstract class DetailSalarySettingForm extends SalarySettingBaseForm {
             account = (Account) businessObjectService.retrieve(account);
 
             RoleService roleService = KimApiServiceLocator.getRoleService();
-            Map<String,String> qualification = new HashMap<String,String>();
+            Map<String, String> qualification = new HashMap<String, String>();
             qualification.put(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE, getChartOfAccountsCode());
             qualification.put(KfsKimAttributes.ACCOUNT_NUMBER, getAccountNumber());
             qualification.put(KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME, BCConstants.BUDGET_CONSTRUCTION_DOCUMENT_NAME);
@@ -480,8 +473,7 @@ public abstract class DetailSalarySettingForm extends SalarySettingBaseForm {
         // instruct the detail salary setting by multiple account mode if current user is an organization level approver
         if (isOrgApprover) {
             return false;
-        }
-        else {
+        } else {
             throw new RuntimeException("Access denied: not authorized to do the detail salary setting");
         }
     }
@@ -578,21 +570,19 @@ public abstract class DetailSalarySettingForm extends SalarySettingBaseForm {
 
     /**
      * @see org.kuali.rice.kns.web.struts.form.KualiForm#shouldPropertyBePopulatedInForm(java.lang.String,
-     *      javax.servlet.http.HttpServletRequest)
+     * javax.servlet.http.HttpServletRequest)
      */
     @Override
     public boolean shouldPropertyBePopulatedInForm(String requestParameterName, HttpServletRequest request) {
 
         if (super.shouldPropertyBePopulatedInForm(requestParameterName, request)) {
             return true;
-        }
-        else {
+        } else {
             // make sure special disabled fields are allowed to be populated
             if (requestParameterName.endsWith(BCPropertyConstants.APPOINTMENT_REQUESTED_CSF_AMOUNT) || requestParameterName.endsWith(BCPropertyConstants.APPOINTMENT_REQUESTED_CSF_TIME_PERCENT) || requestParameterName.endsWith(BCPropertyConstants.APPOINTMENT_FUNDING_REASON_AMOUNT)
-                    || requestParameterName.endsWith(BCPropertyConstants.APPOINTMENT_CHART_OF_ACCOUNT)) {
+                || requestParameterName.endsWith(BCPropertyConstants.APPOINTMENT_CHART_OF_ACCOUNT)) {
                 return true;
-            }
-            else {
+            } else {
                 return false;
             }
         }

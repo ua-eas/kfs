@@ -1,26 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.businessobject.lookup;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import org.kuali.kfs.gl.Constant;
 import org.kuali.kfs.gl.businessobject.AccountBalance;
@@ -32,6 +28,10 @@ import org.kuali.kfs.sys.businessobject.lookup.LookupableSpringContext;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.TestUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 /**
  * This class contains the test cases that can be applied to the method in AccountBalanceLookupableImpl class.
  */
@@ -42,6 +42,7 @@ public class AccountBalanceLookupableHelperServiceTest extends AbstractGeneralLe
 
     /**
      * Initializes the services needed for this test
+     *
      * @see org.kuali.kfs.gl.businessobject.lookup.AbstractGeneralLedgerLookupableHelperServiceTestBase#setUp()
      */
     @Override
@@ -55,6 +56,7 @@ public class AccountBalanceLookupableHelperServiceTest extends AbstractGeneralLe
 
     /**
      * Covers the search results returned by AccountBalanceLookupableService
+     *
      * @throws Exception thrown if any exception is encountered for any reason
      * @see org.kuali.module.gl.web.lookupable.AbstractGLLookupableTestBase#testGetSearchResults()
      */
@@ -100,7 +102,7 @@ public class AccountBalanceLookupableHelperServiceTest extends AbstractGeneralLe
 
     /**
      * This method includes the test cases applied to the consolidation option: Consolidate and Detail
-     * 
+     *
      * @throws Exception thrown if any exception is encountered for any reason
      */
     public void testConsolidationOption() throws Exception {
@@ -142,7 +144,7 @@ public class AccountBalanceLookupableHelperServiceTest extends AbstractGeneralLe
 
     /**
      * This method includes the test cases applied to the consolidation option: Consolidate and Detail
-     * 
+     *
      * @throws Exception thrown if any exception is encountered for any reason
      */
     public void testPerformance() throws Exception {
@@ -180,6 +182,7 @@ public class AccountBalanceLookupableHelperServiceTest extends AbstractGeneralLe
 
     /**
      * Returns a List of field names to check in the search results
+     *
      * @param isExtended true if extended attributes should be included for checking, false otherwise
      * @return a List of field names to check
      * @see org.kuali.module.gl.web.lookupable.AbstractGLLookupableTestBase#getLookupFields(boolean)
@@ -204,20 +207,19 @@ public class AccountBalanceLookupableHelperServiceTest extends AbstractGeneralLe
 
     /**
      * This method inserts a new account balance record into database
-     * 
+     *
      * @param accounBalance the given account balance
      */
     protected void insertNewRecord(AccountBalance accounBalance) {
         try {
             getAccountBalanceService().save(accounBalance);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
     }
 
     /**
      * Gets the accountBalanceService attribute.
-     * 
+     *
      * @return Returns the accountBalanceService.
      */
     public AccountBalanceService getAccountBalanceService() {
@@ -226,7 +228,7 @@ public class AccountBalanceLookupableHelperServiceTest extends AbstractGeneralLe
 
     /**
      * Sets the accountBalanceService attribute value.
-     * 
+     *
      * @param accountBalanceService The accountBalanceService to set.
      */
     public void setAccountBalanceService(AccountBalanceService accountBalanceService) {

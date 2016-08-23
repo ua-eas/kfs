@@ -1,25 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cab.batch.service;
-
-import java.io.File;
-import java.sql.Timestamp;
 
 import org.kuali.kfs.gl.businessobject.Entry;
 import org.kuali.kfs.module.cab.batch.ExtractProcessLog;
@@ -27,6 +24,9 @@ import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
+
+import java.io.File;
+import java.sql.Timestamp;
 
 /**
  * This test will test the PDF report generation of batch status report
@@ -88,12 +88,10 @@ public class BatchExtractReportServiceTest extends KualiTestBase {
             if (report.isFile()) {
                 // check file is created and deleted
                 assertTrue(report.delete());
-            }
-            else {
+            } else {
                 fail("Report not generated");
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             fail("fail to generate PDF file." + e);
         }
     }
@@ -136,12 +134,10 @@ public class BatchExtractReportServiceTest extends KualiTestBase {
             if (report.isFile()) {
                 // check file is created and deleted
                 assertTrue(report.delete());
-            }
-            else {
+            } else {
                 fail("Report not generated");
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             fail("fail to generate PDF file." + e);
         }
     }

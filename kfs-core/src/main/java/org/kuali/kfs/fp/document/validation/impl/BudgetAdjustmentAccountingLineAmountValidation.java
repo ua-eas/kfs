@@ -1,24 +1,25 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document.validation.impl;
 
 import org.kuali.kfs.fp.businessobject.BudgetAdjustmentAccountingLine;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.document.AccountingDocument;
@@ -26,7 +27,6 @@ import org.kuali.kfs.sys.document.service.DebitDeterminerService;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.GlobalVariables;
 
 /**
  * Validation that checks the amounts on budget adjustment document accounting lines.
@@ -39,6 +39,7 @@ public class BudgetAdjustmentAccountingLineAmountValidation extends GenericValid
     /**
      * Validates the amounts on a budget adjustment accounting line, making sure that either the current adjustment amount or the base adjustment amount are not zero,
      * and that all given amounts are positive.
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -73,10 +74,10 @@ public class BudgetAdjustmentAccountingLineAmountValidation extends GenericValid
 
     /**
      * Helper method to check if an amount is negative and add an error if not.
-     * 
-     * @param amount to check
+     *
+     * @param amount       to check
      * @param propertyName to add error under
-     * @param label for error
+     * @param label        for error
      * @return boolean indicating if the value has the requested sign
      */
     protected boolean checkAmountSign(KualiDecimal amount, String propertyName, String label) {
@@ -92,7 +93,8 @@ public class BudgetAdjustmentAccountingLineAmountValidation extends GenericValid
 
 
     /**
-     * Gets the accountingLineForValidation attribute. 
+     * Gets the accountingLineForValidation attribute.
+     *
      * @return Returns the accountingLineForValidation.
      */
     public BudgetAdjustmentAccountingLine getAccountingLineForValidation() {
@@ -101,6 +103,7 @@ public class BudgetAdjustmentAccountingLineAmountValidation extends GenericValid
 
     /**
      * Sets the accountingLineForValidation attribute value.
+     *
      * @param accountingLineForValidation The accountingLineForValidation to set.
      */
     public void setAccountingLineForValidation(BudgetAdjustmentAccountingLine accountingLineForValidation) {
@@ -108,7 +111,8 @@ public class BudgetAdjustmentAccountingLineAmountValidation extends GenericValid
     }
 
     /**
-     * Gets the accountingDocumentForValidation attribute. 
+     * Gets the accountingDocumentForValidation attribute.
+     *
      * @return Returns the accountingDocumentForValidation.
      */
     public AccountingDocument getAccountingDocumentForValidation() {
@@ -117,6 +121,7 @@ public class BudgetAdjustmentAccountingLineAmountValidation extends GenericValid
 
     /**
      * Sets the accountingDocumentForValidation attribute value.
+     *
      * @param accountingDocumentForValidation The accountingDocumentForValidation to set.
      */
     public void setAccountingDocumentForValidation(AccountingDocument accountingDocumentForValidation) {
@@ -124,7 +129,8 @@ public class BudgetAdjustmentAccountingLineAmountValidation extends GenericValid
     }
 
     /**
-     * Gets the debitDeterminerService attribute. 
+     * Gets the debitDeterminerService attribute.
+     *
      * @return Returns the debitDeterminerService.
      */
     public DebitDeterminerService getDebitDeterminerService() {
@@ -133,6 +139,7 @@ public class BudgetAdjustmentAccountingLineAmountValidation extends GenericValid
 
     /**
      * Sets the debitDeterminerService attribute value.
+     *
      * @param debitDeterminerService The debitDeterminerService to set.
      */
     public void setDebitDeterminerService(DebitDeterminerService debitDeterminerService) {

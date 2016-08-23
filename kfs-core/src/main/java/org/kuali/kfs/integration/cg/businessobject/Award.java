@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -19,12 +19,12 @@
 
 package org.kuali.kfs.integration.cg.businessobject;
 
+import org.kuali.kfs.integration.ar.AccountsReceivableBillingFrequency;
 import org.kuali.kfs.integration.cg.CGIntegrationConstants;
 import org.kuali.kfs.integration.cg.ContractAndGrantsProposal;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
-import org.kuali.kfs.integration.ar.AccountsReceivableBillingFrequency;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsFundManager;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsLetterOfCreditFund;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsOrganization;
@@ -89,7 +89,6 @@ public class Award implements ContractsAndGrantsBillingAward {
     private AccountsReceivableBillingFrequency billingFrequency;
 
 
-
     private String awardProjectTitle;
     private String awardPurposeCode;
     private boolean active;
@@ -130,7 +129,9 @@ public class Award implements ContractsAndGrantsBillingAward {
     private String dunningCampaign;
 
 
-    /** Dummy value used to facilitate lookups */
+    /**
+     * Dummy value used to facilitate lookups
+     */
     private transient String lookupPersonUniversalIdentifier;
     private transient Person lookupPerson;
     private final String userLookupRoleNamespaceCode = KFSConstants.ParameterNamespaces.KFS;
@@ -787,7 +788,7 @@ public class Award implements ContractsAndGrantsBillingAward {
     }
 
 
-     /**
+    /**
      * Gets the awardProjectTitle attribute.
      *
      * @return Returns the awardProjectTitle.
@@ -1313,7 +1314,6 @@ public class Award implements ContractsAndGrantsBillingAward {
     }
 
     /**
-     *
      * @see org.kuali.rice.krad.bo.BusinessObject#refresh()
      */
     @Override

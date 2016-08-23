@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,35 +18,34 @@
  */
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 
+import java.util.LinkedHashMap;
 
 
 public class CapitalAssetSystemType extends PersistableBusinessObjectBase implements MutableInactivatable {
 
-	private String capitalAssetSystemTypeCode;
-	private String capitalAssetSystemTypeDescription;
-	private boolean active;
+    private String capitalAssetSystemTypeCode;
+    private String capitalAssetSystemTypeDescription;
+    private boolean active;
 
-	/**
-	 * Default constructor.
-	 */
-	public CapitalAssetSystemType() {
+    /**
+     * Default constructor.
+     */
+    public CapitalAssetSystemType() {
 
-	}
+    }
 
-	public String getCapitalAssetSystemTypeCode() {
-		return capitalAssetSystemTypeCode;
-	}
+    public String getCapitalAssetSystemTypeCode() {
+        return capitalAssetSystemTypeCode;
+    }
 
-	public void setCapitalAssetSystemTypeCode(String capitalAssetSystemTypeCode) {
-		this.capitalAssetSystemTypeCode = capitalAssetSystemTypeCode;
-	}
+    public void setCapitalAssetSystemTypeCode(String capitalAssetSystemTypeCode) {
+        this.capitalAssetSystemTypeCode = capitalAssetSystemTypeCode;
+    }
 
-	public String getCapitalAssetSystemTypeDescription() {
+    public String getCapitalAssetSystemTypeDescription() {
         return capitalAssetSystemTypeDescription;
     }
 
@@ -55,20 +54,20 @@ public class CapitalAssetSystemType extends PersistableBusinessObjectBase implem
     }
 
     public boolean isActive() {
-		return active;
-	}
+        return active;
+    }
 
-	public void setActive(boolean active) {
-		this.active = active;
-	}
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
 
-	/**
-	 * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
-	 */
-	protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
-	    LinkedHashMap m = new LinkedHashMap();
+    /**
+     * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
+     */
+    protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
+        LinkedHashMap m = new LinkedHashMap();
         m.put("capitalAssetSystemTypeCode", this.capitalAssetSystemTypeCode);
-	    return m;
+        return m;
     }
 }

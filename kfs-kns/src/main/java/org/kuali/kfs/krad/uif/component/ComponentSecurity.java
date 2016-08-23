@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -24,17 +24,15 @@ import java.util.Map;
 
 /**
  * Component security is used to flag permissions that exist in KIM for various component state (like edit and view)
- *
+ * <p>
  * <p>
  * In addition, properties such as additional role and permission details can be configured to use when
  * checking the KIM permissions
  * </p>
- *
+ * <p>
  * <p>
  * Security subclasses exist adding on flags apporiate for that component
  * </p>
- *
- * 
  */
 public class ComponentSecurity extends ConfigurableBase implements Serializable {
     private static final long serialVersionUID = 726347449984853891L;
@@ -95,7 +93,7 @@ public class ComponentSecurity extends ConfigurableBase implements Serializable 
 
     /**
      * Namespace code that should be sent as permission detail when doing a permission check on this field
-     *
+     * <p>
      * <p>
      * When the namespace code is a detail for a permission check, this property can be configured to override the
      * namespace derived by the system
@@ -118,7 +116,7 @@ public class ComponentSecurity extends ConfigurableBase implements Serializable 
 
     /**
      * Component code that should be sent as permission detail when doing a permission check on this field
-     *
+     * <p>
      * <p>
      * When the component code is a detail for a permission check, this property can be configured to override the
      * component code derived by the system
@@ -141,7 +139,7 @@ public class ComponentSecurity extends ConfigurableBase implements Serializable 
 
     /**
      * Id that should be sent as permission detail when doing a permission check on this field
-     *
+     * <p>
      * <p>
      * By default they system will send the component id as a permission detail, this property can be configured to
      * send a different id for the permission check
@@ -165,7 +163,7 @@ public class ComponentSecurity extends ConfigurableBase implements Serializable 
     /**
      * Map of key value pairs that should be added as permission details when doing KIM permission checks for this
      * component
-     *
+     * <p>
      * <p>
      * Any details given here that will override details with the same key that were derived by the system
      * </p>
@@ -188,7 +186,7 @@ public class ComponentSecurity extends ConfigurableBase implements Serializable 
     /**
      * Map of key value pairs that should be added as role qualifiers when doing KIM permission checks for this
      * component
-     *
+     * <p>
      * <p>
      * Any qualifiers given here that will override qualifiers with the same key that were derived by the system
      * </p>

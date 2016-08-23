@@ -1,34 +1,32 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.krad.uif.widget;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.uif.UifConstants;
 import org.kuali.kfs.krad.uif.component.Component;
 import org.kuali.kfs.krad.uif.container.Group;
-import org.kuali.rice.core.api.exception.RiceIllegalArgumentException;
-import org.kuali.kfs.krad.uif.UifConstants;
 import org.kuali.kfs.krad.uif.view.View;
+import org.kuali.rice.core.api.exception.RiceIllegalArgumentException;
 
 /**
  * Allows client-side reordering of the group contents
- *
- * 
  */
 public class Reorderer extends WidgetBase {
     private static final long serialVersionUID = 6142957061046219120L;
@@ -41,7 +39,7 @@ public class Reorderer extends WidgetBase {
 
     /**
      * The following initialization is performed:
-     *
+     * <p>
      * <ul>
      * <li>Adds the movable style class to each group item</li>
      * <li>Prepares the movable widget option based on the movable style class</li>
@@ -63,7 +61,7 @@ public class Reorderer extends WidgetBase {
             // add the default movable class to the selectors option if not already configured
             if (!getComponentOptions().containsKey(UifConstants.ReordererOptionKeys.SELECTORS)) {
                 String selectorsOption =
-                        "{" + UifConstants.ReordererOptionKeys.MOVABLES + " : 'span." + movableStyleClass + "' }";
+                    "{" + UifConstants.ReordererOptionKeys.MOVABLES + " : 'span." + movableStyleClass + "' }";
                 getComponentOptions().put(UifConstants.ReordererOptionKeys.SELECTORS, selectorsOption);
             }
         }
@@ -71,7 +69,7 @@ public class Reorderer extends WidgetBase {
 
     /**
      * Returns the style class for the item spans that will identify a movable element
-     *
+     * <p>
      * <p>
      * Given style class will be used to build a jQuery selector that is then passed to the
      * reorderer widget through the options

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -36,46 +36,44 @@ import java.util.List;
  * A placeholder in the configuration for a <code>Container</code> list of items that will be invoked to
  * retrieve a list of {@link RemotableAttributeField} instances which will then be inserted into the containers
  * list at the position of the holder
- *
+ * <p>
  * <p>
  * Since remotable fields are dynamic by nature, the individual fields cannot be configured initially with the
  * container. Further more the properties for the field are constructed with code. This gives the ability to specify
  * where that list of fields should be placed, along with configured on how to retrieve the remote fields.
  * </p>
- *
+ * <p>
  * <p>
  * The fetching properties are used to configure what method to invoke that will return the list of remotable fields.
  * Specifying the {@link #getFetchingMethodToCall()} only assumes the method is on the view helper service for the
  * contained view. For invoking other classes, such as services or static classes, use {@link
  * #getFetchingMethodInvoker()}
  * </p>
- *
+ * <p>
  * <p>
  * The list of remotable fields should bind to a Map property on the model. The {@link #getPropertyName()} and
  * {@link #getBindingInfo()} properties specify the path to this property. The property names configured on the
  * returned fields are assumed to be keys in that above configured map, with the corresponding map value giving the
  * actual model value for the remote field.
  * </p>
- *
+ * <p>
  * <p>
  * e.g. configuration
  * {@code
- *    <property name="items">
-      <list>
-        <bean parent="RemoteFieldsHolder" p:propertyName="remoteFieldValuesMap"
-              p:fetchingMethodToCall="retrieveRemoteFields"/>
- *    ...
+ * <property name="items">
+ * <list>
+ * <bean parent="RemoteFieldsHolder" p:propertyName="remoteFieldValuesMap"
+ * p:fetchingMethodToCall="retrieveRemoteFields"/>
+ * ...
  * }
- *
+ * <p>
  * This example will invoke a method named 'retrieveRemoteFields' on the view helper service, which should return
  * a list of {@link RemotableAttributeField} instances. The view, model instance, and parent container will be sent
  * to the method as arguments.
- *
+ * <p>
  * The returned fields will be translated to {@link InputField} instances that bind to a map property named
  * 'remoteFieldValuesMap' on the model.
  * </p>
- *
- * 
  */
 public class RemoteFieldsHolder extends ComponentBase implements DataBinding {
     private static final long serialVersionUID = -8493923312021633727L;
@@ -95,8 +93,8 @@ public class RemoteFieldsHolder extends ComponentBase implements DataBinding {
      * Invokes the configured fetching method to retrieve a list of remotable fields, then invoked the
      * {@code ComponentFactory} to translate the fields, and finally sets up the binding for the attribute fields
      *
-     * @param view - view instance the container belongs to, sent to the fetching method
-     * @param model - object containing the view data, sent to the fetching method
+     * @param view   - view instance the container belongs to, sent to the fetching method
+     * @param model  - object containing the view data, sent to the fetching method
      * @param parent - container instance that holder is configured for, sent to the fetching method
      * @return List<AttributeField> list of attribute fields that should be placed into container, if no remotable
      * fields were returned from the fetching method the list will be empty
@@ -173,7 +171,7 @@ public class RemoteFieldsHolder extends ComponentBase implements DataBinding {
 
     /**
      * Path to the Map property that the translated fields bind to
-     *
+     * <p>
      * <p>
      * It is assumed this property points to a Map where the property names on the returned remotable fields
      * are keys in that map, with the corresponding map value giving the model value for the field
@@ -196,7 +194,7 @@ public class RemoteFieldsHolder extends ComponentBase implements DataBinding {
 
     /**
      * Can be used to for more complex binding paths
-     *
+     * <p>
      * <p>
      * Generally not necessary to set on a field level, any default object path or binding prefixes set
      * on the view or container will be inherited
@@ -219,13 +217,13 @@ public class RemoteFieldsHolder extends ComponentBase implements DataBinding {
 
     /**
      * Name of the method to invoke for retrieving the list of remotable fields
-     *
+     * <p>
      * <p>
      * When only the fetching method to call is configured it is assumed to be a valid method on the view
      * helper service for the containing view. The method name must accept the view, model object, and parent
      * container as arguments, and return a list of {@link RemotableAttributeField} instances.
      * </p>
-     *
+     * <p>
      * <p>
      * For invoking the method on classes other than the view helper service, see {@link #getFetchingMethodInvoker()}
      * </p>
@@ -247,13 +245,13 @@ public class RemoteFieldsHolder extends ComponentBase implements DataBinding {
 
     /**
      * Configuration for the method to invoke for retrieving the list of remotable fields
-     *
+     * <p>
      * <p>
      * Through the method invoker config, a service or static class can be configured along with the
      * method name that will be invoked. The method name must accept the view, model object, and parent
      * container as arguments, and return a list of {@link RemotableAttributeField} instances.
      * </p>
-     *
+     * <p>
      * <p>
      * Note the {@link MethodInvokerConfig#getTargetMethod()} property can
      * be configured, or the {@link #getFetchingMethodToCall()}. In the case of both configurations, the target

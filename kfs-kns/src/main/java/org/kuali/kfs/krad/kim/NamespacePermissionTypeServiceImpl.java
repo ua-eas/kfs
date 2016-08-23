@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -19,10 +19,10 @@
 package org.kuali.kfs.krad.kim;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.kim.permission.PermissionTypeServiceBase;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.permission.Permission;
 import org.kuali.rice.kim.impl.permission.PermissionBo;
-import org.kuali.kfs.kns.kim.permission.PermissionTypeServiceBase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,55 +31,56 @@ import java.util.Map;
 
 public class NamespacePermissionTypeServiceImpl extends PermissionTypeServiceBase {
 
-	private Boolean exactMatchPriority = true;
-	{
+    private Boolean exactMatchPriority = true;
+
+    {
 //		requiredAttributes.add(KimAttributes.NAMESPACE_CODE);
-	}
+    }
 
-	/**
-	 * Check for entries that match the namespace.
-	 *
-	 * By default, this method will return all exact matches if any exist, and it will only return partial matches if there are no exact matches.
-	 * i.e. KR-NS will have priority over KR-*
-	 *
+    /**
+     * Check for entries that match the namespace.
+     * <p>
+     * By default, this method will return all exact matches if any exist, and it will only return partial matches if there are no exact matches.
+     * i.e. KR-NS will have priority over KR-*
+     * <p>
      * If ExactMatchPriority is false, then this method will return all exact AND partial matching permissions.  By default, ExactMatchPriority will be set to true.
-	 */
-	@Override
-	protected List<Permission> performPermissionMatches(Map<String, String> requestedDetails, List<Permission> permissionsList) {
-		List<Permission> matchingPermissions = new ArrayList<Permission>();
+     */
+    @Override
+    protected List<Permission> performPermissionMatches(Map<String, String> requestedDetails, List<Permission> permissionsList) {
+        List<Permission> matchingPermissions = new ArrayList<Permission>();
 
-		String requestedNamespaceCode = requestedDetails.get(KimConstants.AttributeConstants.NAMESPACE_CODE);
+        String requestedNamespaceCode = requestedDetails.get(KimConstants.AttributeConstants.NAMESPACE_CODE);
 
-		// Add all exact matches to the list
-		for ( Permission permission : permissionsList ) {
+        // Add all exact matches to the list
+        for (Permission permission : permissionsList) {
             PermissionBo bo = PermissionBo.from(permission);
-			String permissionNamespaceCode = bo.getDetails().get(KimConstants.AttributeConstants.NAMESPACE_CODE);
-			if ( StringUtils.equals(requestedNamespaceCode, permissionNamespaceCode ) ) {
-				matchingPermissions.add(permission);
-			}
-		}
+            String permissionNamespaceCode = bo.getDetails().get(KimConstants.AttributeConstants.NAMESPACE_CODE);
+            if (StringUtils.equals(requestedNamespaceCode, permissionNamespaceCode)) {
+                matchingPermissions.add(permission);
+            }
+        }
 
-		// Add partial matches to the list if there are no exact matches or if exactMatchPriority is false
-		if ((exactMatchPriority && matchingPermissions.isEmpty()) || (!(exactMatchPriority))) {
-			for ( Permission kpi : permissionsList ) {
+        // Add partial matches to the list if there are no exact matches or if exactMatchPriority is false
+        if ((exactMatchPriority && matchingPermissions.isEmpty()) || (!(exactMatchPriority))) {
+            for (Permission kpi : permissionsList) {
                 PermissionBo bo = PermissionBo.from(kpi);
-				String permissionNamespaceCode = bo.getDetails().get(KimConstants.AttributeConstants.NAMESPACE_CODE);
-				if ( requestedNamespaceCode != null
-					 && permissionNamespaceCode != null
-					 && (!( StringUtils.equals(requestedNamespaceCode, permissionNamespaceCode )))
-					 && requestedNamespaceCode.matches(permissionNamespaceCode.replaceAll("\\*", ".*") ) ) {
-					 	matchingPermissions.add(kpi);
-				}
-			}
-		}
+                String permissionNamespaceCode = bo.getDetails().get(KimConstants.AttributeConstants.NAMESPACE_CODE);
+                if (requestedNamespaceCode != null
+                    && permissionNamespaceCode != null
+                    && (!(StringUtils.equals(requestedNamespaceCode, permissionNamespaceCode)))
+                    && requestedNamespaceCode.matches(permissionNamespaceCode.replaceAll("\\*", ".*"))) {
+                    matchingPermissions.add(kpi);
+                }
+            }
+        }
         return matchingPermissions;
-	}
+    }
 
-	public Boolean getExactMatchPriority() {
-		return this.exactMatchPriority;
-	}
+    public Boolean getExactMatchPriority() {
+        return this.exactMatchPriority;
+    }
 
-	public void setExactMatchPriority(Boolean exactMatchPriority) {
-		this.exactMatchPriority = exactMatchPriority;
-	}
+    public void setExactMatchPriority(Boolean exactMatchPriority) {
+        this.exactMatchPriority = exactMatchPriority;
+    }
 }

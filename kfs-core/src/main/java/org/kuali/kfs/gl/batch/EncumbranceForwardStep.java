@@ -1,22 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.batch;
+
+import org.kuali.kfs.gl.GeneralLedgerConstants;
+import org.kuali.kfs.gl.batch.service.YearEndService;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.sys.batch.AbstractWrappedBatchStep;
+import org.kuali.kfs.sys.batch.service.WrappedBatchExecutorService.CustomBatchExecutor;
+import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
+import org.springframework.util.StopWatch;
 
 import java.sql.Date;
 import java.text.DateFormat;
@@ -27,14 +35,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.kuali.kfs.gl.GeneralLedgerConstants;
-import org.kuali.kfs.gl.batch.service.YearEndService;
-import org.kuali.kfs.sys.batch.AbstractWrappedBatchStep;
-import org.kuali.kfs.sys.batch.service.WrappedBatchExecutorService.CustomBatchExecutor;
-import org.kuali.kfs.sys.service.impl.KfsParameterConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.springframework.util.StopWatch;
 
 /**
  * A step to run the year end process of forwarding encumbrances into the next fiscal year
@@ -78,8 +78,7 @@ public class EncumbranceForwardStep extends AbstractWrappedBatchStep {
                 try {
                     DateFormat transactionDateFormat = new SimpleDateFormat(TRANSACTION_DATE_FORMAT_STRING);
                     varTransactionDate = new Date(transactionDateFormat.parse(getParameterService().getParameterValueAsString(KfsParameterConstants.GENERAL_LEDGER_BATCH.class, GeneralLedgerConstants.ANNUAL_CLOSING_TRANSACTION_DATE_PARM)).getTime());
-                }
-                catch (ParseException pe) {
+                } catch (ParseException pe) {
                     LOG.error("Failed to parse TRANSACTION_DT from kualiConfigurationService");
                     throw new RuntimeException("Unable to get transaction date from kualiConfigurationService", pe);
                 }

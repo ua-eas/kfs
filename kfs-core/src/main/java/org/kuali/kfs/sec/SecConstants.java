@@ -1,25 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sec;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
@@ -30,10 +27,13 @@ import org.kuali.kfs.coa.businessobject.Organization;
 import org.kuali.kfs.coa.businessobject.ProjectCode;
 import org.kuali.kfs.coa.businessobject.SubAccount;
 import org.kuali.kfs.coa.businessobject.SubObjectCode;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterConstants;
 import org.kuali.kfs.sec.businessobject.SecurityAttributeMetadata;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterConstants;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -43,9 +43,9 @@ public class SecConstants {
 
     public final static String ACCESS_SECURITY_NAMESPACE_CODE = KFSConstants.CoreModuleNamespaces.ACCESS_SECURITY;
     public final static String LABOR_MODULE_NAMESPACE_CODE = KFSConstants.OptionalModuleNamespaces.LABOR_DISTRIBUTION;
-    
+
     public final static String ACCESS_SECURITY_MODULE_ENABLED_PROPERTY_NAME = "module.access.security.enabled";
-    
+
     public final static String ACCOUNTING_GROUP_ERROR_KEY_PREFIX = "SecurityGroupErrors:";
     public final static String ALL_DOCUMENT_TYPE_NAME = KFSConstants.ROOT_DOCUMENT_TYPE;
     public final static String ALL_PARAMETER_DETAIL_COMPONENT = ParameterConstants.ALL_COMPONENT;
@@ -56,6 +56,7 @@ public class SecConstants {
     public final static String ACCESS_ERROR_STRING_REQUEST_KEY = "securityAccessErrorMessage";
 
     public final static Map<String, SecurityAttributeMetadata> SECURITY_ATTRIBUTE_METADATA_MAP = new HashMap<String, SecurityAttributeMetadata>();
+
     static {
         SECURITY_ATTRIBUTE_METADATA_MAP.put(SecurityAttributeNames.ACCOUNT, new SecurityAttributeMetadata(Account.class, KFSPropertyConstants.ACCOUNT_NUMBER));
         SECURITY_ATTRIBUTE_METADATA_MAP.put(SecurityAttributeNames.CHART, new SecurityAttributeMetadata(Chart.class, KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE));
@@ -70,6 +71,7 @@ public class SecConstants {
     }
 
     public final static Map<String, SecurityAttributeMetadata> ATTRIBUTE_SIMULATION_MAP = new HashMap<String, SecurityAttributeMetadata>();
+
     static {
         ATTRIBUTE_SIMULATION_MAP.put(SecurityAttributeNames.ACCOUNT, new SecurityAttributeMetadata(Account.class, KFSPropertyConstants.ACCOUNT_NUMBER, KFSPropertyConstants.ACCOUNT_NAME));
         ATTRIBUTE_SIMULATION_MAP.put(SecurityAttributeNames.CHART, new SecurityAttributeMetadata(Chart.class, KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE, KFSPropertyConstants.FIN_CHART_OF_ACCOUNT_DESCRIPTION));

@@ -1,68 +1,49 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.document.web.struts;
 
-import static org.kuali.kfs.module.tem.TemConstants.CERTIFICATION_STATEMENT_ATTRIBUTE;
-import static org.kuali.kfs.module.tem.TemConstants.DELINQUENT_TEST_ATTRIBUTE;
-import static org.kuali.kfs.module.tem.TemConstants.EMPLOYEE_TEST_ATTRIBUTE;
-import static org.kuali.kfs.module.tem.TemConstants.FISCAL_OFFICER_TEST_ATTRIBUTE;
-import static org.kuali.kfs.module.tem.TemConstants.PRIMARY_DESTINATION_LOOKUPABLE;
-import static org.kuali.kfs.module.tem.TemConstants.RETURN_TO_FO_QUESTION;
-import static org.kuali.kfs.module.tem.TemConstants.SHOW_ACCOUNT_DISTRIBUTION_ATTRIBUTE;
-import static org.kuali.kfs.module.tem.TemConstants.SHOW_REPORTS_ATTRIBUTE;
-import static org.kuali.kfs.module.tem.TemConstants.TRAVEL_ARRANGER_TEST_ATTRIBUTE;
-import static org.kuali.kfs.module.tem.TemConstants.TRAVEL_MANAGER_TEST_ATTRIBUTE;
-import static org.kuali.kfs.module.tem.TemConstants.TravelParameters.EMPLOYEE_CERTIFICATION_STATEMENT;
-import static org.kuali.kfs.module.tem.TemConstants.TravelParameters.NON_EMPLOYEE_CERTIFICATION_STATEMENT;
-import static org.kuali.kfs.module.tem.TemConstants.TravelReimbursementParameters.DISPLAY_ACCOUNTING_DISTRIBUTION_TAB_IND;
-import static org.kuali.kfs.module.tem.TemConstants.TravelReimbursementParameters.FOREIGN_CURRENCY_URL;
-import static org.kuali.kfs.module.tem.TemPropertyConstants.TRIP_INFO_UPDATE_TRIP_DTL;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
-import java.math.BigDecimal;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.lowagie.text.pdf.PdfCopy;
+import com.lowagie.text.pdf.PdfImportedPage;
+import com.lowagie.text.pdf.PdfReader;
+import com.lowagie.text.pdf.SimpleBookmark;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.uif.field.LinkField;
+import org.kuali.kfs.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.KRADPropertyConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemConstants.TravelCustomSearchLinks;
 import org.kuali.kfs.module.tem.TemKeyConstants;
@@ -117,7 +98,6 @@ import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase;
 import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.doctype.DocumentType;
 import org.kuali.rice.kew.api.doctype.DocumentTypeService;
@@ -125,27 +105,45 @@ import org.kuali.rice.kew.api.document.node.RouteNodeInstance;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.impl.KIMPropertyConstants;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.kfs.kns.web.struts.form.KualiForm;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.KualiRuleService;
-import org.kuali.kfs.krad.uif.field.LinkField;
-import org.kuali.kfs.krad.util.ErrorMessage;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.KRADPropertyConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.kfs.krad.util.UrlFactory;
 import org.springframework.web.util.HtmlUtils;
 
-import com.lowagie.text.pdf.PdfCopy;
-import com.lowagie.text.pdf.PdfImportedPage;
-import com.lowagie.text.pdf.PdfReader;
-import com.lowagie.text.pdf.SimpleBookmark;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+import java.math.BigDecimal;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+
+import static org.kuali.kfs.module.tem.TemConstants.CERTIFICATION_STATEMENT_ATTRIBUTE;
+import static org.kuali.kfs.module.tem.TemConstants.DELINQUENT_TEST_ATTRIBUTE;
+import static org.kuali.kfs.module.tem.TemConstants.EMPLOYEE_TEST_ATTRIBUTE;
+import static org.kuali.kfs.module.tem.TemConstants.FISCAL_OFFICER_TEST_ATTRIBUTE;
+import static org.kuali.kfs.module.tem.TemConstants.PRIMARY_DESTINATION_LOOKUPABLE;
+import static org.kuali.kfs.module.tem.TemConstants.RETURN_TO_FO_QUESTION;
+import static org.kuali.kfs.module.tem.TemConstants.SHOW_ACCOUNT_DISTRIBUTION_ATTRIBUTE;
+import static org.kuali.kfs.module.tem.TemConstants.SHOW_REPORTS_ATTRIBUTE;
+import static org.kuali.kfs.module.tem.TemConstants.TRAVEL_ARRANGER_TEST_ATTRIBUTE;
+import static org.kuali.kfs.module.tem.TemConstants.TRAVEL_MANAGER_TEST_ATTRIBUTE;
+import static org.kuali.kfs.module.tem.TemConstants.TravelParameters.EMPLOYEE_CERTIFICATION_STATEMENT;
+import static org.kuali.kfs.module.tem.TemConstants.TravelParameters.NON_EMPLOYEE_CERTIFICATION_STATEMENT;
+import static org.kuali.kfs.module.tem.TemConstants.TravelReimbursementParameters.DISPLAY_ACCOUNTING_DISTRIBUTION_TAB_IND;
+import static org.kuali.kfs.module.tem.TemConstants.TravelReimbursementParameters.FOREIGN_CURRENCY_URL;
+import static org.kuali.kfs.module.tem.TemPropertyConstants.TRIP_INFO_UPDATE_TRIP_DTL;
 
 /**
  * Common action class
@@ -154,7 +152,7 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
 
     public static Logger LOG = Logger.getLogger(TravelActionBase.class);
 
-    protected static final String[] methodToCallExclusionArray = { "recalculate", "calculate", "recalculateTripDetailTotal", "save", "route", "approve", "blanketApprove", "updatePerDiemExpenses" };
+    protected static final String[] methodToCallExclusionArray = {"recalculate", "calculate", "recalculateTripDetailTotal", "save", "route", "approve", "blanketApprove", "updatePerDiemExpenses"};
 
     protected volatile static PerDiemService perDiemService;
     protected volatile static DocumentTypeService documentTypeService;
@@ -254,16 +252,16 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
      * method can be better understood if it is noted that it will be gone through twice (via the question framework); when each
      * question is originally asked, and again when the yes/no response is processed, for confirmation.
      *
-     * @param mapping These are boiler-plate.
-     * @param form "
-     * @param request "
-     * @param response "
+     * @param mapping      These are boiler-plate.
+     * @param form         "
+     * @param request      "
+     * @param response     "
      * @param questionType A string identifying the type of question being asked.
-     * @param confirmType A string identifying which type of question is being confirmed.
+     * @param confirmType  A string identifying which type of question is being confirmed.
      * @param documentType A string, the type of document to create
-     * @param notePrefix A string to appear before the note in the BO Notes tab
-     * @param messageType A string to appear on the PO once the question framework is done, describing the action taken
-     * @param operation A string, the verb to insert in the original question describing the action to be taken
+     * @param notePrefix   A string to appear before the note in the BO Notes tab
+     * @param messageType  A string to appear on the PO once the question framework is done, describing the action taken
+     * @param operation    A string, the verb to insert in the original question describing the action to be taken
      * @return An ActionForward
      * @throws Exception
      */
@@ -282,7 +280,7 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
         TravelFormBase travelForm = (TravelFormBase) form;
 
         if (requiresCalculate(travelForm)) {
-            GlobalVariables.getMessageMap().putError(KFSConstants.DOCUMENT_ERRORS, TemKeyConstants.ERROR_REQUIRES_CALCULATE, new String[] { "routing" });
+            GlobalVariables.getMessageMap().putError(KFSConstants.DOCUMENT_ERRORS, TemKeyConstants.ERROR_REQUIRES_CALCULATE, new String[]{"routing"});
 
             return mapping.findForward(KFSConstants.MAPPING_BASIC);
         }
@@ -360,12 +358,13 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
 
     /**
      * Overridden to recalculate per diems and actual expenses in case per diem rate or mileage rates changed; if
+     *
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#loadDocument(org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase)
      */
     @Override
     protected void loadDocument(KualiDocumentFormBase kualiDocumentFormBase) throws WorkflowException {
         super.loadDocument(kualiDocumentFormBase);
-        TravelDocument travelDoc = ((TravelFormBase)kualiDocumentFormBase).getTravelDocument();
+        TravelDocument travelDoc = ((TravelFormBase) kualiDocumentFormBase).getTravelDocument();
         if (travelDoc.getDocumentHeader().getWorkflowDocument().isEnroute() || travelDoc.getDocumentHeader().getWorkflowDocument().isCompletionRequested()) { // only update background rates if the document is still enroute
             if (travelDoc.getActualExpenses() != null && !travelDoc.getActualExpenses().isEmpty()) {
                 ExpenseUtils.calculateMileage(travelDoc, travelDoc.getActualExpenses());
@@ -418,14 +417,14 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
         }
 
         // set wire charge message in form
-        ((TravelFormBase)form).setWireChargeMessage(retrieveWireChargeMessage());
+        ((TravelFormBase) form).setWireChargeMessage(retrieveWireChargeMessage());
 
-        final String refreshCaller = ((KualiForm)form).getRefreshCaller();
+        final String refreshCaller = ((KualiForm) form).getRefreshCaller();
         if (!StringUtils.isBlank(refreshCaller)) {
-            final TravelDocument document = ((TravelFormBase)form).getTravelDocument();
+            final TravelDocument document = ((TravelFormBase) form).getTravelDocument();
 
             if (TemConstants.TRAVELER_PROFILE_DOC_LOOKUPABLE.equals(refreshCaller)) {
-                performRequesterRefresh(document, (TravelFormBase)form, request);
+                performRequesterRefresh(document, (TravelFormBase) form, request);
             }
         }
 
@@ -440,7 +439,7 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
         validateLookupInquiryFullParameter(request, form, fullParameter);
         String boClassName = StringUtils.substringBetween(fullParameter, KRADConstants.METHOD_TO_CALL_BOPARM_LEFT_DEL, KRADConstants.METHOD_TO_CALL_BOPARM_RIGHT_DEL);
         if (!StringUtils.isBlank(boClassName)
-                && boClassName.equals(HistoricalTravelExpense.class.getName())) {
+            && boClassName.equals(HistoricalTravelExpense.class.getName())) {
             TravelDocument document = travelForm.getTravelDocument();
             boolean success = true;
             if (document.getTemProfileId() == null) {
@@ -464,7 +463,7 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#docHandler(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward docHandler(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -475,7 +474,7 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
         initializeNewActualExpenseLines(travelForm.getNewActualExpenseLines(), travelDocument.getActualExpenses());
 
         //update TA and TR's custom primary destinations
-        if ((travelDocument instanceof TravelAuthorizationDocument) || travelDocument instanceof TravelReimbursementDocument){
+        if ((travelDocument instanceof TravelAuthorizationDocument) || travelDocument instanceof TravelReimbursementDocument) {
             updateCustomPrimaryDestination(travelDocument);
         }
 
@@ -484,14 +483,14 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
 
     /**
      * Update the custom primary destination values and indicator
-     *
-     *  This is only applicable to TR and TA docs, but we will keep it in the action base
+     * <p>
+     * This is only applicable to TR and TA docs, but we will keep it in the action base
      *
      * @param travelDocument
      */
-    protected void updateCustomPrimaryDestination(TravelDocument travelDocument){
+    protected void updateCustomPrimaryDestination(TravelDocument travelDocument) {
         //refresh and setup the custom primary destinations values and indicator
-        if (travelDocument.getPrimaryDestinationId() != null && travelDocument.getPrimaryDestinationId().intValue() == TemConstants.CUSTOM_PRIMARY_DESTINATION_ID){
+        if (travelDocument.getPrimaryDestinationId() != null && travelDocument.getPrimaryDestinationId().intValue() == TemConstants.CUSTOM_PRIMARY_DESTINATION_ID) {
             PrimaryDestination destination = travelDocument.getPrimaryDestination();
             destination.setPrimaryDestinationName(travelDocument.getPrimaryDestinationName());
             destination.setCounty(travelDocument.getPrimaryDestinationCounty());
@@ -541,8 +540,7 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
             document.getPrimaryDestination().setId(TemConstants.CUSTOM_PRIMARY_DESTINATION_ID);
             document.getPrimaryDestination().setVersionNumber(null);
             document.getPrimaryDestination().setObjectId(null);
-        }
-        else {
+        } else {
             document.setPrimaryDestination(new PrimaryDestination());
             document.getPrimaryDestination().setId(TemConstants.CUSTOM_PRIMARY_DESTINATION_ID);
             document.getPrimaryDestination().setPrimaryDestinationName(document.getPrimaryDestinationName());
@@ -606,7 +604,6 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
     }
 
     /**
-     *
      * @param form
      * @return
      * @throws Exception
@@ -614,8 +611,8 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
     @SuppressWarnings("rawtypes")
     public <T> T newMvcDelegate(final ActionForm form) throws Exception {
         T retval = (T) Proxy.newProxyInstance(getClass().getClassLoader(),
-                new Class[] { getMvcWrapperInterface() },
-                new TravelMvcWrapperInvocationHandler(form));
+            new Class[]{getMvcWrapperInterface()},
+            new TravelMvcWrapperInvocationHandler(form));
         return retval;
     }
 
@@ -623,7 +620,7 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
      * Forces inheriting classes to define their own MVC Wrappers
      *
      * @return some {@link Class} instance for an interface that inherits from the {@link TravelMvcWrapperBean}. That's right. It
-     *         has to be one of those.
+     * has to be one of those.
      */
     protected abstract Class<? extends TravelMvcWrapperBean> getMvcWrapperInterface();
 
@@ -700,7 +697,7 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
         final TravelFormBase travelForm = (TravelFormBase) form;
         final TravelMvcWrapperBean mvcWrapper = newMvcDelegate(form);
 
-        travelForm.getObservable().notifyObservers(new Object[] { mvcWrapper, getSelectedLine(request) });
+        travelForm.getObservable().notifyObservers(new Object[]{mvcWrapper, getSelectedLine(request)});
 
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
@@ -709,7 +706,7 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
         final TravelFormBase travelForm = (TravelFormBase) form;
         final TravelMvcWrapperBean mvcWrapper = newMvcDelegate(form);
 
-        travelForm.getObservable().notifyObservers(new Object[] { mvcWrapper, getSelectedLine(request) });
+        travelForm.getObservable().notifyObservers(new Object[]{mvcWrapper, getSelectedLine(request)});
 
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
@@ -718,13 +715,12 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
         final TravelFormBase travelForm = (TravelFormBase) form;
         final TravelMvcWrapperBean mvcWrapper = newMvcDelegate(form);
         int[] lineNumbers = getSelectedDetailLine(request);
-        travelForm.getObservable().notifyObservers(new Object[] { mvcWrapper, lineNumbers[0], lineNumbers[1] });
+        travelForm.getObservable().notifyObservers(new Object[]{mvcWrapper, lineNumbers[0], lineNumbers[1]});
 
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
 
     /**
-     *
      * @param request
      * @param response
      * @param reportFile
@@ -759,7 +755,7 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
             pdfDoc.open();
             // step 4: add content
             PdfImportedPage page;
-            for (int i = 0; i < n;) {
+            for (int i = 0; i < n; ) {
                 ++i;
                 page = writer.getImportedPage(reader, i);
                 writer.addPage(page);
@@ -775,16 +771,14 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
             String useJavascript = request.getParameter("useJavascript");
             if (useJavascript == null || useJavascript.equalsIgnoreCase("false")) {
                 sbContentDispValue.append("attachment");
-            }
-            else {
+            } else {
                 sbContentDispValue.append("inline");
             }
             sbContentDispValue.append("; filename=");
             sbContentDispValue.append(fileName);
 
             contentDisposition = sbContentDispValue.toString();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -851,7 +845,7 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
                 int estimateLineNum = getLineNumberFromParameter(parameterKey);
                 PerDiemExpense expense = document.getPerDiemExpenses().get(estimateLineNum);
 
-                String[] priDestId = (String[])parameters.get(parameterKey);
+                String[] priDestId = (String[]) parameters.get(parameterKey);
                 PerDiem perDiem = null;
                 if (expense.getPrimaryDestinationId() != TemConstants.CUSTOM_PRIMARY_DESTINATION_ID && expense.getPrimaryDestinationId().equals(new Integer(priDestId[0]))) {
                     perDiem = getPerDiemService().getPerDiem(expense.getPrimaryDestinationId(), expense.getMileageDate(), document.getEffectiveDateForPerDiem(expense.getMileageDate()));
@@ -878,8 +872,7 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
             if (document.getPrimaryDestination().getId() != null) {
                 document.setPerDiemExpenses(new ArrayList<PerDiemExpense>());
             }
-        }
-        else if (document.getPrimaryDestination().getId() != null) {
+        } else if (document.getPrimaryDestination().getId() != null) {
             if (primaryDestinationId.intValue() != document.getPrimaryDestination().getId()) {
                 document.setPerDiemExpenses(new ArrayList<PerDiemExpense>());
             }
@@ -949,7 +942,6 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
 
         return amount;
     }
-
 
 
     /**
@@ -1047,7 +1039,7 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
         TemProfile profile = null;
 
         //default to nulls
-        String profileId=null;
+        String profileId = null;
         String homeDepartment = null;
 
         if (ObjectUtils.isNotNull(travelDocument.getTemProfileId())) {
@@ -1083,16 +1075,15 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
         boolean workflowCheck = false;
         try {
             List<RouteNodeInstance> nodes = reqForm.getWorkflowDocument().getRouteNodeInstances();
-            for (RouteNodeInstance routeNode : nodes){
-                if (routeNode.getName().equals(KFSConstants.RouteLevelNames.ACCOUNT)){
+            for (RouteNodeInstance routeNode : nodes) {
+                if (routeNode.getName().equals(KFSConstants.RouteLevelNames.ACCOUNT)) {
                     workflowCheck = true;
                 }
             }
             workflowCheck &= reqForm.getWorkflowDocument().isEnroute();
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             // Do not propagate this exception.
-           LOG.info("Could not retrieve the workflow document. This is most likely normal and ok in this case.");
+            LOG.info("Could not retrieve the workflow document. This is most likely normal and ok in this case.");
         }
 
         return getTravelDocumentService().isResponsibleForAccountsOn(reqForm.getTravelDocument(), GlobalVariables.getUserSession().getPerson().getPrincipalId()) && workflowCheck;
@@ -1118,24 +1109,22 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
         AccountingDocumentRelationship adr = travelReqForm.getNewAccountingDocumentRelationship();
         if (adr.getRelDocumentNumber() == null || !NumberUtils.isDigits(adr.getRelDocumentNumber())) {
             GlobalVariables.getMessageMap().putError(
-                    String.format("%s.%s",
-                            TemKeyConstants.TRVL_RELATED_DOCUMENT,
-                            TemPropertyConstants.TRVL_RELATED_DOCUMENT_NUM),
-                    TemKeyConstants.ERROR_TRVL_RELATED_DOCUMENT_REQUIRED);
-        }
-        else {
+                String.format("%s.%s",
+                    TemKeyConstants.TRVL_RELATED_DOCUMENT,
+                    TemPropertyConstants.TRVL_RELATED_DOCUMENT_NUM),
+                TemKeyConstants.ERROR_TRVL_RELATED_DOCUMENT_REQUIRED);
+        } else {
             if (getDocumentService().documentExists(adr.getRelDocumentNumber())) {
                 adr.setDocumentNumber(travelReqForm.getDocument().getDocumentNumber());
                 adr.setPrincipalId(GlobalVariables.getUserSession().getPerson().getPrincipalId());
                 getAccountingDocumentRelationshipService().save(adr);
                 travelReqForm.setNewAccountingDocumentRelationship(new AccountingDocumentRelationship());
-            }
-            else {
+            } else {
                 GlobalVariables.getMessageMap().putError(
-                        String.format("%s.%s",
-                                TemKeyConstants.TRVL_RELATED_DOCUMENT,
-                                TemPropertyConstants.TRVL_RELATED_DOCUMENT_NUM),
-                        TemKeyConstants.ERROR_TRVL_RELATED_DOCUMENT_NOT_FOUND, new String[] { adr.getRelDocumentNumber() });
+                    String.format("%s.%s",
+                        TemKeyConstants.TRVL_RELATED_DOCUMENT,
+                        TemPropertyConstants.TRVL_RELATED_DOCUMENT_NUM),
+                    TemKeyConstants.ERROR_TRVL_RELATED_DOCUMENT_NOT_FOUND, new String[]{adr.getRelDocumentNumber()});
             }
         }
 
@@ -1210,24 +1199,24 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
     /**
      * Import group travel to the document from a spreadsheet.
      *
-     * @param mapping An ActionMapping
-     * @param form An ActionForm
-     * @param request The HttpServletRequest
+     * @param mapping  An ActionMapping
+     * @param form     An ActionForm
+     * @param request  The HttpServletRequest
      * @param response The HttpServletResponse
-     * @throws Exception
      * @return An ActionForward
+     * @throws Exception
      */
     public ActionForward uploadGroupTravelerImportFile(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        final TravelFormBase travelForm       = (TravelFormBase) form;
+        final TravelFormBase travelForm = (TravelFormBase) form;
         final TravelMvcWrapperBean mvcWrapper = newMvcDelegate(form);
 
-        travelForm.getObservable().notifyObservers(new Object[] { mvcWrapper, new String(travelForm.getGroupTravelerImportFile().getFileData()) });
+        travelForm.getObservable().notifyObservers(new Object[]{mvcWrapper, new String(travelForm.getGroupTravelerImportFile().getFileData())});
 
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
 
     public ActionForward payDVToVendor(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        final String url = getKualiConfigurationService().getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY)+"/"+TravelCustomSearchLinks.DV_URL + HtmlUtils.htmlEscape(((TravelFormBase)form).getTravelDocument().getDocumentNumber());
+        final String url = getKualiConfigurationService().getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY) + "/" + TravelCustomSearchLinks.DV_URL + HtmlUtils.htmlEscape(((TravelFormBase) form).getTravelDocument().getDocumentNumber());
         return new ActionForward(url, true);
     }
 
@@ -1244,7 +1233,7 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
         final TravelFormBase travelForm = (TravelFormBase) form;
         final TravelMvcWrapperBean mvcWrapper = newMvcDelegate(form);
 
-        travelForm.getObservable().notifyObservers(new Object[] { mvcWrapper, getSelectedLine(request) });
+        travelForm.getObservable().notifyObservers(new Object[]{mvcWrapper, getSelectedLine(request)});
 
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
@@ -1253,7 +1242,7 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
         final TravelFormBase travelForm = (TravelFormBase) form;
         final TravelMvcWrapperBean mvcWrapper = newMvcDelegate(form);
 
-        travelForm.getObservable().notifyObservers(new Object[] { mvcWrapper, getSelectedLine(request) });
+        travelForm.getObservable().notifyObservers(new Object[]{mvcWrapper, getSelectedLine(request)});
 
         //remove the imported expense accounting line if import expense list is empty
         checkImportedExpenseAccountingLine(travelForm.getTravelDocument());
@@ -1267,7 +1256,7 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
         final TravelFormBase travelForm = (TravelFormBase) form;
         final TravelMvcWrapperBean mvcWrapper = newMvcDelegate(form);
         int[] lineNumbers = getSelectedDetailLine(request);
-        travelForm.getObservable().notifyObservers(new Object[] { mvcWrapper, lineNumbers[0], lineNumbers[1] });
+        travelForm.getObservable().notifyObservers(new Object[]{mvcWrapper, lineNumbers[0], lineNumbers[1]});
 
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
@@ -1286,7 +1275,7 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
 
     /**
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#deleteSourceLine(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward deleteSourceLine(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -1304,7 +1293,7 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
         travelForm.setAnchor(TemConstants.DISTRIBUTION_ANCHOR);
         final TravelMvcWrapperBean mvcWrapper = newMvcDelegate(form);
         int deleteIndex = getLineToDelete(request);
-        travelForm.getObservable().notifyObservers(new Object[] { mvcWrapper, deleteIndex });
+        travelForm.getObservable().notifyObservers(new Object[]{mvcWrapper, deleteIndex});
 
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
@@ -1323,7 +1312,7 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
 
     /**
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#deleteAccountingLine(boolean,
-     *      org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase, int)
+     * org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase, int)
      */
     @Override
     protected void deleteAccountingLine(boolean isSource, KualiAccountingDocumentFormBase financialDocumentForm, int deleteIndex) {
@@ -1333,7 +1322,7 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
 
     /**
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#insertAccountingLine(boolean,
-     *      org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase, org.kuali.kfs.sys.businessobject.AccountingLine)
+     * org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase, org.kuali.kfs.sys.businessobject.AccountingLine)
      */
     @Override
     protected void insertAccountingLine(boolean isSource, KualiAccountingDocumentFormBase financialDocumentForm, AccountingLine line) {
@@ -1409,7 +1398,7 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
 
     /**
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#approve(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward approve(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -1432,7 +1421,7 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#disapprove(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward disapprove(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -1446,7 +1435,7 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#cancel(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward cancel(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -1465,7 +1454,7 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
 
     /**
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#close(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward close(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -1485,7 +1474,7 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
 
     /**
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#save(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward save(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -1503,16 +1492,16 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
      *
      * @param document
      */
-    public void checkImportedExpenseAccountingLine(TravelDocument document){
+    public void checkImportedExpenseAccountingLine(TravelDocument document) {
         //remove imported expenses accounting line if there is no import expense
-        if (!document.getSourceAccountingLines().isEmpty() && document.getImportedExpenses().isEmpty()){
+        if (!document.getSourceAccountingLines().isEmpty() && document.getImportedExpenses().isEmpty()) {
             List<SourceAccountingLine> filteredAccountingLine = new ArrayList<SourceAccountingLine>();
 
             //get the travel card type lists
             List<String> cardTypes = getTravelService().getTravelCardTypes();
-            for (TemSourceAccountingLine line : (List<TemSourceAccountingLine>)document.getSourceAccountingLines()){
+            for (TemSourceAccountingLine line : (List<TemSourceAccountingLine>) document.getSourceAccountingLines()) {
                 //filter out any source accounting line that is of travel card type
-                if (!cardTypes.contains(line.getCardType())){
+                if (!cardTypes.contains(line.getCardType())) {
                     filteredAccountingLine.add(line);
                 }
             }
@@ -1522,7 +1511,7 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
 
     /**
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#blanketApprove(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward blanketApprove(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -1553,8 +1542,7 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
             form.setRelatedDocuments(relatedDocuments);
             form.setRelatedDocumentNotes(null);
             form.getRelatedDocumentNotes();
-        }
-        catch (WorkflowException ex) {
+        } catch (WorkflowException ex) {
             ex.printStackTrace();
         }
     }
@@ -1568,7 +1556,7 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
         wireCharge.setUniversityFiscalYear(SpringContext.getBean(UniversityDateService.class).getCurrentFiscalYear());
 
         wireCharge = (WireCharge) SpringContext.getBean(BusinessObjectService.class).retrieve(wireCharge);
-        Object[] args = { wireCharge.getDomesticChargeAmt(), wireCharge.getForeignChargeAmt() };
+        Object[] args = {wireCharge.getDomesticChargeAmt(), wireCharge.getForeignChargeAmt()};
 
         return MessageFormat.format(message, args);
     }
@@ -1591,6 +1579,7 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
 
     /**
      * Lookups the url for the currency url link on expense lines
+     *
      * @param form the form this action is acting on
      */
     protected void populateForeignCurrencyUrl(TravelFormBase form) {
@@ -1600,6 +1589,7 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
 
     /**
      * Populates the agency links on the form
+     *
      * @param form the form to populate links on
      */
     protected void populateAgencyLinks(TravelFormBase form) {
@@ -1611,6 +1601,7 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
 
     /**
      * Goes through the actual expenses on the document and pushes the conversion rate of the parent expense down to the details
+     *
      * @param doc the travel document to update
      */
     protected void updateActualExpenseConversionRates(TravelDocument doc) {
@@ -1625,52 +1616,56 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
 
     /**
      * Builds a relationship between the document we're creating and the one we're basing the document off of
+     *
      * @param progenitorDocument the original document
-     * @param createdDocument the document we're creating now, based on that document
+     * @param createdDocument    the document we're creating now, based on that document
      * @return the accounting document relationship between the two documents
      */
     protected AccountingDocumentRelationship buildRelationshipToProgenitorDocument(TravelDocument progenitorDocument, TravelDocument createdDocument) {
         final String progenitorType = progenitorDocument.getDocumentHeader().getWorkflowDocument().getDocumentTypeName();
         final String createdType = createdDocument.getDocumentHeader().getWorkflowDocument().getDocumentTypeName();
-        AccountingDocumentRelationship relationship = new AccountingDocumentRelationship(progenitorDocument.getDocumentNumber(), createdDocument.getDocumentNumber(), progenitorType+" - "+createdType);
+        AccountingDocumentRelationship relationship = new AccountingDocumentRelationship(progenitorDocument.getDocumentNumber(), createdDocument.getDocumentNumber(), progenitorType + " - " + createdType);
         relationship.setPrincipalId(GlobalVariables.getUserSession().getPrincipalId());
         return relationship;
     }
 
     /**
      * Disables any per diem meals which have matching hosted or group actual expenses and displays messages about that
+     *
      * @param document the TA or TR to disable per diem expenses on
      */
     protected void disablePerDiemExpenes(TravelDocument document) {
-        for (ActualExpense actualExpense : document.getActualExpenses()){
+        for (ActualExpense actualExpense : document.getActualExpenses()) {
             getTravelDocumentService().disableDuplicateExpenses(document, actualExpense);
         }
 
         //Display any messages
         Iterator<String> it = document.getDisabledProperties().keySet().iterator();
-        while (it.hasNext()){
+        while (it.hasNext()) {
             String key = it.next();
-            GlobalVariables.getMessageMap().putInfo(key, TemKeyConstants.MESSAGE_GENERIC,document.getDisabledProperties().get(key));
+            GlobalVariables.getMessageMap().putInfo(key, TemKeyConstants.MESSAGE_GENERIC, document.getDisabledProperties().get(key));
         }
     }
 
     /**
      * Performs necessary updates after the requester on the travel document was updated
+     *
      * @param document the document to update
-     * @param request the current web request
+     * @param request  the current web request
      */
     protected abstract void performRequesterRefresh(TravelDocument document, TravelFormBase travelForm, HttpServletRequest request);
 
     /**
      * Updates new accounting lines on the document with default info from the profile if applicable
-     * @param form the form holding new accounting lines
+     *
+     * @param form    the form holding new accounting lines
      * @param profile the profile to switch the lines over to the default accounting information of
      */
     protected void updateAccountsWithNewProfile(TravelFormBase form, TemProfile profile) {
         if (profile != null) {
             // update new source accounting line
             if (form.getNewSourceLine() != null) {
-                TemSourceAccountingLine acctLine = (TemSourceAccountingLine)form.getNewSourceLine();
+                TemSourceAccountingLine acctLine = (TemSourceAccountingLine) form.getNewSourceLine();
                 acctLine.setChartOfAccountsCode(profile.getDefaultChartCode());
                 acctLine.setAccountNumber(profile.getDefaultAccount());
                 acctLine.setSubAccountNumber(profile.getDefaultSubAccount());
@@ -1690,6 +1685,7 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
 
     /**
      * looks up the resolved url for the given document type
+     *
      * @param documentType the document type to check
      * @return the resolved url
      */
@@ -1700,6 +1696,7 @@ public abstract class TravelActionBase extends KualiAccountingDocumentActionBase
 
     /**
      * Builds a new reimburesment url for the given travel document
+     *
      * @param travelDoc the travel document to create a new reimbursement for
      * @return the url to redirect to to create a new reimbursement
      */

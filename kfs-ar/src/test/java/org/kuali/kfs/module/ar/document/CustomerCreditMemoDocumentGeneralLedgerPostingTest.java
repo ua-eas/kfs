@@ -1,26 +1,24 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.document;
 
-import java.math.BigDecimal;
-import java.util.List;
-
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.module.ar.businessobject.CustomerCreditMemoDetail;
 import org.kuali.kfs.module.ar.businessobject.CustomerInvoiceDetail;
 import org.kuali.kfs.module.ar.fixture.CustomerInvoiceDetailFixture;
@@ -37,7 +35,9 @@ import org.kuali.kfs.sys.service.GeneralLedgerPendingEntryService;
 import org.kuali.kfs.sys.service.TaxService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.service.DocumentService;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 @ConfigureContext(session = UserNameFixture.khuntley)
 public class CustomerCreditMemoDocumentGeneralLedgerPostingTest extends KualiTestBase {
@@ -47,7 +47,7 @@ public class CustomerCreditMemoDocumentGeneralLedgerPostingTest extends KualiTes
     @Override
     public void setUp() throws Exception {
         //  wire up the mock instead of the regular TaxService
-        taxService = SpringContext.getBean(TaxService.class,"arTaxServiceMock");
+        taxService = SpringContext.getBean(TaxService.class, "arTaxServiceMock");
     }
 
     public void testMockTaxServiceWorks() {
@@ -91,9 +91,9 @@ public class CustomerCreditMemoDocumentGeneralLedgerPostingTest extends KualiTes
      * @param customerInvoiceDocumentFixture
      * @return
      */
-    public CustomerCreditMemoDocument getCustomerCreditMemoDocumentWithGLPEs(CustomerInvoiceDocumentFixture customerInvoiceDocumentFixture, CustomerInvoiceDetailFixture customerInvoiceDetailFixture)  throws WorkflowException {
+    public CustomerCreditMemoDocument getCustomerCreditMemoDocumentWithGLPEs(CustomerInvoiceDocumentFixture customerInvoiceDocumentFixture, CustomerInvoiceDetailFixture customerInvoiceDetailFixture) throws WorkflowException {
         // create Customer Invoice Document
-        CustomerInvoiceDetailFixture[] customerInvoiceDetailFixtures = new CustomerInvoiceDetailFixture[] { customerInvoiceDetailFixture };
+        CustomerInvoiceDetailFixture[] customerInvoiceDetailFixtures = new CustomerInvoiceDetailFixture[]{customerInvoiceDetailFixture};
         CustomerInvoiceDocument invoice = customerInvoiceDocumentFixture.createCustomerInvoiceDocument(customerInvoiceDetailFixtures);
 
         // create/populate Customer Credit Memo Document
@@ -111,7 +111,7 @@ public class CustomerCreditMemoDocumentGeneralLedgerPostingTest extends KualiTes
      * @param customer invoice document
      * @return
      */
-    public CustomerCreditMemoDocument createCustomerCreditMemoDocument(CustomerInvoiceDocument invoice){
+    public CustomerCreditMemoDocument createCustomerCreditMemoDocument(CustomerInvoiceDocument invoice) {
 
         CustomerCreditMemoDetail customerCreditMemoDetail;
         CustomerCreditMemoDocument customerCreditMemoDocument = null;
@@ -123,8 +123,7 @@ public class CustomerCreditMemoDocumentGeneralLedgerPostingTest extends KualiTes
         try {
             // the document header is created and set here
             customerCreditMemoDocument = DocumentTestUtils.createDocument(SpringContext.getBean(DocumentService.class), CustomerCreditMemoDocument.class);
-        }
-        catch (WorkflowException e) {
+        } catch (WorkflowException e) {
             throw new RuntimeException("Document creation failed.");
         }
 
@@ -137,31 +136,31 @@ public class CustomerCreditMemoDocumentGeneralLedgerPostingTest extends KualiTes
         }
 
         for (CustomerInvoiceDetail customerInvoiceDetail : customerInvoiceDetails) {
-                customerCreditMemoDetail = new CustomerCreditMemoDetail();
-                customerCreditMemoDetail.setDocumentNumber(customerCreditMemoDocument.getDocumentNumber());
+            customerCreditMemoDetail = new CustomerCreditMemoDetail();
+            customerCreditMemoDetail.setDocumentNumber(customerCreditMemoDocument.getDocumentNumber());
 
-                invItemTaxAmount = customerInvoiceDetail.getInvoiceItemTaxAmount();
-                if (invItemTaxAmount == null) {
-                    invItemTaxAmount = KualiDecimal.ZERO;
-                }
-                customerCreditMemoDetail.setCreditMemoItemTaxAmount(invItemTaxAmount.divide(new KualiDecimal(2)));
+            invItemTaxAmount = customerInvoiceDetail.getInvoiceItemTaxAmount();
+            if (invItemTaxAmount == null) {
+                invItemTaxAmount = KualiDecimal.ZERO;
+            }
+            customerCreditMemoDetail.setCreditMemoItemTaxAmount(invItemTaxAmount.divide(new KualiDecimal(2)));
 
-                customerCreditMemoDetail.setReferenceInvoiceItemNumber(customerInvoiceDetail.getSequenceNumber());
-                itemQuantity = customerInvoiceDetail.getInvoiceItemQuantity().divide(new BigDecimal(2));
-                customerCreditMemoDetail.setCreditMemoItemQuantity(itemQuantity);
+            customerCreditMemoDetail.setReferenceInvoiceItemNumber(customerInvoiceDetail.getSequenceNumber());
+            itemQuantity = customerInvoiceDetail.getInvoiceItemQuantity().divide(new BigDecimal(2));
+            customerCreditMemoDetail.setCreditMemoItemQuantity(itemQuantity);
 
-                itemAmount = customerInvoiceDetail.getAmount().divide(new KualiDecimal(2));
-                customerCreditMemoDetail.setCreditMemoItemTotalAmount(itemAmount);
-                customerCreditMemoDetail.setFinancialDocumentReferenceInvoiceNumber(invoice.getDocumentNumber());
-                customerCreditMemoDetail.setCustomerInvoiceDetail(customerInvoiceDetail);
-                customerCreditMemoDocument.getCreditMemoDetails().add(customerCreditMemoDetail);
+            itemAmount = customerInvoiceDetail.getAmount().divide(new KualiDecimal(2));
+            customerCreditMemoDetail.setCreditMemoItemTotalAmount(itemAmount);
+            customerCreditMemoDetail.setFinancialDocumentReferenceInvoiceNumber(invoice.getDocumentNumber());
+            customerCreditMemoDetail.setCustomerInvoiceDetail(customerInvoiceDetail);
+            customerCreditMemoDocument.getCreditMemoDetails().add(customerCreditMemoDetail);
         }
         return customerCreditMemoDocument;
     }
 
     /**
      * This method checks the customer credit memo document state tax, district tax GLPE entries
-     *
+     * <p>
      * TODO add tests for tax GLPEs
      *
      * @param income

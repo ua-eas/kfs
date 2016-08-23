@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -65,16 +65,16 @@ public class LetterOfCreditFund extends PersistableBusinessObjectBase implements
      *
      * @return Returns the letterOfCreditFundGroup.
      */
-     @Override
-     public LetterOfCreditFundGroup getLetterOfCreditFundGroup() {
-     return letterOfCreditFundGroup;
-     }
+    @Override
+    public LetterOfCreditFundGroup getLetterOfCreditFundGroup() {
+        return letterOfCreditFundGroup;
+    }
 
-     /*
-      * Sets the letterOfCreditFundGroup attribute value.
-      *
-      * @param letterOfCreditFundGroup The letterOfCreditFundGroup to set.
-     */
+    /*
+     * Sets the letterOfCreditFundGroup attribute value.
+     *
+     * @param letterOfCreditFundGroup The letterOfCreditFundGroup to set.
+    */
     public void setLetterOfCreditFundGroup(LetterOfCreditFundGroup letterOfCreditFundGroup) {
         this.letterOfCreditFundGroup = letterOfCreditFundGroup;
     }

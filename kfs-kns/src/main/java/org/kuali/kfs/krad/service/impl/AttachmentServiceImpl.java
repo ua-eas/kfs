@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -20,14 +20,14 @@ package org.kuali.kfs.krad.service.impl;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.kuali.kfs.krad.dao.AttachmentDao;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.kfs.krad.bo.Attachment;
 import org.kuali.kfs.krad.bo.Note;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.dao.AttachmentDao;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.service.AttachmentService;
 import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.BufferedInputStream;
@@ -44,26 +44,27 @@ import java.util.UUID;
  */
 @Transactional
 public class AttachmentServiceImpl implements AttachmentService {
-	private static final int MAX_DIR_LEVELS = 6;
+    private static final int MAX_DIR_LEVELS = 6;
     private static Logger LOG = Logger.getLogger(AttachmentServiceImpl.class);
 
     private ConfigurationService kualiConfigurationService;
     private AttachmentDao attachmentDao;
+
     /**
      * Retrieves an Attachment by note identifier.
-     * 
+     *
      * @see AttachmentService#getAttachmentByNoteId(java.lang.Long)
      */
     public Attachment getAttachmentByNoteId(Long noteId) {
-		return attachmentDao.getAttachmentByNoteId(noteId);
-	}
+        return attachmentDao.getAttachmentByNoteId(noteId);
+    }
 
     /**
      * @see org.kuali.rice.krad.service.DocumentAttachmentService#createAttachment(java.lang.String, java.lang.String, int,
-     *      java.io.InputStream, Document)
+     * java.io.InputStream, Document)
      */
     public Attachment createAttachment(PersistableBusinessObject parent, String uploadedFileName, String mimeType, int fileSize, InputStream fileContents, String attachmentTypeCode) throws IOException {
-        if ( LOG.isDebugEnabled() ) {
+        if (LOG.isDebugEnabled()) {
             LOG.debug("starting to create attachment for document: " + parent.getObjectId());
         }
         if (parent == null) {
@@ -94,7 +95,7 @@ public class AttachmentServiceImpl implements AttachmentService {
         attachment.setAttachmentFileSize(new Long(fileSize));
         attachment.setAttachmentMimeTypeCode(mimeType);
         attachment.setAttachmentTypeCode(attachmentTypeCode);
-        
+
         LOG.debug("finished creating attachment for document: " + parent.getObjectId());
         return attachment;
     }
@@ -110,63 +111,61 @@ public class AttachmentServiceImpl implements AttachmentService {
             while ((c = fileContents.read()) != -1) {
                 bufferedStreamOut.write(c);
             }
-        }
-        finally {
+        } finally {
             bufferedStreamOut.close();
             streamOut.close();
         }
     }
-    
+
     public void moveAttachmentWherePending(Note note) {
-    	if (note == null) {
-    		throw new IllegalArgumentException("Note must be non-null");
-    	}
-    	if (StringUtils.isBlank(note.getObjectId())) {
-    		throw new IllegalArgumentException("Note does not have a valid object id, object id was null or empty");
-    	}
-    	Attachment attachment = note.getAttachment();
-    	if(attachment!=null){
-    		try {
-    			moveAttachmentFromPending(attachment, note.getRemoteObjectIdentifier());
-    		}
-    		catch (IOException e) {
-    			throw new RuntimeException("Problem moving pending attachment to final directory");    
-    		}
-    	}
+        if (note == null) {
+            throw new IllegalArgumentException("Note must be non-null");
+        }
+        if (StringUtils.isBlank(note.getObjectId())) {
+            throw new IllegalArgumentException("Note does not have a valid object id, object id was null or empty");
+        }
+        Attachment attachment = note.getAttachment();
+        if (attachment != null) {
+            try {
+                moveAttachmentFromPending(attachment, note.getRemoteObjectIdentifier());
+            } catch (IOException e) {
+                throw new RuntimeException("Problem moving pending attachment to final directory");
+            }
+        }
     }
-    
+
     private void moveAttachmentFromPending(Attachment attachment, String objectId) throws IOException {
         //This method would probably be more efficient if attachments had a pending flag
         String fullPendingFileName = getPendingDirectory() + File.separator + attachment.getAttachmentIdentifier();
         File pendingFile = new File(fullPendingFileName);
-        
-        if(pendingFile.exists()) {
+
+        if (pendingFile.exists()) {
             BufferedInputStream bufferedStream = null;
             FileInputStream oldFileStream = null;
             String fullPathNewFile = getDocumentDirectory(objectId) + File.separator + attachment.getAttachmentIdentifier();
             try {
                 oldFileStream = new FileInputStream(pendingFile);
                 bufferedStream = new BufferedInputStream(oldFileStream);
-                writeInputStreamToFileStorage(bufferedStream,fullPathNewFile);
-            }
-            finally {
+                writeInputStreamToFileStorage(bufferedStream, fullPathNewFile);
+            } finally {
 
                 bufferedStream.close();
                 oldFileStream.close();
                 //this has to come after the close
                 pendingFile.delete();
-                
+
             }
         }
-        
+
     }
 
     public void deleteAttachmentContents(Attachment attachment) {
-    	if (attachment.getNote() == null) throw new RuntimeException("Attachment.note must be set in order to delete the attachment");
+        if (attachment.getNote() == null) throw new RuntimeException("Attachment.note must be set in order to delete the attachment");
         String fullPathUniqueFileName = getDocumentDirectory(attachment.getNote().getRemoteObjectIdentifier()) + File.separator + attachment.getAttachmentIdentifier();
         File attachmentFile = new File(fullPathUniqueFileName);
         attachmentFile.delete();
     }
+
     private String getPendingDirectory() {
         return this.getDocumentDirectory("");
     }
@@ -190,40 +189,40 @@ public class AttachmentServiceImpl implements AttachmentService {
      */
     public InputStream retrieveAttachmentContents(Attachment attachment) throws IOException {
         //refresh to get Note object in case it's not there
-        if(attachment.getNoteIdentifier()!=null) {
+        if (attachment.getNoteIdentifier() != null) {
             attachment.refreshNonUpdateableReferences();
         }
-        
+
         String parentDirectory = "";
-        if(attachment.getNote()!=null && attachment.getNote().getRemoteObjectIdentifier() != null) {
+        if (attachment.getNote() != null && attachment.getNote().getRemoteObjectIdentifier() != null) {
             parentDirectory = attachment.getNote().getRemoteObjectIdentifier();
         }
-         
+
         return new BufferedInputStream(new FileInputStream(getDocumentDirectory(parentDirectory) + File.separator + attachment.getAttachmentIdentifier()));
     }
 
     private String getDocumentFileStorageLocation(String objectId) {
         String location = null;
-        if(StringUtils.isEmpty(objectId)) {
+        if (StringUtils.isEmpty(objectId)) {
             location = kualiConfigurationService.getPropertyValueAsString(
-                    KRADConstants.ATTACHMENTS_PENDING_DIRECTORY_KEY);
-        } else {    
-        	/* 
+                KRADConstants.ATTACHMENTS_PENDING_DIRECTORY_KEY);
+        } else {
+            /*
         	 * We need to create a hierarchical directory structure to store
         	 * attachment directories, as most file systems max out at 16k
         	 * or 32k entries.  If we use 6 levels of hierarchy, it allows
         	 * hundreds of billions of attachment directories.
         	 */
-            char[] chars = objectId.toUpperCase().replace(" ", "").toCharArray();            
+            char[] chars = objectId.toUpperCase().replace(" ", "").toCharArray();
             int count = chars.length < MAX_DIR_LEVELS ? chars.length : MAX_DIR_LEVELS;
 
-            StringBuffer prefix = new StringBuffer();            
-            for ( int i = 0; i < count; i++ )
+            StringBuffer prefix = new StringBuffer();
+            for (int i = 0; i < count; i++)
                 prefix.append(File.separator + chars[i]);
-            
+
             location = kualiConfigurationService.getPropertyValueAsString(KRADConstants.ATTACHMENTS_DIRECTORY_KEY) + prefix + File.separator + objectId;
         }
-        return  location;
+        return location;
     }
 
     /**
@@ -241,7 +240,7 @@ public class AttachmentServiceImpl implements AttachmentService {
         if (!pendingAttachmentDir.isDirectory()) {
             throw new RuntimeException("Pending attachment directory is not a directory! " + pendingAttachmentDir.getAbsolutePath());
         }
-        
+
         File[] files = pendingAttachmentDir.listFiles();
         for (File file : files) {
             if (!file.getName().equals("placeholder.txt")) {
@@ -250,13 +249,14 @@ public class AttachmentServiceImpl implements AttachmentService {
                 }
             }
         }
-        
+
     }
-    
+
     // needed for Spring injection
+
     /**
      * Sets the data access object
-     * 
+     *
      * @param d
      */
     public void setAttachmentDao(AttachmentDao d) {
@@ -271,7 +271,8 @@ public class AttachmentServiceImpl implements AttachmentService {
     }
 
     /**
-     * Gets the configService attribute. 
+     * Gets the configService attribute.
+     *
      * @return Returns the configService.
      */
     public ConfigurationService getKualiConfigurationService() {
@@ -280,6 +281,7 @@ public class AttachmentServiceImpl implements AttachmentService {
 
     /**
      * Sets the configService attribute value.
+     *
      * @param configService The configService to set.
      */
     public void setKualiConfigurationService(ConfigurationService configService) {

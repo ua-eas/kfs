@@ -1,27 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.krad.document;
 
 import org.kuali.kfs.krad.uif.view.DocumentView;
-import org.kuali.kfs.krad.uif.view.ViewPresentationController;
 import org.kuali.kfs.krad.uif.view.View;
 import org.kuali.kfs.krad.uif.view.ViewModel;
+import org.kuali.kfs.krad.uif.view.ViewPresentationController;
 import org.kuali.kfs.krad.uif.view.ViewPresentationControllerBase;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
@@ -34,16 +34,14 @@ import java.util.Set;
 /**
  * Implementation of {@link ViewPresentationController} for
  * {@link DocumentView} instances
- *
+ * <p>
  * <p>
  * Adds flags for various document actions like save, route, cancel
  * </p>
- *
+ * <p>
  * <p>
  * By default delegates to the {@link DocumentPresentationController} configured for the document in the data dictionary
  * </p>
- *
- * 
  */
 public class DocumentViewPresentationControllerBase extends ViewPresentationControllerBase implements DocumentPresentationController {
     private static final long serialVersionUID = 1461173145806477758L;
@@ -224,7 +222,7 @@ public class DocumentViewPresentationControllerBase extends ViewPresentationCont
     public boolean canAcknowledge(Document document) {
         return getDocumentPresentationController().canAcknowledge(document);
     }
-    
+
     public boolean canComplete(Document document) {
         return getDocumentPresentationController().canComplete(document);
     }
@@ -238,7 +236,7 @@ public class DocumentViewPresentationControllerBase extends ViewPresentationCont
     }
 
     public void setDocumentPresentationControllerClass(
-            Class<? extends DocumentPresentationController> documentPresentationControllerClass) {
+        Class<? extends DocumentPresentationController> documentPresentationControllerClass) {
         this.documentPresentationController = ObjectUtils.newInstance(documentPresentationControllerClass);
     }
 }

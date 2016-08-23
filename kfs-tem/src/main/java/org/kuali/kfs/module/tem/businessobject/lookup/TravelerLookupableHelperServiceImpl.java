@@ -1,40 +1,37 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.businessobject.lookup;
 
-import static org.kuali.kfs.module.tem.TemConstants.TravelParameters.EMPLOYEE_TRAVELER_TYPE_CODES;
-import static org.kuali.kfs.module.tem.TemConstants.TravelParameters.NON_EMPLOYEE_TRAVELER_TYPE_CODES;
-import static org.kuali.kfs.module.tem.TemKeyConstants.ERROR_TRAVELER_TYPES_NOT_CONFIGURED;
-import static org.kuali.kfs.module.tem.TemKeyConstants.ERROR_TRAVELER_TYPES_NOT_SELECTED;
-import static org.kuali.kfs.module.tem.TemPropertyConstants.TRVL_DOC_TRAVELER_TYP_CD;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomer;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomerType;
 import org.kuali.kfs.integration.ar.AccountsReceivableModuleService;
+import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.kns.datadictionary.FieldDefinition;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.util.BeanPropertyComparator;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemParameterConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
@@ -43,24 +40,26 @@ import org.kuali.kfs.module.tem.businessobject.datadictionary.TravelDetailLookup
 import org.kuali.kfs.module.tem.dataaccess.TravelerDao;
 import org.kuali.kfs.module.tem.service.TravelerService;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.impl.identity.PersonImpl;
-import org.kuali.kfs.kns.datadictionary.BusinessObjectEntry;
-import org.kuali.kfs.kns.datadictionary.FieldDefinition;
-import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.lookup.CollectionIncomplete;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DataDictionaryService;
-import org.kuali.kfs.krad.util.BeanPropertyComparator;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.kuali.kfs.module.tem.TemConstants.TravelParameters.EMPLOYEE_TRAVELER_TYPE_CODES;
+import static org.kuali.kfs.module.tem.TemConstants.TravelParameters.NON_EMPLOYEE_TRAVELER_TYPE_CODES;
+import static org.kuali.kfs.module.tem.TemKeyConstants.ERROR_TRAVELER_TYPES_NOT_CONFIGURED;
+import static org.kuali.kfs.module.tem.TemKeyConstants.ERROR_TRAVELER_TYPES_NOT_SELECTED;
+import static org.kuali.kfs.module.tem.TemPropertyConstants.TRVL_DOC_TRAVELER_TYP_CD;
 
 /**
  * Custom helper service used to find {@link TravelerDetail} instances of employees or non-employees or both.
- *
  */
 @SuppressWarnings("deprecation")
 public class TravelerLookupableHelperServiceImpl extends KualiLookupableHelperServiceImpl {
@@ -85,8 +84,7 @@ public class TravelerLookupableHelperServiceImpl extends KualiLookupableHelperSe
 
         if (isEmployeeSearch(fieldValues)) {
             searchResults.addAll(getEmployeesAsTravelers(fieldValues));
-        }
-        else {
+        } else {
             LOG.debug("Doing search for customers");
             searchResults.addAll(getNonEmployeesAsTravelers(fieldValues));
         }
@@ -110,13 +108,13 @@ public class TravelerLookupableHelperServiceImpl extends KualiLookupableHelperSe
         super.validateSearchParameters(fieldValues);
 
         if (fieldValues.get(TRVL_DOC_TRAVELER_TYP_CD) == null || fieldValues.get(TRVL_DOC_TRAVELER_TYP_CD).equals("")) {
-            GlobalVariables.getMessageMap().putError(TRVL_DOC_TRAVELER_TYP_CD, ERROR_TRAVELER_TYPES_NOT_SELECTED, new String[] { (String) fieldValues.get(TRVL_DOC_TRAVELER_TYP_CD) });
+            GlobalVariables.getMessageMap().putError(TRVL_DOC_TRAVELER_TYP_CD, ERROR_TRAVELER_TYPES_NOT_SELECTED, new String[]{(String) fieldValues.get(TRVL_DOC_TRAVELER_TYP_CD)});
         }
 
         if (!isEmployeeSearch(fieldValues) && !isNonEmployeeSearch(fieldValues)) {
             GlobalVariables.getMessageMap().putError(TRVL_DOC_TRAVELER_TYP_CD,
-                                                     ERROR_TRAVELER_TYPES_NOT_CONFIGURED,
-                                                     new String[] { (String) fieldValues.get(TRVL_DOC_TRAVELER_TYP_CD) });
+                ERROR_TRAVELER_TYPES_NOT_CONFIGURED,
+                new String[]{(String) fieldValues.get(TRVL_DOC_TRAVELER_TYP_CD)});
         }
 
         if (GlobalVariables.getMessageMap().hasErrors()) {
@@ -142,12 +140,10 @@ public class TravelerLookupableHelperServiceImpl extends KualiLookupableHelperSe
                 }
                 if (key != null) {
                     retval.put(key, value);
-                }
-                else {
+                } else {
                     LOG.warn("Got a null key for attribute name " + attrName);
                 }
-            }
-            else if (containsAttribute(boClass, attrName)) {
+            } else if (containsAttribute(boClass, attrName)) {
                 retval.put(attrName, fieldValues.get(attrName));
             }
         }
@@ -226,7 +222,7 @@ public class TravelerLookupableHelperServiceImpl extends KualiLookupableHelperSe
         }
 
         if (!isKimOnlySearch(fieldValues)) {
-            final Map<String, String> arFieldsForLookup  = this.getCustomerFieldValues(fieldValues);
+            final Map<String, String> arFieldsForLookup = this.getCustomerFieldValues(fieldValues);
             final Collection<AccountsReceivableCustomer> customers = getTravelerDao().findCustomersBy(arFieldsForLookup);
             for (AccountsReceivableCustomer customer : customers) {
                 travelers.add(getTravelerService().convertToTraveler(customer));
@@ -250,7 +246,7 @@ public class TravelerLookupableHelperServiceImpl extends KualiLookupableHelperSe
         final List<AccountsReceivableCustomerType> customerTypeList = getAccountsReceivableModuleService().findByCustomerTypeDescription(TemConstants.CUSTOMER_TRAVLER_TYPE_CODE);
         LOG.debug("Got customer types " + customerTypeList);
         LOG.debug("Got customer types " + customerTypeList.size());
-        if(customerTypeList != null && customerTypeList.size() > 0) {
+        if (customerTypeList != null && customerTypeList.size() > 0) {
             LOG.debug("Adding " + TemPropertyConstants.CUSTOMER_TYPE_CODE + " to fields to lookup");
             fieldsForLookup.put(TemPropertyConstants.CUSTOMER_TYPE_CODE, customerTypeList.get(0).getCustomerTypeCode());
         }
@@ -322,7 +318,7 @@ public class TravelerLookupableHelperServiceImpl extends KualiLookupableHelperSe
 
     protected Collection<FieldDefinition> getLookupFieldsFor(final String className) {
 
-        BusinessObjectEntry businessObjectEntry = (BusinessObjectEntry)getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(className);
+        BusinessObjectEntry businessObjectEntry = (BusinessObjectEntry) getDataDictionaryService().getDataDictionary().getBusinessObjectEntry(className);
         return businessObjectEntry.getLookupDefinition().getLookupFields();
     }
 

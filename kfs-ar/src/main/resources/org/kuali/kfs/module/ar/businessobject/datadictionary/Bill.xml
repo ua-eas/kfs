@@ -1,232 +1,231 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:dd="http://rice.kuali.org/dd"
-	xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://rice.kuali.org/dd http://rice.kuali.org/dd/dd.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-	<bean id="Bill" parent="Bill-parentBean" />
+    <bean id="Bill" parent="Bill-parentBean"/>
 
-	<bean id="Bill-parentBean" abstract="true" parent="BusinessObjectEntry">
-		<property name="businessObjectClass" value="org.kuali.kfs.module.ar.businessobject.Bill" />
-		<property name="inquiryDefinition">
-			<ref bean="Bill-inquiryDefinition" />
-		</property>
-		<property name="lookupDefinition">
-			<ref bean="Bill-lookupDefinition" />
-		</property>
-		<property name="titleAttribute" value="billNumber" />
-		<property name="objectLabel" value="Bill" />
-		<property name="attributes">
-			<list>
-				<ref bean="Bill-proposalNumber" />
-				<ref bean="Bill-billNumber" />
-				<ref bean="Bill-billIdentifier" />
-				<ref bean="Bill-billDescription" />
-				<ref bean="Bill-estimatedAmount" />
-				<ref bean="Bill-billDate" />
-				<ref bean="Bill-billed" />
-				<ref bean="Bill-active" />
-			</list>
-		</property>
-		<property name="relationships">
-			<list>
-				<bean parent="RelationshipDefinition" p:objectAttributeName="award" p:targetClass="org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward">
-					<property name="primitiveAttributes">
-						<list>
-							<bean parent="PrimitiveAttributeDefinition" p:sourceName="proposalNumber" p:targetName="proposalNumber" />
-						</list>
-					</property>
-				</bean>
-			</list>
-		</property>
-	</bean>
+    <bean id="Bill-parentBean" abstract="true" parent="BusinessObjectEntry">
+        <property name="businessObjectClass" value="org.kuali.kfs.module.ar.businessobject.Bill"/>
+        <property name="inquiryDefinition">
+            <ref bean="Bill-inquiryDefinition"/>
+        </property>
+        <property name="lookupDefinition">
+            <ref bean="Bill-lookupDefinition"/>
+        </property>
+        <property name="titleAttribute" value="billNumber"/>
+        <property name="objectLabel" value="Bill"/>
+        <property name="attributes">
+            <list>
+                <ref bean="Bill-proposalNumber"/>
+                <ref bean="Bill-billNumber"/>
+                <ref bean="Bill-billIdentifier"/>
+                <ref bean="Bill-billDescription"/>
+                <ref bean="Bill-estimatedAmount"/>
+                <ref bean="Bill-billDate"/>
+                <ref bean="Bill-billed"/>
+                <ref bean="Bill-active"/>
+            </list>
+        </property>
+        <property name="relationships">
+            <list>
+                <bean parent="RelationshipDefinition" p:objectAttributeName="award" p:targetClass="org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward">
+                    <property name="primitiveAttributes">
+                        <list>
+                            <bean parent="PrimitiveAttributeDefinition" p:sourceName="proposalNumber" p:targetName="proposalNumber"/>
+                        </list>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
 
-	<!-- Attribute Definitions -->
+    <!-- Attribute Definitions -->
 
-	<bean id="Bill-proposalNumber" parent="Bill-proposalNumber-parentBean" />
+    <bean id="Bill-proposalNumber" parent="Bill-proposalNumber-parentBean"/>
 
-	<bean id="Bill-proposalNumber-parentBean" abstract="true"
-		parent="ExternalizableAttributeDefinitionProxy"
-		p:sourceExternalizableBusinessObjectInterface="org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward"
-		p:sourceAttributeName="proposalNumber">
-		<property name="name" value="proposalNumber" />
-		<property name="maxLength" value="12" />
-		<property name="validationPattern">
-			<bean parent="AlphaNumericValidation" p:allowDash="true" />
-		</property>
-		<property name="control">
-			<ref bean="HiddenControl" />
-		</property>
-	</bean>
+    <bean id="Bill-proposalNumber-parentBean" abstract="true"
+          parent="ExternalizableAttributeDefinitionProxy"
+          p:sourceExternalizableBusinessObjectInterface="org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward"
+          p:sourceAttributeName="proposalNumber">
+        <property name="name" value="proposalNumber"/>
+        <property name="maxLength" value="12"/>
+        <property name="validationPattern">
+            <bean parent="AlphaNumericValidation" p:allowDash="true"/>
+        </property>
+        <property name="control">
+            <ref bean="HiddenControl"/>
+        </property>
+    </bean>
 
-	<bean id="Bill-billNumber" parent="Bill-billNumber-parentBean" />
+    <bean id="Bill-billNumber" parent="Bill-billNumber-parentBean"/>
 
-	<bean id="Bill-billNumber-parentBean" abstract="true"
-		parent="AttributeDefinition">
-		<property name="name" value="billNumber" />
-		<property name="label" value="Bill Number" />
-		<property name="shortLabel" value="BillNbr" />
-		<property name="maxLength" value="12" />
-		<property name="validationPattern">
-			<ref bean="NumericValidation" />
-		</property>
-		<property name="control">
-			<bean parent="TextControlDefinition" p:size="14" />
-		</property>
-	</bean>
+    <bean id="Bill-billNumber-parentBean" abstract="true"
+          parent="AttributeDefinition">
+        <property name="name" value="billNumber"/>
+        <property name="label" value="Bill Number"/>
+        <property name="shortLabel" value="BillNbr"/>
+        <property name="maxLength" value="12"/>
+        <property name="validationPattern">
+            <ref bean="NumericValidation"/>
+        </property>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="14"/>
+        </property>
+    </bean>
 
-	<bean id="Bill-billIdentifier" parent="Bill-billIdentifier-parentBean" />
+    <bean id="Bill-billIdentifier" parent="Bill-billIdentifier-parentBean"/>
 
-	<bean id="Bill-billIdentifier-parentBean" abstract="true"
-		parent="AttributeDefinition">
-		<property name="name" value="billIdentifier" />
-		<property name="forceUppercase" value="true" />
-		<property name="label" value="Bill Identifier" />
-		<property name="shortLabel" value="Identifier" />
-		<property name="maxLength" value="12" />
-		<property name="validationPattern">
-			<ref bean="NumericValidation" />
-		</property>
-		<property name="control">
-			<ref bean="HiddenControl" />
-		</property>
-	</bean>
+    <bean id="Bill-billIdentifier-parentBean" abstract="true"
+          parent="AttributeDefinition">
+        <property name="name" value="billIdentifier"/>
+        <property name="forceUppercase" value="true"/>
+        <property name="label" value="Bill Identifier"/>
+        <property name="shortLabel" value="Identifier"/>
+        <property name="maxLength" value="12"/>
+        <property name="validationPattern">
+            <ref bean="NumericValidation"/>
+        </property>
+        <property name="control">
+            <ref bean="HiddenControl"/>
+        </property>
+    </bean>
 
-	<bean id="Bill-billDescription" parent="Bill-billDescription-parentBean" />
+    <bean id="Bill-billDescription" parent="Bill-billDescription-parentBean"/>
 
-	<bean id="Bill-billDescription-parentBean" abstract="true"
-		parent="AttributeDefinition">
-		<property name="name" value="billDescription" />
-		<property name="label" value="Bill Description" />
-		<property name="shortLabel" value="Description" />
-		<property name="maxLength" value="45" />
-		<property name="validationPattern">
-			<ref bean="AnyCharacterWithWhitespaceValidation" />
-		</property>
-		<property name="control">
-			<bean parent="TextControlDefinition" p:size="47" />
-		</property>
-	</bean>
+    <bean id="Bill-billDescription-parentBean" abstract="true"
+          parent="AttributeDefinition">
+        <property name="name" value="billDescription"/>
+        <property name="label" value="Bill Description"/>
+        <property name="shortLabel" value="Description"/>
+        <property name="maxLength" value="45"/>
+        <property name="validationPattern">
+            <ref bean="AnyCharacterWithWhitespaceValidation"/>
+        </property>
+        <property name="control">
+            <bean parent="TextControlDefinition" p:size="47"/>
+        </property>
+    </bean>
 
-	<bean id="Bill-estimatedAmount" parent="Bill-estimatedAmount-parentBean" />
+    <bean id="Bill-estimatedAmount" parent="Bill-estimatedAmount-parentBean"/>
 
-	<bean id="Bill-estimatedAmount-parentBean" abstract="true"
-		parent="GenericAttributes-genericAmount">
-		<property name="name" value="estimatedAmount" />
-		<property name="label" value="Bill Amount" />
-		<property name="shortLabel" value="BillAmt" />
-		
-	</bean>
+    <bean id="Bill-estimatedAmount-parentBean" abstract="true"
+          parent="GenericAttributes-genericAmount">
+        <property name="name" value="estimatedAmount"/>
+        <property name="label" value="Bill Amount"/>
+        <property name="shortLabel" value="BillAmt"/>
 
-	<bean id="Bill-billDate" parent="Bill-billDate-parentBean" />
+    </bean>
 
-	<bean id="Bill-billDate-parentBean" abstract="true"
-		parent="GenericAttributes-genericDate">
-		<property name="name" value="billDate" />
-		<property name="label" value="Bill Date" />
-		<property name="shortLabel" value="BillDate" />
-	</bean>
+    <bean id="Bill-billDate" parent="Bill-billDate-parentBean"/>
 
-	<bean id="Bill-billed" parent="Bill-billed-parentBean" />
- 
-	<bean id="Bill-billed-parentBean" abstract="true"
- 		parent="GenericAttributes-genericBoolean">
-		<property name="name" value="billed" />
- 		<property name="label" value="Billed" />
-		<property name="shortLabel" value="billed" />
- 	</bean>
+    <bean id="Bill-billDate-parentBean" abstract="true"
+          parent="GenericAttributes-genericDate">
+        <property name="name" value="billDate"/>
+        <property name="label" value="Bill Date"/>
+        <property name="shortLabel" value="BillDate"/>
+    </bean>
 
-	<bean id="Bill-active" parent="Bill-active-parentBean"/>
+    <bean id="Bill-billed" parent="Bill-billed-parentBean"/>
 
-  	<bean id="Bill-active-parentBean" abstract="true" parent="GenericAttributes-activeIndicator">
-    	<property name="name" value="active"/>
-  	</bean>
+    <bean id="Bill-billed-parentBean" abstract="true"
+          parent="GenericAttributes-genericBoolean">
+        <property name="name" value="billed"/>
+        <property name="label" value="Billed"/>
+        <property name="shortLabel" value="billed"/>
+    </bean>
 
-	<!-- Business Object Inquiry Definition -->
+    <bean id="Bill-active" parent="Bill-active-parentBean"/>
 
-	<bean id="Bill-inquiryDefinition" parent="Bill-inquiryDefinition-parentBean" />
-	<bean id="Bill-inquiryDefinition-parentBean" abstract="true"
-		parent="InquiryDefinition">
-		<property name="title" value="Bill Inquiry" />
-		<property name="inquirySections">
-			<list>
-				<ref bean="Bill-inquirySectionDefinition" />
-			</list>
-		</property>
-	</bean>
+    <bean id="Bill-active-parentBean" abstract="true" parent="GenericAttributes-activeIndicator">
+        <property name="name" value="active"/>
+    </bean>
 
-	<bean id="Bill-inquirySectionDefinition" parent="Bill-inquirySectionDefinition-parentBean" />
-	<bean id="Bill-inquirySectionDefinition-parentBean"
-		parent="InquirySectionDefinition" abstract="true">
-		<property name="title" value="" />
-		<property name="inquiryFields">
-			<list>
-				<bean parent="FieldDefinition" p:attributeName="proposalNumber" />
-				<bean parent="FieldDefinition" p:attributeName="billNumber" />
-				<bean parent="FieldDefinition" p:attributeName="billIdentifier" />
-				<bean parent="FieldDefinition" p:attributeName="billDescription" />
-				<bean parent="FieldDefinition" p:attributeName="estimatedAmount" />
-				<bean parent="FieldDefinition" p:attributeName="billDate" />
-				<bean parent="FieldDefinition" p:attributeName="billed" />
-		        <bean parent="FieldDefinition" p:attributeName="active"/>
-			</list>
-		</property>
-	</bean>
+    <!-- Business Object Inquiry Definition -->
 
-	<!-- Business Object Lookup Definition -->
+    <bean id="Bill-inquiryDefinition" parent="Bill-inquiryDefinition-parentBean"/>
+    <bean id="Bill-inquiryDefinition-parentBean" abstract="true"
+          parent="InquiryDefinition">
+        <property name="title" value="Bill Inquiry"/>
+        <property name="inquirySections">
+            <list>
+                <ref bean="Bill-inquirySectionDefinition"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="Bill-inquirySectionDefinition" parent="Bill-inquirySectionDefinition-parentBean"/>
+    <bean id="Bill-inquirySectionDefinition-parentBean"
+          parent="InquirySectionDefinition" abstract="true">
+        <property name="title" value=""/>
+        <property name="inquiryFields">
+            <list>
+                <bean parent="FieldDefinition" p:attributeName="proposalNumber"/>
+                <bean parent="FieldDefinition" p:attributeName="billNumber"/>
+                <bean parent="FieldDefinition" p:attributeName="billIdentifier"/>
+                <bean parent="FieldDefinition" p:attributeName="billDescription"/>
+                <bean parent="FieldDefinition" p:attributeName="estimatedAmount"/>
+                <bean parent="FieldDefinition" p:attributeName="billDate"/>
+                <bean parent="FieldDefinition" p:attributeName="billed"/>
+                <bean parent="FieldDefinition" p:attributeName="active"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- Business Object Lookup Definition -->
 
 
-	<bean id="Bill-lookupDefinition" parent="Bill-lookupDefinition-parentBean" />
+    <bean id="Bill-lookupDefinition" parent="Bill-lookupDefinition-parentBean"/>
 
-	<bean id="Bill-lookupDefinition-parentBean" abstract="true"
-		parent="LookupDefinition">
-		<property name="title" value="Bill Lookup" />
+    <bean id="Bill-lookupDefinition-parentBean" abstract="true"
+          parent="LookupDefinition">
+        <property name="title" value="Bill Lookup"/>
 
-		<property name="defaultSort">
-			<bean parent="SortDefinition">
-			</bean>
-		</property>
-		<property name="lookupFields">
-			<list>
-				<bean parent="FieldDefinition" p:attributeName="proposalNumber" />
-				<bean parent="FieldDefinition" p:attributeName="billNumber" />
-				<bean parent="FieldDefinition" p:attributeName="billIdentifier" />
-				<bean parent="FieldDefinition" p:attributeName="billDescription" />
-				<bean parent="FieldDefinition" p:attributeName="estimatedAmount" />
-				<bean parent="FieldDefinition" p:attributeName="billDate" />
-				<bean parent="FieldDefinition" p:attributeName="billed" />
-		        <bean parent="FieldDefinition" p:attributeName="active" p:defaultValue="Y"/>
-			</list>
-		</property>
-		<property name="resultFields">
-			<list>
-				<bean parent="FieldDefinition" p:attributeName="proposalNumber" />
-				<bean parent="FieldDefinition" p:attributeName="billNumber" />
-				<bean parent="FieldDefinition" p:attributeName="billIdentifier" />
-				<bean parent="FieldDefinition" p:attributeName="billDescription" />
-				<bean parent="FieldDefinition" p:attributeName="estimatedAmount" />
-				<bean parent="FieldDefinition" p:attributeName="billDate" />
-				<bean parent="FieldDefinition" p:attributeName="billed" />
-		        <bean parent="FieldDefinition" p:attributeName="active" />
-			</list>
-		</property>
-	</bean>
+        <property name="defaultSort">
+            <bean parent="SortDefinition">
+            </bean>
+        </property>
+        <property name="lookupFields">
+            <list>
+                <bean parent="FieldDefinition" p:attributeName="proposalNumber"/>
+                <bean parent="FieldDefinition" p:attributeName="billNumber"/>
+                <bean parent="FieldDefinition" p:attributeName="billIdentifier"/>
+                <bean parent="FieldDefinition" p:attributeName="billDescription"/>
+                <bean parent="FieldDefinition" p:attributeName="estimatedAmount"/>
+                <bean parent="FieldDefinition" p:attributeName="billDate"/>
+                <bean parent="FieldDefinition" p:attributeName="billed"/>
+                <bean parent="FieldDefinition" p:attributeName="active" p:defaultValue="Y"/>
+            </list>
+        </property>
+        <property name="resultFields">
+            <list>
+                <bean parent="FieldDefinition" p:attributeName="proposalNumber"/>
+                <bean parent="FieldDefinition" p:attributeName="billNumber"/>
+                <bean parent="FieldDefinition" p:attributeName="billIdentifier"/>
+                <bean parent="FieldDefinition" p:attributeName="billDescription"/>
+                <bean parent="FieldDefinition" p:attributeName="estimatedAmount"/>
+                <bean parent="FieldDefinition" p:attributeName="billDate"/>
+                <bean parent="FieldDefinition" p:attributeName="billed"/>
+                <bean parent="FieldDefinition" p:attributeName="active"/>
+            </list>
+        </property>
+    </bean>
 </beans>

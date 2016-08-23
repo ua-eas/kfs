@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -31,50 +31,50 @@ import java.util.Map;
 
 public class RiceLocalContainerEntityManagerFactoryBean extends LocalContainerEntityManagerFactoryBean {
 
-	public RiceLocalContainerEntityManagerFactoryBean() {
-		throw new RuntimeException(getClass().getName() + " can not be constructed without a datasource");
-	}
+    public RiceLocalContainerEntityManagerFactoryBean() {
+        throw new RuntimeException(getClass().getName() + " can not be constructed without a datasource");
+    }
 
-	public RiceLocalContainerEntityManagerFactoryBean(DataSource datasource) {
-		this("", datasource);
-	}
+    public RiceLocalContainerEntityManagerFactoryBean(DataSource datasource) {
+        this("", datasource);
+    }
 
-	public RiceLocalContainerEntityManagerFactoryBean(String prefix, DataSource datasource) {
-		if (prefix.equals("")) {
-			prefix = "rice";
-		}
-		prefix += ".jpa.";
+    public RiceLocalContainerEntityManagerFactoryBean(String prefix, DataSource datasource) {
+        if (prefix.equals("")) {
+            prefix = "rice";
+        }
+        prefix += ".jpa.";
 
-		Config config = ConfigContext.getCurrentContextConfig();
+        Config config = ConfigContext.getCurrentContextConfig();
 
-		setPersistenceUnitManager(preparePersistentUnitManager(config, prefix, datasource));
-		setPersistenceXmlLocation(determineConfigProperty(config, prefix, "PersistenceXmlLocation", "META-INF/persistence.xml"));
-		setDataSource(datasource);
-		setPersistenceUnitName(determineConfigProperty(config, prefix, "PersistenceUnitName", "rice"));
-		setJpaDialect(new org.springframework.orm.jpa.vendor.HibernateJpaDialect());
-		setJpaPropertyMap(prepareJpaProperties(config, prefix));
-		//setJpaVendorAdapter(prepareJpaVendorAdapter(config, prefix));
+        setPersistenceUnitManager(preparePersistentUnitManager(config, prefix, datasource));
+        setPersistenceXmlLocation(determineConfigProperty(config, prefix, "PersistenceXmlLocation", "META-INF/persistence.xml"));
+        setDataSource(datasource);
+        setPersistenceUnitName(determineConfigProperty(config, prefix, "PersistenceUnitName", "rice"));
+        setJpaDialect(new org.springframework.orm.jpa.vendor.HibernateJpaDialect());
+        setJpaPropertyMap(prepareJpaProperties(config, prefix));
+        //setJpaVendorAdapter(prepareJpaVendorAdapter(config, prefix));
 
-		RicePersistenceUnitPostProcessor postProcessor = new RicePersistenceUnitPostProcessor();
-		postProcessor.setJtaDataSource(datasource);
-		setPersistenceUnitPostProcessors(new RicePersistenceUnitPostProcessor[] { postProcessor });
-	}
+        RicePersistenceUnitPostProcessor postProcessor = new RicePersistenceUnitPostProcessor();
+        postProcessor.setJtaDataSource(datasource);
+        setPersistenceUnitPostProcessors(new RicePersistenceUnitPostProcessor[]{postProcessor});
+    }
 
 
-	private PersistenceUnitManager preparePersistentUnitManager(Config config, String prefix, DataSource datasource) {
-		DefaultPersistenceUnitManager persistenceUnitManager = new DefaultPersistenceUnitManager();
-		persistenceUnitManager.setDefaultDataSource(datasource);
-		persistenceUnitManager.setPersistenceXmlLocations(new String[] {determineConfigProperty(config, prefix, "PersistenceXmlLocation", "META-INF/persistence.xml")});
-		persistenceUnitManager.setDefaultPersistenceUnitRootLocation(determineConfigProperty(config, prefix, "PersistenceUnitRootLocation", "classpath:"));
-		RicePersistenceUnitPostProcessor postProcessor = new RicePersistenceUnitPostProcessor();
-		postProcessor.setJtaDataSource(datasource);
-		persistenceUnitManager.setPersistenceUnitPostProcessors(new RicePersistenceUnitPostProcessor[] { postProcessor });
-		persistenceUnitManager.afterPropertiesSet();
-		return persistenceUnitManager;
-	}
+    private PersistenceUnitManager preparePersistentUnitManager(Config config, String prefix, DataSource datasource) {
+        DefaultPersistenceUnitManager persistenceUnitManager = new DefaultPersistenceUnitManager();
+        persistenceUnitManager.setDefaultDataSource(datasource);
+        persistenceUnitManager.setPersistenceXmlLocations(new String[]{determineConfigProperty(config, prefix, "PersistenceXmlLocation", "META-INF/persistence.xml")});
+        persistenceUnitManager.setDefaultPersistenceUnitRootLocation(determineConfigProperty(config, prefix, "PersistenceUnitRootLocation", "classpath:"));
+        RicePersistenceUnitPostProcessor postProcessor = new RicePersistenceUnitPostProcessor();
+        postProcessor.setJtaDataSource(datasource);
+        persistenceUnitManager.setPersistenceUnitPostProcessors(new RicePersistenceUnitPostProcessor[]{postProcessor});
+        persistenceUnitManager.afterPropertiesSet();
+        return persistenceUnitManager;
+    }
 
 	/*private JpaVendorAdapter prepareJpaVendorAdapter(Config config, String prefix) {
-		DevHibernateJpaVendorAdapter jpaVendorAdapter = new DevHibernateJpaVendorAdapter();
+        DevHibernateJpaVendorAdapter jpaVendorAdapter = new DevHibernateJpaVendorAdapter();
 		jpaVendorAdapter.setDatabasePlatform(determineConfigProperty(config, prefix, "DatabasePlatform", "org.hibernate.dialect.MySQLDialect"));
 		jpaVendorAdapter.setGenerateDdl(new Boolean(determineConfigProperty(config, prefix, "GenerateDdl", "false")));
 		jpaVendorAdapter.setSerializationFilename(determineConfigProperty(config, prefix, "SerializationFilename", "/tmp/Ejb3Configuration.out"));
@@ -85,15 +85,15 @@ public class RiceLocalContainerEntityManagerFactoryBean extends LocalContainerEn
 		return jpaVendorAdapter;
 	}*/
 
-	private Map<String, String> prepareJpaProperties(Config config, String prefix) {
-		Map<String, String> jpaProperties = new HashMap<String, String>();
+    private Map<String, String> prepareJpaProperties(Config config, String prefix) {
+        Map<String, String> jpaProperties = new HashMap<String, String>();
 
-		// Load in all user specified "JPAProperties" prefixed properties
-		jpaProperties.putAll(config.getPropertiesWithPrefix(prefix + "JpaProperties.", true));
+        // Load in all user specified "JPAProperties" prefixed properties
+        jpaProperties.putAll(config.getPropertiesWithPrefix(prefix + "JpaProperties.", true));
 
-		// Load in the defaults for a Hibernate JPA Setup. Since the JPA spec states that these properties will be ignored by
-		// vendors that do not understand them, we can add all of the necessary defaults per supported JPA vendor here.
-		jpaProperties.put("hibernate.show_sql", determineConfigProperty(config, prefix, "JpaProperties.hibernate.show_sql", "false"));
+        // Load in the defaults for a Hibernate JPA Setup. Since the JPA spec states that these properties will be ignored by
+        // vendors that do not understand them, we can add all of the necessary defaults per supported JPA vendor here.
+        jpaProperties.put("hibernate.show_sql", determineConfigProperty(config, prefix, "JpaProperties.hibernate.show_sql", "false"));
         jpaProperties.put("hibernate.format_sql", determineConfigProperty(config, prefix, "JpaProperties.hibernate.format_sql", "false"));
         jpaProperties.put("hibernate.use_sql_comments", determineConfigProperty(config, prefix, "JpaProperties.hibernate.use_sql_comments", "false"));
         // Default now JTOM rather than Atomikos. Atomikos can be used by setting (KULRICE-1909)
@@ -111,16 +111,16 @@ public class RiceLocalContainerEntityManagerFactoryBean extends LocalContainerEn
         // TODO: Add more vendor specific defaults...
 
         return jpaProperties;
-	}
+    }
 
-	private String determineConfigProperty(Config config, String prefix, String key, String defaultValue) {
-		String value = config.getProperty(prefix + key);
-		// fallback on the defaults (non-module based properties)
-		if (value == null) {
-			value = config.getProperty("rice.jpa." + key);
-		}
-		// fallback on the default value passed in if still no value found for key
-		return value == null ? defaultValue : value;
-	}
+    private String determineConfigProperty(Config config, String prefix, String key, String defaultValue) {
+        String value = config.getProperty(prefix + key);
+        // fallback on the defaults (non-module based properties)
+        if (value == null) {
+            value = config.getProperty("rice.jpa." + key);
+        }
+        // fallback on the default value passed in if still no value found for key
+        return value == null ? defaultValue : value;
+    }
 
 }

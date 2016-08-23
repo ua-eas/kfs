@@ -1,33 +1,39 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.document.maintenance;
-
-import static org.kuali.kfs.module.tem.TemConstants.EMP_TRAVELER_TYP_CD;
-import static org.kuali.kfs.module.tem.TemConstants.NONEMP_TRAVELER_TYP_CD;
-
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomer;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomerAddress;
 import org.kuali.kfs.integration.ar.AccountsReceivableModuleService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.exception.AuthorizationException;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.KRADServiceLocator;
+import org.kuali.kfs.krad.service.NoteService;
+import org.kuali.kfs.krad.service.SequenceAccessorService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemPropertyConstants;
@@ -47,57 +53,50 @@ import org.kuali.kfs.sys.service.FinancialSystemUserService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.krad.bo.DocumentHeader;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.exception.AuthorizationException;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.KRADServiceLocator;
-import org.kuali.kfs.krad.service.NoteService;
-import org.kuali.kfs.krad.service.SequenceAccessorService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.Map;
+
+import static org.kuali.kfs.module.tem.TemConstants.EMP_TRAVELER_TYP_CD;
+import static org.kuali.kfs.module.tem.TemConstants.NONEMP_TRAVELER_TYP_CD;
 
 public class TemProfileMaintainable extends FinancialSystemMaintainable {
 
     private static final Logger LOG = Logger.getLogger(TemProfileMaintainable.class);
     protected transient TemProfileAuthorizer authorizer;
 
-	/**
+    /**
      * This will create a new profile from either a principal id or from a customer number depending on what got filled out
-     *
      *
      * @see org.kuali.rice.kns.maintenance.Maintainable#setupNewFromExisting()
      */
     @Override
-    public void processAfterNew(MaintenanceDocument document, Map<String,String[]> parameters) {
+    public void processAfterNew(MaintenanceDocument document, Map<String, String[]> parameters) {
         super.processAfterNew(document, parameters);
         TravelerService travelerService = SpringContext.getBean(TravelerService.class);
         SequenceAccessorService sas = SpringContext.getBean(SequenceAccessorService.class);
 
         TemProfile temProfile = (TemProfile) super.getBusinessObject();
         Integer profileId = temProfile.getProfileId();
-        if(ObjectUtils.isNull(profileId)) {
+        if (ObjectUtils.isNull(profileId)) {
             Integer newProfileId = sas.getNextAvailableSequenceNumber(TemConstants.TEM_PROFILE_SEQ_NAME).intValue();
             temProfile.setProfileId(newProfileId);
         }
         String principalId = "";
         if (parameters.containsKey(KFSPropertyConstants.PRINCIPAL_ID)) {
             principalId = parameters.get(KFSPropertyConstants.PRINCIPAL_ID)[0];
-            if(StringUtils.isNotBlank(principalId)) {
+            if (StringUtils.isNotBlank(principalId)) {
                 //we want to set the principal
                 final Person person = getPersonService().getPerson(principalId);
                 temProfile.setPrincipal(person);
                 temProfile.setPrincipalId(principalId);
-                if(travelerService.isKimPersonEmployee(person)) {
+                if (travelerService.isKimPersonEmployee(person)) {
                     temProfile.setTravelerTypeCode(EMP_TRAVELER_TYP_CD);
                 } else {
                     temProfile.setTravelerTypeCode(NONEMP_TRAVELER_TYP_CD);
                 }
                 // set the profile's chart/org for permission check
                 String primaryDeptCode[] = person.getPrimaryDepartmentCode().split("-");
-                if(primaryDeptCode != null && primaryDeptCode.length == 2){
+                if (primaryDeptCode != null && primaryDeptCode.length == 2) {
                     temProfile.setHomeDeptChartOfAccountsCode(primaryDeptCode[0]);
                     temProfile.setHomeDeptOrgCode(primaryDeptCode[1]);
                 }
@@ -105,20 +104,20 @@ public class TemProfileMaintainable extends FinancialSystemMaintainable {
                 final Person currentUser = GlobalVariables.getUserSession().getPerson();
                 if (!(doesProfilePrincipalMatchCurrentUser(principalId) && getTemProfileAuthorizer().canEditOwnProfile(document, currentUser)) && !(getTemProfileAuthorizer().canCreateAnyProfile(document, currentUser))) {
                     throw new AuthorizationException(currentUser.getPrincipalName(),
-                            TemConstants.Permission.EDIT_ANY_PROFILE,
-                            this.getClass().getSimpleName());
+                        TemConstants.Permission.EDIT_ANY_PROFILE,
+                        this.getClass().getSimpleName());
                 }
             }
         }
         String customerNumber = "";
         if (parameters.containsKey(TemPropertyConstants.TemProfileProperties.CUSTOMER_NUMBER)) {
             customerNumber = parameters.get(TemPropertyConstants.TemProfileProperties.CUSTOMER_NUMBER)[0];
-            if(StringUtils.isNotBlank(customerNumber)) {
+            if (StringUtils.isNotBlank(customerNumber)) {
                 //we want to set the customer
                 AccountsReceivableCustomer person = getAccountsReceivableModuleService().findCustomer(customerNumber);
                 temProfile.setCustomer(person);
                 temProfile.setCustomerNumber(customerNumber);
-                if(travelerService.isCustomerEmployee(person)) {
+                if (travelerService.isCustomerEmployee(person)) {
                     temProfile.setTravelerTypeCode(EMP_TRAVELER_TYP_CD);
                 } else {
                     temProfile.setTravelerTypeCode(NONEMP_TRAVELER_TYP_CD);
@@ -131,8 +130,8 @@ public class TemProfileMaintainable extends FinancialSystemMaintainable {
                 // does the current user have the ability to initiate all tem profiles? if not, throw an exception
                 if (!(getTemProfileAuthorizer().canCreateAnyProfile(document, currentUser))) {
                     throw new AuthorizationException(currentUser.getPrincipalName(),
-                            TemConstants.Permission.EDIT_ANY_PROFILE,
-                            this.getClass().getSimpleName());
+                        TemConstants.Permission.EDIT_ANY_PROFILE,
+                        this.getClass().getSimpleName());
                 }
             }
         }
@@ -141,8 +140,7 @@ public class TemProfileMaintainable extends FinancialSystemMaintainable {
         if (document.isNew()) {
             if (StringUtils.isNotBlank(principalId)) {
                 document.getDocumentHeader().setDocumentDescription(trimDescription(TemConstants.NEW_TEM_PROFILE_DESCRIPTION_PREFIX + temProfile.getPrincipal().getName()));
-            }
-            else if (StringUtils.isNotBlank(customerNumber)) {
+            } else if (StringUtils.isNotBlank(customerNumber)) {
                 document.getDocumentHeader().setDocumentDescription(trimDescription(TemConstants.NEW_TEM_PROFILE_DESCRIPTION_PREFIX + temProfile.getCustomer().getCustomerName()));
             }
         }
@@ -150,6 +148,7 @@ public class TemProfileMaintainable extends FinancialSystemMaintainable {
 
     /**
      * Determines if the currently logged in user is the given principal
+     *
      * @param principalId the principal to check
      * @return true if the principal id belongs to the currently logged in user, false otherwise
      */
@@ -178,8 +177,8 @@ public class TemProfileMaintainable extends FinancialSystemMaintainable {
      */
     @Override
     public void processAfterEdit(MaintenanceDocument document, Map<String, String[]> parameters) {
-        populateInfo((TemProfile)document.getOldMaintainableObject().getBusinessObject());
-        populateInfo((TemProfile)document.getNewMaintainableObject().getBusinessObject());
+        populateInfo((TemProfile) document.getOldMaintainableObject().getBusinessObject());
+        populateInfo((TemProfile) document.getNewMaintainableObject().getBusinessObject());
         super.processAfterEdit(document, parameters);
     }
 
@@ -187,9 +186,9 @@ public class TemProfileMaintainable extends FinancialSystemMaintainable {
     public void doRouteStatusChange(DocumentHeader documentHeader) {
         super.doRouteStatusChange(documentHeader);
 
-        if (documentHeader.getWorkflowDocument().isProcessed()){
+        if (documentHeader.getWorkflowDocument().isProcessed()) {
             TemProfile temProfile = (TemProfile) super.getBusinessObject();
-            if(NONEMP_TRAVELER_TYP_CD.equals(temProfile.getTravelerTypeCode())) {
+            if (NONEMP_TRAVELER_TYP_CD.equals(temProfile.getTravelerTypeCode())) {
                 updateCustomerContactInformation(temProfile);
 
             }
@@ -199,8 +198,8 @@ public class TemProfileMaintainable extends FinancialSystemMaintainable {
     protected void updateCustomerContactInformation(TemProfile temProfile) {
         AccountsReceivableCustomer customer = temProfile.getCustomer();
         if (!ObjectUtils.isNull(customer) && !ObjectUtils.isNull(customer.getAccountsReceivableCustomerAddresses()) && !customer.getAccountsReceivableCustomerAddresses().isEmpty()) {
-            for(AccountsReceivableCustomerAddress customerAddress : customer.getAccountsReceivableCustomerAddresses()) {
-                if(ArKeyConstants.CustomerConstants.CUSTOMER_ADDRESS_TYPE_CODE_PRIMARY.equals(customerAddress.getAccountsReceivableCustomerAddressType().getCustomerAddressTypeCode())) {
+            for (AccountsReceivableCustomerAddress customerAddress : customer.getAccountsReceivableCustomerAddresses()) {
+                if (ArKeyConstants.CustomerConstants.CUSTOMER_ADDRESS_TYPE_CODE_PRIMARY.equals(customerAddress.getAccountsReceivableCustomerAddressType().getCustomerAddressTypeCode())) {
                     customerAddress.setCustomerLine1StreetAddress(temProfile.getTemProfileAddress().getStreetAddressLine1());
                     customerAddress.setCustomerLine2StreetAddress(temProfile.getTemProfileAddress().getStreetAddressLine2());
                     customerAddress.setCustomerCityName(temProfile.getTemProfileAddress().getCityName());
@@ -218,7 +217,6 @@ public class TemProfileMaintainable extends FinancialSystemMaintainable {
     }
 
     /**
-     *
      * @see org.kuali.kfs.sys.document.FinancialSystemMaintainable#answerSplitNodeQuestion(java.lang.String)
      */
     @Override
@@ -246,7 +244,6 @@ public class TemProfileMaintainable extends FinancialSystemMaintainable {
     }
 
     /**
-     *
      * This method returns true if:<br/>
      * When editing a profile
      * 1. The non-resident alien property has changed<br/>
@@ -254,6 +251,7 @@ public class TemProfileMaintainable extends FinancialSystemMaintainable {
      * When creating a new profile
      * 3. The non-resident alien property is set<br/>
      * 4. The citizenship is not US or blank<br/>
+     *
      * @return
      */
     protected boolean taxManagerRequiredRouting() {
@@ -293,7 +291,7 @@ public class TemProfileMaintainable extends FinancialSystemMaintainable {
     protected boolean travelerRequiredRouting() {
         TemProfile newTemProfile = (TemProfile) getParentMaintDoc().getNewMaintainableObject().getBusinessObject();
         String initiator = getParentMaintDoc().getDocumentHeader().getWorkflowDocument().getInitiatorPrincipalId();
-        if (newTemProfile.getPrincipalId() != null &&!newTemProfile.getPrincipalId().equals(initiator)) {
+        if (newTemProfile.getPrincipalId() != null && !newTemProfile.getPrincipalId().equals(initiator)) {
             return true;
         }
         return false;
@@ -303,8 +301,7 @@ public class TemProfileMaintainable extends FinancialSystemMaintainable {
         FinancialSystemMaintenanceDocument maintDoc = null;
         try {
             maintDoc = (FinancialSystemMaintenanceDocument) SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(getDocumentNumber());
-        }
-        catch (WorkflowException e) {
+        } catch (WorkflowException e) {
             throw new RuntimeException(e);
         }
         return maintDoc;
@@ -313,29 +310,29 @@ public class TemProfileMaintainable extends FinancialSystemMaintainable {
     @Override
     protected void refreshReferences(String referencesToRefresh) {
         //make call to super
-        super.refreshReferences( removeReferenceFromString(referencesToRefresh, "temProfileAddress") );
+        super.refreshReferences(removeReferenceFromString(referencesToRefresh, "temProfileAddress"));
     }
 
     /**
      * Removes a named reference from a referencesToRefresh string
      */
-    protected String removeReferenceFromString(String referencesToRefresh, String referenceToRemove){
+    protected String removeReferenceFromString(String referencesToRefresh, String referenceToRemove) {
         String newReference = referencesToRefresh;
 
-        if(ObjectUtils.isNotNull(newReference)){
+        if (ObjectUtils.isNotNull(newReference)) {
             int index = newReference.indexOf(referenceToRemove);
-            if(index != -1){
+            if (index != -1) {
                 //remove from beginning
-                if(index == 0){
+                if (index == 0) {
 
                     String suffix = "";
                     //add comma at end since there is more after this word
-                    if(newReference.length() != referenceToRemove.length()){
+                    if (newReference.length() != referenceToRemove.length()) {
                         suffix = ",";
                     }
                     newReference = referencesToRefresh.replaceAll("temProfileAddress" + suffix, "");
 
-                }else{
+                } else {
                     //removing from middle to end... either way, comma will be in front
                     newReference = referencesToRefresh.replaceAll("," + "temProfileAddress", "");
                 }
@@ -346,31 +343,31 @@ public class TemProfileMaintainable extends FinancialSystemMaintainable {
     }
 
 
-
-	/**
-	 *
-	 * This method trims the descriptionText to 40 characters.
-	 * @param descriptionText
-	 * @return
-	 */
-	protected String trimDescription(String descriptionText) {
+    /**
+     * This method trims the descriptionText to 40 characters.
+     *
+     * @param descriptionText
+     * @return
+     */
+    protected String trimDescription(String descriptionText) {
 
         if (descriptionText.length() > 40) {
             descriptionText = descriptionText.substring(0, 39);
         }
 
         return descriptionText;
-	}
+    }
 
-	/**
-	 * Reference getDocumentService.createNoteFromDocument
-	 *
-	 * This method creates a note on the maintenance doc indicating that a AR Customer record has been generated.
-	 * @param temProfile
-	 * @return
-	 */
-	protected Note addCustomerCreatedNote(TemProfile temProfile) {
-	    String text = "AR Customer ID " + temProfile.getCustomer().getCustomerNumber() + " has been generated";
+    /**
+     * Reference getDocumentService.createNoteFromDocument
+     * <p>
+     * This method creates a note on the maintenance doc indicating that a AR Customer record has been generated.
+     *
+     * @param temProfile
+     * @return
+     */
+    protected Note addCustomerCreatedNote(TemProfile temProfile) {
+        String text = "AR Customer ID " + temProfile.getCustomer().getCustomerNumber() + " has been generated";
         Note note = new Note();
 
         note.setNotePostedTimestamp(SpringContext.getBean(DateTimeService.class).getCurrentTimestamp());
@@ -381,16 +378,16 @@ public class TemProfileMaintainable extends FinancialSystemMaintainable {
         Person kualiUser = GlobalVariables.getUserSession().getPerson();
         note = getNoteService().createNote(note, temProfile, kualiUser.getPrincipalId());
         return note;
-	}
+    }
 
 
     /**
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#getNewCollectionLine(java.lang.String)
      */
     @Override
-    public PersistableBusinessObject getNewCollectionLine( String collectionName ) {
+    public PersistableBusinessObject getNewCollectionLine(String collectionName) {
         PersistableBusinessObject addLine = super.getNewCollectionLine(collectionName);
-        if (collectionName.equals("accounts")){
+        if (collectionName.equals("accounts")) {
             TemProfileAccount account = (TemProfileAccount) addLine;
             TemProfile temProfile = (TemProfile) super.getBusinessObject();
             account.setProfile(temProfile);
@@ -405,7 +402,7 @@ public class TemProfileMaintainable extends FinancialSystemMaintainable {
         return SpringContext.getBean(AccountsReceivableModuleService.class);
     }
 
-    public NoteService getNoteService(){
+    public NoteService getNoteService() {
         return KRADServiceLocator.getNoteService();
     }
 
@@ -414,7 +411,7 @@ public class TemProfileMaintainable extends FinancialSystemMaintainable {
      */
     protected TemProfileAuthorizer getTemProfileAuthorizer() {
         if (this.authorizer == null) {
-            authorizer = (TemProfileAuthorizer)getDocumentHelperService().getDocumentAuthorizer(TemConstants.TravelDocTypes.TRAVEL_PROFILE_DOCUMENT);
+            authorizer = (TemProfileAuthorizer) getDocumentHelperService().getDocumentAuthorizer(TemConstants.TravelDocTypes.TRAVEL_PROFILE_DOCUMENT);
         }
         return authorizer;
     }

@@ -1,36 +1,36 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.businessobject;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.Building;
 import org.kuali.kfs.sys.businessobject.Room;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.rice.location.api.LocationConstants;
 import org.kuali.rice.location.framework.campus.CampusEbo;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class CapitalAssetInformationDetail extends PersistableBusinessObjectBase {
 
@@ -44,13 +44,13 @@ public class CapitalAssetInformationDetail extends PersistableBusinessObjectBase
     protected String buildingSubRoomNumber;
     protected String capitalAssetTagNumber;
     protected String capitalAssetSerialNumber;
- 
+
     protected CampusEbo campus;
     protected Building building;
     protected Room room;
     protected CapitalAssetInformation capitalAssetInformation;
 
-    
+
     /**
      * Gets the documentNumber attribute.
      *
@@ -183,21 +183,21 @@ public class CapitalAssetInformationDetail extends PersistableBusinessObjectBase
      * @return Returns the campus.
      */
     public CampusEbo getCampus() {
-        if ( StringUtils.isBlank(campusCode) ) {
+        if (StringUtils.isBlank(campusCode)) {
             campus = null;
         } else {
-            if ( campus == null || !StringUtils.equals( campus.getCode(),campusCode) ) {
+            if (campus == null || !StringUtils.equals(campus.getCode(), campusCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(CampusEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(1);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(1);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, campusCode);
                     campus = moduleService.getExternalizableBusinessObject(CampusEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
-        
+
         return campus;
     }
 
@@ -266,6 +266,7 @@ public class CapitalAssetInformationDetail extends PersistableBusinessObjectBase
 
     /**
      * Gets the buildingSubRoomNumber attribute.
+     *
      * @return Returns the buildingSubRoomNumber.
      */
     public String getBuildingSubRoomNumber() {
@@ -274,6 +275,7 @@ public class CapitalAssetInformationDetail extends PersistableBusinessObjectBase
 
     /**
      * Sets the buildingSubRoomNumber attribute value.
+     *
      * @param buildingSubRoomNumber The buildingSubRoomNumber to set.
      */
     public void setBuildingSubRoomNumber(String buildingSubRoomNumber) {
@@ -281,7 +283,8 @@ public class CapitalAssetInformationDetail extends PersistableBusinessObjectBase
     }
 
     /**
-     * Gets the capitalAssetLineNumber attribute. 
+     * Gets the capitalAssetLineNumber attribute.
+     *
      * @return Returns the capitalAssetLineNumber.
      */
     public Integer getCapitalAssetLineNumber() {
@@ -290,6 +293,7 @@ public class CapitalAssetInformationDetail extends PersistableBusinessObjectBase
 
     /**
      * Sets the capitalAssetLineNumber attribute value.
+     *
      * @param capitalAssetLineNumber The capitalAssetLineNumber to set.
      */
     public void setCapitalAssetLineNumber(Integer capitalAssetLineNumber) {

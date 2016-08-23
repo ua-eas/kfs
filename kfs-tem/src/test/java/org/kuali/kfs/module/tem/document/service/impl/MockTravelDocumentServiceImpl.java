@@ -1,33 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.document.service.impl;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.kfs.integration.ar.AccountsReceivableOrganizationOptions;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.uif.field.LinkField;
 import org.kuali.kfs.module.tem.businessobject.ActualExpense;
 import org.kuali.kfs.module.tem.businessobject.ExpenseTypeAware;
 import org.kuali.kfs.module.tem.businessobject.GroupTraveler;
@@ -50,8 +45,13 @@ import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.uif.field.LinkField;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -72,8 +72,7 @@ public class MockTravelDocumentServiceImpl implements TravelDocumentService {
 
         if (StringUtils.equals(travelDocumentIdentifier, VALID_DOCUMENT_IDENTIFIER)) {
             return createTA();
-        }
-        else {
+        } else {
             return realTravelDocumentService.findRootForTravelReimbursement(travelDocumentIdentifier);
         }
     }
@@ -111,7 +110,9 @@ public class MockTravelDocumentServiceImpl implements TravelDocumentService {
         this.dateTimeService = dateTimeService;
     }
 
-/** methods which haven't been changed for testing **/
+    /**
+     * methods which haven't been changed for testing
+     **/
 
     @Override
     public String getMessageFrom(final String messageType, String... args) {
@@ -390,7 +391,7 @@ public class MockTravelDocumentServiceImpl implements TravelDocumentService {
 
     @Override
     public <T> List<T> importFile(final String fileContents, final Class<T> c, final String[] attributeNames,
-            final Map<String,List<String>> defaultValues, final Integer[] attributeMaxLength, final String tabErrorKey) {
+                                  final Map<String, List<String>> defaultValues, final Integer[] attributeMaxLength, final String tabErrorKey) {
         return realTravelDocumentService.importFile(fileContents, c, attributeNames, defaultValues, attributeMaxLength, tabErrorKey);
     }
 

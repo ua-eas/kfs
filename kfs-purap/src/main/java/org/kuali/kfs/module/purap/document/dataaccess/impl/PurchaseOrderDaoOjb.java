@@ -1,26 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document.dataaccess.impl;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryByCriteria;
@@ -37,6 +33,10 @@ import org.kuali.kfs.sys.util.TransactionalServiceUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * OJB implementation of PurchaseOrderDao.
@@ -106,11 +106,11 @@ public class PurchaseOrderDaoOjb extends PlatformAwareDaoBaseOjb implements Purc
         criteria.addEqualTo(PurapPropertyConstants.PURAP_DOC_ID, id);
         // we only need the document number, no need to get the entire document object
         ReportQueryByCriteria query = new ReportQueryByCriteria(PurchaseOrderDocument.class, new String[]{PurapPropertyConstants.DOCUMENT_NUMBER}, criteria);
-        query.addOrderByAscending(KFSPropertyConstants.DOCUMENT_HEADER+"."+KFSPropertyConstants.WORKFLOW_CREATE_DATE);
+        query.addOrderByAscending(KFSPropertyConstants.DOCUMENT_HEADER + "." + KFSPropertyConstants.WORKFLOW_CREATE_DATE);
         java.util.Iterator<Object[]> iter = getPersistenceBrokerTemplate().getReportQueryIteratorByQuery(query);
         if (iter.hasNext()) {
             final Object[] res = iter.next();
-            oldestDocumentNumber = (String)res[0];
+            oldestDocumentNumber = (String) res[0];
         }
         TransactionalServiceUtils.exhaustIterator(iter);
 
@@ -167,7 +167,7 @@ public class PurchaseOrderDaoOjb extends PlatformAwareDaoBaseOjb implements Purc
      * @see org.kuali.kfs.module.purap.document.dataaccess.PurchaseOrderDao#itemExistsOnPurchaseOrder(java.lang.Integer, java.lang.String)
      */
     @Override
-    public boolean itemExistsOnPurchaseOrder(Integer poItemLineNumber, String docNumber){
+    public boolean itemExistsOnPurchaseOrder(Integer poItemLineNumber, String docNumber) {
         boolean existsInPo = false;
 
         Criteria criteria = new Criteria();
@@ -175,7 +175,7 @@ public class PurchaseOrderDaoOjb extends PlatformAwareDaoBaseOjb implements Purc
         criteria.addEqualTo("itemLineNumber", poItemLineNumber);
 
         ReportQueryByCriteria rqbc = new ReportQueryByCriteria(PurchaseOrderItem.class, criteria);
-      //  rqbc.setAttributes(new String[] { KFSPropertyConstants.DOCUMENT_NUMBER });
+        //  rqbc.setAttributes(new String[] { KFSPropertyConstants.DOCUMENT_NUMBER });
         rqbc.addOrderByAscending(KFSPropertyConstants.DOCUMENT_NUMBER);
 
         List<PurchaseOrderItem> poItems = (List<PurchaseOrderItem>) getPersistenceBrokerTemplate().getCollectionByQuery(rqbc);
@@ -199,7 +199,7 @@ public class PurchaseOrderDaoOjb extends PlatformAwareDaoBaseOjb implements Purc
         for (String excludeCode : excludedVendorChoiceCodes) {
             criteria.addNotEqualTo(PurapPropertyConstants.VENDOR_CHOICE_CODE, excludeCode);
         }
-        criteria.addEqualTo(KFSPropertyConstants.DOCUMENT_HEADER+"."+KFSPropertyConstants.APPLICATION_DOCUMENT_STATUS, PurapConstants.PurchaseOrderStatuses.APPDOC_OPEN);
+        criteria.addEqualTo(KFSPropertyConstants.DOCUMENT_HEADER + "." + KFSPropertyConstants.APPLICATION_DOCUMENT_STATUS, PurapConstants.PurchaseOrderStatuses.APPDOC_OPEN);
         QueryByCriteria qbc = new QueryByCriteria(AutoClosePurchaseOrderView.class, criteria);
         if (LOG.isDebugEnabled()) {
             LOG.debug("getAllOpenPurchaseOrdersForAutoClose() Query criteria is " + criteria.toString());
@@ -239,9 +239,9 @@ public class PurchaseOrderDaoOjb extends PlatformAwareDaoBaseOjb implements Purc
     public List<PurchaseOrderDocument> getPendingPurchaseOrdersForFaxing() {
         LOG.debug("Getting pending purchase orders for faxing");
         Criteria criteria = new Criteria();
-        QueryByCriteria qbc = new QueryByCriteria(PurchaseOrderDocument.class,criteria);
+        QueryByCriteria qbc = new QueryByCriteria(PurchaseOrderDocument.class, criteria);
         List<PurchaseOrderDocument> l = (List<PurchaseOrderDocument>) getPersistenceBrokerTemplate().getCollectionByQuery(qbc);
 
         return l;
-   }
+    }
 }

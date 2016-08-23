@@ -1,40 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.document.web.struts;
 
-import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.ResourceBundle;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import net.sf.jasperreports.engine.JRParameter;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.util.WebUtils;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.BCConstants.Report.ReportSelectMode;
 import org.kuali.kfs.module.bc.BCKeyConstants;
@@ -67,8 +56,17 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSConstants.ReportGeneration;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.ReportGenerationService;
-import org.kuali.kfs.kns.util.WebUtils;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 /**
  * Struts Action Class for the Organization Report Selection Screen.
@@ -116,8 +114,7 @@ public class OrganizationReportSelectionAction extends BudgetExpansionAction {
         if (ReportSelectMode.SUBFUND.equals(reportMode.reportSelectMode)) {
             organizationReportSelectionForm.setSubFundPickList((List) SpringContext.getBean(BudgetReportsControlListService.class).retrieveSubFundList(principalName));
             organizationReportSelectionForm.setOperatingModeTitle(BCConstants.Report.SUB_FUND_SELECTION_TITLE);
-        }
-        else if (ReportSelectMode.OBJECT_CODE.equals(reportMode.reportSelectMode) || ReportSelectMode.REASON.equals(reportMode.reportSelectMode)) {
+        } else if (ReportSelectMode.OBJECT_CODE.equals(reportMode.reportSelectMode) || ReportSelectMode.REASON.equals(reportMode.reportSelectMode)) {
             organizationReportSelectionForm.setObjectCodePickList((List) SpringContext.getBean(BudgetReportsControlListService.class).retrieveObjectCodeList(principalName));
             organizationReportSelectionForm.setOperatingModeTitle(BCConstants.Report.OBJECT_CODE_SELECTION_TITLE);
             organizationReportSelectionForm.getBudgetConstructionReportThresholdSettings().setLockThreshold(reportMode.lockThreshold);
@@ -128,9 +125,9 @@ public class OrganizationReportSelectionAction extends BudgetExpansionAction {
 
     /**
      * Makes service calls to rebuild the report control and sub-fund or object code select lists if needed.
-     * 
-     * @param principalName - current user requesting the report
-     * @param buildHelper - contains the current and requested build states
+     *
+     * @param principalName    - current user requesting the report
+     * @param buildHelper      - contains the current and requested build states
      * @param reportSelectMode - indicates whether the report takes a sub-fund or object code select list
      */
     protected void buildControlLists(String principalName, Integer universityFiscalYear, ReportControlListBuildHelper buildHelper, ReportSelectMode reportSelectMode) {
@@ -142,8 +139,7 @@ public class OrganizationReportSelectionAction extends BudgetExpansionAction {
 
             if (ReportSelectMode.SUBFUND.equals(reportSelectMode)) {
                 budgetReportsControlListService.updateReportSubFundGroupSelectList(principalName);
-            }
-            else if (ReportSelectMode.OBJECT_CODE.equals(reportSelectMode) || ReportSelectMode.REASON.equals(reportSelectMode)) {
+            } else if (ReportSelectMode.OBJECT_CODE.equals(reportSelectMode) || ReportSelectMode.REASON.equals(reportSelectMode)) {
                 budgetReportsControlListService.updateReportObjectCodeSelectList(principalName);
             }
 
@@ -163,10 +159,10 @@ public class OrganizationReportSelectionAction extends BudgetExpansionAction {
         if (!storeCodeSelections(organizationReportSelectionForm, reportMode, principalId)) {
             return mapping.findForward(KFSConstants.MAPPING_BASIC);
         }
-        
+
         // validate threshold settings if needed
-        if (reportMode == BudgetConstructionReportMode.REASON_STATISTICS_REPORT || reportMode == BudgetConstructionReportMode.REASON_SUMMARY_REPORT || reportMode == BudgetConstructionReportMode.SALARY_SUMMARY_REPORT){
-            if (!this.validThresholdSettings(organizationReportSelectionForm.getBudgetConstructionReportThresholdSettings())){
+        if (reportMode == BudgetConstructionReportMode.REASON_STATISTICS_REPORT || reportMode == BudgetConstructionReportMode.REASON_SUMMARY_REPORT || reportMode == BudgetConstructionReportMode.SALARY_SUMMARY_REPORT) {
+            if (!this.validThresholdSettings(organizationReportSelectionForm.getBudgetConstructionReportThresholdSettings())) {
                 return mapping.findForward(KFSConstants.MAPPING_BASIC);
             }
         }
@@ -189,8 +185,7 @@ public class OrganizationReportSelectionAction extends BudgetExpansionAction {
             messageList.add(BCConstants.Report.MSG_REPORT_NO_DATA);
             SpringContext.getBean(BudgetConstructionReportsServiceHelper.class).generatePdf(messageList, baos);
             WebUtils.saveMimeOutputStreamAsFile(response, ReportGeneration.PDF_MIME_TYPE, baos, reportMode.jasperFileName + ReportGeneration.PDF_FILE_EXTENSION);
-        }
-        else {
+        } else {
             ResourceBundle resourceBundle = ResourceBundle.getBundle(BCConstants.Report.REPORT_MESSAGES_CLASSPATH, Locale.getDefault());
             Map<String, Object> reportData = new HashMap<String, Object>();
             reportData.put(JRParameter.REPORT_RESOURCE_BUNDLE, resourceBundle);
@@ -204,11 +199,11 @@ public class OrganizationReportSelectionAction extends BudgetExpansionAction {
 
     /**
      * Checks and stores sub-fund, object code, or reason code list depenending on the report mode and which screen we are on.
-     * 
+     *
      * @param organizationReportSelectionForm - OrganizationReportSelectionForm containing the select lists
-     * @param reportMode - BudgetConstructionReportMode for the report being ran
+     * @param reportMode                      - BudgetConstructionReportMode for the report being ran
      * @return - true if a selection was found and the list was stored or if we need to show reason code select screen, false
-     *         otherwise
+     * otherwise
      */
     protected boolean storeCodeSelections(OrganizationReportSelectionForm organizationReportSelectionForm, BudgetConstructionReportMode reportMode, String principalName) {
         boolean codeSelected = true;
@@ -218,8 +213,7 @@ public class OrganizationReportSelectionAction extends BudgetExpansionAction {
             if (!storedSelectedSubFunds(organizationReportSelectionForm.getSubFundPickList())) {
                 codeSelected = false;
             }
-        }
-        else if (organizationReportSelectionForm.getOperatingModeTitle().equals(BCConstants.Report.OBJECT_CODE_SELECTION_TITLE)) {
+        } else if (organizationReportSelectionForm.getOperatingModeTitle().equals(BCConstants.Report.OBJECT_CODE_SELECTION_TITLE)) {
             // came from object code select screen so need to store object code selection settings
             if (!storedSelectedObjectCodes(organizationReportSelectionForm.getObjectCodePickList())) {
                 codeSelected = false;
@@ -237,8 +231,7 @@ public class OrganizationReportSelectionAction extends BudgetExpansionAction {
                 organizationReportSelectionForm.setOperatingModeTitle(BCConstants.Report.REASON_CODE_SELECTION_TITLE);
                 codeSelected = false;
             }
-        }
-        else if (organizationReportSelectionForm.getOperatingModeTitle().equals(BCConstants.Report.REASON_CODE_SELECTION_TITLE)) {
+        } else if (organizationReportSelectionForm.getOperatingModeTitle().equals(BCConstants.Report.REASON_CODE_SELECTION_TITLE)) {
             // came from reason code select screen so need to store reason code selection settings
             if (!storedSelectedReasonCodes(organizationReportSelectionForm.getReasonCodePickList())) {
                 codeSelected = false;
@@ -251,11 +244,11 @@ public class OrganizationReportSelectionAction extends BudgetExpansionAction {
     /**
      * Calls the report service for the given reportMode to build the report data in the db then populate the reports objects for
      * rendering to pdf.
-     * 
-     * @param reportMode - BudgetConstructionReportMode indicates which report we are running
-     * @param universityFiscalYear - budget fiscal year
-     * @param principalId - user running report
-     * @param runConsolidated - indicates whether the report should be ran consolidated (if it has a consolidated option)
+     *
+     * @param reportMode                                - BudgetConstructionReportMode indicates which report we are running
+     * @param universityFiscalYear                      - budget fiscal year
+     * @param principalId                               - user running report
+     * @param runConsolidated                           - indicates whether the report should be ran consolidated (if it has a consolidated option)
      * @param budgetConstructionReportThresholdSettings - contains threshold setting options
      * @return Collection - Reports objects that contain built data
      */
@@ -413,7 +406,7 @@ public class OrganizationReportSelectionAction extends BudgetExpansionAction {
     /**
      * Checks that at least one sub fund is selected and stores the selection settings. If no sub fund is selected, an error message
      * is displayed to the user.
-     * 
+     *
      * @param subFundPickList - List of BudgetConstructionSubFundPick objects to check
      * @return boolean - true if there was a selection and the list was saved, otherwise false
      */
@@ -430,8 +423,7 @@ public class OrganizationReportSelectionAction extends BudgetExpansionAction {
         // if selection was found, save the sub-fund selections, otherwise build error message
         if (foundSelected) {
             SpringContext.getBean(BudgetReportsControlListService.class).updateSubFundSelectFlags(subFundPickList);
-        }
-        else {
+        } else {
             GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, BCKeyConstants.ERROR_BUDGET_SUBFUND_NOT_SELECTED);
         }
 
@@ -441,7 +433,7 @@ public class OrganizationReportSelectionAction extends BudgetExpansionAction {
     /**
      * Checks that at least one object code is selected and stores the selection settings. If no object code is selected, an error
      * message is displayed to the user.
-     * 
+     *
      * @param objectCodePickList - List of BudgetConstructionObjectPick objects to check
      * @return boolean - true if there was a selection and the list was saved, otherwise false
      */
@@ -459,8 +451,7 @@ public class OrganizationReportSelectionAction extends BudgetExpansionAction {
         // if selection was found, save the object code selections, otherwise build error message
         if (foundSelected) {
             SpringContext.getBean(BudgetReportsControlListService.class).updateObjectCodeSelectFlags(objectCodePickList);
-        }
-        else {
+        } else {
             GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, BCKeyConstants.ERROR_BUDGET_OBJECT_CODE_NOT_SELECTED);
         }
 
@@ -470,7 +461,7 @@ public class OrganizationReportSelectionAction extends BudgetExpansionAction {
     /**
      * Checks that at least one reason code is selected and stores the selection settings. If no reason code is selected, an error
      * message is displayed to the user.
-     * 
+     *
      * @param reasonCodePickList - List of BudgetConstructionReasonCodePick objects to check
      * @return boolean - true if there was a selection and the list was saved, otherwise false
      */
@@ -488,8 +479,7 @@ public class OrganizationReportSelectionAction extends BudgetExpansionAction {
         // if selection was found, save the reason code selections, otherwise build error message
         if (foundSelected) {
             SpringContext.getBean(BudgetReportsControlListService.class).updateReasonCodeSelectFlags(reasonCodePickList);
-        }
-        else {
+        } else {
             GlobalVariables.getMessageMap().putError(KFSConstants.GLOBAL_ERRORS, BCKeyConstants.ERROR_BUDGET_REASON_CODE_NOT_SELECTED);
         }
 
@@ -497,17 +487,17 @@ public class OrganizationReportSelectionAction extends BudgetExpansionAction {
     }
 
     /**
-     * When apply threshold is checked, and displays error if no percent change threshold value is set.  
-     * 
+     * When apply threshold is checked, and displays error if no percent change threshold value is set.
+     *
      * @param thresholdSettings
      * @return
      */
-    protected boolean validThresholdSettings(BudgetConstructionReportThresholdSettings thresholdSettings){
+    protected boolean validThresholdSettings(BudgetConstructionReportThresholdSettings thresholdSettings) {
         Boolean thresholdSettingsValid = true;
-        if (thresholdSettings.isUseThreshold()){
-            if (thresholdSettings.getThresholdPercent() == null){
+        if (thresholdSettings.isUseThreshold()) {
+            if (thresholdSettings.getThresholdPercent() == null) {
                 thresholdSettingsValid = false;
-                GlobalVariables.getMessageMap().putError(BCPropertyConstants.BUDGET_CONSTRUCTION_REPORT_THRESHOLD_SETTINGS+"."+BCPropertyConstants.THRESHOLD_PERCENT, BCKeyConstants.ERROR_BUDGET_THRESHOLD_PERCENT_NEEDED);
+                GlobalVariables.getMessageMap().putError(BCPropertyConstants.BUDGET_CONSTRUCTION_REPORT_THRESHOLD_SETTINGS + "." + BCPropertyConstants.THRESHOLD_PERCENT, BCKeyConstants.ERROR_BUDGET_THRESHOLD_PERCENT_NEEDED);
             }
         }
         return thresholdSettingsValid;

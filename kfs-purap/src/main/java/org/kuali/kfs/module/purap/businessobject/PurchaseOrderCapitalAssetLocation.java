@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -21,20 +21,18 @@ package org.kuali.kfs.module.purap.businessobject;
 import org.kuali.kfs.integration.purap.CapitalAssetSystem;
 
 
-
-
 public class PurchaseOrderCapitalAssetLocation extends PurchasingCapitalAssetLocationBase {
 
     protected CapitalAssetSystem purchaseOrderCapitalAssetSystem;
 
-	/**
-	 * Default constructor.
-	 */
-	public PurchaseOrderCapitalAssetLocation() {
-	    super();
-	}
+    /**
+     * Default constructor.
+     */
+    public PurchaseOrderCapitalAssetLocation() {
+        super();
+    }
 
-	public CapitalAssetSystem getPurchaseOrderCapitalAssetSystem() {
+    public CapitalAssetSystem getPurchaseOrderCapitalAssetSystem() {
         return purchaseOrderCapitalAssetSystem;
     }
 

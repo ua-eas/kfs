@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -43,6 +43,7 @@ public class AccountingLinesTag extends BodyTagSupport {
 
     /**
      * Finds the KualiForm wherever it may be hiding
+     *
      * @return the KualiForm
      */
     public KualiAccountingDocumentFormBase getForm() {
@@ -54,17 +55,19 @@ public class AccountingLinesTag extends BodyTagSupport {
 
     /**
      * Retrieves the document
+     *
      * @return the document which is currently being operated on
      */
     public AccountingDocument getDocument() {
         if (document == null) {
-            document = (AccountingDocument)getForm().getDocument();
+            document = (AccountingDocument) getForm().getDocument();
         }
         return document;
     }
 
     /**
      * Adds a group to render for this go-round
+     *
      * @param group the group to render
      */
     public void addGroupToRender(AccountingLineGroup group) {
@@ -107,6 +110,7 @@ public class AccountingLinesTag extends BodyTagSupport {
 
     /**
      * Determines the cell count we're going to enforce, which is the maximum width in cell of any child group
+     *
      * @return the cell count we'll enforce
      */
     protected int getEnforcedCellCount() {
@@ -123,6 +127,7 @@ public class AccountingLinesTag extends BodyTagSupport {
      * Oh yeah, we're enforcing!  Oh yes we are!  We're going through all the accounting line groups and we're saying to them,
      * Hey!  Hey you group!  Are you going to render the number of cells that we've decided to enforce?  And if they're like: Oh, no,
      * I don't have that many cells, then we'll reset that group to render that many of cells!
+     *
      * @param cellCount the number of cells to uphold
      */
     protected void enforceCellCount(int cellCount) {
@@ -135,6 +140,7 @@ public class AccountingLinesTag extends BodyTagSupport {
 
     /**
      * Renders the beginning of the accounting line table, including the tab-container div
+     *
      * @param cellCount the number of cells this table is wide
      * @throws JspException thrown if rendering fails
      */
@@ -147,6 +153,7 @@ public class AccountingLinesTag extends BodyTagSupport {
 
     /**
      * Renders all the accounting line groups within this accounting line tag
+     *
      * @throws JspException thrown if something goes wrong
      */
     protected void renderGroups() throws JspException {
@@ -161,6 +168,7 @@ public class AccountingLinesTag extends BodyTagSupport {
 
     /**
      * Renders the footer for the accounting line table
+     *
      * @throws JspException thrown if something mysterious failed
      */
     protected void renderFooter() throws JspException {
@@ -170,6 +178,7 @@ public class AccountingLinesTag extends BodyTagSupport {
 
     /**
      * Removes the document from the tag
+     *
      * @see javax.servlet.jsp.tagext.BodyTagSupport#release()
      */
     @Override

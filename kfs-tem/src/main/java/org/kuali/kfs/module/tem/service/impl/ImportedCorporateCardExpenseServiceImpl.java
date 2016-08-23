@@ -1,29 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.service.impl;
-
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -46,6 +39,13 @@ import org.kuali.kfs.module.tem.util.ExpenseUtils;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper;
 import org.kuali.kfs.sys.context.SpringContext;
 
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 public class ImportedCorporateCardExpenseServiceImpl extends ExpenseServiceBase implements TemExpenseService {
 
     protected static Logger LOG = Logger.getLogger(ImportedCorporateCardExpenseServiceImpl.class);
@@ -57,44 +57,42 @@ public class ImportedCorporateCardExpenseServiceImpl extends ExpenseServiceBase 
      * @see org.kuali.kfs.module.tem.service.TemExpenseService#calculateDistributionTotals(org.kuali.kfs.module.tem.document.TravelDocument, java.util.Map, java.util.List)
      */
     @Override
-    public void calculateDistributionTotals(TravelDocument document, Map<String, AccountingDistribution> distributionMap, List<? extends TemExpense> expenses){
+    public void calculateDistributionTotals(TravelDocument document, Map<String, AccountingDistribution> distributionMap, List<? extends TemExpense> expenses) {
         String defaultChartCode = ExpenseUtils.getDefaultChartCode(document);
         for (TemExpense temExpense : (List<TemExpense>) expenses) {
 
             if (temExpense instanceof ImportedExpense) {
-                ImportedExpense expense = (ImportedExpense)temExpense;
-                if (expense.getExpenseDetails() != null && expense.getExpenseDetails().size() > 0){
+                ImportedExpense expense = (ImportedExpense) temExpense;
+                if (expense.getExpenseDetails() != null && expense.getExpenseDetails().size() > 0) {
                     //update the expense detail's card type (if null) to the expense's card type
-                    for (ImportedExpense imported : (List<ImportedExpense>)expense.getExpenseDetails()){
-                        if (imported.getExpenseParentId() != null && imported.getCardType() == null){
+                    for (ImportedExpense imported : (List<ImportedExpense>) expense.getExpenseDetails()) {
+                        if (imported.getExpenseParentId() != null && imported.getCardType() == null) {
                             imported.setCardType(expense.getCardType());
                         }
                     }
                     calculateDistributionTotals(document, distributionMap, expense.getExpenseDetails());
-                }
-                else {
+                } else {
                     if (expense.getCardType() != null
-                            && !expense.getCardType().equals(TemConstants.TRAVEL_TYPE_CTS)
-                            && !expense.getNonReimbursable()){
+                        && !expense.getCardType().equals(TemConstants.TRAVEL_TYPE_CTS)
+                        && !expense.getNonReimbursable()) {
                         expense.refreshReferenceObject(TemPropertyConstants.EXPENSE_TYPE_OBJECT_CODE);
                         ExpenseTypeObjectCode code = SpringContext.getBean(TravelExpenseService.class).getExpenseType(expense.getExpenseTypeCode(),
-                                document.getFinancialDocumentTypeCode(), document.getTripTypeCode(), document.getTraveler().getTravelerTypeCode());
+                            document.getFinancialDocumentTypeCode(), document.getTripTypeCode(), document.getTraveler().getTravelerTypeCode());
 
                         expense.setTravelExpenseTypeCode(code);
                         String financialObjectCode = expense.getExpenseTypeObjectCode() != null ? expense.getExpenseTypeObjectCode().getFinancialObjectCode() : null;
 
                         LOG.debug("Refreshed importedExpense with expense type code " + expense.getExpenseTypeObjectCode() +
-                                " and financialObjectCode " + financialObjectCode);
+                            " and financialObjectCode " + financialObjectCode);
 
                         final ObjectCode objCode = getObjectCodeService().getByPrimaryIdForCurrentYear(defaultChartCode, financialObjectCode);
-                        if (objCode != null && code != null && !code.getExpenseType().isPrepaidExpense()){
+                        if (objCode != null && code != null && !code.getExpenseType().isPrepaidExpense()) {
                             AccountingDistribution distribution = null;
                             String key = objCode.getCode() + "-" + expense.getCardType();
-                            if (distributionMap.containsKey(key)){
+                            if (distributionMap.containsKey(key)) {
                                 distributionMap.get(key).setSubTotal(distributionMap.get(key).getSubTotal().add(expense.getConvertedAmount()));
                                 distributionMap.get(key).setRemainingAmount(distributionMap.get(key).getRemainingAmount().add(expense.getConvertedAmount()));
-                            }
-                            else{
+                            } else {
                                 distribution = new AccountingDistribution();
                                 distribution.setObjectCode(objCode.getCode());
                                 distribution.setObjectCodeName(objCode.getName());
@@ -140,11 +138,11 @@ public class ImportedCorporateCardExpenseServiceImpl extends ExpenseServiceBase 
      * @see org.kuali.kfs.module.tem.service.impl.ExpenseServiceBase#validateExpenseCalculation(org.kuali.kfs.module.tem.businessobject.TemExpense)
      */
     @Override
-    public boolean validateExpenseCalculation(TemExpense expense){
+    public boolean validateExpenseCalculation(TemExpense expense) {
         return ((expense instanceof ImportedExpense)
-                && ((ImportedExpense)expense).getCardType() != null
-                && !StringUtils.defaultString(((ImportedExpense)expense).getCardType()).equals(TemConstants.TRAVEL_TYPE_CTS))
-                || (expense instanceof HistoricalExpenseAsTemExpenseWrapper && !StringUtils.equals(((HistoricalExpenseAsTemExpenseWrapper)expense).getCardType(), TemConstants.TRAVEL_TYPE_CTS));
+            && ((ImportedExpense) expense).getCardType() != null
+            && !StringUtils.defaultString(((ImportedExpense) expense).getCardType()).equals(TemConstants.TRAVEL_TYPE_CTS))
+            || (expense instanceof HistoricalExpenseAsTemExpenseWrapper && !StringUtils.equals(((HistoricalExpenseAsTemExpenseWrapper) expense).getCardType(), TemConstants.TRAVEL_TYPE_CTS));
     }
 
     /**
@@ -153,8 +151,8 @@ public class ImportedCorporateCardExpenseServiceImpl extends ExpenseServiceBase 
     @Override
     public void processExpense(TravelDocument travelDocument, GeneralLedgerPendingEntrySequenceHelper sequenceHelper) {
         //create glpe's for just corp cards;
-        for (TemSourceAccountingLine line : (List<TemSourceAccountingLine>)travelDocument.getSourceAccountingLines()){
-            if (creditCardAgencyService.getCorpCreditCardAgencyCodeList().contains(line.getCardType())){
+        for (TemSourceAccountingLine line : (List<TemSourceAccountingLine>) travelDocument.getSourceAccountingLines()) {
+            if (creditCardAgencyService.getCorpCreditCardAgencyCodeList().contains(line.getCardType())) {
                 importedExpensePendingEntryService.generateDocumentImportedExpenseGeneralLedgerPendingEntries(travelDocument, line, sequenceHelper, false, TemConstants.TravelDocTypes.REIMBURSABLE_CORPORATE_CARD_CHECK_ACH_DOCUMENT);
             }
         }
@@ -166,7 +164,7 @@ public class ImportedCorporateCardExpenseServiceImpl extends ExpenseServiceBase 
     @Override
     public void updateExpense(TravelDocument travelDocument) {
         List<HistoricalTravelExpense> historicalTravelExpenses = travelDocument.getHistoricalTravelExpenses();
-        for (HistoricalTravelExpense historicalTravelExpense : historicalTravelExpenses){
+        for (HistoricalTravelExpense historicalTravelExpense : historicalTravelExpenses) {
             if (historicalTravelExpense.isCreditCardTravelExpense() && (StringUtils.isBlank(historicalTravelExpense.getReconciled()) || StringUtils.equals(historicalTravelExpense.getReconciled(), TemConstants.ReconciledCodes.UNRECONCILED))) {
                 long time = (new java.util.Date()).getTime();
                 historicalTravelExpense.setReconciliationDate(new Date(time));

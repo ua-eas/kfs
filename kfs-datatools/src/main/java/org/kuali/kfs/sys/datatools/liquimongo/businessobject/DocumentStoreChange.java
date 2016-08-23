@@ -19,13 +19,9 @@
 package org.kuali.kfs.sys.datatools.liquimongo.businessobject;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import org.apache.commons.codec.binary.Hex;
 import org.kuali.kfs.sys.datatools.liquimongo.change.JsonUtils;
 import org.springframework.data.annotation.Transient;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -108,10 +104,10 @@ public class DocumentStoreChange {
     @Override
     public String toString() {
         return "DocumentStoreChange{" +
-                "changeId='" + changeId + '\'' +
-                ", fileName='" + fileName + '\'' +
-                ", changeDate=" + changeDate +
-                ", hash=" + hash +
-                '}';
+            "changeId='" + changeId + '\'' +
+            ", fileName='" + fileName + '\'' +
+            ", changeDate=" + changeDate +
+            ", hash=" + hash +
+            '}';
     }
 }

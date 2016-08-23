@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -64,18 +64,18 @@ public class TemCardApplicationAction extends FinancialSystemTransactionalDocume
         ActionForward forward = super.docHandler(mapping, form, request, response);
 
         Person currentUser = GlobalVariables.getUserSession().getPerson();
-        TemCardApplicationForm applicationForm = (TemCardApplicationForm)form;
+        TemCardApplicationForm applicationForm = (TemCardApplicationForm) form;
 
         String command = applicationForm.getCommand();
-        if (StringUtils.equals(KewApiConstants.INITIATE_COMMAND,command)) {
+        if (StringUtils.equals(KewApiConstants.INITIATE_COMMAND, command)) {
             final TemProfile profile = SpringContext.getBean(TemProfileService.class).findTemProfileByPrincipalId(currentUser.getPrincipalId());
-            if (profile == null){
+            if (profile == null) {
                 applicationForm.setEmptyProfile(true);
-                forward =  mapping.findForward(ERROR_FORWARD);
+                forward = mapping.findForward(ERROR_FORWARD);
             } else {
-                if (StringUtils.isEmpty(profile.getDefaultAccount())){
+                if (StringUtils.isEmpty(profile.getDefaultAccount())) {
                     applicationForm.setEmptyAccount(true);
-                    forward =  mapping.findForward(ERROR_FORWARD);
+                    forward = mapping.findForward(ERROR_FORWARD);
                 }
             }
         }
@@ -89,11 +89,11 @@ public class TemCardApplicationAction extends FinancialSystemTransactionalDocume
      */
     @Override
     public ActionForward approve(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        TemCardApplicationForm applicationForm = (TemCardApplicationForm)form;
+        TemCardApplicationForm applicationForm = (TemCardApplicationForm) form;
         CardApplicationDocument document = (CardApplicationDocument) applicationForm.getDocument();
-        if (document.getDocumentHeader().getWorkflowDocument().getApplicationDocumentStatus().equals(TemWorkflowConstants.RouteNodeNames.FISCAL_OFFICER_REVIEW)){
-            if (document instanceof CorporateCardApplicationDocument){
-                if (!((CorporateCardApplicationDocument)document).isDepartmentHeadAgreement()){
+        if (document.getDocumentHeader().getWorkflowDocument().getApplicationDocumentStatus().equals(TemWorkflowConstants.RouteNodeNames.FISCAL_OFFICER_REVIEW)) {
+            if (document instanceof CorporateCardApplicationDocument) {
+                if (!((CorporateCardApplicationDocument) document).isDepartmentHeadAgreement()) {
                     GlobalVariables.getMessageMap().putError("departmentHeadAgreement", TemKeyConstants.ERROR_TEM_CARD_APP_NO_AGREEMENT, "Department Head");
                 }
             }
@@ -101,7 +101,7 @@ public class TemCardApplicationAction extends FinancialSystemTransactionalDocume
         }
         Person currentUser = GlobalVariables.getUserSession().getPerson();
         if (SpringContext.getBean(TravelDocumentService.class).isTravelManager(currentUser)
-                && document.getDocumentHeader().getWorkflowDocument().getApplicationDocumentStatus().equals(TemWorkflowConstants.RouteNodeNames.APPLIED_TO_BANK)){
+            && document.getDocumentHeader().getWorkflowDocument().getApplicationDocumentStatus().equals(TemWorkflowConstants.RouteNodeNames.APPLIED_TO_BANK)) {
             document.sendAcknowledgement();
             document.approvedByBank();
             document.getDocumentHeader().getWorkflowDocument().setApplicationDocumentStatus(TemWorkflowConstants.RouteNodeNames.APPROVED_BY_BANK);
@@ -117,11 +117,11 @@ public class TemCardApplicationAction extends FinancialSystemTransactionalDocume
      */
     @Override
     public ActionForward disapprove(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        TemCardApplicationForm applicationForm = (TemCardApplicationForm)form;
+        TemCardApplicationForm applicationForm = (TemCardApplicationForm) form;
         CardApplicationDocument document = (CardApplicationDocument) applicationForm.getDocument();
         Person currentUser = GlobalVariables.getUserSession().getPerson();
         if (SpringContext.getBean(TravelDocumentService.class).isTravelManager(currentUser)
-                && document.getDocumentHeader().getWorkflowDocument().getApplicationDocumentStatus().equals(TemWorkflowConstants.RouteNodeNames.APPLIED_TO_BANK)){
+            && document.getDocumentHeader().getWorkflowDocument().getApplicationDocumentStatus().equals(TemWorkflowConstants.RouteNodeNames.APPLIED_TO_BANK)) {
             document.sendAcknowledgement();
         }
         return super.disapprove(mapping, form, request, response);
@@ -132,14 +132,14 @@ public class TemCardApplicationAction extends FinancialSystemTransactionalDocume
      */
     @Override
     public ActionForward route(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        TemCardApplicationForm applicationForm = (TemCardApplicationForm)form;
+        TemCardApplicationForm applicationForm = (TemCardApplicationForm) form;
         CardApplicationDocument document = (CardApplicationDocument) applicationForm.getDocument();
 
-        if (applicationForm.getDocument().getDocumentHeader().getWorkflowDocument().isInitiated()){
-            if (!document.isUserAgreement()){
+        if (applicationForm.getDocument().getDocumentHeader().getWorkflowDocument().isInitiated()) {
+            if (!document.isUserAgreement()) {
                 GlobalVariables.getMessageMap().putError("userAgreement", TemKeyConstants.ERROR_TEM_CARD_APP_NO_AGREEMENT, "User");
             }
-            if (StringUtils.isEmpty(document.getDocumentHeader().getDocumentDescription())){
+            if (StringUtils.isEmpty(document.getDocumentHeader().getDocumentDescription())) {
                 GlobalVariables.getMessageMap().putError("document.documentHeader.documentDescription", RiceKeyConstants.ERROR_REQUIRED, "Description");
             }
         }
@@ -148,11 +148,11 @@ public class TemCardApplicationAction extends FinancialSystemTransactionalDocume
     }
 
     public ActionForward applyToBank(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        TemCardApplicationForm applicationForm = (TemCardApplicationForm)form;
+        TemCardApplicationForm applicationForm = (TemCardApplicationForm) form;
         CardApplicationDocument document = (CardApplicationDocument) applicationForm.getDocument();
         Person currentUser = GlobalVariables.getUserSession().getPerson();
-        if (!SpringContext.getBean(TravelDocumentService.class).isTravelManager(currentUser)){
-            throw new AuthorizationException(GlobalVariables.getUserSession().getPerson().getPrincipalName(), "Apply To Bank",this.getClass().getSimpleName());
+        if (!SpringContext.getBean(TravelDocumentService.class).isTravelManager(currentUser)) {
+            throw new AuthorizationException(GlobalVariables.getUserSession().getPerson().getPrincipalName(), "Apply To Bank", this.getClass().getSimpleName());
         }
         document.applyToBank();
         document.getDocumentHeader().getWorkflowDocument().setApplicationDocumentStatus(TemWorkflowConstants.RouteNodeNames.APPLIED_TO_BANK);
@@ -162,17 +162,16 @@ public class TemCardApplicationAction extends FinancialSystemTransactionalDocume
 
 
     public ActionForward submit(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        TemCardApplicationForm applicationForm = (TemCardApplicationForm)form;
+        TemCardApplicationForm applicationForm = (TemCardApplicationForm) form;
         CardApplicationDocument document = (CardApplicationDocument) applicationForm.getDocument();
         Person currentUser = GlobalVariables.getUserSession().getPerson();
-        if (!SpringContext.getBean(TravelDocumentService.class).isTravelManager(currentUser)){
-            throw new AuthorizationException(GlobalVariables.getUserSession().getPerson().getPrincipalName(), "Submit",this.getClass().getSimpleName());
+        if (!SpringContext.getBean(TravelDocumentService.class).isTravelManager(currentUser)) {
+            throw new AuthorizationException(GlobalVariables.getUserSession().getPerson().getPrincipalName(), "Submit", this.getClass().getSimpleName());
         }
         document.getDocumentHeader().getWorkflowDocument().setApplicationDocumentStatus(TemWorkflowConstants.RouteNodeNames.PENDING_BANK_APPLICATION);
         document.saveAppDocStatus();
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
-
 
 
     @Override
@@ -183,7 +182,7 @@ public class TemCardApplicationAction extends FinancialSystemTransactionalDocume
         final Person currentUser = GlobalVariables.getUserSession().getPerson();
         TemProfile profile = SpringContext.getBean(TemProfileService.class).findTemProfileByPrincipalId(currentUser.getPrincipalId());
 
-        CardApplicationDocument document = (CardApplicationDocument)applicationForm.getDocument();
+        CardApplicationDocument document = (CardApplicationDocument) applicationForm.getDocument();
         document.getDocumentHeader().getWorkflowDocument().setApplicationDocumentStatus(TemWorkflowConstants.RouteNodeNames.APPLICATION);
         document.setTemProfile(profile);
         document.setTemProfileId(profile.getProfileId());
@@ -203,19 +202,18 @@ public class TemCardApplicationAction extends FinancialSystemTransactionalDocume
             return mapping.findForward(ERROR_FORWARD);
         }
 
-        if (profile.getAccounts() != null && profile.getAccounts().size() > 0){
+        if (profile.getAccounts() != null && profile.getAccounts().size() > 0) {
             boolean hasCardType = false;
-            for (TemProfileAccount account : profile.getAccounts()){
-                if (account.getCreditCardAgency().getTravelCardTypeCode().equals(TemConstants.TRAVEL_TYPE_CTS) && applicationForm.getDocTypeName().equals(TemConstants.TravelDocTypes.TRAVEL_CTS_CARD_DOCUMENT) ){
+            for (TemProfileAccount account : profile.getAccounts()) {
+                if (account.getCreditCardAgency().getTravelCardTypeCode().equals(TemConstants.TRAVEL_TYPE_CTS) && applicationForm.getDocTypeName().equals(TemConstants.TravelDocTypes.TRAVEL_CTS_CARD_DOCUMENT)) {
                     hasCardType = true;
                     break;
-                }
-                else if (account.getCreditCardAgency().getTravelCardTypeCode().equals(TemConstants.TRAVEL_TYPE_CORP) && applicationForm.getDocTypeName().equals(TemConstants.TravelDocTypes.TRAVEL_CORP_CARD_DOCUMENT)){
+                } else if (account.getCreditCardAgency().getTravelCardTypeCode().equals(TemConstants.TRAVEL_TYPE_CORP) && applicationForm.getDocTypeName().equals(TemConstants.TravelDocTypes.TRAVEL_CORP_CARD_DOCUMENT)) {
                     hasCardType = true;
                     break;
                 }
             }
-            if (hasCardType){
+            if (hasCardType) {
                 ActionMessage message = new ActionMessage(TemKeyConstants.MESSAGE_CARD_EXISTS_PROMPT);
                 ActionMessages messages = new ActionMessages();
                 messages.add(ActionMessages.GLOBAL_MESSAGE, message);
@@ -234,7 +232,7 @@ public class TemCardApplicationAction extends FinancialSystemTransactionalDocume
 
             String action = applicationForm.getDocTypeName().equals(TemConstants.TravelDocTypes.TRAVEL_CTS_CARD_DOCUMENT) ? CTS_ACTION : CORP_ACTION;
 
-            String lookupUrl = UrlFactory.parameterizeUrl(basePath +"/"+ action, parameters);
+            String lookupUrl = UrlFactory.parameterizeUrl(basePath + "/" + action, parameters);
             forward = new ActionForward(lookupUrl, true);
 
         }
@@ -266,7 +264,7 @@ public class TemCardApplicationAction extends FinancialSystemTransactionalDocume
 
         String action = applicationForm.getDocTypeName().equals(TemConstants.TravelDocTypes.TRAVEL_CTS_CARD_DOCUMENT) ? CTS_ACTION : CORP_ACTION;
 
-        String lookupUrl = UrlFactory.parameterizeUrl(basePath +"/"+ action, parameters);
+        String lookupUrl = UrlFactory.parameterizeUrl(basePath + "/" + action, parameters);
 
         return new ActionForward(lookupUrl, true);
     }

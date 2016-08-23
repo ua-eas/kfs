@@ -1,5 +1,23 @@
-import URL from 'url';
-import Cookie from 'js-cookie';
+/*
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+import URL from "url";
+import Cookie from "js-cookie";
 
 export function getKualiSessionId() {
     let kualiCookieRegex = new RegExp("kualiSessionId=([^;]+)");
@@ -29,17 +47,17 @@ function reconstructQueryWithBackdoorId(query, backdoorId) {
             prefixElements.push(key);
         }
     });
-    let reconstructedQuery = "?" + (prefixElements.length > 0 ? prefixElements.join("&") + "&" : "") + "backdoorId=" + backdoorId + (suffixElements.length > 0 ? "&"+suffixElements.join("&") : "");
+    let reconstructedQuery = "?" + (prefixElements.length > 0 ? prefixElements.join("&") + "&" : "") + "backdoorId=" + backdoorId + (suffixElements.length > 0 ? "&" + suffixElements.join("&") : "");
     return reconstructedQuery;
 }
 
 export function buildBackdoorIdAppender(backdoorId) {
     if (!backdoorId || backdoorId.length == 0) {
-        return function(link) {
+        return function (link) {
             return link;
         }
     }
-    return function(link) {
+    return function (link) {
         if (link && link.length > 0) {
             let linkUrl = URL.parse(link, true);
             if (linkUrl.query && Object.keys(linkUrl.query).length > 0) {
@@ -52,7 +70,7 @@ export function buildBackdoorIdAppender(backdoorId) {
 }
 
 export function buildKeyFromLabel(label) {
-    return label.toLowerCase().replace(/\s+/g, "-").replace("&","and");
+    return label.toLowerCase().replace(/\s+/g, "-").replace("&", "and");
 }
 
 export function ajaxCall(call) {
@@ -61,7 +79,7 @@ export function ajaxCall(call) {
         let headers = (Object.keys(call).indexOf('headers') > -1)
             ? call.headers
             : {};
-        headers['Authorization'] = 'bearer '+financialsAuthToken;
+        headers['Authorization'] = 'bearer ' + financialsAuthToken;
         call.headers = headers;
     }
     $.ajax(call);

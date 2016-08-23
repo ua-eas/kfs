@@ -1,22 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.coa.identity;
+
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.kim.role.RoleTypeServiceBase;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSKeyConstants;
+import org.kuali.kfs.sys.identity.KfsKimAttributes;
+import org.kuali.rice.core.api.uif.RemotableAttributeError;
+import org.kuali.rice.kim.api.KimConstants;
+import org.kuali.rice.kim.api.role.RoleMembership;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,16 +33,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSKeyConstants;
-import org.kuali.kfs.sys.identity.KfsKimAttributes;
-import org.kuali.rice.core.api.uif.RemotableAttributeError;
-import org.kuali.rice.kim.api.KimConstants;
-import org.kuali.rice.kim.api.role.RoleMembership;
-import org.kuali.kfs.kns.kim.role.RoleTypeServiceBase;
-
 
 
 /**
@@ -44,7 +43,7 @@ public class FinancialSystemUserRoleTypeServiceImpl extends RoleTypeServiceBase 
 
 
     @Override
-    protected boolean performMatch(Map<String,String> qualification, Map<String,String> roleQualifier) {
+    protected boolean performMatch(Map<String, String> qualification, Map<String, String> roleQualifier) {
         // if we can not find the qualifier which tells us to perform the match, just return true
         if (qualification == null || !Boolean.parseBoolean(qualification.get(PERFORM_QUALIFIER_MATCH))) {
             return true;
@@ -56,15 +55,15 @@ public class FinancialSystemUserRoleTypeServiceImpl extends RoleTypeServiceBase 
         }
         // exact match on namespace or qualifier namespace of kfs-sys works
         if (StringUtils.equals(roleQualifier.get(KimConstants.AttributeConstants.NAMESPACE_CODE), qualification.get(KimConstants.AttributeConstants.NAMESPACE_CODE))
-                || StringUtils.equals(KFSConstants.CoreModuleNamespaces.KFS, roleQualifier.get(KimConstants.AttributeConstants.NAMESPACE_CODE))) {
+            || StringUtils.equals(KFSConstants.CoreModuleNamespaces.KFS, roleQualifier.get(KimConstants.AttributeConstants.NAMESPACE_CODE))) {
             return true;
         }
         return false;
     }
 
     @Override
-    public List<RoleMembership> getMatchingRoleMemberships(Map<String,String> qualification, List<RoleMembership> roleMemberList) {
-        Map<String,String> translatedQualification = translateInputAttributes(qualification);
+    public List<RoleMembership> getMatchingRoleMemberships(Map<String, String> qualification, List<RoleMembership> roleMemberList) {
+        Map<String, String> translatedQualification = translateInputAttributes(qualification);
         validateRequiredAttributesAgainstReceived(translatedQualification);
         // if we can not find the qualifier which tells us to perform the match, just return all rows
         if (translatedQualification == null || translatedQualification.isEmpty() || !Boolean.parseBoolean(translatedQualification.get(PERFORM_QUALIFIER_MATCH))) {
@@ -80,8 +79,7 @@ public class FinancialSystemUserRoleTypeServiceImpl extends RoleTypeServiceBase 
             if (!(StringUtils.isBlank(rmi.getQualifier().get(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE)) || StringUtils.isBlank(rmi.getQualifier().get(KfsKimAttributes.ORGANIZATION_CODE)))) {
                 if (StringUtils.equals(translatedQualification.get(KimConstants.AttributeConstants.NAMESPACE_CODE), rmi.getQualifier().get(KimConstants.AttributeConstants.NAMESPACE_CODE))) {
                     namespaceMatch = rmi;
-                }
-                else if (StringUtils.equals(KFSConstants.ParameterNamespaces.KFS, rmi.getQualifier().get(KimConstants.AttributeConstants.NAMESPACE_CODE))) {
+                } else if (StringUtils.equals(KFSConstants.ParameterNamespaces.KFS, rmi.getQualifier().get(KimConstants.AttributeConstants.NAMESPACE_CODE))) {
                     nonNamespaceMatch = rmi;
                 }
             }
@@ -95,32 +93,32 @@ public class FinancialSystemUserRoleTypeServiceImpl extends RoleTypeServiceBase 
 
     /**
      * note: for validating KFS-SYS User membership
-     *   - if chart or org are specified, chart, org, and namespace are all required
-     *   - none are required if not
-     *   - can only have one assignment to the role for a given namespace - including no namespace
+     * - if chart or org are specified, chart, org, and namespace are all required
+     * - none are required if not
+     * - can only have one assignment to the role for a given namespace - including no namespace
      *
      * @see org.kuali.rice.kim.service.support.impl.KimTypeInfoServiceBase#validateAttributes(org.kuali.rice.kim.bo.types.dto.AttributeSet)
      */
     @Override
-    public List<RemotableAttributeError> validateAttributes(String kimTypeId, Map<String,String> attributes) {
-        List<RemotableAttributeError> errorList = new ArrayList <RemotableAttributeError>();
+    public List<RemotableAttributeError> validateAttributes(String kimTypeId, Map<String, String> attributes) {
+        List<RemotableAttributeError> errorList = new ArrayList<RemotableAttributeError>();
         errorList.addAll(super.validateAttributes(kimTypeId, attributes));
         String chartCode = attributes.get(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE);
         String organizationCode = attributes.get(KfsKimAttributes.ORGANIZATION_CODE);
         String namespaceCode = attributes.get(KimConstants.AttributeConstants.NAMESPACE_CODE);
-        if(StringUtils.isBlank(chartCode) && StringUtils.isBlank(organizationCode)){
+        if (StringUtils.isBlank(chartCode) && StringUtils.isBlank(organizationCode)) {
             //remove chartofAccountCode, organizationCode and namespaceCode errors
             //Object results = GlobalVariables.getMessageMap().getErrorMessagesForProperty(attributeName);
             //RiceKeyConstants.ERROR_REQUIRED
-            removeError(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE, errorList );
-            removeError(KfsKimAttributes.ORGANIZATION_CODE, errorList );
-            if(StringUtils.isBlank(namespaceCode)) {
-                removeError(KimConstants.AttributeConstants.NAMESPACE_CODE, errorList );
+            removeError(KfsKimAttributes.CHART_OF_ACCOUNTS_CODE, errorList);
+            removeError(KfsKimAttributes.ORGANIZATION_CODE, errorList);
+            if (StringUtils.isBlank(namespaceCode)) {
+                removeError(KimConstants.AttributeConstants.NAMESPACE_CODE, errorList);
             }
         } //- if chart or org are specified, chart, org, and namespace are all required
-          //- none are required if not
-        else if (StringUtils.isNotEmpty(chartCode) || StringUtils.isNotEmpty(organizationCode)){
-            if(StringUtils.isBlank(chartCode) || StringUtils.isBlank(organizationCode) || StringUtils.isBlank(namespaceCode)) {
+        //- none are required if not
+        else if (StringUtils.isNotEmpty(chartCode) || StringUtils.isNotEmpty(organizationCode)) {
+            if (StringUtils.isBlank(chartCode) || StringUtils.isBlank(organizationCode) || StringUtils.isBlank(namespaceCode)) {
                 errorList.add(RemotableAttributeError.Builder.create(KimConstants.AttributeConstants.NAMESPACE_CODE, KFSKeyConstants.ERROR_CHART_OR_ORG_NOTEMPTY_ALL_REQUIRED).build());
             }
         }
@@ -128,29 +126,29 @@ public class FinancialSystemUserRoleTypeServiceImpl extends RoleTypeServiceBase 
         return errorList;
     }
 
-    protected void removeError( String attributeName, Collection<RemotableAttributeError> errorList ) {
+    protected void removeError(String attributeName, Collection<RemotableAttributeError> errorList) {
         Iterator<RemotableAttributeError> iter = errorList.iterator();
-        while ( iter.hasNext() ) {
-            if ( StringUtils.equals( iter.next().getAttributeName(), attributeName ) ) {
+        while (iter.hasNext()) {
+            if (StringUtils.equals(iter.next().getAttributeName(), attributeName)) {
                 iter.remove();
             }
         }
     }
 
     @Override
-    public List<RemotableAttributeError> validateUniqueAttributes(String kimTypeId, Map<String,String> newAttributes, Map<String,String> oldAttributes){
+    public List<RemotableAttributeError> validateUniqueAttributes(String kimTypeId, Map<String, String> newAttributes, Map<String, String> oldAttributes) {
 
-        if(areAllAttributeValuesEmpty(newAttributes)){
+        if (areAllAttributeValuesEmpty(newAttributes)) {
             return Collections.emptyList();
         } else
             return super.validateUniqueAttributes(kimTypeId, newAttributes, oldAttributes);
     }
 
-    protected boolean areAllAttributeValuesEmpty( Map<String,String> attributes){
+    protected boolean areAllAttributeValuesEmpty(Map<String, String> attributes) {
         boolean areAllAttributesEmpty = true;
-        if(attributes!=null)
-            for(String attributeNameKey: attributes.keySet()){
-                if(StringUtils.isNotBlank(attributes.get(attributeNameKey))){
+        if (attributes != null)
+            for (String attributeNameKey : attributes.keySet()) {
+                if (StringUtils.isNotBlank(attributes.get(attributeNameKey))) {
                     areAllAttributesEmpty = false;
                     break;
                 }
@@ -159,7 +157,7 @@ public class FinancialSystemUserRoleTypeServiceImpl extends RoleTypeServiceBase 
     }
 
     @Override
-    public List<String> getUniqueAttributes(String kimTypeId){
+    public List<String> getUniqueAttributes(String kimTypeId) {
         return Collections.singletonList(KimConstants.AttributeConstants.NAMESPACE_CODE);
     }
 

@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -27,7 +27,7 @@ import java.util.Map;
  */
 public class CamsConstants {
     public static final String CAM_MODULE_CODE = "KFS-CAM";
-    public static final String[] MONTHS = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+    public static final String[] MONTHS = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
     public static final String SET_PERIOD_DEPRECIATION_AMOUNT_REGEX = "setperiod\\d.*depreciation\\damount";
     public static final String GET_PERIOD_DEPRECIATION_AMOUNT_REGEX = "getperiod\\d.*depreciation\\damount";
     public static final String CPTLAST_NBR_SEQ = "CPTLAST_NBR_SEQ";
@@ -194,6 +194,7 @@ public class CamsConstants {
         public static final String BAR_CODE_ERROR_DOCUMENT_IGNORES_LOCKS_NO = "N";
 
         public static final Map<String, String> statusDescription = new HashMap<String, String>();
+
         static {
             statusDescription.put(STATUS_CODE_CORRECTED, STATUS_CODE_CORRECTED_DESCRIPTION);
             statusDescription.put(STATUS_CODE_DELETED, STATUS_CODE_DELETED_DESCRIPTION);
@@ -280,9 +281,9 @@ public class CamsConstants {
         public static final String COLLECTION_ID_ASSET_REPAIR_HISTORY = "assetRepairHistory";
         public static final String SECTION_ID_COMPONENTS = "components";
         public static final String SECTION_ID_LOAN_INFORMATION = "equipmentLoanInformation";
-        public static final String[] EDIT_DETAIL_INFORMATION_FIELDS = new String[] { CamsPropertyConstants.Asset.ASSET_DATE_OF_SERVICE, CamsPropertyConstants.Asset.CAMPUS_TAG_NUMBER, CamsPropertyConstants.Asset.GOVERNMENT_TAG_NUMBER, CamsPropertyConstants.Asset.NATIONAL_STOCK_NUMBER, CamsPropertyConstants.Asset.MANUFACTURER_NAME, CamsPropertyConstants.Asset.MANUFACTURER_MODEL_NUMBER, CamsPropertyConstants.Asset.SERIAL_NUMBER, CamsPropertyConstants.Asset.CAMPUS_TAG_NUMBER, CamsPropertyConstants.Asset.OLD_TAG_NUMBER, CamsPropertyConstants.Asset.TOTAL_COST_AMOUNT, CamsPropertyConstants.Asset.FEDERAL_CONTRIBUTION, CamsPropertyConstants.Asset.ASSET_DEPRECIATION_DATE, CamsPropertyConstants.Asset.FINANCIAL_OBJECT_SUB_TYP_CODE };
-        public static final String[] EDIT_ORGANIZATION_INFORMATION_FIELDS = new String[] { CamsPropertyConstants.AssetOrganization.ASSET_ORGANIZATION + "." + CamsPropertyConstants.AssetOrganization.ORGANIZATION_TAG_NUMBER, CamsPropertyConstants.Asset.ESTIMATED_SELLING_PRICE, CamsPropertyConstants.Asset.RECEIVE_DATE, CamsPropertyConstants.Asset.REPLACEMENT_AMOUNT };
-        public static final String[] FABRICATION_INFORMATION_FIELDS = new String[] { CamsPropertyConstants.Asset.ESTIMATED_FABRICATION_COMPLETION_DATE, CamsPropertyConstants.Asset.FABRICATION_ESTIMATED_RETENTION_YEARS, CamsPropertyConstants.Asset.FABRICATION_ESTIMATED_TOTAL_AMOUNT };
+        public static final String[] EDIT_DETAIL_INFORMATION_FIELDS = new String[]{CamsPropertyConstants.Asset.ASSET_DATE_OF_SERVICE, CamsPropertyConstants.Asset.CAMPUS_TAG_NUMBER, CamsPropertyConstants.Asset.GOVERNMENT_TAG_NUMBER, CamsPropertyConstants.Asset.NATIONAL_STOCK_NUMBER, CamsPropertyConstants.Asset.MANUFACTURER_NAME, CamsPropertyConstants.Asset.MANUFACTURER_MODEL_NUMBER, CamsPropertyConstants.Asset.SERIAL_NUMBER, CamsPropertyConstants.Asset.CAMPUS_TAG_NUMBER, CamsPropertyConstants.Asset.OLD_TAG_NUMBER, CamsPropertyConstants.Asset.TOTAL_COST_AMOUNT, CamsPropertyConstants.Asset.FEDERAL_CONTRIBUTION, CamsPropertyConstants.Asset.ASSET_DEPRECIATION_DATE, CamsPropertyConstants.Asset.FINANCIAL_OBJECT_SUB_TYP_CODE};
+        public static final String[] EDIT_ORGANIZATION_INFORMATION_FIELDS = new String[]{CamsPropertyConstants.AssetOrganization.ASSET_ORGANIZATION + "." + CamsPropertyConstants.AssetOrganization.ORGANIZATION_TAG_NUMBER, CamsPropertyConstants.Asset.ESTIMATED_SELLING_PRICE, CamsPropertyConstants.Asset.RECEIVE_DATE, CamsPropertyConstants.Asset.REPLACEMENT_AMOUNT};
+        public static final String[] FABRICATION_INFORMATION_FIELDS = new String[]{CamsPropertyConstants.Asset.ESTIMATED_FABRICATION_COMPLETION_DATE, CamsPropertyConstants.Asset.FABRICATION_ESTIMATED_RETENTION_YEARS, CamsPropertyConstants.Asset.FABRICATION_ESTIMATED_TOTAL_AMOUNT};
         public static final String SECTION_TITLE_NO_PAYMENT = "- No payment exists for Capital Asset: ";
     }
 

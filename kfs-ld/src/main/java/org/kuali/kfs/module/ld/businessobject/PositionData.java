@@ -1,31 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.businessobject;
 
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.util.LinkedHashMap;
-
 import org.kuali.kfs.gl.Constant;
 import org.kuali.kfs.gl.businessobject.TransientBalanceInquiryAttributes;
 import org.kuali.kfs.integration.ld.LaborLedgerPositionData;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.util.LinkedHashMap;
 
 /**
  * Labor business object for PositionData
@@ -61,7 +61,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Gets the positionNumber
-     * 
+     *
      * @return Returns the positionNumber
      */
     @Override
@@ -71,7 +71,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Sets the positionNumber
-     * 
+     *
      * @param positionNumber The positionNumber to set.
      */
     public void setPositionNumber(String positionNumber) {
@@ -80,7 +80,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Gets the jobCode
-     * 
+     *
      * @return Returns the jobCode
      */
     @Override
@@ -90,7 +90,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Sets the jobCode
-     * 
+     *
      * @param jobCode The jobCode to set.
      */
     public void setJobCode(String jobCode) {
@@ -99,7 +99,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Gets the effectiveDate
-     * 
+     *
      * @return Returns the effectiveDate
      */
     @Override
@@ -109,7 +109,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Sets the effectiveDate
-     * 
+     *
      * @param effectiveDate The effectiveDate to set.
      */
     public void setEffectiveDate(Date effectiveDate) {
@@ -118,7 +118,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Gets the positionEffectiveStatus
-     * 
+     *
      * @return Returns the positionEffectiveStatus
      */
     @Override
@@ -128,7 +128,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Sets the positionEffectiveStatus
-     * 
+     *
      * @param positionEffectiveStatus The positionEffectiveStatus to set.
      */
     public void setPositionEffectiveStatus(String positionEffectiveStatus) {
@@ -137,7 +137,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Gets the description
-     * 
+     *
      * @return Returns the description
      */
     @Override
@@ -147,7 +147,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Sets the description
-     * 
+     *
      * @param description The description to set.
      */
     public void setDescription(String description) {
@@ -156,7 +156,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Gets the shortDescription
-     * 
+     *
      * @return Returns the shortDescription
      */
     @Override
@@ -166,7 +166,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Sets the shortDescription
-     * 
+     *
      * @param shortDescription The shortDescription to set.
      */
     public void setShortDescription(String shortDescription) {
@@ -175,7 +175,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Gets the businessUnit
-     * 
+     *
      * @return Returns the businessUnit
      */
     @Override
@@ -185,7 +185,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Sets the businessUnit
-     * 
+     *
      * @param businessUnit The businessUnit to set.
      */
     public void setBusinessUnit(String businessUnit) {
@@ -194,7 +194,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Gets the departmentId
-     * 
+     *
      * @return Returns the departmentId
      */
     @Override
@@ -204,7 +204,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Sets the departmentId
-     * 
+     *
      * @param departmentId The departmentId to set.
      */
     public void setDepartmentId(String departmentId) {
@@ -213,7 +213,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Gets the positionStatus
-     * 
+     *
      * @return Returns the positionStatus
      */
     @Override
@@ -223,7 +223,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Sets the positionStatus
-     * 
+     *
      * @param positionStatus The positionStatus to set.
      */
     public void setPositionStatus(String positionStatus) {
@@ -232,7 +232,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Gets the statusDate
-     * 
+     *
      * @return Returns the statusDate
      */
     @Override
@@ -242,7 +242,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Sets the statusDate
-     * 
+     *
      * @param statusDate The statusDate to set.
      */
     public void setStatusDate(Date statusDate) {
@@ -251,7 +251,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Gets the budgetedPosition
-     * 
+     *
      * @return Returns the budgetedPosition
      */
     @Override
@@ -261,7 +261,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Sets the budgetedPosition
-     * 
+     *
      * @param budgetedPosition The budgetedPosition to set.
      */
     public void setBudgetedPosition(String budgetedPosition) {
@@ -270,7 +270,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Gets the standardHoursDefault
-     * 
+     *
      * @return Returns the standardHoursDefault
      */
     public BigDecimal getStandardHoursDefault() {
@@ -279,7 +279,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Sets the standardHoursDefault
-     * 
+     *
      * @param standardHoursDefault The standardHoursDefault to set.
      */
     public void setStandardHoursDefault(BigDecimal standardHoursDefault) {
@@ -288,7 +288,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Gets the standardHoursFrequency
-     * 
+     *
      * @return Returns the standardHoursFrequency
      */
     @Override
@@ -298,7 +298,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Sets the standardHoursFrequency
-     * 
+     *
      * @param standardHoursFrequency The standardHoursFrequency to set.
      */
     public void setStandardHoursFrequency(String standardHoursFrequency) {
@@ -307,7 +307,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Gets the positionRegularTemporary
-     * 
+     *
      * @return Returns the positionRegularTemporary
      */
     @Override
@@ -317,7 +317,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Sets the positionRegularTemporary
-     * 
+     *
      * @param positionRegularTemporary The positionRegularTemporary to set.
      */
     public void setPositionRegularTemporary(String positionRegularTemporary) {
@@ -326,7 +326,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Gets the positionFullTimeEquivalency
-     * 
+     *
      * @return Returns the positionFullTimeEquivalency
      */
     @Override
@@ -336,7 +336,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Sets the positionFullTimeEquivalency
-     * 
+     *
      * @param positionFullTimeEquivalency The positionFullTimeEquivalency to set.
      */
     public void setPositionFullTimeEquivalency(BigDecimal positionFullTimeEquivalency) {
@@ -345,7 +345,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Gets the positionSalaryPlanDefault
-     * 
+     *
      * @return Returns the positionSalaryPlanDefault
      */
     @Override
@@ -355,7 +355,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Sets the positionSalaryPlanDefault
-     * 
+     *
      * @param positionSalaryPlanDefault The positionSalaryPlanDefault to set.
      */
     public void setPositionSalaryPlanDefault(String positionSalaryPlanDefault) {
@@ -364,7 +364,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Gets the positionGradeDefault
-     * 
+     *
      * @return Returns the positionGradeDefault
      */
     @Override
@@ -374,7 +374,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Sets the positionGradeDefault
-     * 
+     *
      * @param positionGradeDefault The positionGradeDefault to set.
      */
     public void setPositionGradeDefault(String positionGradeDefault) {
@@ -383,7 +383,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * construct the key list of the business object.
-     * 
+     *
      * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
      */
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
@@ -398,7 +398,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Gets the dummyBusinessObject
-     * 
+     *
      * @return Returns the dummyBusinessObject.
      */
     @Override
@@ -408,7 +408,7 @@ public class PositionData extends PersistableBusinessObjectBase implements Labor
 
     /**
      * Sets the dummyBusinessObject
-     * 
+     *
      * @param dummyBusinessObject The dummyBusinessObject to set.
      */
     public void setDummyBusinessObject(TransientBalanceInquiryAttributes dummyBusinessObject) {

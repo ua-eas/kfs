@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,9 +18,9 @@
  */
 package org.kuali.kfs.module.ar.web.struts;
 
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.businessobject.ContractsGrantsSuspendedInvoiceDetailReport;
-import org.kuali.kfs.kns.web.struts.form.LookupForm;
 import org.kuali.rice.krad.bo.BusinessObject;
 
 /**
@@ -29,6 +29,7 @@ import org.kuali.rice.krad.bo.BusinessObject;
 public class ContractsGrantsSuspendedInvoiceDetailReportLookupAction extends ContractsGrantsReportLookupAction {
     /**
      * This report does not have a title
+     *
      * @see org.kuali.kfs.module.ar.web.struts.ContractsGrantsReportLookupAction#generateReportTitle(org.kuali.rice.kns.web.struts.form.LookupForm)
      */
     @Override
@@ -38,6 +39,7 @@ public class ContractsGrantsSuspendedInvoiceDetailReportLookupAction extends Con
 
     /**
      * Returns "contractsGrantsSuspendedInvoiceDetailReportBuilderService"
+     *
      * @see org.kuali.kfs.module.ar.web.struts.ContractsGrantsReportLookupAction#getReportBuilderServiceBeanName()
      */
     @Override
@@ -47,6 +49,7 @@ public class ContractsGrantsSuspendedInvoiceDetailReportLookupAction extends Con
 
     /**
      * Returns the sort field for this report's pdf generation, "ContractsGrantsSuspendedInvoiceDetailReport"
+     *
      * @see org.kuali.kfs.module.ar.web.struts.ContractsGrantsReportLookupAction#getSortFieldName()
      */
     @Override
@@ -56,6 +59,7 @@ public class ContractsGrantsSuspendedInvoiceDetailReportLookupAction extends Con
 
     /**
      * Returns the class for ContractsGrantsSuspendedInvoiceDetailReport
+     *
      * @see org.kuali.kfs.module.ar.web.struts.ContractsGrantsReportLookupAction#getPrintSearchCriteriaClass()
      */
     @Override

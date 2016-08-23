@@ -1,49 +1,47 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.krad.service;
 
-import org.kuali.rice.core.api.CoreConstants;
-import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
 import org.kuali.kfs.krad.lookup.Lookupable;
 import org.kuali.kfs.krad.uif.service.AttributeQueryService;
 import org.kuali.kfs.krad.uif.service.ExpressionEvaluatorService;
 import org.kuali.kfs.krad.uif.service.ViewDictionaryService;
 import org.kuali.kfs.krad.uif.service.ViewService;
 import org.kuali.kfs.krad.workflow.service.WorkflowDocumentService;
+import org.kuali.rice.core.api.CoreConstants;
+import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
 
 /**
  * Service locator for the KRAD Web module
- *
- * 
  */
 public class KRADServiceLocatorWeb {
 
     public static final class Namespaces {
         public static final String MODULE_NAME = "krad";
         public static final String KRAD_NAMESPACE_PREFIX =
-                CoreConstants.Namespaces.ROOT_NAMESPACE_PREFIX + "/" + MODULE_NAME;
+            CoreConstants.Namespaces.ROOT_NAMESPACE_PREFIX + "/" + MODULE_NAME;
 
         /**
          * Namespace for the krad module which is compatible with Kuali Rice 2.0.x.
          */
         public static final String KRAD_NAMESPACE_2_0 =
-                KRAD_NAMESPACE_PREFIX + "/" + CoreConstants.Versions.VERSION_2_0;
+            KRAD_NAMESPACE_PREFIX + "/" + CoreConstants.Versions.VERSION_2_0;
 
     }
 

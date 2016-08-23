@@ -83,7 +83,7 @@ public class PurapGeneralLedgerTest {
 
     protected ItemType getItemType(String code) {
         ItemType it = new ItemType();
-        if ( ITEM.equals(code) ) {
+        if (ITEM.equals(code)) {
             it.setItemTypeCode(ITEM);
             it.setAdditionalChargeIndicator(false);
             it.setQuantityBasedGeneralLedgerIndicator(true);

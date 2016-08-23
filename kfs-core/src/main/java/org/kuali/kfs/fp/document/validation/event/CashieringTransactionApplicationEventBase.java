@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -31,9 +31,10 @@ import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEventBase;
 public class CashieringTransactionApplicationEventBase extends KualiDocumentEventBase implements CashieringTransactionApplicationEvent {
     private CashieringTransaction cashieringTransaction;
     private CashDrawer cashDrawer;
-    
+
     /**
      * Constructs a CashieringTransactionApplicationEventBase
+     *
      * @param description
      * @param errorPathPrefix
      * @param document
@@ -47,6 +48,7 @@ public class CashieringTransactionApplicationEventBase extends KualiDocumentEven
 
     /**
      * Returns the cashieringTransaction to validate
+     *
      * @see org.kuali.kfs.fp.document.validation.event.CashieringTransactionApplicationEvent#getCashieringTransaction()
      */
     public CashieringTransaction getCashieringTransaction() {
@@ -55,6 +57,7 @@ public class CashieringTransactionApplicationEventBase extends KualiDocumentEven
 
     /**
      * Returns the cash drawer the cashiering transaction will apply to
+     *
      * @see org.kuali.kfs.fp.document.validation.event.CashieringTransactionApplicationEvent#getCashDrawer()
      */
     public CashDrawer getCashDrawer() {
@@ -63,6 +66,7 @@ public class CashieringTransactionApplicationEventBase extends KualiDocumentEven
 
     /**
      * Returns CashManagingRule.class
+     *
      * @see org.kuali.rice.krad.rule.event.KualiDocumentEvent#getRuleInterfaceClass()
      */
     public Class getRuleInterfaceClass() {
@@ -71,10 +75,11 @@ public class CashieringTransactionApplicationEventBase extends KualiDocumentEven
 
     /**
      * Casts the rule to CashManagingRule and calls processCashieringTransactionApplication
+     *
      * @see org.kuali.rice.krad.rule.event.KualiDocumentEvent#invokeRuleMethod(org.kuali.rice.krad.rule.BusinessRule)
      */
     public boolean invokeRuleMethod(BusinessRule rule) {
-        return ((CashManagingRule)rule).processCashieringTransactionApplication(getCashDrawer(), getCashieringTransaction());
+        return ((CashManagingRule) rule).processCashieringTransactionApplication(getCashDrawer(), getCashieringTransaction());
     }
 
 }

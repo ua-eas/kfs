@@ -1,28 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.document.validation;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
@@ -32,10 +33,9 @@ import org.kuali.kfs.module.ar.document.service.MilestoneScheduleMaintenanceServ
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.impl.KfsMaintenanceDocumentRuleBase;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Rules for the MilestoneSchedule maintenance document.
@@ -65,7 +65,7 @@ public class MilestoneScheduleRule extends KfsMaintenanceDocumentRuleBase {
      * Check to see if a Bill with the same bill number already exists.
      *
      * @param collectionName name of the collection being added to
-     * @param line PersistableBusinessObject being added to the collection
+     * @param line           PersistableBusinessObject being added to the collection
      * @return true if there isn't already a bill with the same bill number, false otherwise
      */
     private boolean checkForDuplicateBillNumber(String collectionName, PersistableBusinessObject line) {
@@ -75,7 +75,7 @@ public class MilestoneScheduleRule extends KfsMaintenanceDocumentRuleBase {
             Milestone milestone = (Milestone) line;
             Long newMilestoneNumber = milestone.getMilestoneNumber();
 
-            for (Milestone existingMilestone: newMilestoneScheduleCopy.getMilestones()) {
+            for (Milestone existingMilestone : newMilestoneScheduleCopy.getMilestones()) {
                 if (existingMilestone.getMilestoneNumber().equals(newMilestoneNumber)) {
                     isValid = false;
                     putFieldError(collectionName, ArKeyConstants.ERROR_DUPLICATE_MILESTONE_NUMBER);
@@ -126,7 +126,7 @@ public class MilestoneScheduleRule extends KfsMaintenanceDocumentRuleBase {
         }
 
         if (!success) {
-            putFieldError(KFSPropertyConstants.PROPOSAL_NUMBER, ArKeyConstants.ERROR_AWARD_MILESTONE_SCHEDULE_INCORRECT_BILLING_FREQUENCY, new String[] { newMilestoneScheduleCopy.getProposalNumber().toString() });
+            putFieldError(KFSPropertyConstants.PROPOSAL_NUMBER, ArKeyConstants.ERROR_AWARD_MILESTONE_SCHEDULE_INCORRECT_BILLING_FREQUENCY, new String[]{newMilestoneScheduleCopy.getProposalNumber().toString()});
         }
 
         return success;
@@ -143,7 +143,7 @@ public class MilestoneScheduleRule extends KfsMaintenanceDocumentRuleBase {
         Set<Long> milestoneNumbers = new HashSet();
         Set<Long> duplicateMilestoneNumbers = new HashSet();
 
-        for (Milestone milestone: newMilestoneScheduleCopy.getMilestones()) {
+        for (Milestone milestone : newMilestoneScheduleCopy.getMilestones()) {
             if (!milestoneNumbers.add(milestone.getMilestoneNumber())) {
                 duplicateMilestoneNumbers.add(milestone.getMilestoneNumber());
             }
@@ -152,7 +152,7 @@ public class MilestoneScheduleRule extends KfsMaintenanceDocumentRuleBase {
         if (duplicateMilestoneNumbers.size() > 0) {
             isValid = false;
             int lineNum = 0;
-            for (Milestone milestone: newMilestoneScheduleCopy.getMilestones()) {
+            for (Milestone milestone : newMilestoneScheduleCopy.getMilestones()) {
                 // If the Milestone has already been copied to the Invoice, it will be readonly, the user won't have been able to change
                 // it and thus we don't need to highlight it as an error if it's a dupe. There will be another dupe in the list that
                 // we will highlight.

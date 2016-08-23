@@ -1,26 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.businessobject;
 
-import java.math.BigDecimal;
-
 import org.kuali.rice.core.api.util.type.KualiInteger;
+
+import java.math.BigDecimal;
 
 /**
  * Budget Construction Organization Account Summary Report Business Object.
@@ -1252,6 +1252,7 @@ public class BudgetConstructionOrgAccountObjectDetailReport {
 
     /**
      * Gets the subAccountNumberAndName attribute.
+     *
      * @return Returns the subAccountNumberAndName.
      */
     public String getSubAccountNumberAndName() {
@@ -1260,6 +1261,7 @@ public class BudgetConstructionOrgAccountObjectDetailReport {
 
     /**
      * Sets the subAccountNumberAndName attribute value.
+     *
      * @param subAccountNumberAndName The subAccountNumberAndName to set.
      */
     public void setSubAccountNumberAndName(String subAccountNumberAndName) {
@@ -1268,6 +1270,7 @@ public class BudgetConstructionOrgAccountObjectDetailReport {
 
     /**
      * Gets the accountNumberAndName attribute.
+     *
      * @return Returns the accountNumberAndName.
      */
     public String getAccountNumberAndName() {
@@ -1276,6 +1279,7 @@ public class BudgetConstructionOrgAccountObjectDetailReport {
 
     /**
      * Sets the accountNumberAndName attribute value.
+     *
      * @param accountNumberAndName The accountNumberAndName to set.
      */
     public void setAccountNumberAndName(String accountNumberAndName) {
@@ -1284,6 +1288,7 @@ public class BudgetConstructionOrgAccountObjectDetailReport {
 
     /**
      * Gets the divider attribute.
+     *
      * @return Returns the divider.
      */
     public String getDivider() {
@@ -1292,6 +1297,7 @@ public class BudgetConstructionOrgAccountObjectDetailReport {
 
     /**
      * Sets the divider attribute value.
+     *
      * @param divider The divider to set.
      */
     public void setDivider(String divider) {

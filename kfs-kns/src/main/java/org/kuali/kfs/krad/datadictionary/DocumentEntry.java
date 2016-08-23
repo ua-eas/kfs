@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -37,12 +37,10 @@ import java.util.Map;
 /**
  * A single Document entry in the DataDictionary, which contains information relating to the display, validation, and
  * general maintenance of a Document (transactional or maintenance) and its attributes
- *
+ * <p>
  * <p>
  * Note: the setters do copious amounts of validation, to facilitate generating errors during the parsing process
  * </p>
- *
- * 
  */
 public abstract class DocumentEntry extends DataDictionaryEntryBase {
     private static final long serialVersionUID = 8231730871830055356L;
@@ -70,7 +68,7 @@ public abstract class DocumentEntry extends DataDictionaryEntryBase {
 
     protected List<ReferenceDefinition> defaultExistenceChecks = new ArrayList<ReferenceDefinition>();
     protected Map<String, ReferenceDefinition> defaultExistenceCheckMap =
-            new LinkedHashMap<String, ReferenceDefinition>();
+        new LinkedHashMap<String, ReferenceDefinition>();
 
     public DocumentEntry() {
         super();
@@ -153,7 +151,7 @@ public abstract class DocumentEntry extends DataDictionaryEntryBase {
 
         if (workflowProperties != null && workflowAttributes != null) {
             throw new DataDictionaryException(documentTypeName +
-                    ": workflowProperties and workflowAttributes cannot both be defined for a document");
+                ": workflowProperties and workflowAttributes cannot both be defined for a document");
         }
     }
 
@@ -316,14 +314,14 @@ public abstract class DocumentEntry extends DataDictionaryEntryBase {
      * @param documentPresentationControllerClass
      */
     public void setDocumentPresentationControllerClass(
-            Class<? extends DocumentPresentationController> documentPresentationControllerClass) {
+        Class<? extends DocumentPresentationController> documentPresentationControllerClass) {
         this.documentPresentationControllerClass = documentPresentationControllerClass;
     }
 
     /**
      * @return List of all defaultExistenceCheck ReferenceDefinitions associated with this MaintenanceDocument, in the
-     *         order in
-     *         which they were added
+     * order in
+     * which they were added
      */
     public List<ReferenceDefinition> getDefaultExistenceChecks() {
         return defaultExistenceChecks;
@@ -343,8 +341,8 @@ public abstract class DocumentEntry extends DataDictionaryEntryBase {
 
     /**
      * @return List of all defaultExistenceCheck reference fieldNames associated with this MaintenanceDocument, in the
-     *         order in
-     *         which they were added
+     * order in
+     * which they were added
      */
     public List<String> getDefaultExistenceCheckFieldNames() {
         List<String> fieldNames = new ArrayList<String>();
@@ -358,7 +356,7 @@ public abstract class DocumentEntry extends DataDictionaryEntryBase {
     }
 
     public void setEncryptDocumentDataInPersistentSessionStorage(
-            boolean encryptDocumentDataInPersistentSessionStorage) {
+        boolean encryptDocumentDataInPersistentSessionStorage) {
         this.encryptDocumentDataInPersistentSessionStorage = encryptDocumentDataInPersistentSessionStorage;
     }
 
@@ -378,10 +376,10 @@ public abstract class DocumentEntry extends DataDictionaryEntryBase {
                 }
 
                 String keyName = reference.isCollectionReference() ?
-                        (reference.getCollection() + "." + reference.getAttributeName()) : reference.getAttributeName();
+                    (reference.getCollection() + "." + reference.getAttributeName()) : reference.getAttributeName();
                 if (defaultExistenceCheckMap.containsKey(keyName)) {
                     throw new DuplicateEntryException(
-                            "duplicate defaultExistenceCheck entry for attribute '" + keyName + "'");
+                        "duplicate defaultExistenceCheck entry for attribute '" + keyName + "'");
                 }
                 reference.setBusinessObjectClass(getEntryClass());
                 defaultExistenceCheckMap.put(keyName, reference);

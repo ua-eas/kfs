@@ -88,69 +88,91 @@ public class CoreAuthUser implements Serializable {
     public void setId(String id) {
         this.id = id;
     }
+
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public String getUsername() {
         return username;
     }
+
     public void setUsername(String username) {
         this.username = username;
     }
+
     public String getEmail() {
         return email;
     }
+
     public void setEmail(String email) {
         this.email = email;
     }
+
     public String getRole() {
         return role;
     }
+
     public void setRole(String role) {
         this.role = role;
     }
+
     public String getAuthToken() {
         return authToken;
     }
+
     public void setAuthToken(String authToken) {
         this.authToken = authToken;
     }
+
     public Instant getLastValidated() {
         return lastValidated;
     }
+
     public void setLastValidated(Instant lastValidated) {
         this.lastValidated = lastValidated;
     }
+
     public String getFirstName() {
         return firstName;
     }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
+
     public String getLastName() {
         return lastName;
     }
+
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
     public String getPhone() {
         return phone;
     }
+
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
     public boolean isActive() {
         return active;
     }
+
     public void setActive(boolean active) {
         this.active = active;
     }
+
     public String getSchoolId() {
         return schoolId;
     }
+
     public void setSchoolId(String schoolId) {
         this.schoolId = schoolId;
     }

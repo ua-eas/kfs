@@ -1,28 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.coa.document;
-
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -30,16 +24,22 @@ import org.kuali.kfs.coa.businessobject.AccountDelegateGlobal;
 import org.kuali.kfs.coa.businessobject.AccountDelegateGlobalDetail;
 import org.kuali.kfs.coa.businessobject.AccountGlobal;
 import org.kuali.kfs.coa.businessobject.AccountGlobalDetail;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.Maintainable;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.sys.ConfigureContext;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.KualiTestBase;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.util.KfsDateUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.maintenance.Maintainable;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.service.DocumentService;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @SuppressWarnings("deprecation")
 @ConfigureContext(session = khuntley)
@@ -149,7 +149,7 @@ public class GlobalDocumentTest extends KualiTestBase {
         bo.addAccount(account);
         SpringContext.getBean(DocumentService.class).saveDocument(document);
 
-        document = (MaintenanceDocument)SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(document.getDocumentNumber());
+        document = (MaintenanceDocument) SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(document.getDocumentNumber());
 
         // now that it worked, lets cancel the doc so it doesnt lock for others
         SpringContext.getBean(DocumentService.class).cancelDocument(document, "cancelling test document");
@@ -229,7 +229,7 @@ public class GlobalDocumentTest extends KualiTestBase {
         assertEquals("AccountDetail list should contain 3 elements.", 3, accounts.size());
 
         // make sure all the accounts are non-null and at least have the Chart populated
-        for (Iterator iter = accounts.iterator(); iter.hasNext();) {
+        for (Iterator iter = accounts.iterator(); iter.hasNext(); ) {
             AccountGlobalDetail accountDetail = (AccountGlobalDetail) iter.next();
 
             assertNotNull("AccountDetailChange should not be null.", accountDetail);

@@ -1,32 +1,33 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document.authorization;
-
-import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.businessobject.CashDrawer;
 import org.kuali.kfs.fp.document.CashManagementDocument;
 import org.kuali.kfs.fp.document.service.CashManagementService;
 import org.kuali.kfs.fp.service.CashDrawerService;
+import org.kuali.kfs.kns.service.DataDictionaryService;
 import org.kuali.kfs.krad.datadictionary.MaintenanceDocumentEntry;
+import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.maintenance.Maintainable;
+import org.kuali.kfs.krad.service.MaintenanceDocumentService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSConstants.CashDrawerConstants;
 import org.kuali.kfs.sys.KfsAuthorizationConstants;
@@ -35,9 +36,8 @@ import org.kuali.kfs.sys.document.authorization.LedgerPostingDocumentPresentatio
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.action.ActionType;
 import org.kuali.rice.kew.api.action.ValidActions;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.service.MaintenanceDocumentService;
+
+import java.util.Set;
 
 public class CashManagementDocumentPresentationControllerBase extends LedgerPostingDocumentPresentationControllerBase implements CashManagementDocumentPresentationController {
 
@@ -190,9 +190,10 @@ public class CashManagementDocumentPresentationControllerBase extends LedgerPost
     /**
      * Determines if the cash drawer can be opened by testing two things:
      * <ol>
-     *  <li>That the cash drawer is currently closed.</li>
-     *  <li>That no cash drawer maintenance documents have a lock on the cash drawer.</li>
+     * <li>That the cash drawer is currently closed.</li>
+     * <li>That no cash drawer maintenance documents have a lock on the cash drawer.</li>
      * </ol>
+     *
      * @param document the document that wishes to open the cash drawer
      * @return true if the cash drawer can be opened, false otherwise
      */
@@ -204,33 +205,36 @@ public class CashManagementDocumentPresentationControllerBase extends LedgerPost
 
     /**
      * Retrieves the cash drawer associated with the given cash management document
+     *
      * @param document a CashManagementDocument with an associated cash drawer
      * @return the associated cash drawer
      */
     protected CashDrawer retrieveCashDrawer(Document document) {
-        final CashManagementDocument cmDoc = (CashManagementDocument)document;
+        final CashManagementDocument cmDoc = (CashManagementDocument) document;
         final CashDrawer cashDrawer = SpringContext.getBean(CashDrawerService.class).getByCampusCode(cmDoc.getCampusCode());
         return cashDrawer;
     }
 
     /**
      * Determines that no maintenance documents have locks on the given cash drawer
+     *
      * @param cashDrawer the cash drawer that may have locks on it
      * @return true if there are no maintenance documents with locks on the cash drawer, false otherwise
      */
     protected boolean noExistCashDrawerMaintLocks(CashDrawer cashDrawer, String documentNumber) {
-       final MaintenanceDocumentEntry cashDrawerMaintDocEntry = SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getMaintenanceDocumentEntryForBusinessObjectClass(cashDrawer.getClass());
+        final MaintenanceDocumentEntry cashDrawerMaintDocEntry = SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getMaintenanceDocumentEntryForBusinessObjectClass(cashDrawer.getClass());
         Maintainable cashDrawerMaintainable = createCashDrawerMaintainable(cashDrawerMaintDocEntry);
-       cashDrawerMaintainable.setDataObjectClass(cashDrawer.getClass());
-       cashDrawerMaintainable.setDataObject(cashDrawer);
-       cashDrawerMaintainable.setDocumentNumber(documentNumber);
+        cashDrawerMaintainable.setDataObjectClass(cashDrawer.getClass());
+        cashDrawerMaintainable.setDataObject(cashDrawer);
+        cashDrawerMaintainable.setDocumentNumber(documentNumber);
 
-       final String lockingDocument = SpringContext.getBean(MaintenanceDocumentService.class).getLockingDocumentId(cashDrawerMaintainable, documentNumber);
-       return StringUtils.isBlank(lockingDocument);
+        final String lockingDocument = SpringContext.getBean(MaintenanceDocumentService.class).getLockingDocumentId(cashDrawerMaintainable, documentNumber);
+        return StringUtils.isBlank(lockingDocument);
     }
 
     /**
      * Builds an instance of the appropriate Maintainable implementation for the Cash Drawer Maintainable
+     *
      * @param cashDrawerMaintenanceDocumentEntry the data dictionary entry from the Cash Drawer's maintenance document
      * @return an appropriate Maintainable
      */
@@ -238,12 +242,10 @@ public class CashManagementDocumentPresentationControllerBase extends LedgerPost
         Maintainable cashDrawerMaintainable;
         try {
             cashDrawerMaintainable = cashDrawerMaintenanceDocumentEntry.getMaintainableClass().newInstance();
-        }
-        catch (InstantiationException ie) {
-            throw new RuntimeException("Cannot instantiate instance of maintainable implementation "+cashDrawerMaintenanceDocumentEntry.getMaintainableClass().getName(), ie);
-        }
-        catch (IllegalAccessException iae) {
-            throw new RuntimeException("Illegal access occurred while instantiating instance of maintainable implementation "+cashDrawerMaintenanceDocumentEntry.getMaintainableClass().getName(), iae);
+        } catch (InstantiationException ie) {
+            throw new RuntimeException("Cannot instantiate instance of maintainable implementation " + cashDrawerMaintenanceDocumentEntry.getMaintainableClass().getName(), ie);
+        } catch (IllegalAccessException iae) {
+            throw new RuntimeException("Illegal access occurred while instantiating instance of maintainable implementation " + cashDrawerMaintenanceDocumentEntry.getMaintainableClass().getName(), iae);
         }
         return cashDrawerMaintainable;
     }

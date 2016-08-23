@@ -1,32 +1,35 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.document.web.struts;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.krad.exception.UnknownDocumentIdException;
+import org.kuali.kfs.krad.rules.rule.event.SaveDocumentEvent;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.service.SessionDocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
@@ -43,18 +46,14 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.web.struts.FinancialSystemTransactionalDocumentActionBase;
 import org.kuali.kfs.sys.service.BankService;
 import org.kuali.kfs.sys.service.GeneralLedgerPendingEntryService;
-import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.krad.exception.UnknownDocumentIdException;
-import org.kuali.kfs.krad.rules.rule.event.SaveDocumentEvent;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.SessionDocumentService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.kfs.krad.service.KualiRuleService;
-import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
 import org.kuali.rice.kew.api.WorkflowDocument;
+import org.kuali.rice.kew.api.exception.WorkflowException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 public class CashControlAction extends FinancialSystemTransactionalDocumentActionBase {
 
@@ -74,7 +73,7 @@ public class CashControlAction extends FinancialSystemTransactionalDocumentActio
             ccForm.setCashPaymentMediumSelected(ArConstants.PaymentMediumCode.CASH.equalsIgnoreCase(cashControlDocument.getCustomerPaymentMediumCode()));
         }
 
-        if ( cashControlDocument != null ) {
+        if (cashControlDocument != null) {
             // get the PaymentApplicationDocuments by reference number
             for (CashControlDetail cashControlDetail : cashControlDocument.getCashControlDetails()) {
                 String docId = cashControlDetail.getReferenceFinancialDocumentNumber();
@@ -88,7 +87,7 @@ public class CashControlAction extends FinancialSystemTransactionalDocumentActio
                 // KualiDocumentFormBase.populate() needs this updated in the session
                 SpringContext.getBean(SessionDocumentService.class).addDocumentToUserSession(GlobalVariables.getUserSession(), workflowDoc);
             }
-       }
+        }
 
     }
 
@@ -96,7 +95,7 @@ public class CashControlAction extends FinancialSystemTransactionalDocumentActio
      * Adds handling for cash control detail amount updates.
      *
      * @see org.apache.struts.action.Action#execute(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm,
-     *      javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -145,7 +144,7 @@ public class CashControlAction extends FinancialSystemTransactionalDocumentActio
 
     /**
      * @see org.kuali.kfs.kns.web.struts.action.KualiDocumentActionBase#cancel(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward cancel(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -163,7 +162,7 @@ public class CashControlAction extends FinancialSystemTransactionalDocumentActio
 
     /**
      * @see org.kuali.kfs.kns.web.struts.action.KualiDocumentActionBase#disapprove(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward disapprove(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -196,11 +195,9 @@ public class CashControlAction extends FinancialSystemTransactionalDocumentActio
             PaymentApplicationDocument applicationDocument = (PaymentApplicationDocument) documentService.getByDocumentHeaderId(cashControlDetail.getReferenceFinancialDocumentNumber());
             if (KFSConstants.DocumentStatusCodes.CANCELLED.equals(applicationDocument.getFinancialSystemDocumentHeader().getFinancialDocumentStatusCode())) {
                 // Ignore this case, as it should not impact the ability to cancel a cash control doc.
-            }
-            else if (!KFSConstants.DocumentStatusCodes.APPROVED.equals(applicationDocument.getFinancialSystemDocumentHeader().getFinancialDocumentStatusCode())) {
+            } else if (!KFSConstants.DocumentStatusCodes.APPROVED.equals(applicationDocument.getFinancialSystemDocumentHeader().getFinancialDocumentStatusCode())) {
                 documentService.cancelDocument(applicationDocument, ArKeyConstants.DOCUMENT_DELETED_FROM_CASH_CTRL_DOC);
-            }
-            else {
+            } else {
                 GlobalVariables.getMessageMap().putError(ArPropertyConstants.CashControlDetailFields.CASH_CONTROL_DETAILS_TAB, ArKeyConstants.ERROR_CANT_CANCEL_CASH_CONTROL_DOC_WITH_ASSOCIATED_APPROVED_PAYMENT_APPLICATION);
                 success = false;
             }
@@ -211,8 +208,8 @@ public class CashControlAction extends FinancialSystemTransactionalDocumentActio
     /**
      * This method adds a new cash control detail
      *
-     * @param mapping action mapping
-     * @param form action form
+     * @param mapping  action mapping
+     * @param form     action form
      * @param request
      * @param response
      * @return forward action
@@ -267,8 +264,8 @@ public class CashControlAction extends FinancialSystemTransactionalDocumentActio
     /**
      * This method deletes a cash control detail
      *
-     * @param mapping action mapping
-     * @param form action form
+     * @param mapping  action mapping
+     * @param form     action form
      * @param request
      * @param response
      * @return action forward
@@ -302,8 +299,8 @@ public class CashControlAction extends FinancialSystemTransactionalDocumentActio
     /**
      * This method generates the GLPEs.
      *
-     * @param mapping action mapping
-     * @param form action form
+     * @param mapping  action mapping
+     * @param form     action form
      * @param request
      * @param response
      * @return action forward

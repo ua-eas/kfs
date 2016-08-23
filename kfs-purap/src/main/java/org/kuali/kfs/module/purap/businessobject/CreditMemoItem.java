@@ -1,29 +1,25 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.module.purap.businessobject;
 
-import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.document.PaymentRequestDocument;
 import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
@@ -36,7 +32,11 @@ import org.kuali.kfs.module.purap.exception.PurError;
 import org.kuali.kfs.module.purap.util.ExpiredOrClosedAccountEntry;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Item line Business Object for Credit Memo Document.
@@ -57,9 +57,9 @@ public class CreditMemoItem extends AccountsPayableItemBase {
 
     /**
      * Constructs a CreditMemoItem object from an existing Purchase Order Item. - Delegate
-     * 
+     *
      * @param cmDocument the Credit Memo Document this item belongs to.
-     * @param poItem the Purchase Order Item to copy from.
+     * @param poItem     the Purchase Order Item to copy from.
      */
     public CreditMemoItem(VendorCreditMemoDocument cmDocument, PurchaseOrderItem poItem) {
         this(cmDocument, poItem, new HashMap<String, ExpiredOrClosedAccountEntry>());
@@ -68,9 +68,9 @@ public class CreditMemoItem extends AccountsPayableItemBase {
     /**
      * Constructs a CreditMemoItem object from an existing Purchase Order Item, and check and process expired or closed accounts
      * item might contain.
-     * 
-     * @param cmDocument the Credit Memo Document this item belongs to.
-     * @param poItem the Purchase Order Item to copy from.
+     *
+     * @param cmDocument                 the Credit Memo Document this item belongs to.
+     * @param poItem                     the Purchase Order Item to copy from.
      * @param expiredOrClosedAccountList the list of expired or closed accounts to check against.
      */
     public CreditMemoItem(VendorCreditMemoDocument cmDocument, PurchaseOrderItem poItem, HashMap<String, ExpiredOrClosedAccountEntry> expiredOrClosedAccountList) {
@@ -83,22 +83,21 @@ public class CreditMemoItem extends AccountsPayableItemBase {
         setPoUnitPrice(poItem.getItemUnitPrice());
         setPoTotalAmount(poItem.getItemInvoicedTotalAmount());
         setItemTypeCode(poItem.getItemTypeCode());
-        
+
         //recalculate tax
         SpringContext.getBean(PurapService.class).calculateTax(cmDocument);
-        
+
         if ((ObjectUtils.isNotNull(this.getItemType()) && this.getItemType().isAmountBasedGeneralLedgerIndicator())) {
             // setting unit price to be null to be more consistent with other below the line
             this.setItemUnitPrice(null);
-        }
-        else {
+        } else {
             setItemUnitPrice(poItem.getItemUnitPrice());
         }
 
         setItemCatalogNumber(poItem.getItemCatalogNumber());
-        
+
         setItemDescription(poItem.getItemDescription());
-                 
+
         if (getPoInvoicedTotalQuantity() == null) {
             setPoInvoicedTotalQuantity(KualiDecimal.ZERO);
         }
@@ -108,8 +107,8 @@ public class CreditMemoItem extends AccountsPayableItemBase {
         if (getPoTotalAmount() == null) {
             setPoTotalAmount(KualiDecimal.ZERO);
         }
-        
-        for (Iterator iter = poItem.getSourceAccountingLines().iterator(); iter.hasNext();) {
+
+        for (Iterator iter = poItem.getSourceAccountingLines().iterator(); iter.hasNext(); ) {
             PurchaseOrderAccount account = (PurchaseOrderAccount) iter.next();
 
             // check if this account is expired/closed and replace as needed
@@ -122,10 +121,10 @@ public class CreditMemoItem extends AccountsPayableItemBase {
     /**
      * Constructs a CreditMemoItem object from an existing Payment Request Item, and check and process expired or closed accounts
      * item might contain.
-     * 
-     * @param cmDocument the Credit Memo Document this item belongs to.
-     * @param preqItem the Payment Request Item to copy from.
-     * @param poItem the Purchase Order Item to copy from.
+     *
+     * @param cmDocument                 the Credit Memo Document this item belongs to.
+     * @param preqItem                   the Payment Request Item to copy from.
+     * @param poItem                     the Purchase Order Item to copy from.
      * @param expiredOrClosedAccountList the list of expired or closed accounts to check against.
      */
     public CreditMemoItem(VendorCreditMemoDocument cmDocument, PaymentRequestItem preqItem, PurchaseOrderItem poItem, HashMap<String, ExpiredOrClosedAccountEntry> expiredOrClosedAccountList) {
@@ -134,13 +133,12 @@ public class CreditMemoItem extends AccountsPayableItemBase {
         setPurapDocumentIdentifier(cmDocument.getPurapDocumentIdentifier());
         setItemLineNumber(preqItem.getItemLineNumber());
         this.setPurapDocument(cmDocument);
-        
+
         // take invoiced quantities from the lower of the preq and po if different
         if (poItem.getItemInvoicedTotalQuantity() != null && preqItem.getItemQuantity() != null && poItem.getItemInvoicedTotalQuantity().isLessThan(preqItem.getItemQuantity())) {
             setPreqInvoicedTotalQuantity(poItem.getItemInvoicedTotalQuantity());
             setPreqTotalAmount(poItem.getItemInvoicedTotalAmount());
-        }
-        else {
+        } else {
             setPreqInvoicedTotalQuantity(preqItem.getItemQuantity());
             setPreqTotalAmount(preqItem.getTotalAmount());
         }
@@ -151,14 +149,13 @@ public class CreditMemoItem extends AccountsPayableItemBase {
         if ((ObjectUtils.isNotNull(this.getItemType()) && this.getItemType().isAmountBasedGeneralLedgerIndicator())) {
             // setting unit price to be null to be more consistent with other below the line
             this.setItemUnitPrice(null);
-        }
-        else {
+        } else {
             setItemUnitPrice(preqItem.getItemUnitPrice());
         }
 
         setItemCatalogNumber(preqItem.getItemCatalogNumber());
         setItemDescription(preqItem.getItemDescription());
-        
+
         setCapitalAssetTransactionTypeCode(preqItem.getCapitalAssetTransactionTypeCode());
 
         if (getPreqInvoicedTotalQuantity() == null) {
@@ -171,7 +168,7 @@ public class CreditMemoItem extends AccountsPayableItemBase {
             setPreqTotalAmount(KualiDecimal.ZERO);
         }
 
-        for (Iterator iter = preqItem.getSourceAccountingLines().iterator(); iter.hasNext();) {
+        for (Iterator iter = preqItem.getSourceAccountingLines().iterator(); iter.hasNext(); ) {
             PaymentRequestAccount account = (PaymentRequestAccount) iter.next();
 
             // check if this account is expired/closed and replace as needed
@@ -188,7 +185,7 @@ public class CreditMemoItem extends AccountsPayableItemBase {
     public Class<CreditMemoAccount> getAccountingLineClass() {
         return CreditMemoAccount.class;
     }
-   
+
     public KualiDecimal getPoTotalAmount() {
         return poTotalAmount;
     }
@@ -241,9 +238,9 @@ public class CreditMemoItem extends AccountsPayableItemBase {
     public Class getUseTaxClass() {
         return CreditMemoItemUseTax.class;
     }
-    
-    public PurchaseOrderItem getPurchaseOrderItem(){
-        
+
+    public PurchaseOrderItem getPurchaseOrderItem() {
+
         PurchaseOrderItem poi = null;
         //refresh vendor document
         if (ObjectUtils.isNotNull(this.getPurapDocumentIdentifier())) {
@@ -254,38 +251,36 @@ public class CreditMemoItem extends AccountsPayableItemBase {
 
         //if vendor document not null, then attempt to pull PO off of it
         if (ObjectUtils.isNotNull(getVendorCreditMemo())) {
-            PurchaseOrderDocument purchaseOrderDocument = null;            
+            PurchaseOrderDocument purchaseOrderDocument = null;
             Integer purchaseOrderDocumentId = getVendorCreditMemo().getPurchaseOrderIdentifier();
-            
+
             if (getVendorCreditMemo().isSourceDocumentPaymentRequest() && ObjectUtils.isNull(purchaseOrderDocumentId)) {
                 PaymentRequestDocument paymentRequestDocument = SpringContext.getBean(PaymentRequestService.class).getPaymentRequestById(getVendorCreditMemo().getPaymentRequestIdentifier());
                 purchaseOrderDocumentId = paymentRequestDocument.getPurchaseOrderIdentifier();
             }
-            
+
             // if we found a valid po id number then check it for reopening
             if (ObjectUtils.isNotNull(purchaseOrderDocumentId)) {
                 purchaseOrderDocument = SpringContext.getBean(PurchaseOrderService.class).getCurrentPurchaseOrder(purchaseOrderDocumentId);
             }
-            
+
             //if we have a PO document, get po item
-            if(ObjectUtils.isNotNull(purchaseOrderDocument)){                
+            if (ObjectUtils.isNotNull(purchaseOrderDocument)) {
                 if (this.getItemType().isLineItemIndicator()) {
                     List<PurchaseOrderItem> items = purchaseOrderDocument.getItems();
                     poi = items.get(this.getItemLineNumber().intValue() - 1);
 
-                }
-                else {
+                } else {
                     poi = (PurchaseOrderItem) SpringContext.getBean(PurapService.class).getBelowTheLineByType(purchaseOrderDocument, this.getItemType());
                 }
             }
-        }
-        else {            
+        } else {
             throw new PurError("Credit Memo Object in Purchase Order item line number " + getItemLineNumber() + "or itemType " + getItemTypeCode() + " is null");
         }
-        
+
         return poi;
     }
-    
+
     public VendorCreditMemoDocument getVendorCreditMemo() {
         return super.getPurapDocument();
     }

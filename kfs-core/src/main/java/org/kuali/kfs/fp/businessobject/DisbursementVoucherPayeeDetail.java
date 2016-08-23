@@ -1,45 +1,45 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.fp.businessobject;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.document.service.DisbursementVoucherPayeeService;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.vnd.document.service.VendorService;
 import org.kuali.rice.kim.api.identity.IdentityService;
 import org.kuali.rice.kim.api.identity.principal.Principal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.service.ModuleService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.rice.location.api.LocationConstants;
 import org.kuali.rice.location.framework.country.CountryEbo;
 import org.kuali.rice.location.framework.postalcode.PostalCodeEbo;
 import org.kuali.rice.location.framework.state.StateEbo;
+
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class is used to represent a disbursement voucher payee detail.
@@ -163,8 +163,7 @@ public class DisbursementVoucherPayeeDetail extends PersistableBusinessObjectBas
                 int dashIndex = disbVchrPayeeIdNumber.indexOf('-');
                 disbVchrVendorHeaderIdNumber = disbVchrPayeeIdNumber.substring(0, dashIndex);
             }
-        }
-        else { // Return null if payee is not a vendor
+        } else { // Return null if payee is not a vendor
             return null;
         }
         return disbVchrVendorHeaderIdNumber;
@@ -190,8 +189,7 @@ public class DisbursementVoucherPayeeDetail extends PersistableBusinessObjectBas
         if (getDisbVchrVendorHeaderIdNumber() != null) {
             try {
                 return new Integer(getDisbVchrVendorHeaderIdNumber());
-            }
-            catch (NumberFormatException nfe) {
+            } catch (NumberFormatException nfe) {
                 nfe.printStackTrace();
             }
         }
@@ -209,8 +207,7 @@ public class DisbursementVoucherPayeeDetail extends PersistableBusinessObjectBas
                 int dashIndex = disbVchrPayeeIdNumber.indexOf('-');
                 disbVchrVendorDetailAssignedIdNumber = disbVchrPayeeIdNumber.substring(dashIndex + 1);
             }
-        }
-        else { // Return null if payee is not a vendor
+        } else { // Return null if payee is not a vendor
             return null;
         }
         return disbVchrVendorDetailAssignedIdNumber;
@@ -237,8 +234,7 @@ public class DisbursementVoucherPayeeDetail extends PersistableBusinessObjectBas
         if (getDisbVchrVendorDetailAssignedIdNumber() != null) {
             try {
                 return new Integer(getDisbVchrVendorDetailAssignedIdNumber());
-            }
-            catch (NumberFormatException nfe) {
+            } catch (NumberFormatException nfe) {
                 nfe.printStackTrace();
             }
         }
@@ -250,13 +246,12 @@ public class DisbursementVoucherPayeeDetail extends PersistableBusinessObjectBas
      * Otherwise, this method will return null.
      *
      * @return The id of the universal user set as the payee on the DV, if the payee type code indicates the payee is an employee.
-     *         Otherwise, this method will return null.
+     * Otherwise, this method will return null.
      */
     public String getDisbVchrEmployeeIdNumber() {
         if (this.isEmployee()) {
             return disbVchrPayeeIdNumber;
-        }
-        else { // Return null if payee is not a employee
+        } else { // Return null if payee is not a employee
             return null;
         }
     }
@@ -533,13 +528,11 @@ public class DisbursementVoucherPayeeDetail extends PersistableBusinessObjectBas
         if (ObjectUtils.isNull(disbVchrPayeeEmployeeCode)) {
             if (this.isEmployee()) {
                 disbVchrPayeeEmployeeCode = true;
-            }
-            else if (this.isVendor()) {
+            } else if (this.isVendor()) {
                 try {
                     disbVchrPayeeEmployeeCode = SpringContext.getBean(VendorService.class).isVendorInstitutionEmployee(getDisbVchrVendorHeaderIdNumberAsInteger());
                     this.setDisbVchrEmployeePaidOutsidePayrollCode(disbVchrPayeeEmployeeCode);
-                }
-                catch (Exception ex) {
+                } catch (Exception ex) {
                     disbVchrPayeeEmployeeCode = false;
                     ex.printStackTrace();
                 }
@@ -567,8 +560,7 @@ public class DisbursementVoucherPayeeDetail extends PersistableBusinessObjectBas
         if (StringUtils.isNotBlank(this.getDisbVchrEmployeeIdNumber()) && this.isVendor()) {
             try {
                 disbVchrAlienPaymentCode = SpringContext.getBean(VendorService.class).isVendorForeign(getDisbVchrVendorHeaderIdNumberAsInteger());
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 disbVchrAlienPaymentCode = false;
                 ex.printStackTrace();
             }
@@ -723,8 +715,7 @@ public class DisbursementVoucherPayeeDetail extends PersistableBusinessObjectBas
         if (getDisbVchrVendorAddressIdNumber() != null) {
             try {
                 return new Integer(getDisbVchrVendorAddressIdNumber());
-            }
-            catch (NumberFormatException nfe) {
+            } catch (NumberFormatException nfe) {
                 nfe.printStackTrace();
             }
         }
@@ -764,18 +755,18 @@ public class DisbursementVoucherPayeeDetail extends PersistableBusinessObjectBas
      * @return Returns the disbVchrPayeeState.
      */
     public StateEbo getDisbVchrPayeeState() {
-        if ( StringUtils.isBlank(disbVchrPayeeStateCode) || StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES ) ) {
+        if (StringUtils.isBlank(disbVchrPayeeStateCode) || StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES)) {
             disbVchrPayeeState = null;
         } else {
-            if ( disbVchrPayeeState == null || !StringUtils.equals( disbVchrPayeeState.getCode(),disbVchrPayeeStateCode) || !StringUtils.equals(disbVchrPayeeState.getCountryCode(), KFSConstants.COUNTRY_CODE_UNITED_STATES ) ) {
+            if (disbVchrPayeeState == null || !StringUtils.equals(disbVchrPayeeState.getCode(), disbVchrPayeeStateCode) || !StringUtils.equals(disbVchrPayeeState.getCountryCode(), KFSConstants.COUNTRY_CODE_UNITED_STATES)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(StateEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(2);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(2);
                     keys.put(LocationConstants.PrimaryKeyConstants.COUNTRY_CODE, KFSConstants.COUNTRY_CODE_UNITED_STATES);/*RICE20_REFACTORME*/
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, disbVchrPayeeStateCode);
                     disbVchrPayeeState = moduleService.getExternalizableBusinessObject(StateEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -785,6 +776,7 @@ public class DisbursementVoucherPayeeDetail extends PersistableBusinessObjectBas
 
     /**
      * Sets the disbVchrPayeeState attribute value.
+     *
      * @param disbVchrPayeeState The disbVchrPayeeState to set.
      */
     public void setDisbVchrPayeeState(StateEbo disbVchrPayeeState) {
@@ -793,20 +785,21 @@ public class DisbursementVoucherPayeeDetail extends PersistableBusinessObjectBas
 
     /**
      * Gets the disbVchrPayeeCountry attribute.
+     *
      * @return Returns the disbVchrPayeeCountry.
      */
     public CountryEbo getDisbVchrPayeeCountry() {
-        if ( StringUtils.isBlank(disbVchrPayeeCountryCode) ) {
+        if (StringUtils.isBlank(disbVchrPayeeCountryCode)) {
             disbVchrPayeeCountry = null;
         } else {
-            if ( disbVchrPayeeCountry == null || !StringUtils.equals( disbVchrPayeeCountry.getCode(),disbVchrPayeeCountryCode) ) {
+            if (disbVchrPayeeCountry == null || !StringUtils.equals(disbVchrPayeeCountry.getCode(), disbVchrPayeeCountryCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(CountryEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(1);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(1);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, disbVchrPayeeCountryCode);
                     disbVchrPayeeCountry = moduleService.getExternalizableBusinessObject(CountryEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -815,6 +808,7 @@ public class DisbursementVoucherPayeeDetail extends PersistableBusinessObjectBas
 
     /**
      * Sets the disbVchrPayeeCountry attribute value.
+     *
      * @param disbVchrPayeeCountry The disbVchrPayeeCountry to set.
      */
     public void setDisbVchrPayeeCountry(CountryEbo disbVchrPayeeCountry) {
@@ -828,18 +822,18 @@ public class DisbursementVoucherPayeeDetail extends PersistableBusinessObjectBas
      * @return Returns the disbVchrPayeePostalZipCode.
      */
     public PostalCodeEbo getDisbVchrPayeePostalZipCode() {
-        if ( StringUtils.isBlank(disbVchrPayeeZipCode) || StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES ) ) {
+        if (StringUtils.isBlank(disbVchrPayeeZipCode) || StringUtils.isBlank(KFSConstants.COUNTRY_CODE_UNITED_STATES)) {
             disbVchrPayeePostalZipCode = null;
         } else {
-            if ( disbVchrPayeePostalZipCode == null || !StringUtils.equals( disbVchrPayeePostalZipCode.getCode(), disbVchrPayeeZipCode) || !StringUtils.equals(disbVchrPayeePostalZipCode.getCountryCode(), KFSConstants.COUNTRY_CODE_UNITED_STATES ) ) {
+            if (disbVchrPayeePostalZipCode == null || !StringUtils.equals(disbVchrPayeePostalZipCode.getCode(), disbVchrPayeeZipCode) || !StringUtils.equals(disbVchrPayeePostalZipCode.getCountryCode(), KFSConstants.COUNTRY_CODE_UNITED_STATES)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(PostalCodeEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(2);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(2);
                     keys.put(LocationConstants.PrimaryKeyConstants.COUNTRY_CODE, KFSConstants.COUNTRY_CODE_UNITED_STATES);/*RICE20_REFACTORME*/
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, disbVchrPayeeZipCode);
                     disbVchrPayeePostalZipCode = moduleService.getExternalizableBusinessObject(PostalCodeEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -849,6 +843,7 @@ public class DisbursementVoucherPayeeDetail extends PersistableBusinessObjectBas
 
     /**
      * Sets the disbVchrPayeePostalZipCode attribute value.
+     *
      * @param disbVchrPayeePostalZipCode The disbVchrPayeePostalZipCode to set.
      */
     public void setDisbVchrPayeePostalZipCode(PostalCodeEbo disbVchrPayeePostalZipCode) {
@@ -869,7 +864,7 @@ public class DisbursementVoucherPayeeDetail extends PersistableBusinessObjectBas
         return SpringContext.getBean(DisbursementVoucherPayeeService.class).isEmployee(this);
     }
 
-	/**
+    /**
      * Checks the payee type code for customer type
      */
     public boolean isCustomer() {
@@ -909,14 +904,12 @@ public class DisbursementVoucherPayeeDetail extends PersistableBusinessObjectBas
      *
      * @param obj1
      * @param obj2
-     *
      * @return true if both objects are null or both are equal
      */
     private boolean nullSafeEquals(Object obj1, Object obj2) {
         if (obj1 != null && obj2 != null) {
             return obj1.equals(obj2);
-        }
-        else {
+        } else {
             return (obj1 == obj2);
         }
     }
@@ -942,6 +935,7 @@ public class DisbursementVoucherPayeeDetail extends PersistableBusinessObjectBas
     /**
      * For non-vendor employee payee, retrieves the principalId using payeeId (which shall hold employeeId in this case);
      * otherwise return null.
+     *
      * @return
      */
     public String getEmployeePrincipalId() {

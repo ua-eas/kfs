@@ -1,3 +1,21 @@
+/*
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.kuali.kfs.sys.rest;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -7,7 +25,6 @@ import org.kuali.kfs.kns.service.KNSServiceLocator;
 import org.kuali.kfs.krad.UserSession;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.KRADUtils;
-import org.kuali.kfs.sys.web.WebUtilities;
 import org.kuali.rice.core.api.config.property.ConfigContext;
 import org.kuali.rice.core.api.exception.RiceRuntimeException;
 import org.kuali.rice.kim.api.KimConstants;
@@ -115,28 +132,28 @@ public class BackdoorResource {
         String requestAppCode = ConfigContext.getCurrentContextConfig().getProperty("app.code");
         permissionDetails.put(KimConstants.AttributeConstants.APP_CODE, requestAppCode);
         List<Permission> perms = KimApiServiceLocator.getPermissionService().findPermissionsByTemplate(
-                KRADConstants.KUALI_RICE_SYSTEM_NAMESPACE, KimConstants.PermissionTemplateNames.BACKDOOR_RESTRICTION);
+            KRADConstants.KUALI_RICE_SYSTEM_NAMESPACE, KimConstants.PermissionTemplateNames.BACKDOOR_RESTRICTION);
         for (Permission kpi : perms) {
             if (kpi.getAttributes().values().contains(requestAppCode)) {
                 //if a permission exists, is the user granted permission to use backdoor?
                 isAuthorized = KimApiServiceLocator.getPermissionService().isAuthorizedByTemplate(
-                        uSession.getActualPerson().getPrincipalId(), KRADConstants.KUALI_RICE_SYSTEM_NAMESPACE,
-                        KimConstants.PermissionTemplateNames.BACKDOOR_RESTRICTION, permissionDetails,
-                        Collections.<String, String>emptyMap());
+                    uSession.getActualPerson().getPrincipalId(), KRADConstants.KUALI_RICE_SYSTEM_NAMESPACE,
+                    KimConstants.PermissionTemplateNames.BACKDOOR_RESTRICTION, permissionDetails,
+                    Collections.<String, String>emptyMap());
             }
         }
         if (!isAuthorized) {
             LOG.warn("Attempt to backdoor was made by user: "
-                    + uSession.getPerson().getPrincipalId()
-                    + " into application with app code: "
-                    + requestAppCode
-                    + " but they do not have appropriate permissions. Backdoor processing aborted.");
+                + uSession.getPerson().getPrincipalId()
+                + " into application with app code: "
+                + requestAppCode
+                + " but they do not have appropriate permissions. Backdoor processing aborted.");
         }
         return isAuthorized;
     }
 
     private CfAuthenticationService getCfAuthenticationService() {
-        if ( cfAuthenticationService == null ) {
+        if (cfAuthenticationService == null) {
             cfAuthenticationService = KNSServiceLocator.getCfAuthenticationService();
         }
         return cfAuthenticationService;

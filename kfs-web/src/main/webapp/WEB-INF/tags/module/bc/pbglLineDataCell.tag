@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -93,7 +93,7 @@
 
 <%@ attribute name="overrideField" required="false"
               description="base name of the accountingLine field to check and display if needed." %>
-  
+
 <%@ attribute name="lookupOrInquiryKeys" required="false"
               description="comma separated list of inquiry key names in the accountingLineValuesMap" %>
 <%@ attribute name="lookupUnkeyedFieldConversions" required="false"
@@ -116,13 +116,13 @@
               Also if lookup is true, returns to this anchor, unless lookupAnchor is set." %>
 <%@ attribute name="detailFields" required="false"
               description="The name of multiple fields in the business object containing details to be display.
-			  Any supplied field that starts with a semicolon will be treated as a text field, rather 
+			  Any supplied field that starts with a semicolon will be treated as a text field, rather
 			  than a database field. The semicolon will be ignored in the output." %>
 <%@ attribute name="formattedNumberValue" required="false"
               description="number to format instead of property" %>
 <%@ attribute name="fieldTrailerValue" required="false"
               description="Extra text added right after the field" %>
-              
+
 <%@ attribute name="excludedFromTotal" required="false"
 			  description="boolean to indicate a funding total that should not be displayed
 			  and the value should not be a hidden. Defaults to false." %>
@@ -132,7 +132,7 @@
 <%@ attribute name="displayMask" required="false"
 			  description="when a field is not to be displayed in clear text and encrypted as hidden, the
 			  string to display." %>
-<%@ attribute name="divId" required="false"  %>			  
+<%@ attribute name="divId" required="false"  %>
 
 
 <c:if test="${empty fieldAlign}">

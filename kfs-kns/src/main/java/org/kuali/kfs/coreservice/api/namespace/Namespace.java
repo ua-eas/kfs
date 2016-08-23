@@ -1,32 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.coreservice.api.namespace;
-
-import java.io.Serializable;
-import java.util.Collection;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAnyElement;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.rice.core.api.CoreConstants;
@@ -34,9 +24,18 @@ import org.kuali.rice.core.api.mo.AbstractDataTransferObject;
 import org.kuali.rice.core.api.mo.ModelBuilder;
 import org.w3c.dom.Element;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyElement;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
+import java.util.Collection;
+
 /**
  * An immutable representation of a {@link NamespaceContract}.
- *
+ * <p>
  * <p>To construct an instance of a Namespace, use the {@link Namespace.Builder} class.
  *
  * @see NamespaceContract
@@ -44,13 +43,13 @@ import org.w3c.dom.Element;
 @XmlRootElement(name = Namespace.Constants.ROOT_ELEMENT_NAME)
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlType(name = Namespace.Constants.TYPE_NAME, propOrder = {
-        Namespace.Elements.CODE,
-        Namespace.Elements.APPLICATION_ID,
-        Namespace.Elements.NAME,
-        Namespace.Elements.ACTIVE,
-        CoreConstants.CommonElements.VERSION_NUMBER,
-        CoreConstants.CommonElements.OBJECT_ID,
-        CoreConstants.CommonElements.FUTURE_ELEMENTS
+    Namespace.Elements.CODE,
+    Namespace.Elements.APPLICATION_ID,
+    Namespace.Elements.NAME,
+    Namespace.Elements.ACTIVE,
+    CoreConstants.CommonElements.VERSION_NUMBER,
+    CoreConstants.CommonElements.OBJECT_ID,
+    CoreConstants.CommonElements.FUTURE_ELEMENTS
 })
 public final class Namespace extends AbstractDataTransferObject implements NamespaceContract {
 
@@ -74,7 +73,8 @@ public final class Namespace extends AbstractDataTransferObject implements Names
     @XmlElement(name = CoreConstants.CommonElements.OBJECT_ID, required = false)
     private final String objectId;
 
-    @SuppressWarnings("unused") @XmlAnyElement
+    @SuppressWarnings("unused")
+    @XmlAnyElement
     private final Collection<Element> _futureElements = null;
 
     /**
@@ -175,7 +175,7 @@ public final class Namespace extends AbstractDataTransferObject implements Names
         /**
          * Creates a builder from the given namespace code and application id.
          *
-         * @param code the namespace code to use when constructing this builder
+         * @param code          the namespace code to use when constructing this builder
          * @param applicationId the application id to use when constructing this builder
          * @return an instance of the builder with the given data already populated
          * @throws IllegalArgumentException if the code or applicationId are null or blank
@@ -307,7 +307,7 @@ public final class Namespace extends AbstractDataTransferObject implements Names
 
     public static class Cache {
         public static final String NAME =
-                CoreConstants.Namespaces.CORE_NAMESPACE_2_0 + "/" + Namespace.Constants.TYPE_NAME;
+            CoreConstants.Namespaces.CORE_NAMESPACE_2_0 + "/" + Namespace.Constants.TYPE_NAME;
     }
 
 }

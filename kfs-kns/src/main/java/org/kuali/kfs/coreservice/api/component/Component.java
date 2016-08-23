@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -35,9 +35,9 @@ import java.util.Collection;
 
 /**
  * An immutable representation of an {@link ComponentContract}.
- *
+ * <p>
  * Use the class {@link Component.Builder} to construct an Component object.
- * 
+ *
  * @see ComponentContract
  */
 @XmlRootElement(name = Component.Constants.ROOT_ELEMENT_NAME)
@@ -53,78 +53,78 @@ import java.util.Collection;
     CoreConstants.CommonElements.FUTURE_ELEMENTS
 })
 public final class Component extends AbstractDataTransferObject implements ComponentContract {
-	
-	private static final long serialVersionUID = -5114772381708593543L;
 
-	@XmlElement(name = Elements.NAMESPACE_CODE, required=true)
-	private final String namespaceCode;
-	
-    @XmlElement(name = Elements.CODE, required=true)
+    private static final long serialVersionUID = -5114772381708593543L;
+
+    @XmlElement(name = Elements.NAMESPACE_CODE, required = true)
+    private final String namespaceCode;
+
+    @XmlElement(name = Elements.CODE, required = true)
     private final String code;
 
-    @XmlElement(name = Elements.NAME, required=true)
+    @XmlElement(name = Elements.NAME, required = true)
     private final String name;
 
     @XmlElement(name = Elements.COMPONENT_SET_ID, required = false)
     private final String componentSetId;
 
-    @XmlElement(name = Elements.ACTIVE, required=false)
+    @XmlElement(name = Elements.ACTIVE, required = false)
     private final boolean active;
 
     @XmlElement(name = CoreConstants.CommonElements.VERSION_NUMBER, required = false)
     private final Long versionNumber;
-    
+
     @XmlElement(name = CoreConstants.CommonElements.OBJECT_ID, required = false)
-	private final String objectId;
+    private final String objectId;
 
     @SuppressWarnings("unused")
     @XmlAnyElement
     private final Collection<Element> _futureElements = null;
 
-    /** 
-     * This constructor should never be called.  It is only present for use during JAXB unmarshalling. 
+    /**
+     * This constructor should never be called.  It is only present for use during JAXB unmarshalling.
      */
     private Component() {
-    	this.namespaceCode = null;
-    	this.code = null;
-    	this.name = null;
+        this.namespaceCode = null;
+        this.code = null;
+        this.name = null;
         this.componentSetId = null;
-    	this.active = true;
+        this.active = true;
         this.versionNumber = null;
         this.objectId = null;
     }
 
-	/**
-	 * Constructs a Component from the given builder.  This constructor is private and should only
-	 * ever be invoked from the builder.
-	 *
-	 * @param builder the Builder from which to construct the component
-	 */
+    /**
+     * Constructs a Component from the given builder.  This constructor is private and should only
+     * ever be invoked from the builder.
+     *
+     * @param builder the Builder from which to construct the component
+     */
     private Component(Builder builder) {
-		namespaceCode = builder.getNamespaceCode();
-		code = builder.getCode();
+        namespaceCode = builder.getNamespaceCode();
+        code = builder.getCode();
         name = builder.getName();
         componentSetId = builder.getComponentSetId();
         active = builder.isActive();
         versionNumber = builder.getVersionNumber();
         this.objectId = builder.getObjectId();
     }
-    
-    
+
+
     @Override
     public String getNamespaceCode() {
-		return namespaceCode;
-	}
+        return namespaceCode;
+    }
 
     @Override
-	public String getCode() {
-		return code;
-	}
+    public String getCode() {
+        return code;
+    }
 
     @Override
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
     @Override
     public String getComponentSetId() {
@@ -132,61 +132,61 @@ public final class Component extends AbstractDataTransferObject implements Compo
     }
 
     @Override
-	public boolean isActive() {
-		return active;
-	}
+    public boolean isActive() {
+        return active;
+    }
 
     @Override
-	public Long getVersionNumber() {
-		return versionNumber;
-	}
-    
-    @Override
-	public String getObjectId() {
-		return objectId;
-	}
+    public Long getVersionNumber() {
+        return versionNumber;
+    }
 
-	/**
+    @Override
+    public String getObjectId() {
+        return objectId;
+    }
+
+    /**
      * This builder is used to construct instances of Component.  It enforces the constraints of the {@link ComponentContract}.
      */
     public static final class Builder implements ComponentContract, ModelBuilder, Serializable {
 
-		private static final long serialVersionUID = 5548130104299578283L;
+        private static final long serialVersionUID = 5548130104299578283L;
 
-		private String namespaceCode;
-		private String code;
+        private String namespaceCode;
+        private String code;
         private String name;
         private String componentSetId;
         private boolean active;
         private Long versionNumber;
         private String objectId;
 
-		/**
-		 * Private constructor for creating a builder with all of it's required attributes.
-		 */
+        /**
+         * Private constructor for creating a builder with all of it's required attributes.
+         */
         private Builder(String namespaceCode, String code, String name) {
-			setNamespaceCode(namespaceCode);
+            setNamespaceCode(namespaceCode);
             setCode(code);
             setName(name);
-			setActive(true);
+            setActive(true);
         }
 
         /**
-		 * Constructs a Namespace builder given the namcespace code, component code, and name
-		 * which are all required.  Defaults the active indicator to true.
-		 *
-		 * @param namespaceCode the namespace code to use when constructing this builder
-		 * @param code the component code to use when constructing this builder
-		 * @param name the component name to use when constructing this builder
-		 * @throws IllegalArgumentException if any of the parameters are null or blank
-		 */
+         * Constructs a Namespace builder given the namcespace code, component code, and name
+         * which are all required.  Defaults the active indicator to true.
+         *
+         * @param namespaceCode the namespace code to use when constructing this builder
+         * @param code          the component code to use when constructing this builder
+         * @param name          the component name to use when constructing this builder
+         * @throws IllegalArgumentException if any of the parameters are null or blank
+         */
         public static Builder create(String namespaceCode, String code, String name) {
             return new Builder(namespaceCode, code, name);
         }
 
         /**
          * Creates a builder by populating it with data from the given {@link ComponentContract}.
-         * 
+         *
          * @param contract the contract from which to populate this builder
          * @return an instance of the builder populated with data from the contract
          */
@@ -199,25 +199,25 @@ public final class Component extends AbstractDataTransferObject implements Compo
             return builder;
         }
 
-		/**
-		 * Sets the value of the namespace code on this builder to the given value.
-	     *
-	     * @param namespaceCode the namespace code value to set, must not be null or blank
-	     * @throws IllegalArgumentException if the given namespace code is null or blank
-	     */
+        /**
+         * Sets the value of the namespace code on this builder to the given value.
+         *
+         * @param namespaceCode the namespace code value to set, must not be null or blank
+         * @throws IllegalArgumentException if the given namespace code is null or blank
+         */
         public void setNamespaceCode(String namespaceCode) {
-			if (StringUtils.isBlank(namespaceCode)) {
-			   throw new IllegalArgumentException("namespaceCode is null");
-		   }
-		   this.namespaceCode = namespaceCode;
-	   }
-		
-		/**
- 		 * Sets the value of the component code on this builder to the given value.
-		 *
-		 * @param code the component code value to set, must not be null or blank
-		 * @throws IllegalArgumentException if the given component code is null or blank
-		 */
+            if (StringUtils.isBlank(namespaceCode)) {
+                throw new IllegalArgumentException("namespaceCode is null");
+            }
+            this.namespaceCode = namespaceCode;
+        }
+
+        /**
+         * Sets the value of the component code on this builder to the given value.
+         *
+         * @param code the component code value to set, must not be null or blank
+         * @throws IllegalArgumentException if the given component code is null or blank
+         */
         public void setCode(String code) {
             if (StringUtils.isBlank(code)) {
                 throw new IllegalArgumentException("code is blank");
@@ -225,12 +225,12 @@ public final class Component extends AbstractDataTransferObject implements Compo
             this.code = code;
         }
 
-		/**
-		 * Sets the value of the component name on this builder to the given value.
-	     *
-	     * @param name the component name value to set, must not be null or blank
-	     * @throws IllegalArgumentException if the given component name is null or blank
-	     */
+        /**
+         * Sets the value of the component name on this builder to the given value.
+         *
+         * @param name the component name value to set, must not be null or blank
+         * @throws IllegalArgumentException if the given component name is null or blank
+         */
         public void setName(String name) {
             if (StringUtils.isBlank(name)) {
                 throw new IllegalArgumentException("name is blank");
@@ -239,28 +239,28 @@ public final class Component extends AbstractDataTransferObject implements Compo
         }
 
         @Override
-		public boolean isActive() {
-			return active;
-		}
+        public boolean isActive() {
+            return active;
+        }
 
-		public void setActive(boolean active) {
-			this.active = active;
-		}
-
-        @Override
-		public String getNamespaceCode() {
-			return namespaceCode;
-		}
+        public void setActive(boolean active) {
+            this.active = active;
+        }
 
         @Override
-		public String getCode() {
-			return code;
-		}
+        public String getNamespaceCode() {
+            return namespaceCode;
+        }
 
         @Override
-		public String getName() {
-			return name;
-		}
+        public String getCode() {
+            return code;
+        }
+
+        @Override
+        public String getName() {
+            return name;
+        }
 
         @Override
         public String getComponentSetId() {
@@ -275,57 +275,57 @@ public final class Component extends AbstractDataTransferObject implements Compo
         }
 
         @Override
-		public Long getVersionNumber() {
-			return versionNumber;
-		}
-
-		public void setVersionNumber(Long versionNumber) {
-			this.versionNumber = versionNumber;
-		}
-		
-		@Override
-    	public String getObjectId() {
-    		return objectId;
-    	}
-		
-		public void setObjectId(String objectId) {
-        	this.objectId = objectId;
+        public Long getVersionNumber() {
+            return versionNumber;
         }
 
-		/**
-		 * Builds an instance of a Component based on the current state of the builder.
-		 *
-		 * @return the fully-constructed Component
-		 */
-		@Override
+        public void setVersionNumber(Long versionNumber) {
+            this.versionNumber = versionNumber;
+        }
+
+        @Override
+        public String getObjectId() {
+            return objectId;
+        }
+
+        public void setObjectId(String objectId) {
+            this.objectId = objectId;
+        }
+
+        /**
+         * Builds an instance of a Component based on the current state of the builder.
+         *
+         * @return the fully-constructed Component
+         */
+        @Override
         public Component build() {
             return new Component(this);
         }
 
     }
-	
-	/**
-	 * Defines some internal constants used on this class.
-	 */
-	static class Constants {
-	   final static String ROOT_ELEMENT_NAME = "component";
-	   final static String TYPE_NAME = "ComponentType";
-	}
-   
-	/**
-	 * A private class which exposes constants which define the XML element names to use
-	 * when this object is marshalled to XML.
-	 */
-	static class Elements {
-	    final static String CODE = "code";
-	    final static String NAME = "name";
-		final static String NAMESPACE_CODE = "namespaceCode";
+
+    /**
+     * Defines some internal constants used on this class.
+     */
+    static class Constants {
+        final static String ROOT_ELEMENT_NAME = "component";
+        final static String TYPE_NAME = "ComponentType";
+    }
+
+    /**
+     * A private class which exposes constants which define the XML element names to use
+     * when this object is marshalled to XML.
+     */
+    static class Elements {
+        final static String CODE = "code";
+        final static String NAME = "name";
+        final static String NAMESPACE_CODE = "namespaceCode";
         final static String COMPONENT_SET_ID = "componentSetId";
-		final static String ACTIVE = "active";
-	}
+        final static String ACTIVE = "active";
+    }
 
     public static class Cache {
         public static final String NAME = CoreConstants.Namespaces.CORE_NAMESPACE_2_0 + "/" + Component.Constants.TYPE_NAME;
     }
-   
+
 }

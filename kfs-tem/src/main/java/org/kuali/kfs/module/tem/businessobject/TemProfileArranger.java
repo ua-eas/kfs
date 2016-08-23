@@ -1,24 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.util.LinkedHashMap;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.kim.api.identity.PersonService;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,12 +31,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import java.util.LinkedHashMap;
 
 @Entity
 @Table(name = "TEM_PROFILE_ARRANGER_T")
@@ -52,6 +51,7 @@ public class TemProfileArranger extends PersistableBusinessObjectBase implements
 
     /**
      * Gets the arrangerId attribute.
+     *
      * @return Returns the arrangerId.
      */
     @Id
@@ -65,6 +65,7 @@ public class TemProfileArranger extends PersistableBusinessObjectBase implements
 
     /**
      * Sets the arrangerId attribute value.
+     *
      * @param arrangerId The arrangerId to set.
      */
     public void setArrangerId(Integer arrangerId) {
@@ -72,9 +73,9 @@ public class TemProfileArranger extends PersistableBusinessObjectBase implements
     }
 
 
-
     /**
      * Gets the taInd attribute.
+     *
      * @return Returns the taInd.
      */
     public Boolean getTaInd() {
@@ -84,6 +85,7 @@ public class TemProfileArranger extends PersistableBusinessObjectBase implements
 
     /**
      * Sets the taInd attribute value.
+     *
      * @param taInd The taInd to set.
      */
     public void setTaInd(Boolean taInd) {
@@ -93,6 +95,7 @@ public class TemProfileArranger extends PersistableBusinessObjectBase implements
 
     /**
      * Gets the trInd attribute.
+     *
      * @return Returns the trInd.
      */
     public Boolean getTrInd() {
@@ -102,6 +105,7 @@ public class TemProfileArranger extends PersistableBusinessObjectBase implements
 
     /**
      * Sets the trInd attribute value.
+     *
      * @param trInd The trInd to set.
      */
     public void setTrInd(Boolean trInd) {
@@ -111,6 +115,7 @@ public class TemProfileArranger extends PersistableBusinessObjectBase implements
 
     /**
      * Gets the principalId attribute.
+     *
      * @return Returns the principalId.
      */
     @Column(name = "prncpl_id", length = 40, nullable = true)
@@ -122,6 +127,7 @@ public class TemProfileArranger extends PersistableBusinessObjectBase implements
 
     /**
      * Sets the principalId attribute value.
+     *
      * @param principalId The principalId to set.
      */
     public void setPrincipalId(String principalId) {
@@ -131,10 +137,11 @@ public class TemProfileArranger extends PersistableBusinessObjectBase implements
 
     /**
      * Gets the active attribute.
+     *
      * @return Returns the active.
      */
     @Override
-    @Column(name="ACTV_IND",nullable=false,length=1)
+    @Column(name = "ACTV_IND", nullable = false, length = 1)
     public boolean isActive() {
         return active;
     }
@@ -142,6 +149,7 @@ public class TemProfileArranger extends PersistableBusinessObjectBase implements
 
     /**
      * Sets the active attribute value.
+     *
      * @param active The active to set.
      */
     @Override
@@ -152,9 +160,10 @@ public class TemProfileArranger extends PersistableBusinessObjectBase implements
 
     /**
      * Gets the primary attribute.
+     *
      * @return Returns the primary.
      */
-    @Column(name="primary_ind",nullable=false,length=1)
+    @Column(name = "primary_ind", nullable = false, length = 1)
     public boolean getPrimary() {
         return primary;
     }
@@ -162,6 +171,7 @@ public class TemProfileArranger extends PersistableBusinessObjectBase implements
 
     /**
      * Sets the primary attribute value.
+     *
      * @param primary The primary to set.
      */
     public void setPrimary(boolean primary) {
@@ -171,9 +181,10 @@ public class TemProfileArranger extends PersistableBusinessObjectBase implements
 
     /**
      * Gets the profileId attribute.
+     *
      * @return Returns the profileId.
      */
-    @Column(name = "profile_id", nullable = false, length=19)
+    @Column(name = "profile_id", nullable = false, length = 19)
     public Integer getProfileId() {
         return profileId;
     }
@@ -181,6 +192,7 @@ public class TemProfileArranger extends PersistableBusinessObjectBase implements
 
     /**
      * Sets the profileId attribute value.
+     *
      * @param profileId The profileId to set.
      */
     public void setProfileId(Integer profileId) {
@@ -190,6 +202,7 @@ public class TemProfileArranger extends PersistableBusinessObjectBase implements
 
     /**
      * Gets the profile attribute.
+     *
      * @return Returns the profile.
      */
     @JoinColumn(name = "profile_id")
@@ -200,6 +213,7 @@ public class TemProfileArranger extends PersistableBusinessObjectBase implements
 
     /**
      * Sets the profile attribute value.
+     *
      * @param profile The profile to set.
      */
     public void setProfile(TemProfile profile) {
@@ -209,6 +223,7 @@ public class TemProfileArranger extends PersistableBusinessObjectBase implements
 
     /**
      * Gets the principalName attribute.
+     *
      * @return Returns the principalName.
      */
     public String getPrincipalName() {
@@ -219,6 +234,7 @@ public class TemProfileArranger extends PersistableBusinessObjectBase implements
 
     /**
      * Sets the principalName attribute value.
+     *
      * @param principalName The principalName to set.
      */
     public void setPrincipalName(String principalName) {
@@ -228,6 +244,7 @@ public class TemProfileArranger extends PersistableBusinessObjectBase implements
 
     /**
      * Sets the principal attribute value.
+     *
      * @param principal The principal to set.
      */
     public void setPrincipal(Person principal) {
@@ -239,6 +256,7 @@ public class TemProfileArranger extends PersistableBusinessObjectBase implements
 
     /**
      * Gets the principal attribute.
+     *
      * @return Returns the principal.
      */
     public Person getPrincipal() {
@@ -251,15 +269,14 @@ public class TemProfileArranger extends PersistableBusinessObjectBase implements
     }
 
     /**
-     *
      * This method sets up the principal data based on whether the id or name is currently set.
      */
     private void setupPrincipal() {
         if (getPrincipal() == null) {
             Person person = null;
-            if(this.principalName != null){
+            if (this.principalName != null) {
                 person = SpringContext.getBean(PersonService.class).getPersonByPrincipalName(this.principalName);
-            }else if(this.principalId != null){
+            } else if (this.principalId != null) {
                 person = SpringContext.getBean(PersonService.class).getPerson(this.principalId);
             }
             if (person != null) {

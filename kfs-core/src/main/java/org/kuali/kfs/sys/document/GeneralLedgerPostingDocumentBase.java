@@ -1,28 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.document;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.service.SufficientFundsService;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.rules.rule.event.ApproveDocumentEvent;
+import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
+import org.kuali.kfs.krad.rules.rule.event.RouteDocumentEvent;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
@@ -31,11 +33,9 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.GeneralLedgerPendingEntryService;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.rules.rule.event.ApproveDocumentEvent;
-import org.kuali.kfs.krad.rules.rule.event.KualiDocumentEvent;
-import org.kuali.kfs.krad.rules.rule.event.RouteDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Base implementation for a general ledger posting document.
@@ -90,8 +90,7 @@ public class GeneralLedgerPostingDocumentBase extends LedgerPostingDocumentBase 
         if (documentPerformsSufficientFundsCheck()) {
             SufficientFundsService sufficientFundsService = SpringContext.getBean(SufficientFundsService.class);
             return sufficientFundsService.checkSufficientFunds(this);
-        }
-        else {
+        } else {
             return new ArrayList<SufficientFundsItem>();
         }
     }
@@ -180,7 +179,7 @@ public class GeneralLedgerPostingDocumentBase extends LedgerPostingDocumentBase 
             List<SufficientFundsItem> sfItems = checkSufficientFunds();
             if (!sfItems.isEmpty()) {
                 for (SufficientFundsItem sfItem : sfItems) {
-                    GlobalVariables.getMessageMap().putError(KFSConstants.ACCOUNTING_LINE_ERRORS, KFSKeyConstants.SufficientFunds.ERROR_INSUFFICIENT_FUNDS, new String[] { sfItem.getAccount().getChartOfAccountsCode(), sfItem.getAccount().getAccountNumber(), StringUtils.isNotBlank(sfItem.getSufficientFundsObjectCode()) ? sfItem.getSufficientFundsObjectCode() : KFSConstants.NOT_AVAILABLE_STRING, sfItem.getAccountSufficientFundsCode() });
+                    GlobalVariables.getMessageMap().putError(KFSConstants.ACCOUNTING_LINE_ERRORS, KFSKeyConstants.SufficientFunds.ERROR_INSUFFICIENT_FUNDS, new String[]{sfItem.getAccount().getChartOfAccountsCode(), sfItem.getAccount().getAccountNumber(), StringUtils.isNotBlank(sfItem.getSufficientFundsObjectCode()) ? sfItem.getSufficientFundsObjectCode() : KFSConstants.NOT_AVAILABLE_STRING, sfItem.getAccountSufficientFundsCode()});
                 }
                 throw new ValidationException("Insufficient Funds on this Document:");
             }
@@ -189,6 +188,7 @@ public class GeneralLedgerPostingDocumentBase extends LedgerPostingDocumentBase 
 
     /**
      * Adds a GeneralLedgerPendingEntry to this document's list of pending entries
+     *
      * @param pendingEntry a pending entry to add
      */
     public void addPendingEntry(GeneralLedgerPendingEntry pendingEntry) {

@@ -1,37 +1,37 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.vnd.businessobject;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.vnd.document.service.VendorService;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Purchasing Contracts with specific Vendors.
@@ -382,8 +382,7 @@ public class VendorContract extends PersistableBusinessObjectBase implements Ven
                     this.vendorDetailAssignedIdentifier = new Integer(vndrDetailAssgnedId);
                 }
             }
-        }
-        else {
+        } else {
             this.vendorNumber = vendorNumber;
         }
     }
@@ -395,11 +394,10 @@ public class VendorContract extends PersistableBusinessObjectBase implements Ven
     public boolean isEqualForRouting(Object toCompare) {
         if ((ObjectUtils.isNull(toCompare)) || !(toCompare instanceof VendorContract)) {
             return false;
-        }
-        else {
+        } else {
             VendorContract vc = (VendorContract) toCompare;
             boolean eq = new EqualsBuilder().append(this.getVendorContractGeneratedIdentifier(), vc.getVendorContractGeneratedIdentifier()).append(this.getVendorHeaderGeneratedIdentifier(), vc.getVendorHeaderGeneratedIdentifier()).append(this.getVendorDetailAssignedIdentifier(), vc.getVendorDetailAssignedIdentifier()).append(this.getVendorContractName(), vc.getVendorContractName()).append(this.getVendorContractDescription(), vc.getVendorContractDescription()).append(this.getVendorCampusCode(), vc.getVendorCampusCode()).append(this.getVendorContractBeginningDate(), vc.getVendorContractBeginningDate()).append(this.getVendorContractEndDate(), vc.getVendorContractEndDate()).append(this.getContractManagerCode(), vc.getContractManagerCode()).append(this.getPurchaseOrderCostSourceCode(), vc.getPurchaseOrderCostSourceCode()).append(this.getVendorPaymentTermsCode(), vc.getVendorPaymentTermsCode()).append(this.getVendorShippingPaymentTermsCode(), vc.getVendorShippingPaymentTermsCode())
-                    .append(this.getVendorShippingTitleCode(), vc.getVendorShippingTitleCode()).append(this.getVendorContractExtensionDate(), vc.getVendorContractExtensionDate()).append(this.getVendorB2bIndicator(), vc.getVendorB2bIndicator()).append(this.getOrganizationAutomaticPurchaseOrderLimit(), vc.getOrganizationAutomaticPurchaseOrderLimit()).isEquals();
+                .append(this.getVendorShippingTitleCode(), vc.getVendorShippingTitleCode()).append(this.getVendorContractExtensionDate(), vc.getVendorContractExtensionDate()).append(this.getVendorB2bIndicator(), vc.getVendorB2bIndicator()).append(this.getOrganizationAutomaticPurchaseOrderLimit(), vc.getOrganizationAutomaticPurchaseOrderLimit()).isEquals();
             eq &= SpringContext.getBean(VendorService.class).equalMemberLists(this.getVendorContractOrganizations(), vc.getVendorContractOrganizations());
 
             return eq;

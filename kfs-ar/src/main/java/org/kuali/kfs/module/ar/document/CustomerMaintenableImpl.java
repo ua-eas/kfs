@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,13 +18,16 @@
  */
 package org.kuali.kfs.module.ar.document;
 
-import java.sql.Date;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.Maintainable;
+import org.kuali.kfs.kns.web.ui.Section;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.ARCollector;
@@ -41,14 +44,11 @@ import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.identity.principal.Principal;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.maintenance.Maintainable;
-import org.kuali.kfs.kns.web.ui.Section;
-import org.kuali.kfs.krad.bo.DocumentHeader;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 public class CustomerMaintenableImpl extends FinancialSystemMaintainable {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CustomerMaintenableImpl.class);
@@ -124,8 +124,7 @@ public class CustomerMaintenableImpl extends FinancialSystemMaintainable {
                 newCustomer.setCustomerAddressChangeDate(currentDate);
                 newCustomer.setCustomerLastActivityDate(currentDate);
                 addressChangeFlag = true;
-            }
-            else {
+            } else {
                 for (int i = 0; i < oldAddresses.size(); i++) {
                     CustomerAddress oldAddress = (CustomerAddress) oldAddresses.get(i);
                     CustomerAddress newAddress = (CustomerAddress) newAddresses.get(i);
@@ -246,13 +245,12 @@ public class CustomerMaintenableImpl extends FinancialSystemMaintainable {
         }
 
         //  get the list of properties and unconverted values for readable props
-        Map<String,Object> oldProps;
-        Map<String,Object> newProps;
+        Map<String, Object> oldProps;
+        Map<String, Object> newProps;
         try {
             oldProps = PropertyUtils.describe(oldObject);
             newProps = PropertyUtils.describe(newObject);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException("Exception raised while trying to get a list of properties on OldCustomer.", e);
         }
 
@@ -310,8 +308,7 @@ public class CustomerMaintenableImpl extends FinancialSystemMaintainable {
                 }
             }
             return true;
-        }
-        else {
+        } else {
             boolean result = oldValue.toString().equals(newValue.toString());
             return result;
         }
@@ -322,9 +319,8 @@ public class CustomerMaintenableImpl extends FinancialSystemMaintainable {
         DocumentService documentService = SpringContext.getBean(DocumentService.class);
         FinancialSystemMaintenanceDocument maintDoc = null;
         try {
-            maintDoc =(FinancialSystemMaintenanceDocument) documentService.getByDocumentHeaderId(getDocumentNumber());
-        }
-        catch (WorkflowException e) {
+            maintDoc = (FinancialSystemMaintenanceDocument) documentService.getByDocumentHeaderId(getDocumentNumber());
+        } catch (WorkflowException e) {
             throw new RuntimeException(e);
         }
         return maintDoc;
@@ -338,6 +334,7 @@ public class CustomerMaintenableImpl extends FinancialSystemMaintainable {
 
     /**
      * Gets the dateTimeService attribute.
+     *
      * @return Returns the dateTimeService.
      */
     public DateTimeService getDateTimeService() {
@@ -409,7 +406,7 @@ public class CustomerMaintenableImpl extends FinancialSystemMaintainable {
      * Overriding to default fields on the document for new documents
      *
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#processAfterEdit(org.kuali.rice.kns.document.MaintenanceDocument,
-     *      java.util.Map)
+     * java.util.Map)
      */
     @Override
     public void processAfterEdit(MaintenanceDocument document, Map<String, String[]> parameters) {
@@ -423,7 +420,7 @@ public class CustomerMaintenableImpl extends FinancialSystemMaintainable {
      * Overriding to default fields on the document for copied documents
      *
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#processAfterEdit(org.kuali.rice.kns.document.MaintenanceDocument,
-     *      java.util.Map)
+     * java.util.Map)
      */
     @Override
     public void processAfterCopy(MaintenanceDocument document, Map<String, String[]> parameters) {
@@ -453,7 +450,7 @@ public class CustomerMaintenableImpl extends FinancialSystemMaintainable {
      * Overridden to set the default values on the Agency document.
      *
      * @see org.kuali.rice.kns.maintenance.KualiMaintainableImpl#processAfterNew(org.kuali.rice.kns.document.MaintenanceDocument,
-     *      java.util.Map)
+     * java.util.Map)
      */
     @Override
     public void processAfterNew(MaintenanceDocument document, Map<String, String[]> parameters) {

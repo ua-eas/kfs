@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -21,9 +21,8 @@ package org.kuali.kfs.krad.datadictionary;
 /**
  * A single attribute definition in the DataDictionary, which contains information relating to the display, validation, and general
  * maintenance of a specific attribute of an entry.
- * 
- * 
  */
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -36,333 +35,333 @@ import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
  * A single attribute definition in the DataDictionary, which contains
  * information relating to the display, validation, and general maintenance of a
  * specific attribute of an entry.
- * 
- * 
+ *
+ *
  */
 public class ExternalizableAttributeDefinitionProxy extends AttributeDefinition {
-	private static final long serialVersionUID = -3204870440281417429L;
+    private static final long serialVersionUID = -3204870440281417429L;
 
-	// logger
-	private static Log LOG = LogFactory
-			.getLog(ExternalizableAttributeDefinitionProxy.class);
+    // logger
+    private static Log LOG = LogFactory
+        .getLog(ExternalizableAttributeDefinitionProxy.class);
 
-	private String sourceExternalizableBusinessObjectInterface;
-	private String sourceAttributeName;
-	private AttributeDefinition delegate;
+    private String sourceExternalizableBusinessObjectInterface;
+    private String sourceAttributeName;
+    private AttributeDefinition delegate;
 
-	/**
-	 * Constructs an AttributeReferenceDefinition
-	 */
-	public ExternalizableAttributeDefinitionProxy() {
-		LOG.debug("creating new ExternalizableAttributeDefinitionProxy");
-	}
+    /**
+     * Constructs an AttributeReferenceDefinition
+     */
+    public ExternalizableAttributeDefinitionProxy() {
+        LOG.debug("creating new ExternalizableAttributeDefinitionProxy");
+    }
 
-	public void setSourceExternalizableBusinessObjectInterface(
-			String sourceClassName) {
-		if (StringUtils.isBlank(sourceClassName)) {
-			throw new IllegalArgumentException(
-					"invalid (blank) sourceClassName");
-		}
+    public void setSourceExternalizableBusinessObjectInterface(
+        String sourceClassName) {
+        if (StringUtils.isBlank(sourceClassName)) {
+            throw new IllegalArgumentException(
+                "invalid (blank) sourceClassName");
+        }
 
-		this.sourceExternalizableBusinessObjectInterface = sourceClassName;
-	}
+        this.sourceExternalizableBusinessObjectInterface = sourceClassName;
+    }
 
-	public String getSourceExternalizableBusinessObjectInterface() {
-		return this.sourceExternalizableBusinessObjectInterface;
-	}
+    public String getSourceExternalizableBusinessObjectInterface() {
+        return this.sourceExternalizableBusinessObjectInterface;
+    }
 
-	public void setSourceAttributeName(String sourceAttributeName) {
-		if (StringUtils.isBlank(sourceAttributeName)) {
-			throw new IllegalArgumentException(
-					"invalid (blank) sourceAttributeName");
-		}
+    public void setSourceAttributeName(String sourceAttributeName) {
+        if (StringUtils.isBlank(sourceAttributeName)) {
+            throw new IllegalArgumentException(
+                "invalid (blank) sourceAttributeName");
+        }
 
-		this.sourceAttributeName = sourceAttributeName;
-	}
+        this.sourceAttributeName = sourceAttributeName;
+    }
 
-	public String getSourceAttributeName() {
-		return this.sourceAttributeName;
-	}
+    public String getSourceAttributeName() {
+        return this.sourceAttributeName;
+    }
 
-	/**
-	 * @return AttributeDefinition acting as delegate for this
-	 *         AttributeReferenceDefinition
-	 */
-	AttributeDefinition getDelegate() {
-		BusinessObjectEntry delegateEntry = null;
-		if ( delegate == null ) {
-			try {
-				delegateEntry = KRADServiceLocatorWeb
-						.getKualiModuleService()
-						.getResponsibleModuleService(
-								Class
-										.forName(getSourceExternalizableBusinessObjectInterface()))
-						.getExternalizableBusinessObjectDictionaryEntry(
-								Class
-										.forName(getSourceExternalizableBusinessObjectInterface()));
-			} catch (ClassNotFoundException e) {
-				LOG.error("Unable to get delegate entry for sourceExternalizableBusinessObjectInterface",e);
-			}
-	
-			if (delegateEntry == null) {
-				throw new CompletionException(
-						"no BusinessObjectEntry exists for sourceClassName '"
-								+ getSourceExternalizableBusinessObjectInterface()
-								+ "'");
-			}
-			delegate = delegateEntry
-					.getAttributeDefinition(getSourceAttributeName());
-			if (delegate == null) {
-				throw new CompletionException(
-						"no AttributeDefnintion exists for sourceAttributeName '"
-								+ getSourceExternalizableBusinessObjectInterface()
-								+ "." + getSourceAttributeName() + "'");
-			}
-		}
+    /**
+     * @return AttributeDefinition acting as delegate for this
+     *         AttributeReferenceDefinition
+     */
+    AttributeDefinition getDelegate() {
+        BusinessObjectEntry delegateEntry = null;
+        if (delegate == null) {
+            try {
+                delegateEntry = KRADServiceLocatorWeb
+                    .getKualiModuleService()
+                    .getResponsibleModuleService(
+                        Class
+                            .forName(getSourceExternalizableBusinessObjectInterface()))
+                    .getExternalizableBusinessObjectDictionaryEntry(
+                        Class
+                            .forName(getSourceExternalizableBusinessObjectInterface()));
+            } catch (ClassNotFoundException e) {
+                LOG.error("Unable to get delegate entry for sourceExternalizableBusinessObjectInterface", e);
+            }
 
-		return delegate;
-	}
+            if (delegateEntry == null) {
+                throw new CompletionException(
+                    "no BusinessObjectEntry exists for sourceClassName '"
+                        + getSourceExternalizableBusinessObjectInterface()
+                        + "'");
+            }
+            delegate = delegateEntry
+                .getAttributeDefinition(getSourceAttributeName());
+            if (delegate == null) {
+                throw new CompletionException(
+                    "no AttributeDefnintion exists for sourceAttributeName '"
+                        + getSourceExternalizableBusinessObjectInterface()
+                        + "." + getSourceAttributeName() + "'");
+            }
+        }
 
-	/**
-	 * Sets the given AttributeDefinition as the delegate for this instance
-	 * 
-	 * @param delegate
-	 */
-	void setDelegate(AttributeDefinition delegate) {
-		if (delegate == null) {
-			throw new IllegalArgumentException("invalid (null) delegate");
-		}
+        return delegate;
+    }
 
-		this.delegate = delegate;
-	}
+    /**
+     * Sets the given AttributeDefinition as the delegate for this instance
+     *
+     * @param delegate
+     */
+    void setDelegate(AttributeDefinition delegate) {
+        if (delegate == null) {
+            throw new IllegalArgumentException("invalid (null) delegate");
+        }
 
-	/**
-	 * If forceUppercase wasn't set on this instance, use the value from its
-	 * delegate.
-	 * 
-	 * @see org.kuali.core.datadictionary.AttributeDefinition#getForceUppercase()
-	 */
-	public Boolean getForceUppercase() {
-		Boolean value = super.getForceUppercase();
-		if (value == null) {
-			value = getDelegate().getForceUppercase();
-		}
+        this.delegate = delegate;
+    }
 
-		return value;
-	}
+    /**
+     * If forceUppercase wasn't set on this instance, use the value from its
+     * delegate.
+     *
+     * @see org.kuali.core.datadictionary.AttributeDefinition#getForceUppercase()
+     */
+    public Boolean getForceUppercase() {
+        Boolean value = super.getForceUppercase();
+        if (value == null) {
+            value = getDelegate().getForceUppercase();
+        }
 
-	/**
-	 * If name wasn't set on this instance, use the value from its delegate.
-	 * 
-	 * @see org.kuali.core.datadictionary.AttributeDefinition#getName()
-	 */
-	public String getName() {
-		String name = super.getName();
-		if (name == null) {
-			name = getDelegate().getName();
-		}
+        return value;
+    }
 
-		return name;
-	}
+    /**
+     * If name wasn't set on this instance, use the value from its delegate.
+     *
+     * @see org.kuali.core.datadictionary.AttributeDefinition#getName()
+     */
+    public String getName() {
+        String name = super.getName();
+        if (name == null) {
+            name = getDelegate().getName();
+        }
 
-	/**
-	 * If label wasn't set on this instance, use the value from its delegate.
-	 * 
-	 * @see org.kuali.core.datadictionary.AttributeDefinition#getLabel()
-	 */
-	public String getLabel() {
-		String label = super.getLabel();
+        return name;
+    }
 
-		if (label == null) {
-			label = getDelegate().getLabel();
-		}
+    /**
+     * If label wasn't set on this instance, use the value from its delegate.
+     *
+     * @see org.kuali.core.datadictionary.AttributeDefinition#getLabel()
+     */
+    public String getLabel() {
+        String label = super.getLabel();
 
-		return label;
-	}
+        if (label == null) {
+            label = getDelegate().getLabel();
+        }
 
-	/**
-	 * If shortlabel wasn't set on this instance, use the value from its
-	 * delegate.
-	 * 
-	 * @see org.kuali.core.datadictionary.AttributeDefinition#getShortLabel()
-	 */
-	public String getShortLabel() {
-		String shortLabel = super.getDirectShortLabel();
-		if (shortLabel == null) {
-			shortLabel = getDelegate().getShortLabel();
-		}
+        return label;
+    }
 
-		return shortLabel;
-	}
+    /**
+     * If shortlabel wasn't set on this instance, use the value from its
+     * delegate.
+     *
+     * @see org.kuali.core.datadictionary.AttributeDefinition#getShortLabel()
+     */
+    public String getShortLabel() {
+        String shortLabel = super.getDirectShortLabel();
+        if (shortLabel == null) {
+            shortLabel = getDelegate().getShortLabel();
+        }
 
-	/**
-	 * If maxLength wasn't set on this instance, use the value from its
-	 * delegate.
-	 * 
-	 * @see org.kuali.core.datadictionary.AttributeDefinition#getMaxLength()
-	 */
-	public Integer getMaxLength() {
-		Integer maxLength = super.getMaxLength();
-		if (maxLength == null) {
-			maxLength = getDelegate().getMaxLength();
-		}
+        return shortLabel;
+    }
 
-		return maxLength;
-	}
+    /**
+     * If maxLength wasn't set on this instance, use the value from its
+     * delegate.
+     *
+     * @see org.kuali.core.datadictionary.AttributeDefinition#getMaxLength()
+     */
+    public Integer getMaxLength() {
+        Integer maxLength = super.getMaxLength();
+        if (maxLength == null) {
+            maxLength = getDelegate().getMaxLength();
+        }
 
-	/**
-	 * @return true if a validationPattern is available, directly or indirectly
-	 * 
-	 * @see org.kuali.core.datadictionary.AttributeDefinition#hasValidationPattern()
-	 */
-	public boolean hasValidationPattern() {
-		return (getValidationPattern() != null);
-	}
+        return maxLength;
+    }
 
-	/**
-	 * If validationPattern wasn't set on this instance, use the value from its
-	 * delegate.
-	 * 
-	 * @see org.kuali.core.datadictionary.AttributeDefinition#getValidationPattern()
-	 */
-	public ValidationPattern getValidationPattern() {
-		ValidationPattern validationPattern = super.getValidationPattern();
-		if (validationPattern == null) {
-			validationPattern = getDelegate().getValidationPattern();
-		}
+    /**
+     * @return true if a validationPattern is available, directly or indirectly
+     *
+     * @see org.kuali.core.datadictionary.AttributeDefinition#hasValidationPattern()
+     */
+    public boolean hasValidationPattern() {
+        return (getValidationPattern() != null);
+    }
 
-		return validationPattern;
-	}
+    /**
+     * If validationPattern wasn't set on this instance, use the value from its
+     * delegate.
+     *
+     * @see org.kuali.core.datadictionary.AttributeDefinition#getValidationPattern()
+     */
+    public ValidationPattern getValidationPattern() {
+        ValidationPattern validationPattern = super.getValidationPattern();
+        if (validationPattern == null) {
+            validationPattern = getDelegate().getValidationPattern();
+        }
 
-	/**
-	 * If required wasn't set on this instance, use the value from its delegate.
-	 * 
-	 * @see org.kuali.core.datadictionary.AttributeDefinition#isRequired()
-	 */
-	public Boolean isRequired() {
-		Boolean required = super.isRequired();
-		if (required == null) {
-			required = getDelegate().isRequired();
-		}
+        return validationPattern;
+    }
 
-		return required;
-	}
+    /**
+     * If required wasn't set on this instance, use the value from its delegate.
+     *
+     * @see org.kuali.core.datadictionary.AttributeDefinition#isRequired()
+     */
+    public Boolean isRequired() {
+        Boolean required = super.isRequired();
+        if (required == null) {
+            required = getDelegate().isRequired();
+        }
 
-	/**
-	 * If control wasn't set on this instance, use the value from its delegate.
-	 * 
-	 * @see org.kuali.core.datadictionary.AttributeDefinition#getControl()
-	 */
-	public ControlDefinition getControl() {
-		ControlDefinition control = super.getControl();
-		if (control == null) {
-			control = getDelegate().getControl();
-		}
+        return required;
+    }
 
-		return control;
-	}
+    /**
+     * If control wasn't set on this instance, use the value from its delegate.
+     *
+     * @see org.kuali.core.datadictionary.AttributeDefinition#getControl()
+     */
+    public ControlDefinition getControl() {
+        ControlDefinition control = super.getControl();
+        if (control == null) {
+            control = getDelegate().getControl();
+        }
 
-	/**
-	 * If summary wasn't set on this instance, use the value from its delegate.
-	 * 
-	 * @see org.kuali.core.datadictionary.AttributeDefinition#getSummary()
-	 */
-	public String getSummary() {
-		String summary = super.getSummary();
-		if (summary == null) {
-			summary = getDelegate().getSummary();
-		}
+        return control;
+    }
 
-		return summary;
-	}
+    /**
+     * If summary wasn't set on this instance, use the value from its delegate.
+     *
+     * @see org.kuali.core.datadictionary.AttributeDefinition#getSummary()
+     */
+    public String getSummary() {
+        String summary = super.getSummary();
+        if (summary == null) {
+            summary = getDelegate().getSummary();
+        }
 
-	/**
-	 * If description wasn't set on this instance, use the value from its
-	 * delegate.
-	 * 
-	 * @see org.kuali.core.datadictionary.AttributeDefinition#getDescription()
-	 */
-	public String getDescription() {
-		String description = super.getDescription();
-		if (description == null) {
-			description = getDelegate().getDescription();
-		}
+        return summary;
+    }
 
-		return description;
-	}
+    /**
+     * If description wasn't set on this instance, use the value from its
+     * delegate.
+     *
+     * @see org.kuali.core.datadictionary.AttributeDefinition#getDescription()
+     */
+    public String getDescription() {
+        String description = super.getDescription();
+        if (description == null) {
+            description = getDelegate().getDescription();
+        }
 
-	/**
-	 * @return true if a formatterClass is available, directly or indirectly
-	 * 
-	 * @see org.kuali.core.datadictionary.AttributeDefinition#hasFormatterClass()
-	 */
-	public boolean hasFormatterClass() {
-		return (getFormatterClass() != null);
-	}
+        return description;
+    }
 
-	/**
-	 * If a formatterClass wasn't set for this instance, use the value from its
-	 * delegate.
-	 * 
-	 * @see org.kuali.core.datadictionary.AttributeDefinition#getFormatterClass()
-	 */
-	public String getFormatterClass() {
-		String formatterClass = super.getFormatterClass();
-		if (formatterClass == null) {
-			formatterClass = getDelegate().getFormatterClass();
-		}
+    /**
+     * @return true if a formatterClass is available, directly or indirectly
+     *
+     * @see org.kuali.core.datadictionary.AttributeDefinition#hasFormatterClass()
+     */
+    public boolean hasFormatterClass() {
+        return (getFormatterClass() != null);
+    }
 
-		return formatterClass;
-	}
+    /**
+     * If a formatterClass wasn't set for this instance, use the value from its
+     * delegate.
+     *
+     * @see org.kuali.core.datadictionary.AttributeDefinition#getFormatterClass()
+     */
+    public String getFormatterClass() {
+        String formatterClass = super.getFormatterClass();
+        if (formatterClass == null) {
+            formatterClass = getDelegate().getFormatterClass();
+        }
 
-	/**
-	 * @see org.kuali.core.datadictionary.AttributeDefinition#getDisplayLabelAttribute()
-	 */
-	@Override
-	public String getDisplayLabelAttribute() {
-		String displayLabelAttribute = super.getDisplayLabelAttribute();
-		if (StringUtils.isBlank(displayLabelAttribute)) {
-			displayLabelAttribute = getDelegate().getDisplayLabelAttribute();
-		}
-		return displayLabelAttribute;
-	}
+        return formatterClass;
+    }
 
-	/**
-	 * Validate the fields associated with locating the delegate. Other
-	 * validation must be deferred until the delegate class has been assigned.
-	 * 
-	 * @see org.kuali.core.datadictionary.DataDictionaryEntry#completeValidation()
-	 */
-	@Override
-	public void completeValidation(Class rootObjectClass, Class otherObjectClass) {
-		if (StringUtils.isBlank(sourceExternalizableBusinessObjectInterface)) {
-			throw new IllegalArgumentException(
-					"invalid (blank) sourceClassName for attribute '"
-							+ rootObjectClass.getName() + "." + getName() + "'");
-		}
-		if (StringUtils.isBlank(sourceAttributeName)) {
-			throw new IllegalArgumentException(
-					"invalid (blank) sourceAttributeName for attribute '"
-							+ rootObjectClass.getName() + "." + getName() + "'");
-		}
-		if ( DataDictionary.validateEBOs ) {
-			getDelegate(); // forces validation
-			super.completeValidation(rootObjectClass, otherObjectClass);
-		}
-	}
+    /**
+     * @see org.kuali.core.datadictionary.AttributeDefinition#getDisplayLabelAttribute()
+     */
+    @Override
+    public String getDisplayLabelAttribute() {
+        String displayLabelAttribute = super.getDisplayLabelAttribute();
+        if (StringUtils.isBlank(displayLabelAttribute)) {
+            displayLabelAttribute = getDelegate().getDisplayLabelAttribute();
+        }
+        return displayLabelAttribute;
+    }
 
-	/**
-	 * @see java.lang.Object#toString()
-	 */
-	public String toString() {
-		String name = super.getName();
+    /**
+     * Validate the fields associated with locating the delegate. Other
+     * validation must be deferred until the delegate class has been assigned.
+     *
+     * @see org.kuali.core.datadictionary.DataDictionaryEntry#completeValidation()
+     */
+    @Override
+    public void completeValidation(Class rootObjectClass, Class otherObjectClass) {
+        if (StringUtils.isBlank(sourceExternalizableBusinessObjectInterface)) {
+            throw new IllegalArgumentException(
+                "invalid (blank) sourceClassName for attribute '"
+                    + rootObjectClass.getName() + "." + getName() + "'");
+        }
+        if (StringUtils.isBlank(sourceAttributeName)) {
+            throw new IllegalArgumentException(
+                "invalid (blank) sourceAttributeName for attribute '"
+                    + rootObjectClass.getName() + "." + getName() + "'");
+        }
+        if (DataDictionary.validateEBOs) {
+            getDelegate(); // forces validation
+            super.completeValidation(rootObjectClass, otherObjectClass);
+        }
+    }
 
-		// workaround for the mysterious,
-		// still-unreproducible-on-my-machine, null delegate exception on
-		// Tomcat startup
-		if ((name == null) && (getDelegate() != null)) {
-			name = getDelegate().getName();
-		}
-		return "AttributeReferenceDefinition for attribute " + name;
-	}
+    /**
+     * @see java.lang.Object#toString()
+     */
+    public String toString() {
+        String name = super.getName();
+
+        // workaround for the mysterious,
+        // still-unreproducible-on-my-machine, null delegate exception on
+        // Tomcat startup
+        if ((name == null) && (getDelegate() != null)) {
+            name = getDelegate().getName();
+        }
+        return "AttributeReferenceDefinition for attribute " + name;
+    }
 }

@@ -37,7 +37,7 @@ import java.util.List;
 
 /**
  * Update the schema of the document store database on system start up.
- *
+ * <p>
  * This must be set transactional because the non-transactional annotation
  * is in the kfs-core package.  kfs-core depends on kfs-datatools so kfs-datatools
  * cannot depend on kfs-core (cyclic reference).  The class must have either the transactional or
@@ -57,7 +57,7 @@ public class DocumentStoreSchemaUpdateServiceImpl implements DocumentStoreSchema
     public void updateDocumentStoreSchema() {
         LOG.debug("updateDocumentStoreSchema() started");
 
-        if ( documentStoreUpdateProcessDao.isSchemaChangeLocked() ) {
+        if (documentStoreUpdateProcessDao.isSchemaChangeLocked()) {
             LOG.warn("updateDocumentStoreSchema() not running because schema is locked");
             return;
         }
@@ -114,7 +114,7 @@ public class DocumentStoreSchemaUpdateServiceImpl implements DocumentStoreSchema
         JsonNode arrayOfChanges = rootNode.get("changeLog");
 
         Iterator<JsonNode> items = arrayOfChanges.elements();
-        while ( items.hasNext() ) {
+        while (items.hasNext()) {
             JsonNode item = items.next();
             DocumentStoreChange change = new DocumentStoreChange(updateFile, item);
             applyChangeSetIfNecessary(change);
@@ -129,7 +129,7 @@ public class DocumentStoreSchemaUpdateServiceImpl implements DocumentStoreSchema
     private void applyChangeSetIfNecessary(DocumentStoreChange changeSet) {
         LOG.debug("applyChangeSetIfNecessary() started");
 
-        if ( ! documentStoreUpdateProcessDao.hasSchemaChangeHappened(changeSet) ) {
+        if (!documentStoreUpdateProcessDao.hasSchemaChangeHappened(changeSet)) {
             LOG.debug("applyChangeSetIfNecessary() Making change: " + changeSet);
 
             changeSet.getAllChanges().forEach((change) -> applyChange(change));
@@ -139,6 +139,7 @@ public class DocumentStoreSchemaUpdateServiceImpl implements DocumentStoreSchema
 
     /**
      * Apply one change from the set
+     *
      * @param change change to apply
      */
     private void applyChange(JsonNode change) {
@@ -152,7 +153,7 @@ public class DocumentStoreSchemaUpdateServiceImpl implements DocumentStoreSchema
             }
         }
 
-        if ( ! changeMade ) {
+        if (!changeMade) {
             LOG.error("applyChange() No document handler found for this change: " + change);
             throw new IllegalArgumentException("No handler registered to handle this change");
         }

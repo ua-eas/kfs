@@ -1,28 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.businessobject;
 
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 
 public class AgencyCorrectionChangeGroup extends PersistableBusinessObjectBase implements Comparable<AgencyCorrectionChangeGroup> {
 
@@ -64,6 +64,7 @@ public class AgencyCorrectionChangeGroup extends PersistableBusinessObjectBase i
 
     /**
      * Gets the documentNumber attribute.
+     *
      * @return Returns the documentNumber.
      */
     public String getDocumentNumber() {
@@ -72,6 +73,7 @@ public class AgencyCorrectionChangeGroup extends PersistableBusinessObjectBase i
 
     /**
      * Sets the documentNumber attribute value.
+     *
      * @param documentNumber The documentNumber to set.
      */
     public void setDocumentNumber(String documentNumber) {
@@ -80,6 +82,7 @@ public class AgencyCorrectionChangeGroup extends PersistableBusinessObjectBase i
 
     /**
      * Gets the correctionChangeGroupLineNumber attribute.
+     *
      * @return Returns the correctionChangeGroupLineNumber.
      */
     public Integer getCorrectionChangeGroupLineNumber() {
@@ -88,6 +91,7 @@ public class AgencyCorrectionChangeGroup extends PersistableBusinessObjectBase i
 
     /**
      * Sets the correctionChangeGroupLineNumber attribute value.
+     *
      * @param correctionChangeGroupLineNumber The correctionChangeGroupLineNumber to set.
      */
     public void setCorrectionChangeGroupLineNumber(Integer correctionChangeGroupLineNumber) {
@@ -96,6 +100,7 @@ public class AgencyCorrectionChangeGroup extends PersistableBusinessObjectBase i
 
     /**
      * Gets the correctionCriteriaNextLineNumber attribute.
+     *
      * @return Returns the correctionCriteriaNextLineNumber.
      */
     public Integer getCorrectionCriteriaNextLineNumber() {
@@ -104,6 +109,7 @@ public class AgencyCorrectionChangeGroup extends PersistableBusinessObjectBase i
 
     /**
      * Sets the correctionCriteriaNextLineNumber attribute value.
+     *
      * @param correctionCriteriaNextLineNumber The correctionCriteriaNextLineNumber to set.
      */
     public void setCorrectionCriteriaNextLineNumber(Integer correctionCriteriaNextLineNumber) {
@@ -112,6 +118,7 @@ public class AgencyCorrectionChangeGroup extends PersistableBusinessObjectBase i
 
     /**
      * Gets the correctionChangeNextLineNumber attribute.
+     *
      * @return Returns the correctionChangeNextLineNumber.
      */
     public Integer getCorrectionChangeNextLineNumber() {
@@ -120,6 +127,7 @@ public class AgencyCorrectionChangeGroup extends PersistableBusinessObjectBase i
 
     /**
      * Sets the correctionChangeNextLineNumber attribute value.
+     *
      * @param correctionChangeNextLineNumber The correctionChangeNextLineNumber to set.
      */
     public void setCorrectionChangeNextLineNumber(Integer correctionChangeNextLineNumber) {
@@ -128,6 +136,7 @@ public class AgencyCorrectionChangeGroup extends PersistableBusinessObjectBase i
 
     /**
      * Gets the correctionCriteria attribute.
+     *
      * @return Returns the correctionCriteria.
      */
     public List<AgencyCorrectionCriteria> getCorrectionCriteria() {
@@ -136,6 +145,7 @@ public class AgencyCorrectionChangeGroup extends PersistableBusinessObjectBase i
 
     /**
      * Sets the correctionCriteria attribute value.
+     *
      * @param correctionCriteria The correctionCriteria to set.
      */
     public void setCorrectionCriteria(List<AgencyCorrectionCriteria> correctionCriteria) {
@@ -144,6 +154,7 @@ public class AgencyCorrectionChangeGroup extends PersistableBusinessObjectBase i
 
     /**
      * Gets the correctionChange attribute.
+     *
      * @return Returns the correctionChange.
      */
     public List<AgencyCorrectionChange> getCorrectionChange() {
@@ -152,13 +163,12 @@ public class AgencyCorrectionChangeGroup extends PersistableBusinessObjectBase i
 
     /**
      * Sets the correctionChange attribute value.
+     *
      * @param correctionChange The correctionChange to set.
      */
     public void setCorrectionChange(List<AgencyCorrectionChange> correctionChange) {
         this.correctionChange = correctionChange;
     }
-
-
 
 
 }

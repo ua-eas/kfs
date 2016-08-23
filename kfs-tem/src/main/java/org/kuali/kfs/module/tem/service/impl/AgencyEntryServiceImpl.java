@@ -1,22 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.service.impl;
+
+import org.apache.commons.io.IOUtils;
+import org.kuali.kfs.module.tem.batch.AgencyDataXmlInputFileType;
+import org.kuali.kfs.module.tem.businessobject.AgencyEntryFull;
+import org.kuali.kfs.module.tem.businessobject.AgencyStagingData;
+import org.kuali.kfs.module.tem.service.AgencyEntryGroupService;
+import org.kuali.kfs.module.tem.service.AgencyEntryService;
+import org.kuali.rice.core.api.datetime.DateTimeService;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -28,14 +36,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.io.IOUtils;
-import org.kuali.kfs.module.tem.batch.AgencyDataXmlInputFileType;
-import org.kuali.kfs.module.tem.businessobject.AgencyEntryFull;
-import org.kuali.kfs.module.tem.businessobject.AgencyStagingData;
-import org.kuali.kfs.module.tem.service.AgencyEntryGroupService;
-import org.kuali.kfs.module.tem.service.AgencyEntryService;
-import org.kuali.rice.core.api.datetime.DateTimeService;
 
 public class AgencyEntryServiceImpl implements AgencyEntryService {
     private AgencyEntryGroupService agencyEntryGroupService;
@@ -75,8 +75,7 @@ public class AgencyEntryServiceImpl implements AgencyEntryService {
                     agencyGroup.add(fullAgency);
                 }
 
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 // figure it out
             }
         }
@@ -110,12 +109,10 @@ public class AgencyEntryServiceImpl implements AgencyEntryService {
                 }
                 agencyEntryList.addAll(agencyGroup);
 
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 // figure it out
             }
-        }
-        else {
+        } else {
             agencyEntryList.addAll(agencyGroup);
         }
 
@@ -196,6 +193,7 @@ public class AgencyEntryServiceImpl implements AgencyEntryService {
 
     /**
      * Gets the batchFileDirectoryName attribute.
+     *
      * @return Returns the batchFileDirectoryName.
      */
     public String getBatchFileDirectoryName() {
@@ -204,6 +202,7 @@ public class AgencyEntryServiceImpl implements AgencyEntryService {
 
     /**
      * Sets the batchFileDirectoryName attribute value.
+     *
      * @param batchFileDirectoryName The batchFileDirectoryName to set.
      */
     public void setBatchFileDirectoryName(String batchFileDirectoryName) {

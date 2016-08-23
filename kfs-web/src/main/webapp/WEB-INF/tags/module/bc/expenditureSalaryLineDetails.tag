@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -46,30 +46,30 @@
 <table class="standard side-margins" summary="Expenditure Salary Line Detail">
 	<tr class="header">
 		<kul:htmlAttributeHeaderCell attributeEntry="${pbcafAttributes.appointmentFundingDeleteIndicator}"/>
-				
+
 		<kul:htmlAttributeHeaderCell attributeEntry="${pbcafAttributes.positionNumber}" />
 		<kul:htmlAttributeHeaderCell attributeEntry="${pbcafAttributes.emplid}" />
 		<kul:htmlAttributeHeaderCell attributeEntry="${bciiAttributes.iuClassificationLevel}"/>
-		
+
 		<kul:htmlAttributeHeaderCell attributeEntry="${bcpAttributes.positionSalaryPlanDefault}" />
 		<kul:htmlAttributeHeaderCell attributeEntry="${bcpAttributes.positionGradeDefault}" />
 		<kul:htmlAttributeHeaderCell attributeEntry="${bcpAttributes.iuNormalWorkMonths}" />
 		<kul:htmlAttributeHeaderCell attributeEntry="${bcpAttributes.iuPayMonths}" />
-		
+
 		<kul:htmlAttributeHeaderCell attributeEntry="${bccsftAttributes.csfAmount}" addClass="right" />
 		<kul:htmlAttributeHeaderCell attributeEntry="${bccsftAttributes.csfFullTimeEmploymentQuantity}" addClass="right" />
-		
+
 		<kul:htmlAttributeHeaderCell attributeEntry="${pbcafAttributes.appointmentFundingMonth}" />
-		
+
 		<c:if test="${isHourlyPaid}">
 			<kul:htmlAttributeHeaderCell attributeEntry="${pbcafAttributes.appointmentRequestedPayRate}" addClass="right" />
 		</c:if>
-		
+
 		<kul:htmlAttributeHeaderCell attributeEntry="${pbcafAttributes.appointmentRequestedAmount}" addClass="right" />
 		<kul:htmlAttributeHeaderCell attributeEntry="${pbcafAttributes.appointmentRequestedFteQuantity}" addClass="right" />
 		<kul:htmlAttributeHeaderCell attributeEntry="${pbcafAttributes.percentChange}" addClass="right" />
-		
-		<kul:htmlAttributeHeaderCell literalLabel="Actions"/>		
+
+		<kul:htmlAttributeHeaderCell literalLabel="Actions"/>
 	</tr>
 
 	<c:if test="${empty KualiForm.salarySettingExpansion.pendingBudgetConstructionAppointmentFunding}">
@@ -282,47 +282,47 @@
 
 	<tr>
 		<kul:htmlAttributeHeaderCell scope="row" colspan="8" literalLabel="Total:" horizontal="true" addClass="right" />
-	
+
 	    <bc:columnTotalCell dataCellCssClass="datacell" textStyle="${textStyle}" fieldAlign="right" colSpan="1"
 	    	cellProperty="csfAmountTotal" disableHiddenField="true"/>
-		
-		<fmt:formatNumber var="formattedCsfFTETotal" value="${KualiForm.csfFullTimeEmploymentQuantityTotal}" 
+
+		<fmt:formatNumber var="formattedCsfFTETotal" value="${KualiForm.csfFullTimeEmploymentQuantityTotal}"
         	type="number" groupingUsed="true" minFractionDigits="5" />
-		<bc:columnTotalCell dataCellCssClass="datacell" textStyle="${textStyle}" fieldAlign="right" colSpan="1" 
+		<bc:columnTotalCell dataCellCssClass="datacell" textStyle="${textStyle}" fieldAlign="right" colSpan="1"
 			cellProperty="csfFullTimeEmploymentQuantityTotal" formattedNumberValue="${formattedCsfFTETotal}" disableHiddenField="true"/>
-	
-		<bc:columnTotalCell dataCellCssClass="datacell" textStyle="${textStyle}" fieldAlign="right" colSpan="${3 - numOfColumsRemoved}" 
+
+		<bc:columnTotalCell dataCellCssClass="datacell" textStyle="${textStyle}" fieldAlign="right" colSpan="${3 - numOfColumsRemoved}"
 			cellProperty="appointmentRequestedAmountTotal" disableHiddenField="true"/>
-	
-		<fmt:formatNumber var="formattedRequestedFTETotal" value="${KualiForm.appointmentRequestedFteQuantityTotal}" 
+
+		<fmt:formatNumber var="formattedRequestedFTETotal" value="${KualiForm.appointmentRequestedFteQuantityTotal}"
         	type="number" groupingUsed="true" minFractionDigits="5" />
-		<bc:columnTotalCell dataCellCssClass="datacell" textStyle="${textStyle}" fieldAlign="right" colSpan="1" 
+		<bc:columnTotalCell dataCellCssClass="datacell" textStyle="${textStyle}" fieldAlign="right" colSpan="1"
 			cellProperty="appointmentRequestedFteQuantityTotal" formattedNumberValue="${formattedRequestedFTETotal}" disableHiddenField="true"/>
-	
-		<bc:columnTotalCell dataCellCssClass="datacell" textStyle="${textStyle}" fieldAlign="right" colSpan="1" 
+
+		<bc:columnTotalCell dataCellCssClass="datacell" textStyle="${textStyle}" fieldAlign="right" colSpan="1"
 			cellProperty="percentChangeTotal" disableHiddenField="true"/>
-		
+
 		<kul:htmlAttributeHeaderCell />
 	</tr>
-	
+
 	<tr>
 		<kul:htmlAttributeHeaderCell scope="row" colspan="8" literalLabel="Expenditure Line Base:" horizontal="true" addClass="right" />
-	
+
 	    <bc:columnTotalCell dataCellCssClass="datacell" textStyle="${textStyle}" fieldAlign="right" colSpan="1"
 	    	cellProperty="salarySettingExpansion.financialBeginningBalanceLineAmount" />
-	
+
 		<kul:htmlAttributeHeaderCell nowrap="true" literalLabel="Req:" horizontal="true" addClass="right" />
-	
-		<bc:columnTotalCell dataCellCssClass="datacell" textStyle="${textStyle}" fieldAlign="right" colSpan="${3 - numOfColumsRemoved}"  
+
+		<bc:columnTotalCell dataCellCssClass="datacell" textStyle="${textStyle}" fieldAlign="right" colSpan="${3 - numOfColumsRemoved}"
 			cellProperty="salarySettingExpansion.accountLineAnnualBalanceAmount" />
-	
-		<bc:columnTotalCell dataCellCssClass="datacell" textStyle="${textStyle}" fieldAlign="right" colSpan="2" 
+
+		<bc:columnTotalCell dataCellCssClass="datacell" textStyle="${textStyle}" fieldAlign="right" colSpan="2"
 			cellProperty="salarySettingExpansion.percentChange" />
-		
+
 		<kul:htmlAttributeHeaderCell />
 	</tr>
 </table>
-	
+
 <c:if test="${not readOnly}">
 	<table class="standard side-margins" summary="Expenditure Salary Global Actions">
 		<tr>
@@ -359,5 +359,5 @@
 		</tr>
 	</table>
 </c:if>
-		
+
 

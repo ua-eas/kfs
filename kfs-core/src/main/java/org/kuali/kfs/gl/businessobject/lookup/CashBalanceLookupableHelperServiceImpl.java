@@ -1,28 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.businessobject.lookup;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Account;
@@ -34,6 +28,10 @@ import org.kuali.kfs.gl.businessobject.Balance;
 import org.kuali.kfs.gl.businessobject.CashBalance;
 import org.kuali.kfs.gl.businessobject.inquiry.CashBalanceInquirableImpl;
 import org.kuali.kfs.gl.service.BalanceService;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.kns.web.ui.Row;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry;
@@ -41,11 +39,13 @@ import org.kuali.kfs.sys.businessobject.UniversityDate;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.service.UniversityDateService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.web.ui.Field;
-import org.kuali.kfs.kns.web.ui.Row;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * An extension of KualiLookupableImpl to support cash lookups
@@ -56,13 +56,13 @@ public class CashBalanceLookupableHelperServiceImpl extends AbstractGeneralLedge
 
     /**
      * Returns the URL for inquiries on fields returned in the lookup
-     * 
-     * @param bo the business object the field to inquiry on is in
+     *
+     * @param bo           the business object the field to inquiry on is in
      * @param propertyName the name of the property that an inquiry url is being asked of
      * @return the String of the url
      * @see org.kuali.rice.kns.lookup.Lookupable#getInquiryUrl(org.kuali.rice.krad.bo.BusinessObject, java.lang.String) KRAD
-     *      Conversion: Lookupable modifies the search results based on the fields consolidated. But all field definitions are in
-     *      data dictionary.
+     * Conversion: Lookupable modifies the search results based on the fields consolidated. But all field definitions are in
+     * data dictionary.
      */
     @Override
     public HtmlData getInquiryUrl(BusinessObject bo, String propertyName) {
@@ -71,7 +71,7 @@ public class CashBalanceLookupableHelperServiceImpl extends AbstractGeneralLedge
 
     /**
      * Generates a list of results for this inquiry
-     * 
+     *
      * @param fieldValues the field values that the user entered for this inquiry
      * @return a List of results
      * @see org.kuali.rice.kns.lookup.Lookupable#getSearchResults(java.util.Map)
@@ -84,19 +84,18 @@ public class CashBalanceLookupableHelperServiceImpl extends AbstractGeneralLedge
         // get the pending entry option. This method must be prior to the get search results
         String pendingEntryOption = getSelectedPendingEntryOption(fieldValues);
 
-        
-        
+
         // KFSMI-410: need to get this before getting isConsolidated because this value will be removed.
         String consolidationOption = (String) fieldValues.get(GeneralLedgerConstants.DummyBusinessObject.CONSOLIDATION_OPTION);
         // get the consolidation option
         boolean isConsolidated = isConsolidationSelected(fieldValues);
 
         // KFSMI-410: added one more node for consolidationOption
-        if (consolidationOption.equals(Constant.EXCLUDE_SUBACCOUNTS)){
+        if (consolidationOption.equals(Constant.EXCLUDE_SUBACCOUNTS)) {
             fieldValues.put(Constant.SUB_ACCOUNT_OPTION, KFSConstants.getDashSubAccountNumber());
             isConsolidated = false;
-        } 
-        
+        }
+
         // get the search result collection
         Iterator cashBalanceIterator = balanceService.lookupCashBalance(fieldValues, isConsolidated);
         Collection searchResultsCollection = this.buildCashBalanceCollection(cashBalanceIterator, isConsolidated);
@@ -113,7 +112,7 @@ public class CashBalanceLookupableHelperServiceImpl extends AbstractGeneralLedge
 
     /**
      * This method builds the cash balance collection based on the input iterator
-     * 
+     *
      * @param iterator the iterator of search results of avaiable cash balance
      * @return the cash balance collection
      */
@@ -164,14 +163,14 @@ public class CashBalanceLookupableHelperServiceImpl extends AbstractGeneralLedge
 
     /**
      * Allows an updating of pending entry records before they are applied to the inquiry results
-     * 
-     * @param entryCollection a collection of balance entries
-     * @param fieldValues the map containing the search fields and values
-     * @param isApproved flag whether the approved entries or all entries will be processed
-     * @param isConsolidated flag whether the results are consolidated or not
+     *
+     * @param entryCollection     a collection of balance entries
+     * @param fieldValues         the map containing the search fields and values
+     * @param isApproved          flag whether the approved entries or all entries will be processed
+     * @param isConsolidated      flag whether the results are consolidated or not
      * @param isCostShareExcluded flag whether the user selects to see the results with cost share subaccount
      * @see org.kuali.module.gl.web.lookupable.AbstractGLLookupableImpl#updateEntryCollection(java.util.Collection, java.util.Map,
-     *      boolean, boolean, boolean)
+     * boolean, boolean, boolean)
      */
     @Override
     protected void updateEntryCollection(Collection entryCollection, Map fieldValues, boolean isApproved, boolean isConsolidated, boolean isCostShareInclusive) {
@@ -228,7 +227,7 @@ public class CashBalanceLookupableHelperServiceImpl extends AbstractGeneralLedge
 
     /**
      * Sets the postBalance attribute value.
-     * 
+     *
      * @param postBalance The postBalance to set.
      */
     public void setPostBalance(BalanceCalculator postBalance) {
@@ -237,7 +236,7 @@ public class CashBalanceLookupableHelperServiceImpl extends AbstractGeneralLedge
 
     /**
      * Sets the balanceService attribute value.
-     * 
+     *
      * @param balanceService The balanceService to set.
      */
     public void setBalanceService(BalanceService balanceService) {
@@ -250,9 +249,9 @@ public class CashBalanceLookupableHelperServiceImpl extends AbstractGeneralLedge
         List<Row> rows = super.getRows();
 
         // look for field and replace BO class
-        for (Iterator iter = rows.iterator(); iter.hasNext();) {
+        for (Iterator iter = rows.iterator(); iter.hasNext(); ) {
             Row row = (Row) iter.next();
-            for (Iterator iterator = row.getFields().iterator(); iterator.hasNext();) {
+            for (Iterator iterator = row.getFields().iterator(); iterator.hasNext(); ) {
                 Field field = (Field) iterator.next();
 
                 if (ObjectUtils.isNotNull(field) && StringUtils.equalsIgnoreCase(field.getPropertyName(), KFSPropertyConstants.ACCOUNT_NUMBER)) {

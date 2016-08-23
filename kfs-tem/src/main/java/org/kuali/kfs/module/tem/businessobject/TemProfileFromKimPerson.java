@@ -1,35 +1,34 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.util.LinkedHashMap;
-
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.kim.framework.identity.employment.EntityEmploymentStatusEbo;
 import org.kuali.rice.kim.framework.identity.employment.EntityEmploymentTypeEbo;
 import org.kuali.rice.kim.impl.identity.employment.EntityEmploymentStatusBo;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.rice.location.framework.campus.CampusEbo;
+
+import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import java.util.LinkedHashMap;
 
 @SuppressWarnings("restriction")
 public class TemProfileFromKimPerson extends PersistableBusinessObjectBase implements MutableInactivatable {
@@ -55,6 +54,7 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Gets the principalId attribute.
+     *
      * @return Returns the principalId.
      */
     @Column(name = "prncpl_id", length = 40, nullable = true)
@@ -65,6 +65,7 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Sets the principalId attribute value.
+     *
      * @param principalId The principalId to set.
      */
     public void setPrincipalId(String principalId) {
@@ -74,6 +75,7 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Gets the employeeId attribute.
+     *
      * @return Returns the employeeId.
      */
     @Column(name = "empl_id", length = 40, nullable = true)
@@ -84,6 +86,7 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Sets the employeeId attribute value.
+     *
      * @param employeeId The employeeId to set.
      */
     public void setEmployeeId(String employeeId) {
@@ -93,6 +96,7 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Gets the principalName attribute.
+     *
      * @return Returns the principalName.
      */
     @Column(name = "prncpl_nm", length = 40, nullable = true)
@@ -103,6 +107,7 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Sets the principalName attribute value.
+     *
      * @param principalName The principalName to set.
      */
     public void setPrincipalName(String principalName) {
@@ -112,6 +117,7 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Gets the entityId attribute.
+     *
      * @return Returns the entityId.
      */
     @Column(name = "entity_id", length = 40, nullable = true)
@@ -122,6 +128,7 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Sets the entityId attribute value.
+     *
      * @param entityId The entityId to set.
      */
     public void setEntityId(String entityId) {
@@ -131,6 +138,7 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Gets the firstName attribute.
+     *
      * @return Returns the firstName.
      */
     @Column(name = "first_nm", length = 40, nullable = true)
@@ -141,6 +149,7 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Sets the firstName attribute value.
+     *
      * @param firstName The firstName to set.
      */
     public void setFirstName(String firstName) {
@@ -150,6 +159,7 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Gets the middleName attribute.
+     *
      * @return Returns the middleName.
      */
     @Column(name = "middle_nm", length = 40, nullable = true)
@@ -160,6 +170,7 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Sets the middleName attribute value.
+     *
      * @param middleName The middleName to set.
      */
     public void setMiddleName(String middleName) {
@@ -169,6 +180,7 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Gets the lastName attribute.
+     *
      * @return Returns the lastName.
      */
     @Column(name = "last_nm", length = 40, nullable = true)
@@ -179,6 +191,7 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Sets the lastName attribute value.
+     *
      * @param lastName The lastName to set.
      */
     public void setLastName(String lastName) {
@@ -188,6 +201,7 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Gets the emailAddress attribute.
+     *
      * @return Returns the emailAddress.
      */
     @Column(name = "email_addr", length = 40, nullable = true)
@@ -198,6 +212,7 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Sets the emailAddress attribute value.
+     *
      * @param emailAddress The emailAddress to set.
      */
     public void setEmailAddress(String emailAddress) {
@@ -207,6 +222,7 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Gets the phoneNumber attribute.
+     *
      * @return Returns the phoneNumber.
      */
     @Column(name = "phone_num", length = 40, nullable = true)
@@ -217,6 +233,7 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Sets the phoneNumber attribute value.
+     *
      * @param phoneNumber The phoneNumber to set.
      */
     public void setPhoneNumber(String phoneNumber) {
@@ -226,6 +243,7 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Gets the employeeStatusCode attribute.
+     *
      * @return Returns the employeeStatusCode.
      */
     @Column(name = "emp_status_cd", length = 40, nullable = true)
@@ -236,6 +254,7 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Sets the employeeStatusCode attribute value.
+     *
      * @param employeeStatusCode The employeeStatusCode to set.
      */
     public void setEmployeeStatusCode(String employeeStatusCode) {
@@ -245,6 +264,7 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Gets the employeeStatus attribute.
+     *
      * @return Returns the employeeStatus.
      */
     @ManyToOne
@@ -256,6 +276,7 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Sets the employeeStatus attribute value.
+     *
      * @param employeeStatus The employeeStatus to set.
      */
     public void setEmployeeStatus(EntityEmploymentStatusBo employeeStatus) {
@@ -265,6 +286,7 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Gets the employeeTypeCode attribute.
+     *
      * @return Returns the employeeTypeCode.
      */
     @Column(name = "emp_typ_cd", length = 40, nullable = true)
@@ -275,6 +297,7 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Sets the employeeTypeCode attribute value.
+     *
      * @param employeeTypeCode The employeeTypeCode to set.
      */
     public void setEmployeeTypeCode(String employeeTypeCode) {
@@ -284,6 +307,7 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Gets the employeeType attribute.
+     *
      * @return Returns the employeeType.
      */
     @ManyToOne
@@ -295,6 +319,7 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Sets the employeeType attribute value.
+     *
      * @param employeeType The employeeType to set.
      */
     public void setEmployeeType(EntityEmploymentTypeEbo employeeType) {
@@ -304,6 +329,7 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Gets the primaryDepartmentCode attribute.
+     *
      * @return Returns the primaryDepartmentCode.
      */
     @Column(name = "primary_dept_cd", length = 40, nullable = true)
@@ -314,6 +340,7 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Sets the primaryDepartmentCode attribute value.
+     *
      * @param primaryDepartmentCode The primaryDepartmentCode to set.
      */
     public void setPrimaryDepartmentCode(String primaryDepartmentCode) {
@@ -323,6 +350,7 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Gets the campusCode attribute.
+     *
      * @return Returns the campusCode.
      */
     @Column(name = "campus_cd", length = 40, nullable = true)
@@ -333,6 +361,7 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Sets the campusCode attribute value.
+     *
      * @param campusCode The campusCode to set.
      */
     public void setCampusCode(String campusCode) {
@@ -342,10 +371,11 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Gets the campus attribute.
+     *
      * @return Returns the campus.
      */
     @ManyToOne
-    @JoinColumn(name="campus_cd")
+    @JoinColumn(name = "campus_cd")
     public CampusEbo getCampus() {
         return campus;
     }
@@ -353,6 +383,7 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Sets the campus attribute value.
+     *
      * @param campus The campus to set.
      */
     public void setCampus(CampusEbo campus) {
@@ -362,6 +393,7 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Gets the active attribute.
+     *
      * @return Returns the active.
      */
     @Override
@@ -373,6 +405,7 @@ public class TemProfileFromKimPerson extends PersistableBusinessObjectBase imple
 
     /**
      * Sets the active attribute value.
+     *
      * @param active The active to set.
      */
     @Override

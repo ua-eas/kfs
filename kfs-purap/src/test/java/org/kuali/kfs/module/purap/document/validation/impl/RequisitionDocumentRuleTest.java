@@ -1,27 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document.validation.impl;
 
-import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
-
-import java.util.Map;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.kns.datadictionary.validation.fieldlevel.PhoneNumberValidationPattern;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.rules.rule.event.SaveDocumentEvent;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.module.purap.PurapKeyConstants;
 import org.kuali.kfs.module.purap.PurapParameterConstants;
 import org.kuali.kfs.module.purap.document.RequisitionDocument;
@@ -33,11 +34,10 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEventBase;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.kns.datadictionary.validation.fieldlevel.PhoneNumberValidationPattern;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.rules.rule.event.SaveDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.Map;
+
+import static org.kuali.kfs.sys.fixture.UserNameFixture.khuntley;
 
 @ConfigureContext(session = khuntley)
 public class RequisitionDocumentRuleTest extends PurapRuleTestBase {
@@ -59,36 +59,40 @@ public class RequisitionDocumentRuleTest extends PurapRuleTestBase {
         super.tearDown();
     }
 
-    /** Additional Validations */
+    /**
+     * Additional Validations
+     */
     public void testValidateTotalDollarAmountIsLessThanPurchaseOrderTotalLimit_ZeroAmountSmallLimit() {
         req = AmountsLimitsFixture.ZERO_AMOUNT_SMALL_LIMIT.populateRequisition();
 
-        RequisitionProcessAdditionalValidation validation = (RequisitionProcessAdditionalValidation)validations.get("Requisition-processAdditionalValidation-test");
-        assertTrue( validation.validate(new AttributedDocumentEventBase("","", req)) );
+        RequisitionProcessAdditionalValidation validation = (RequisitionProcessAdditionalValidation) validations.get("Requisition-processAdditionalValidation-test");
+        assertTrue(validation.validate(new AttributedDocumentEventBase("", "", req)));
     }
 
     public void testValidateTotalDollarAmountIsLessThanPurchaseOrderTotalLimit_SmallAmountSmallLimit() {
         req = AmountsLimitsFixture.SMALL_AMOUNT_SMALL_LIMIT.populateRequisition();
 
-        RequisitionProcessAdditionalValidation validation = (RequisitionProcessAdditionalValidation)validations.get("Requisition-processAdditionalValidation-test");
-        assertTrue( validation.validate(new AttributedDocumentEventBase("","", req)) );
+        RequisitionProcessAdditionalValidation validation = (RequisitionProcessAdditionalValidation) validations.get("Requisition-processAdditionalValidation-test");
+        assertTrue(validation.validate(new AttributedDocumentEventBase("", "", req)));
     }
 
     public void testValidateTotalDollarAmountIsLessThanPurchaseOrderTotalLimit_LargeAmountSmallLimit() {
         req = AmountsLimitsFixture.LARGE_AMOUNT_SMALL_LIMIT.populateRequisition();
 
-        RequisitionProcessAdditionalValidation validation = (RequisitionProcessAdditionalValidation)validations.get("Requisition-processAdditionalValidation-test");
-        assertFalse( validation.validate(new AttributedDocumentEventBase("","", req)) );
+        RequisitionProcessAdditionalValidation validation = (RequisitionProcessAdditionalValidation) validations.get("Requisition-processAdditionalValidation-test");
+        assertFalse(validation.validate(new AttributedDocumentEventBase("", "", req)));
     }
     /** End of Additional Validations */
 
-    /** Vendor Validations */
+    /**
+     * Vendor Validations
+     */
     //Debarred Vendor should fail the vendor validation.
     public void testProcessVendorValidation_REQ_B2B_With_Debarred_Vendor() {
         RequisitionDocument req = RequisitionDocumentFixture.REQ_B2B_WITH_DEBARRED_VENDOR.createRequisitionDocument();
 
-        PurchasingProcessVendorValidation validation = (PurchasingProcessVendorValidation)validations.get("Purchasing-processVendorValidation-test");
-        assertFalse( validation.validate(new AttributedDocumentEventBase("","", req)) );
+        PurchasingProcessVendorValidation validation = (PurchasingProcessVendorValidation) validations.get("Purchasing-processVendorValidation-test");
+        assertFalse(validation.validate(new AttributedDocumentEventBase("", "", req)));
         if (SpringContext.getBean(ParameterService.class).getParameterValueAsBoolean(KFSConstants.OptionalModuleNamespaces.PURCHASING_ACCOUNTS_PAYABLE, "Requisition", PurapParameterConstants.SHOW_DEBARRED_VENDOR_WARNING_IND)) {
             assertTrue(GlobalVariables.getMessageMap().hasWarnings());
         } else {
@@ -100,8 +104,8 @@ public class RequisitionDocumentRuleTest extends PurapRuleTestBase {
     public void testProcessVendorValidation_REQ_B2B_With_Inactive_Vendor() {
         RequisitionDocument req = RequisitionDocumentFixture.REQ_B2B_WITH_INACTIVE_VENDOR.createRequisitionDocument();
 
-        PurchasingProcessVendorValidation validation = (PurchasingProcessVendorValidation)validations.get("Purchasing-processVendorValidation-test");
-        assertFalse( validation.validate(new AttributedDocumentEventBase("","", req)) );
+        PurchasingProcessVendorValidation validation = (PurchasingProcessVendorValidation) validations.get("Purchasing-processVendorValidation-test");
+        assertFalse(validation.validate(new AttributedDocumentEventBase("", "", req)));
         assertTrue(GlobalVariables.getMessageMap().containsMessageKey(PurapKeyConstants.ERROR_INACTIVE_VENDOR));
     }
 
@@ -111,8 +115,8 @@ public class RequisitionDocumentRuleTest extends PurapRuleTestBase {
     public void testProcessVendorValidation_REQ_B2B_With_DV_Vendor() {
         RequisitionDocument req = RequisitionDocumentFixture.REQ_B2B_WITH_DV_VENDOR.createRequisitionDocument();
 
-        PurchasingProcessVendorValidation validation = (PurchasingProcessVendorValidation)validations.get("Purchasing-processVendorValidation-test");
-        assertFalse( validation.validate(new AttributedDocumentEventBase("","", req)) );
+        PurchasingProcessVendorValidation validation = (PurchasingProcessVendorValidation) validations.get("Purchasing-processVendorValidation-test");
+        assertFalse(validation.validate(new AttributedDocumentEventBase("", "", req)));
         assertTrue(GlobalVariables.getMessageMap().containsMessageKey(PurapKeyConstants.ERROR_INVALID_VENDOR_TYPE));
     }
 
@@ -121,8 +125,8 @@ public class RequisitionDocumentRuleTest extends PurapRuleTestBase {
         boolean validationFailed = false;
         RequisitionDocument req = RequisitionDocumentFixture.REQ_INVALID_VENDOR_FAX_NUMBER_CONTAINS_LETTER.createRequisitionDocument();
 
-        PurchasingProcessVendorValidation validation = (PurchasingProcessVendorValidation)validations.get("Purchasing-processVendorValidation-test");
-        assertTrue( validation.validate(new AttributedDocumentEventBase("","", req)) );
+        PurchasingProcessVendorValidation validation = (PurchasingProcessVendorValidation) validations.get("Purchasing-processVendorValidation-test");
+        assertTrue(validation.validate(new AttributedDocumentEventBase("", "", req)));
 
         try {
             req.validateBusinessRules(new SaveDocumentEvent(req));
@@ -139,8 +143,8 @@ public class RequisitionDocumentRuleTest extends PurapRuleTestBase {
         boolean validationFailed = false;
         RequisitionDocument req = RequisitionDocumentFixture.REQ_INVALID_VENDOR_FAX_NUMBER_BAD_FORMAT.createRequisitionDocument();
 
-        PurchasingProcessVendorValidation validation = (PurchasingProcessVendorValidation)validations.get("Purchasing-processVendorValidation-test");
-        assertTrue( validation.validate(new AttributedDocumentEventBase("","", req)) );
+        PurchasingProcessVendorValidation validation = (PurchasingProcessVendorValidation) validations.get("Purchasing-processVendorValidation-test");
+        assertTrue(validation.validate(new AttributedDocumentEventBase("", "", req)));
 
         try {
             req.validateBusinessRules(new SaveDocumentEvent(req));
@@ -157,8 +161,8 @@ public class RequisitionDocumentRuleTest extends PurapRuleTestBase {
         boolean validationFailed = false;
         RequisitionDocument req = RequisitionDocumentFixture.REQ_VALID_VENDOR_FAX_NUMBER.createRequisitionDocument();
 
-        PurchasingProcessVendorValidation validation = (PurchasingProcessVendorValidation)validations.get("Purchasing-processVendorValidation-test");
-        assertTrue( validation.validate(new AttributedDocumentEventBase("","", req)) );
+        PurchasingProcessVendorValidation validation = (PurchasingProcessVendorValidation) validations.get("Purchasing-processVendorValidation-test");
+        assertTrue(validation.validate(new AttributedDocumentEventBase("", "", req)));
 
         try {
             req.validateBusinessRules(new SaveDocumentEvent(req));
@@ -174,35 +178,38 @@ public class RequisitionDocumentRuleTest extends PurapRuleTestBase {
     //the zip code is actually invalid.
     public void testProcessVendorValidation_REQ_B2B_WITH_INVALID_US_VENDOR_ZIP_CODE_CONTAINS_LETTER() {
         RequisitionDocument req = RequisitionDocumentFixture.REQ_B2B_WITH_INVALID_US_VENDOR_ZIP_CODE_CONTAINS_LETTER.createRequisitionDocument();
-        PurchasingProcessVendorValidation validation = (PurchasingProcessVendorValidation)validations.get("Purchasing-processVendorValidation-test");
-        assertTrue( validation.validate(new AttributedDocumentEventBase("","", req)) );
+        PurchasingProcessVendorValidation validation = (PurchasingProcessVendorValidation) validations.get("Purchasing-processVendorValidation-test");
+        assertTrue(validation.validate(new AttributedDocumentEventBase("", "", req)));
     }
 
     //The vendor zip code validation should not take place if the vendor country is not US.
     public void testProcessVendorValidation_REQ_WITH_INVALID_NON_US_VENDOR_ZIP_CODE_CONTAINS_LETTER() {
         RequisitionDocument req = RequisitionDocumentFixture.REQ_WITH_INVALID_NON_US_VENDOR_ZIP_CODE_CONTAINS_LETTER.createRequisitionDocument();
-        PurchasingProcessVendorValidation validation = (PurchasingProcessVendorValidation)validations.get("Purchasing-processVendorValidation-test");
-        assertTrue( validation.validate(new AttributedDocumentEventBase("","", req)) );
+        PurchasingProcessVendorValidation validation = (PurchasingProcessVendorValidation) validations.get("Purchasing-processVendorValidation-test");
+        assertTrue(validation.validate(new AttributedDocumentEventBase("", "", req)));
     }
 
     /** End of Vendor Validations */
 
-    /** Payment Info Validations */
+    /**
+     * Payment Info Validations
+     */
 
     //If the begin is after the end date, it should give error.
     public void testCheckBeginDateAfterEndDate() {
         RequisitionDocument req = RequisitionDocumentFixture.REQ_PO_BEGIN_DATE_AFTER_END_DATE.createRequisitionDocument();
 
-        PurchasingPaymentInfoValidation validation = (PurchasingPaymentInfoValidation)validations.get("Purchasing-paymentInfoValidation-test");
-        assertFalse( validation.validate(new AttributedDocumentEventBase("","", req)) );
+        PurchasingPaymentInfoValidation validation = (PurchasingPaymentInfoValidation) validations.get("Purchasing-paymentInfoValidation-test");
+        assertFalse(validation.validate(new AttributedDocumentEventBase("", "", req)));
         assertTrue(GlobalVariables.getMessageMap().containsMessageKey(PurapKeyConstants.ERROR_PURCHASE_ORDER_BEGIN_DATE_AFTER_END));
     }
+
     //If the begin date is not null, the end date must not be null.
     public void testCheckBeginDateNoEndDate() {
         RequisitionDocument req = RequisitionDocumentFixture.REQ_PO_BEGIN_DATE_NO_END_DATE.createRequisitionDocument();
 
-        PurchasingPaymentInfoValidation validation = (PurchasingPaymentInfoValidation)validations.get("Purchasing-paymentInfoValidation-test");
-        assertFalse( validation.validate(new AttributedDocumentEventBase("","", req)) );
+        PurchasingPaymentInfoValidation validation = (PurchasingPaymentInfoValidation) validations.get("Purchasing-paymentInfoValidation-test");
+        assertFalse(validation.validate(new AttributedDocumentEventBase("", "", req)));
         assertTrue(GlobalVariables.getMessageMap().containsMessageKey(PurapKeyConstants.ERROR_PURCHASE_ORDER_BEGIN_DATE_NO_END_DATE));
     }
 
@@ -210,8 +217,8 @@ public class RequisitionDocumentRuleTest extends PurapRuleTestBase {
     public void testCheckEndDateNoBeginDate() {
         RequisitionDocument req = RequisitionDocumentFixture.REQ_PO_END_DATE_NO_BEGIN_DATE.createRequisitionDocument();
 
-        PurchasingPaymentInfoValidation validation = (PurchasingPaymentInfoValidation)validations.get("Purchasing-paymentInfoValidation-test");
-        assertFalse( validation.validate(new AttributedDocumentEventBase("","", req)) );
+        PurchasingPaymentInfoValidation validation = (PurchasingPaymentInfoValidation) validations.get("Purchasing-paymentInfoValidation-test");
+        assertFalse(validation.validate(new AttributedDocumentEventBase("", "", req)));
         assertTrue(GlobalVariables.getMessageMap().containsMessageKey(PurapKeyConstants.ERROR_PURCHASE_ORDER_END_DATE_NO_BEGIN_DATE));
     }
 
@@ -219,8 +226,8 @@ public class RequisitionDocumentRuleTest extends PurapRuleTestBase {
     public void testRecurringPaymentTypeNullWhenBeginAndEndDatesAreEntered() {
         RequisitionDocument req = RequisitionDocumentFixture.REQ_PO_BEGIN_DATE_AND_END_DATE_NO_RECURRING_PAYMENT_TYPE.createRequisitionDocument();
 
-        PurchasingPaymentInfoValidation validation = (PurchasingPaymentInfoValidation)validations.get("Purchasing-paymentInfoValidation-test");
-        assertFalse( validation.validate(new AttributedDocumentEventBase("","", req)) );
+        PurchasingPaymentInfoValidation validation = (PurchasingPaymentInfoValidation) validations.get("Purchasing-paymentInfoValidation-test");
+        assertFalse(validation.validate(new AttributedDocumentEventBase("", "", req)));
         assertTrue(GlobalVariables.getMessageMap().containsMessageKey(PurapKeyConstants.ERROR_RECURRING_DATE_NO_TYPE));
     }
 
@@ -228,16 +235,16 @@ public class RequisitionDocumentRuleTest extends PurapRuleTestBase {
     public void testRecurringPaymentTypeEnteredWithoutBeginNorEndDates() {
         RequisitionDocument req = RequisitionDocumentFixture.REQ_WITH_RECURRING_PAYMENT_TYPE_WITHOUT_BEGIN_NOR_END_DATE.createRequisitionDocument();
 
-        PurchasingPaymentInfoValidation validation = (PurchasingPaymentInfoValidation)validations.get("Purchasing-paymentInfoValidation-test");
-        assertFalse( validation.validate(new AttributedDocumentEventBase("","", req)) );
+        PurchasingPaymentInfoValidation validation = (PurchasingPaymentInfoValidation) validations.get("Purchasing-paymentInfoValidation-test");
+        assertFalse(validation.validate(new AttributedDocumentEventBase("", "", req)));
         assertTrue(GlobalVariables.getMessageMap().containsMessageKey(PurapKeyConstants.ERROR_RECURRING_TYPE_NO_DATE));
     }
 
     //If the recurring payment type, begin and end dates are all entered, it should pass the validation.
     public void testRecurringPaymentTypeBeginAndEndDatesEntered() {
         RequisitionDocument req = RequisitionDocumentFixture.REQ_WITH_RECURRING_PAYMENT_TYPE_BEGIN_AND_END_DATE.createRequisitionDocument();
-        PurchasingPaymentInfoValidation validation = (PurchasingPaymentInfoValidation)validations.get("Purchasing-paymentInfoValidation-test");
-        assertTrue( validation.validate(new AttributedDocumentEventBase("","", req)) );
+        PurchasingPaymentInfoValidation validation = (PurchasingPaymentInfoValidation) validations.get("Purchasing-paymentInfoValidation-test");
+        assertTrue(validation.validate(new AttributedDocumentEventBase("", "", req)));
     }
     /** End of Payment Info Validations */
 

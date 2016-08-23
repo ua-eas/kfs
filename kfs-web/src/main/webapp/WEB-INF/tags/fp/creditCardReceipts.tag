@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -41,16 +41,16 @@
         <c:if test="${not readOnly}">
             <tr>
                 <kul:htmlAttributeHeaderCell literalLabel="&nbsp;" scope="row"/>
-                
+
                 <td class="infoline">
-                	<kul:htmlControlAttribute attributeEntry="${ccrAttributes.financialDocumentCreditCardTypeCode}" 
+                	<kul:htmlControlAttribute attributeEntry="${ccrAttributes.financialDocumentCreditCardTypeCode}"
                 	tabindexOverride="${tabindexOverrideBase}"
                 	property="newCreditCardReceipt.financialDocumentCreditCardTypeCode" />
                 	&nbsp;
                 	<kul:lookup boClassName="org.kuali.kfs.fp.businessobject.CreditCardType" fieldConversions="financialDocumentCreditCardTypeCode:newCreditCardReceipt.financialDocumentCreditCardTypeCode" />
                 </td>
                 <td class="infoline">
-                	<kul:htmlControlAttribute attributeEntry="${ccrAttributes.financialDocumentCreditCardVendorNumber}" 
+                	<kul:htmlControlAttribute attributeEntry="${ccrAttributes.financialDocumentCreditCardVendorNumber}"
                 	tabindexOverride="${tabindexOverrideBase} + 5"
                 	property="newCreditCardReceipt.financialDocumentCreditCardVendorNumber" />
                 	&nbsp;
@@ -87,7 +87,7 @@
                 <th>
 					<c:out value="${ctr + 1}" />
 				</th>
-				
+
                 <td class="datacell">
                 	<kul:htmlControlAttribute attributeEntry="${ccrAttributes.financialDocumentCreditCardTypeCode}" property="document.creditCardReceipt[${ctr}].financialDocumentCreditCardTypeCode" readOnly="${readOnly}" />
                 	<c:if test="${not readOnly}">

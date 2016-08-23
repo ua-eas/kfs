@@ -1,32 +1,33 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.document.service.impl;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.jsp.PageContext;
-
 import org.apache.commons.beanutils.PropertyUtils;
+import org.kuali.kfs.kns.datadictionary.MaintainableFieldDefinition;
+import org.kuali.kfs.kns.datadictionary.validation.fieldlevel.DateValidationPattern;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.service.DocumentHelperService;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
 import org.kuali.kfs.krad.datadictionary.BusinessObjectEntry;
+import org.kuali.kfs.krad.datadictionary.validation.ValidationPattern;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
@@ -52,21 +53,19 @@ import org.kuali.kfs.sys.document.web.renderers.ReadOnlyRenderer;
 import org.kuali.kfs.sys.document.web.renderers.TextAreaRenderer;
 import org.kuali.kfs.sys.document.web.renderers.TextRenderer;
 import org.kuali.kfs.sys.web.struts.KualiAccountingDocumentFormBase;
-import org.kuali.kfs.kns.datadictionary.MaintainableFieldDefinition;
-import org.kuali.kfs.kns.datadictionary.validation.fieldlevel.DateValidationPattern;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.kns.service.DocumentHelperService;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.kns.web.ui.Field;
-import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
-import org.kuali.kfs.krad.datadictionary.validation.ValidationPattern;
+
+import javax.servlet.jsp.PageContext;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The default implementation of the AccountingLineRenderingService
  */
 public class AccountingLineRenderingServiceImpl implements AccountingLineRenderingService {
     protected final String KUALI_FORM_NAME = "KualiForm";
-    
+
     private List<AccountingLineFieldRenderingTransformation> fieldTransformations;
     private DataDictionaryService dataDictionaryService;
     private AccountingLineAuthorizationTransformer accountingLineAuthorizationTransformer;
@@ -84,7 +83,7 @@ public class AccountingLineRenderingServiceImpl implements AccountingLineRenderi
             transformation.transformElements(elements, accountingLine);
         }
     }
-    
+
     /**
      * @see org.kuali.kfs.sys.document.service.AccountingLineRenderingService#performPostTablificationTransformations(java.util.List, org.kuali.kfs.sys.document.datadictionary.AccountingLineGroupDefinition, org.kuali.kfs.sys.document.AccountingDocument, org.kuali.kfs.sys.businessobject.AccountingLine, boolean)
      */
@@ -97,31 +96,34 @@ public class AccountingLineRenderingServiceImpl implements AccountingLineRenderi
 
     /**
      * Performs the authorization transformations
-     * @param elements the layout elements which we are authorizing
+     *
+     * @param elements                      the layout elements which we are authorizing
      * @param accountingLineGroupDefinition the data dictionary definition of the accounting line group
-     * @param accountingDocument the accounting line document we're rendering accounting lines for
-     * @param accountingLine the accounting line we're rendering
-     * @param newLine true if the accounting line is not yet on the form yet, false otherwise
+     * @param accountingDocument            the accounting line document we're rendering accounting lines for
+     * @param accountingLine                the accounting line we're rendering
+     * @param newLine                       true if the accounting line is not yet on the form yet, false otherwise
      */
     protected void performAuthorizationTransformations(List<TableJoining> elements, AccountingLineGroupDefinition accountingLineGroupDefinition, AccountingDocument accountingDocument, AccountingLine accountingLine, boolean newLine, String accountingLinePropertyName) {
         accountingLineAuthorizationTransformer.transformElements(elements, accountingLine, accountingDocument, accountingLineGroupDefinition.getAccountingLineAuthorizer(), newLine, accountingLinePropertyName);
     }
-    
+
     /**
      * Performs field transformations for pre-rendering
-     * @param elements the layout elements that hold fields to transform
+     *
+     * @param elements           the layout elements that hold fields to transform
      * @param accountingDocument the accounting document with the line we are rendering
-     * @param accountingLine the accounting line we are rendering
-     * @param unconvertedValues any unconverted values
+     * @param accountingLine     the accounting line we are rendering
+     * @param unconvertedValues  any unconverted values
      */
     protected void performFieldTransformations(List<TableJoining> elements, AccountingDocument accountingDocument, AccountingLine accountingLine, Map unconvertedValues) {
         for (TableJoining layoutElement : elements) {
             layoutElement.performFieldTransformations(fieldTransformations, accountingLine, unconvertedValues);
         }
     }
- 
+
     /**
      * Creates an accounting document authorizer for the given accounting document
+     *
      * @param document the document to get an authorizer for
      * @return an authorizer for the document
      */
@@ -129,7 +131,7 @@ public class AccountingLineRenderingServiceImpl implements AccountingLineRenderi
         final FinancialSystemTransactionalDocumentAuthorizerBase authorizer = (FinancialSystemTransactionalDocumentAuthorizerBase) getDocumentHelperService().getDocumentAuthorizer(document);
         return authorizer;
     }
-    
+
     /**
      * @param document the document to get the presentation controller for
      * @return the proper presentation controller
@@ -141,6 +143,7 @@ public class AccountingLineRenderingServiceImpl implements AccountingLineRenderi
 
     /**
      * Simplify the tree so that it is made up of only table elements and fields
+     *
      * @see org.kuali.kfs.sys.document.service.AccountingLineRenderingService#tablify(java.util.List)
      */
     public List<AccountingLineTableRow> tablify(List<TableJoining> elements) {
@@ -148,9 +151,10 @@ public class AccountingLineRenderingServiceImpl implements AccountingLineRenderi
         tablifyElements(elements, rows);
         return rows;
     }
-    
+
     /**
      * Gets the maximum number of rows needed by any child element
+     *
      * @param elements the elements to turn into table rows
      * @return the maximum number of rows requested
      */
@@ -164,9 +168,10 @@ public class AccountingLineRenderingServiceImpl implements AccountingLineRenderi
         }
         return maxRowCount;
     }
-    
+
     /**
      * This method creates a List of blank table rows, based on the requested count
+     *
      * @param count the count of table rows
      * @return a List of table rows ready for population
      */
@@ -180,8 +185,9 @@ public class AccountingLineRenderingServiceImpl implements AccountingLineRenderi
 
     /**
      * Requests each of the given elements to join the table
+     *
      * @param elements the elements to join to the table
-     * @param rows the table rows to join to
+     * @param rows     the table rows to join to
      */
     protected void tablifyElements(List<TableJoining> elements, List<AccountingLineTableRow> rows) {
         for (TableJoining element : elements) {
@@ -191,7 +197,7 @@ public class AccountingLineRenderingServiceImpl implements AccountingLineRenderi
 
     /**
      * @see org.kuali.kfs.sys.document.service.AccountingLineRenderingService#getFieldRendererForField(org.kuali.rice.kns.web.ui.Field, org.kuali.kfs.sys.businessobject.AccountingLine)
-     * 
+     * <p>
      * KRAD Conversion: Performs customization of the renderer based on the properties of the fields.
      */
     public FieldRenderer getFieldRendererForField(Field field, AccountingLine accountingLineToRender) {
@@ -199,12 +205,11 @@ public class AccountingLineRenderingServiceImpl implements AccountingLineRenderi
 
         if (field.isReadOnly() || field.getFieldType().equals(Field.READONLY)) {
             renderer = new ReadOnlyRenderer();
-        } /* 
+        } /*
         else if (field.getPropertyName().equals(KFSConstants.CHART_OF_ACCOUNTS_CODE_PROPERTY_NAME) && !SpringContext.getBean(AccountService.class).accountsCanCrossCharts()) {
             // the special case for rendering chart of accounts code when accounts can't cross charts
-            renderer = new DynamicReadOnlyRender();   
-        } */
-        else if (field.getFieldType().equals(Field.TEXT)) {
+            renderer = new DynamicReadOnlyRender();
+        } */ else if (field.getFieldType().equals(Field.TEXT)) {
             if (field.isDatePicker() || usesDateValidation(field.getPropertyName(), accountingLineToRender)) { // are we a date?
                 renderer = new DateRenderer();
             } else {
@@ -223,45 +228,42 @@ public class AccountingLineRenderingServiceImpl implements AccountingLineRenderi
         } else if (field.getFieldType().equals(Field.CHECKBOX)) {
             renderer = new CheckboxRenderer();
         }
-        
+
         return renderer;
     }
-    
+
     /**
      * Determines if this method uses a date validation pattern, in which case, a date picker should be rendered
-     * @param propertyName the property of the field being checked from the command line
+     *
+     * @param propertyName           the property of the field being checked from the command line
      * @param accountingLineToRender the accounting line which is being rendered
      * @return true if the property does use date validation, false otherwise
      */
     protected boolean usesDateValidation(String propertyName, Object businessObject) {
         final BusinessObjectEntry entry = SpringContext.getBean(DataDictionaryService.class).getDataDictionary().getBusinessObjectEntry(businessObject.getClass().getName());
         AttributeDefinition attributeDefinition = entry.getAttributeDefinition(propertyName);
-        
+
         if (attributeDefinition == null) {
             if (!propertyName.contains(".")) return false;
             final int firstNestingPoint = propertyName.indexOf(".");
             final String toNestingPoint = propertyName.substring(0, firstNestingPoint);
-            final String fromNestingPoint = propertyName.substring(firstNestingPoint+1);
+            final String fromNestingPoint = propertyName.substring(firstNestingPoint + 1);
             Object childObject = null;
             try {
                 final Class childClass = PropertyUtils.getPropertyType(businessObject, toNestingPoint);
                 childObject = childClass.newInstance();
-            }
-            catch (IllegalAccessException iae) {
+            } catch (IllegalAccessException iae) {
                 new UnsupportedOperationException(iae);
-            }
-            catch (InvocationTargetException ite) {
+            } catch (InvocationTargetException ite) {
                 new UnsupportedOperationException(ite);
-            }
-            catch (NoSuchMethodException nsme) {
+            } catch (NoSuchMethodException nsme) {
                 new UnsupportedOperationException(nsme);
-            }
-            catch (InstantiationException ie) {
+            } catch (InstantiationException ie) {
                 throw new UnsupportedOperationException(ie);
             }
             return usesDateValidation(fromNestingPoint, childObject);
         }
-        
+
         final ValidationPattern validationPattern = attributeDefinition.getValidationPattern();
         if (validationPattern == null) return false; // no validation for sure means we ain't using date validation
         return validationPattern instanceof DateValidationPattern;
@@ -272,24 +274,25 @@ public class AccountingLineRenderingServiceImpl implements AccountingLineRenderi
      */
     public AccountingLineViewFieldDefinition createGenericAccountingLineViewFieldDefinition(MaintainableFieldDefinition currentDefinition) {
         AccountingLineViewFieldDefinition fieldDefinition = new AccountingLineViewFieldDefinition();
-        
+
         fieldDefinition.setRequired(currentDefinition.isRequired());
         fieldDefinition.setUnconditionallyReadOnly(currentDefinition.isUnconditionallyReadOnly());
         fieldDefinition.setReadOnlyAfterAdd(currentDefinition.isReadOnlyAfterAdd());
         fieldDefinition.setNoLookup(currentDefinition.isNoLookup());
-        
+
         fieldDefinition.setDefaultValue(currentDefinition.getDefaultValue());
         fieldDefinition.setTemplate(currentDefinition.getTemplate());
         fieldDefinition.setDefaultValueFinderClass(currentDefinition.getDefaultValueFinderClass());
-        
+
         fieldDefinition.setOverrideLookupClass(currentDefinition.getOverrideLookupClass());
         fieldDefinition.setOverrideFieldConversions(currentDefinition.getOverrideFieldConversions());
-        
+
         return fieldDefinition;
     }
 
     /**
-     * Gets the fieldTransformations attribute. 
+     * Gets the fieldTransformations attribute.
+     *
      * @return Returns the fieldTransformations.
      */
     public List<AccountingLineFieldRenderingTransformation> getFieldTransformations() {
@@ -298,6 +301,7 @@ public class AccountingLineRenderingServiceImpl implements AccountingLineRenderi
 
     /**
      * Sets the fieldTransformations attribute value.
+     *
      * @param fieldTransformations The fieldTransformations to set.
      */
     public void setFieldTransformations(List<AccountingLineFieldRenderingTransformation> fieldTransformations) {
@@ -305,7 +309,8 @@ public class AccountingLineRenderingServiceImpl implements AccountingLineRenderi
     }
 
     /**
-     * Gets the accountingLineAuthorizationTransformer attribute. 
+     * Gets the accountingLineAuthorizationTransformer attribute.
+     *
      * @return Returns the accountingLineAuthorizationTransformer.
      */
     public AccountingLineAuthorizationTransformer getAccountingLineAuthorizationTransformer() {
@@ -314,6 +319,7 @@ public class AccountingLineRenderingServiceImpl implements AccountingLineRenderi
 
     /**
      * Sets the accountingLineAuthorizationTransformer attribute value.
+     *
      * @param accountingLineAuthorizationTransformer The accountingLineAuthorizationTransformer to set.
      */
     public void setAccountingLineAuthorizationTransformer(AccountingLineAuthorizationTransformer accountingLineAuthorizationTransformer) {
@@ -321,7 +327,8 @@ public class AccountingLineRenderingServiceImpl implements AccountingLineRenderi
     }
 
     /**
-     * Gets the dataDictionaryService attribute. 
+     * Gets the dataDictionaryService attribute.
+     *
      * @return Returns the dataDictionaryService.
      */
     public DataDictionaryService getDataDictionaryService() {
@@ -330,6 +337,7 @@ public class AccountingLineRenderingServiceImpl implements AccountingLineRenderi
 
     /**
      * Sets the dataDictionaryService attribute value.
+     *
      * @param dataDictionaryService The dataDictionaryService to set.
      */
     public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {
@@ -337,7 +345,8 @@ public class AccountingLineRenderingServiceImpl implements AccountingLineRenderi
     }
 
     /**
-     * Gets the postTablificationTransformations attribute. 
+     * Gets the postTablificationTransformations attribute.
+     *
      * @return Returns the postTablificationTransformations.
      */
     public List<AccountingLineTableTransformation> getPostTablificationTransformations() {
@@ -346,6 +355,7 @@ public class AccountingLineRenderingServiceImpl implements AccountingLineRenderi
 
     /**
      * Sets the postTablificationTransformations attribute value.
+     *
      * @param postTablificationTransformations The postTablificationTransformations to set.
      */
     public void setPostTablificationTransformations(List<AccountingLineTableTransformation> postTablificationTransformations) {
@@ -353,7 +363,8 @@ public class AccountingLineRenderingServiceImpl implements AccountingLineRenderi
     }
 
     /**
-     * Gets the preTablificationTransformations attribute. 
+     * Gets the preTablificationTransformations attribute.
+     *
      * @return Returns the preTablificationTransformations.
      */
     public List<AccountingLineRenderingTransformation> getPreTablificationTransformations() {
@@ -362,6 +373,7 @@ public class AccountingLineRenderingServiceImpl implements AccountingLineRenderi
 
     /**
      * Sets the preTablificationTransformations attribute value.
+     *
      * @param preTablificationTransformations The preTablificationTransformations to set.
      */
     public void setPreTablificationTransformations(List<AccountingLineRenderingTransformation> preTablificationTransformations) {
@@ -372,13 +384,13 @@ public class AccountingLineRenderingServiceImpl implements AccountingLineRenderi
      * @see org.kuali.kfs.sys.document.service.AccountingLineRenderingService#findForm(javax.servlet.jsp.PageContext)
      */
     public KualiAccountingDocumentFormBase findForm(PageContext pageContext) {
-        if (pageContext.getRequest().getAttribute(KUALI_FORM_NAME) != null) return (KualiAccountingDocumentFormBase)pageContext.getRequest().getAttribute(KUALI_FORM_NAME);
-        
-        if (pageContext.getSession().getAttribute(KUALI_FORM_NAME) != null) return (KualiAccountingDocumentFormBase)pageContext.getSession().getAttribute(KUALI_FORM_NAME);
-        
-        return (KualiAccountingDocumentFormBase)KNSGlobalVariables.getKualiForm();
+        if (pageContext.getRequest().getAttribute(KUALI_FORM_NAME) != null) return (KualiAccountingDocumentFormBase) pageContext.getRequest().getAttribute(KUALI_FORM_NAME);
+
+        if (pageContext.getSession().getAttribute(KUALI_FORM_NAME) != null) return (KualiAccountingDocumentFormBase) pageContext.getSession().getAttribute(KUALI_FORM_NAME);
+
+        return (KualiAccountingDocumentFormBase) KNSGlobalVariables.getKualiForm();
     }
-    
+
     protected DocumentHelperService getDocumentHelperService() {
         if (documentHelperService == null) {
             documentHelperService = SpringContext.getBean(DocumentHelperService.class);

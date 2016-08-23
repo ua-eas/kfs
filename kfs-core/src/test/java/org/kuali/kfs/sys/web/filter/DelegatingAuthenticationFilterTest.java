@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -40,8 +40,8 @@ public class DelegatingAuthenticationFilterTest {
 
     @Test
     public void testNoFilterClassName() {
-        Map<String,String> parameters = new HashMap<>();
-        authenticationFilter = new TestAuthenticationFilter(null,parameters);
+        Map<String, String> parameters = new HashMap<>();
+        authenticationFilter = new TestAuthenticationFilter(null, parameters);
 
         try {
             authenticationFilter.init(new TestFilterConfig());
@@ -53,8 +53,8 @@ public class DelegatingAuthenticationFilterTest {
 
     @Test
     public void testInvalidFilterClassName() {
-        Map<String,String> parameters = new HashMap<>();
-        authenticationFilter = new TestAuthenticationFilter("blah",parameters);
+        Map<String, String> parameters = new HashMap<>();
+        authenticationFilter = new TestAuthenticationFilter("blah", parameters);
 
         try {
             authenticationFilter.init(new TestFilterConfig());
@@ -66,8 +66,8 @@ public class DelegatingAuthenticationFilterTest {
 
     @Test
     public void testWrongClassFilterClassName() {
-        Map<String,String> parameters = new HashMap<>();
-        authenticationFilter = new TestAuthenticationFilter("java.lang.String",parameters);
+        Map<String, String> parameters = new HashMap<>();
+        authenticationFilter = new TestAuthenticationFilter("java.lang.String", parameters);
 
         try {
             authenticationFilter.init(new TestFilterConfig());
@@ -79,9 +79,9 @@ public class DelegatingAuthenticationFilterTest {
 
     @Test
     public void testWrongClassCantCreateFilterClassName() {
-        Map<String,String> parameters = new HashMap<>();
+        Map<String, String> parameters = new HashMap<>();
         // Calendar has a protected constructor so we can't create a new instance
-        authenticationFilter = new TestAuthenticationFilter("java.util.Calendar",parameters);
+        authenticationFilter = new TestAuthenticationFilter("java.util.Calendar", parameters);
 
         try {
             authenticationFilter.init(new TestFilterConfig());
@@ -93,8 +93,8 @@ public class DelegatingAuthenticationFilterTest {
 
     @Test
     public void testInitCalled() throws ServletException {
-        Map<String,String> parameters = new HashMap<>();
-        authenticationFilter = new TestAuthenticationFilter("org.kuali.kfs.sys.web.filter.TestFilter",parameters);
+        Map<String, String> parameters = new HashMap<>();
+        authenticationFilter = new TestAuthenticationFilter("org.kuali.kfs.sys.web.filter.TestFilter", parameters);
 
         authenticationFilter.init(new TestFilterConfig());
         Assert.assertTrue(TestFilter.initCalled);
@@ -102,11 +102,11 @@ public class DelegatingAuthenticationFilterTest {
 
     @Test
     public void testInitParameters() throws ServletException {
-        Map<String,String> parameters = new HashMap<>();
-        parameters.put("test1","value1");
-        parameters.put("test2","value2");
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("test1", "value1");
+        parameters.put("test2", "value2");
 
-        authenticationFilter = new TestAuthenticationFilter("org.kuali.kfs.sys.web.filter.TestFilter",parameters);
+        authenticationFilter = new TestAuthenticationFilter("org.kuali.kfs.sys.web.filter.TestFilter", parameters);
 
         authenticationFilter.init(new TestFilterConfig());
         Assert.assertTrue(TestFilter.initCalled);
@@ -115,19 +115,19 @@ public class DelegatingAuthenticationFilterTest {
     }
 
     @Test
-    public void testDoFilter() throws ServletException,IOException {
-        Map<String,String> parameters = new HashMap<>();
-        authenticationFilter = new TestAuthenticationFilter("org.kuali.kfs.sys.web.filter.TestFilter",parameters);
+    public void testDoFilter() throws ServletException, IOException {
+        Map<String, String> parameters = new HashMap<>();
+        authenticationFilter = new TestAuthenticationFilter("org.kuali.kfs.sys.web.filter.TestFilter", parameters);
         authenticationFilter.init(new TestFilterConfig());
 
-        authenticationFilter.doFilter(null,null,null);
+        authenticationFilter.doFilter(null, null, null);
         Assert.assertTrue(TestFilter.doFilterCalled);
     }
 
     @Test
     public void testDestroy() throws ServletException {
-        Map<String,String> parameters = new HashMap<>();
-        authenticationFilter = new TestAuthenticationFilter("org.kuali.kfs.sys.web.filter.TestFilter",parameters);
+        Map<String, String> parameters = new HashMap<>();
+        authenticationFilter = new TestAuthenticationFilter("org.kuali.kfs.sys.web.filter.TestFilter", parameters);
         authenticationFilter.init(new TestFilterConfig());
 
         authenticationFilter.destroy();
@@ -136,13 +136,13 @@ public class DelegatingAuthenticationFilterTest {
 
     @Test
     public void testConfiguration() throws ServletException {
-        Map<String,String> parameters = new HashMap<>();
-        parameters.put("test1","badvalue1");
-        parameters.put("test2","badvalue2");
-        parameters.put("login.filter.param.test1","value1");
-        parameters.put("login.filter.param.test2","value2");
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("test1", "badvalue1");
+        parameters.put("test2", "badvalue2");
+        parameters.put("login.filter.param.test1", "value1");
+        parameters.put("login.filter.param.test2", "value2");
 
-        authenticationFilter = new TestAuthenticationFilterConfiguration("org.kuali.kfs.sys.web.filter.TestFilter",parameters);
+        authenticationFilter = new TestAuthenticationFilterConfiguration("org.kuali.kfs.sys.web.filter.TestFilter", parameters);
 
         authenticationFilter.init(new TestFilterConfig());
         Assert.assertTrue(TestFilter.initCalled);
@@ -154,7 +154,7 @@ public class DelegatingAuthenticationFilterTest {
         private String filterClassName;
         private Map<String, String> parameters;
 
-        public TestAuthenticationFilter(String filterClassName,Map<String, String> parameters) {
+        public TestAuthenticationFilter(String filterClassName, Map<String, String> parameters) {
             this.filterClassName = filterClassName;
             this.parameters = parameters;
         }

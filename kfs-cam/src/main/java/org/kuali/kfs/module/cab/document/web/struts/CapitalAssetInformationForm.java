@@ -1,35 +1,34 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cab.document.web.struts;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionMapping;
 import org.kuali.kfs.fp.businessobject.CapitalAssetInformation;
+import org.kuali.kfs.kns.web.struts.form.KualiForm;
+import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.module.cab.CabConstants;
 import org.kuali.kfs.module.cab.CabPropertyConstants;
 import org.kuali.kfs.module.cab.businessobject.GeneralLedgerEntry;
-import org.kuali.kfs.kns.web.struts.form.KualiForm;
-import org.kuali.kfs.krad.util.KRADConstants;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 public class CapitalAssetInformationForm extends KualiForm {
     private GeneralLedgerEntry generalLedgerEntry;
@@ -59,7 +58,7 @@ public class CapitalAssetInformationForm extends KualiForm {
 
     /**
      * Gets the generalLedgerEntry attribute.
-     * 
+     *
      * @return Returns the generalLedgerEntry.
      */
     public GeneralLedgerEntry getGeneralLedgerEntry() {
@@ -68,7 +67,7 @@ public class CapitalAssetInformationForm extends KualiForm {
 
     /**
      * Sets the relatedGlEntries attribute value.
-     * 
+     *
      * @param relatedGlEntries The generalLedgerEntry to set.
      */
     public void setGeneralLedgerEntry(GeneralLedgerEntry generalLedgerEntry) {
@@ -78,7 +77,7 @@ public class CapitalAssetInformationForm extends KualiForm {
 
     /**
      * Gets the primaryGlAccountId attribute.
-     * 
+     *
      * @return Returns the primaryGlAccountId.
      */
     public Long getPrimaryGlAccountId() {
@@ -87,7 +86,7 @@ public class CapitalAssetInformationForm extends KualiForm {
 
     /**
      * Sets the primaryGlAccountId attribute value.
-     * 
+     *
      * @param primaryGlAccountId The primaryGlAccountId to set.
      */
     public void setPrimaryGlAccountId(Long primaryGlAccountId) {
@@ -96,7 +95,7 @@ public class CapitalAssetInformationForm extends KualiForm {
 
     /**
      * Gets the capitalAssetInformation attribute.
-     * 
+     *
      * @return Returns the capitalAssetInformation.
      */
     public List<CapitalAssetInformation> getCapitalAssetInformation() {
@@ -105,7 +104,7 @@ public class CapitalAssetInformationForm extends KualiForm {
 
     /**
      * Sets the capitalAssetInformation attribute value.
-     * 
+     *
      * @param capitalAssetInformation The capitalAssetInformation to set.
      */
     public void setCapitalAssetInformation(List<CapitalAssetInformation> capitalAssetInformation) {
@@ -114,21 +113,21 @@ public class CapitalAssetInformationForm extends KualiForm {
 
     /**
      * Initialize index for struts
-     * 
+     *
      * @param index current
      * @return value
     public GeneralLedgerEntry getRelatedGlEntry(int index) {
-        int size = getRelatedGlEntries().size();
-        while (size <= index || getRelatedGlEntries().get(index) == null) {
-            getRelatedGlEntries().add(size++, new GeneralLedgerEntry());
-        }
-        return (GeneralLedgerEntry) getRelatedGlEntries().get(index);
+    int size = getRelatedGlEntries().size();
+    while (size <= index || getRelatedGlEntries().get(index) == null) {
+    getRelatedGlEntries().add(size++, new GeneralLedgerEntry());
     }
-    */
-    
+    return (GeneralLedgerEntry) getRelatedGlEntries().get(index);
+    }
+     */
+
     /**
      * Gets the selectAllGlEntries attribute.
-     * 
+     *
      * @return Returns the selectAllGlEntries.
      */
     public boolean isSelectAllGlEntries() {
@@ -137,7 +136,7 @@ public class CapitalAssetInformationForm extends KualiForm {
 
     /**
      * Sets the selectAllGlEntries attribute value.
-     * 
+     *
      * @param selectAllGlEntries The selectAllGlEntries to set.
      */
     public void setSelectAllGlEntries(boolean selectAllGlEntries) {
@@ -147,7 +146,7 @@ public class CapitalAssetInformationForm extends KualiForm {
 
     /**
      * Gets the currDocNumber attribute.
-     * 
+     *
      * @return Returns the currDocNumber.
      */
     public String getCurrDocNumber() {
@@ -156,7 +155,7 @@ public class CapitalAssetInformationForm extends KualiForm {
 
     /**
      * Sets the currDocNumber attribute value.
-     * 
+     *
      * @param currDocNumber The currDocNumber to set.
      */
     public void setCurrDocNumber(String currDocNumber) {
@@ -165,23 +164,23 @@ public class CapitalAssetInformationForm extends KualiForm {
 
     /**
      * Gets the generalLedgerAccountIdentifier attribute.
-     * 
+     *
      * @return Returns the generalLedgerAccountIdentifier
      */
-    
+
     public Long getGeneralLedgerAccountIdentifier() {
         return generalLedgerAccountIdentifier;
     }
 
-    /** 
+    /**
      * Sets the generalLedgerAccountIdentifier attribute.
-     * 
+     *
      * @param generalLedgerAccountIdentifier The generalLedgerAccountIdentifier to set.
      */
     public void setGeneralLedgerAccountIdentifier(Long generalLedgerAccountIdentifier) {
         this.generalLedgerAccountIdentifier = generalLedgerAccountIdentifier;
     }
-    
+
     @Override
     public void reset(ActionMapping mapping, HttpServletRequest request) {
         super.reset(mapping, request);

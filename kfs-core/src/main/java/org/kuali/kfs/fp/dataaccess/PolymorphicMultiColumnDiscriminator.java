@@ -1,30 +1,30 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.dataaccess;
-
-import java.util.Map;
 
 import org.apache.ojb.broker.PersistenceBroker;
 import org.apache.ojb.broker.PersistenceBrokerException;
 import org.apache.ojb.broker.PersistenceBrokerFactory;
 import org.apache.ojb.broker.accesslayer.RowReaderDefaultImpl;
 import org.apache.ojb.broker.metadata.ClassDescriptor;
+
+import java.util.Map;
 
 /**
  * (Inspired by example posted at http://nagoya.apache.org/eyebrowse/ReadMsg?listName=ojb-user@db.apache.org&msgId=749837) This
@@ -38,7 +38,9 @@ import org.apache.ojb.broker.metadata.ClassDescriptor;
  */
 public abstract class PolymorphicMultiColumnDiscriminator extends RowReaderDefaultImpl {
 
-    /** Column(s) that distinguish the parent class */
+    /**
+     * Column(s) that distinguish the parent class
+     */
     private String[] column = null;
 
     public PolymorphicMultiColumnDiscriminator(ClassDescriptor cld) {
@@ -48,14 +50,14 @@ public abstract class PolymorphicMultiColumnDiscriminator extends RowReaderDefau
 
     /**
      * This method should return the column(s) necessary to determine which class to cast to.
-     * 
+     *
      * @return one or more column names
      */
     public abstract String[] getDiscriminatorColumns();
 
     /**
      * Based on the received key values, this method determines the appropriate class.
-     * 
+     *
      * @param values
      * @return an appropriately chosen class
      */
@@ -84,12 +86,10 @@ public abstract class PolymorphicMultiColumnDiscriminator extends RowReaderDefau
             broker.close();
             if (result == null) {
                 return getClassDescriptor();
-            }
-            else {
+            } else {
                 return result;
             }
-        }
-        catch (PersistenceBrokerException e) {
+        } catch (PersistenceBrokerException e) {
             broker.close();
             throw e;
         }

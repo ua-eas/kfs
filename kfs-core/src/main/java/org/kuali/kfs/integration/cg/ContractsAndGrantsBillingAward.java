@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -426,11 +426,10 @@ public interface ContractsAndGrantsBillingAward extends ContractsAndGrantsAward 
 
     /**
      * Sets the letterOfCreditFund attribute.
-     *
+     * <p>
      * We normally wouldn't put a setter in an interface, but we are struggling with an NPE
      * when doing an Award inquiry related to the fact that the code can't find a setter
      * for this attribute.
-     *
      */
     public void setLetterOfCreditFund(ContractsAndGrantsLetterOfCreditFund letterOfCreditFund);
 

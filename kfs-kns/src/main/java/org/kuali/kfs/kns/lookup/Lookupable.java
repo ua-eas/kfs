@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -33,10 +33,9 @@ import java.util.Map;
 
 /**
  * This class defines an interface for lookupables.
- *
+ * <p>
  * They should act as facades for LookupableHelperServices and also expose bean handlers
  * (getCreateNewUrl, getHtmlMenuBar, getTitle, getRows, getExtraButton{Source,Params})
- *
  */
 @Deprecated
 public interface Lookupable extends Serializable {
@@ -44,7 +43,7 @@ public interface Lookupable extends Serializable {
     /**
      * Initializes the lookup with a businss object class.  This value originates
      * from the UI via LookupForm population.
-     *
+     * <p>
      * It is required that implementations of this method will initialize the
      * search area used by the UI to provide the search form.  In particular,
      * it will ensure that getRows() will return valid results
@@ -54,9 +53,7 @@ public interface Lookupable extends Serializable {
     public void setBusinessObjectClass(Class<? extends BusinessObject> businessObjectClass);
 
     /**
-     *
      * @return Returns the dataObjectClass this lookupable is representing
-     *
      */
     public Class<? extends BusinessObject> getBusinessObjectClass();
 
@@ -110,8 +107,8 @@ public interface Lookupable extends Serializable {
     public void validateSearchParameters(Map<String, String> fieldValues);
 
     /**
-     *
      * This method performs the lookup and returns a collection of lookup items
+     *
      * @param lookupForm
      * @param resultTable
      * @param bounded
@@ -157,15 +154,16 @@ public interface Lookupable extends Serializable {
     /**
      * Builds the return value url.
      *
-     * @param businessObject - Instance of a business object containing the return values
+     * @param businessObject   - Instance of a business object containing the return values
      * @param fieldConversions - Map of conversions mapping bo names to caller field names.
-     * @param lookupImpl - Current lookup impl name
+     * @param lookupImpl       - Current lookup impl name
      * @return String url called when selecting a row from the result set
      */
     public HtmlData getReturnUrl(BusinessObject businessObject, Map<String, String> fieldConversions, String lookupImpl, BusinessObjectRestrictions businessObjectRestrictions);
 
     /**
      * Builds the Url for a maintenance new document for the lookup business object class
+     *
      * @param businessObject
      * @return String rendered on Lookup screen for maintenance new document
      */
@@ -187,12 +185,14 @@ public interface Lookupable extends Serializable {
 
     /**
      * Sets the helper service for instance
+     *
      * @param helper the helper service
      */
     public void setLookupableHelperService(LookupableHelperService helper);
 
     /**
      * Returns the LookupableHelperService designated to help this lookup
+     *
      * @return
      */
     public LookupableHelperService getLookupableHelperService();
@@ -220,35 +220,26 @@ public interface Lookupable extends Serializable {
     public List<String> getDefaultSortColumns();
 
     /**
-     *
      * This method allows for customization of the lookup clear
-     *
      */
     public void performClear(LookupForm lookupForm);
 
     /**
-     *
      * This method checks whether the header non maint actions should be shown
-     *
      */
     public boolean shouldDisplayHeaderNonMaintActions();
 
     /**
-     *
      * This method checks whether the criteria should be shown
-     *
      */
     public boolean shouldDisplayLookupCriteria();
 
     /**
-     *
      * This method is called from a custom action button or script
-     *
      */
     public boolean performCustomAction(boolean ignoreErrors);
 
     /**
-     *
      * get extra field
      *
      * @return
@@ -256,15 +247,16 @@ public interface Lookupable extends Serializable {
     public Field getExtraField();
 
     /**
-     * method returns the extraOnLoad variable. The 
-	 * varible is currently accessed in page.tag and is called in the onLoad.
-	 * it allows us to inject javascript onload.
-	 */
+     * method returns the extraOnLoad variable. The
+     * varible is currently accessed in page.tag and is called in the onLoad.
+     * it allows us to inject javascript onload.
+     */
     public String getExtraOnLoad();
-    
+
     public void setExtraOnLoad(String extraOnLoad);
+
     public void applyFieldAuthorizationsFromNestedLookups(Field field);
-    
+
     /**
      * Performs conditional logic (based on current search values or other parameters) to
      * override field hidden, read-only, and required attributes previously set.

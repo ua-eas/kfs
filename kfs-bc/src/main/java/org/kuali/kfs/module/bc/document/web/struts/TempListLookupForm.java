@@ -1,39 +1,38 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.document.web.struts;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.fp.service.FiscalYearFunctionControlService;
-import org.kuali.kfs.module.bc.BCConstants;
-import org.kuali.kfs.module.bc.businessobject.BudgetConstructionLockSummary;
-import org.kuali.kfs.module.bc.util.BudgetParameterFinder;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.kns.service.BusinessObjectDictionaryService;
 import org.kuali.kfs.kns.util.WebUtils;
 import org.kuali.kfs.kns.web.struts.form.LookupForm;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.bc.BCConstants;
+import org.kuali.kfs.module.bc.businessobject.BudgetConstructionLockSummary;
+import org.kuali.kfs.module.bc.util.BudgetParameterFinder;
+import org.kuali.kfs.sys.context.SpringContext;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Action Form for budget special lookup screens.
@@ -106,7 +105,7 @@ public class TempListLookupForm extends LookupForm {
     @Override
     public void populate(HttpServletRequest request) {
         String refreshCaller = getParameter(request, KRADConstants.REFRESH_CALLER);
-        if (StringUtils.isNotBlank(refreshCaller) && KRADConstants.QUESTION_REFRESH.equals(refreshCaller) ) {
+        if (StringUtils.isNotBlank(refreshCaller) && KRADConstants.QUESTION_REFRESH.equals(refreshCaller)) {
             setMethodToCall(WebUtils.parseMethodToCall(this, request));
             if (BCConstants.TEMP_LIST_UNLOCK_METHOD.equals(getMethodToCall())) {
                 String lookupImplID = SpringContext.getBean(BusinessObjectDictionaryService.class).getLookupableID(BudgetConstructionLockSummary.class);
@@ -441,6 +440,7 @@ public class TempListLookupForm extends LookupForm {
 
     /**
      * Gets the mainWindow attribute.
+     *
      * @return Returns the mainWindow.
      */
     public boolean isMainWindow() {
@@ -449,6 +449,7 @@ public class TempListLookupForm extends LookupForm {
 
     /**
      * Sets the mainWindow attribute value.
+     *
      * @param mainWindow The mainWindow to set.
      */
     public void setMainWindow(boolean mainWindow) {

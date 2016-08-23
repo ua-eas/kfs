@@ -1,31 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.fp.businessobject;
 
-import java.text.MessageFormat;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import org.kuali.kfs.fp.document.service.DisbursementVoucherPayeeService;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomer;
+import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
@@ -35,7 +31,11 @@ import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.impl.KIMPropertyConstants;
-import org.kuali.kfs.krad.bo.TransientBusinessObjectBase;
+
+import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class DisbursementPayee extends TransientBusinessObjectBase implements MutableInactivatable {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DisbursementPayee.class);
@@ -108,7 +108,7 @@ public class DisbursementPayee extends TransientBusinessObjectBase implements Mu
     public static Map<String, String> getFieldConversionBetweenPayeeAndPerson() {
         Map<String, String> fieldConversionMap = new HashMap<String, String>();
 
-    //    fieldConversionMap.put(KFSPropertyConstants.TAX_NUMBER, KIMPropertyConstants.Person.EXTERNAL_ID);
+        //    fieldConversionMap.put(KFSPropertyConstants.TAX_NUMBER, KIMPropertyConstants.Person.EXTERNAL_ID);
 
         fieldConversionMap.put(KFSPropertyConstants.PERSON_FIRST_NAME, KIMPropertyConstants.Person.FIRST_NAME);
         fieldConversionMap.put(KFSPropertyConstants.PERSON_LAST_NAME, KIMPropertyConstants.Person.LAST_NAME);
@@ -187,7 +187,7 @@ public class DisbursementPayee extends TransientBusinessObjectBase implements Mu
         disbursementPayee.setPayeeTypeCode(KFSConstants.PaymentPayeeTypes.CUSTOMER);
 
         String vendorAddress = MessageFormat.format(addressPattern, customer.getPrimaryAddress().getCustomerLine1StreetAddress(),
-                customer.getPrimaryAddress().getCustomerCityName(), customer.getPrimaryAddress().getCustomerStateCode(), customer.getPrimaryAddress().getCustomerCountryCode());
+            customer.getPrimaryAddress().getCustomerCityName(), customer.getPrimaryAddress().getCustomerStateCode(), customer.getPrimaryAddress().getCustomerCountryCode());
         disbursementPayee.setAddress(vendorAddress);
 
         return disbursementPayee;
@@ -433,6 +433,7 @@ public class DisbursementPayee extends TransientBusinessObjectBase implements Mu
 
     /**
      * Gets the principalId attribute.
+     *
      * @return Returns the principalId.
      */
     public String getPrincipalId() {
@@ -441,6 +442,7 @@ public class DisbursementPayee extends TransientBusinessObjectBase implements Mu
 
     /**
      * Sets the principalId attribute value.
+     *
      * @param principalId The principalId to set.
      */
     public void setPrincipalId(String principalId) {

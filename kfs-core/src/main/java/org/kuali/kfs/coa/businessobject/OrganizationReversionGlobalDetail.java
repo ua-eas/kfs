@@ -1,35 +1,35 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.coa.businessobject;
 
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coa.service.ObjectCodeService;
+import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetailBase;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedHashMap;
 import java.util.SortedSet;
 import java.util.TreeSet;
-
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.coa.service.ObjectCodeService;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.bo.GlobalBusinessObjectDetailBase;
 
 /**
  * This is a representation of an Organization Reversion Detail, made specifically for Global Organization Reversions. However, as
@@ -51,7 +51,7 @@ public class OrganizationReversionGlobalDetail extends GlobalBusinessObjectDetai
     /**
      * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
      */
-    
+
     protected LinkedHashMap toStringMapper_RICE20_REFACTORME() {
         LinkedHashMap stringMapper = new LinkedHashMap();
         stringMapper.put(KFSPropertyConstants.DOCUMENT_NUMBER, this.documentNumber);
@@ -67,7 +67,7 @@ public class OrganizationReversionGlobalDetail extends GlobalBusinessObjectDetai
 
     /**
      * Gets the documentNumber attribute.
-     * 
+     *
      * @return Returns the documentNumber.
      */
     public String getDocumentNumber() {
@@ -76,7 +76,7 @@ public class OrganizationReversionGlobalDetail extends GlobalBusinessObjectDetai
 
     /**
      * Sets the documentNumber attribute value.
-     * 
+     *
      * @param documentNumber The documentNumber to set.
      */
     public void setDocumentNumber(String documentNumber) {
@@ -85,7 +85,7 @@ public class OrganizationReversionGlobalDetail extends GlobalBusinessObjectDetai
 
     /**
      * Gets the organizationReversionCode attribute.
-     * 
+     *
      * @return Returns the organizationReversionCode.
      */
     public String getOrganizationReversionCode() {
@@ -94,7 +94,7 @@ public class OrganizationReversionGlobalDetail extends GlobalBusinessObjectDetai
 
     /**
      * Sets the organizationReversionCode attribute value.
-     * 
+     *
      * @param organizationReversionCode The organizationReversionCode to set.
      */
     public void setOrganizationReversionCode(String organizationReversionCode) {
@@ -103,7 +103,7 @@ public class OrganizationReversionGlobalDetail extends GlobalBusinessObjectDetai
 
     /**
      * Gets the organizationReversionCategory attribute.
-     * 
+     *
      * @return Returns the organizationReversionCategory.
      */
     public OrganizationReversionCategory getOrganizationReversionCategory() {
@@ -112,7 +112,7 @@ public class OrganizationReversionGlobalDetail extends GlobalBusinessObjectDetai
 
     /**
      * Sets the organizationReversionCategory attribute value.
-     * 
+     *
      * @param organizationReversionCategory The organizationReversionCategory to set.
      */
     public void setOrganizationReversionCategory(OrganizationReversionCategory organizationReversionCategory) {
@@ -121,7 +121,7 @@ public class OrganizationReversionGlobalDetail extends GlobalBusinessObjectDetai
 
     /**
      * Gets the organizationReversionCategoryCode attribute.
-     * 
+     *
      * @return Returns the organizationReversionCategoryCode.
      */
     public String getOrganizationReversionCategoryCode() {
@@ -130,7 +130,7 @@ public class OrganizationReversionGlobalDetail extends GlobalBusinessObjectDetai
 
     /**
      * Sets the organizationReversionCategoryCode attribute value.
-     * 
+     *
      * @param organizationReversionCategoryCode The organizationReversionCategoryCode to set.
      */
     public void setOrganizationReversionCategoryCode(String organizationReversionCategoryCode) {
@@ -139,7 +139,7 @@ public class OrganizationReversionGlobalDetail extends GlobalBusinessObjectDetai
 
     /**
      * Gets the organizationReversionObjectCode attribute.
-     * 
+     *
      * @return Returns the organizationReversionObjectCode.
      */
     public String getOrganizationReversionObjectCode() {
@@ -148,7 +148,7 @@ public class OrganizationReversionGlobalDetail extends GlobalBusinessObjectDetai
 
     /**
      * Sets the organizationReversionObjectCode attribute value.
-     * 
+     *
      * @param organizationReversionObjectCode The organizationReversionObjectCode to set.
      */
     public void setOrganizationReversionObjectCode(String organizationReversionObjectCode) {
@@ -158,7 +158,7 @@ public class OrganizationReversionGlobalDetail extends GlobalBusinessObjectDetai
     /**
      * Gets the parentGlobalOrganizationReversion attribute. This field does not persist, and is populated by
      * OrganzationReversionChangeMaintainable.
-     * 
+     *
      * @return Returns the parentGlobalOrganizationReversion.
      */
     public OrganizationReversionGlobal getParentGlobalOrganizationReversion() {
@@ -168,7 +168,7 @@ public class OrganizationReversionGlobalDetail extends GlobalBusinessObjectDetai
     /**
      * Sets the parentGlobalOrganizationReversion attribute value. This field does not persist, and is populated by
      * OrganizationReversionGlobalMaintainableImpl.
-     * 
+     *
      * @param parentGlobalOrganizationReversion The parentGlobalOrganizationReversion to set.
      */
     public void setParentGlobalOrganizationReversion(OrganizationReversionGlobal parentGlobalOrganizationReversion) {
@@ -176,7 +176,8 @@ public class OrganizationReversionGlobalDetail extends GlobalBusinessObjectDetai
     }
 
     /**
-     * Gets the organizationReversionObject attribute. 
+     * Gets the organizationReversionObject attribute.
+     *
      * @return Returns the organizationReversionObject.
      */
     public ObjectCode getOrganizationReversionObject() {
@@ -185,6 +186,7 @@ public class OrganizationReversionGlobalDetail extends GlobalBusinessObjectDetai
 
     /**
      * Sets the organizationReversionObject attribute value.
+     *
      * @param organizationReversionObject The organizationReversionObject to set.
      */
     public void setOrganizationReversionObject(ObjectCode organizationReversionObject) {
@@ -193,7 +195,7 @@ public class OrganizationReversionGlobalDetail extends GlobalBusinessObjectDetai
 
     /**
      * This utility method converts the name of a property into a string suitable for being part of a locking representation.
-     * 
+     *
      * @param keyName the name of the property to convert to a locking representation
      * @return a part of a locking representation
      */
@@ -207,17 +209,13 @@ public class OrganizationReversionGlobalDetail extends GlobalBusinessObjectDetai
             if (keyValueObj != null) {
                 keyValue = keyValueObj.toString();
             }
-        }
-        catch (IllegalAccessException iae) {
+        } catch (IllegalAccessException iae) {
             LOG.info("Illegal access exception while attempting to read property " + keyName, iae);
-        }
-        catch (InvocationTargetException ite) {
+        } catch (InvocationTargetException ite) {
             LOG.info("Illegal Target Exception while attempting to read property " + keyName, ite);
-        }
-        catch (NoSuchMethodException nsme) {
+        } catch (NoSuchMethodException nsme) {
             LOG.info("There is no such method to read property " + keyName + " in this class.", nsme);
-        }
-        finally {
+        } finally {
             sb.append(keyValue);
         }
         sb.append(KFSConstants.Maintenance.AFTER_VALUE_DELIM);
@@ -226,7 +224,7 @@ public class OrganizationReversionGlobalDetail extends GlobalBusinessObjectDetai
 
     /**
      * This returns a string of object code names associated with the object code in this org rev change detail.
-     * 
+     *
      * @return String of distinct object code names
      */
     public String getObjectCodeNames() {

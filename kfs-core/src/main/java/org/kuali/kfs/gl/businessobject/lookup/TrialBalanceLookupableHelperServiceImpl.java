@@ -1,39 +1,39 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.gl.businessobject.lookup;
 
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.businessobject.TrialBalanceReport;
 import org.kuali.kfs.gl.service.TrialBalanceService;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.KFSKeyConstants;
-import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.kns.lookup.HtmlData;
 import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
 import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.exception.ValidationException;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.KFSKeyConstants;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * An extension of KualiLookupableImpl to support balance lookups
@@ -48,7 +48,7 @@ public class TrialBalanceLookupableHelperServiceImpl extends KualiLookupableHelp
      * ASR-1212: append the rice prefix for inquiry url
      *
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#getInquiryUrl(org.kuali.rice.kns.bo.BusinessObject,
-     *      java.lang.String)
+     * java.lang.String)
      */
     @Override
     public HtmlData getInquiryUrl(BusinessObject bo, String propertyName) {
@@ -96,9 +96,8 @@ public class TrialBalanceLookupableHelperServiceImpl extends KualiLookupableHelp
         if (StringUtils.isNotBlank(selectedFiscalYear)) {
             try {
                 int year = Integer.parseInt(selectedFiscalYear);
-            }
-            catch (NumberFormatException e) {
-                GlobalVariables.getMessageMap().putError("universityFiscalYear", KFSKeyConstants.ERROR_CUSTOM, new String[] { "Fiscal Year must be a four-digit number" });
+            } catch (NumberFormatException e) {
+                GlobalVariables.getMessageMap().putError("universityFiscalYear", KFSKeyConstants.ERROR_CUSTOM, new String[]{"Fiscal Year must be a four-digit number"});
                 throw new ValidationException("errors in search criteria");
             }
         }
@@ -108,13 +107,12 @@ public class TrialBalanceLookupableHelperServiceImpl extends KualiLookupableHelp
         if (StringUtils.isNotBlank(selectedPeriodCode)) {
             try {
                 int period = Integer.parseInt(selectedPeriodCode);
-                if (period <=0 || period > 13) {
-                    GlobalVariables.getMessageMap().putError("universityFiscalPeriodCode", KFSKeyConstants.ERROR_CUSTOM, new String[] { "Fiscal Period Code must be a number in the range of 01 to 13" });
+                if (period <= 0 || period > 13) {
+                    GlobalVariables.getMessageMap().putError("universityFiscalPeriodCode", KFSKeyConstants.ERROR_CUSTOM, new String[]{"Fiscal Period Code must be a number in the range of 01 to 13"});
                     throw new ValidationException("errors in search criteria");
                 }
-            }
-            catch (NumberFormatException e) {
-                GlobalVariables.getMessageMap().putError("universityFiscalPeriodCode", KFSKeyConstants.ERROR_CUSTOM, new String[] { "Fiscal Period Code must be a number in the range of 01 to 13" });
+            } catch (NumberFormatException e) {
+                GlobalVariables.getMessageMap().putError("universityFiscalPeriodCode", KFSKeyConstants.ERROR_CUSTOM, new String[]{"Fiscal Period Code must be a number in the range of 01 to 13"});
                 throw new ValidationException("errors in search criteria");
             }
         }

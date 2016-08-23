@@ -1,28 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ec;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -85,7 +85,7 @@ public class EffortConstants {
 
     public static final List<String> ELIGIBLE_COST_SHARE_SUB_ACCOUNT_TYPE_CODES = getEligibleCostShareSubAccountTypeCodes();
 
-    private static final List<String> getEligibleCostShareSubAccountTypeCodes(){
+    private static final List<String> getEligibleCostShareSubAccountTypeCodes() {
         List<String> costShareSubAccountTypeCodesList = new ArrayList<String>();
         costShareSubAccountTypeCodesList.add(KFSConstants.SubAccountType.COST_SHARE);
         return costShareSubAccountTypeCodesList;
@@ -93,7 +93,7 @@ public class EffortConstants {
 
     public static final List<String> ELIGIBLE_EXPENSE_SUB_ACCOUNT_TYPE_CODES = getEligibleExpenseSubAccountTypeCodes();
 
-    private static final List<String> getEligibleExpenseSubAccountTypeCodes(){
+    private static final List<String> getEligibleExpenseSubAccountTypeCodes() {
         List<String> expenseSubAccountTypeCodesList = new ArrayList<String>();
         expenseSubAccountTypeCodesList.add(KFSConstants.SubAccountType.EXPENSE);
         return expenseSubAccountTypeCodesList;
@@ -118,6 +118,7 @@ public class EffortConstants {
     }
 
     public static final List<String> DETAIL_LINES_CONSOLIDATION_FILEDS = getDetailLinesConsolidationFields();
+
     private static final List<String> getDetailLinesConsolidationFields() {
         List<String> consolidationFields = new ArrayList<String>();
         consolidationFields.add(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE);
@@ -128,6 +129,7 @@ public class EffortConstants {
     }
 
     public static final List<String> DETAIL_LINES_GROUPING_FILEDS = getDetailLinesGroupingFields();
+
     private static final List<String> getDetailLinesGroupingFields() {
         List<String> groupingFields = new ArrayList<String>();
         groupingFields.add(KFSPropertyConstants.CHART_OF_ACCOUNTS_CODE);

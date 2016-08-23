@@ -1,31 +1,36 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cam.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.cam.CapitalAssetManagementAsset;
+import org.kuali.kfs.kns.lookup.HtmlData;
+import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.kns.web.ui.Field;
+import org.kuali.kfs.kns.web.ui.Row;
+import org.kuali.kfs.krad.exception.ValidationException;
+import org.kuali.kfs.krad.service.DocumentDictionaryService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.module.cam.CamsConstants;
 import org.kuali.kfs.module.cam.CamsPropertyConstants;
 import org.kuali.kfs.module.cam.businessobject.Asset;
@@ -39,18 +44,13 @@ import org.kuali.kfs.sys.document.authorization.FinancialSystemMaintenanceDocume
 import org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentAuthorizerBase;
 import org.kuali.rice.kim.api.identity.principal.Principal;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-import org.kuali.kfs.kns.lookup.HtmlData;
-import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
-import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.kfs.kns.web.struts.form.LookupForm;
-import org.kuali.kfs.kns.web.ui.Field;
-import org.kuali.kfs.kns.web.ui.Row;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.exception.ValidationException;
-import org.kuali.kfs.krad.service.DocumentDictionaryService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * This class overrids the base getActionUrls method
@@ -64,7 +64,7 @@ public class AssetLookupableHelperServiceImpl extends KualiLookupableHelperServi
      * Custom action urls for Asset.
      *
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#getCustomActionUrls(org.kuali.rice.krad.bo.BusinessObject,
-     *      List pkNames)
+     * List pkNames)
      */
     @Override
     public List<HtmlData> getCustomActionUrls(BusinessObject bo, List pkNames) {
@@ -77,8 +77,7 @@ public class AssetLookupableHelperServiceImpl extends KualiLookupableHelperServi
             anchorHtmlDataList.clear();
             // add 'view' link instead
             anchorHtmlDataList.add(getViewAssetUrl(asset));
-        }
-        else {
+        } else {
             anchorHtmlDataList.add(getLoanUrl(asset));
             anchorHtmlDataList.add(getMergeUrl(asset));
             anchorHtmlDataList.add(getSeparateUrl(asset));
@@ -118,8 +117,7 @@ public class AssetLookupableHelperServiceImpl extends KualiLookupableHelperServi
             String href = UrlFactory.parameterizeUrl(KFSConstants.MAINTENANCE_ACTION, parameters);
 
             return new AnchorHtmlData(href, CamsConstants.AssetActions.MERGE, CamsConstants.AssetActions.MERGE);
-        }
-        else {
+        } else {
             return new AnchorHtmlData("", "", "");
         }
     }
@@ -161,16 +159,14 @@ public class AssetLookupableHelperServiceImpl extends KualiLookupableHelperServi
             childURLDataList.add(childURLData);
 
             anchorHtmlData.setChildUrlDataList(childURLDataList);
-        }
-        else {
+        } else {
             anchorHtmlData = new AnchorHtmlData("", "", "");
             //
             AnchorHtmlData childURLData = new AnchorHtmlData("", "", "");
             if (asset.getCampusTagNumber() == null) {
                 childURLData = new AnchorHtmlData("", "", CamsConstants.AssetActions.LOAN);
                 childURLDataList.add(childURLData);
-            }
-            else {
+            } else {
                 parameters.put(CamsConstants.AssetActions.LOAN_TYPE, CamsConstants.AssetActions.LOAN);
                 String childHref = UrlFactory.parameterizeUrl(CamsConstants.StrutsActions.ONE_UP + CamsConstants.StrutsActions.EQUIPMENT_LOAN_OR_RETURN, parameters);
                 childURLData = new AnchorHtmlData(childHref, KRADConstants.DOC_HANDLER_METHOD, CamsConstants.AssetActions.LOAN);
@@ -197,8 +193,7 @@ public class AssetLookupableHelperServiceImpl extends KualiLookupableHelperServi
             String href = UrlFactory.parameterizeUrl(KFSConstants.MAINTENANCE_ACTION, getSeparateParameters(asset));
 
             return new AnchorHtmlData(href, KFSConstants.MAINTENANCE_NEW_METHOD_TO_CALL, CamsConstants.AssetActions.SEPARATE);
-        }
-        else {
+        } else {
             return new AnchorHtmlData("", "", "");
         }
     }
@@ -218,12 +213,12 @@ public class AssetLookupableHelperServiceImpl extends KualiLookupableHelperServi
         boolean isAuthorized = true;
         boolean assetMovable = false;
         try {
-           assetMovable = getAssetService().isAssetMovableCheckByPayment(asset);
+            assetMovable = getAssetService().isAssetMovableCheckByPayment(asset);
         } catch (ValidationException ve) {
             isAuthorized = false;
         }
         if (!assetMovable) {
-            FinancialSystemTransactionalDocumentAuthorizerBase documentAuthorizer = (FinancialSystemTransactionalDocumentAuthorizerBase)SpringContext.getBean(DocumentDictionaryService.class).getDocumentAuthorizer(CamsConstants.DocumentTypeName.ASSET_TRANSFER);
+            FinancialSystemTransactionalDocumentAuthorizerBase documentAuthorizer = (FinancialSystemTransactionalDocumentAuthorizerBase) SpringContext.getBean(DocumentDictionaryService.class).getDocumentAuthorizer(CamsConstants.DocumentTypeName.ASSET_TRANSFER);
             isAuthorized = documentAuthorizer.isAuthorized(asset, CamsConstants.CAM_MODULE_CODE, CamsConstants.PermissionNames.SEPARATE, GlobalVariables.getUserSession().getPerson().getPrincipalId());
         }
 
@@ -237,8 +232,7 @@ public class AssetLookupableHelperServiceImpl extends KualiLookupableHelperServi
             String href = UrlFactory.parameterizeUrl(CamsConstants.StrutsActions.ONE_UP + CamsConstants.StrutsActions.TRANSFER, parameters);
 
             return new AnchorHtmlData(href, KRADConstants.DOC_HANDLER_METHOD, CamsConstants.AssetActions.TRANSFER);
-        }
-        else {
+        } else {
             return new AnchorHtmlData("", "", "");
         }
     }
@@ -256,7 +250,7 @@ public class AssetLookupableHelperServiceImpl extends KualiLookupableHelperServi
      * Overridden to fix a field conversion
      *
      * @see org.kuali.rice.kns.lookup.AbstractLookupableHelperServiceImpl#getRows()
-     *
+     * <p>
      * KRAD Conversion: Performs customization of the  Row objects to be used to generate the search query screen.
      */
     @Override
@@ -278,7 +272,7 @@ public class AssetLookupableHelperServiceImpl extends KualiLookupableHelperServi
 
     /**
      * Goes through all the rows, making sure that problematic field conversions are fixed
-     *
+     * <p>
      * KRAD Conversion: Performs customization of the fields.
      */
     protected void convertOrganizationOwnerAccountField() {

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -21,15 +21,15 @@ package org.kuali.kfs.module.bc.document.validation.impl;
 import org.kuali.kfs.coa.businessobject.Organization;
 import org.kuali.kfs.coa.service.ChartService;
 import org.kuali.kfs.coa.service.OrganizationService;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionOrganizationReports;
 import org.kuali.kfs.module.bc.document.service.BudgetConstructionOrganizationReportsService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.parameter.ParameterEvaluatorService;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.kns.maintenance.rules.MaintenanceDocumentRuleBase;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 public class BudgetConstructionOrganizationReportsRule extends MaintenanceDocumentRuleBase {
 
@@ -85,7 +85,7 @@ public class BudgetConstructionOrganizationReportsRule extends MaintenanceDocume
 
         // check reporting hierarchy is valid
         success &= checkSimpleRules(document);
-        
+
         return success;
     }
 
@@ -98,7 +98,7 @@ public class BudgetConstructionOrganizationReportsRule extends MaintenanceDocume
 
         // check reporting hierarchy is valid
         checkSimpleRules(document);
-        
+
         return true;
     }
 
@@ -138,8 +138,7 @@ public class BudgetConstructionOrganizationReportsRule extends MaintenanceDocume
                 if ((newBCOrgReports.getReportsToChartOfAccountsCode().equals(newBCOrgReports.getChartOfAccountsCode())) && (newBCOrgReports.getReportsToOrganizationCode().equals(newBCOrgReports.getOrganizationCode()))) {
                     putFieldError("reportsToOrganizationCode", KFSKeyConstants.ERROR_DOCUMENT_ORGMAINT_REPORTING_ORG_CANNOT_BE_SAME_ORG);
                     success = false;
-                }
-                else {
+                } else {
                     // Don't allow a circular reference on Reports to Chart/Org
                     // terminate the search when a top-level org is found
                     lastReportsToChartOfAccountsCode = newBCOrgReports.getReportsToChartOfAccountsCode();
@@ -158,8 +157,7 @@ public class BudgetConstructionOrganizationReportsRule extends MaintenanceDocume
                                 putFieldError("reportsToOrganizationCode", KFSKeyConstants.ERROR_DOCUMENT_ORGMAINT_REPORTING_ORG_MUST_EXIST);
                                 success = false;
                             }
-                        }
-                        else {
+                        } else {
                             {
                                 // LOG.info("Found Org = " + lastReportsToChartOfAccountsCode + "/" +
                                 // lastReportsToOrganizationCode);
@@ -184,8 +182,7 @@ public class BudgetConstructionOrganizationReportsRule extends MaintenanceDocume
 
                 } // end else (checking for circular ref)
 
-            }
-            else { // org must report to self (university level organization)
+            } else { // org must report to self (university level organization)
                 if (!(newBCOrgReports.getReportsToChartOfAccountsCode().equals(newBCOrgReports.getChartOfAccountsCode()) && newBCOrgReports.getReportsToOrganizationCode().equals(newBCOrgReports.getOrganizationCode()))) {
                     putFieldError("reportsToOrganizationCode", KFSKeyConstants.ERROR_DOCUMENT_ORGMAINT_REPORTING_ORG_MUST_BE_SAME_ORG);
                     success = false;
@@ -200,7 +197,7 @@ public class BudgetConstructionOrganizationReportsRule extends MaintenanceDocume
      * This method sets the convenience objects like newAccount and oldAccount, so you have short and easy handles to the new and
      * old objects contained in the maintenance document. It also calls the BusinessObjectBase.refresh(), which will attempt to load
      * all sub-objects from the DB by their primary keys, if available.
-     * 
+     *
      * @param document - the maintenanceDocument being evaluated
      */
     public void setupConvenienceObjects() {
@@ -214,7 +211,7 @@ public class BudgetConstructionOrganizationReportsRule extends MaintenanceDocume
 
     /**
      * Sets the orgService attribute value.
-     * 
+     *
      * @param orgService The orgService to set.
      */
     public void setOrgService(OrganizationService orgService) {
@@ -223,7 +220,7 @@ public class BudgetConstructionOrganizationReportsRule extends MaintenanceDocume
 
     /**
      * Sets the chartService attribute value.
-     * 
+     *
      * @param chartService The orgService to set.
      */
     public void setChartService(ChartService chartService) {
@@ -232,7 +229,7 @@ public class BudgetConstructionOrganizationReportsRule extends MaintenanceDocume
 
     /**
      * Sets the bcOrgReportsService attribute value.
-     * 
+     *
      * @param bcOrgReportsService The bcOrgReportsService to set.
      */
     public void setBCOrgReportsService(BudgetConstructionOrganizationReportsService bcOrgReportsService) {

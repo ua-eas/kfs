@@ -1,42 +1,39 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.krad.maintenance;
 
-import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.bo.DocumentHeader;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.uif.service.ViewHelperService;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 import java.util.List;
 import java.util.Map;
 
 /**
  * Provides contract for implementing a maintenance object within the maintenance framework
- *
+ * <p>
  * <p> Currently the <code>Maintainable</code> serves many purposes. First since all maintenance documents share the
  * same document class <code>MaintenanceDocumentBase</code> certain document callbacks such as workflow post processing
  * are invoked on the maintainable. Second the maintainable provides a hook for custom actions on the maintenance view.
  * Finally since the maintainable extends <code>ViewHelperService</code> it is used to customize <code>View</code>
  * configuration for <code>MaintenanceView</code> instances </p>
- *
- * 
  */
 public interface Maintainable extends ViewHelperService, java.io.Serializable {
 
@@ -87,7 +84,7 @@ public interface Maintainable extends ViewHelperService, java.io.Serializable {
 
     /**
      * Indicates whether the object can be locked
-     *
+     * <p>
      * <p>
      * If this method is overridden, most likely  getPersistableBusinessObject() should be
      * overridden as well.
@@ -123,13 +120,13 @@ public interface Maintainable extends ViewHelperService, java.io.Serializable {
      * of the same data object record
      *
      * @return the locking representation(s) of this document, which are reproducible
-     *         given the same keys and the same maintainable object
+     * given the same keys and the same maintainable object
      */
     public List<MaintenanceLock> generateMaintenanceLocks();
 
     /**
      * Invoked to persist changes to the data object being maintained
-     *
+     * <p>
      * <p>
      * Called after the maintenance document has become final indicating
      * the changes should be applied
@@ -139,7 +136,7 @@ public interface Maintainable extends ViewHelperService, java.io.Serializable {
 
     /**
      * Invokes to delete the data object being maintained
-     *
+     * <p>
      * <p>
      * Called after the maintenance document has become final indicating
      * the changes should be applied
@@ -150,14 +147,14 @@ public interface Maintainable extends ViewHelperService, java.io.Serializable {
     /**
      * Invoked do perform custom processing when the route status for the containing
      * maintenance document changes
-     *
+     * <p>
      * <p>
      * Usually used for determining when the document has become final so further actions
      * can take place in addition to the usual persistence of the object changes
      * </p>
      *
      * @param documentHeader - document header instance for containing maintenance document which
-     * can be used to check the new status
+     *                       can be used to check the new status
      */
     public void doRouteStatusChange(DocumentHeader documentHeader);
 
@@ -179,7 +176,7 @@ public interface Maintainable extends ViewHelperService, java.io.Serializable {
 
     /**
      * Indicates whether this maintainable supports notes on the maintenance object
-     *
+     * <p>
      * <p>
      * Note this is only applicable if the data object is an instance of <code>BusinessObject</code>
      * </p>
@@ -190,7 +187,7 @@ public interface Maintainable extends ViewHelperService, java.io.Serializable {
 
     /**
      * Indicates whether the object being maintained is an instance of <code>ExternalizableBusinessObject</code>
-     *
+     * <p>
      * <p>
      * For the case when we want to maintain a business object that doesn't
      * necessarily map to a single table in the database or may doesn't map to a
@@ -230,10 +227,10 @@ public interface Maintainable extends ViewHelperService, java.io.Serializable {
      * edited or copied.  Override this method for non BusinessObject external persistence,
      * Maintainable objects that extend BO should override isExternalBusinessObject and
      * prepareBusinessObject instead.
-     *
+     * <p>
      * Do not override this method and isExternalBusinessObject.
      *
-     * @param document document instance for the maintenance object
+     * @param document       document instance for the maintenance object
      * @param dataObjectKeys Map of keys for the requested object
      * @return the object identified by the dataObjectKeys
      */
@@ -245,7 +242,7 @@ public interface Maintainable extends ViewHelperService, java.io.Serializable {
      * For example, create a division Vendor based on an existing parent Vendor.
      * (Please see VendorMaintainableImpl.java)
      *
-     * @param document - maintenance document instance this maintainable belong to
+     * @param document          - maintenance document instance this maintainable belong to
      * @param requestParameters - map of request parameters sent for the request
      */
     public void setupNewFromExisting(MaintenanceDocument document, Map<String, String[]> parameters);
@@ -253,7 +250,7 @@ public interface Maintainable extends ViewHelperService, java.io.Serializable {
     /**
      * Hook for performing any custom processing after the maintenance object has been setup for a copy action
      *
-     * @param document - maintenance document instance this maintainable belong to
+     * @param document          - maintenance document instance this maintainable belong to
      * @param requestParameters - map of request parameters sent for the copy request
      */
     public void processAfterCopy(MaintenanceDocument document, Map<String, String[]> requestParameters);
@@ -261,7 +258,7 @@ public interface Maintainable extends ViewHelperService, java.io.Serializable {
     /**
      * Hook for performing any custom processing after the maintenance object has been setup for a edit action
      *
-     * @param document - maintenance document instance this maintainable belong to
+     * @param document          - maintenance document instance this maintainable belong to
      * @param requestParameters - map of request parameters sent for the copy request
      */
     public void processAfterEdit(MaintenanceDocument document, Map<String, String[]> requestParameters);
@@ -269,7 +266,7 @@ public interface Maintainable extends ViewHelperService, java.io.Serializable {
     /**
      * Hook for performing any custom processing after the maintenance object has been setup for a new action
      *
-     * @param document - maintenance document instance this maintainable belong to
+     * @param document          - maintenance document instance this maintainable belong to
      * @param requestParameters - map of request parameters sent for the copy request
      */
     public void processAfterNew(MaintenanceDocument document, Map<String, String[]> requestParameters);
@@ -278,7 +275,7 @@ public interface Maintainable extends ViewHelperService, java.io.Serializable {
      * Hook for performing any custom processing after each posting of the maintenance document (for various actions
      * like add line, refresh)
      *
-     * @param document - maintenance document instance this maintainable belong to
+     * @param document          - maintenance document instance this maintainable belong to
      * @param requestParameters - map of request parameters from the post
      */
     public void processAfterPost(MaintenanceDocument document, Map<String, String[]> requestParameters);

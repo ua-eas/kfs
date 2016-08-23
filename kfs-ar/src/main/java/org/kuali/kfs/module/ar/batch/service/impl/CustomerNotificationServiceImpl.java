@@ -1,31 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.batch.service.impl;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArParameterKeyConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
@@ -42,10 +38,14 @@ import org.kuali.kfs.sys.service.KfsNotificationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.mail.MailMessage;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * implement the customer notification service
@@ -98,25 +98,22 @@ public class CustomerNotificationServiceImpl implements CustomerNotificationServ
         Integer invoiceAge = this.getCustomerAgingNotificationOnDays();
         String selectionOption = this.getNotificationSelectionOption();
 
-        if(StringUtils.equals(ArConstants.ArNotificationOptions.PROCESSING_ORG.option, selectionOption)){
+        if (StringUtils.equals(ArConstants.ArNotificationOptions.PROCESSING_ORG.option, selectionOption)) {
             List<String> charts = this.getNotificationChartSelection();
             List<String> organizations = this.getNotificationOrganizationSelection();
 
             agingInvoiceDocuments = customerInvoiceDocumentService.getAllAgingInvoiceDocumentsByProcessing(charts, organizations, invoiceAge);
-        }
-        else if(StringUtils.equals(ArConstants.ArNotificationOptions.BILLING_ORG.option, selectionOption)){
+        } else if (StringUtils.equals(ArConstants.ArNotificationOptions.BILLING_ORG.option, selectionOption)) {
             List<String> charts = this.getNotificationChartSelection();
             List<String> organizations = this.getNotificationOrganizationSelection();
 
             agingInvoiceDocuments = customerInvoiceDocumentService.getAllAgingInvoiceDocumentsByBilling(charts, organizations, invoiceAge);
-        }
-        else if(StringUtils.equals(ArConstants.ArNotificationOptions.ACCOUNT.option, selectionOption)){
+        } else if (StringUtils.equals(ArConstants.ArNotificationOptions.ACCOUNT.option, selectionOption)) {
             List<String> charts = this.getNotificationChartSelection();
             List<String> accounts = this.getNotificationAccountSelection();
 
             agingInvoiceDocuments = customerInvoiceDocumentService.getAllAgingInvoiceDocumentsByAccounts(charts, accounts, invoiceAge);
-        }
-        else{
+        } else {
             throw new RuntimeException("The given notification option only can be one of the following values: " + ArConstants.ArNotificationOptions.values());
         }
 
@@ -189,16 +186,13 @@ public class CustomerNotificationServiceImpl implements CustomerNotificationServ
 
         Integer invoiceAge = invoiceDocument.getAge();
         KualiDecimal openAmount = invoiceDocument.getOpenAmount();
-        if(invoiceAge <= 30){
+        if (invoiceAge <= 30) {
             agingReportInformationHolder.put(ArConstants.CustomerAgingReportFields.TOTAL_0_TO_30, openAmount);
-        }
-        else if(invoiceAge <= 60){
+        } else if (invoiceAge <= 60) {
             agingReportInformationHolder.put(ArConstants.CustomerAgingReportFields.TOTAL_31_TO_60, openAmount);
-        }
-        else if(invoiceAge <= 90){
+        } else if (invoiceAge <= 90) {
             agingReportInformationHolder.put(ArConstants.CustomerAgingReportFields.TOTAL_61_TO_90, openAmount);
-        }
-        else{
+        } else {
             agingReportInformationHolder.put(ArConstants.CustomerAgingReportFields.TOTAL_91_TO_SYSPR, openAmount);
         }
     }
@@ -363,6 +357,7 @@ public class CustomerNotificationServiceImpl implements CustomerNotificationServ
 
     /**
      * Gets the dateTimeService attribute.
+     *
      * @return Returns the dateTimeService.
      */
     public DateTimeService getDateTimeService() {
@@ -371,6 +366,7 @@ public class CustomerNotificationServiceImpl implements CustomerNotificationServ
 
     /**
      * Sets the dateTimeService attribute value.
+     *
      * @param dateTimeService The dateTimeService to set.
      */
     public void setDateTimeService(DateTimeService dateTimeService) {

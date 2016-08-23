@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,20 +18,19 @@
  */
 package org.kuali.kfs.module.ar.document;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.coa.businessobject.Chart;
 import org.kuali.kfs.coa.businessobject.Organization;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomerAddress;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomerInvoice;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomerInvoiceRecurrenceDetails;
+import org.kuali.kfs.kns.document.MaintenanceDocument;
+import org.kuali.kfs.krad.UserSession;
+import org.kuali.kfs.krad.bo.DocumentHeader;
+import org.kuali.kfs.krad.document.Copyable;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.ar.ArKeyConstants;
 import org.kuali.kfs.module.ar.businessobject.AccountsReceivableDocumentHeader;
 import org.kuali.kfs.module.ar.businessobject.Customer;
@@ -64,13 +63,14 @@ import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.kfs.kns.document.MaintenanceDocument;
-import org.kuali.kfs.krad.UserSession;
-import org.kuali.kfs.krad.bo.DocumentHeader;
-import org.kuali.kfs.krad.document.Copyable;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 public class CustomerInvoiceDocument extends AccountingDocumentBase implements AmountTotaling, Copyable, Correctable, Comparable<CustomerInvoiceDocument>, AccountsReceivableCustomerInvoice {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CustomerInvoiceDocument.class);
@@ -541,8 +541,8 @@ public class CustomerInvoiceDocument extends AccountingDocumentBase implements A
     }
 
     /**
-     *
      * This method...
+     *
      * @return
      */
     public String getParentInvoiceNumber() {
@@ -617,8 +617,7 @@ public class CustomerInvoiceDocument extends AccountingDocumentBase implements A
     public Date getBillingDateForDisplay() {
         if (ObjectUtils.isNotNull(getBillingDate())) {
             return getBillingDate();
-        }
-        else {
+        } else {
             return SpringContext.getBean(DateTimeService.class).getCurrentSqlDate();
         }
     }
@@ -694,7 +693,7 @@ public class CustomerInvoiceDocument extends AccountingDocumentBase implements A
      * Ensures that all the accounts receivable object codes are correctly updated
      */
     public void updateAccountReceivableObjectCodes() {
-        for (Iterator e = getSourceAccountingLines().iterator(); e.hasNext();) {
+        for (Iterator e = getSourceAccountingLines().iterator(); e.hasNext(); ) {
             SpringContext.getBean(CustomerInvoiceDetailService.class).updateAccountsReceivableObjectCode(((CustomerInvoiceDetail) e.next()));
         }
     }
@@ -705,8 +704,8 @@ public class CustomerInvoiceDocument extends AccountingDocumentBase implements A
      * sales tax exists. 4. Credit to district sales tax account/object code if district sales tax exists.
      *
      * @see org.kuali.kfs.service.impl.GenericGeneralLedgerPendingEntryGenerationProcessImpl#processGenerateGeneralLedgerPendingEntries(org.kuali.kfs.sys.document.GeneralLedgerPendingEntrySource,
-     *      org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail,
-     *      org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper)
+     * org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail,
+     * org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper)
      */
     @Override
     public boolean generateGeneralLedgerPendingEntries(GeneralLedgerPendingEntrySourceDetail glpeSourceDetail, GeneralLedgerPendingEntrySequenceHelper sequenceHelper) {
@@ -742,6 +741,7 @@ public class CustomerInvoiceDocument extends AccountingDocumentBase implements A
 
     /**
      * Determines if the given customer invoice detail should be a debit on the receivable glpe, or a credit
+     *
      * @param customerInvoiceDetail the customer invoice detail to determine debitness of
      * @return true if the detail represents a debit, false if it represents a credit
      */
@@ -768,6 +768,7 @@ public class CustomerInvoiceDocument extends AccountingDocumentBase implements A
 
     /**
      * Determines if the given customer invoice detail should be a debit on the income glpe, or a credit
+     *
      * @param customerInvoiceDetail the customer invoice detail to determine debitness of
      * @return true if the detail represents a debit, false if it represents a credit
      */
@@ -861,8 +862,7 @@ public class CustomerInvoiceDocument extends AccountingDocumentBase implements A
             CustomerInvoiceDocument correctedCustomerInvoiceDocument;
             try {
                 correctedCustomerInvoiceDocument = (CustomerInvoiceDocument) SpringContext.getBean(DocumentService.class).getByDocumentHeaderId(this.getFinancialSystemDocumentHeader().getFinancialDocumentInErrorNumber());
-            }
-            catch (WorkflowException e) {
+            } catch (WorkflowException e) {
                 throw new RuntimeException("Cannot find customer invoice document with id " + this.getFinancialSystemDocumentHeader().getFinancialDocumentInErrorNumber());
             }
 
@@ -873,13 +873,12 @@ public class CustomerInvoiceDocument extends AccountingDocumentBase implements A
 
         //  handle Recurrence
         if (ObjectUtils.isNull(this.getCustomerInvoiceRecurrenceDetails()) ||
-                (ObjectUtils.isNull(this.getCustomerInvoiceRecurrenceDetails().getDocumentRecurrenceBeginDate())
+            (ObjectUtils.isNull(this.getCustomerInvoiceRecurrenceDetails().getDocumentRecurrenceBeginDate())
                 && ObjectUtils.isNull(this.getCustomerInvoiceRecurrenceDetails().getDocumentRecurrenceEndDate())
                 && ObjectUtils.isNull(this.getCustomerInvoiceRecurrenceDetails().getDocumentRecurrenceIntervalCode())
                 && ObjectUtils.isNull(this.getCustomerInvoiceRecurrenceDetails().getDocumentTotalRecurrenceNumber())
                 && ObjectUtils.isNull(this.getCustomerInvoiceRecurrenceDetails().getDocumentInitiatorUserIdentifier()))) {
-        }
-        else {
+        } else {
             // set new user session to recurrence initiator
             UserSession currentSession = GlobalVariables.getUserSession();
             GlobalVariables.setUserSession(new UserSession(KFSConstants.SYSTEM_USER));
@@ -899,8 +898,7 @@ public class CustomerInvoiceDocument extends AccountingDocumentBase implements A
             MaintenanceDocument invoiceRecurrenceMaintDoc = null;
             try {
                 invoiceRecurrenceMaintDoc = (MaintenanceDocument) SpringContext.getBean(DocumentService.class).getNewDocument(getInvoiceRecurrenceMaintenanceDocumentTypeName());
-            }
-            catch (WorkflowException e1) {
+            } catch (WorkflowException e1) {
                 throw new RuntimeException("Cannot create new Invoice Recurrence Maintenance Document.");
             }
             invoiceRecurrenceMaintDoc.getDocumentHeader().setDocumentDescription("Automatically created from Invoice");
@@ -912,8 +910,7 @@ public class CustomerInvoiceDocument extends AccountingDocumentBase implements A
                 //TODO temporarily just do regular route until we can get blanket approve perms setup for KFS
                 SpringContext.getBean(DocumentService.class).saveDocument(invoiceRecurrenceMaintDoc);
                 invoiceRecurrenceMaintDoc.getDocumentHeader().getWorkflowDocument().route("Automatically created and routed by CustomerInvoiceDocument #" + getDocumentNumber() + ".");
-            }
-            catch (WorkflowException e) {
+            } catch (WorkflowException e) {
                 throw new RuntimeException("Cannot route Invoice Recurrence Maintenance Document with id " + invoiceRecurrenceMaintDoc.getDocumentNumber() + ".");
             }
 
@@ -1037,16 +1034,16 @@ public class CustomerInvoiceDocument extends AccountingDocumentBase implements A
 
     // returns true only when there is all the required recurrence info
     public boolean getProcessRecurrenceFlag() {
-            CustomerInvoiceRecurrenceDetails rec = this.getCustomerInvoiceRecurrenceDetails();
+        CustomerInvoiceRecurrenceDetails rec = this.getCustomerInvoiceRecurrenceDetails();
 
         boolean processRecurrenceFlag = (null != rec.getDocumentRecurrenceIntervalCode());
         processRecurrenceFlag &= (null != rec.getDocumentRecurrenceBeginDate());
-        processRecurrenceFlag &= ( (null != rec.getDocumentRecurrenceEndDate()) || (null != rec.getDocumentTotalRecurrenceNumber()));
+        processRecurrenceFlag &= ((null != rec.getDocumentRecurrenceEndDate()) || (null != rec.getDocumentTotalRecurrenceNumber()));
         processRecurrenceFlag &= (rec.isActive());
         processRecurrenceFlag &= (null != rec.getDocumentInitiatorUserIdentifier());
 
         return processRecurrenceFlag;
-            }
+    }
 
     // returns true only if there is no recurrence data at all in recurrence tab
     public boolean getNoRecurrenceDataFlag() {
@@ -1098,7 +1095,7 @@ public class CustomerInvoiceDocument extends AccountingDocumentBase implements A
     @SuppressWarnings("unchecked")
     public void negateCustomerInvoiceDetailUnitPrices() {
         CustomerInvoiceDetail customerInvoiceDetail;
-        for (Iterator i = getSourceAccountingLines().iterator(); i.hasNext();) {
+        for (Iterator i = getSourceAccountingLines().iterator(); i.hasNext(); ) {
             customerInvoiceDetail = (CustomerInvoiceDetail) i.next();
             customerInvoiceDetail.setInvoiceItemUnitPrice(customerInvoiceDetail.getInvoiceItemUnitPrice().negate());
 
@@ -1119,7 +1116,7 @@ public class CustomerInvoiceDocument extends AccountingDocumentBase implements A
     public boolean hasAtLeastOneDiscount() {
 
         CustomerInvoiceDetail customerInvoiceDetail;
-        for (Iterator i = getSourceAccountingLines().iterator(); i.hasNext();) {
+        for (Iterator i = getSourceAccountingLines().iterator(); i.hasNext(); ) {
             customerInvoiceDetail = (CustomerInvoiceDetail) i.next();
             if (customerInvoiceDetail.isDiscountLineParent()) {
                 return true;
@@ -1141,7 +1138,7 @@ public class CustomerInvoiceDocument extends AccountingDocumentBase implements A
         }
 
         CustomerInvoiceDetail customerInvoiceDetail;
-        for (Iterator i = getSourceAccountingLines().iterator(); i.hasNext();) {
+        for (Iterator i = getSourceAccountingLines().iterator(); i.hasNext(); ) {
             customerInvoiceDetail = (CustomerInvoiceDetail) i.next();
             Integer discLineNum = customerInvoiceDetail.getInvoiceItemDiscountLineNumber();
 
@@ -1167,7 +1164,7 @@ public class CustomerInvoiceDocument extends AccountingDocumentBase implements A
         }
 
         CustomerInvoiceDetail customerInvoiceDetail;
-        for (Iterator i = getSourceAccountingLines().iterator(); i.hasNext();) {
+        for (Iterator i = getSourceAccountingLines().iterator(); i.hasNext(); ) {
             customerInvoiceDetail = (CustomerInvoiceDetail) i.next();
             Integer discLineNum = customerInvoiceDetail.getInvoiceItemDiscountLineNumber();
             if (ObjectUtils.isNotNull(discLineNum) && discountSequenceNumber.equals(customerInvoiceDetail.getInvoiceItemDiscountLineNumber())) {
@@ -1185,7 +1182,7 @@ public class CustomerInvoiceDocument extends AccountingDocumentBase implements A
     public void updateDiscountAndParentLineReferences() {
 
         CustomerInvoiceDetail discount;
-        for (Iterator i = getSourceAccountingLines().iterator(); i.hasNext();) {
+        for (Iterator i = getSourceAccountingLines().iterator(); i.hasNext(); ) {
             discount = (CustomerInvoiceDetail) i.next();
 
             // get sequence number and check if theres a corresponding parent line for that discount line
@@ -1193,8 +1190,7 @@ public class CustomerInvoiceDocument extends AccountingDocumentBase implements A
             if (ObjectUtils.isNotNull(parent)) {
                 discount.setParentDiscountCustomerInvoiceDetail(parent);
                 parent.setDiscountCustomerInvoiceDetail(discount);
-            }
-            else {
+            } else {
                 discount.setParentDiscountCustomerInvoiceDetail(null);
             }
         }
@@ -1246,7 +1242,7 @@ public class CustomerInvoiceDocument extends AccountingDocumentBase implements A
     }
 
     public PrintInvoiceOptions getPrintInvoiceOption() {
-        if (ObjectUtils.isNull(printInvoiceOption) && StringUtils.isNotEmpty(printInvoiceIndicator)){
+        if (ObjectUtils.isNull(printInvoiceOption) && StringUtils.isNotEmpty(printInvoiceIndicator)) {
             refreshReferenceObject("printInvoiceOption");
         }
         return printInvoiceOption;
@@ -1264,7 +1260,7 @@ public class CustomerInvoiceDocument extends AccountingDocumentBase implements A
     public KualiDecimal getInvoiceItemPreTaxAmountTotal() {
 
         KualiDecimal invoiceItemPreTaxAmountTotal = new KualiDecimal(0);
-        for (Iterator i = getSourceAccountingLines().iterator(); i.hasNext();) {
+        for (Iterator i = getSourceAccountingLines().iterator(); i.hasNext(); ) {
             invoiceItemPreTaxAmountTotal = invoiceItemPreTaxAmountTotal.add(((CustomerInvoiceDetail) i.next()).getInvoiceItemPreTaxAmount());
         }
         return invoiceItemPreTaxAmountTotal;
@@ -1278,7 +1274,7 @@ public class CustomerInvoiceDocument extends AccountingDocumentBase implements A
     public KualiDecimal getInvoiceItemTaxAmountTotal() {
 
         KualiDecimal invoiceItemTaxAmountTotal = new KualiDecimal(0);
-        for (Iterator i = getSourceAccountingLines().iterator(); i.hasNext();) {
+        for (Iterator i = getSourceAccountingLines().iterator(); i.hasNext(); ) {
             invoiceItemTaxAmountTotal = invoiceItemTaxAmountTotal.add(((CustomerInvoiceDetail) i.next()).getInvoiceItemTaxAmount());
         }
         return invoiceItemTaxAmountTotal;
@@ -1383,7 +1379,6 @@ public class CustomerInvoiceDocument extends AccountingDocumentBase implements A
     }
 
     /**
-     *
      * Returns whether or not the Invoice would be paid off by applying the additional amount, passed in
      * by the parameter.
      *
@@ -1673,8 +1668,7 @@ public class CustomerInvoiceDocument extends AccountingDocumentBase implements A
             this.setShippingAddressInternationalProvinceName(customerShipToAddress.getCustomerAddressInternationalProvinceName());
             this.setShippingInternationalMailCode(customerShipToAddress.getCustomerInternationalMailCode());
             this.setShippingEmailAddress(customerShipToAddress.getCustomerEmailAddress());
-        }
-        else {
+        } else {
             this.setShippingAddressTypeCode(null);
             this.setShippingAddressName(null);
             this.setShippingLine1StreetAddress(null);
@@ -1732,8 +1726,8 @@ public class CustomerInvoiceDocument extends AccountingDocumentBase implements A
     }
 
     /**
-     *
      * Determines whether this document was generated from a recurrence batch.  Returns true if so, false if not.
+     *
      * @return
      */
     protected boolean isBatchGenerated() {
@@ -1741,8 +1735,8 @@ public class CustomerInvoiceDocument extends AccountingDocumentBase implements A
     }
 
     /**
-     *
      * Determines whether this document has a Recurrence filled out enough to create an INVR doc.
+     *
      * @return
      */
     protected boolean hasRecurrence() {
@@ -1766,13 +1760,14 @@ public class CustomerInvoiceDocument extends AccountingDocumentBase implements A
 
     @Override
     public void setAccountsReceivableDocumentHeader(org.kuali.kfs.integration.ar.AccountsReceivableDocumentHeader accountsReceivableDocumentHeader) {
-        this.accountsReceivableDocumentHeader = (org.kuali.kfs.module.ar.businessobject.AccountsReceivableDocumentHeader)accountsReceivableDocumentHeader;
+        this.accountsReceivableDocumentHeader = (org.kuali.kfs.module.ar.businessobject.AccountsReceivableDocumentHeader) accountsReceivableDocumentHeader;
     }
 
     private Timestamp agingReportSentTime;
 
     /**
      * Gets the agingReportSentTime attribute.
+     *
      * @return Returns the agingReportSentTime.
      */
     public Timestamp getAgingReportSentTime() {
@@ -1781,6 +1776,7 @@ public class CustomerInvoiceDocument extends AccountingDocumentBase implements A
 
     /**
      * Sets the agingReportSentTime attribute value.
+     *
      * @param agingReportSentTime The agingReportSentTime to set.
      */
     public void setAgingReportSentTime(Timestamp agingReportSentTime) {

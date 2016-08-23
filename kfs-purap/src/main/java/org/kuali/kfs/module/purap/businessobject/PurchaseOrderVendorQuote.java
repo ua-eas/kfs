@@ -1,39 +1,39 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.module.purap.businessobject;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.location.api.LocationConstants;
+import org.kuali.rice.location.framework.country.CountryEbo;
+
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.module.purap.document.PurchaseOrderDocument;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.service.ModuleService;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.rice.location.api.LocationConstants;
-import org.kuali.rice.location.framework.country.CountryEbo;
 
 /**
  * Purchase Order Vendor Quote Business Object.
@@ -70,12 +70,12 @@ public class PurchaseOrderVendorQuote extends PersistableBusinessObjectBase {
 
     //non-persisted variables
     protected boolean isPdfDisplayedToUserOnce;
-    
+
     /**
      * Default constructor.
      */
     public PurchaseOrderVendorQuote() {
-        
+
     }
 
     public String getDocumentNumber() {
@@ -96,24 +96,24 @@ public class PurchaseOrderVendorQuote extends PersistableBusinessObjectBase {
      * @return Returns the vendorCountryCode.
      */
     public CountryEbo getVendorCountry() {
-        if ( StringUtils.isBlank(vendorCountryCode) ) {
+        if (StringUtils.isBlank(vendorCountryCode)) {
             vendorCountry = null;
         } else {
-            if ( vendorCountry == null || !StringUtils.equals( vendorCountry.getCode(), vendorCountryCode) ) {
+            if (vendorCountry == null || !StringUtils.equals(vendorCountry.getCode(), vendorCountryCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(CountryEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(1);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(1);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, vendorCountryCode);
                     vendorCountry = moduleService.getExternalizableBusinessObject(CountryEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
-        
+
         return vendorCountry;
     }
-    
+
     public void setVendorCountry(CountryEbo vendorCountry) {
         this.vendorCountry = vendorCountry;
     }
@@ -137,7 +137,7 @@ public class PurchaseOrderVendorQuote extends PersistableBusinessObjectBase {
     public void setVendorDetailAssignedIdentifier(Integer vendorDetailAssignedIdentifier) {
         this.vendorDetailAssignedIdentifier = vendorDetailAssignedIdentifier;
     }
-    
+
     public String getVendorAddressInternationalProvinceName() {
         return vendorAddressInternationalProvinceName;
     }
@@ -295,7 +295,7 @@ public class PurchaseOrderVendorQuote extends PersistableBusinessObjectBase {
 
     /**
      * Sets the purchaseOrder attribute.
-     * 
+     *
      * @param purchaseOrder The purchaseOrder to set.
      * @deprecated
      */
@@ -309,7 +309,7 @@ public class PurchaseOrderVendorQuote extends PersistableBusinessObjectBase {
 
     /**
      * Sets the purchaseOrderQuoteStatus attribute.
-     * 
+     *
      * @param purchaseOrderQuoteStatus The purchaseOrderQuoteStatus to set.
      * @deprecated
      */
@@ -348,17 +348,17 @@ public class PurchaseOrderVendorQuote extends PersistableBusinessObjectBase {
     /**
      * Method to determine if the the pdf has already been displayed to the user
      * one time. If false, its set to true and locks this out.
-     * 
+     *
      * @return
      */
     public boolean isPdfDisplayedToUserOnce() {
         boolean valueToReturn = isPdfDisplayedToUserOnce;
-        
+
         //if not displayed, we will return false, but subsequent calls will return true.
-        if (valueToReturn == false){
+        if (valueToReturn == false) {
             isPdfDisplayedToUserOnce = true;
         }
-        
+
         return valueToReturn;
     }
 

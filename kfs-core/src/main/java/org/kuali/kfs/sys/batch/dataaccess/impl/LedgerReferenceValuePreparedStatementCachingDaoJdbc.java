@@ -1,22 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.batch.dataaccess.impl;
+
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.batch.dataaccess.LedgerReferenceValuePreparedStatementCachingDao;
+import org.kuali.kfs.sys.businessobject.OriginationCode;
+import org.kuali.kfs.sys.businessobject.SystemOptions;
+import org.kuali.kfs.sys.businessobject.UniversityDate;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -25,15 +31,10 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.batch.dataaccess.LedgerReferenceValuePreparedStatementCachingDao;
-import org.kuali.kfs.sys.businessobject.OriginationCode;
-import org.kuali.kfs.sys.businessobject.SystemOptions;
-import org.kuali.kfs.sys.businessobject.UniversityDate;
-
 public class LedgerReferenceValuePreparedStatementCachingDaoJdbc extends AbstractPreparedStatementCachingDaoJdbc implements LedgerReferenceValuePreparedStatementCachingDao {
-    static final Map<String,String> sql = new HashMap<String,String>();
-    static {    
+    static final Map<String, String> sql = new HashMap<String, String>();
+
+    static {
         sql.put(RETRIEVE_PREFIX + UniversityDate.class, "select univ_fiscal_yr, univ_fiscal_prd_cd from SH_UNIV_DATE_T where univ_dt = ?");
         sql.put(RETRIEVE_PREFIX + SystemOptions.class, "select act_fin_bal_typ_cd, fobj_typ_asset_cd, fobj_typ_fndbal_cd, fobj_typ_lblty_cd, ext_enc_fbaltyp_cd, int_enc_fbaltyp_cd, pre_enc_fbaltyp_cd, fobjtp_xpnd_exp_cd, fobjtp_xpndnexp_cd, fobjtp_expnxpnd_cd, bdgt_chk_baltyp_cd, CSTSHR_ENCUM_FIN_BAL_TYP_CD, FIN_OBJECT_TYP_TRNFR_EXP_CD from FS_OPTION_T where univ_fiscal_yr = ?");
         sql.put(RETRIEVE_PREFIX + OriginationCode.class, "select ROW_ACTV_IND from FS_ORIGIN_CODE_T where fs_origin_cd = ?");
@@ -50,6 +51,7 @@ public class LedgerReferenceValuePreparedStatementCachingDaoJdbc extends Abstrac
             protected void populateStatement(PreparedStatement preparedStatement) throws SQLException {
                 preparedStatement.setString(1, financialSystemOriginationCode);
             }
+
             @Override
             protected OriginationCode extractResult(ResultSet resultSet) throws SQLException {
                 OriginationCode originationCode = new OriginationCode();
@@ -66,6 +68,7 @@ public class LedgerReferenceValuePreparedStatementCachingDaoJdbc extends Abstrac
             protected void populateStatement(PreparedStatement preparedStatement) throws SQLException {
                 preparedStatement.setInt(1, fiscalYear);
             }
+
             @Override
             protected SystemOptions extractResult(ResultSet resultSet) throws SQLException {
                 SystemOptions systemOptions = new SystemOptions();
@@ -94,6 +97,7 @@ public class LedgerReferenceValuePreparedStatementCachingDaoJdbc extends Abstrac
             protected void populateStatement(PreparedStatement preparedStatement) throws SQLException {
                 preparedStatement.setDate(1, date);
             }
+
             @Override
             protected UniversityDate extractResult(ResultSet resultSet) throws SQLException {
                 UniversityDate universityDate = new UniversityDate();

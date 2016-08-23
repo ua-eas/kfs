@@ -1,3 +1,21 @@
+/*
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.kuali.kfs.sys.rest;
 
 import org.kuali.kfs.krad.util.KRADUtils;
@@ -7,7 +25,11 @@ import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -33,8 +55,8 @@ public class AuthorizationResource {
         Map<String, String> details = new HashMap<>();
         details.put(KFSConstants.REPORT_CODE, reportCode);
         boolean isAuthorized = KimApiServiceLocator.getPermissionService().isAuthorizedByTemplate(currentUser.getPrincipalId(),
-                KFSConstants.PermissionTemplate.VIEW_REPORT.namespace, KFSConstants.PermissionTemplate.VIEW_REPORT.name,
-                details, Collections.<String, String>emptyMap());
+            KFSConstants.PermissionTemplate.VIEW_REPORT.namespace, KFSConstants.PermissionTemplate.VIEW_REPORT.name,
+            details, Collections.<String, String>emptyMap());
 
         Map<String, Object> responseEntity = new HashMap<>();
         responseEntity.put(KFSConstants.IS_AUTHORIZED, isAuthorized);

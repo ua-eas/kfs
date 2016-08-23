@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -30,7 +30,7 @@ import java.util.RandomAccess;
 public class CollectionIncomplete<T> implements List<T>, RandomAccess, Serializable {
 
     private static final long serialVersionUID = 8683452581122892189L;
-	private final List<T> list;
+    private final List<T> list;
     private Long actualSizeIfTruncated;
 
 

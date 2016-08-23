@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -19,10 +19,10 @@
 
 package org.kuali.kfs.coa.businessobject;
 
-import java.util.LinkedHashMap;
-
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
+import java.util.LinkedHashMap;
 
 
 public class IndirectCostRecoveryExclusionType extends PersistableBusinessObjectBase implements MutableInactivatable {
@@ -98,6 +98,7 @@ public class IndirectCostRecoveryExclusionType extends PersistableBusinessObject
 
     /**
      * Gets the active attribute.
+     *
      * @return Returns the active.
      */
     public boolean isActive() {
@@ -106,6 +107,7 @@ public class IndirectCostRecoveryExclusionType extends PersistableBusinessObject
 
     /**
      * Sets the active attribute value.
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {

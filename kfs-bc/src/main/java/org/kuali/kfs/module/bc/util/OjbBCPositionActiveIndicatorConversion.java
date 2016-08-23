@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -40,8 +40,7 @@ public class OjbBCPositionActiveIndicatorConversion extends OjbCharBooleanConver
 
         if (INDICATOR_NO.equals(sqlValue)) {
             return BudgetConstructionPositionConstants.POSITION_EFFECTIVE_STATUS_INACTIVE;
-        }
-        else if (INDICATOR_YES.equals(sqlValue)) {
+        } else if (INDICATOR_YES.equals(sqlValue)) {
             return BudgetConstructionPositionConstants.POSITION_EFFECTIVE_STATUS_ACTIVE;
         }
 
@@ -58,14 +57,12 @@ public class OjbBCPositionActiveIndicatorConversion extends OjbCharBooleanConver
                 if (source != null) {
                     String s = (String) source;
                     return Boolean.valueOf(BudgetConstructionPositionConstants.POSITION_EFFECTIVE_STATUS_ACTIVE.indexOf(s) >= 0);
-                }
-                else {
+                } else {
                     return null;
                 }
             }
             return source;
-        }
-        catch (Throwable t) {
+        } catch (Throwable t) {
             t.printStackTrace();
             throw new RuntimeException("I have exploded converting types", t);
         }

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -35,26 +35,23 @@ import java.util.List;
 
 
 /**
- * 
- * This class is the public entry point by which workflow communicates status changes, 
+ * This class is the public entry point by which workflow communicates status changes,
  * level changes, and other useful changes.
- * 
- * Note that this class delegates all of these activities to the PostProcessorService, 
- * which does the actual work.  This is done to ensure proper transaction scoping, and 
+ * <p>
+ * Note that this class delegates all of these activities to the PostProcessorService,
+ * which does the actual work.  This is done to ensure proper transaction scoping, and
  * to resolve some issues present otherwise.
- * 
- * Because of this, its important to understand that a transaction will be started at 
- * the PostProcessorService method call, so any work that needs to be done within the 
- * same transaction needs to happen inside that service implementation, rather than 
+ * <p>
+ * Because of this, its important to understand that a transaction will be started at
+ * the PostProcessorService method call, so any work that needs to be done within the
+ * same transaction needs to happen inside that service implementation, rather than
  * in here.
- * 
  */
 public class KualiPostProcessor implements PostProcessor {
 
     private static Logger LOG = Logger.getLogger(KualiPostProcessor.class);
 
     /**
-     * 
      * @see org.kuali.rice.kew.framework.postprocessor.PostProcessor#doRouteStatusChange(org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange)
      */
     @Override
@@ -79,7 +76,6 @@ public class KualiPostProcessor implements PostProcessor {
     }
 
     /**
-     * 
      * @see org.kuali.rice.kew.framework.postprocessor.PostProcessor#doDeleteRouteHeader(org.kuali.rice.kew.framework.postprocessor.DeleteEvent)
      */
     @Override
@@ -88,7 +84,6 @@ public class KualiPostProcessor implements PostProcessor {
     }
 
     /**
-     * 
      * @see org.kuali.rice.kew.framework.postprocessor.PostProcessor#doRouteLevelChange(org.kuali.rice.kew.framework.postprocessor.DocumentRouteLevelChange)
      */
     @Override
@@ -116,8 +111,8 @@ public class KualiPostProcessor implements PostProcessor {
      * @see org.kuali.rice.kew.framework.postprocessor.PostProcessor#getDocumentIdsToLock(org.kuali.rice.kew.framework.postprocessor.DocumentLockingEvent)
      */
     @Override
-	public List<String> getDocumentIdsToLock(DocumentLockingEvent documentLockingEvent) throws Exception {
-		return KRADServiceLocatorInternal.getPostProcessorService().getDocumentIdsToLock(documentLockingEvent);
-	}
+    public List<String> getDocumentIdsToLock(DocumentLockingEvent documentLockingEvent) throws Exception {
+        return KRADServiceLocatorInternal.getPostProcessorService().getDocumentIdsToLock(documentLockingEvent);
+    }
 
 }

@@ -1,26 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.util.LinkedHashMap;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.module.tem.TemConstants;
+import org.kuali.kfs.sys.KFSConstants;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,17 +30,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import org.kuali.kfs.module.tem.TemConstants;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.util.LinkedHashMap;
 
 /**
  * Mileage Rate
- *
  */
 @Entity
-@Table(name="TEM_MILEAGE_RT_T")
+@Table(name = "TEM_MILEAGE_RT_T")
 public class MileageRate extends PersistableBusinessObjectBase {
 
     public static final String CACHE_NAME = KFSConstants.APPLICATION_NAMESPACE_CODE + "/" + "MileageRate";
@@ -54,9 +52,9 @@ public class MileageRate extends PersistableBusinessObjectBase {
     private ExpenseType expenseType;
 
     @Id
-    @GeneratedValue(generator="TEM_MILEAGE_RT_ID_SEQ")
-    @SequenceGenerator(name="TEM_MILEAGE_RT_ID_SEQ",sequenceName="TEM_MILEAGE_RT_ID_SEQ", allocationSize=5)
-    @Column(name="id",nullable=false)
+    @GeneratedValue(generator = "TEM_MILEAGE_RT_ID_SEQ")
+    @SequenceGenerator(name = "TEM_MILEAGE_RT_ID_SEQ", sequenceName = "TEM_MILEAGE_RT_ID_SEQ", allocationSize = 5)
+    @Column(name = "id", nullable = false)
     public Integer getId() {
         return id;
     }
@@ -65,7 +63,7 @@ public class MileageRate extends PersistableBusinessObjectBase {
         this.id = id;
     }
 
-    @Column(name="rt",precision=19,scale=2,nullable=false)
+    @Column(name = "rt", precision = 19, scale = 2, nullable = false)
     public BigDecimal getRate() {
         return rate;
     }
@@ -74,7 +72,7 @@ public class MileageRate extends PersistableBusinessObjectBase {
         this.rate = rate;
     }
 
-    @Column(name="actv_from_dt",nullable=false)
+    @Column(name = "actv_from_dt", nullable = false)
     public Date getActiveFromDate() {
         return activeFromDate;
     }
@@ -83,7 +81,7 @@ public class MileageRate extends PersistableBusinessObjectBase {
         this.activeFromDate = activeFromDate;
     }
 
-    @Column(name="actv_to_dt",nullable=false)
+    @Column(name = "actv_to_dt", nullable = false)
     public Date getActiveToDate() {
         return activeToDate;
     }
@@ -92,7 +90,7 @@ public class MileageRate extends PersistableBusinessObjectBase {
         this.activeToDate = activeToDate;
     }
 
-    @Column(name="exp_typ_cd",nullable=false)
+    @Column(name = "exp_typ_cd", nullable = false)
     public String getExpenseTypeCode() {
         return expenseTypeCode;
     }
@@ -111,8 +109,8 @@ public class MileageRate extends PersistableBusinessObjectBase {
         this.expenseType = expenseType;
     }
 
-    protected LinkedHashMap<String,String> toStringMapper_RICE20_REFACTORME() {
-        LinkedHashMap<String,String> map = new LinkedHashMap<String,String>();
+    protected LinkedHashMap<String, String> toStringMapper_RICE20_REFACTORME() {
+        LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
         map.put("id", Integer.toString(id));
         if (rate != null) {
             map.put("rate", rate.toString());
@@ -121,7 +119,7 @@ public class MileageRate extends PersistableBusinessObjectBase {
         return map;
     }
 
-    public String getCodeAndRate(){
+    public String getCodeAndRate() {
         return getExpenseTypeCode() + KFSConstants.BLANK_SPACE + KFSConstants.DASH + KFSConstants.BLANK_SPACE + TemConstants.DOLLAR_SIGN + this.getRate().toString();
     }
 

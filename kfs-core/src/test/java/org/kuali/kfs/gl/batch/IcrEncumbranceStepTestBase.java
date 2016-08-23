@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -57,8 +57,6 @@ public abstract class IcrEncumbranceStepTestBase extends KualiTestBase {
     protected String batchFileDirectoryName;
 
 
-
-
     /**
      * This method sets up services needed by children classes.
      *
@@ -85,7 +83,7 @@ public abstract class IcrEncumbranceStepTestBase extends KualiTestBase {
         EasyMock.expect(universityDateService.getCurrentUniversityDate()).andReturn(universityDate).anyTimes();
 
         EasyMock.replay(universityDateService);
-        ((IcrEncumbranceServiceImpl)icrEncumbranceService).setUniversityDateService(universityDateService);
+        ((IcrEncumbranceServiceImpl) icrEncumbranceService).setUniversityDateService(universityDateService);
 
         initFileNames();
     }
@@ -103,12 +101,12 @@ public abstract class IcrEncumbranceStepTestBase extends KualiTestBase {
      * create file paths that children classes generate files to.
      */
     private void initFileNames() {
-        batchFileDirectoryName = configurationService.getPropertyValueAsString("staging.directory") + File.separator +"gl/originEntry";
+        batchFileDirectoryName = configurationService.getPropertyValueAsString("staging.directory") + File.separator + "gl/originEntry";
 
         fileNames = new ArrayList<String>();
         fileNames.add(batchFileDirectoryName + File.separator + GeneralLedgerConstants.BatchFileSystem.ICR_ENCUMBRANCE_OUTPUT_FILE + GeneralLedgerConstants.BatchFileSystem.EXTENSION);
-        fileNames.add(batchFileDirectoryName + File.separator + GeneralLedgerConstants.BatchFileSystem.ICR_ENCUMBRANCE_POSTER_INPUT_FILE  + GeneralLedgerConstants.BatchFileSystem.EXTENSION);
-        fileNames.add(batchFileDirectoryName + File.separator + GeneralLedgerConstants.BatchFileSystem.ICR_ENCUMBRANCE_POSTER_ERROR_OUTPUT_FILE  + GeneralLedgerConstants.BatchFileSystem.EXTENSION);
+        fileNames.add(batchFileDirectoryName + File.separator + GeneralLedgerConstants.BatchFileSystem.ICR_ENCUMBRANCE_POSTER_INPUT_FILE + GeneralLedgerConstants.BatchFileSystem.EXTENSION);
+        fileNames.add(batchFileDirectoryName + File.separator + GeneralLedgerConstants.BatchFileSystem.ICR_ENCUMBRANCE_POSTER_ERROR_OUTPUT_FILE + GeneralLedgerConstants.BatchFileSystem.EXTENSION);
     }
 
 
@@ -121,7 +119,7 @@ public abstract class IcrEncumbranceStepTestBase extends KualiTestBase {
     public void tearDown() throws Exception {
         super.tearDown();
 
-        for(String fileName : fileNames){
+        for (String fileName : fileNames) {
             File file = new File(fileName);
             FileUtils.deleteQuietly(file);
         }

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -48,31 +48,33 @@ public class CfAuthenticationServiceImpl implements CfAuthenticationService {
             return AuthenticationValidationResponse.INVALID_PRINCIPAL_DOES_NOT_EXIST;
         }
 
-        if ( !isAuthorizedToLogin(principal.getPrincipalId()) ) {
+        if (!isAuthorizedToLogin(principal.getPrincipalId())) {
             return AuthenticationValidationResponse.INVALID_PRINCIPAL_CANNOT_LOGIN;
         }
 
         return AuthenticationValidationResponse.VALID_AUTHENTICATION;
     }
 
-    /** checks if the passed in principalId is authorized to log in. */
+    /**
+     * checks if the passed in principalId is authorized to log in.
+     */
     protected boolean isAuthorizedToLogin(String principalId) {
         return getPermissionService().isAuthorized(
-                principalId,
-                KimConstants.KIM_TYPE_DEFAULT_NAMESPACE,
-                KimConstants.PermissionNames.LOG_IN,
-                Collections.singletonMap("principalId", principalId));
+            principalId,
+            KimConstants.KIM_TYPE_DEFAULT_NAMESPACE,
+            KimConstants.PermissionNames.LOG_IN,
+            Collections.singletonMap("principalId", principalId));
     }
 
     public IdentityService getIdentityService() {
-        if ( identityService == null ) {
+        if (identityService == null) {
             identityService = KimApiServiceLocator.getIdentityService();
         }
         return identityService;
     }
 
     public PermissionService getPermissionService() {
-        if ( permissionService == null ) {
+        if (permissionService == null) {
             permissionService = KimApiServiceLocator.getPermissionService();
         }
         return permissionService;

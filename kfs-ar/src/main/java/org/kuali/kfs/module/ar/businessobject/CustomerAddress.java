@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,25 +18,25 @@
  */
 package org.kuali.kfs.module.ar.businessobject;
 
-import java.sql.Date;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomer;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomerAddress;
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomerAddressType;
-import org.kuali.kfs.module.ar.ArKeyConstants;
-import org.kuali.kfs.module.ar.document.service.CustomerAddressService;
-import org.kuali.kfs.sys.KFSPropertyConstants;
-import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.ModuleService;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.ar.ArKeyConstants;
+import org.kuali.kfs.module.ar.document.service.CustomerAddressService;
+import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.location.api.LocationConstants;
 import org.kuali.rice.location.framework.country.CountryEbo;
+
+import java.sql.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 
 public class CustomerAddress extends PersistableBusinessObjectBase implements Comparable<CustomerAddress>, AccountsReceivableCustomerAddress {
@@ -421,6 +421,7 @@ public class CustomerAddress extends PersistableBusinessObjectBase implements Co
     public void setInvoiceTransmissionMethodCode(String invoiceTransmissionMethodCode) {
         this.invoiceTransmissionMethodCode = invoiceTransmissionMethodCode;
     }
+
     /**
      * Gets the customerCountry attribute.
      *
@@ -432,12 +433,12 @@ public class CustomerAddress extends PersistableBusinessObjectBase implements Co
         } else {
             if (customerCountry == null || !StringUtils.equals(customerCountry.getCode(), customerCountryCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(CountryEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(1);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(1);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, customerCountryCode);
                     customerCountry = moduleService.getExternalizableBusinessObject(CountryEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -513,7 +514,7 @@ public class CustomerAddress extends PersistableBusinessObjectBase implements Co
             || (this.getCustomerAddressTypeCode() == null && address.getCustomerAddressTypeCode() != null) || (this.getCustomerAddressTypeCode() != null && address.getCustomerAddressTypeCode() == null)) {
             return -1;
         }
-        if (this.getCustomerAddressIdentifier() != null && address.getCustomerAddressIdentifier() != null && this.getCustomerAddressIdentifier().compareTo(address.getCustomerAddressIdentifier())!= 0
+        if (this.getCustomerAddressIdentifier() != null && address.getCustomerAddressIdentifier() != null && this.getCustomerAddressIdentifier().compareTo(address.getCustomerAddressIdentifier()) != 0
             || (this.getCustomerAddressIdentifier() == null && address.getCustomerAddressIdentifier() != null) || (this.getCustomerAddressIdentifier() != null && address.getCustomerAddressIdentifier() == null)) {
             return -1;
         }

@@ -1,25 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.document.service;
-
-import java.util.Date;
-import java.util.List;
 
 import org.kuali.kfs.integration.ar.AccountsReceivableCustomerInvoice;
 import org.kuali.kfs.module.tem.businessobject.ActualExpense;
@@ -33,9 +30,11 @@ import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySequenceHelper;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 
+import java.util.Date;
+import java.util.List;
+
 /**
  * Travel Reimbursement Service
- *
  */
 public interface TravelReimbursementService {
 
@@ -52,7 +51,7 @@ public interface TravelReimbursementService {
      * Find the {@link TravelReimbursementDocument} instance with the same <code>documentNumber</code>
      *
      * @param documentNumber to locate {@link TravelReimbursementDocument} instances
-     * @return  {@link TravelReimbursementDocument}
+     * @return {@link TravelReimbursementDocument}
      */
     TravelReimbursementDocument find(String documentNumber) throws WorkflowException;
 
@@ -64,25 +63,25 @@ public interface TravelReimbursementService {
     void addListenersTo(final TravelReimbursementDocument reimbursement);
 
     /**
-     *     Search for the INV associated with the Travel Authorization from AR (Org Doc Number = Trip ID)
-     *
-     *     If any amount is left in the invoice - determine CRM spawn by TA
-     *
-     *     Compute the reimbursable amount = total year-to-date amount reimbursed for this trip plus reimbursable amount for this TR
-     *     (possibly in TA?)
-     *
-     *         1. reimbursable amount >= INV
-     *              Spawn a customer credit memo (CRM) up to the Invoice amount
-     *              The traveler will be reimbursed for the difference by (DV)
-     *
-     *         2. reimbursable amount < INV
-     *              Spawn a customer credit memo (CRM) for the reimbursable amount
-     *              The traveler will not receive any reimbursement - No DV necessary
-     *
-     *        3. If there is no reimbursement for this travel $0
-     *              No CRM & No DV ?? TR w/ no reimbursement?
-     *
-     *        4. There is no INV, then do not spawn a credit memo - under case 1
+     * Search for the INV associated with the Travel Authorization from AR (Org Doc Number = Trip ID)
+     * <p>
+     * If any amount is left in the invoice - determine CRM spawn by TA
+     * <p>
+     * Compute the reimbursable amount = total year-to-date amount reimbursed for this trip plus reimbursable amount for this TR
+     * (possibly in TA?)
+     * <p>
+     * 1. reimbursable amount >= INV
+     * Spawn a customer credit memo (CRM) up to the Invoice amount
+     * The traveler will be reimbursed for the difference by (DV)
+     * <p>
+     * 2. reimbursable amount < INV
+     * Spawn a customer credit memo (CRM) for the reimbursable amount
+     * The traveler will not receive any reimbursement - No DV necessary
+     * <p>
+     * 3. If there is no reimbursement for this travel $0
+     * No CRM & No DV ?? TR w/ no reimbursement?
+     * <p>
+     * 4. There is no INV, then do not spawn a credit memo - under case 1
      *
      * @param reimbursement
      * @throws WorkflowException
@@ -92,12 +91,12 @@ public interface TravelReimbursementService {
     /**
      * Use a reimbursement to create a {@link CustomerCreditMemoDocument}. Nothing is returned because the
      * created document will be blanketApproved and will show up in the "relatedDocuments" section
-     *
+     * <p>
      * AccountsReceivableCustomerInvoice
      *
      * @param reimbursement
-     * @param invoice {@link AccountsReceivableCustomerInvoice} invoice used for generating  {@link CustomerCreditMemoDocument}
-     * @param creditAmount amount to be credited by the {@link CustomerCreditMemoDocument}
+     * @param invoice       {@link AccountsReceivableCustomerInvoice} invoice used for generating  {@link CustomerCreditMemoDocument}
+     * @param creditAmount  amount to be credited by the {@link CustomerCreditMemoDocument}
      * @throws WorkflowException
      */
     void spawnCustomerCreditMemoDocument(final TravelReimbursementDocument reimbursement, AccountsReceivableCustomerInvoice invoice, KualiDecimal creditAmount) throws WorkflowException;
@@ -108,25 +107,24 @@ public interface TravelReimbursementService {
      *
      * @param reimbursement to use for creating the {@link CustomerCreditMemoDocument}
      */
-    TravelAuthorizationDocument getRelatedOpenTravelAuthorizationDocument(final TravelReimbursementDocument reimbursement) ;
+    TravelAuthorizationDocument getRelatedOpenTravelAuthorizationDocument(final TravelReimbursementDocument reimbursement);
 
     /**
      * Notification when the original trip date is changed. A note is left on the workflow document detailing
      * the date change with the message DATE_CHANGED_MESSAGE
      *
      * @param reimbursement {@link TravelReimbursementDocument} for this trip
-     * @param start original start {@link Date}
-     * @param end original end {@link Date}
+     * @param start         original start {@link Date}
+     * @param end           original end {@link Date}
      */
     void notifyDateChangedOn(final TravelReimbursementDocument reimbursement, final Date start, final Date end) throws Exception;
 
     /**
-     *
      * Checks to see if the trip date changed from the TA dates. If the dates have changed, a note is left on the
      * workflow document detailing the date change with the message DATE_CHANGED_MESSAGE (by calling notifyDateChangedOn())
      *
      * @param travelReqDoc {@link TravelReimbursementDocument} for this trip
-     * @param taDoc {@link TravelAuthorizationDocument} for this trip
+     * @param taDoc        {@link TravelAuthorizationDocument} for this trip
      */
     void addDateChangedNote(TravelReimbursementDocument travelReqDoc, TravelAuthorizationDocument taDoc);
 
@@ -141,8 +139,8 @@ public interface TravelReimbursementService {
     /**
      * the actual reimbursable amount to the traveler.  This includes the calculation for open invoices which will
      * not be paid back to the traveler.
-     *
-     *  TEM requested reimbursable amount subtract open invoices amount
+     * <p>
+     * TEM requested reimbursable amount subtract open invoices amount
      *
      * @param reimbursementDocument
      * @return
@@ -151,6 +149,7 @@ public interface TravelReimbursementService {
 
     /**
      * This checks to see if the expense no longer exists, and if it doesn't, enables the expense that was disabled
+     *
      * @param trDocument
      * @param actualExpense
      */
@@ -158,7 +157,8 @@ public interface TravelReimbursementService {
 
     /**
      * Generates pending entries to balance out non-balanced out travel advances; the generated pending entries will be added to the document directly
-     * @param trDocument the reimbursement document of the trip to balance out non-balanced out advances for
+     *
+     * @param trDocument     the reimbursement document of the trip to balance out non-balanced out advances for
      * @param sequenceHelper the pending entry sequence generator for this generation process
      */
     public void generateEntriesForAdvances(TravelReimbursementDocument trDocument, GeneralLedgerPendingEntrySequenceHelper sequenceHelper);
@@ -170,6 +170,7 @@ public interface TravelReimbursementService {
 
     /**
      * Calculates the total amount of open invoices for this trip
+     *
      * @param reimbursementDocument a reimbursement in the trip to find the open invoice amount for
      * @return the total open invoice amount
      */
@@ -177,6 +178,7 @@ public interface TravelReimbursementService {
 
     /**
      * Calculates how much each of the given accounting lines contributes to the total of the accounting lines
+     *
      * @param accountingLines the accounting lines to find the percentage contribution of each of
      * @return a List of the accounting lines and their corresponding percentages
      */
@@ -184,15 +186,17 @@ public interface TravelReimbursementService {
 
     /**
      * Generates accounting lines which will act as source details to generate the crediting glpes to pay back the advance
+     *
      * @param linePercentages the accounting lines which paid for the advance and the amount they
-     * @param paymentAmount the total amount of the current invoice which is being paid back
-     * @param documentNumber the document number of the reimbursement which is crediting the advance we're paying back here
+     * @param paymentAmount   the total amount of the current invoice which is being paid back
+     * @param documentNumber  the document number of the reimbursement which is crediting the advance we're paying back here
      * @return a List of TemSourceAccountingLines which will be source details to generate GLPEs
      */
     public List<TemSourceAccountingLine> createAccountingLinesFromPercentages(List<TemSourceAccountingLineTotalPercentage> linePercentages, KualiDecimal paymentAmount, String documentNumber);
 
     /**
      * Calculates the sum of a list of AccountingLines
+     *
      * @param accountingLines the accounting lines to add together
      * @return the sum of those accounting lines
      */

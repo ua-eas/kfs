@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -311,7 +311,7 @@ class ComponentServiceImplTest {
     void test_publishDerivedComponents_null_componentSetId() {
         injectBusinessObjectService()
         shouldFail(IllegalArgumentException.class) {
-            service.publishDerivedComponents(null, [ component ])
+            service.publishDerivedComponents(null, [component])
         }
     }
 
@@ -319,7 +319,7 @@ class ComponentServiceImplTest {
     void test_publishDerivedComponents_empty_componentSetId() {
         injectBusinessObjectService()
         shouldFail(IllegalArgumentException.class) {
-            service.publishDerivedComponents("", [ component ])
+            service.publishDerivedComponents("", [component])
         }
     }
 
@@ -327,7 +327,7 @@ class ComponentServiceImplTest {
     void test_publishDerivedComponents_blank_componentSetId() {
         injectBusinessObjectService()
         shouldFail(IllegalArgumentException.class) {
-            service.publishDerivedComponents("  ", [ component ])
+            service.publishDerivedComponents("  ", [component])
         }
     }
 
@@ -338,7 +338,7 @@ class ComponentServiceImplTest {
         builder.setComponentSetId("myComponentSet")
         // should fail, componentSetIds don't match!
         shouldFail(IllegalArgumentException.class) {
-            service.publishDerivedComponents("blah", [ builder.build() ])
+            service.publishDerivedComponents("blah", [builder.build()])
         }
     }
 
@@ -349,7 +349,7 @@ class ComponentServiceImplTest {
         componentSetDaoMock.demand.getComponentSet { id -> null }
         componentSetDaoMock.demand.saveIgnoreLockingFailure { cs -> savedComponentSet = cs; return true }
         boServiceMock.demand.deleteMatching { clazz, crit -> assert crit.containsKey("componentSetId") }
-        boServiceMock.demand.findMatching { clazz, crit -> []}
+        boServiceMock.demand.findMatching { clazz, crit -> [] }
 
         injectBusinessObjectService()
         injectComponentSetDao()
@@ -370,14 +370,14 @@ class ComponentServiceImplTest {
     @Test
     void test_publishDerivedComponents_empty_components_withExisting_componentSet() {
 
-        ComponentSetBo existingComponentSet = new ComponentSetBo(componentSetId:"myComponentSet", checksum:"blah",
-                lastUpdateTimestamp:new Timestamp(System.currentTimeMillis()), versionNumber:500)
+        ComponentSetBo existingComponentSet = new ComponentSetBo(componentSetId: "myComponentSet", checksum: "blah",
+                lastUpdateTimestamp: new Timestamp(System.currentTimeMillis()), versionNumber: 500)
         ComponentSetBo savedComponentSet = null;
 
         componentSetDaoMock.demand.getComponentSet { id -> existingComponentSet }
         componentSetDaoMock.demand.saveIgnoreLockingFailure { cs -> cs.versionNumber++; savedComponentSet = cs; return true }
         boServiceMock.demand.deleteMatching { clazz, crit -> assert crit.containsKey("componentSetId") }
-        boServiceMock.demand.findMatching { clazz, crit -> []}
+        boServiceMock.demand.findMatching { clazz, crit -> [] }
 
         injectBusinessObjectService()
         injectComponentSetDao()
@@ -408,7 +408,7 @@ class ComponentServiceImplTest {
 
         List<Component> components = service.getDerivedComponentSet("myComponentSet")
         assert components.isEmpty()
-        service.publishDerivedComponents("myComponentSet", [ component ])
+        service.publishDerivedComponents("myComponentSet", [component])
         components = service.getDerivedComponentSet("myComponentSet")
         assert components.size() == 1
 

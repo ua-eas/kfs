@@ -1,37 +1,35 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.krad.service;
 
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.datadictionary.DataDictionaryEntry;
 import org.kuali.kfs.krad.datadictionary.ReferenceDefinition;
 import org.kuali.kfs.krad.datadictionary.validation.AttributeValueReader;
 import org.kuali.kfs.krad.datadictionary.validation.result.DictionaryValidationResult;
 import org.kuali.kfs.krad.document.Document;
 import org.kuali.kfs.krad.document.TransactionalDocument;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 import java.beans.PropertyDescriptor;
 
 /**
  * Defines the API for the validating against the data dictionary.
- *
- * 
  */
 public interface DictionaryValidationService {
 
@@ -45,26 +43,26 @@ public interface DictionaryValidationService {
     /**
      * Validates the contents of a document and recursively validates any of its updatable references
      *
-     * @param document the document
-     * @param maxDepth the maximum numbers of levels to recurse
+     * @param document         the document
+     * @param maxDepth         the maximum numbers of levels to recurse
      * @param validateRequired whether to validate whether a field is required and is currently blank
      */
     public void validateDocumentAndUpdatableReferencesRecursively(Document document, int maxDepth,
-            boolean validateRequired);
+                                                                  boolean validateRequired);
 
     /**
      * Validates the contents of a document and recursively validates any of its updatable references
      *
-     * @param document the document
-     * @param maxDepth the maximum numbers of levels to recurse
-     * @param validateRequired whether to validate whether a field is required and is currently blank
+     * @param document                           the document
+     * @param maxDepth                           the maximum numbers of levels to recurse
+     * @param validateRequired                   whether to validate whether a field is required and is currently blank
      * @param chompLastLetterSFromCollectionName if true, the error path for any collections encountered will have the
-     * last "s" removed from the collection name if it ends
-     * with the letter "s".  If false, this method acts like {@link #validateDocumentAndUpdatableReferencesRecursively(Document,
-     * int, boolean)}
+     *                                           last "s" removed from the collection name if it ends
+     *                                           with the letter "s".  If false, this method acts like {@link #validateDocumentAndUpdatableReferencesRecursively(Document,
+     *                                           int, boolean)}
      */
     public void validateDocumentAndUpdatableReferencesRecursively(Document document, int maxDepth,
-            boolean validateRequired, boolean chompLastLetterSFromCollectionName);
+                                                                  boolean validateRequired, boolean chompLastLetterSFromCollectionName);
 
     /**
      * Validates the specified attribute of the given document against the data dictionary.
@@ -86,9 +84,9 @@ public interface DictionaryValidationService {
     /**
      * Validates an object using its class name as the entry name to look up its metadata in the dictionary.
      *
-     * @param object - an object to validate
+     * @param object               - an object to validate
      * @param doOptionalProcessing true if the validation should do optional validation (e.g. to check if empty values
-     * are required or not), false otherwise
+     *                             are required or not), false otherwise
      * @return the dictionary validation result object associated with this validation
      */
     public DictionaryValidationResult validate(Object object, boolean doOptionalProcessing);
@@ -96,7 +94,7 @@ public interface DictionaryValidationService {
     /**
      * Validates an object using the passed entry name to look up metadata in the dictionary
      *
-     * @param object - an object to validate
+     * @param object    - an object to validate
      * @param entryName - the dictionary entry name to look up the metadata associated with this object
      * @return the dictionary validation result object associated with this validation
      * @since 1.1
@@ -110,10 +108,10 @@ public interface DictionaryValidationService {
      * required
      * or not).
      *
-     * @param object - an object to validate
-     * @param entryName - the dictionary entry name to look up the metadata associated with this object
+     * @param object               - an object to validate
+     * @param entryName            - the dictionary entry name to look up the metadata associated with this object
      * @param doOptionalProcessing true if the validation should do optional validation (e.g. to check if empty values
-     * are required or not), false otherwise
+     *                             are required or not), false otherwise
      * @return the dictionary validation result object associated with this validation
      * @since 1.1
      */
@@ -123,8 +121,8 @@ public interface DictionaryValidationService {
      * Validates a single attribute on the passed object using the passed entry name to look up
      * metadata in the dictionary.
      *
-     * @param object - an object to validate
-     * @param entryName - the dictionary entry name to look up the metadata associated with this object
+     * @param object        - an object to validate
+     * @param entryName     - the dictionary entry name to look up the metadata associated with this object
      * @param attributeName - the name of the attribute (field) on the object that should be validated
      * @return the dictionary validation result object associated with this validation
      * @since 1.1
@@ -137,32 +135,32 @@ public interface DictionaryValidationService {
      * required
      * or not).
      *
-     * @param object - an object to validate
-     * @param entryName - the dictionary entry name to look up the metadata associated with this object
-     * @param attributeName - the name of the attribute (field) on the object that should be validated
+     * @param object               - an object to validate
+     * @param entryName            - the dictionary entry name to look up the metadata associated with this object
+     * @param attributeName        - the name of the attribute (field) on the object that should be validated
      * @param doOptionalProcessing true if the validation should do optional validation (e.g. to check if empty values
-     * are required or not), false otherwise
+     *                             are required or not), false otherwise
      * @return the dictionary validation result object associated with this validation
      * @since 1.1
      */
     public DictionaryValidationResult validate(Object object, String entryName, String attributeName,
-            boolean doOptionalProcessing);
+                                               boolean doOptionalProcessing);
 
     /**
      * Same as {@link DictionaryValidationService#validate(Object, String, boolean) except that it provides an explicit
      * data dictionary
      * entry to use for the purpose of validation.
      *
-     * @param object - an object to validate
-     * @param entryName - the dictionary entry name to use in association with error look ups
-     * @param entry - the dictionary entry to use for validation
+     * @param object               - an object to validate
+     * @param entryName            - the dictionary entry name to use in association with error look ups
+     * @param entry                - the dictionary entry to use for validation
      * @param doOptionalProcessing true if the validation should do optional validation (e.g. to check if empty values
-     * are required or not), false otherwise
+     *                             are required or not), false otherwise
      * @return the dictionary validation result object associated with this validation
      * @since 1.1
      */
     public DictionaryValidationResult validate(Object object, String entryName, DataDictionaryEntry entry,
-            boolean doOptionalProcessing);
+                                               boolean doOptionalProcessing);
 
     /**
      * Instead of validating an object with dictionary metadata, or validating a specific member of an object by name,
@@ -171,8 +169,8 @@ public interface DictionaryValidationService {
      * that can be done
      * to constraints that directly affect this attribute.
      *
-     * @param entryName - the dictionary entry name to use in association with error look ups
-     * @param attributeName - the dictionary entry attribute name to use in association with error look ups
+     * @param entryName      - the dictionary entry name to use in association with error look ups
+     * @param attributeName  - the dictionary entry attribute name to use in association with error look ups
      * @param attributeValue - the value of the attribute being validated
      */
     public void validate(String entryName, String attributeName, Object attributeValue);
@@ -183,21 +181,21 @@ public interface DictionaryValidationService {
      * required
      * or not).
      *
-     * @param entryName - the dictionary entry name to use in association with error look ups
-     * @param attributeName - the dictionary entry attribute name to use in association with error look ups
-     * @param attributeValue - the value of the attribute being validated
+     * @param entryName            - the dictionary entry name to use in association with error look ups
+     * @param attributeName        - the dictionary entry attribute name to use in association with error look ups
+     * @param attributeValue       - the value of the attribute being validated
      * @param doOptionalProcessing - true if the validation should do optional validation (e.g. to check if empty
-     * values
-     * are required or not), false otherwise
+     *                             values
+     *                             are required or not), false otherwise
      */
     public void validate(String entryName, String attributeName, Object attributeValue, boolean doOptionalProcessing);
 
     /**
      * Same as other validate method except, allows you to provide the attributeValueReader directly for evaluation
      *
-     * @param valueReader - an object to validate
+     * @param valueReader          - an object to validate
      * @param doOptionalProcessing true if the validation should do optional validation (e.g. to check if empty values
-     * are required or not), false otherwise
+     *                             are required or not), false otherwise
      * @return the dictionary validation result object associated with this validation
      * @since 1.1
      */
@@ -227,7 +225,7 @@ public interface DictionaryValidationService {
      * Makes no error path adjustments
      *
      * @param businessObject - business object to validate
-     * @param prefix - error prefix
+     * @param prefix         - error prefix
      * @return boolean valid or not
      */
     public boolean isBusinessObjectValid(BusinessObject businessObject, String prefix);
@@ -248,7 +246,7 @@ public interface DictionaryValidationService {
      * are
      * encountered.
      *
-     * @param businessObject - business object to validate
+     * @param businessObject   - business object to validate
      * @param validateRequired - whether to execute required field checks
      * @deprecated since 1.1 - use validate(Object.class) instead
      */
@@ -259,7 +257,7 @@ public interface DictionaryValidationService {
      * This method examines the populated BusinessObject bo instance passed in for a member named by the referenceName.
      * If this
      * member exists, and if this member is a descendent of BusinessObject, then an existence check proceeds.
-     *
+     * <p>
      * First the foreign keys for this reference are gathered, and then examined to see if they have values. If they do
      * not have
      * values, the method ends with a true return value. If they all have values, then an object with those primary
@@ -267,12 +265,12 @@ public interface DictionaryValidationService {
      * is retrieve
      * from the database. If one is retrieve, then the reference exists, and True is returned. Otherwise, false is
      * returned.
-     *
+     * <p>
      * This method assumes that you already have the errorPath set exactly as desired, and adds new errors to the
      * errorMap with no
      * prefix, other than what has already been pushed onto the errorMap.
      *
-     * @param bo - The bo whose reference is being tested.
+     * @param bo        - The bo whose reference is being tested.
      * @param reference - The ReferenceDefinition to be existence tested.
      * @return True if no exceptions occur and the object exists in the db, false otherwise.
      */
@@ -282,7 +280,7 @@ public interface DictionaryValidationService {
      * This method examines the populated BusinessObject bo instance passed in for a member named by the referenceName.
      * If this
      * member exists, and if this member is a descendent of BusinessObject, then an existence check proceeds.
-     *
+     * <p>
      * First the foreign keys for this reference are gathered, and then examined to see if they have values. If they do
      * not have
      * values, the method ends with a true return value. If they all have values, then an object with those primary
@@ -290,12 +288,12 @@ public interface DictionaryValidationService {
      * is retrieve
      * from the database. If one is retrieve, then the reference exists, and True is returned. Otherwise, false is
      * returned.
-     *
+     * <p>
      * This method assumes that you already have the errorPath set exactly as desired, and adds new errors to the
      * errorMap with no
      * prefix, other than what has already been pushed onto the errorMap.
      *
-     * @param bo - The bo whose reference is being tested.
+     * @param bo            - The bo whose reference is being tested.
      * @param referenceName - The name of the member to be existence tested.
      * @return True if no exceptions occur and the object exists in the db, false otherwise.
      */
@@ -303,15 +301,15 @@ public interface DictionaryValidationService {
 
     /**
      * This method retrieves the reference from the DB, and then tests whether the object is active.
-     *
+     * <p>
      * It will return false if there is no activeIndicator field on this object, if the object doesnt exist in the DB,
      * if the field
      * doesnt exist or cannot be cast as a boolean, if the field value is null, or if the field value is false.
-     *
+     * <p>
      * It will only return true if the reference bo is present, the field is present, it is a boolean and non-null, and
      * the value is
      * true.
-     *
+     * <p>
      * This method assumes that you already have the errorPath set exactly as desired, and adds new errors to the
      * errorMap with no
      * prefix, other than what has already been pushed onto the errorMap.
@@ -324,15 +322,15 @@ public interface DictionaryValidationService {
 
     /**
      * This method retrieves the reference from the DB, and then tests whether the object is active.
-     *
+     * <p>
      * It will return false if there is no activeIndicator field on this object, if the object doesnt exist in the DB,
      * if the field
      * doesnt exist or cannot be cast as a boolean, if the field value is null, or if the field value is false.
-     *
+     * <p>
      * It will only return true if the reference bo is present, the field is present, it is a boolean and non-null, and
      * the value is
      * true.
-     *
+     * <p>
      * This method assumes that you already have the errorPath set exactly as desired, and adds new errors to the
      * errorMap with no
      * prefix, other than what has already been pushed onto the errorMap.
@@ -346,24 +344,24 @@ public interface DictionaryValidationService {
     /**
      * This method intelligently tests the designated reference on the bo for both existence and active status, where
      * appropriate.
-     *
+     * <p>
      * It will not test anything if the foreign-key fields for the given reference arent filled out with values, and it
      * will not
      * test active status if the reference doesnt exist.
-     *
+     * <p>
      * Further, it will only test active status where the correct flag is set.
-     *
+     * <p>
      * On failures of either sort, it will put the relevant errors into the GlobalVariables errorMap, and return a
      * false. If there
      * are no failures, or nothing can be tested because the foreign-key fields arent fully filled out, it will return
      * true and add
      * no errors.
-     *
+     * <p>
      * This method assumes that you already have the errorPath set exactly as desired, and adds new errors to the
      * errorMap with no
      * prefix, other than what has already been pushed onto the errorMap.
      *
-     * @param bo - the BusinessObject instance to be tested.
+     * @param bo        - the BusinessObject instance to be tested.
      * @param reference - the ReferenceDefinition to control the nature of the testing.
      * @return true or false as per the criteria above
      */
@@ -372,43 +370,43 @@ public interface DictionaryValidationService {
     /**
      * This method intelligently tests the designated reference on the bo for both existence and active status, where
      * appropriate.
-     *
+     * <p>
      * It will not test anything if the foreign-key fields for the given reference arent filled out with values, and it
      * will not
      * test active status if the reference doesnt exist.
-     *
+     * <p>
      * Note that it will not fail or raise any error if all of the foreign-keys are filled with a value. If this needs
      * to be tested
      * (ie, the 'if any field is filled, then all must be filled' rule), you'll have to do that separately.
-     *
+     * <p>
      * Further, it will only test active status where the correct flag is set.
-     *
+     * <p>
      * On failures of either sort, it will put the relevant errors into the GlobalVariables errorMap, and return a
      * false. If there
      * are no failures, or nothing can be tested because the foreign-key fields arent fully filled out, it will return
      * true and add
      * no errors.
-     *
+     * <p>
      * This method assumes that you already have the errorPath set exactly as desired, and adds new errors to the
      * errorMap with no
      * prefix, other than what has already been pushed onto the errorMap.
      *
-     * @param bo - the BusinessObject instance to be tested.
-     * @param referenceName - the member name on the bo to be tested for existence and active-state
+     * @param bo                         - the BusinessObject instance to be tested.
+     * @param referenceName              - the member name on the bo to be tested for existence and active-state
      * @param attributeToHighlightOnFail - the fieldName to highlight with the error message on a failure
-     * @param displayFieldName - the human-readable display name of the failed field, to go in the error message
+     * @param displayFieldName           - the human-readable display name of the failed field, to go in the error message
      * @return true or false as per the criteria above
      */
     public boolean validateReferenceExistsAndIsActive(BusinessObject bo, String referenceName,
-            String attributeToHighlightOnFail, String displayFieldName);
+                                                      String attributeToHighlightOnFail, String displayFieldName);
 
     /**
      * This method does an existence check against all references of a BusinessObject as defined in the
      * MaintenanceDocument.xml file
      * for that business object.
-     *
+     * <p>
      * Appropriate errors will also be placed in the GlobalVariables.ErrorMap.
-     *
+     * <p>
      * This method assumes that you already have the errorPath set exactly as desired, and adds new errors to the
      * errorMap with no
      * prefix, other than what has already been pushed onto the errorMap.
@@ -421,27 +419,27 @@ public interface DictionaryValidationService {
     /**
      * Does an existence check against all references configured as a default existence check in the maintenance
      * document data dictionary file for the given business object
-     *
+     * <p>
      * Appropriate errors will also be placed in the GlobalVariables.ErrorMap.
-     *
+     * <p>
      * This method assumes that you already have the errorPath set exactly as desired, and adds new errors to the
      * errorMap
      * with no
      * prefix, other than what has already been pushed onto the errorMap.
      *
-     * @param bo parent business object instance to retrieve default checks for
+     * @param bo                parent business object instance to retrieve default checks for
      * @param newCollectionItem new collection line to validate
-     * @param collectionName name of the collection in the parent
+     * @param collectionName    name of the collection in the parent
      * @return true if all passed existence tests, false if any failed
      */
     public boolean validateDefaultExistenceChecksForNewCollectionItem(BusinessObject bo,
-            BusinessObject newCollectionItem, String collectionName);
+                                                                      BusinessObject newCollectionItem, String collectionName);
 
     /**
      * This method does an existence check against all references of a transactionalDocument
-     *
+     * <p>
      * Appropriate errors will also be placed in the GlobalVariables.ErrorMap.
-     *
+     * <p>
      * This method assumes that you already have the errorPath set exactly as desired, and adds new errors to the
      * errorMap
      * with no
@@ -454,26 +452,26 @@ public interface DictionaryValidationService {
 
     /**
      * This method does an existence check against all references of a transactionalDocument
-     *
+     * <p>
      * Appropriate errors will also be placed in the GlobalVariables.ErrorMap.
-     *
+     * <p>
      * This method assumes that you already have the errorPath set exactly as desired, and adds new errors to the
      * errorMap
      * with no
      * prefix, other than what has already been pushed onto the errorMap.
      *
-     * @param document document instance that should be tested
+     * @param document       document instance that should be tested
      * @param accountingLine that should be tested
      * @param collectionName that should be tested
      * @return true if all passed existence tests, false if any failed
      */
     public boolean validateDefaultExistenceChecksForNewCollectionItem(TransactionalDocument document,
-            BusinessObject accountingLine, String collectionName);
+                                                                      BusinessObject accountingLine, String collectionName);
 
     /**
      * @deprecated since 1.1
      */
     @Deprecated
     public void validatePrimitiveFromDescriptor(String entryName, Object object, PropertyDescriptor propertyDescriptor,
-            String errorPrefix, boolean validateRequired);
+                                                String errorPrefix, boolean validateRequired);
 }

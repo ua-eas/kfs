@@ -1,27 +1,24 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.krad.util;
 
 import org.junit.Test;
-import org.kuali.kfs.krad.util.ErrorMessage;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.MessageMap;
 import org.kuali.rice.core.api.util.RiceKeyConstants;
 import org.springframework.util.AutoPopulatingList;
 
@@ -31,7 +28,10 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * This class tests the ErrorMap methods.
@@ -41,14 +41,14 @@ public class MessageMapTest {
     /**
      * ErrorMap should only allow String keys and values.
      */
-    @Test public void testPut() {
+    @Test
+    public void testPut() {
         MessageMap testMap = new MessageMap();
 
         // should be ok putting strings
         try {
             testMap.putError("accountNbr", RiceKeyConstants.ERROR_INACTIVE);
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             fail("ErrorMap threw exception adding string pair");
         }
     }
@@ -56,8 +56,9 @@ public class MessageMapTest {
     /**
      * Test all errors are getting added and counted correctly.
      */
-    @Test public void testErrorCount() {
-    	MessageMap testMap = new MessageMap();
+    @Test
+    public void testErrorCount() {
+        MessageMap testMap = new MessageMap();
 
         testMap.putError("accountNbr", RiceKeyConstants.ERROR_INACTIVE);
         assertTrue(testMap.getErrorCount() == 1);
@@ -77,8 +78,9 @@ public class MessageMapTest {
     /**
      * Test messages are getting accumulated correctly for a property.
      */
-    @Test public void testFieldMessages() {
-    	MessageMap testMap = new MessageMap();
+    @Test
+    public void testFieldMessages() {
+        MessageMap testMap = new MessageMap();
 
         testMap.putError("accountNbr", RiceKeyConstants.ERROR_INACTIVE);
         testMap.putError("accountNbr", RiceKeyConstants.ERROR_INVALID_FORMAT);
@@ -92,8 +94,9 @@ public class MessageMapTest {
     /**
      * Test error prepending and lack thereof.
      */
-    @Test public void testErrorPath() {
-    	MessageMap testMap = new MessageMap();
+    @Test
+    public void testErrorPath() {
+        MessageMap testMap = new MessageMap();
 
         assertTrue(testMap.getKeyPath("accountNbr", true).equals("accountNbr"));
         testMap.addToErrorPath("document");
@@ -134,8 +137,9 @@ public class MessageMapTest {
     /**
      * Test that properties added with errors are being kept.
      */
-    @Test public void testPropertiesWithErrors() {
-    	MessageMap testMap = new MessageMap();
+    @Test
+    public void testPropertiesWithErrors() {
+        MessageMap testMap = new MessageMap();
 
         testMap.putError("accountNbr", RiceKeyConstants.ERROR_INACTIVE);
         testMap.putError("projectCode", RiceKeyConstants.ERROR_INACTIVE);
@@ -153,8 +157,9 @@ public class MessageMapTest {
     /**
      * Test message parameters are being correctly added and associated with an error message.
      */
-    @Test public void testMessageParameters() {
-    	MessageMap testMap = new MessageMap();
+    @Test
+    public void testMessageParameters() {
+        MessageMap testMap = new MessageMap();
 
         testMap.putError("accountNbr", RiceKeyConstants.ERROR_INACTIVE, "Account Number");
         testMap.putError("accountNbr", RiceKeyConstants.ERROR_REQUIRED, "Account Number");
@@ -166,12 +171,12 @@ public class MessageMapTest {
 
         AutoPopulatingList errorMessages = testMap.getMessages("accountNbr");
         assertEquals(2, errorMessages.size());
-        checkMessageParemeters(errorMessages, 0, RiceKeyConstants.ERROR_INACTIVE, new String[] { "Account Number" });
-        checkMessageParemeters(errorMessages, 1, RiceKeyConstants.ERROR_REQUIRED, new String[] { "Account Number" });
+        checkMessageParemeters(errorMessages, 0, RiceKeyConstants.ERROR_INACTIVE, new String[]{"Account Number"});
+        checkMessageParemeters(errorMessages, 1, RiceKeyConstants.ERROR_REQUIRED, new String[]{"Account Number"});
 
         errorMessages = testMap.getMessages("chartCode");
         assertEquals(1, errorMessages.size());
-        checkMessageParemeters(errorMessages, 0, RiceKeyConstants.ERROR_REQUIRED, new String[] { "Chart Code" });
+        checkMessageParemeters(errorMessages, 0, RiceKeyConstants.ERROR_REQUIRED, new String[]{"Chart Code"});
     }
 
     private void checkMessageParemeters(AutoPopulatingList errorMessages, int messageIndex, String expectedKeyConstant, String[] expectedParameters) {
@@ -184,7 +189,8 @@ public class MessageMapTest {
      * Verify that using the same error message multiple times correctly stores different parameters each time. (Reproduces bug
      * KULNRVSYS-943).
      */
-    @Test public void testMessageCollisions() {
+    @Test
+    public void testMessageCollisions() {
         final String PROPERTY_NAME = "document.sourceAccounting*,document.targetAccounting*,newSourceLine*,newTargetLine*";
         MessageMap testMap = new MessageMap();
 
@@ -200,12 +206,12 @@ public class MessageMapTest {
         Object thing = testMap.getErrorMessagesForProperty(PROPERTY_NAME);
 
         Set usedParams = new HashSet();
-        for (Iterator i = testMap.getAllPropertiesAndErrors().iterator(); i.hasNext();) {
+        for (Iterator i = testMap.getAllPropertiesAndErrors().iterator(); i.hasNext(); ) {
             Map.Entry entry = (Map.Entry) i.next();
 
             String propertyKey = (String) entry.getKey();
             AutoPopulatingList messageList = (AutoPopulatingList) entry.getValue();
-            for (Iterator j = messageList.iterator(); j.hasNext();) {
+            for (Iterator j = messageList.iterator(); j.hasNext(); ) {
                 ErrorMessage message = (ErrorMessage) j.next();
 
                 String[] params = message.getMessageParameters();
@@ -219,27 +225,31 @@ public class MessageMapTest {
 
     private final static String MIXED_LIST_PATTERN = "document.sourceAccounting*,document.targetAccounting*,foo,bar,newSourceLine*,newTargetLine*";
 
-    @Test public void testContainsKeyMatchingPattern_mixedList_empty() {
+    @Test
+    public void testContainsKeyMatchingPattern_mixedList_empty() {
         assertEquals(false, new MessageMap().containsKeyMatchingPattern(MIXED_LIST_PATTERN));
     }
 
-    @Test public void testContainsKeyMatchingPattern_mixedList_simpleNoMatch() {
-    	MessageMap testMap = new MessageMap();
+    @Test
+    public void testContainsKeyMatchingPattern_mixedList_simpleNoMatch() {
+        MessageMap testMap = new MessageMap();
         testMap.putError("xxx", "error.inactive", "Chart Code");
         testMap.putError("yyy", "error.inactive", "Chart Code");
         assertEquals(false, testMap.containsKeyMatchingPattern(MIXED_LIST_PATTERN));
     }
 
-    @Test public void testContainsKeyMatchingPattern_mixedList_simpleMatch() {
-    	MessageMap testMap = new MessageMap();
+    @Test
+    public void testContainsKeyMatchingPattern_mixedList_simpleMatch() {
+        MessageMap testMap = new MessageMap();
         testMap.putError("xxx", "error.inactive", "Chart Code");
         testMap.putError("foo", "error.inactive", "Chart Code");
         testMap.putError("yyy", "error.inactive", "Chart Code");
         assertEquals(true, testMap.containsKeyMatchingPattern(MIXED_LIST_PATTERN));
     }
 
-    @Test public void testContainsKeyMatchingPattern_mixedList_wildcardMatch() {
-    	MessageMap testMap = new MessageMap();
+    @Test
+    public void testContainsKeyMatchingPattern_mixedList_wildcardMatch() {
+        MessageMap testMap = new MessageMap();
         testMap.putError("xxx", "error.inactive", "Chart Code");
         testMap.putError("document.targetAccountingLine.something", "error.inactive", "Chart Code");
         testMap.putError("yyy", "error.inactive", "Chart Code");
@@ -247,7 +257,8 @@ public class MessageMapTest {
     }
 
 
-    @Test public void testReplace_testEquals() {
+    @Test
+    public void testReplace_testEquals() {
         final MessageMap constantMap = buildReplaceErrorMap();
         MessageMap replaceMap = buildReplaceErrorMap();
 
@@ -261,7 +272,8 @@ public class MessageMapTest {
     }
 
 
-    @Test public void testReplace_noMatchingProperty() {
+    @Test
+    public void testReplace_noMatchingProperty() {
         final MessageMap constantMap = buildReplaceErrorMap();
         MessageMap replaceMap = buildReplaceErrorMap();
 
@@ -275,7 +287,8 @@ public class MessageMapTest {
         assertFalse(replaceMap.containsMessageKey("fooKey"));
     }
 
-    @Test public void testReplace_matchingProperty_noMatchingKey() {
+    @Test
+    public void testReplace_matchingProperty_noMatchingKey() {
         final MessageMap constantMap = buildReplaceErrorMap();
         MessageMap replaceMap = buildReplaceErrorMap();
 
@@ -290,7 +303,8 @@ public class MessageMapTest {
     }
 
 
-    @Test public void testReplace_matchingProperty_matchingKey_noParams() {
+    @Test
+    public void testReplace_matchingProperty_matchingKey_noParams() {
         final MessageMap constantMap = buildReplaceErrorMap();
         MessageMap replaceMap = buildReplaceErrorMap();
 
@@ -312,7 +326,7 @@ public class MessageMapTest {
         assertEquals(2, postMessages.size());
 
         int replacedCount = 0;
-        for (Iterator i = postMessages.iterator(); i.hasNext();) {
+        for (Iterator i = postMessages.iterator(); i.hasNext(); ) {
             ErrorMessage em = (ErrorMessage) i.next();
             if (em.getErrorKey().equals(RiceKeyConstants.ERROR_NOT_AMONG)) {
                 String[] params = em.getMessageParameters();
@@ -324,7 +338,8 @@ public class MessageMapTest {
         assertEquals(1, replacedCount);
     }
 
-    @Test public void testReplace_matchingProperty_matchingKey_withParams() {
+    @Test
+    public void testReplace_matchingProperty_matchingKey_withParams() {
         final MessageMap constantMap = buildReplaceErrorMap();
         MessageMap replaceMap = buildReplaceErrorMap();
 
@@ -346,7 +361,7 @@ public class MessageMapTest {
         assertEquals(2, postMessages.size());
 
         int replacedCount = 0;
-        for (Iterator i = postMessages.iterator(); i.hasNext();) {
+        for (Iterator i = postMessages.iterator(); i.hasNext(); ) {
             ErrorMessage em = (ErrorMessage) i.next();
             if (em.getErrorKey().equals(RiceKeyConstants.ERROR_NOT_AMONG)) {
                 String[] params = em.getMessageParameters();
@@ -362,7 +377,7 @@ public class MessageMapTest {
 
 
     private MessageMap buildReplaceErrorMap() {
-    	MessageMap testMap = new MessageMap();
+        MessageMap testMap = new MessageMap();
 
         testMap.putError("accountNbr", RiceKeyConstants.ERROR_INACTIVE, "Account Number");
         testMap.putError("accountNbr", RiceKeyConstants.ERROR_REQUIRED, "Account Number");

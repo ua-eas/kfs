@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -38,10 +38,10 @@ public class ErrorHandlerAction extends Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         LOG.debug("execute() started");
 
-        Exception exception = (Exception)request.getAttribute(Globals.EXCEPTION_KEY);
+        Exception exception = (Exception) request.getAttribute(Globals.EXCEPTION_KEY);
 
-        if ( exception instanceof DisplayMessageException) {
-            request.setAttribute("message",exception.getMessage());
+        if (exception instanceof DisplayMessageException) {
+            request.setAttribute("message", exception.getMessage());
             return mapping.findForward("display");
         }
 
@@ -49,7 +49,7 @@ public class ErrorHandlerAction extends Action {
         String productionEnvironmentCode = configurationService.getPropertyValueAsString(KFSConstants.PROD_ENVIRONMENT_CODE_KEY);
         String environmentCode = configurationService.getPropertyValueAsString(KFSConstants.ENVIRONMENT_KEY);
 
-        if ( productionEnvironmentCode.equals(environmentCode) ) {
+        if (productionEnvironmentCode.equals(environmentCode)) {
             return mapping.findForward("prd");
         } else {
             return mapping.findForward("tst");

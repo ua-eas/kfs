@@ -1,43 +1,42 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.batch;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.module.ar.batch.vo.CustomerAddressCSV;
 import org.kuali.kfs.module.ar.batch.vo.CustomerAddressDigesterVO;
 import org.kuali.kfs.module.ar.batch.vo.CustomerDigesterVO;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 /**
  * CSVBuilder convert the parsed data values into CustomerDigesterVO list, which is validated by CustomerLoad service
  * and docs creation
- * 
  */
 public class CustomerLoadCSVBuilder {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CustomerLoadCSVBuilder.class);
 
     /**
-     * Convert the parseData object into CustomerDigesterVO 
-     * 
+     * Convert the parseData object into CustomerDigesterVO
+     *
      * @param parseDataList
      * @return
      */
@@ -70,7 +69,7 @@ public class CustomerLoadCSVBuilder {
 
     /**
      * Continuing customer from CSV is defined by customer name field is empty
-     * 
+     *
      * @param customer
      * @param dataCustomer
      * @return
@@ -81,7 +80,7 @@ public class CustomerLoadCSVBuilder {
 
     /**
      * build the CustomerAddressDigesterVO from data row
-     * 
+     *
      * @param rowDataMap
      * @return
      */
@@ -105,7 +104,7 @@ public class CustomerLoadCSVBuilder {
 
     /**
      * build the CustomerDigesterVO from the data row
-     * 
+     *
      * @param rowDataMap
      * @return
      */

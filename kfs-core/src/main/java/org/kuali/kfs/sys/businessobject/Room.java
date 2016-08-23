@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -19,17 +19,17 @@
 
 package org.kuali.kfs.sys.businessobject;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.location.api.LocationConstants;
 import org.kuali.rice.location.framework.campus.CampusEbo;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class Room extends PersistableBusinessObjectBase implements MutableInactivatable {
@@ -172,17 +172,17 @@ public class Room extends PersistableBusinessObjectBase implements MutableInacti
      * @return Returns the campus
      */
     public CampusEbo getCampus() {
-        if ( StringUtils.isBlank(campusCode) ) {
+        if (StringUtils.isBlank(campusCode)) {
             campus = null;
         } else {
-            if ( campus == null || !StringUtils.equals( campus.getCode(),campusCode) ) {
+            if (campus == null || !StringUtils.equals(campus.getCode(), campusCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(CampusEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(1);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(1);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, campusCode);
                     campus = moduleService.getExternalizableBusinessObject(CampusEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -222,7 +222,6 @@ public class Room extends PersistableBusinessObjectBase implements MutableInacti
      * Gets the active attribute.
      *
      * @return Returns the active
-     *
      */
     @Override
     public boolean isActive() {
@@ -233,7 +232,6 @@ public class Room extends PersistableBusinessObjectBase implements MutableInacti
      * Sets the active attribute.
      *
      * @param active The active to set.
-     *
      */
     @Override
     public void setActive(boolean active) {

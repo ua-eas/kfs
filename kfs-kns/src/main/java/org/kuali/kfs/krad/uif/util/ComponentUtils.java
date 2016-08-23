@@ -1,34 +1,34 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.krad.uif.util;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.krad.uif.field.Field;
-import org.kuali.rice.core.api.util.type.TypeUtils;
 import org.kuali.kfs.krad.uif.UifConstants;
-import org.kuali.kfs.krad.uif.container.Container;
 import org.kuali.kfs.krad.uif.component.Component;
 import org.kuali.kfs.krad.uif.component.DataBinding;
 import org.kuali.kfs.krad.uif.component.Ordered;
+import org.kuali.kfs.krad.uif.container.Container;
+import org.kuali.kfs.krad.uif.field.Field;
 import org.kuali.kfs.krad.uif.field.FieldGroup;
 import org.kuali.kfs.krad.uif.layout.LayoutManager;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.rice.core.api.util.type.TypeUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.core.OrderComparator;
 
@@ -43,8 +43,6 @@ import java.util.Set;
 /**
  * Utility class providing methods to help create and modify
  * <code>Component</code> instances
- * 
- * 
  */
 public class ComponentUtils {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ComponentUtils.class);
@@ -72,8 +70,7 @@ public class ComponentUtils {
         T copy = null;
         try {
             copy = CloneUtils.deepClone(object);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
@@ -81,7 +78,7 @@ public class ComponentUtils {
     }
 
     protected static Object getCopyPropertyValue(Set<String> propertiesForReferenceCopy, String propertyName,
-            Object propertyValue) {
+                                                 Object propertyValue) {
         if (propertyValue == null) {
             return null;
         }
@@ -90,15 +87,14 @@ public class ComponentUtils {
 
         Class<?> valuePropertyType = propertyValue.getClass();
         if (propertiesForReferenceCopy.contains(propertyName) || TypeUtils.isSimpleType(valuePropertyType)
-                || TypeUtils.isClassClass(valuePropertyType)) {
+            || TypeUtils.isClassClass(valuePropertyType)) {
             return copyValue;
         }
 
         if (Component.class.isAssignableFrom(valuePropertyType)
-                || LayoutManager.class.isAssignableFrom(valuePropertyType)) {
+            || LayoutManager.class.isAssignableFrom(valuePropertyType)) {
             copyValue = copyObject(propertyValue);
-        }
-        else {
+        } else {
             copyValue = ObjectUtils.deepCopy((Serializable) propertyValue);
         }
 
@@ -110,8 +106,7 @@ public class ComponentUtils {
         T copy = null;
         try {
             copy = (T) object.getClass().newInstance();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException("Unable to create new instance of class: " + object.getClass());
         }
 
@@ -158,7 +153,7 @@ public class ComponentUtils {
 
     @SuppressWarnings("unchecked")
     public static <T extends Component> List<T> getComponentsOfType(List<? extends Component> items,
-            Class<T> componentType) {
+                                                                    Class<T> componentType) {
         List<T> typeComponents = new ArrayList<T>();
 
         for (Component component : items) {
@@ -169,9 +164,9 @@ public class ComponentUtils {
 
         return typeComponents;
     }
-    
+
     public static <T extends Component> List<T> getComponentsOfTypeDeep(List<? extends Component> items,
-            Class<T> componentType) {
+                                                                        Class<T> componentType) {
         List<T> typeComponents = new ArrayList<T>();
 
         for (Component component : items) {
@@ -180,7 +175,7 @@ public class ComponentUtils {
 
         return typeComponents;
     }
-    
+
     @SuppressWarnings("unchecked")
     public static <T extends Component> List<T> getComponentsOfTypeDeep(Component component, Class<T> componentType) {
         List<T> typeComponents = new ArrayList<T>();
@@ -221,8 +216,7 @@ public class ComponentUtils {
         for (Field field : fields) {
             if (field instanceof DataBinding) {
                 prefixBindingPath((DataBinding) field, addBindingPrefix);
-            }
-            else if ((field instanceof FieldGroup) && (((FieldGroup) field).getItems() != null) ) {
+            } else if ((field instanceof FieldGroup) && (((FieldGroup) field).getItems() != null)) {
                 List<Field> groupFields = getComponentsOfType(((FieldGroup) field).getItems(), Field.class);
                 prefixBindingPath(groupFields, addBindingPrefix);
             }
@@ -232,15 +226,15 @@ public class ComponentUtils {
     public static void prefixBindingPathNested(Component component, String addBindingPrefix) {
         if (component instanceof DataBinding) {
             if (LOG.isDebugEnabled()) {
-                LOG.info("setting nested binding prefix '"+ addBindingPrefix  +"' on " + component);
+                LOG.info("setting nested binding prefix '" + addBindingPrefix + "' on " + component);
             }
             prefixBindingPath((DataBinding) component, addBindingPrefix);
         }
 
         for (Component nested : component.getComponentsForLifecycle()) {
-           if (nested != null) {
-              prefixBindingPathNested(nested, addBindingPrefix);
-           }
+            if (nested != null) {
+                prefixBindingPathNested(nested, addBindingPrefix);
+            }
         }
     }
 
@@ -271,12 +265,12 @@ public class ComponentUtils {
                 updateIdsWithSuffixNested(nested, idSuffix);
             }
         }
-        
+
         for (Component nested : component.getPropertyReplacerComponents()) {
             if (nested != null) {
                 updateIdsWithSuffixNested(nested, idSuffix);
             }
-        }        
+        }
     }
 
     public static void updateIdWithSuffix(Component component, String idSuffix) {
@@ -284,7 +278,7 @@ public class ComponentUtils {
     }
 
     public static void setComponentsPropertyDeep(List<? extends Component> components, String propertyPath,
-            Object propertyValue) {
+                                                 Object propertyValue) {
         for (Component component : components) {
             setComponentPropertyDeep(component, propertyPath, propertyValue);
         }
@@ -345,7 +339,7 @@ public class ComponentUtils {
     }
 
     public static void updateContextsForLine(List<? extends Component> components, Object collectionLine,
-            int lineIndex) {
+                                             int lineIndex) {
         for (Component component : components) {
             updateContextForLine(component, collectionLine, lineIndex);
         }
@@ -354,7 +348,7 @@ public class ComponentUtils {
     public static void updateContextForLine(Component component, Object collectionLine, int lineIndex) {
         pushObjectToContext(component, UifConstants.ContextVariableNames.LINE, collectionLine);
         pushObjectToContext(component, UifConstants.ContextVariableNames.INDEX, new Integer(lineIndex));
-        
+
         boolean isAddLine = (lineIndex == -1);
         pushObjectToContext(component, UifConstants.ContextVariableNames.IS_ADD_LINE, isAddLine);
     }
@@ -362,7 +356,7 @@ public class ComponentUtils {
     /**
      * Performs sorting logic of the given list of <code>Ordered</code>
      * instances by its order property
-     *
+     * <p>
      * <p>
      * Items list is sorted based on its order property. Lower order values are
      * placed higher in the list. If a item does not have a value assigned for
@@ -371,7 +365,7 @@ public class ComponentUtils {
      * items share the same order value, all but the last item found in the list
      * will be removed.
      * </p>
-     * 
+     *
      * @param items
      * @param defaultOrderSequence
      * @return List<Ordered> sorted items

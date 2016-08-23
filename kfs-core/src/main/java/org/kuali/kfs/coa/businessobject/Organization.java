@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,29 +18,29 @@
  */
 package org.kuali.kfs.coa.businessobject;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.kuali.kfs.coa.service.OrganizationService;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.ModuleService;
+import org.kuali.kfs.krad.util.UrlFactory;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.location.api.LocationConstants;
+import org.kuali.rice.location.framework.campus.CampusEbo;
+import org.kuali.rice.location.framework.country.CountryEbo;
+import org.kuali.rice.location.framework.postalcode.PostalCodeEbo;
+
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.kuali.kfs.coa.service.OrganizationService;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.config.property.ConfigurationService;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
-import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.service.ModuleService;
-import org.kuali.kfs.krad.util.UrlFactory;
-import org.kuali.rice.location.api.LocationConstants;
-import org.kuali.rice.location.framework.campus.CampusEbo;
-import org.kuali.rice.location.framework.country.CountryEbo;
-import org.kuali.rice.location.framework.postalcode.PostalCodeEbo;
 
 
 public class Organization extends PersistableBusinessObjectBase implements MutableInactivatable {
@@ -329,17 +329,17 @@ public class Organization extends PersistableBusinessObjectBase implements Mutab
      * @return Returns the organizationPhysicalCampus
      */
     public CampusEbo getOrganizationPhysicalCampus() {
-        if ( StringUtils.isBlank(organizationPhysicalCampusCode) ) {
+        if (StringUtils.isBlank(organizationPhysicalCampusCode)) {
             organizationPhysicalCampus = null;
         } else {
-            if ( organizationPhysicalCampus == null || !StringUtils.equals( organizationPhysicalCampus.getCode(),organizationPhysicalCampusCode) ) {
+            if (organizationPhysicalCampus == null || !StringUtils.equals(organizationPhysicalCampus.getCode(), organizationPhysicalCampusCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(CampusEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(1);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(1);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, organizationPhysicalCampusCode);
                     organizationPhysicalCampus = moduleService.getExternalizableBusinessObject(CampusEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -503,17 +503,17 @@ public class Organization extends PersistableBusinessObjectBase implements Mutab
      * @return Returns the organizationCountry.
      */
     public CountryEbo getOrganizationCountry() {
-        if ( StringUtils.isBlank(organizationCountryCode) ) {
+        if (StringUtils.isBlank(organizationCountryCode)) {
             organizationCountry = null;
         } else {
-            if ( organizationCountry == null || !StringUtils.equals( organizationCountry.getCode(),organizationCountryCode) ) {
+            if (organizationCountry == null || !StringUtils.equals(organizationCountry.getCode(), organizationCountryCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(CountryEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(1);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(1);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, organizationCountryCode);
                     organizationCountry = moduleService.getExternalizableBusinessObject(CountryEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -713,18 +713,18 @@ public class Organization extends PersistableBusinessObjectBase implements Mutab
      * @return Returns the postalZip.
      */
     public PostalCodeEbo getPostalZip() {
-        if ( StringUtils.isBlank(organizationZipCode) || StringUtils.isBlank(organizationCountryCode) ) {
+        if (StringUtils.isBlank(organizationZipCode) || StringUtils.isBlank(organizationCountryCode)) {
             postalZip = null;
         } else {
-            if ( postalZip == null || !StringUtils.equals( postalZip.getCode(),organizationZipCode) || !StringUtils.equals(postalZip.getCountryCode(), organizationCountryCode ) ) {
+            if (postalZip == null || !StringUtils.equals(postalZip.getCode(), organizationZipCode) || !StringUtils.equals(postalZip.getCountryCode(), organizationCountryCode)) {
                 ModuleService moduleService = SpringContext.getBean(KualiModuleService.class).getResponsibleModuleService(PostalCodeEbo.class);
-                if ( moduleService != null ) {
-                    Map<String,Object> keys = new HashMap<String, Object>(2);
+                if (moduleService != null) {
+                    Map<String, Object> keys = new HashMap<String, Object>(2);
                     keys.put(LocationConstants.PrimaryKeyConstants.COUNTRY_CODE, organizationCountryCode);
                     keys.put(LocationConstants.PrimaryKeyConstants.CODE, organizationZipCode);
                     postalZip = moduleService.getExternalizableBusinessObject(PostalCodeEbo.class, keys);
                 } else {
-                    throw new RuntimeException( "CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed." );
+                    throw new RuntimeException("CONFIGURATION ERROR: No responsible module found for EBO class.  Unable to proceed.");
                 }
             }
         }
@@ -989,8 +989,7 @@ public class Organization extends PersistableBusinessObjectBase implements Mutab
     public void refreshReferenceObject(String referenceObjectName) {
         if (referenceObjectName.equals("organizationManagerUniversal")) {
             getOrganizationManagerUniversal();
-        }
-        else {
+        } else {
             super.refreshReferenceObject(referenceObjectName);
         }
     }

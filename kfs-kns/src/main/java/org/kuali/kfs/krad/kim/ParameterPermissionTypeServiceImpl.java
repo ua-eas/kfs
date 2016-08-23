@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -49,14 +49,14 @@ public class ParameterPermissionTypeServiceImpl extends NamespaceWildcardAllowed
         String requestedParameterName = requestedDetails.get(KimConstants.AttributeConstants.PARAMETER_NAME);
         String requestedComponentName = requestedDetails.get(KimConstants.AttributeConstants.COMPONENT_NAME);
         List<Permission> matchingPermissions = new ArrayList<Permission>();
-        for (Permission kpi : permissionsList ) {
+        for (Permission kpi : permissionsList) {
             PermissionBo bo = PermissionBo.from(kpi);
             String parameterName = bo.getDetails().get(KimConstants.AttributeConstants.PARAMETER_NAME);
             String componentName = bo.getDetails().get(KimConstants.AttributeConstants.COMPONENT_NAME);
-            if ( (StringUtils.isBlank(parameterName)
-                    || StringUtils.equals(requestedParameterName, parameterName))
-                &&(StringUtils.isBlank(componentName)
-                        || StringUtils.equals(requestedComponentName, componentName))) {
+            if ((StringUtils.isBlank(parameterName)
+                || StringUtils.equals(requestedParameterName, parameterName))
+                && (StringUtils.isBlank(componentName)
+                || StringUtils.equals(requestedComponentName, componentName))) {
                 matchingPermissions.add(kpi);
             }
         }

@@ -1,29 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.kns.datadictionary;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.krad.datadictionary.DataDictionaryDefinition;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.datadictionary.DataDictionary;
+import org.kuali.kfs.krad.datadictionary.DataDictionaryDefinition;
 import org.kuali.kfs.krad.datadictionary.exception.AttributeValidationException;
 import org.kuali.kfs.krad.datadictionary.exception.DuplicateEntryException;
+import org.kuali.rice.krad.bo.BusinessObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,38 +31,36 @@ import java.util.List;
 import java.util.Map;
 
 /**
-    The maintainableCollection element defines a set of data fields, nested
-    collections, summaryFields and duplicateIdentificationsFields.
-
-    JSTL: maintainableCollection is a Map which is accessed using a
-    key of the name of the maintainableCollection.  Each entry
-    contains the following keys and values:
-        **Key**                **Value**
-        collection             true
-        name                   name of collection
-        dataObjectClass    name of collection class
-        
-* name is the name of the collection
-* dataObjectClass is the class name of the objects in the collection
-* sourceClassName is the class name of the BO used in a lookup
-* sourceAttributeName is the name of the attribute which returns the collection
-* includeAddLine is true if the user is given the ability to add multiple lines.
-* includeMultipleLookupLine whether to render a quickfinder icon for multiple value lookups on the collection.  Defaults to true
-* summaryTitle is the label of the summary
-* attributeToHighlightOnDuplicateKey is the name of an attribute to highlight
-    if two records in the collection are the same based on the
-    duplicateIdentificationFields element.
-
- *
+ * The maintainableCollection element defines a set of data fields, nested
+ * collections, summaryFields and duplicateIdentificationsFields.
+ * <p>
+ * JSTL: maintainableCollection is a Map which is accessed using a
+ * key of the name of the maintainableCollection.  Each entry
+ * contains the following keys and values:
+ * *Key**                **Value**
+ * collection             true
+ * name                   name of collection
+ * dataObjectClass    name of collection class
+ * <p>
+ * name is the name of the collection
+ * dataObjectClass is the class name of the objects in the collection
+ * sourceClassName is the class name of the BO used in a lookup
+ * sourceAttributeName is the name of the attribute which returns the collection
+ * includeAddLine is true if the user is given the ability to add multiple lines.
+ * includeMultipleLookupLine whether to render a quickfinder icon for multiple value lookups on the collection.  Defaults to true
+ * summaryTitle is the label of the summary
+ * attributeToHighlightOnDuplicateKey is the name of an attribute to highlight
+ * if two records in the collection are the same based on the
+ * duplicateIdentificationFields element.
  */
 @Deprecated
 public class MaintainableCollectionDefinition extends MaintainableItemDefinition implements CollectionDefinitionI {
     private static final long serialVersionUID = -5617868782623587053L;
 
-	// logger
+    // logger
     //private static Log LOG = LogFactory.getLog(MaintainableCollectionDefinition.class);
 
-	protected Class<? extends BusinessObject> businessObjectClass;
+    protected Class<? extends BusinessObject> businessObjectClass;
 
     protected Class<? extends BusinessObject> sourceClassName;
     protected String summaryTitle;
@@ -72,17 +70,17 @@ public class MaintainableCollectionDefinition extends MaintainableItemDefinition
     protected boolean includeMultipleLookupLine = true;
     private boolean alwaysAllowCollectionDeletion = false;
 
-    protected Map<String,MaintainableFieldDefinition> maintainableFieldMap = new HashMap<String, MaintainableFieldDefinition>();
-    protected Map<String,MaintainableCollectionDefinition> maintainableCollectionMap = new HashMap<String, MaintainableCollectionDefinition>();
-    protected Map<String,MaintainableFieldDefinition> summaryFieldMap = new HashMap<String, MaintainableFieldDefinition>();
-    protected Map<String,MaintainableFieldDefinition> duplicateIdentificationFieldMap = new HashMap<String, MaintainableFieldDefinition>();
+    protected Map<String, MaintainableFieldDefinition> maintainableFieldMap = new HashMap<String, MaintainableFieldDefinition>();
+    protected Map<String, MaintainableCollectionDefinition> maintainableCollectionMap = new HashMap<String, MaintainableCollectionDefinition>();
+    protected Map<String, MaintainableFieldDefinition> summaryFieldMap = new HashMap<String, MaintainableFieldDefinition>();
+    protected Map<String, MaintainableFieldDefinition> duplicateIdentificationFieldMap = new HashMap<String, MaintainableFieldDefinition>();
     protected List<MaintainableFieldDefinition> maintainableFields = new ArrayList<MaintainableFieldDefinition>();
     protected List<MaintainableCollectionDefinition> maintainableCollections = new ArrayList<MaintainableCollectionDefinition>();
     protected List<MaintainableFieldDefinition> summaryFields = new ArrayList<MaintainableFieldDefinition>();
     protected List<MaintainableFieldDefinition> duplicateIdentificationFields = new ArrayList<MaintainableFieldDefinition>();
 
-    public MaintainableCollectionDefinition() {}
-
+    public MaintainableCollectionDefinition() {
+    }
 
 
     /**
@@ -105,7 +103,7 @@ public class MaintainableCollectionDefinition extends MaintainableItemDefinition
 
     /**
      * @return Collection of all lookupField MaintainableFieldDefinitions associated with this MaintainableCollectionDefinition, in
-     *         the order in which they were added
+     * the order in which they were added
      */
     public List<MaintainableFieldDefinition> getMaintainableFields() {
         return maintainableFields;
@@ -117,7 +115,7 @@ public class MaintainableCollectionDefinition extends MaintainableItemDefinition
 
     /**
      * Directly validate simple fields, call completeValidation on Definition fields.
-     * 
+     *
      * @see DataDictionaryDefinition#completeValidation(java.lang.Class, java.lang.Object)
      */
     public void completeValidation(Class rootBusinessObjectClass, Class otherBusinessObjectClass) {
@@ -130,19 +128,19 @@ public class MaintainableCollectionDefinition extends MaintainableItemDefinition
                 throw new AttributeValidationException("unable to find attribute named '" + attributeToHighlightOnDuplicateKey + "'in dataObjectClass '" + businessObjectClass.getName() + "' of collection '" + getName() + "' in rootBusinessObjectClass '" + rootBusinessObjectClass.getName() + "' (" + "" + ")");
             }
         }
-        
-        for (MaintainableFieldDefinition maintainableField : maintainableFields ) {
+
+        for (MaintainableFieldDefinition maintainableField : maintainableFields) {
             maintainableField.completeValidation(businessObjectClass, null);
         }
 
-        for (MaintainableCollectionDefinition maintainableCollection : maintainableCollections ) {
+        for (MaintainableCollectionDefinition maintainableCollection : maintainableCollections) {
             maintainableCollection.completeValidation(businessObjectClass, null);
         }
 
 //        for (MaintainableFieldDefinition summaryField : summaryFields ) {
 //            summaryField.completeValidation(dataObjectClass, null, validationCompletionUtils);
 //        }
-//        
+//
 //        for (MaintainableFieldDefinition identifierField : duplicateIdentificationFields) {
 //            identifierField.completeValidation(dataObjectClass, null, validationCompletionUtils);
 //        }
@@ -162,7 +160,8 @@ public class MaintainableCollectionDefinition extends MaintainableItemDefinition
     }
 
 
-    /** BusinessObject class which should be used for multiple value lookups for this collection.
+    /**
+     * BusinessObject class which should be used for multiple value lookups for this collection.
      */
     public void setSourceClassName(Class<? extends BusinessObject> sourceClass) {
         this.sourceClassName = sourceClass;
@@ -173,14 +172,16 @@ public class MaintainableCollectionDefinition extends MaintainableItemDefinition
     }
 
 
-    /** Control whether an "add" line should be included at the top of this collection. */
+    /**
+     * Control whether an "add" line should be included at the top of this collection.
+     */
     public void setIncludeAddLine(boolean includeAddLine) {
         this.includeAddLine = includeAddLine;
     }
 
     /**
      * @return Collection of all lookupField MaintainableCollectionDefinitions associated with this
-     *         MaintainableCollectionDefinition, in the order in which they were added
+     * MaintainableCollectionDefinition, in the order in which they were added
      */
     public List<MaintainableCollectionDefinition> getMaintainableCollections() {
         return maintainableCollections;
@@ -190,10 +191,10 @@ public class MaintainableCollectionDefinition extends MaintainableItemDefinition
         return maintainableCollections;
     }
 
-    
+
     /**
      * @return Collection of all SummaryFieldDefinitions associated with this SummaryFieldDefinition, in the order in which they
-     *         were added
+     * were added
      */
     public List<? extends FieldDefinitionI> getSummaryFields() {
         return summaryFields;
@@ -207,7 +208,9 @@ public class MaintainableCollectionDefinition extends MaintainableItemDefinition
         return includeMultipleLookupLine;
     }
 
-    /** Set whether the multiple lookup line (and link) should appear above this collection. */
+    /**
+     * Set whether the multiple lookup line (and link) should appear above this collection.
+     */
     public void setIncludeMultipleLookupLine(boolean includeMultipleLookupLine) {
         this.includeMultipleLookupLine = includeMultipleLookupLine;
     }
@@ -217,7 +220,7 @@ public class MaintainableCollectionDefinition extends MaintainableItemDefinition
     }
 
     /**
-summaryTitle is the label of the summary
+     * summaryTitle is the label of the summary
      */
     public void setSummaryTitle(String overrideSummaryName) {
         this.summaryTitle = overrideSummaryName;
@@ -229,10 +232,10 @@ summaryTitle is the label of the summary
     }
 
     /**
- attributeToHighlightOnDuplicateKey is the name of an attribute to highlight
-                            if two records in the collection are the same based on the
-                            duplicateIdentificationFields element.
-    */
+     * attributeToHighlightOnDuplicateKey is the name of an attribute to highlight
+     * if two records in the collection are the same based on the
+     * duplicateIdentificationFields element.
+     */
     public void setAttributeToHighlightOnDuplicateKey(String attributeToHighlightOnDuplicate) {
         this.attributeToHighlightOnDuplicateKey = attributeToHighlightOnDuplicate;
     }
@@ -245,10 +248,12 @@ summaryTitle is the label of the summary
         return duplicateIdentificationFields;
     }
 
-    /** The list of fields to include in this collection. */
+    /**
+     * The list of fields to include in this collection.
+     */
     public void setMaintainableFields(List<MaintainableFieldDefinition> maintainableFields) {
         maintainableFieldMap.clear();
-        for ( MaintainableFieldDefinition maintainableField : maintainableFields ) {
+        for (MaintainableFieldDefinition maintainableField : maintainableFields) {
             if (maintainableField == null) {
                 throw new IllegalArgumentException("invalid (null) maintainableField");
             }
@@ -263,10 +268,12 @@ summaryTitle is the label of the summary
         this.maintainableFields = maintainableFields;
     }
 
-    /** The list of sub-collections to include in this collection. */
+    /**
+     * The list of sub-collections to include in this collection.
+     */
     public void setMaintainableCollections(List<MaintainableCollectionDefinition> maintainableCollections) {
         maintainableCollectionMap.clear();
-        for (MaintainableCollectionDefinition maintainableCollection : maintainableCollections ) {
+        for (MaintainableCollectionDefinition maintainableCollection : maintainableCollections) {
             if (maintainableCollection == null) {
                 throw new IllegalArgumentException("invalid (null) maintainableCollection");
             }
@@ -282,13 +289,12 @@ summaryTitle is the label of the summary
     }
 
     /**
-
-                        The summaryFields element defines a set of summaryField
-                        elements.
+     * The summaryFields element defines a set of summaryField
+     * elements.
      */
     public void setSummaryFields(List<MaintainableFieldDefinition> summaryFields) {
         summaryFieldMap.clear();
-        for (MaintainableFieldDefinition summaryField : summaryFields ) {
+        for (MaintainableFieldDefinition summaryField : summaryFields) {
             if (summaryField == null) {
                 throw new IllegalArgumentException("invalid (null) summaryField");
             }
@@ -304,10 +310,10 @@ summaryTitle is the label of the summary
     }
 
     /**
-    The duplicateIdentificationFields element is used to define a set of
-    fields that will be used to determine if two records in the collection
-    are duplicates.
-    */
+     * The duplicateIdentificationFields element is used to define a set of
+     * fields that will be used to determine if two records in the collection
+     * are duplicates.
+     */
     public void setDuplicateIdentificationFields(List<MaintainableFieldDefinition> duplicateIdentificationFields) {
         duplicateIdentificationFieldMap.clear();
         for (MaintainableFieldDefinition identifierField : duplicateIdentificationFields) {
@@ -320,22 +326,20 @@ summaryTitle is the label of the summary
                 throw new DuplicateEntryException("duplicate fieldName entry for field '" + fieldName + "'");
             }
 
-            duplicateIdentificationFieldMap.put(fieldName, identifierField);            
+            duplicateIdentificationFieldMap.put(fieldName, identifierField);
         }
         this.duplicateIdentificationFields = duplicateIdentificationFields;
     }
 
 
-
-	public boolean isAlwaysAllowCollectionDeletion() {
-		return this.alwaysAllowCollectionDeletion;
-	}
-
+    public boolean isAlwaysAllowCollectionDeletion() {
+        return this.alwaysAllowCollectionDeletion;
+    }
 
 
-	public void setAlwaysAllowCollectionDeletion(
-			boolean alwaysAllowCollectionDeletion) {
-		this.alwaysAllowCollectionDeletion = alwaysAllowCollectionDeletion;
-	}
-    
+    public void setAlwaysAllowCollectionDeletion(
+        boolean alwaysAllowCollectionDeletion) {
+        this.alwaysAllowCollectionDeletion = alwaysAllowCollectionDeletion;
+    }
+
 }

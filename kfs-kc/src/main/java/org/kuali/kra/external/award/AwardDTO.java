@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -70,26 +70,26 @@ import java.util.List;
     "sequenceNumber",
     "sequenceStatus",
     "awardAccounts",
-	"locFund",
-	"locFundCode",
-	"locFundStartDate",
-	"locFundExpirationDate",
-	"locFundAmount",
-	"locFundGroup",
-	"locFundGroupCode"
+    "locFund",
+    "locFundCode",
+    "locFundStartDate",
+    "locFundExpirationDate",
+    "locFundAmount",
+    "locFundGroup",
+    "locFundGroupCode"
 })
 public class AwardDTO implements Serializable {
 
-	private static final long serialVersionUID = -7830094624716529740L;
+    private static final long serialVersionUID = -7830094624716529740L;
 
-	private Long awardId;
-	private String awardNumber;
+    private Long awardId;
+    private String awardNumber;
     private String accountNumber;
     private String chartOfAccountsCode;
     private ProposalDTO proposal;
-	private Date awardStartDate;
-	private Date awardEndDate;
-	private BigDecimal awardTotalAmount;
+    private Date awardStartDate;
+    private Date awardEndDate;
+    private BigDecimal awardTotalAmount;
     private String awardDocumentNumber;
     private Date awardLastUpdateDate;
     private BigDecimal awardDirectCostAmount;
@@ -122,87 +122,110 @@ public class AwardDTO implements Serializable {
     private String sequenceStatus;
     private List<AwardAccountDTO> awardAccounts;
 
-	private String locFund;
-	private String locFundCode;
-	private Date locFundStartDate;
-	private Date locFundExpirationDate;
-	private BigDecimal locFundAmount;
-	private String locFundGroup;
-	private String locFundGroupCode;
+    private String locFund;
+    private String locFundCode;
+    private Date locFundStartDate;
+    private Date locFundExpirationDate;
+    private BigDecimal locFundAmount;
+    private String locFundGroup;
+    private String locFundGroupCode;
 
 
-	public Long getAwardId() {
-		return awardId;
-	}
-	public void setAwardId(Long awardId) {
-		this.awardId = awardId;
-	}
-	public ProposalDTO getProposal() {
-		return proposal;
-	}
-	public void setProposal(ProposalDTO proposal) {
-		this.proposal = proposal;
-	}
-	public Date getAwardStartDate() {
-		return awardStartDate;
-	}
-	public void setAwardStartDate(Date awardStartDate) {
-		this.awardStartDate = awardStartDate;
-	}
-	public Date getAwardEndDate() {
-		return awardEndDate;
-	}
-	public void setAwardEndDate(Date awardEndDate) {
-		this.awardEndDate = awardEndDate;
-	}
-	public BigDecimal getAwardTotalAmount() {
-		return awardTotalAmount;
-	}
-	public void setAwardTotalAmount(BigDecimal awardTotalAmount) {
-		this.awardTotalAmount = awardTotalAmount;
-	}
-	public String getAwardDocumentNumber() {
-		return awardDocumentNumber;
-	}
-	public void setAwardDocumentNumber(String awardDocumentNumber) {
-		this.awardDocumentNumber = awardDocumentNumber;
-	}
-	public Date getAwardLastUpdateDate() {
-		return awardLastUpdateDate;
-	}
-	public void setAwardLastUpdateDate(Date awardLastUpdateDate) {
-		this.awardLastUpdateDate = awardLastUpdateDate;
-	}
-	public BigDecimal getAwardDirectCostAmount() {
-		return awardDirectCostAmount;
-	}
-	public void setAwardDirectCostAmount(BigDecimal awardDirectCostAmount) {
-		this.awardDirectCostAmount = awardDirectCostAmount;
-	}
-	public BigDecimal getAwardIndirectCostAmount() {
-		return awardIndirectCostAmount;
-	}
-	public void setAwardIndirectCostAmount(BigDecimal awardIndirectCostAmount) {
-		this.awardIndirectCostAmount = awardIndirectCostAmount;
-	}
-	public Date getAwardCreateTimestamp() {
-		return awardCreateTimestamp;
-	}
-	public void setAwardCreateTimestamp(Date awardCreateTimestamp) {
-		this.awardCreateTimestamp = awardCreateTimestamp;
-	}
-	public String getProposalAwardTypeCode() {
-		return proposalAwardTypeCode;
-	}
-	public void setProposalAwardTypeCode(String proposalAwardTypeCode) {
-		this.proposalAwardTypeCode = proposalAwardTypeCode;
-	}
-	public String getAwardStatusCode() {
-		return awardStatusCode;
-	}
-	public void setAwardStatusCode(String awardStatusCode) {
-		this.awardStatusCode = awardStatusCode;
-	}
+    public Long getAwardId() {
+        return awardId;
+    }
+
+    public void setAwardId(Long awardId) {
+        this.awardId = awardId;
+    }
+
+    public ProposalDTO getProposal() {
+        return proposal;
+    }
+
+    public void setProposal(ProposalDTO proposal) {
+        this.proposal = proposal;
+    }
+
+    public Date getAwardStartDate() {
+        return awardStartDate;
+    }
+
+    public void setAwardStartDate(Date awardStartDate) {
+        this.awardStartDate = awardStartDate;
+    }
+
+    public Date getAwardEndDate() {
+        return awardEndDate;
+    }
+
+    public void setAwardEndDate(Date awardEndDate) {
+        this.awardEndDate = awardEndDate;
+    }
+
+    public BigDecimal getAwardTotalAmount() {
+        return awardTotalAmount;
+    }
+
+    public void setAwardTotalAmount(BigDecimal awardTotalAmount) {
+        this.awardTotalAmount = awardTotalAmount;
+    }
+
+    public String getAwardDocumentNumber() {
+        return awardDocumentNumber;
+    }
+
+    public void setAwardDocumentNumber(String awardDocumentNumber) {
+        this.awardDocumentNumber = awardDocumentNumber;
+    }
+
+    public Date getAwardLastUpdateDate() {
+        return awardLastUpdateDate;
+    }
+
+    public void setAwardLastUpdateDate(Date awardLastUpdateDate) {
+        this.awardLastUpdateDate = awardLastUpdateDate;
+    }
+
+    public BigDecimal getAwardDirectCostAmount() {
+        return awardDirectCostAmount;
+    }
+
+    public void setAwardDirectCostAmount(BigDecimal awardDirectCostAmount) {
+        this.awardDirectCostAmount = awardDirectCostAmount;
+    }
+
+    public BigDecimal getAwardIndirectCostAmount() {
+        return awardIndirectCostAmount;
+    }
+
+    public void setAwardIndirectCostAmount(BigDecimal awardIndirectCostAmount) {
+        this.awardIndirectCostAmount = awardIndirectCostAmount;
+    }
+
+    public Date getAwardCreateTimestamp() {
+        return awardCreateTimestamp;
+    }
+
+    public void setAwardCreateTimestamp(Date awardCreateTimestamp) {
+        this.awardCreateTimestamp = awardCreateTimestamp;
+    }
+
+    public String getProposalAwardTypeCode() {
+        return proposalAwardTypeCode;
+    }
+
+    public void setProposalAwardTypeCode(String proposalAwardTypeCode) {
+        this.proposalAwardTypeCode = proposalAwardTypeCode;
+    }
+
+    public String getAwardStatusCode() {
+        return awardStatusCode;
+    }
+
+    public void setAwardStatusCode(String awardStatusCode) {
+        this.awardStatusCode = awardStatusCode;
+    }
 
     public boolean isActive() {
         return active;
@@ -213,131 +236,172 @@ public class AwardDTO implements Serializable {
     }
 
     public String getUnitNumber() {
-		return unitNumber;
-	}
-	public void setUnitNumber(String unitNumber) {
-		this.unitNumber = unitNumber;
-	}
-	public String getSponsorCode() {
-		return sponsorCode;
-	}
-	public void setSponsorCode(String sponsorCode) {
-		this.sponsorCode = sponsorCode;
-	}
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	public String getAwardCommentText() {
-		return awardCommentText;
-	}
-	public void setAwardCommentText(String awardCommentText) {
-		this.awardCommentText = awardCommentText;
-	}
-	public SponsorDTO getSponsor() {
-		return sponsor;
-	}
-	public void setSponsor(SponsorDTO sponsor) {
-		this.sponsor = sponsor;
-	}
-	public String getPrincipalInvestigatorId() {
-		return principalInvestigatorId;
-	}
-	public void setPrincipalInvestigatorId(String principalInvestigatorId) {
-		this.principalInvestigatorId = principalInvestigatorId;
-	}
-	public String getFundManagerId() {
-		return fundManagerId;
-	}
-	public void setFundManagerId(String fundManagerId) {
-		this.fundManagerId = fundManagerId;
-	}
-	public boolean isAdditionalFormsRequired() {
-		return additionalFormsRequired;
-	}
-	public void setAdditionalFormsRequired(boolean additionalFormsRequired) {
-		this.additionalFormsRequired = additionalFormsRequired;
-	}
-	public boolean isStopWork() {
-		return stopWork;
-	}
-	public void setStopWork(boolean stopWork) {
-		this.stopWork = stopWork;
-	}
-	public String getAdditionalFormsDescription() {
-		return additionalFormsDescription;
-	}
-	public void setAdditionalFormsDescription(String additionalFormsDescription) {
-		this.additionalFormsDescription = additionalFormsDescription;
-	}
-	public String getInvoicingOption() {
-		return invoicingOption;
-	}
-	public void setInvoicingOption(String invoicingOption) {
-		this.invoicingOption = invoicingOption;
-	}
-	public String getDunningCampaignId() {
-		return dunningCampaignId;
-	}
-	public void setDunningCampaignId(String dunningCampaignId) {
-		this.dunningCampaignId = dunningCampaignId;
-	}
-	public String getStopWorkReason() {
-		return stopWorkReason;
-	}
-	public void setStopWorkReason(String stopWorkReason) {
-		this.stopWorkReason = stopWorkReason;
-	}
-	public boolean isAutoApproveInvoice() {
-		return autoApproveInvoice;
-	}
-	public void setAutoApproveInvoice(boolean autoApproveInvoice) {
-		this.autoApproveInvoice = autoApproveInvoice;
-	}
-	public BigDecimal getMinInvoiceAmount() {
-		return minInvoiceAmount;
-	}
-	public void setMinInvoiceAmount(BigDecimal minInvoiceAmount) {
-		this.minInvoiceAmount = minInvoiceAmount;
-	}
-	public String getAwardNumber() {
-		return awardNumber;
-	}
-	public void setAwardNumber(String awardNumber) {
-		this.awardNumber = awardNumber;
-	}
-	public AwardMethodOfPaymentDTO getMethodOfPayment() {
-		return methodOfPayment;
-	}
-	public void setMethodOfPayment(AwardMethodOfPaymentDTO methodOfPayment) {
-		this.methodOfPayment = methodOfPayment;
-	}
-	public String getInvoiceBillingFrequency() {
-		return invoiceBillingFrequency;
-	}
-	public void setInvoiceBillingFrequency(String invoiceBillingFrequency) {
-		this.invoiceBillingFrequency = invoiceBillingFrequency;
-	}
-	public String getInvoicingOptionDescription() {
-		return invoicingOptionDescription;
-	}
-	public void setInvoicingOptionDescription(String invoicingOptionDescription) {
-		this.invoicingOptionDescription = invoicingOptionDescription;
-	}
-	public boolean isExcludedFromInvoicing() {
-		return excludedFromInvoicing;
-	}
-	public void setExcludedFromInvoicing(boolean excludedFromInvoicing) {
-		this.excludedFromInvoicing = excludedFromInvoicing;
-	}
-	public String getExcludedFromInvoicingReason() {
-		return excludedFromInvoicingReason;
-	}
-	public void setExcludedFromInvoicingReason(String excludedFromInvoicingReason) {
-		this.excludedFromInvoicingReason = excludedFromInvoicingReason;
-	}
+        return unitNumber;
+    }
+
+    public void setUnitNumber(String unitNumber) {
+        this.unitNumber = unitNumber;
+    }
+
+    public String getSponsorCode() {
+        return sponsorCode;
+    }
+
+    public void setSponsorCode(String sponsorCode) {
+        this.sponsorCode = sponsorCode;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getAwardCommentText() {
+        return awardCommentText;
+    }
+
+    public void setAwardCommentText(String awardCommentText) {
+        this.awardCommentText = awardCommentText;
+    }
+
+    public SponsorDTO getSponsor() {
+        return sponsor;
+    }
+
+    public void setSponsor(SponsorDTO sponsor) {
+        this.sponsor = sponsor;
+    }
+
+    public String getPrincipalInvestigatorId() {
+        return principalInvestigatorId;
+    }
+
+    public void setPrincipalInvestigatorId(String principalInvestigatorId) {
+        this.principalInvestigatorId = principalInvestigatorId;
+    }
+
+    public String getFundManagerId() {
+        return fundManagerId;
+    }
+
+    public void setFundManagerId(String fundManagerId) {
+        this.fundManagerId = fundManagerId;
+    }
+
+    public boolean isAdditionalFormsRequired() {
+        return additionalFormsRequired;
+    }
+
+    public void setAdditionalFormsRequired(boolean additionalFormsRequired) {
+        this.additionalFormsRequired = additionalFormsRequired;
+    }
+
+    public boolean isStopWork() {
+        return stopWork;
+    }
+
+    public void setStopWork(boolean stopWork) {
+        this.stopWork = stopWork;
+    }
+
+    public String getAdditionalFormsDescription() {
+        return additionalFormsDescription;
+    }
+
+    public void setAdditionalFormsDescription(String additionalFormsDescription) {
+        this.additionalFormsDescription = additionalFormsDescription;
+    }
+
+    public String getInvoicingOption() {
+        return invoicingOption;
+    }
+
+    public void setInvoicingOption(String invoicingOption) {
+        this.invoicingOption = invoicingOption;
+    }
+
+    public String getDunningCampaignId() {
+        return dunningCampaignId;
+    }
+
+    public void setDunningCampaignId(String dunningCampaignId) {
+        this.dunningCampaignId = dunningCampaignId;
+    }
+
+    public String getStopWorkReason() {
+        return stopWorkReason;
+    }
+
+    public void setStopWorkReason(String stopWorkReason) {
+        this.stopWorkReason = stopWorkReason;
+    }
+
+    public boolean isAutoApproveInvoice() {
+        return autoApproveInvoice;
+    }
+
+    public void setAutoApproveInvoice(boolean autoApproveInvoice) {
+        this.autoApproveInvoice = autoApproveInvoice;
+    }
+
+    public BigDecimal getMinInvoiceAmount() {
+        return minInvoiceAmount;
+    }
+
+    public void setMinInvoiceAmount(BigDecimal minInvoiceAmount) {
+        this.minInvoiceAmount = minInvoiceAmount;
+    }
+
+    public String getAwardNumber() {
+        return awardNumber;
+    }
+
+    public void setAwardNumber(String awardNumber) {
+        this.awardNumber = awardNumber;
+    }
+
+    public AwardMethodOfPaymentDTO getMethodOfPayment() {
+        return methodOfPayment;
+    }
+
+    public void setMethodOfPayment(AwardMethodOfPaymentDTO methodOfPayment) {
+        this.methodOfPayment = methodOfPayment;
+    }
+
+    public String getInvoiceBillingFrequency() {
+        return invoiceBillingFrequency;
+    }
+
+    public void setInvoiceBillingFrequency(String invoiceBillingFrequency) {
+        this.invoiceBillingFrequency = invoiceBillingFrequency;
+    }
+
+    public String getInvoicingOptionDescription() {
+        return invoicingOptionDescription;
+    }
+
+    public void setInvoicingOptionDescription(String invoicingOptionDescription) {
+        this.invoicingOptionDescription = invoicingOptionDescription;
+    }
+
+    public boolean isExcludedFromInvoicing() {
+        return excludedFromInvoicing;
+    }
+
+    public void setExcludedFromInvoicing(boolean excludedFromInvoicing) {
+        this.excludedFromInvoicing = excludedFromInvoicing;
+    }
+
+    public String getExcludedFromInvoicingReason() {
+        return excludedFromInvoicingReason;
+    }
+
+    public void setExcludedFromInvoicingReason(String excludedFromInvoicingReason) {
+        this.excludedFromInvoicingReason = excludedFromInvoicingReason;
+    }
 
     public String getAccountNumber() {
         return accountNumber;
@@ -379,57 +443,59 @@ public class AwardDTO implements Serializable {
         this.awardAccounts = awardAccounts;
     }
 
-	public String getLocFund() {
-		return locFund;
-	}
+    public String getLocFund() {
+        return locFund;
+    }
 
-	public void setLocFund(String locFund) {
-		this.locFund = locFund;
-	}
+    public void setLocFund(String locFund) {
+        this.locFund = locFund;
+    }
 
-	public String getLocFundCode() {
-		return locFundCode;
-	}
+    public String getLocFundCode() {
+        return locFundCode;
+    }
 
-	public void setLocFundCode(String locFundCode) {
-		this.locFundCode = locFundCode;
-	}
+    public void setLocFundCode(String locFundCode) {
+        this.locFundCode = locFundCode;
+    }
 
-	public Date getLocFundStartDate() {
-		return locFundStartDate;
-	}
+    public Date getLocFundStartDate() {
+        return locFundStartDate;
+    }
 
-	public void setLocFundStartDate(Date locFundStartDate) {
-		this.locFundStartDate = locFundStartDate;
-	}
-	public Date getLocFundExpirationDate() {
-		return locFundExpirationDate;
-	}
-	public void setLocFundExpirationDate(Date locFundExpirationDate) {
-		this.locFundExpirationDate = locFundExpirationDate;
-	}
+    public void setLocFundStartDate(Date locFundStartDate) {
+        this.locFundStartDate = locFundStartDate;
+    }
 
-	public BigDecimal getLocFundAmount() {
-		return locFundAmount;
-	}
+    public Date getLocFundExpirationDate() {
+        return locFundExpirationDate;
+    }
 
-	public void setLocFundAmount(BigDecimal locFundAmount) {
-		this.locFundAmount = locFundAmount;
-	}
+    public void setLocFundExpirationDate(Date locFundExpirationDate) {
+        this.locFundExpirationDate = locFundExpirationDate;
+    }
 
-	public String getLocFundGroup() {
-		return locFundGroup;
-	}
+    public BigDecimal getLocFundAmount() {
+        return locFundAmount;
+    }
 
-	public void setLocFundGroup(String locFundGroup) {
-		this.locFundGroup = locFundGroup;
-	}
+    public void setLocFundAmount(BigDecimal locFundAmount) {
+        this.locFundAmount = locFundAmount;
+    }
 
-	public String getLocFundGroupCode() {
-		return locFundGroupCode;
-	}
+    public String getLocFundGroup() {
+        return locFundGroup;
+    }
 
-	public void setLocFundGroupCode(String locFundGroupCode) {
-		this.locFundGroupCode = locFundGroupCode;
-	}
+    public void setLocFundGroup(String locFundGroup) {
+        this.locFundGroup = locFundGroup;
+    }
+
+    public String getLocFundGroupCode() {
+        return locFundGroupCode;
+    }
+
+    public void setLocFundGroupCode(String locFundGroupCode) {
+        this.locFundGroupCode = locFundGroupCode;
+    }
 }

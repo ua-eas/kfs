@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -23,8 +23,8 @@ import org.kuali.kfs.coreservice.api.style.Style;
 import org.kuali.kfs.coreservice.api.style.StyleRepositoryService;
 import org.kuali.kfs.coreservice.api.style.StyleService;
 import org.kuali.kfs.coreservice.framework.CoreFrameworkServiceLocator;
-import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.rice.kew.api.KewApiConstants;
 
 import javax.xml.transform.Templates;
 import javax.xml.transform.TransformerConfigurationException;
@@ -39,13 +39,13 @@ import java.util.Properties;
  * Implements generic StyleService via existing EDL style table
  */
 public class StyleServiceImpl implements StyleService {
-	
+
     private static final Logger LOG = Logger.getLogger(StyleServiceImpl.class);
 
     private StyleRepositoryService styleRepositoryService;
 
     public void setStyleRepositoryService(StyleRepositoryService styleRepositoryService) {
-    	this.styleRepositoryService = styleRepositoryService;
+        this.styleRepositoryService = styleRepositoryService;
     }
 
     /**
@@ -55,7 +55,7 @@ public class StyleServiceImpl implements StyleService {
      */
     @Override
     public Style getStyle(String styleName) {
-    	return styleRepositoryService.getStyle(styleName);
+        return styleRepositoryService.getStyle(styleName);
     }
 
     @Override
@@ -83,8 +83,8 @@ public class StyleServiceImpl implements StyleService {
         factory.setURIResolver(new StyleUriResolver(this));
 
         if (useXSLTC) {
-            factory.setAttribute("translet-name",name);
-            factory.setAttribute("generate-translet",Boolean.TRUE);
+            factory.setAttribute("translet-name", name);
+            factory.setAttribute("generate-translet", Boolean.TRUE);
             String debugTransform = CoreFrameworkServiceLocator.getParameterService().getParameterValueAsString(KewApiConstants.KEW_NAMESPACE, KRADConstants.DetailTypes.EDOC_LITE_DETAIL_TYPE, KewApiConstants.EDL_DEBUG_TRANSFORM_IND);
             if (debugTransform.trim().equals("Y")) {
                 factory.setAttribute("debug", Boolean.TRUE);
@@ -96,9 +96,9 @@ public class StyleServiceImpl implements StyleService {
 
     @Override
     public void saveStyle(Style style) {
-    	styleRepositoryService.saveStyle(style);
+        styleRepositoryService.saveStyle(style);
     }
-    
+
     @Override
     public List<String> getAllStyleNames() {
         return styleRepositoryService.getAllStyleNames();

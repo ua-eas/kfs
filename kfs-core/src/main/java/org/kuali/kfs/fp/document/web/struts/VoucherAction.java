@@ -1,29 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document.web.struts;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
@@ -32,6 +25,10 @@ import org.apache.struts.action.ActionMapping;
 import org.kuali.kfs.fp.businessobject.VoucherAccountingLineHelper;
 import org.kuali.kfs.fp.businessobject.VoucherAccountingLineHelperBase;
 import org.kuali.kfs.fp.document.VoucherDocument;
+import org.kuali.kfs.kns.question.ConfirmationQuestion;
+import org.kuali.kfs.kns.util.KNSGlobalVariables;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.businessobject.SourceAccountingLine;
@@ -43,10 +40,12 @@ import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.core.web.format.CurrencyFormatter;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.question.ConfirmationQuestion;
-import org.kuali.kfs.kns.util.KNSGlobalVariables;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * This class piggy backs on all of the functionality in the FinancialSystemTransactionalDocumentActionBase but is necessary for this document
@@ -61,7 +60,7 @@ public class VoucherAction extends KualiAccountingDocumentActionBase {
     /**
      * Overrides to call super, and then to repopulate the credit/debit amounts b/c the credit/debit code might change during a
      * voucher error correction.
-     * 
+     *
      * @see org.kuali.kfs.sys.document.web.struts.FinancialSystemTransactionalDocumentActionBase#correct(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
@@ -79,9 +78,9 @@ public class VoucherAction extends KualiAccountingDocumentActionBase {
     /**
      * Overrides parent to first populate the new source line with the correct debit or credit value, then it calls the parent's
      * implementation.
-     * 
+     *
      * @see org.kuali.module.financial.web.struts.action.KualiFinancialDocumentActionBase#insertSourceLine(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward insertSourceLine(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -107,9 +106,9 @@ public class VoucherAction extends KualiAccountingDocumentActionBase {
 
     /**
      * Overrides parent to remove the associated helper line also, and then it call the parent's implementation.
-     * 
+     *
      * @see org.kuali.module.financial.web.struts.action.KualiFinancialDocumentActionBase#deleteSourceLine(org.apache.struts.action.ActionMapping,
-     *      org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward deleteSourceLine(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -131,7 +130,7 @@ public class VoucherAction extends KualiAccountingDocumentActionBase {
     /**
      * Overrides the parent to make sure that the AV specific accounting line helper forms are properly populated when the document
      * is first loaded. This first calls super, then populates the helper objects.
-     * 
+     *
      * @see org.kuali.rice.kns.web.struts.action.KualiDocumentActionBase#loadDocument(org.kuali.rice.kns.web.struts.form.KualiDocumentFormBase)
      */
     @Override
@@ -153,7 +152,7 @@ public class VoucherAction extends KualiAccountingDocumentActionBase {
     /**
      * This method parses the accounting period value from the bo and builds the right string to pass to the form object as the
      * selected value.
-     * 
+     *
      * @param voucherDocument
      * @param voucherForm
      */
@@ -162,8 +161,7 @@ public class VoucherAction extends KualiAccountingDocumentActionBase {
             String selectedAccountingPeriod = voucherDocument.getPostingPeriodCode();
             if (null != voucherDocument.getPostingYear()) {
                 selectedAccountingPeriod += voucherDocument.getPostingYear().toString();
-            }
-            else {
+            } else {
                 selectedAccountingPeriod += SpringContext.getBean(UniversityDateService.class).getCurrentFiscalYear().toString();
             }
             voucherForm.setSelectedAccountingPeriod(selectedAccountingPeriod);
@@ -173,7 +171,7 @@ public class VoucherAction extends KualiAccountingDocumentActionBase {
     /**
      * This populates a new helperLine instance with the one that was just added so that the new instance can be added to the
      * helperLines list.
-     * 
+     *
      * @param voucherForm
      * @return VoucherAccountingLineHelper
      */
@@ -198,7 +196,7 @@ public class VoucherAction extends KualiAccountingDocumentActionBase {
      * credit and debit fields. It does this by iterating over each source accounting line (what the voucher uses) looking at the
      * debit/credit code and then populateingLineHelpers a corresponding helper form instance with the amount in the appropriate
      * amount field - credit or debit.
-     * 
+     *
      * @param voucherForm
      */
     protected void populateAllVoucherAccountingLineHelpers(VoucherForm voucherForm) {
@@ -223,8 +221,7 @@ public class VoucherAction extends KualiAccountingDocumentActionBase {
                 if (sourceAccountingLine.getDebitCreditCode().equals(KFSConstants.GL_DEBIT_CODE)) {
                     avAcctLineHelperForm.setDebit(sourceAccountingLine.getAmount());
                     avAcctLineHelperForm.setCredit(KualiDecimal.ZERO);
-                }
-                else if (sourceAccountingLine.getDebitCreditCode().equals(KFSConstants.GL_CREDIT_CODE)) {
+                } else if (sourceAccountingLine.getDebitCreditCode().equals(KFSConstants.GL_CREDIT_CODE)) {
                     avAcctLineHelperForm.setCredit(sourceAccountingLine.getAmount());
                     avAcctLineHelperForm.setDebit(KualiDecimal.ZERO);
                 }
@@ -241,7 +238,7 @@ public class VoucherAction extends KualiAccountingDocumentActionBase {
      * stating that they chose that value and return an ActionForward of a MAPPING_BASIC which keeps them at the same page that they
      * were on. If they choose "Yes", then we return a null ActionForward, which the calling action method recognizes as a "Yes" and
      * continues on processing the "Route."
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -266,8 +263,7 @@ public class VoucherAction extends KualiAccountingDocumentActionBase {
 
             // now transfer control over to the question component
             return this.performQuestionWithoutInput(mapping, form, request, response, KFSConstants.JOURNAL_VOUCHER_ROUTE_OUT_OF_BALANCE_DOCUMENT_QUESTION, message, KFSConstants.CONFIRMATION_QUESTION, KFSConstants.ROUTE_METHOD, "");
-        }
-        else {
+        } else {
             String buttonClicked = request.getParameter(KFSConstants.QUESTION_CLICKED_BUTTON);
             if ((KFSConstants.JOURNAL_VOUCHER_ROUTE_OUT_OF_BALANCE_DOCUMENT_QUESTION.equals(question)) && ConfirmationQuestion.NO.equals(buttonClicked)) {
                 KNSGlobalVariables.getMessageList().add(KFSKeyConstants.MESSAGE_JV_CANCELLED_ROUTE);
@@ -280,7 +276,7 @@ public class VoucherAction extends KualiAccountingDocumentActionBase {
     /**
      * This populates a new helperLine instance with the one that was just added so that the new instance can be added to the
      * helperLines list.
-     * 
+     *
      * @param voucherForm
      * @return voucherAccountingLineHelper
      */
@@ -303,7 +299,7 @@ public class VoucherAction extends KualiAccountingDocumentActionBase {
     /**
      * This action executes a call to upload CSV accounting line values as SourceAccountingLines for a given transactional document.
      * The "uploadAccountingLines()" method handles the multi-part request.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -323,7 +319,7 @@ public class VoucherAction extends KualiAccountingDocumentActionBase {
     /**
      * This method determines whether we are uploading source or target lines, and then calls uploadAccountingLines directly on the
      * document object. This method handles retrieving the actual upload file as an input stream into the document.
-     * 
+     *
      * @param isSource
      * @param form
      * @throws FileNotFoundException
@@ -338,12 +334,13 @@ public class VoucherAction extends KualiAccountingDocumentActionBase {
 
     /**
      * Overridden to reset the available and selected accounting periods on the form, so that copies are moved forward to the current accounting period correctly
+     *
      * @see org.kuali.kfs.sys.web.struts.KualiAccountingDocumentActionBase#copy(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public ActionForward copy(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         ActionForward forward = super.copy(mapping, form, request, response);
-        VoucherForm voucherForm = (VoucherForm)form;
+        VoucherForm voucherForm = (VoucherForm) form;
         voucherForm.populateAccountingPeriodListForRendering();
         voucherForm.populateDefaultSelectedAccountingPeriod();
         return forward;

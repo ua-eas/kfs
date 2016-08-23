@@ -1,26 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.document.authorization;
 
-import java.util.Map;
-import java.util.Set;
-
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.businessobject.TemSourceAccountingLine;
 import org.kuali.kfs.module.tem.document.TravelAuthorizationDocument;
@@ -30,15 +30,15 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.identity.KfsKimAttributes;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.role.RoleService;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.util.Map;
+import java.util.Set;
 
 public class TravelAuthorizationAuthorizer extends TravelArrangeableAuthorizer {
     protected volatile RoleService roleService;
 
     /**
-     *  check permission to close
+     * check permission to close
      *
      * @param taDoc
      * @param user
@@ -60,7 +60,6 @@ public class TravelAuthorizationAuthorizer extends TravelArrangeableAuthorizer {
     }
 
     /**
-     *
      * @param travelDocument
      * @param user
      * @return
@@ -70,7 +69,6 @@ public class TravelAuthorizationAuthorizer extends TravelArrangeableAuthorizer {
     }
 
     /**
-     *
      * @param travelDocument
      * @param user
      * @return
@@ -80,7 +78,6 @@ public class TravelAuthorizationAuthorizer extends TravelArrangeableAuthorizer {
     }
 
     /**
-     *
      * @param travelDocument
      * @param user
      * @return
@@ -90,7 +87,6 @@ public class TravelAuthorizationAuthorizer extends TravelArrangeableAuthorizer {
     }
 
     /**
-     *
      * @param travelDocument
      * @param user
      * @return
@@ -101,20 +97,21 @@ public class TravelAuthorizationAuthorizer extends TravelArrangeableAuthorizer {
 
     /**
      * If the current user is a fiscal officer on any accounting line on the document, add that qualification
+     *
      * @see org.kuali.kfs.module.tem.document.authorization.TravelArrangeableAuthorizer#addRoleQualification(java.lang.Object, java.util.Map)
      */
     @Override
     protected void addRoleQualification(Object dataObject, Map<String, String> qualification) {
         if (dataObject instanceof TravelAuthorizationDocument) {
-            addAccountQualification((TravelAuthorizationDocument)dataObject, qualification);
-            addTemProfileQualification((TravelAuthorizationDocument)dataObject, qualification);
+            addAccountQualification((TravelAuthorizationDocument) dataObject, qualification);
+            addTemProfileQualification((TravelAuthorizationDocument) dataObject, qualification);
         }
 
         super.addRoleQualification(dataObject, qualification);
     }
 
     protected void addTemProfileQualification(TravelAuthorizationDocument document, Map<String, String> attributes) {
-        if (ObjectUtils.isNotNull(document.getTemProfileId()) && !ObjectUtils.isNull(document.getTraveler())){
+        if (ObjectUtils.isNotNull(document.getTemProfileId()) && !ObjectUtils.isNull(document.getTraveler())) {
             attributes.put(KFSPropertyConstants.PRINCIPAL_ID, document.getTraveler().getPrincipalId());
         }
     }
@@ -122,15 +119,16 @@ public class TravelAuthorizationAuthorizer extends TravelArrangeableAuthorizer {
     /**
      * Goes through the given List of accounting lines and fines one line where the current user is the fiscal officer; it uses that line to put chart of accounts
      * code and account number qualifications into the given Map of attributes for role qualification
+     *
      * @param accountingLines a List of AccountingLines
-     * @param attributes a Map of role qualification attributes
+     * @param attributes      a Map of role qualification attributes
      */
     protected void addAccountQualification(TravelAuthorizationDocument authorizationDoc, Map<String, String> attributes) {
         final Person currentUser = GlobalVariables.getUserSession().getPerson();
         boolean foundQualification = false;
         int count = 0;
         while (!foundQualification && !ObjectUtils.isNull(authorizationDoc.getSourceAccountingLines()) && count < authorizationDoc.getSourceAccountingLines().size()) {
-            final TemSourceAccountingLine accountingLine = (TemSourceAccountingLine)authorizationDoc.getSourceAccountingLines().get(count);
+            final TemSourceAccountingLine accountingLine = (TemSourceAccountingLine) authorizationDoc.getSourceAccountingLines().get(count);
             foundQualification = addAccountQualificationForLine(accountingLine, attributes, currentUser);
             count += 1;
         }
@@ -138,8 +136,9 @@ public class TravelAuthorizationAuthorizer extends TravelArrangeableAuthorizer {
 
     /**
      * If the given user is the fiscal officer of the account on the given accounting line, then add that account as a qualification
-     * @param line the accounting line to check
-     * @param attributes the role qualification to fill
+     *
+     * @param line        the accounting line to check
+     * @param attributes  the role qualification to fill
      * @param currentUser the currently logged in user, whom we are doing permission checks for
      * @return true if qualifications were added based on the line, false otherwise
      */
@@ -159,11 +158,11 @@ public class TravelAuthorizationAuthorizer extends TravelArrangeableAuthorizer {
      * Generic way of calling permissions
      *
      * @param travelDocument the authorization we're authorizing actions against
-     * @param user the user to check permission for
-     * @param permission the name of the KFS-TEM namespace permission to check
+     * @param user           the user to check permission for
+     * @param permission     the name of the KFS-TEM namespace permission to check
      * @return true if the permission is granted, false otherwise
      */
-    protected boolean getActionPermission(final TravelDocument travelDocument, final Person user, final String permission){
+    protected boolean getActionPermission(final TravelDocument travelDocument, final Person user, final String permission) {
         final String nameSpaceCode = TemConstants.PARAM_NAMESPACE;
 
         //Return true if they have the correct permissions or they are the initiator and the initiator can perform this action.
@@ -172,12 +171,13 @@ public class TravelAuthorizationAuthorizer extends TravelArrangeableAuthorizer {
 
     /**
      * Overridden to handle travel authorization specific actions
+     *
      * @see org.kuali.kfs.sys.document.authorization.FinancialSystemTransactionalDocumentAuthorizerBase#getDocumentActions(org.kuali.rice.krad.document.Document, org.kuali.rice.kim.api.identity.Person, java.util.Set)
      */
     @Override
     public Set<String> getDocumentActions(Document document, Person user, Set<String> documentActionsFromPresentationController) {
         Set<String> actions = super.getDocumentActions(document, user, documentActionsFromPresentationController);
-        final TravelAuthorizationDocument travelAuth = (TravelAuthorizationDocument)document;
+        final TravelAuthorizationDocument travelAuth = (TravelAuthorizationDocument) document;
         if (actions.contains(TemConstants.TravelAuthorizationActions.CAN_AMEND) && !canAmend(travelAuth, user)) {
             actions.remove(TemConstants.TravelAuthorizationActions.CAN_AMEND);
         }

@@ -53,20 +53,20 @@ public class DetectDocumentsMissingPendingEntriesServiceImplDiscoverTest {
         Date testDate = new Date();
 
         List<DocumentHeaderData> documentHeaderDataList = new ArrayList<>();
-        DocumentHeaderData documentHeaderData1 = new DocumentHeaderData("AAAA","DT1");
-        DocumentHeaderData documentHeaderData2 = new DocumentHeaderData("BBBB","DT2");
-        DocumentHeaderData documentHeaderData3 = new DocumentHeaderData("CCCC","DT3");
+        DocumentHeaderData documentHeaderData1 = new DocumentHeaderData("AAAA", "DT1");
+        DocumentHeaderData documentHeaderData2 = new DocumentHeaderData("BBBB", "DT2");
+        DocumentHeaderData documentHeaderData3 = new DocumentHeaderData("CCCC", "DT3");
         documentHeaderDataList.add(documentHeaderData1);
         documentHeaderDataList.add(documentHeaderData2);
         documentHeaderDataList.add(documentHeaderData3);
 
         EasyMock.expect(parameterService.getParameterValuesAsString(KfsParameterConstants.GENERAL_LEDGER_BATCH.class, KFSParameterKeyConstants.DetectDocumentsMissingPendingEntriesConstants.LEDGER_ENTRY_GENERATING_DOCUMENT_TYPES)).andReturn(new ArrayList<>());
-        EasyMock.expect(detectDocumentsMissingPendingEntriesDao.discoverLedgerDocumentsWithoutPendingEntries(testDate,new ArrayList<>())).andReturn(documentHeaderDataList);
+        EasyMock.expect(detectDocumentsMissingPendingEntriesDao.discoverLedgerDocumentsWithoutPendingEntries(testDate, new ArrayList<>())).andReturn(documentHeaderDataList);
         EasyMock.replay(detectDocumentsMissingPendingEntriesDao, parameterService);
 
         List<DocumentHeaderData> results = detectDocumentsMissingPendingEntriesService.discoverGeneralLedgerDocumentsWithoutPendingEntries(testDate);
 
-        Assert.assertEquals(3,results.size());
+        Assert.assertEquals(3, results.size());
     }
 
     @Test
@@ -74,20 +74,20 @@ public class DetectDocumentsMissingPendingEntriesServiceImplDiscoverTest {
         Date testDate = new Date();
 
         List<DocumentHeaderData> documentHeaderDataList = new ArrayList<>();
-        DocumentHeaderData documentHeaderData1 = new DocumentHeaderData("AAAA","CTRL");
+        DocumentHeaderData documentHeaderData1 = new DocumentHeaderData("AAAA", "CTRL");
         documentHeaderDataList.add(documentHeaderData1);
 
         List<String> docTypes = new ArrayList<>();
         docTypes.add("CTRL");
         docTypes.add("DV");
         EasyMock.expect(parameterService.getParameterValuesAsString(KfsParameterConstants.GENERAL_LEDGER_BATCH.class, KFSParameterKeyConstants.DetectDocumentsMissingPendingEntriesConstants.LEDGER_ENTRY_GENERATING_DOCUMENT_TYPES)).andReturn(docTypes);
-        EasyMock.expect(detectDocumentsMissingPendingEntriesDao.discoverLedgerDocumentsWithoutPendingEntries(testDate,docTypes)).andReturn(documentHeaderDataList);
+        EasyMock.expect(detectDocumentsMissingPendingEntriesDao.discoverLedgerDocumentsWithoutPendingEntries(testDate, docTypes)).andReturn(documentHeaderDataList);
         EasyMock.expect(detectDocumentsMissingPendingEntriesDao.getCustomerPaymentMediumCodeFromCashControlDocument("AAAA")).andReturn(Optional.of("CA"));
         EasyMock.replay(detectDocumentsMissingPendingEntriesDao, parameterService);
 
         List<DocumentHeaderData> results = detectDocumentsMissingPendingEntriesService.discoverGeneralLedgerDocumentsWithoutPendingEntries(testDate);
 
-        Assert.assertEquals(0,results.size());
+        Assert.assertEquals(0, results.size());
     }
 
     @Test
@@ -95,17 +95,17 @@ public class DetectDocumentsMissingPendingEntriesServiceImplDiscoverTest {
         Date testDate = new Date();
 
         List<DocumentHeaderData> documentHeaderDataList = new ArrayList<>();
-        DocumentHeaderData documentHeaderData1 = new DocumentHeaderData("AAAA","CTRL");
+        DocumentHeaderData documentHeaderData1 = new DocumentHeaderData("AAAA", "CTRL");
         documentHeaderDataList.add(documentHeaderData1);
 
         EasyMock.expect(parameterService.getParameterValuesAsString(KfsParameterConstants.GENERAL_LEDGER_BATCH.class, KFSParameterKeyConstants.DetectDocumentsMissingPendingEntriesConstants.LEDGER_ENTRY_GENERATING_DOCUMENT_TYPES)).andReturn(new ArrayList<>());
-        EasyMock.expect(detectDocumentsMissingPendingEntriesDao.discoverLedgerDocumentsWithoutPendingEntries(testDate,new ArrayList<>())).andReturn(documentHeaderDataList);
+        EasyMock.expect(detectDocumentsMissingPendingEntriesDao.discoverLedgerDocumentsWithoutPendingEntries(testDate, new ArrayList<>())).andReturn(documentHeaderDataList);
         EasyMock.expect(detectDocumentsMissingPendingEntriesDao.getCustomerPaymentMediumCodeFromCashControlDocument("AAAA")).andReturn(Optional.of("CK"));
         EasyMock.replay(detectDocumentsMissingPendingEntriesDao, parameterService);
 
         List<DocumentHeaderData> results = detectDocumentsMissingPendingEntriesService.discoverGeneralLedgerDocumentsWithoutPendingEntries(testDate);
 
-        Assert.assertEquals(1,results.size());
+        Assert.assertEquals(1, results.size());
     }
 
     @Test
@@ -113,11 +113,11 @@ public class DetectDocumentsMissingPendingEntriesServiceImplDiscoverTest {
         Date testDate = new Date();
 
         List<DocumentHeaderData> documentHeaderDataList = new ArrayList<>();
-        DocumentHeaderData documentHeaderData1 = new DocumentHeaderData("AAAA","CTRL");
+        DocumentHeaderData documentHeaderData1 = new DocumentHeaderData("AAAA", "CTRL");
         documentHeaderDataList.add(documentHeaderData1);
 
         EasyMock.expect(parameterService.getParameterValuesAsString(KfsParameterConstants.GENERAL_LEDGER_BATCH.class, KFSParameterKeyConstants.DetectDocumentsMissingPendingEntriesConstants.LEDGER_ENTRY_GENERATING_DOCUMENT_TYPES)).andReturn(new ArrayList<>());
-        EasyMock.expect(detectDocumentsMissingPendingEntriesDao.discoverLedgerDocumentsWithoutPendingEntries(testDate,new ArrayList<>())).andReturn(documentHeaderDataList);
+        EasyMock.expect(detectDocumentsMissingPendingEntriesDao.discoverLedgerDocumentsWithoutPendingEntries(testDate, new ArrayList<>())).andReturn(documentHeaderDataList);
         EasyMock.expect(detectDocumentsMissingPendingEntriesDao.getCustomerPaymentMediumCodeFromCashControlDocument("AAAA")).andReturn(Optional.empty());
         EasyMock.replay(detectDocumentsMissingPendingEntriesDao, parameterService);
 

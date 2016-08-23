@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -24,12 +24,10 @@ import org.apache.commons.lang.StringUtils;
  * The maskTo element is to used hide the beginning part of the value for
  * unauthorized users. The number of leading characters to hide and the
  * replacement character can be specified.
- * 
- * 
  */
 public class MaskFormatterSubString implements MaskFormatter {
     private static final long serialVersionUID = -876112522775686636L;
-    
+
     protected String maskCharacter = "*";
     protected int maskLength;
 
@@ -45,18 +43,18 @@ public class MaskFormatterSubString implements MaskFormatter {
 
         String strValue = value.toString();
         if (strValue.length() < maskLength) {
-        	return StringUtils.repeat(maskCharacter, maskLength);
+            return StringUtils.repeat(maskCharacter, maskLength);
         }
-        if(maskLength >0){
-        	return StringUtils.repeat(maskCharacter, maskLength) + strValue.substring(maskLength);
-        }else{
-        	return strValue;
+        if (maskLength > 0) {
+            return StringUtils.repeat(maskCharacter, maskLength) + strValue.substring(maskLength);
+        } else {
+            return strValue;
         }
     }
 
     /**
      * Gets the maskCharacter attribute.
-     * 
+     *
      * @return Returns the maskCharacter.
      */
     public String getMaskCharacter() {
@@ -74,7 +72,7 @@ public class MaskFormatterSubString implements MaskFormatter {
 
     /**
      * Gets the maskLength attribute.
-     * 
+     *
      * @return Returns the maskLength.
      */
     public int getMaskLength() {
@@ -83,7 +81,7 @@ public class MaskFormatterSubString implements MaskFormatter {
 
     /**
      * Set the number of characters to mask at the beginning of the string.
-     * 
+     *
      * @param maskLength The maskLength to set.
      */
     public void setMaskLength(int maskLength) {

@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -23,42 +23,51 @@ import java.util.Date;
 
 public class AwardBillingUpdateDto implements Serializable {
 
-	private static final long serialVersionUID = -2561088105556250344L;
+    private static final long serialVersionUID = -2561088105556250344L;
 
-	private boolean doLastBillDateUpdate;
-	private Date lastBillDate;
-	private boolean restorePreviousBillDate;
-	private boolean doFinalBilledUpdate;
-	private boolean finalBilledIndicator;
+    private boolean doLastBillDateUpdate;
+    private Date lastBillDate;
+    private boolean restorePreviousBillDate;
+    private boolean doFinalBilledUpdate;
+    private boolean finalBilledIndicator;
 
-	public boolean isDoLastBillDateUpdate() {
-		return doLastBillDateUpdate;
-	}
-	public void setDoLastBillDateUpdate(boolean doLastBillDateUpdate) {
-		this.doLastBillDateUpdate = doLastBillDateUpdate;
-	}
-	public Date getLastBillDate() {
-		return lastBillDate;
-	}
-	public void setLastBillDate(Date lastBillDate) {
-		this.lastBillDate = lastBillDate;
-	}
-	public boolean isRestorePreviousBillDate() {
-		return restorePreviousBillDate;
-	}
-	public void setRestorePreviousBillDate(boolean restorePreviousBillDate) {
-		this.restorePreviousBillDate = restorePreviousBillDate;
-	}
-	public boolean isDoFinalBilledUpdate() {
-		return doFinalBilledUpdate;
-	}
-	public void setDoFinalBilledUpdate(boolean doFinalBilledUpdate) {
-		this.doFinalBilledUpdate = doFinalBilledUpdate;
-	}
-	public boolean isFinalBilledIndicator() {
-		return finalBilledIndicator;
-	}
-	public void setFinalBilledIndicator(boolean finalBilledIndicator) {
-		this.finalBilledIndicator = finalBilledIndicator;
-	}
+    public boolean isDoLastBillDateUpdate() {
+        return doLastBillDateUpdate;
+    }
+
+    public void setDoLastBillDateUpdate(boolean doLastBillDateUpdate) {
+        this.doLastBillDateUpdate = doLastBillDateUpdate;
+    }
+
+    public Date getLastBillDate() {
+        return lastBillDate;
+    }
+
+    public void setLastBillDate(Date lastBillDate) {
+        this.lastBillDate = lastBillDate;
+    }
+
+    public boolean isRestorePreviousBillDate() {
+        return restorePreviousBillDate;
+    }
+
+    public void setRestorePreviousBillDate(boolean restorePreviousBillDate) {
+        this.restorePreviousBillDate = restorePreviousBillDate;
+    }
+
+    public boolean isDoFinalBilledUpdate() {
+        return doFinalBilledUpdate;
+    }
+
+    public void setDoFinalBilledUpdate(boolean doFinalBilledUpdate) {
+        this.doFinalBilledUpdate = doFinalBilledUpdate;
+    }
+
+    public boolean isFinalBilledIndicator() {
+        return finalBilledIndicator;
+    }
+
+    public void setFinalBilledIndicator(boolean finalBilledIndicator) {
+        this.finalBilledIndicator = finalBilledIndicator;
+    }
 }

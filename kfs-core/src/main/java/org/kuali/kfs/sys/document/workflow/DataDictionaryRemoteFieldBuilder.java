@@ -1,29 +1,42 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.document.workflow;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.kns.datadictionary.control.CheckboxControlDefinition;
+import org.kuali.kfs.kns.datadictionary.control.HiddenControlDefinition;
+import org.kuali.kfs.kns.datadictionary.control.MultivalueControlDefinitionBase;
+import org.kuali.kfs.kns.datadictionary.control.RadioControlDefinition;
+import org.kuali.kfs.kns.datadictionary.control.SelectControlDefinition;
+import org.kuali.kfs.kns.datadictionary.control.TextControlDefinition;
+import org.kuali.kfs.kns.datadictionary.control.TextareaControlDefinition;
+import org.kuali.kfs.krad.bo.DataObjectRelationship;
+import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
+import org.kuali.kfs.krad.datadictionary.control.ControlDefinition;
+import org.kuali.kfs.krad.keyvalues.KeyValuesFinder;
+import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.krad.service.DataObjectMetaDataService;
+import org.kuali.kfs.krad.service.KRADServiceLocator;
+import org.kuali.kfs.krad.service.KRADServiceLocatorInternal;
+import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.workflow.service.WorkflowAttributePropertyResolutionService;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.data.DataType;
 import org.kuali.rice.core.api.exception.RiceRuntimeException;
@@ -37,25 +50,12 @@ import org.kuali.rice.core.api.uif.RemotableRadioButtonGroup;
 import org.kuali.rice.core.api.uif.RemotableSelect;
 import org.kuali.rice.core.api.uif.RemotableTextInput;
 import org.kuali.rice.core.api.uif.RemotableTextarea;
-import org.kuali.kfs.kns.datadictionary.control.CheckboxControlDefinition;
-import org.kuali.kfs.kns.datadictionary.control.HiddenControlDefinition;
-import org.kuali.kfs.kns.datadictionary.control.MultivalueControlDefinitionBase;
-import org.kuali.kfs.kns.datadictionary.control.RadioControlDefinition;
-import org.kuali.kfs.kns.datadictionary.control.SelectControlDefinition;
-import org.kuali.kfs.kns.datadictionary.control.TextControlDefinition;
-import org.kuali.kfs.kns.datadictionary.control.TextareaControlDefinition;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.bo.DataObjectRelationship;
-import org.kuali.kfs.krad.datadictionary.AttributeDefinition;
-import org.kuali.kfs.krad.datadictionary.control.ControlDefinition;
-import org.kuali.kfs.krad.keyvalues.KeyValuesFinder;
-import org.kuali.kfs.krad.service.DataDictionaryService;
-import org.kuali.kfs.krad.service.DataObjectMetaDataService;
-import org.kuali.kfs.krad.service.KRADServiceLocator;
-import org.kuali.kfs.krad.service.KRADServiceLocatorInternal;
-import org.kuali.kfs.krad.service.KRADServiceLocatorWeb;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.workflow.service.WorkflowAttributePropertyResolutionService;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 //RICE20 This class is a temporary fix to support KNS attribute definitions. Should be deleted when rice2.0 adds support.
 public class DataDictionaryRemoteFieldBuilder {
@@ -63,7 +63,7 @@ public class DataDictionaryRemoteFieldBuilder {
 
     /**
      * @see org.kuali.kfs.krad.service.DataDictionaryRemoteFieldService#buildRemotableFieldFromAttributeDefinition(java.lang.String,
-     *      java.lang.String)
+     * java.lang.String)
      */
     public RemotableAttributeField buildRemotableFieldFromAttributeDefinition(String componentClassName, String attributeName) {
         AttributeDefinition baseDefinition;
@@ -72,8 +72,7 @@ public class DataDictionaryRemoteFieldBuilder {
         try {
             componentClass = (Class<? extends BusinessObject>) Class.forName(componentClassName);
             baseDefinition = getDataDictionaryService().getDataDictionary().getDictionaryObjectEntry(componentClassName).getAttributeDefinition(attributeName);
-        }
-        catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex) {
             throw new RiceRuntimeException("Unable to find attribute definition for attribute : " + attributeName);
         }
 
@@ -96,9 +95,9 @@ public class DataDictionaryRemoteFieldBuilder {
         try {
             RemotableQuickFinder.Builder qf = createQuickFinder(componentClass, attributeName);
             if (qf != null) {
-                definition.setWidgets(Collections.<RemotableAbstractWidget.Builder> singletonList(qf));
+                definition.setWidgets(Collections.<RemotableAbstractWidget.Builder>singletonList(qf));
             }
-        } catch ( Exception ex ) {
+        } catch (Exception ex) {
             LOG.warn(ex);
         }
 
@@ -123,16 +122,13 @@ public class DataDictionaryRemoteFieldBuilder {
             // }
             else if (control instanceof HiddenControlDefinition) {
                 return RemotableHiddenInput.Builder.create();
-            }
-            else if (control instanceof SelectControlDefinition) {
+            } else if (control instanceof SelectControlDefinition) {
                 RemotableSelect.Builder b = RemotableSelect.Builder.create(getValues(attr));
                 b.setMultiple(((SelectControlDefinition) control).isMultiselect());
                 b.setSize(((SelectControlDefinition) control).getSize());
-            }
-            else if (control instanceof RadioControlDefinition) {
+            } else if (control instanceof RadioControlDefinition) {
                 return RemotableRadioButtonGroup.Builder.create(getValues(attr));
-            }
-            else if (control instanceof TextControlDefinition) {
+            } else if (control instanceof TextControlDefinition) {
                 final RemotableTextInput.Builder b = RemotableTextInput.Builder.create();
                 b.setSize(((TextControlDefinition) control).getSize());
                 return b;
@@ -175,14 +171,12 @@ public class DataDictionaryRemoteFieldBuilder {
             KeyValuesFinder finder;
             try {
                 finder = (KeyValuesFinder) Class.forName(valuesFinderClass).newInstance();
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 throw new RuntimeException("", ex);
             }
             Map<String, String> options = finder.getKeyLabelMap();
             return options;
-        }
-        else if (attr.getOptionsFinder() != null) {
+        } else if (attr.getOptionsFinder() != null) {
             return attr.getOptionsFinder().getKeyLabelMap();
         }
 
@@ -199,18 +193,16 @@ public class DataDictionaryRemoteFieldBuilder {
      * </p>
      *
      * @param componentClass - class that attribute belongs to and should be checked for relationships
-     * @param attributeName - name of the attribute to determine quickfinder for
+     * @param attributeName  - name of the attribute to determine quickfinder for
      * @return RemotableQuickFinder.Builder instance for the configured lookup, or null if one could not be found
      */
     protected RemotableQuickFinder.Builder createQuickFinder(Class<?> componentClass, String attributeName) {
         Object sampleComponent;
         try {
             sampleComponent = componentClass.newInstance();
-        }
-        catch (InstantiationException e) {
+        } catch (InstantiationException e) {
             throw new RiceRuntimeException(e);
-        }
-        catch (IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             throw new RiceRuntimeException(e);
         }
 
@@ -236,8 +228,7 @@ public class DataDictionaryRemoteFieldBuilder {
                     lookupParameters.put(fromField, toField);
                 }
             }
-        }
-        else {
+        } else {
             Map foreignKeysForReference = KRADServiceLocator.getPersistenceStructureService().getForeignKeysForReference(componentClass, attributeName);
             // check for title attribute and if match build lookup to component class using pk fields
             String titleAttribute = getDataObjectMetaDataService().getTitleAttribute(componentClass);

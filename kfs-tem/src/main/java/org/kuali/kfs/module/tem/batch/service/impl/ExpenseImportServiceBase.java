@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -30,14 +30,14 @@ import org.kuali.kfs.coa.service.ObjectCodeService;
 import org.kuali.kfs.coa.service.ProjectCodeService;
 import org.kuali.kfs.coa.service.SubAccountService;
 import org.kuali.kfs.coa.service.SubObjectCodeService;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants.AgencyStagingDataErrorCodes;
 import org.kuali.kfs.module.tem.businessobject.AgencyStagingData;
 import org.kuali.kfs.module.tem.businessobject.CreditCardAgency;
 import org.kuali.kfs.module.tem.service.CreditCardAgencyService;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 
 public class ExpenseImportServiceBase {
@@ -45,8 +45,8 @@ public class ExpenseImportServiceBase {
     private static Logger LOG = Logger.getLogger(ExpenseImportServiceBase.class);
 
     /**
-     *
      * This method returns true if the Account exists.
+     *
      * @param chartCode
      * @param accountNumber
      * @return
@@ -63,8 +63,8 @@ public class ExpenseImportServiceBase {
     }
 
     /**
-     *
      * This method returns true if the SubAccount exists.
+     *
      * @param chartCode
      * @param accountNumber
      * @param subAccountNumber
@@ -82,8 +82,8 @@ public class ExpenseImportServiceBase {
     }
 
     /**
-     *
      * This method returns true if the Project Code exists.
+     *
      * @param projectCode
      * @return
      */
@@ -99,8 +99,8 @@ public class ExpenseImportServiceBase {
     }
 
     /**
-     *
      * This method returns true if the Object Code exists.
+     *
      * @param chartCode
      * @param objectCode
      * @return
@@ -117,8 +117,8 @@ public class ExpenseImportServiceBase {
     }
 
     /**
-     *
      * This method returns true if the SubObject Code exists.
+     *
      * @param chartCode
      * @param accountNumber
      * @param objectCode
@@ -137,8 +137,8 @@ public class ExpenseImportServiceBase {
     }
 
     /**
-     *
      * This method returns true if the amount is null or 0.
+     *
      * @param amount
      * @return
      */
@@ -150,8 +150,8 @@ public class ExpenseImportServiceBase {
     }
 
     /**
-     *
      * This method returns the {@link ObjectCode} based on the Chart Code and Object Code
+     *
      * @param chartCode
      * @param objectCode
      * @return
@@ -172,15 +172,14 @@ public class ExpenseImportServiceBase {
 
         if (StringUtils.isNotBlank(targetValue)) {
             return targetValue;
-        }
-        else {
+        } else {
             return backupValue;
         }
     }
 
     /**
-     *
      * This method verifies that the Credit Card Agency Code is valid.
+     *
      * @param code
      * @return
      */
@@ -200,16 +199,16 @@ public class ExpenseImportServiceBase {
     }
 
     /**
-     *
      * This method verifies there is either Airfare, Lodging or Rental Car data in the Agency Data
+     *
      * @param agencyData
      * @return
      */
     public boolean isTripDataMissing(AgencyStagingData agencyData) {
 
         if (StringUtils.isEmpty(agencyData.getAirTicketNumber()) &&
-                StringUtils.isEmpty(agencyData.getLodgingItineraryNumber()) &&
-                StringUtils.isEmpty(agencyData.getRentalCarItineraryNumber())) {
+            StringUtils.isEmpty(agencyData.getLodgingItineraryNumber()) &&
+            StringUtils.isEmpty(agencyData.getRentalCarItineraryNumber())) {
 
             return true;
         }
@@ -217,8 +216,8 @@ public class ExpenseImportServiceBase {
     }
 
     /**
-     *
      * This method sets the errorCode on the {@link AgencyStagingData} if no previous errors have been encountered.
+     *
      * @param agencyData
      * @param error
      */
@@ -231,6 +230,7 @@ public class ExpenseImportServiceBase {
 
     /**
      * Gets the accountService attribute.
+     *
      * @return Returns the accountService.
      */
     public AccountService getAccountService() {
@@ -239,6 +239,7 @@ public class ExpenseImportServiceBase {
 
     /**
      * Gets the subAccountService attribute.
+     *
      * @return Returns the subAccountService.
      */
     public SubAccountService getSubAccountService() {
@@ -247,6 +248,7 @@ public class ExpenseImportServiceBase {
 
     /**
      * Gets the projectCodeService attribute.
+     *
      * @return Returns the projectCodeService.
      */
     public ProjectCodeService getProjectCodeService() {
@@ -255,6 +257,7 @@ public class ExpenseImportServiceBase {
 
     /**
      * Gets the objectCodeService attribute.
+     *
      * @return Returns the objectCodeService.
      */
     public ObjectCodeService getObjectCodeService() {
@@ -263,6 +266,7 @@ public class ExpenseImportServiceBase {
 
     /**
      * Gets the subObjectCodeService attribute.
+     *
      * @return Returns the subObjectCodeService.
      */
     public SubObjectCodeService getSubObjectCodeService() {

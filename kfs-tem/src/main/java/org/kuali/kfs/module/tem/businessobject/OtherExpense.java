@@ -1,32 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.businessobject;
 
-import java.math.BigDecimal;
-import java.sql.Date;
-
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.krad.bo.BusinessObject;
 
+import java.math.BigDecimal;
+import java.sql.Date;
+
 /**
  * Other Expense
- *
  */
 public interface OtherExpense extends BusinessObject {
 
@@ -89,18 +88,23 @@ public interface OtherExpense extends BusinessObject {
     String getSequenceName();
 
     void setAirfareSourceCode(final String airfareSourceCode);
+
     String getAirfareSourceCode();
 
     void setClassOfServiceCode(final String classOfServiceCode);
+
     String getClassOfServiceCode();
 
     void setMiles(final Integer miles);
+
     Integer getMiles();
 
     void setMileageOtherRate(BigDecimal mileageOtherRate);
+
     BigDecimal getMileageOtherRate();
 
     void setRentalCarInsurance(final Boolean rentalCarInsurance);
+
     Boolean getRentalCarInsurance();
 
     void setTaxable(final Boolean taxable);

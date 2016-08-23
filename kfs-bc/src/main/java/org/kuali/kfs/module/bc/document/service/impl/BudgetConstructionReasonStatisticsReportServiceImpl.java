@@ -1,31 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.document.service.impl;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.kfs.coa.businessobject.Chart;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.PersistenceService;
 import org.kuali.kfs.module.bc.BCConstants;
 import org.kuali.kfs.module.bc.BCKeyConstants;
 import org.kuali.kfs.module.bc.businessobject.BudgetConstructionOrgReasonStatisticsReport;
@@ -39,9 +34,14 @@ import org.kuali.kfs.module.bc.report.BudgetConstructionReportHelper;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.PersistenceService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Service implementation of BudgetConstructionAccountSummaryReportService.
@@ -58,7 +58,7 @@ public class BudgetConstructionReasonStatisticsReportServiceImpl implements Budg
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetConstructionReasonStatisticsReportService#updateReasonStatisticsReport(java.lang.String,
-     *      java.lang.Integer, org.kuali.kfs.module.bc.businessobject.BudgetConstructionReportThresholdSettings)
+     * java.lang.Integer, org.kuali.kfs.module.bc.businessobject.BudgetConstructionReportThresholdSettings)
      */
     public void updateReasonStatisticsReport(String principalName, Integer universityFiscalYear, BudgetConstructionReportThresholdSettings budgetConstructionReportThresholdSettings) {
         boolean applyAThreshold = budgetConstructionReportThresholdSettings.isUseThreshold();
@@ -66,8 +66,7 @@ public class BudgetConstructionReasonStatisticsReportServiceImpl implements Budg
         KualiDecimal thresholdPercent = budgetConstructionReportThresholdSettings.getThresholdPercent();
         if (applyAThreshold) {
             budgetConstructionReasonStatisticsReportDao.updateReasonStatisticsReportsWithAThreshold(principalName, universityFiscalYear - 1, selectOnlyGreaterThanOrEqualToThreshold, thresholdPercent);
-        }
-        else {
+        } else {
             budgetConstructionReasonStatisticsReportDao.updateReasonStatisticsReportsWithoutAThreshold(principalName, universityFiscalYear - 1);
         }
 
@@ -75,7 +74,7 @@ public class BudgetConstructionReasonStatisticsReportServiceImpl implements Budg
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetConstructionReasonStatisticsReportService#buildReports(java.lang.Integer,
-     *      java.lang.String, org.kuali.kfs.module.bc.businessobject.BudgetConstructionReportThresholdSettings)
+     * java.lang.String, org.kuali.kfs.module.bc.businessobject.BudgetConstructionReportThresholdSettings)
      */
     public Collection<BudgetConstructionOrgReasonStatisticsReport> buildReports(Integer universityFiscalYear, String principalId, BudgetConstructionReportThresholdSettings budgetConstructionReportThresholdSettings) {
         Collection<BudgetConstructionOrgReasonStatisticsReport> reportSet = new ArrayList<BudgetConstructionOrgReasonStatisticsReport>();
@@ -113,7 +112,7 @@ public class BudgetConstructionReasonStatisticsReportServiceImpl implements Budg
 
     /**
      * builds report Header
-     * 
+     *
      * @param BudgetConstructionObjectDump bcod
      */
     public void buildReportsHeader(Integer universityFiscalYear, String objectCodes, String reasonCodes, BudgetConstructionOrgReasonStatisticsReport orgReasonStatisticsReportEntry, BudgetConstructionSalaryTotal salaryTotalEntry, BudgetConstructionReportThresholdSettings budgetConstructionReportThresholdSettings) {
@@ -132,16 +131,14 @@ public class BudgetConstructionReasonStatisticsReportServiceImpl implements Budg
         orgReasonStatisticsReportEntry.setOrganizationCode(salaryTotalEntry.getOrganizationCode());
         if (orgName == null) {
             orgReasonStatisticsReportEntry.setOrganizationName(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_ORGANIZATION_NAME));
-        }
-        else {
+        } else {
             orgReasonStatisticsReportEntry.setOrganizationName(orgName);
         }
         // set ChartCode and Desc
         if (chart == null) {
             orgReasonStatisticsReportEntry.setChartOfAccountDescription(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_CHART_DESCRIPTION));
             orgReasonStatisticsReportEntry.setChartOfAccountsCode(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_CHART_DESCRIPTION));
-        }
-        else {
+        } else {
             orgReasonStatisticsReportEntry.setChartOfAccountsCode(chart.getChartOfAccountsCode());
             orgReasonStatisticsReportEntry.setChartOfAccountDescription(chart.getFinChartOfAccountDescription());
         }
@@ -151,12 +148,10 @@ public class BudgetConstructionReasonStatisticsReportServiceImpl implements Budg
         if (budgetConstructionReportThresholdSettings.isUseThreshold()) {
             if (budgetConstructionReportThresholdSettings.isUseGreaterThanOperator()) {
                 orgReasonStatisticsReportEntry.setThresholdOrReason(BCConstants.Report.THRESHOLD + BCConstants.Report.THRESHOLD_GREATER + budgetConstructionReportThresholdSettings.getThresholdPercent().toString() + BCConstants.Report.PERCENT);
-            }
-            else {
+            } else {
                 orgReasonStatisticsReportEntry.setThresholdOrReason(BCConstants.Report.THRESHOLD + BCConstants.Report.THRESHOLD_LESS + budgetConstructionReportThresholdSettings.getThresholdPercent().toString() + BCConstants.Report.PERCENT);
             }
-        }
-        else {
+        } else {
             orgReasonStatisticsReportEntry.setThresholdOrReason(BCConstants.Report.SELECTED_REASONS + reasonCodes);
         }
 
@@ -171,7 +166,7 @@ public class BudgetConstructionReasonStatisticsReportServiceImpl implements Budg
 
         BigDecimal requestedFteQuantity = salaryTotalEntry.getAppointmentRequestedFteQuantity().setScale(5, BigDecimal.ROUND_HALF_UP);
         orgReasonStatisticsReportEntry.setAppointmentRequestedFteQuantity(requestedFteQuantity);
-        
+
         orgReasonStatisticsReportEntry.setTotalCsfAmount(BudgetConstructionReportHelper.convertKualiInteger(salaryTotalEntry.getCsfAmount()));
         orgReasonStatisticsReportEntry.setTotalAppointmentRequestedAmount(BudgetConstructionReportHelper.convertKualiInteger(salaryTotalEntry.getAppointmentRequestedAmount()));
 
@@ -190,7 +185,7 @@ public class BudgetConstructionReasonStatisticsReportServiceImpl implements Budg
 
     /**
      * builds orderByList for sort order.
-     * 
+     *
      * @return returnList
      */
     public List<String> buildOrderByList() {
@@ -203,7 +198,7 @@ public class BudgetConstructionReasonStatisticsReportServiceImpl implements Budg
 
     /**
      * Sets the budgetConstructionReasonStatisticsReportDao attribute value.
-     * 
+     *
      * @param budgetConstructionReasonStatisticsReportDao The budgetConstructionReasonStatisticsReportDao to set.
      */
     public void setBudgetConstructionReasonStatisticsReportDao(BudgetConstructionReasonStatisticsReportDao budgetConstructionReasonStatisticsReportDao) {
@@ -212,7 +207,7 @@ public class BudgetConstructionReasonStatisticsReportServiceImpl implements Budg
 
     /**
      * Sets the budgetConstructionOrganizationReportsService attribute value.
-     * 
+     *
      * @param budgetConstructionOrganizationReportsService The budgetConstructionOrganizationReportsService to set.
      */
     public void setBudgetConstructionOrganizationReportsService(BudgetConstructionOrganizationReportsService budgetConstructionOrganizationReportsService) {
@@ -221,7 +216,7 @@ public class BudgetConstructionReasonStatisticsReportServiceImpl implements Budg
 
     /**
      * Sets the kualiConfigurationService attribute value.
-     * 
+     *
      * @param kualiConfigurationService The kualiConfigurationService to set.
      */
     public void setConfigurationService(ConfigurationService kualiConfigurationService) {
@@ -230,7 +225,7 @@ public class BudgetConstructionReasonStatisticsReportServiceImpl implements Budg
 
     /**
      * Sets the businessObjectService attribute value.
-     * 
+     *
      * @param businessObjectService The businessObjectService to set.
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
@@ -239,7 +234,7 @@ public class BudgetConstructionReasonStatisticsReportServiceImpl implements Budg
 
     /**
      * Sets the budgetConstructionReportsServiceHelper attribute value.
-     * 
+     *
      * @param budgetConstructionReportsServiceHelper The budgetConstructionReportsServiceHelper to set.
      */
     public void setBudgetConstructionReportsServiceHelper(BudgetConstructionReportsServiceHelper budgetConstructionReportsServiceHelper) {
@@ -248,17 +243,17 @@ public class BudgetConstructionReasonStatisticsReportServiceImpl implements Budg
 
     /**
      * Gets the persistenceServiceOjb attribute.
-     * 
+     *
      * @return Returns the persistenceServiceOjb
      */
-    
+
     public PersistenceService getPersistenceServiceOjb() {
         return persistenceServiceOjb;
     }
 
-    /**	
+    /**
      * Sets the persistenceServiceOjb attribute.
-     * 
+     *
      * @param persistenceServiceOjb The persistenceServiceOjb to set.
      */
     public void setPersistenceServiceOjb(PersistenceService persistenceServiceOjb) {

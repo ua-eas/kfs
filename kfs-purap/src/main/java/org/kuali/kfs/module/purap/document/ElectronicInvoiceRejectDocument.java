@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,17 +18,13 @@
  */
 package org.kuali.kfs.module.purap.document;
 
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.text.MessageFormat;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.document.SessionDocument;
+import org.kuali.kfs.krad.util.NoteType;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapParameterConstants;
 import org.kuali.kfs.module.purap.businessobject.ElectronicInvoice;
 import org.kuali.kfs.module.purap.businessobject.ElectronicInvoiceContact;
@@ -54,15 +50,18 @@ import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.kfs.vnd.document.service.VendorService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.document.SessionDocument;
-import org.kuali.kfs.krad.util.NoteType;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
-public class ElectronicInvoiceRejectDocument extends FinancialSystemTransactionalDocumentBase implements SessionDocument
-{
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.text.MessageFormat;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+
+public class ElectronicInvoiceRejectDocument extends FinancialSystemTransactionalDocumentBase implements SessionDocument {
     protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ElectronicInvoiceRejectDocument.class);
     protected static BigDecimal zero = new BigDecimal(0);
 
@@ -281,16 +280,14 @@ public class ElectronicInvoiceRejectDocument extends FinancialSystemTransactiona
         try {
             this.invoiceItemSubTotalAmount = ei.getInvoiceSubTotalAmount(eio);
             this.invoiceItemSubTotalCurrencyCode = ei.getInvoiceSubTotalCurrencyIfNotValid(eio);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             this.invoiceItemSubTotalAmount = null;
             this.invoiceItemSubTotalCurrencyCode = "INVALID Amount";
         }
         try {
             this.invoiceItemSpecialHandlingAmount = ei.getInvoiceSpecialHandlingAmount(eio);
             this.invoiceItemSpecialHandlingCurrencyCode = ei.getInvoiceSpecialHandlingCurrencyIfNotValid(eio);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             this.invoiceItemSpecialHandlingAmount = null;
             this.invoiceItemSpecialHandlingCurrencyCode = "INVALID AMOUNT";
         }
@@ -298,8 +295,7 @@ public class ElectronicInvoiceRejectDocument extends FinancialSystemTransactiona
         try {
             this.invoiceItemShippingAmount = ei.getInvoiceShippingAmount(eio);
             this.invoiceItemShippingCurrencyCode = ei.getInvoiceShippingCurrencyIfNotValid(eio);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             this.invoiceItemShippingAmount = null;
             this.invoiceItemShippingCurrencyCode = "INVALID AMOUNT";
         }
@@ -307,8 +303,7 @@ public class ElectronicInvoiceRejectDocument extends FinancialSystemTransactiona
         try {
             this.invoiceItemTaxAmount = ei.getInvoiceTaxAmount(eio);
             this.invoiceItemTaxCurrencyCode = ei.getInvoiceTaxCurrencyIfNotValid(eio);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             this.invoiceItemTaxAmount = null;
             this.invoiceItemTaxCurrencyCode = "INVALID AMOUNT";
         }
@@ -316,24 +311,21 @@ public class ElectronicInvoiceRejectDocument extends FinancialSystemTransactiona
         try {
             this.invoiceItemGrossAmount = ei.getInvoiceGrossAmount(eio);
             this.invoiceItemGrossCurrencyCode = ei.getInvoiceGrossCurrencyIfNotValid(eio);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             this.invoiceItemGrossAmount = null;
             this.invoiceItemGrossCurrencyCode = "INVALID AMOUNT";
         }
         try {
             this.invoiceItemDiscountAmount = ei.getInvoiceDiscountAmount(eio);
             this.invoiceItemDiscountCurrencyCode = ei.getInvoiceDiscountCurrencyIfNotValid(eio);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             this.invoiceItemDiscountAmount = null;
             this.invoiceItemDiscountCurrencyCode = "INVALID AMOUNT";
         }
         try {
             this.invoiceItemNetAmount = ei.getInvoiceNetAmount(eio);
             this.invoiceItemNetCurrencyCode = ei.getInvoiceNetCurrencyIfNotValid(eio);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             this.invoiceItemNetAmount = null;
             this.invoiceItemNetCurrencyCode = "INVALID AMOUNT";
         }
@@ -380,7 +372,7 @@ public class ElectronicInvoiceRejectDocument extends FinancialSystemTransactiona
         String vendorName = vendorDetail == null || StringUtils.isEmpty(vendorDetail.getVendorName()) ? "UNKNOWN" : vendorDetail.getVendorName();
 
         //set title to: Vendor: <Vendor's Name> PO: <PO#> <Research Indicator>
-        String documentTitle = "Vendor: " + vendorName + " PO: " + poID +  " " + researchInd;
+        String documentTitle = "Vendor: " + vendorName + " PO: " + poID + " " + researchInd;
         return documentTitle;
     }
 
@@ -391,8 +383,8 @@ public class ElectronicInvoiceRejectDocument extends FinancialSystemTransactiona
      * @return the combine information of the given title and additional payment indicators
      */
     protected String buildDocumentTitle(String title) {
-        if(this.getVendorDetail() == null) {
-           return title;
+        if (this.getVendorDetail() == null) {
+            return title;
         }
 
         Integer vendorHeaderGeneratedIdentifier = this.getVendorDetail().getVendorHeaderGeneratedIdentifier();
@@ -407,8 +399,8 @@ public class ElectronicInvoiceRejectDocument extends FinancialSystemTransactiona
             boolean isVendorForeign = vendorService.isVendorForeign(vendorHeaderGeneratedIdentifier);
             indicators[1] = isVendorForeign ? AdHocPaymentIndicator.ALIEN_VENDOR : AdHocPaymentIndicator.OTHER;
 
-            for(Object indicator : indicators) {
-                if(!AdHocPaymentIndicator.OTHER.equals(indicator)) {
+            for (Object indicator : indicators) {
+                if (!AdHocPaymentIndicator.OTHER.equals(indicator)) {
                     String titlePattern = title + " [{0}:{1}]";
                     return MessageFormat.format(titlePattern, indicators);
                 }
@@ -423,8 +415,7 @@ public class ElectronicInvoiceRejectDocument extends FinancialSystemTransactiona
             for (ElectronicInvoicePostalAddress cpa : contact.getPostalAddresses()) {
                 if (addressName == null) {
                     return cpa;
-                }
-                else {
+                } else {
                     if (addressName.equalsIgnoreCase(cpa.getName())) {
                         return cpa;
                     }
@@ -452,8 +443,7 @@ public class ElectronicInvoiceRejectDocument extends FinancialSystemTransactiona
                 LOG.debug("getTotalAmount() returning amount " + returnValue.doubleValue());
             }
             return returnValue;
-        }
-        catch (NumberFormatException n) {
+        } catch (NumberFormatException n) {
             // do nothing this is already rejected
             LOG.error("getTotalAmount() Error attempting to calculate total amount for invoice with filename " + this.invoiceFileName);
             return new KualiDecimal(zero);
@@ -494,8 +484,7 @@ public class ElectronicInvoiceRejectDocument extends FinancialSystemTransactiona
                 LOG.debug("getGrandTotalAmount() returning amount " + returnValue.doubleValue());
             }
             return returnValue;
-        }
-        catch (NumberFormatException n) {
+        } catch (NumberFormatException n) {
             // do nothing this is already rejected
             LOG.error("getTotalAmount() Error attempting to calculate total amount for invoice with filename " + this.invoiceFileName);
             return new KualiDecimal(zero);
@@ -523,11 +512,11 @@ public class ElectronicInvoiceRejectDocument extends FinancialSystemTransactiona
     public PurchaseOrderDocument getCurrentPurchaseOrderDocument() {
 
         if (StringUtils.isEmpty(getInvoicePurchaseOrderNumber()) ||
-            !NumberUtils.isDigits(getInvoicePurchaseOrderNumber())){
+            !NumberUtils.isDigits(getInvoicePurchaseOrderNumber())) {
             currentPurchaseOrderDocument = null;
-        }else if (currentPurchaseOrderDocument == null) {
+        } else if (currentPurchaseOrderDocument == null) {
             currentPurchaseOrderDocument = SpringContext.getBean(PurchaseOrderService.class).getCurrentPurchaseOrder(new Integer(getInvoicePurchaseOrderNumber()));
-        }else if (!StringUtils.equals(getInvoicePurchaseOrderNumber(), currentPurchaseOrderDocument.getPurapDocumentIdentifier().toString())){
+        } else if (!StringUtils.equals(getInvoicePurchaseOrderNumber(), currentPurchaseOrderDocument.getPurapDocumentIdentifier().toString())) {
             currentPurchaseOrderDocument = SpringContext.getBean(PurchaseOrderService.class).getCurrentPurchaseOrder(new Integer(getInvoicePurchaseOrderNumber()));
         }
 
@@ -755,6 +744,7 @@ public class ElectronicInvoiceRejectDocument extends FinancialSystemTransactiona
 
     /**
      * Gets the paymentRequestIdentifier attribute.
+     *
      * @return Returns the paymentRequestIdentifier.
      */
     public Integer getPaymentRequestIdentifier() {
@@ -763,6 +753,7 @@ public class ElectronicInvoiceRejectDocument extends FinancialSystemTransactiona
 
     /**
      * Sets the paymentRequestIdentifier attribute value.
+     *
      * @param paymentRequestIdentifier The paymentRequestIdentifier to set.
      */
     public void setPaymentRequestIdentifier(Integer paymentRequestIdentifier) {
@@ -1001,14 +992,12 @@ public class ElectronicInvoiceRejectDocument extends FinancialSystemTransactiona
                     LOG.debug("getTotalAmount() returning amount " + returnValue.doubleValue());
                 }
                 return returnValue;
-            }
-            catch (NumberFormatException n) {
+            } catch (NumberFormatException n) {
                 // do nothing this is already rejected
                 LOG.error("getTotalAmount() Error attempting to calculate total amount for invoice with filename " + this.invoiceFileName);
                 return zero;
             }
-        }
-        else {
+        } else {
             return invoiceItemDiscountAmount;
         }
     }
@@ -1234,14 +1223,12 @@ public class ElectronicInvoiceRejectDocument extends FinancialSystemTransactiona
                     LOG.debug("getTotalAmount() returning amount " + returnValue.doubleValue());
                 }
                 return returnValue;
-            }
-            catch (NumberFormatException n) {
+            } catch (NumberFormatException n) {
                 // do nothing this is already rejected
                 LOG.error("getTotalAmount() Error attempting to calculate total amount for invoice with filename " + this.invoiceFileName);
                 return zero;
             }
-        }
-        else {
+        } else {
             return invoiceItemShippingAmount;
         }
     }
@@ -1299,14 +1286,12 @@ public class ElectronicInvoiceRejectDocument extends FinancialSystemTransactiona
                     LOG.debug("getTotalAmount() returning amount " + returnValue.doubleValue());
                 }
                 return returnValue;
-            }
-            catch (NumberFormatException n) {
+            } catch (NumberFormatException n) {
                 // do nothing this is already rejected
                 LOG.error("getTotalAmount() Error attempting to calculate total amount for invoice with filename " + this.invoiceFileName);
                 return zero;
             }
-        }
-        else {
+        } else {
             return invoiceItemSpecialHandlingAmount;
         }
     }
@@ -1384,7 +1369,7 @@ public class ElectronicInvoiceRejectDocument extends FinancialSystemTransactiona
 
         try {
             //if sales tax enabled, calculate total by totaling items
-            if(enableSalesTaxInd){
+            if (enableSalesTaxInd) {
                 for (ElectronicInvoiceRejectItem eiri : this.invoiceRejectItems) {
                     BigDecimal toAddAmount = eiri.getInvoiceItemTaxAmount();
                     if (LOG.isDebugEnabled()) {
@@ -1392,7 +1377,7 @@ public class ElectronicInvoiceRejectDocument extends FinancialSystemTransactiona
                     }
                     returnValue = returnValue.add(toAddAmount);
                 }
-            }else{ //else take the total, which should be the summary tax total
+            } else { //else take the total, which should be the summary tax total
                 returnValue = returnValue.add(this.invoiceItemTaxAmount);
             }
 
@@ -1400,8 +1385,7 @@ public class ElectronicInvoiceRejectDocument extends FinancialSystemTransactiona
                 LOG.debug("getTotalAmount() returning amount " + returnValue.doubleValue());
             }
             return returnValue;
-        }
-        catch (NumberFormatException n) {
+        } catch (NumberFormatException n) {
             // do nothing this is already rejected
             LOG.error("getTotalAmount() Error attempting to calculate total amount for invoice with filename " + this.invoiceFileName);
             return zero;
@@ -1509,7 +1493,7 @@ public class ElectronicInvoiceRejectDocument extends FinancialSystemTransactiona
 
     /**
      * @param invoiceOrderReferenceDocumentReferencePayloadIdentifier The invoiceOrderReferenceDocumentReferencePayloadIdentifier to
-     *        set.
+     *                                                                set.
      */
     public void setInvoiceOrderReferenceDocumentReferencePayloadIdentifier(String referenceDocumentRefPayloadId) {
         this.invoiceOrderReferenceDocumentReferencePayloadIdentifier = referenceDocumentRefPayloadId;
@@ -1938,16 +1922,14 @@ public class ElectronicInvoiceRejectDocument extends FinancialSystemTransactiona
     public String getVendorNumber() {
         if (StringUtils.isNotEmpty(vendorNumber)) {
             return vendorNumber;
-        }
-        else if (ObjectUtils.isNotNull(vendorDetail)) {
+        } else if (ObjectUtils.isNotNull(vendorDetail)) {
             return vendorDetail.getVendorNumber();
-        } else if (getVendorHeaderGeneratedIdentifier() != null && getVendorDetailAssignedIdentifier() != null){
+        } else if (getVendorHeaderGeneratedIdentifier() != null && getVendorDetailAssignedIdentifier() != null) {
             VendorDetail vendorDetail = new VendorDetail();
             vendorDetail.setVendorHeaderGeneratedIdentifier(getVendorHeaderGeneratedIdentifier());
             vendorDetail.setVendorDetailAssignedIdentifier(getVendorDetailAssignedIdentifier());
             return vendorDetail.getVendorNumber();
-        }
-        else {
+        } else {
             return "";
         }
     }
@@ -2000,15 +1982,15 @@ public class ElectronicInvoiceRejectDocument extends FinancialSystemTransactiona
         return invoiceResearchIndicator;
     }
 
-    public String getInvoiceResearchIndicatorForResult(){
-        if (isInvoiceResearchIndicator()){
+    public String getInvoiceResearchIndicatorForResult() {
+        if (isInvoiceResearchIndicator()) {
             return "Yes";
-        }else{
+        } else {
             return "No";
         }
     }
 
-    public String getPurchaseOrderDeliveryCampusCodeForSearch(){
+    public String getPurchaseOrderDeliveryCampusCodeForSearch() {
         return getPurchaseOrderDeliveryCampusCode();
     }
 
@@ -2016,13 +1998,12 @@ public class ElectronicInvoiceRejectDocument extends FinancialSystemTransactiona
         return purchaseOrderDeliveryCampus;
     }
 
-    public Date getAccountsPayableApprovalDateForSearch(){
-        if (getAccountsPayableApprovalTimestamp() != null){
+    public Date getAccountsPayableApprovalDateForSearch() {
+        if (getAccountsPayableApprovalTimestamp() != null) {
             DateTimeService dateTimeService = SpringContext.getBean(DateTimeService.class);
             try {
                 return dateTimeService.convertToSqlDate(getAccountsPayableApprovalTimestamp());
-            }
-            catch (ParseException e) {
+            } catch (ParseException e) {
                 throw new RuntimeException("ParseException thrown when trying to convert Timestamp to sqlDate.", e);
             }
         }
@@ -2031,9 +2012,9 @@ public class ElectronicInvoiceRejectDocument extends FinancialSystemTransactiona
 
     public Timestamp getInvoiceFileTimeStampForSearch() {
         Date invoiceDate = ElectronicInvoiceUtils.getDate(getInvoiceFileDate());
-        if (invoiceDate != null){
+        if (invoiceDate != null) {
             return new Timestamp(invoiceDate.getTime());
-        }else{
+        } else {
             return null;
         }
     }
@@ -2042,13 +2023,14 @@ public class ElectronicInvoiceRejectDocument extends FinancialSystemTransactiona
         //Not needed
     }
 
-    public String getWorkflowStatusForResult(){
+    public String getWorkflowStatusForResult() {
         return PurapSearchUtils.getWorkFlowStatusString(getDocumentHeader());
     }
 
     /**
      * Checks whether the related purchase order views need a warning to be displayed,
      * i.e. if at least one of the purchase orders has never been opened.
+     *
      * @return true if at least one related purchase order needs a warning; false otherwise
      */
     public boolean getNeedWarningRelatedPOs() {
@@ -2068,10 +2050,10 @@ public class ElectronicInvoiceRejectDocument extends FinancialSystemTransactiona
     public void doRouteStatusChange(DocumentRouteStatusChange statusChangeEvent) {
         LOG.debug("doRouteStatusChange() started");
         super.doRouteStatusChange(statusChangeEvent);
-        if (this.getFinancialSystemDocumentHeader().getWorkflowDocument().isApproved()){
+        if (this.getFinancialSystemDocumentHeader().getWorkflowDocument().isApproved()) {
             //Set the current date as approval timestamp
             this.setAccountsPayableApprovalTimestamp(SpringContext.getBean(DateTimeService.class).getCurrentTimestamp());
-           }
+        }
 
     }
 
@@ -2082,7 +2064,7 @@ public class ElectronicInvoiceRejectDocument extends FinancialSystemTransactiona
     public List getNotes() {
         List notes = super.getNotes();
         if (!StringUtils.isBlank(this.getObjectId())) {
-            for (Iterator iterator = notes.iterator(); iterator.hasNext();) {
+            for (Iterator iterator = notes.iterator(); iterator.hasNext(); ) {
                 Note note = (Note) iterator.next();
                 if (!StringUtils.isBlank(note.getObjectId())) {
                     note.refresh();

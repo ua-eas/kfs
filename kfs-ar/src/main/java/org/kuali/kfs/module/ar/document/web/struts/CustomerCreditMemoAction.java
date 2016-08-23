@@ -1,35 +1,32 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.document.web.struts;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.nio.file.Files;
-import java.util.List;
-import java.util.Properties;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.kns.web.struts.action.KualiTransactionalDocumentActionBase;
+import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
+import org.kuali.kfs.krad.service.DocumentService;
+import org.kuali.kfs.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.CustomerCreditMemoDetail;
@@ -47,12 +44,14 @@ import org.kuali.kfs.sys.util.KfsWebUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.kns.web.struts.action.KualiTransactionalDocumentActionBase;
-import org.kuali.kfs.kns.web.struts.form.KualiDocumentFormBase;
-import org.kuali.kfs.krad.service.DocumentService;
-import org.kuali.kfs.krad.service.KualiRuleService;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.nio.file.Files;
+import java.util.List;
+import java.util.Properties;
 
 public class CustomerCreditMemoAction extends KualiTransactionalDocumentActionBase {
 
@@ -82,19 +81,19 @@ public class CustomerCreditMemoAction extends KualiTransactionalDocumentActionBa
      */
     @Override
     protected void loadDocument(KualiDocumentFormBase kualiDocumentFormBase) throws WorkflowException {
-       super.loadDocument(kualiDocumentFormBase);
-       ((CustomerCreditMemoDocument)kualiDocumentFormBase.getDocument()).populateCustomerCreditMemoDetailsAfterLoad();
+        super.loadDocument(kualiDocumentFormBase);
+        ((CustomerCreditMemoDocument) kualiDocumentFormBase.getDocument()).populateCustomerCreditMemoDetailsAfterLoad();
     }
 
     /**
      * Clears out init tab.
      *
-     * @param mapping An ActionMapping
-     * @param form An ActionForm
-     * @param request The HttpServletRequest
+     * @param mapping  An ActionMapping
+     * @param form     An ActionForm
+     * @param request  The HttpServletRequest
      * @param response The HttpServletResponse
-     * @throws Exception
      * @return An ActionForward
+     * @throws Exception
      */
     public ActionForward clearInitTab(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -109,12 +108,12 @@ public class CustomerCreditMemoAction extends KualiTransactionalDocumentActionBa
      * Handles continue request. This request comes from the initial screen which gives ref. invoice number.
      * Based on that, the customer credit memo is initially populated.
      *
-     * @param mapping An ActionMapping
-     * @param form An ActionForm
-     * @param request The HttpServletRequest
+     * @param mapping  An ActionMapping
+     * @param form     An ActionForm
+     * @param request  The HttpServletRequest
      * @param response The HttpServletResponse
-     * @throws Exception
      * @return An ActionForward
+     * @throws Exception
      */
     public ActionForward continueCreditMemo(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -122,7 +121,7 @@ public class CustomerCreditMemoAction extends KualiTransactionalDocumentActionBa
         CustomerCreditMemoDocument customerCreditMemoDocument = (CustomerCreditMemoDocument) customerCreditMemoForm.getDocument();
 
         String errorPath = KFSConstants.DOCUMENT_PROPERTY_NAME;
-        boolean rulePassed = SpringContext.getBean(KualiRuleService.class).applyRules(new ContinueCustomerCreditMemoDocumentEvent(errorPath,customerCreditMemoDocument));
+        boolean rulePassed = SpringContext.getBean(KualiRuleService.class).applyRules(new ContinueCustomerCreditMemoDocumentEvent(errorPath, customerCreditMemoDocument));
         if (rulePassed) {
             customerCreditMemoDocument.populateCustomerCreditMemoDetails();
         }
@@ -133,8 +132,8 @@ public class CustomerCreditMemoAction extends KualiTransactionalDocumentActionBa
     /**
      * Based on user input this method recalculates a customer credit memo detail
      *
-     * @param mapping action mapping
-     * @param form action form
+     * @param mapping  action mapping
+     * @param form     action form
      * @param request
      * @param response
      * @return action forward
@@ -153,7 +152,7 @@ public class CustomerCreditMemoAction extends KualiTransactionalDocumentActionBa
         boolean rulePassed = SpringContext.getBean(KualiRuleService.class).applyRules(new RecalculateCustomerCreditMemoDetailEvent(errorPath, customerCreditMemoDocument, customerCreditMemoDetail));
         if (rulePassed) {
             CustomerCreditMemoDetailService customerCreditMemoDetailService = SpringContext.getBean(CustomerCreditMemoDetailService.class);
-            customerCreditMemoDetailService.recalculateCustomerCreditMemoDetail(customerCreditMemoDetail,customerCreditMemoDocument);
+            customerCreditMemoDetailService.recalculateCustomerCreditMemoDetail(customerCreditMemoDetail, customerCreditMemoDocument);
         } else {
             customerCreditMemoDocument.recalculateTotals(customerCreditMemoDetail);
         }
@@ -163,8 +162,8 @@ public class CustomerCreditMemoAction extends KualiTransactionalDocumentActionBa
     /**
      * This method refreshes a customer credit memo detail
      *
-     * @param mapping action mapping
-     * @param form action form
+     * @param mapping  action mapping
+     * @param form     action form
      * @param request
      * @param response
      * @return action forward
@@ -173,7 +172,7 @@ public class CustomerCreditMemoAction extends KualiTransactionalDocumentActionBa
     public ActionForward refreshCustomerCreditMemoDetail(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         CustomerCreditMemoForm customerCreditMemoDocForm = (CustomerCreditMemoForm) form;
-        CustomerCreditMemoDocument customerCreditMemoDocument = (CustomerCreditMemoDocument)customerCreditMemoDocForm.getDocument();
+        CustomerCreditMemoDocument customerCreditMemoDocument = (CustomerCreditMemoDocument) customerCreditMemoDocForm.getDocument();
         int indexOfLineToRefresh = getSelectedLine(request);
 
         CustomerCreditMemoDetail customerCreditMemoDetail = customerCreditMemoDocument.getCreditMemoDetails().get(indexOfLineToRefresh);
@@ -191,8 +190,8 @@ public class CustomerCreditMemoAction extends KualiTransactionalDocumentActionBa
     /**
      * This method refreshes customer credit memo details and line with totals
      *
-     * @param mapping action mapping
-     * @param form action form
+     * @param mapping  action mapping
+     * @param form     action form
      * @param request
      * @param response
      * @return action forward
@@ -200,10 +199,10 @@ public class CustomerCreditMemoAction extends KualiTransactionalDocumentActionBa
      */
     public ActionForward refreshCustomerCreditMemoDocument(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         CustomerCreditMemoForm customerCreditMemoDocForm = (CustomerCreditMemoForm) form;
-        CustomerCreditMemoDocument customerCreditMemoDocument = (CustomerCreditMemoDocument)customerCreditMemoDocForm.getDocument();
+        CustomerCreditMemoDocument customerCreditMemoDocument = (CustomerCreditMemoDocument) customerCreditMemoDocForm.getDocument();
 
         List<CustomerCreditMemoDetail> customerCreditMemoDetails = customerCreditMemoDocument.getCreditMemoDetails();
-        for( CustomerCreditMemoDetail customerCreditMemoDetail : customerCreditMemoDetails ){
+        for (CustomerCreditMemoDetail customerCreditMemoDetail : customerCreditMemoDetails) {
             customerCreditMemoDetail.setCreditMemoItemQuantity(null);
             customerCreditMemoDetail.setCreditMemoItemTotalAmount(null);
             customerCreditMemoDetail.setCreditMemoItemTaxAmount(KualiDecimal.ZERO);
@@ -220,8 +219,8 @@ public class CustomerCreditMemoAction extends KualiTransactionalDocumentActionBa
     /**
      * Based on user input this method recalculates customer credit memo document <=> all customer credit memo details
      *
-     * @param mapping action mapping
-     * @param form action form
+     * @param mapping  action mapping
+     * @param form     action form
      * @param request
      * @param response
      * @return action forward
@@ -233,17 +232,17 @@ public class CustomerCreditMemoAction extends KualiTransactionalDocumentActionBa
         CustomerCreditMemoDocument customerCreditMemoDocument = (CustomerCreditMemoDocument) customerCreditMemoForm.getDocument();
 
         String errorPath = KFSConstants.DOCUMENT_PROPERTY_NAME;
-        boolean rulePassed = SpringContext.getBean(KualiRuleService.class).applyRules(new RecalculateCustomerCreditMemoDocumentEvent(errorPath,customerCreditMemoDocument,false));
+        boolean rulePassed = SpringContext.getBean(KualiRuleService.class).applyRules(new RecalculateCustomerCreditMemoDocumentEvent(errorPath, customerCreditMemoDocument, false));
         if (rulePassed) {
             CustomerCreditMemoDocumentService customerCreditMemoDocumentService = SpringContext.getBean(CustomerCreditMemoDocumentService.class);
-            customerCreditMemoDocumentService.recalculateCustomerCreditMemoDocument(customerCreditMemoDocument,false);
+            customerCreditMemoDocumentService.recalculateCustomerCreditMemoDocument(customerCreditMemoDocument, false);
         }
         return mapping.findForward(KFSConstants.MAPPING_BASIC);
     }
 
     /**
-     *
      * This method...
+     *
      * @param mapping
      * @param form
      * @param request
@@ -303,8 +302,8 @@ public class CustomerCreditMemoAction extends KualiTransactionalDocumentActionBa
     /**
      * Creates a URL to be used in printing the customer credit memo.
      *
-     * @param basePath String: The base path of the current URL
-     * @param docId String: The document ID of the document to be printed
+     * @param basePath     String: The base path of the current URL
+     * @param docId        String: The document ID of the document to be printed
      * @param methodToCall String: The name of the method that will be invoked to do this particular print
      * @return The URL
      */

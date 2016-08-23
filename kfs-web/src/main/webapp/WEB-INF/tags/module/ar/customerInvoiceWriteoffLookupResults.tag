@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -37,7 +37,7 @@
 	<input type="hidden" name="${Constants.TableRenderConstants.PREVIOUSLY_SORTED_COLUMN_INDEX_PARAM}" value="${KualiForm.columnToSortIndex}"/>
 	${kfunc:registerEditableProperty(KualiForm, Constants.MULTIPLE_VALUE_LOOKUP_PREVIOUSLY_SELECTED_OBJ_IDS_PARAM)}
 	${kfunc:registerEditableProperty(KualiForm, Constants.TableRenderConstants.PREVIOUSLY_SORTED_COLUMN_INDEX_PARAM)}
-	
+
 	<p>
 		<html:submit alt="Select all rows" title="Select all rows" styleClass="btn btn-default" property="methodToCall.selectAll.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x" value="Select All"/>
 		<html:submit alt="Unselect all rows" title="Unselect all rows" styleClass="btn btn-default" property="methodToCall.unselectAll.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x" value="Unselect All"/>
@@ -45,7 +45,7 @@
 	</p>
 
 	<c:set var="numOfColumns" value="${fn:length(resultsList[0].columns)}" />
-          
+
 	<table class="datatable-100" cellspacing="1" id="row">
 		<thead>
 			<tr>
@@ -73,10 +73,10 @@
 						<c:if test="${!empty column.propertyURL}">
 							<a href="<c:out value="${column.propertyURL}"/>" target="blank">
 						</c:if>
-						
+
 						<c:out value="${fn:substring(column.propertyValue, 0, column.maxLength)}"/>
 						<c:if test="${column.maxLength gt 0 && fn:length(column.propertyValue) gt column.maxLength}">...</c:if>
-						
+
 						<c:if test="${!empty column.propertyURL}"></a></c:if>
 					</td>
 				</c:forEach>
@@ -84,7 +84,7 @@
 				<ar:customerInvoiceResults subResultRows="${row.subResultRows}"/>
 		</c:forEach>
 	</table>
-	
+
 	<p>
 		<html:submit alt="Select all rows" title="Select all rows" styleClass="btn btn-default" property="methodToCall.selectAll.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x" value="Select All"/>
 		<html:submit alt="Unselect all rows" title="Unselect all rows" styleClass="btn btn-default" property="methodToCall.unselectAll.${Constants.METHOD_TO_CALL_PARM12_LEFT_DEL}${KualiForm.searchUsingOnlyPrimaryKeyValues}${Constants.METHOD_TO_CALL_PARM12_RIGHT_DEL}.x" value="Unselect All"/>

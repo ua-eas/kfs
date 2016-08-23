@@ -1,25 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.document;
-
-import java.sql.Date;
-import java.util.List;
 
 import org.kuali.kfs.coa.businessobject.Account;
 import org.kuali.kfs.coa.businessobject.Chart;
@@ -45,6 +42,9 @@ import org.kuali.kfs.vnd.businessobject.VendorContract;
 import org.kuali.kfs.vnd.businessobject.VendorDetail;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 
+import java.sql.Date;
+import java.util.List;
+
 
 /**
  * Interface for Purchasing Documents.
@@ -53,7 +53,7 @@ public interface PurchasingDocument extends PurchasingAccountsPayableDocument {
 
     /**
      * Gets the appropriate <code>{@link ItemParser}</code> for the <code>PurchasingDocument</code>
-     * 
+     *
      * @return an ItemParser instance
      */
     public ItemParser getItemParser();
@@ -207,7 +207,7 @@ public interface PurchasingDocument extends PurchasingAccountsPayableDocument {
     public void setDeliveryPostalCode(String deliveryPostalCode);
 
     public String getDeliveryCountryCode();
-    
+
     public String getDeliveryCountryName();
 
     public void setDeliveryCountryCode(String deliveryCountryCode);
@@ -281,7 +281,7 @@ public interface PurchasingDocument extends PurchasingAccountsPayableDocument {
     public void setBillingCountryCode(String billingCountryCode);
 
     public String getBillingCountryName();
-    
+
     public String getBillingPhoneNumber();
 
     public void setBillingPhoneNumber(String receivingPhoneNumber);
@@ -429,7 +429,7 @@ public interface PurchasingDocument extends PurchasingAccountsPayableDocument {
     public void setVendorShippingTitleCode(String vendorShippingTitleCode);
 
     public boolean isDeliveryBuildingOtherIndicator();
-    
+
     public void setDeliveryBuildingOtherIndicator(boolean deliveryBuildingOtherIndicator);
 
     public List<PurApItem> getItems();
@@ -458,51 +458,51 @@ public interface PurchasingDocument extends PurchasingAccountsPayableDocument {
 
     /**
      * Sets vendor detail fields based on the specified Vendor Detail.
-     * 
+     *
      * @param vendorDetail the specified Vendor Detail.
      */
     public void templateVendorDetail(VendorDetail vendorDetail);
 
     /**
      * Sets vendor contract fields based on the specified Vendor Contract.
-     * 
+     *
      * @param vendorContract the specified Vendor Contract.
-     */     
+     */
     public void templateVendorContract(VendorContract vendorContract);
 
     /**
      * Sets billing address fields based on the specified Billing Address.
-     * 
+     *
      * @param billingAddress the specified Billing Address.
      */
     public void templateBillingAddress(BillingAddress billingAddress);
-    
+
     /**
      * Sets receiving address fields based on the specified Receiving Address.
-     * 
+     *
      * @param receivingAddress the specified Receiving Address.
      */
     public void templateReceivingAddress(ReceivingAddress receivingAddress);
-    
+
     /**
      * Loads the default receiving address from database corresponding to the chart/org of this document.
      */
     public void loadReceivingAddress();
-    
-    public boolean isReceivingDocumentRequiredIndicator() ;
+
+    public boolean isReceivingDocumentRequiredIndicator();
 
     public void setReceivingDocumentRequiredIndicator(boolean receivingDocumentRequiredIndicator);
-    
+
     public boolean isPaymentRequestPositiveApprovalIndicator();
-    
+
     public void setPaymentRequestPositiveApprovalIndicator(boolean paymentRequestPositiveApprovalIndicator);
 
     public String getCapitalAssetSystemTypeCode();
-   
+
     public void setCapitalAssetSystemTypeCode(String capitalAssetSystemTypeCode);
-  
+
     public String getCapitalAssetSystemStateCode();
-   
+
     public void setCapitalAssetSystemStateCode(String capitalAssetSystemStateCode);
 
     public CapitalAssetSystemType getCapitalAssetSystemType();
@@ -514,7 +514,7 @@ public interface PurchasingDocument extends PurchasingAccountsPayableDocument {
     public void setCapitalAssetSystemState(CapitalAssetSystemState capitalAssetSystemState);
 
     public List<CapitalAssetSystem> getPurchasingCapitalAssetSystems();
-    
+
     public void setPurchasingCapitalAssetSystems(List<CapitalAssetSystem> purchasingCapitalAssetSystems);
 
     public List<PurchasingCapitalAssetItem> getPurchasingCapitalAssetItems();
@@ -522,16 +522,16 @@ public interface PurchasingDocument extends PurchasingAccountsPayableDocument {
     public void setPurchasingCapitalAssetItems(List<PurchasingCapitalAssetItem> purchasingCapitalAssetItems);
 
     public abstract Class getPurchasingCapitalAssetItemClass();
-    
+
     public abstract Class getPurchasingCapitalAssetSystemClass();
-    
+
     public PurchasingItem getPurchasingItem(Integer itemIdentifier);
-    
+
     public PurchasingCapitalAssetItem getPurchasingCapitalAssetItem(Integer itemIdentifier);
-    
+
     public abstract PurchasingDocumentSpecificService getDocumentSpecificService();
 
     public void clearCapitalAssetFields();
-    
+
     public boolean shouldGiveErrorForEmptyAccountsProration();
 }

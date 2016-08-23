@@ -1,37 +1,37 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.document.workflow;
 
-import java.util.concurrent.Callable;
-
-import org.kuali.kfs.module.tem.document.TravelDocument;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.sys.document.workflow.SensitiveDataSecurityAttribute;
-import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.kim.api.identity.IdentityService;
-import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.kfs.kns.document.authorization.DocumentAuthorizer;
 import org.kuali.kfs.kns.service.DocumentHelperService;
 import org.kuali.kfs.krad.UserSession;
 import org.kuali.kfs.krad.service.DocumentService;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.tem.document.TravelDocument;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.kfs.sys.document.workflow.SensitiveDataSecurityAttribute;
+import org.kuali.rice.kew.api.exception.WorkflowException;
+import org.kuali.rice.kim.api.identity.IdentityService;
+import org.kuali.rice.kim.api.identity.Person;
+
+import java.util.concurrent.Callable;
 
 /**
  * TEM Security Attribute restrict doc search results and view route log
@@ -54,15 +54,15 @@ public class TEMSecurityAttribute extends SensitiveDataSecurityAttribute {
         if (authorized) {
             try {
                 final String principalName = getIdentityService().getPrincipal(principalId).getPrincipalName();
-                Boolean canOpen = GlobalVariables.doInNewGlobalVariables(new UserSession(principalName), new Callable<Boolean>(){
+                Boolean canOpen = GlobalVariables.doInNewGlobalVariables(new UserSession(principalName), new Callable<Boolean>() {
                     @Override
                     public Boolean call() {
-                        return canOpen(GlobalVariables.getUserSession().getPerson() , document.getDocumentTypeName(), document.getDocumentId());
+                        return canOpen(GlobalVariables.getUserSession().getPerson(), document.getDocumentTypeName(), document.getDocumentId());
                     }
                 });
-                return ObjectUtils.isNotNull(canOpen) && canOpen ;
+                return ObjectUtils.isNotNull(canOpen) && canOpen;
             } catch (Exception ex) {
-                LOG.error( "Exception while testing if user can open document: document.getDocumentId()=" + document.getDocumentId(), ex);
+                LOG.error("Exception while testing if user can open document: document.getDocumentId()=" + document.getDocumentId(), ex);
                 return false;
             }
         }
@@ -97,8 +97,7 @@ public class TEMSecurityAttribute extends SensitiveDataSecurityAttribute {
         TravelDocument document = null;
         try {
             document = (TravelDocument) getDocumentService().getByDocumentHeaderIdSessionless(documentNumber);
-        }
-        catch (WorkflowException ex) {
+        } catch (WorkflowException ex) {
             throw new RuntimeException(ex);
         }
         return document;

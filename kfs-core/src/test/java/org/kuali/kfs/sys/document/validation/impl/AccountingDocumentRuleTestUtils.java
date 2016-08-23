@@ -1,29 +1,28 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.document.validation.impl;
 
-import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapEmpty;
-import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertSparselyEqualBean;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import org.kuali.kfs.kns.service.DataDictionaryService;
+import org.kuali.kfs.krad.rules.rule.RouteDocumentRule;
+import org.kuali.kfs.krad.rules.rule.SaveDocumentRule;
+import org.kuali.kfs.krad.service.KualiRuleService;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.AccountingLine;
@@ -35,11 +34,12 @@ import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.validation.event.AddAccountingLineEvent;
 import org.kuali.kfs.sys.fixture.GeneralLedgerPendingEntryFixture;
-import org.kuali.kfs.kns.service.DataDictionaryService;
-import org.kuali.kfs.krad.rules.rule.RouteDocumentRule;
-import org.kuali.kfs.krad.rules.rule.SaveDocumentRule;
-import org.kuali.kfs.krad.service.KualiRuleService;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertGlobalMessageMapEmpty;
+import static org.kuali.kfs.sys.KualiTestAssertionUtils.assertSparselyEqualBean;
 
 public abstract class AccountingDocumentRuleTestUtils extends KualiTestBase {
 
@@ -54,9 +54,9 @@ public abstract class AccountingDocumentRuleTestUtils extends KualiTestBase {
         assertGlobalMessageMapEmpty();
         for (AccountingLine accountingLine : allLines) {
             String collectionName = null;
-            if(accountingLine instanceof SourceAccountingLine){
+            if (accountingLine instanceof SourceAccountingLine) {
                 collectionName = KFSConstants.NEW_SOURCE_ACCT_LINE_PROPERTY_NAME;
-            }else if(accountingLine instanceof TargetAccountingLine){
+            } else if (accountingLine instanceof TargetAccountingLine) {
                 collectionName = KFSConstants.NEW_TARGET_ACCT_LINE_PROPERTY_NAME;
             }
             boolean ruleResult = SpringContext.getBean(KualiRuleService.class).applyRules(new AddAccountingLineEvent(KFSPropertyConstants.SOURCE_ACCOUNTING_LINE, document, accountingLine));
@@ -99,11 +99,12 @@ public abstract class AccountingDocumentRuleTestUtils extends KualiTestBase {
 
 
     // helper methods
+
     /**
      * retrieves a rule instance for a given document
      *
      * @param <T>
-     * @param documentClass the type of document to retrieve the rule for
+     * @param documentClass     the type of document to retrieve the rule for
      * @param businessRuleClass the type of rule to create
      * @return an instance of a BusinessRule of the same type as the businessRuleClass parameter
      * @throws Exception

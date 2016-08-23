@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -67,7 +67,7 @@ public class BudgetPullupDaoJdbc extends BudgetConstructionDaoJdbcBase implement
 
     /**
      * @see org.kuali.kfs.module.bc.document.dataaccess.BudgetPullupDao#buildSubTree(java.lang.String, java.lang.String,
-     *      java.lang.String, int)
+     * java.lang.String, int)
      */
     public void buildSubTree(String principalName, String chartOfAccountsCode, String organizationCode, int currentLevel) {
 
@@ -78,9 +78,9 @@ public class BudgetPullupDaoJdbc extends BudgetConstructionDaoJdbcBase implement
 
     /**
      * This method initializes and inserts the root organization using raw SQL.
-     * 
+     *
      * @see org.kuali.kfs.module.bc.document.dataaccess.BudgetPullupDao#initPointOfView(java.lang.String, java.lang.String,
-     *      java.lang.String, int)
+     * java.lang.String, int)
      */
     protected void initPointOfView(String principalName, String chartOfAccountsCode, String organizationCode, int currentLevel) {
 
@@ -91,7 +91,7 @@ public class BudgetPullupDaoJdbc extends BudgetConstructionDaoJdbcBase implement
 
     /**
      * This method is implemented using RawSql
-     * 
+     *
      * @see org.kuali.kfs.module.bc.document.dataaccess.BudgetPullupDao#insertChildOrgs(java.lang.String, int)
      */
     protected void insertChildOrgs(String principalName, int previousLevel) {
@@ -106,13 +106,11 @@ public class BudgetPullupDaoJdbc extends BudgetConstructionDaoJdbcBase implement
             int rowsAffected = getSimpleJdbcTemplate().update(insertChildOrgTemplates[0], principalName, currentLevel, principalName, previousLevel);
             if (rowsAffected > 0) {
                 insertChildOrgs(principalName, currentLevel);
-            }
-            else {
+            } else {
                 // cleanup by resetting the pull_flag to zero for all
                 getSimpleJdbcTemplate().update(insertChildOrgTemplates[1], principalName);
             }
-        }
-        else {
+        } else {
             // overrun problem
             LOG.warn(String.format("\nWarning: One or more selected organizations have reporting organizations more than maxlevel of %d deep.", MAXLEVEL));
         }

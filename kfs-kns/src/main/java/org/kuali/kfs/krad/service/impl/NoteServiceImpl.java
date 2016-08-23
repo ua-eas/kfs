@@ -1,24 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.krad.service.impl;
-
-import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.krad.bo.Note;
@@ -29,16 +27,16 @@ import org.kuali.kfs.krad.service.NoteService;
 import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * This class is the service implementation for the Note structure.
- * 
- * 
  */
 @Transactional
 public class NoteServiceImpl implements NoteService {
 
     private NoteDao noteDao;
-    
+
     private AttachmentService attachmentService;
 
     public NoteServiceImpl() {
@@ -51,9 +49,9 @@ public class NoteServiceImpl implements NoteService {
     public void saveNoteList(List<Note> notes) {
         if (notes != null) {
             for (Note note : notes) {
-            	if (StringUtils.isBlank(note.getRemoteObjectIdentifier())) {
-            		throw new IllegalStateException("The remote object identifier must be established on a Note before it can be saved.  The following note in the given list had a null or empty remote object identifier: " + note);
-            	}
+                if (StringUtils.isBlank(note.getRemoteObjectIdentifier())) {
+                    throw new IllegalStateException("The remote object identifier must be established on a Note before it can be saved.  The following note in the given list had a null or empty remote object identifier: " + note);
+                }
                 save(note);
             }
         }
@@ -63,14 +61,14 @@ public class NoteServiceImpl implements NoteService {
      * @see NoteService#save(Note)
      */
     public Note save(Note note) {
-    	validateNoteNotNull(note);
-    	if (StringUtils.isBlank(note.getRemoteObjectIdentifier())) {
-    		throw new IllegalStateException("The remote object identifier must be established on a Note before it can be saved.  Given note had a null or empty remote object identifier.");
-    	}
+        validateNoteNotNull(note);
+        if (StringUtils.isBlank(note.getRemoteObjectIdentifier())) {
+            throw new IllegalStateException("The remote object identifier must be established on a Note before it can be saved.  Given note had a null or empty remote object identifier.");
+        }
         noteDao.save(note);
         // move attachment from pending directory
         if (note.getAttachment() != null) {
-        	attachmentService.moveAttachmentWherePending(note);
+            attachmentService.moveAttachmentWherePending(note);
         }
         return note;
     }
@@ -79,43 +77,43 @@ public class NoteServiceImpl implements NoteService {
      * @see NoteService#getByRemoteObjectId(java.lang.String)
      */
     public List<Note> getByRemoteObjectId(String remoteObjectId) {
-    	if (StringUtils.isBlank(remoteObjectId)) {
-    		throw new IllegalArgumentException("The remoteObjectId must not be null or blank.");
-    	}
+        if (StringUtils.isBlank(remoteObjectId)) {
+            throw new IllegalArgumentException("The remoteObjectId must not be null or blank.");
+        }
         return noteDao.findByremoteObjectId(remoteObjectId);
     }
-    
+
     /**
      * @see NoteService#getNoteByNoteId(java.lang.Long)
      */
     public Note getNoteByNoteId(Long noteId) {
-    	if (noteId == null) {
-    		throw new IllegalArgumentException("The noteId must not be null.");
-    	}
-		return noteDao.getNoteByNoteId(noteId);
-	}
+        if (noteId == null) {
+            throw new IllegalArgumentException("The noteId must not be null.");
+        }
+        return noteDao.getNoteByNoteId(noteId);
+    }
 
     /**
      * @see NoteService#deleteNote(Note)
      */
     public void deleteNote(Note note) {
-    	validateNoteNotNull(note);
+        validateNoteNotNull(note);
         noteDao.deleteNote(note);
     }
-    
+
     /**
      * TODO this method seems awfully out of place in this service
-     * 
+     *
      * @see NoteService#createNote(Note, PersistableBusinessObject)
      */
     public Note createNote(Note noteToCopy, PersistableBusinessObject bo, String authorPrincipalId) {
-    	validateNoteNotNull(noteToCopy);
-    	if (bo == null) {
-    		throw new IllegalArgumentException("The bo must not be null.");
-    	}
-    	if (StringUtils.isBlank(authorPrincipalId)) {
-    		throw new IllegalArgumentException("The authorPrincipalId must not be null.");
-    	}
+        validateNoteNotNull(noteToCopy);
+        if (bo == null) {
+            throw new IllegalArgumentException("The bo must not be null.");
+        }
+        if (StringUtils.isBlank(authorPrincipalId)) {
+            throw new IllegalArgumentException("The authorPrincipalId must not be null.");
+        }
         // TODO: Why is a deep copy being done?  Nowhere that this is called uses the given note argument
         // again after calling this method.
         Note tmpNote = (Note) ObjectUtils.deepCopy(noteToCopy);
@@ -126,7 +124,7 @@ public class NoteServiceImpl implements NoteService {
 
     /**
      * Sets the data access object
-     * 
+     *
      * @param d
      */
     public void setNoteDao(NoteDao d) {
@@ -139,19 +137,19 @@ public class NoteServiceImpl implements NoteService {
     protected NoteDao getNoteDao() {
         return noteDao;
     }
-    
+
     public void setAttachmentService(AttachmentService attachmentService) {
-    	this.attachmentService = attachmentService;
+        this.attachmentService = attachmentService;
     }
-    
+
     protected AttachmentService getAttachmentService() {
-    	return this.attachmentService;
+        return this.attachmentService;
     }
-    
+
     private void validateNoteNotNull(Note note) {
-    	if (note == null) {
-    		throw new IllegalArgumentException("Note must not be null.");
-    	}
+        if (note == null) {
+            throw new IllegalArgumentException("Note must not be null.");
+        }
     }
-    
+
 }

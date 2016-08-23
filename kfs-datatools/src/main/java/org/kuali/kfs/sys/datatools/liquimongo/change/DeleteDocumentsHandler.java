@@ -18,9 +18,8 @@
  */
 package org.kuali.kfs.sys.datatools.liquimongo.change;
 
-import org.springframework.data.mongodb.core.query.Query;
-
 import com.fasterxml.jackson.databind.JsonNode;
+import org.springframework.data.mongodb.core.query.Query;
 
 /**
  * Delete requested documents from MongoDB
@@ -38,13 +37,13 @@ public class DeleteDocumentsHandler extends AbstractDocumentStoreChangeHandler i
     public void makeChange(JsonNode change) {
         LOG.debug("makeChange() started");
 
-        verifyKeyExistence(change,COLLECTION_NAME);
-        verifyKeyExistence(change,QUERY);
+        verifyKeyExistence(change, COLLECTION_NAME);
+        verifyKeyExistence(change, QUERY);
 
         String collectionName = change.get(COLLECTION_NAME).asText();
-        JsonNode query = change.get(QUERY); 
+        JsonNode query = change.get(QUERY);
         Query q = JsonUtils.getQueryFromJson(query);
-        
+
         mongoTemplate.remove(q, collectionName);
     }
 

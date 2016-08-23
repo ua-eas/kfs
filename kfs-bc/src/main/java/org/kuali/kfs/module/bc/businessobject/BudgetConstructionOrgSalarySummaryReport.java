@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -52,7 +52,7 @@ public class BudgetConstructionOrgSalarySummaryReport {
     private String financialSubObjectCode;
     private String deleteBox;
     private String name;
-    
+
     // from BudgetConstructionIntendedIncumbent
     private String iuClassificationLevel;
     // from PendingBudgetConstructionAppointmentFunding
@@ -87,7 +87,7 @@ public class BudgetConstructionOrgSalarySummaryReport {
     private String personPositionNumber;
     private String personFiscalYearTag;
     private String personNormalMonthsAndPayMonths;
-    
+
     private Integer personCsfAmount;
     private BigDecimal personCsfPercent;
     private Integer personSalaryNormalMonths;
@@ -97,7 +97,7 @@ public class BudgetConstructionOrgSalarySummaryReport {
     private String personTiFlag;
     private Integer personAmountChange;
     private BigDecimal personPercentChange;
-    
+
     //org
     private BigDecimal newFte;
     private Integer newTotalAmount;
@@ -113,7 +113,7 @@ public class BudgetConstructionOrgSalarySummaryReport {
 
     /**
      * Gets the consHdr
-     * 
+     *
      * @return Returns the consHdr.
      */
     public String getConsHdr() {
@@ -122,7 +122,7 @@ public class BudgetConstructionOrgSalarySummaryReport {
 
     /**
      * Sets the consHdr
-     * 
+     *
      * @param consHdr The consHdr to set.
      */
     public void setConsHdr(String consHdr) {
@@ -131,7 +131,7 @@ public class BudgetConstructionOrgSalarySummaryReport {
 
     /**
      * Gets the fiscalYear
-     * 
+     *
      * @return Returns the fiscalYear.
      */
     public String getFiscalYear() {
@@ -140,7 +140,7 @@ public class BudgetConstructionOrgSalarySummaryReport {
 
     /**
      * Sets the fiscalYear
-     * 
+     *
      * @param fiscalYear The fiscalYear to set.
      */
     public void setFiscalYear(String fiscalYear) {
@@ -149,7 +149,7 @@ public class BudgetConstructionOrgSalarySummaryReport {
 
     /**
      * Gets the organizationCode
-     * 
+     *
      * @return Returns the organizationCode.
      */
     public String getOrganizationCode() {
@@ -158,7 +158,7 @@ public class BudgetConstructionOrgSalarySummaryReport {
 
     /**
      * Sets the organizationCode
-     * 
+     *
      * @param organizationCode The organizationCode to set.
      */
     public void setOrganizationCode(String organizationCode) {
@@ -167,7 +167,7 @@ public class BudgetConstructionOrgSalarySummaryReport {
 
     /**
      * Gets the organizationName
-     * 
+     *
      * @return Returns the organizationName.
      */
     public String getOrganizationName() {
@@ -176,7 +176,7 @@ public class BudgetConstructionOrgSalarySummaryReport {
 
     /**
      * Sets the organizationName
-     * 
+     *
      * @param organizationName The organizationName to set.
      */
     public void setOrganizationName(String organizationName) {
@@ -185,7 +185,7 @@ public class BudgetConstructionOrgSalarySummaryReport {
 
     /**
      * Gets the reqFy
-     * 
+     *
      * @return Returns the reqFy.
      */
     public String getReqFy() {
@@ -194,7 +194,7 @@ public class BudgetConstructionOrgSalarySummaryReport {
 
     /**
      * Sets the reqFy
-     * 
+     *
      * @param reqFy The reqFy to set.
      */
     public void setReqFy(String reqFy) {
@@ -203,7 +203,7 @@ public class BudgetConstructionOrgSalarySummaryReport {
 
     /**
      * Gets the chartOfAccountDescription
-     * 
+     *
      * @return Returns the chartOfAccountDescription.
      */
     public String getOrgChartOfAccountDescription() {
@@ -212,7 +212,7 @@ public class BudgetConstructionOrgSalarySummaryReport {
 
     /**
      * Sets the chartOfAccountDescription
-     * 
+     *
      * @param chartOfAccountDescription The chartOfAccountDescription to set.
      */
     public void setOrgChartOfAccountDescription(String orgChartOfAccountDescription) {
@@ -221,7 +221,7 @@ public class BudgetConstructionOrgSalarySummaryReport {
 
     /**
      * Gets the chartOfAccountsCode
-     * 
+     *
      * @return Returns the chartOfAccountsCode.
      */
     public String getOrgChartOfAccountsCode() {
@@ -230,7 +230,7 @@ public class BudgetConstructionOrgSalarySummaryReport {
 
     /**
      * Sets the chartOfAccountsCode
-     * 
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setOrgChartOfAccountsCode(String orgChartOfAccountsCode) {
@@ -360,7 +360,8 @@ public class BudgetConstructionOrgSalarySummaryReport {
     }
 
     /**
-     * Gets the chartOfAccountsCode attribute. 
+     * Gets the chartOfAccountsCode attribute.
+     *
      * @return Returns the chartOfAccountsCode.
      */
     public String getChartOfAccountsCode() {
@@ -369,6 +370,7 @@ public class BudgetConstructionOrgSalarySummaryReport {
 
     /**
      * Sets the chartOfAccountsCode attribute value.
+     *
      * @param chartOfAccountsCode The chartOfAccountsCode to set.
      */
     public void setChartOfAccountsCode(String chartOfAccountsCode) {

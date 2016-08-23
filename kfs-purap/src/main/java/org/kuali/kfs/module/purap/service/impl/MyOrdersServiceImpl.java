@@ -1,6 +1,26 @@
+/*
+ * The Kuali Financial System, a comprehensive financial management system for higher education.
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.kuali.kfs.module.purap.service.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.PurapConstants;
 import org.kuali.kfs.module.purap.PurapPropertyConstants;
 import org.kuali.kfs.module.purap.document.RequisitionDocument;
@@ -9,8 +29,6 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.businessobject.FinancialSystemDocumentHeader;
 import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,9 +42,9 @@ public class MyOrdersServiceImpl implements MyOrdersService {
     protected BusinessObjectService businessObjectService;
 
     protected static final List<String> DOCUMENT_STATUS_CODES = Arrays.asList(DocumentStatus.SAVED.getCode(),
-            DocumentStatus.CANCELED.getCode(), DocumentStatus.DISAPPROVED.getCode(), DocumentStatus.ENROUTE.getCode(),
-            DocumentStatus.EXCEPTION.getCode(), DocumentStatus.FINAL.getCode(), DocumentStatus.INITIATED.getCode(),
-            DocumentStatus.RECALLED.getCode(), DocumentStatus.PROCESSED.getCode());
+        DocumentStatus.CANCELED.getCode(), DocumentStatus.DISAPPROVED.getCode(), DocumentStatus.ENROUTE.getCode(),
+        DocumentStatus.EXCEPTION.getCode(), DocumentStatus.FINAL.getCode(), DocumentStatus.INITIATED.getCode(),
+        DocumentStatus.RECALLED.getCode(), DocumentStatus.PROCESSED.getCode());
 
 
     @Override
@@ -36,16 +54,16 @@ public class MyOrdersServiceImpl implements MyOrdersService {
             return new ArrayList<>();
         }
         List<Map<String, Object>> myOrders = latestRequisitions.stream()
-                .map((FinancialSystemDocumentHeader docHeader) -> retrieveRequisition(docHeader.getDocumentNumber()))
-                .filter((RequisitionDocument req) -> !ObjectUtils.isNull(req))
-                .map((RequisitionDocument req) -> convertDocumentInfoToMap(req))
-                .collect(Collectors.toList());
+            .map((FinancialSystemDocumentHeader docHeader) -> retrieveRequisition(docHeader.getDocumentNumber()))
+            .filter((RequisitionDocument req) -> !ObjectUtils.isNull(req))
+            .map((RequisitionDocument req) -> convertDocumentInfoToMap(req))
+            .collect(Collectors.toList());
         return myOrders;
     }
 
     protected Map<String, Object> convertDocumentInfoToMap(RequisitionDocument req) {
         Map<String, Object> requisitionRepresentation = new ConcurrentHashMap<>();
-        final FinancialSystemDocumentHeader docHeader = (FinancialSystemDocumentHeader)req.getDocumentHeader();
+        final FinancialSystemDocumentHeader docHeader = (FinancialSystemDocumentHeader) req.getDocumentHeader();
         requisitionRepresentation.put(KFSPropertyConstants.DOCUMENT_NUMBER, docHeader.getDocumentNumber());
         requisitionRepresentation.put(PurapPropertyConstants.REQUISITION_IDENTIFIER, req.getPurapDocumentIdentifier());
         if (StringUtils.isNotBlank(req.getVendorName())) {

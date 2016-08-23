@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -44,34 +44,34 @@ public class DataDictionaryDocumentSearchCustomizer implements SearchableAttribu
     }
 
     public DataDictionaryDocumentSearchCustomizer(SearchableAttribute searchableAttribute,
-            DocumentSearchCustomizer documentSearchCustomizer) {
+                                                  DocumentSearchCustomizer documentSearchCustomizer) {
         this.searchableAttribute = searchableAttribute;
         this.documentSearchCustomizer = documentSearchCustomizer;
     }
 
     @Override
     public final String generateSearchContent(ExtensionDefinition extensionDefinition,
-            String documentTypeName,
-            WorkflowAttributeDefinition attributeDefinition) {
+                                              String documentTypeName,
+                                              WorkflowAttributeDefinition attributeDefinition) {
         return getSearchableAttribute().generateSearchContent(extensionDefinition, documentTypeName,
-                attributeDefinition);
+            attributeDefinition);
     }
 
     @Override
     public final List<DocumentAttribute> extractDocumentAttributes(ExtensionDefinition extensionDefinition,
-            DocumentWithContent documentWithContent) {
+                                                                   DocumentWithContent documentWithContent) {
         return getSearchableAttribute().extractDocumentAttributes(extensionDefinition, documentWithContent);
     }
 
     @Override
     public final List<RemotableAttributeField> getSearchFields(ExtensionDefinition extensionDefinition,
-            String documentTypeName) {
+                                                               String documentTypeName) {
         return getSearchableAttribute().getSearchFields(extensionDefinition, documentTypeName);
     }
 
     @Override
     public final List<RemotableAttributeError> validateDocumentAttributeCriteria(ExtensionDefinition extensionDefinition,
-            DocumentSearchCriteria documentSearchCriteria) {
+                                                                                 DocumentSearchCriteria documentSearchCriteria) {
         return getSearchableAttribute().validateDocumentAttributeCriteria(extensionDefinition, documentSearchCriteria);
     }
 
@@ -87,13 +87,13 @@ public class DataDictionaryDocumentSearchCustomizer implements SearchableAttribu
 
     @Override
     public final DocumentSearchResultValues customizeResults(DocumentSearchCriteria documentSearchCriteria,
-            List<DocumentSearchResult> defaultResults) {
+                                                             List<DocumentSearchResult> defaultResults) {
         return getDocumentSearchCustomizer().customizeResults(documentSearchCriteria, defaultResults);
     }
 
     @Override
     public DocumentSearchResultSetConfiguration customizeResultSetConfiguration(
-            DocumentSearchCriteria documentSearchCriteria) {
+        DocumentSearchCriteria documentSearchCriteria) {
         return getDocumentSearchCustomizer().customizeResultSetConfiguration(documentSearchCriteria);
     }
 
@@ -117,9 +117,9 @@ public class DataDictionaryDocumentSearchCustomizer implements SearchableAttribu
         return getDocumentSearchCustomizer().isCustomizeResultSetFieldsEnabled(documentTypeName);
     }
 
-	protected SearchableAttribute getSearchableAttribute() {
+    protected SearchableAttribute getSearchableAttribute() {
         return this.searchableAttribute;
-	}
+    }
 
     public void setSearchableAttribute(SearchableAttribute searchableAttribute) {
         this.searchableAttribute = searchableAttribute;

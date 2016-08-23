@@ -1,17 +1,17 @@
 # The Kuali Financial System, a comprehensive financial management system for higher education.
-# 
-# Copyright 2005-2014 The Kuali Foundation
-# 
+#
+# Copyright 2005-2016 The Kuali Foundation
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
@@ -43,7 +43,7 @@ module MavenMover
         end
         MavenMoverHelper.dir_stepper(src_dir, processor)
 	end
-	
+
 	def self.create_dir(dir, options)
 		if !Dir.exists?(dir)
 			if !options[:verbose]
@@ -53,7 +53,7 @@ module MavenMover
 			end
 		end
 	end
-		
+
 	module MavenMoverHelper
 		FileName = Struct.new(:directory, :file)
 
@@ -67,7 +67,7 @@ module MavenMover
 			just_file = fn_match[2]
 			FileName.new(just_dir, just_file)
 		end
-		
+
 		def self.remove_last_sub_dir(dir)
 			dir.gsub(/\/[^\/]+\/?$/,"")
 		end
@@ -116,11 +116,11 @@ end
 options = {}
 OptionParser.new do |opts|
 	opts.banner = "Usage: maven_mover.rb [options]"
-	
+
 	opts.on("-v","--[no-]verbose","Run verbose report - no directories will be created, no files will be moved, and heavy duty reporting will be generated") do |v|
 		options[:verbose] = v
 	end
-	
+
 	opts.on("-r","--[no-]real","Run real mode - ie, the script will actually perform all real actions, creating directories and moving files") do |r|
 		options[:real] = r
 	end

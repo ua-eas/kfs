@@ -1,33 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.batch.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.batch.dataaccess.FinancialSystemDocumentHeaderPopulationDao;
 import org.kuali.kfs.sys.batch.service.FinancialSystemDocumentHeaderPopulationService;
@@ -40,8 +33,15 @@ import org.kuali.rice.kew.api.document.WorkflowDocumentService;
 import org.kuali.rice.kew.api.document.search.DocumentSearchCriteria;
 import org.kuali.rice.kim.api.identity.IdentityService;
 import org.kuali.rice.kim.api.identity.principal.Principal;
-import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * The base implementation of the FinancialSystemDocumentHeaderPopulationService
@@ -59,6 +59,7 @@ public class FinancialSystemDocumentHeaderPopulationServiceImpl implements Finan
     /**
      * Populates financial system document header records, at a count of batchSize at a time, until the jobRunSize number of records have been processed, skipping document headers that
      * are included in documentStatusesToPopulate if the given Set has any members at all
+     *
      * @see org.kuali.kfs.sys.batch.service.FinancialSystemDocumentHeaderPopulationService#populateFinancialSystemDocumentHeadersFromKew(int, int, Set<DocumentStatus>)
      */
     @Override
@@ -71,11 +72,12 @@ public class FinancialSystemDocumentHeaderPopulationServiceImpl implements Finan
         }
         final long endTime = System.currentTimeMillis();
         final double runTimeSeconds = (endTime - startTime) / 1000.0;
-        LOG.info("Run time: "+runTimeSeconds);
+        LOG.info("Run time: " + runTimeSeconds);
     }
 
     /**
      * Reads in the matching KEW document headers for the given batch of FinancialSystemDocumentHeader records and updates
+     *
      * @see org.kuali.kfs.sys.batch.service.FinancialSystemDocumentHeaderPopulationService#handleBatch(java.util.Map, Set<DocumentStatus>)
      */
     @Override
@@ -91,7 +93,7 @@ public class FinancialSystemDocumentHeaderPopulationServiceImpl implements Finan
                 documentHeadersToSave.add(fsDocHeader);
             } else {
                 // how would this even happen????
-                LOG.error("Document ID: "+kewDocHeader.getDocumentId()+" was returned from search but no financial system document header could be found in the map.  And it's freaking me out, man!");
+                LOG.error("Document ID: " + kewDocHeader.getDocumentId() + " was returned from search but no financial system document header could be found in the map.  And it's freaking me out, man!");
 
             }
         }
@@ -103,7 +105,8 @@ public class FinancialSystemDocumentHeaderPopulationServiceImpl implements Finan
      * Returns a List of KEW document headers to match the given FinancialSystemDocumentHeader records.  If a workflow document header cannot be found
      * for a financial system document header, the document number will be saved as a FinancialSystemDocumentHeaderMissingFromWorkflow record and skipped
      * from subsequent runs of the job
-     * @param documentHeaders a Map of FS document headers
+     *
+     * @param documentHeaders            a Map of FS document headers
      * @param documentStatusesToPopulate if the given Set has any members, only documents in the given statuses will have their FinancialSystemDocumentHeader records populated
      * @return a List of matching workflow document header records, skipping any records included in the documentStatusesToPopulate Set if there are any members in it at all
      */
@@ -116,7 +119,7 @@ public class FinancialSystemDocumentHeaderPopulationServiceImpl implements Finan
             if (workflowDoc != null && (documentStatusesToPopulate.isEmpty() || documentStatusesToPopulate.contains(workflowDoc.getStatus()))) {
                 workflowDocuments.add(workflowDoc);
             } else if (workflowDoc == null) { // only record the error if we weren't supposed to skip the record...ie, if the workflow document is null
-                LOG.error("Could not find a workflow document record for financial system document header #"+documentNumber);
+                LOG.error("Could not find a workflow document record for financial system document header #" + documentNumber);
                 FinancialSystemDocumentHeaderMissingFromWorkflow missingWorkflowHeader = new FinancialSystemDocumentHeaderMissingFromWorkflow();
                 missingWorkflowHeader.setDocumentNumber(documentNumber);
                 missingWorkflowHeaders.add(missingWorkflowHeader);
@@ -131,15 +134,17 @@ public class FinancialSystemDocumentHeaderPopulationServiceImpl implements Finan
 
     /**
      * Joins the given Set of document numbers with a pipe "|" character
+     *
      * @param documentIds the document numbers to join
      * @return the joined document numbers, ready to be handed to the document search
      */
     protected String pipeDocumentIds(Set<String> documentIds) {
-        return StringUtils.join(documentIds,'|');
+        return StringUtils.join(documentIds, '|');
     }
 
     /**
      * Creates a DocumentSearchCriteria which will look up the documents identified by the ids piped into the documentIdForSearch
+     *
      * @return a DocumentSearchCriteria to look up the document search results
      */
     protected DocumentSearchCriteria buildDocumentSearchCriteria(String documentIdForSearch) {
@@ -162,20 +167,22 @@ public class FinancialSystemDocumentHeaderPopulationServiceImpl implements Finan
     /**
      * Writes to the passed in log a message detailing the changes which will occur when the job is run outside of log mode,
      * ie what the updated document status, document type, initiator principal id, and application document status will be updated to
+     *
      * @param financialSystemDocumentHeader the financial system document header which would have been updated
-     * @param kewDocumentHeader the workflow document header with the information to update with
-     * @param log the log to write to
+     * @param kewDocumentHeader             the workflow document header with the information to update with
+     * @param log                           the log to write to
      */
     protected void logChanges(FinancialSystemDocumentHeader financialSystemDocumentHeader, Document kewDocumentHeader, Logger log) {
-        log.info("Financial System Document Header "+financialSystemDocumentHeader.getDocumentNumber()+" KEW document header "+kewDocumentHeader.getDocumentId()+
-                " Initiator Principal Id: "+kewDocumentHeader.getInitiatorPrincipalId()+" Document Type Name: "+kewDocumentHeader.getDocumentTypeName()+
-                " Document Status: "+kewDocumentHeader.getStatus().getLabel()+" Application Document Status: "+kewDocumentHeader.getApplicationDocumentStatus());
+        log.info("Financial System Document Header " + financialSystemDocumentHeader.getDocumentNumber() + " KEW document header " + kewDocumentHeader.getDocumentId() +
+            " Initiator Principal Id: " + kewDocumentHeader.getInitiatorPrincipalId() + " Document Type Name: " + kewDocumentHeader.getDocumentTypeName() +
+            " Document Status: " + kewDocumentHeader.getStatus().getLabel() + " Application Document Status: " + kewDocumentHeader.getApplicationDocumentStatus());
     }
 
     /**
      * Updates the financial system document header with values from the workflow document header
+     *
      * @param financialSystemDocumentHeader the financial system document header to update
-     * @param kewDocumentHeader the workflow document header with values to update the financial system document header with
+     * @param kewDocumentHeader             the workflow document header with values to update the financial system document header with
      */
     protected void updateDocumentHeader(FinancialSystemDocumentHeader financialSystemDocumentHeader, Document kewDocumentHeader) {
         financialSystemDocumentHeader.setInitiatorPrincipalId(kewDocumentHeader.getInitiatorPrincipalId());
@@ -230,6 +237,7 @@ public class FinancialSystemDocumentHeaderPopulationServiceImpl implements Finan
 
     /**
      * Counts the number of Financial System Document Header records without initiator principal id's set
+     *
      * @see org.kuali.kfs.sys.batch.service.FinancialSystemDocumentHeaderPopulationService#getFinancialSystemDocumentHeaderCount()
      */
     @Transactional
@@ -240,6 +248,7 @@ public class FinancialSystemDocumentHeaderPopulationServiceImpl implements Finan
 
     /**
      * Uses the DAO to retrieve the specified batch
+     *
      * @see org.kuali.kfs.sys.batch.service.FinancialSystemDocumentHeaderPopulationService#readBatchOfFinancialSystemDocumentHeaders(int, int)
      */
     @Transactional
@@ -250,7 +259,8 @@ public class FinancialSystemDocumentHeaderPopulationServiceImpl implements Finan
 
     /**
      * Returns a new Iterable to iterate over batches of FinancialSystemDocumentHeaders
-     * @param batchSize the size of the batches to build
+     *
+     * @param batchSize  the size of the batches to build
      * @param jobRunSize the number of records
      * @return the newly created Iterable
      */
@@ -265,6 +275,7 @@ public class FinancialSystemDocumentHeaderPopulationServiceImpl implements Finan
 
     /**
      * Converts a Collection of FinancialSystemDocumentHeader records into a Map keyed by the document number
+     *
      * @param documentHeaderBatch a Collection of FinancialSystemDocumentHeader records
      * @return the Map of FinancialSystemDocumentHeader records keyed by document number
      */

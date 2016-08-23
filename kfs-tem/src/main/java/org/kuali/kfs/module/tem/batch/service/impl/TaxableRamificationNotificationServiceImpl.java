@@ -1,28 +1,26 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.batch.service.impl;
 
-import java.sql.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.tem.TemConstants;
 import org.kuali.kfs.module.tem.TemParameterConstants;
 import org.kuali.kfs.module.tem.batch.TaxableRamificationNotificationStep;
@@ -36,10 +34,12 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.service.KfsNotificationService;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.mail.MailMessage;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ObjectUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * implement the taxable ramification notification service, which also generates taxable ramification document
@@ -63,11 +63,10 @@ public class TaxableRamificationNotificationServiceImpl implements TaxableRamifi
         List<TravelAdvance> travelAdvances = this.getTaxableRamificationDocumentService().getAllQualifiedOutstandingTravelAdvance();
 
         for (TravelAdvance advance : travelAdvances) {
-            try{
+            try {
                 TaxableRamificationDocument taxableRamificationDocument = this.createTaxableRamificationDocument(advance, taxableRamificationNotificationDate);
                 this.sendTaxableRamificationReport(taxableRamificationDocument);
-            }
-            catch(Exception ex){
+            } catch (Exception ex) {
                 LOG.error("Failed to send taxable ramification document for the travel advance: " + advance, ex);
             }
         }
@@ -77,7 +76,7 @@ public class TaxableRamificationNotificationServiceImpl implements TaxableRamifi
 
     /**
      * @see org.kuali.kfs.module.tem.batch.service.TaxableRamificationNotificationService#sendTaxableRamificationReport(org.kuali.kfs.module.tem.businessobject.TravelAdvance,
-     *      java.sql.Date)
+     * java.sql.Date)
      */
     @Override
     public void sendTaxableRamificationReport(TaxableRamificationDocument taxableRamificationDocument) {
@@ -89,7 +88,7 @@ public class TaxableRamificationNotificationServiceImpl implements TaxableRamifi
 
     /**
      * @see org.kuali.kfs.module.tem.batch.service.TaxableRamificationNotificationService#sendTaxableRamificationReport(org.kuali.kfs.module.tem.businessobject.TravelAdvance,
-     *      java.sql.Date)
+     * java.sql.Date)
      */
     @Override
     @Transactional
@@ -265,6 +264,7 @@ public class TaxableRamificationNotificationServiceImpl implements TaxableRamifi
 
     /**
      * Gets the taxableRamificationDocumentService attribute.
+     *
      * @return Returns the taxableRamificationDocumentService.
      */
     public TaxableRamificationDocumentService getTaxableRamificationDocumentService() {
@@ -273,6 +273,7 @@ public class TaxableRamificationNotificationServiceImpl implements TaxableRamifi
 
     /**
      * Sets the taxableRamificationDocumentService attribute value.
+     *
      * @param taxableRamificationDocumentService The taxableRamificationDocumentService to set.
      */
     public void setTaxableRamificationDocumentService(TaxableRamificationDocumentService taxableRamificationDocumentService) {

@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -25,11 +25,9 @@ import java.util.List;
 
 /**
  * This service provides various operations related to {@link Note} objects.
- *
- * 
  */
 public interface NoteService {
-	
+
     /**
      * Retrieves a list of notes that are associated with the given object id.
      * This object id will generally be the object id of the {@link PersistableBusinessObject}
@@ -48,11 +46,11 @@ public interface NoteService {
      * @throws IllegalArgumentException if the specified id is null
      */
     public Note getNoteByNoteId(Long noteId);
-    
+
     /**
      * Saves the given lists of notes.  If the given list is null or empty,
      * this method will do nothing.
-     * 
+     *
      * @param notes the list of notes to save
      * @throws IllegalStateException if any of the notes in the list have an invalid remoteObjectId
      */
@@ -66,7 +64,7 @@ public interface NoteService {
      * @param note the note to save
      * @return the saved note
      * @throws IllegalArgumentException if the specified note is null
-     * @throws IllegalStateException if the given note's remoteObjectId is not valid
+     * @throws IllegalStateException    if the given note's remoteObjectId is not valid
      */
     public Note save(Note note);
 
@@ -81,9 +79,9 @@ public interface NoteService {
     /**
      * Creates a new note which is a copy of the given note and is associated with
      * the specified PersistableBusinessObject and Person.
-     * 
+     *
      * @param noteToCopy the note to copy
-     * @param bo the business object to associate the Note with
+     * @param bo         the business object to associate the Note with
      * @return a copy of the given note which
      */
     public Note createNote(Note noteToCopy, PersistableBusinessObject bo, String authorPrincipalId);

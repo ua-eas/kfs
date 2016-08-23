@@ -58,7 +58,7 @@ public class ResourceLoginFilter extends LoginFilterBase {
         try {
             String authorizationHeader = request.getHeader("Authorization");
             Optional<String> user = getPrincipalNameFromHeader(request, response, authorizationHeader);
-            if (! user.isPresent() ) {
+            if (!user.isPresent()) {
                 sendError(response);
                 removeFromMDC();
                 return;
@@ -94,7 +94,7 @@ public class ResourceLoginFilter extends LoginFilterBase {
         }
         Optional<String> oKey = getApiKey(authorizationHeader);
         if (oKey.isPresent()) {
-            if ( getCoreApiKeyAuthenticationService().useCore() ) {
+            if (getCoreApiKeyAuthenticationService().useCore()) {
                 return getCoreApiKeyAuthenticationService().getPrincipalIdFromApiKey(oKey.get());
 
             } else {
@@ -102,7 +102,7 @@ public class ResourceLoginFilter extends LoginFilterBase {
                     JwtData data = getJwtService().decodeJwt(oKey.get());
                     return Optional.of(data.getPrincipalName());
                 } catch (RuntimeException e) {
-                    LOG.debug("getPrincipalNameFromHeader() invalid financials token",e);
+                    LOG.debug("getPrincipalNameFromHeader() invalid financials token", e);
                 }
             }
         }

@@ -1,38 +1,41 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ar.businessobject.lookup;
-
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAgency;
+import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
+import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
+import org.kuali.kfs.kns.web.comparator.CellComparatorHelper;
+import org.kuali.kfs.kns.web.struts.form.LookupForm;
+import org.kuali.kfs.kns.web.ui.Column;
+import org.kuali.kfs.kns.web.ui.ResultRow;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.lookup.CollectionIncomplete;
+import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.module.ar.ArConstants;
 import org.kuali.kfs.module.ar.ArPropertyConstants;
 import org.kuali.kfs.module.ar.businessobject.ContractsAndGrantsAgingReport;
@@ -56,21 +59,18 @@ import org.kuali.rice.core.web.format.DateFormatter;
 import org.kuali.rice.core.web.format.Formatter;
 import org.kuali.rice.kew.impl.document.search.DocumentSearchCriteriaBo;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
-import org.kuali.kfs.kns.lookup.KualiLookupableHelperServiceImpl;
-import org.kuali.kfs.kns.web.comparator.CellComparatorHelper;
-import org.kuali.kfs.kns.web.struts.form.LookupForm;
-import org.kuali.kfs.kns.web.ui.Column;
-import org.kuali.kfs.kns.web.ui.ResultRow;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.lookup.CollectionIncomplete;
-import org.kuali.kfs.krad.service.KualiModuleService;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.kfs.krad.util.UrlFactory;
 import org.springframework.beans.factory.InitializingBean;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
 
 /**
  * Lookupable Helper Service class for ContractsGrantsAgingReport.
@@ -155,8 +155,8 @@ public class ContractsGrantsAgingReportLookupableHelperServiceImpl extends Kuali
             String reportRunDateStr = (String) fieldValues.get(ArPropertyConstants.CustomerAgingReportFields.REPORT_RUN_DATE);
 
             reportRunDate = (ObjectUtils.isNull(reportRunDateStr) || reportRunDateStr.isEmpty()) ?
-                                                today :
-                                                getDateTimeService().convertToDate(reportRunDateStr);
+                today :
+                getDateTimeService().convertToDate(reportRunDateStr);
 
             // retrieve filtered data according to the lookup
             Map<String, List<ContractsGrantsInvoiceDocument>> cgMapByCustomer = getContractsGrantsAgingReportService().filterContractsGrantsAgingReport(fieldValues, null, new java.sql.Date(reportRunDate.getTime()));
@@ -205,8 +205,7 @@ public class ContractsGrantsAgingReportLookupableHelperServiceImpl extends Kuali
                 KualiDecimal writeOffAmt = getCustomerAgingReportService().findWriteOffAmountByCustomerNumber(detail.getCustomerNumber());
                 if (ObjectUtils.isNotNull(writeOffAmt)) {
                     totalWriteOffs = totalWriteOffs.add(writeOffAmt);
-                }
-                else {
+                } else {
                     writeOffAmt = KualiDecimal.ZERO;
                 }
                 detail.setTotalWriteOff(writeOffAmt);
@@ -214,9 +213,8 @@ public class ContractsGrantsAgingReportLookupableHelperServiceImpl extends Kuali
                 // calculate total credits
                 results.add(detail);
             }
-        }
-        catch (NumberFormatException | ParseException ex) {
-            throw new RuntimeException("Could not parse report run date for lookup",ex);
+        } catch (NumberFormatException | ParseException ex) {
+            throw new RuntimeException("Could not parse report run date for lookup", ex);
         }
 
         return new CollectionIncomplete<ContractsAndGrantsAgingReport>(results, (long) results.size());
@@ -282,7 +280,7 @@ public class ContractsGrantsAgingReportLookupableHelperServiceImpl extends Kuali
      */
     @Override
     public Collection performLookup(LookupForm lookupForm, Collection resultTable, boolean bounded) {
-        Collection displayList  = getSearchResults(lookupForm.getFieldsForLookup());
+        Collection displayList = getSearchResults(lookupForm.getFieldsForLookup());
 
         // MJM get resultTable populated here
         if (bounded) {
@@ -341,20 +339,15 @@ public class ContractsGrantsAgingReportLookupableHelperServiceImpl extends Kuali
                             // do not add link to the values in column "Customer Name"
                             if (StringUtils.equals(customerNameLabel, col.getColumnTitle())) {
                                 col.setPropertyURL(getCustomerLookupUrl(element, col.getColumnTitle()));
-                            }
-                            else if (StringUtils.equals(customerNumberLabel, col.getColumnTitle())) {
+                            } else if (StringUtils.equals(customerNumberLabel, col.getColumnTitle())) {
                                 col.setPropertyURL(getCustomerOpenInvoicesReportUrl(element, col.getColumnTitle(), lookupForm.getFieldsForLookup()));
-                            }
-                            else if (StringUtils.equals(ArConstants.ContractsGrantsAgingReportFields.TOTAL_CREDITS, col.getColumnTitle())) {
+                            } else if (StringUtils.equals(ArConstants.ContractsGrantsAgingReportFields.TOTAL_CREDITS, col.getColumnTitle())) {
                                 col.setPropertyURL(getCreditMemoDocSearchUrl(element, col.getColumnTitle()));
-                            }
-                            else if (StringUtils.equals(ArConstants.ContractsGrantsAgingReportFields.TOTAL_WRITEOFF, col.getColumnTitle())) {
+                            } else if (StringUtils.equals(ArConstants.ContractsGrantsAgingReportFields.TOTAL_WRITEOFF, col.getColumnTitle())) {
                                 col.setPropertyURL(getCustomerWriteoffSearchUrl(element, col.getColumnTitle()));
-                            }
-                            else if (StringUtils.equals(ArConstants.ContractsGrantsAgingReportFields.AGENCY_SHORT_NAME, col.getColumnTitle())) {
+                            } else if (StringUtils.equals(ArConstants.ContractsGrantsAgingReportFields.AGENCY_SHORT_NAME, col.getColumnTitle())) {
                                 col.setPropertyURL(getAgencyInquiryUrl(element, col.getColumnTitle()));
-                            }
-                            else {
+                            } else {
                                 col.setPropertyURL(getCustomerOpenInvoicesReportUrl(element, col.getColumnTitle(), lookupForm.getFieldsForLookup()));
                             }
                         }
@@ -418,7 +411,7 @@ public class ContractsGrantsAgingReportLookupableHelperServiceImpl extends Kuali
         parameters.put(KFSPropertyConstants.CUSTOMER_NAME, detail.getCustomerName());
 
         // Report Option
-        if(ObjectUtils.isNotNull(reportOption)){
+        if (ObjectUtils.isNotNull(reportOption)) {
             parameters.put(ArPropertyConstants.REPORT_OPTION, reportOption);
         }
         // Report Run Date
@@ -429,30 +422,24 @@ public class ContractsGrantsAgingReportLookupableHelperServiceImpl extends Kuali
             parameters.put(ArPropertyConstants.COLUMN_TITLE, KFSConstants.CustomerOpenItemReport.ALL_DAYS);
             parameters.put(ArPropertyConstants.START_DATE, KFSConstants.EMPTY_STRING);
             parameters.put(ArPropertyConstants.END_DATE, getDateTimeService().toDateString(reportRunDate));
-        }
-        else {
+        } else {
             if (StringUtils.equals(columnTitle, cutoffdate30Label)) {
                 parameters.put(ArPropertyConstants.START_DATE, getDateTimeService().toDateString(DateUtils.addDays(reportRunDate, -30)));
                 parameters.put(ArPropertyConstants.END_DATE, getDateTimeService().toDateString(reportRunDate));
-            }
-            else if (StringUtils.equals(columnTitle, cutoffdate60Label)) {
+            } else if (StringUtils.equals(columnTitle, cutoffdate60Label)) {
                 parameters.put(ArPropertyConstants.START_DATE, getDateTimeService().toDateString(DateUtils.addDays(reportRunDate, -60)));
                 parameters.put(ArPropertyConstants.END_DATE, getDateTimeService().toDateString(DateUtils.addDays(reportRunDate, -31)));
-            }
-            else if (StringUtils.equals(columnTitle, cutoffdate90Label)) {
+            } else if (StringUtils.equals(columnTitle, cutoffdate90Label)) {
                 parameters.put(ArPropertyConstants.START_DATE, getDateTimeService().toDateString(DateUtils.addDays(reportRunDate, -90)));
                 parameters.put(ArPropertyConstants.END_DATE, getDateTimeService().toDateString(DateUtils.addDays(reportRunDate, -61)));
-            }
-            else if (StringUtils.equals(columnTitle, cutoffdate91toSYSPRlabel)) {
+            } else if (StringUtils.equals(columnTitle, cutoffdate91toSYSPRlabel)) {
                 parameters.put(ArPropertyConstants.START_DATE, getDateTimeService().toDateString(DateUtils.addDays(reportRunDate, -120)));
                 parameters.put(ArPropertyConstants.END_DATE, getDateTimeService().toDateString(DateUtils.addDays(reportRunDate, -91)));
-            }
-            else if (StringUtils.equals(columnTitle, cutoffdateSYSPRplus1orMorelabel)) {
+            } else if (StringUtils.equals(columnTitle, cutoffdateSYSPRplus1orMorelabel)) {
                 parameters.put(ArPropertyConstants.START_DATE, KFSConstants.EMPTY_STRING);
                 parameters.put(ArPropertyConstants.END_DATE, getDateTimeService().toDateString(DateUtils.addDays(reportRunDate, -121)));
                 columnTitle = Integer.toString((Integer.parseInt(nbrDaysForLastBucket)) + 1) + " days and older";
-            }
-            else {
+            } else {
                 parameters.put(ArPropertyConstants.START_DATE, KFSConstants.EMPTY_STRING);
                 parameters.put(ArPropertyConstants.END_DATE, getDateTimeService().toDateString(reportRunDate));
             }
@@ -504,7 +491,7 @@ public class ContractsGrantsAgingReportLookupableHelperServiceImpl extends Kuali
     /**
      * This method returns the customer lookup url
      *
-     * @param bo business object
+     * @param bo          business object
      * @param columnTitle
      * @return Returns the url for the customer lookup
      */
@@ -524,7 +511,7 @@ public class ContractsGrantsAgingReportLookupableHelperServiceImpl extends Kuali
     /**
      * This method returns the Agency inquiry url
      *
-     * @param bo business object
+     * @param bo          business object
      * @param columnTitle
      * @return Returns the url for the Agency Inquiry
      */
@@ -784,8 +771,7 @@ public class ContractsGrantsAgingReportLookupableHelperServiceImpl extends Kuali
                         if (KfsDateUtils.isSameDayOrLater(cgDoc.getBillingDate(), begin) && KfsDateUtils.isSameDayOrEarlier(cgDoc.getBillingDate(), end)) {
                             invoiceAmt = invoiceAmt.add(cgDoc.getTotalDollarAmount());
                         }
-                    }
-                    else {
+                    } else {
                         if (KfsDateUtils.isSameDayOrEarlier(cgDoc.getBillingDate(), end)) {
                             invoiceAmt = invoiceAmt.add(cgDoc.getTotalDollarAmount());
                         }
@@ -813,8 +799,7 @@ public class ContractsGrantsAgingReportLookupableHelperServiceImpl extends Kuali
                         if (KfsDateUtils.isSameDayOrLater(cgDoc.getBillingDate(), begin) && KfsDateUtils.isSameDayOrEarlier(cgDoc.getBillingDate(), end)) {
                             invoiceAmt = invoiceAmt.add(cgDoc.getPaymentAmount());
                         }
-                    }
-                    else {
+                    } else {
                         if (KfsDateUtils.isSameDayOrEarlier(cgDoc.getBillingDate(), end)) {
                             invoiceAmt = invoiceAmt.add(cgDoc.getPaymentAmount());
                         }
@@ -871,11 +856,12 @@ public class ContractsGrantsAgingReportLookupableHelperServiceImpl extends Kuali
 
     /**
      * Some properties depend on parameters, so let's wait until the parameter service has been set
+     *
      * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
      */
     @Override
     public void afterPropertiesSet() throws Exception {
-        nbrDaysForLastBucket = getParameterService().getParameterValueAsString(CustomerAgingReportDetail.class,  ArConstants.CUSTOMER_INVOICE_AGE);
+        nbrDaysForLastBucket = getParameterService().getParameterValueAsString(CustomerAgingReportDetail.class, ArConstants.CUSTOMER_INVOICE_AGE);
         // default is 120 days
         cutoffdate91toSYSPRlabel = "91-" + nbrDaysForLastBucket + " days";
         cutoffdateSYSPRplus1orMorelabel = Integer.toString((Integer.parseInt(nbrDaysForLastBucket)) + 1) + "+ days";

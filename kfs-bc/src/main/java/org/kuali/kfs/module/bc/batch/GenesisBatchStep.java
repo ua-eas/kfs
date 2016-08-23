@@ -1,36 +1,36 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.batch;
 
-import java.util.Date;
-
+import org.kuali.kfs.coreservice.api.parameter.EvaluationOperator;
+import org.kuali.kfs.coreservice.api.parameter.Parameter;
+import org.kuali.kfs.coreservice.api.parameter.ParameterType;
+import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.PersistenceStructureService;
 import org.kuali.kfs.module.bc.batch.service.GenesisService;
 import org.kuali.kfs.module.bc.util.BudgetParameterFinder;
 import org.kuali.kfs.sys.batch.AbstractStep;
 import org.kuali.kfs.sys.batch.Job;
 import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.kfs.coreservice.framework.parameter.ParameterService;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.PersistenceStructureService;
-import org.kuali.kfs.coreservice.api.parameter.EvaluationOperator;
-import org.kuali.kfs.coreservice.api.parameter.Parameter;
-import org.kuali.kfs.coreservice.api.parameter.ParameterType;
+
+import java.util.Date;
 
 public class GenesisBatchStep extends AbstractStep {
 
@@ -46,7 +46,6 @@ public class GenesisBatchStep extends AbstractStep {
     private static final String RUN_INDICATOR_PARAMETER_DESCRIPTION = "Tells the job framework whether to run this job or not; set to know because the GenesisBatchJob needs to only be run once after database initialization.";
     private static final String RUN_INDICATOR_PARAMETER_TYPE = "CONFG";
     private static final String RUN_INDICATOR_PARAMETER_APPLICATION_NAMESPACE_CODE = "KFS";
-
 
 
     @Override
@@ -66,7 +65,7 @@ public class GenesisBatchStep extends AbstractStep {
         if (runIndicatorParameter == null) {
             Parameter.Builder newParameter = Parameter.Builder.create(RUN_INDICATOR_PARAMETER_APPLICATION_NAMESPACE_CODE, RUN_INDICATOR_PARAMETER_NAMESPACE_CODE, RUN_INDICATOR_PARAMETER_NAMESPACE_STEP, Job.STEP_RUN_PARM_NM, ParameterType.Builder.create(RUN_INDICATOR_PARAMETER_TYPE));
             newParameter.setValue(RUN_INDICATOR_PARAMETER_VALUE);
-            newParameter.setEvaluationOperator( EvaluationOperator.ALLOW );
+            newParameter.setEvaluationOperator(EvaluationOperator.ALLOW);
             newParameter.setDescription(RUN_INDICATOR_PARAMETER_DESCRIPTION);
             parameterService.createParameter(newParameter.build());
         } else {
@@ -76,18 +75,15 @@ public class GenesisBatchStep extends AbstractStep {
         }
     }
 
-    public void setGenesisService (GenesisService genesisService)
-    {
+    public void setGenesisService(GenesisService genesisService) {
         this.genesisService = genesisService;
     }
 
-    public void setPersistenceStructureService (PersistenceStructureService psService)
-    {
+    public void setPersistenceStructureService(PersistenceStructureService psService) {
         this.psService = psService;
     }
 
-    public void setBusinessObjectService (BusinessObjectService boService)
-    {
+    public void setBusinessObjectService(BusinessObjectService boService) {
         this.boService = boService;
     }
 }

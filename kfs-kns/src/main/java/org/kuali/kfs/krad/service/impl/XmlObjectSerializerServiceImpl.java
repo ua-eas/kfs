@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -29,10 +29,10 @@ import com.thoughtworks.xstream.mapper.Mapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.ojb.broker.core.proxy.ListProxyDefaultImpl;
-import org.kuali.kfs.krad.util.DateTimeConverter;
 import org.kuali.kfs.krad.service.KRADServiceLocator;
 import org.kuali.kfs.krad.service.PersistenceService;
 import org.kuali.kfs.krad.service.XmlObjectSerializerService;
+import org.kuali.kfs.krad.util.DateTimeConverter;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -42,18 +42,16 @@ import java.util.Iterator;
 /**
  * This class is the service implementation for the XmlObjectSerializer structure. This is the default implementation that gets
  * delivered with Kuali. It utilizes the XStream open source libraries and framework.
- * 
- * 
  */
 public class XmlObjectSerializerServiceImpl implements XmlObjectSerializerService {
-	private static final Log LOG = LogFactory.getLog(XmlObjectSerializerServiceImpl.class);
-	
-	private PersistenceService persistenceService;
-	
-	private XStream xstream;
-	
-	public XmlObjectSerializerServiceImpl() {
-		xstream = new XStream(new ProxyAwareJavaReflectionProvider());
+    private static final Log LOG = LogFactory.getLog(XmlObjectSerializerServiceImpl.class);
+
+    private PersistenceService persistenceService;
+
+    private XStream xstream;
+
+    public XmlObjectSerializerServiceImpl() {
+        xstream = new XStream(new ProxyAwareJavaReflectionProvider());
 
         // See http://xstream.codehaus.org/faq.html#Serialization_CGLIB
         // To use a newer version of XStream we may need to do something like this:
@@ -70,18 +68,18 @@ public class XmlObjectSerializerServiceImpl implements XmlObjectSerializerServic
 //        };
 //        xstream.registerConverter(new CGLIBEnhancedConverter(xstream.getMapper(), xstream.getReflectionProvider()));
 
-		xstream.registerConverter(new ProxyConverter(xstream.getMapper(), xstream.getReflectionProvider() ));
-		xstream.addDefaultImplementation(ArrayList.class, ListProxyDefaultImpl.class);
+        xstream.registerConverter(new ProxyConverter(xstream.getMapper(), xstream.getReflectionProvider()));
+        xstream.addDefaultImplementation(ArrayList.class, ListProxyDefaultImpl.class);
         xstream.registerConverter(new DateTimeConverter());
-	}
-	
+    }
+
     /**
      * @see org.kuali.rice.krad.service.XmlObjectSerializer#toXml(java.lang.Object)
      */
     public String toXml(Object object) {
-    	if ( LOG.isDebugEnabled() ) {
-    		LOG.debug( "toXml(" + object + ") : \n" + xstream.toXML(object) );
-    	}
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("toXml(" + object + ") : \n" + xstream.toXML(object));
+        }
         return xstream.toXML(object);
     }
 
@@ -89,24 +87,24 @@ public class XmlObjectSerializerServiceImpl implements XmlObjectSerializerServic
      * @see org.kuali.rice.krad.service.XmlObjectSerializer#fromXml(java.lang.String)
      */
     public Object fromXml(String xml) {
-    	if ( LOG.isDebugEnabled() ) {
-    		LOG.debug( "fromXml() : \n" + xml );
-    	}
-    	if ( xml != null ) {
-    		xml = xml.replaceAll( "--EnhancerByCGLIB--[0-9a-f]{0,8}", "" );
-    	}
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("fromXml() : \n" + xml);
+        }
+        if (xml != null) {
+            xml = xml.replaceAll("--EnhancerByCGLIB--[0-9a-f]{0,8}", "");
+        }
         return xstream.fromXML(xml);
     }
 
     /**
      * This custom converter only handles proxies for BusinessObjects.  List-type proxies are handled by configuring XStream to treat
-     * ListProxyDefaultImpl as ArrayLists (see constructor for this service). 
+     * ListProxyDefaultImpl as ArrayLists (see constructor for this service).
      */
     public class ProxyConverter extends ReflectionConverter {
         public ProxyConverter(Mapper mapper, ReflectionProvider reflectionProvider) {
             super(mapper, reflectionProvider);
         }
-        
+
         @Override
         // since the ReflectionConverter supertype defines canConvert without using a parameterized Class type, we must declare
         // the overridden version the same way
@@ -119,21 +117,22 @@ public class XmlObjectSerializerServiceImpl implements XmlObjectSerializerServic
         public void marshal(Object obj, HierarchicalStreamWriter writer, MarshallingContext context) {
             super.marshal(getPersistenceService().resolveProxy(obj), writer, context);
         }
-        
-        // we shouldn't need an unmarshal method because all proxy metadata is taken out of the XML, so we'll reserialize as a base BO. 
+
+        // we shouldn't need an unmarshal method because all proxy metadata is taken out of the XML, so we'll reserialize as a base BO.
     }
-    
+
     public class ProxyAwareJavaReflectionProvider extends PureJavaReflectionProvider {
 
-    	public ProxyAwareJavaReflectionProvider() {
-    		super();
-    	}
+        public ProxyAwareJavaReflectionProvider() {
+            super();
+        }
+
         /**
          * @see com.thoughtworks.xstream.converters.reflection.PureJavaReflectionProvider#visitSerializableFields(java.lang.Object, com.thoughtworks.xstream.converters.reflection.ReflectionProvider.Visitor)
          */
         @Override
         public void visitSerializableFields(Object object, Visitor visitor) {
-            for (Iterator iterator = fieldDictionary.serializableFieldsFor(object.getClass()); iterator.hasNext();) {
+            for (Iterator iterator = fieldDictionary.serializableFieldsFor(object.getClass()); iterator.hasNext(); ) {
                 Field field = (Field) iterator.next();
                 if (!fieldModifiersSupported(field)) {
                     continue;
@@ -153,14 +152,14 @@ public class XmlObjectSerializerServiceImpl implements XmlObjectSerializerServic
                 visitor.visit(field.getName(), field.getType(), field.getDeclaringClass(), value);
             }
         }
-        
+
     }
 
-	public PersistenceService getPersistenceService() {
-		if ( persistenceService == null ) {
-			persistenceService = KRADServiceLocator.getPersistenceService();
-		}
-		return persistenceService;
-	}
+    public PersistenceService getPersistenceService() {
+        if (persistenceService == null) {
+            persistenceService = KRADServiceLocator.getPersistenceService();
+        }
+        return persistenceService;
+    }
 
 }

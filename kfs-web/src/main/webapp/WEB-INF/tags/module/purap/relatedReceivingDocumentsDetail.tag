@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -24,7 +24,7 @@
 
 <c:set var="isRequisition" value="${KualiForm.document.isReqsDoc}" />
 
-<logic:notEmpty name="KualiForm" property="${groupList}">	   		
+<logic:notEmpty name="KualiForm" property="${groupList}">
 	<logic:iterate id="group" name="KualiForm" property="${groupList}" indexId="groupCtr">
 
 		<!-- Line Item Receiving View -->
@@ -125,11 +125,11 @@
 				</div>
 			</c:when>
 		</c:choose>
-		
+
 		<!-- Correction Receiving Views (grouped and indented) associated with the Line Item Receiving View -->
 		<c:if test="${(empty limitByPoId) or (limitByPoId eq group.lineItemView.purchaseOrderIdentifier)}">
 			<c:forEach items="${group.correctionViews}" var="correctionView" varStatus="viewCtr">
-				<%--Setting tab vars for show/hide button, for each correctionView in the group --%>			    			
+				<%--Setting tab vars for show/hide button, for each correctionView in the group --%>
 				<c:set var="documentTitleCor" value="${correctionView.documentLabel}${correctionView.documentIdentifierString}"/>
 				<c:set var="tabKeyCor" value="${kfunc:generateTabKey(documentTitleCor)}" />
 				<c:set var="currentTabCor" value="${kfunc:getTabState(KualiForm, tabKeyCor)}" />
@@ -137,13 +137,13 @@
 				<c:choose>
 					<c:when test="${empty currentTabCor}">
 						<c:set var="isOpenCor" value="false" />
-						<html:hidden property="tabStates(${tabKeyCor})" value="CLOSE" />		
+						<html:hidden property="tabStates(${tabKeyCor})" value="CLOSE" />
 					</c:when>
 					<c:when test="${!empty currentTabCor}">
 						<c:set var="isOpenCor" value="${currentTabCor == 'OPEN'}" />
 					</c:when>
 				</c:choose>
-					
+
 				<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${correctionView.documentLabel} - <a href="<c:out value="${correctionView.url}" />" style="color: #FFF" target="_BLANK"><c:out value="${correctionView.documentIdentifierString}" /></a>
 				<c:if test="${isOpenCor == 'true' || isOpenCor == 'TRUE'}">
 					<html:submit
@@ -162,7 +162,7 @@
 							styleId="tab-${tabKey}-imageToggle"
 							onclick="return toggleTab(document, 'kualiFormModal', '${tabKey}');"
 							value="Show"/>
-				</c:if>				
+				</c:if>
 				</h3>
 
 				<!--  Correction Receiving View notes -->
@@ -171,7 +171,7 @@
 				</c:if>
 				<c:if test="${isOpenCor != 'true' && isOpenCor != 'TRUE'}" >
 					<div style="display: none;" id="tab-${tabKeyCor}-div">
-				</c:if>				
+				</c:if>
 				<table cellpadding="0" cellspacing="0" class="datatable" summary="Notes">
 					<c:choose>
 		    		<c:when test="${!empty correctionView.notes}">
@@ -193,17 +193,17 @@
 			      	 		</td>
 			      	 	</tr>
 						</c:forEach>
-					</c:when>	
+					</c:when>
 		    		<c:otherwise>
 						<tr>
 			    			<th align="center" valign="middle" class="bord-l-b">No Notes</th>
 			    		</tr>
-					</c:otherwise>	
+					</c:otherwise>
 					</c:choose>
 		    	</table>
-			</div>					
+			</div>
 			</c:forEach>
-			
+
 			<c:set var="viewShown" value="true"/>
 		</c:if>
 	</logic:iterate>

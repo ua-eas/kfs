@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2015 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -28,8 +28,6 @@ import java.util.regex.Pattern;
 
 /**
  * Pattern for matching any character in the given list (String)
- * 
- * 
  */
 public class CharsetPatternConstraint extends ValidCharactersPatternConstraint {
     protected String validChars;
@@ -55,7 +53,7 @@ public class CharsetPatternConstraint extends ValidCharactersPatternConstraint {
 
     /**
      * Escapes every special character I could think of, to limit potential misuse of this pattern.
-     * 
+     *
      * @see ValidationPattern#getRegexString()
      */
     protected String getRegexString() {
@@ -77,30 +75,30 @@ public class CharsetPatternConstraint extends ValidCharactersPatternConstraint {
         return regexString.toString();
     }
 
-	/**
-	 * 
-	 * @see BaseConstraint#getLabelKey()
-	 */
-	@Override
-	public String getLabelKey() {
-		String labelKey = super.getLabelKey();
-		if (StringUtils.isNotEmpty(labelKey)) {
-			return labelKey;
-		}
-		return (UifConstants.Messages.VALIDATION_MSG_KEY_PREFIX + "charsetPattern");
-	}
+    /**
+     * @see BaseConstraint#getLabelKey()
+     */
+    @Override
+    public String getLabelKey() {
+        String labelKey = super.getLabelKey();
+        if (StringUtils.isNotEmpty(labelKey)) {
+            return labelKey;
+        }
+        return (UifConstants.Messages.VALIDATION_MSG_KEY_PREFIX + "charsetPattern");
+    }
 
     /**
      * Parameters to be used in the string retrieved by this constraint's labelKey
+     *
      * @return the validationMessageParams
      */
     public List<String> getValidationMessageParams() {
-        if(validationMessageParams == null){
+        if (validationMessageParams == null) {
             validationMessageParams = new ArrayList<String>();
             if (StringUtils.isNotBlank(validChars)) {
                 validationMessageParams.add(validChars);
             }
-            
+
         }
         return this.validationMessageParams;
     }

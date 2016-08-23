@@ -1,29 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.document;
-
-import java.sql.Date;
-import java.text.MessageFormat;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.kuali.kfs.module.tem.TemConstants;
@@ -37,6 +30,13 @@ import org.kuali.rice.core.web.format.DateFormatter;
 import org.kuali.rice.kew.api.document.DocumentStatus;
 import org.kuali.rice.kew.framework.postprocessor.DocumentRouteStatusChange;
 
+import java.sql.Date;
+import java.text.MessageFormat;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class CTSCardApplicationDocument extends CardApplicationDocumentBase implements CardApplicationDocument {
     protected static Logger LOG = Logger.getLogger(CTSCardApplicationDocument.class);
 
@@ -46,12 +46,15 @@ public class CTSCardApplicationDocument extends CardApplicationDocumentBase impl
     public Date getBankAppliedDate() {
         return bankAppliedDate;
     }
+
     public void setBankAppliedDate(Date bankAppliedDate) {
         this.bankAppliedDate = bankAppliedDate;
     }
+
     public Date getBankApprovedDate() {
         return bankApprovedDate;
     }
+
     public void setBankApprovedDate(Date bankApprovedDate) {
         this.bankApprovedDate = bankApprovedDate;
     }
@@ -72,7 +75,7 @@ public class CTSCardApplicationDocument extends CardApplicationDocumentBase impl
     public void doRouteStatusChange(DocumentRouteStatusChange statusChangeEvent) {
         super.doRouteStatusChange(statusChangeEvent);
         DocumentStatus status = getDocumentHeader().getWorkflowDocument().getStatus();
-        if (status.equals(DocumentStatus.PROCESSED)){
+        if (status.equals(DocumentStatus.PROCESSED)) {
             TemProfileAccount profileAccount = new TemProfileAccount();
             Calendar cal = Calendar.getInstance();
             profileAccount.setEffectiveDate(new java.sql.Date(cal.getTimeInMillis()));
@@ -94,6 +97,7 @@ public class CTSCardApplicationDocument extends CardApplicationDocumentBase impl
             getBusinessObjectService().save(temProfile);
         }
     }
+
     @Override
     public String getUserAgreementText() {
         return SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(TemKeyConstants.CTS_CARD_DOCUMENT_USER_AGREEMENT);

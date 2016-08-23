@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -33,7 +33,7 @@
             </div>
             <br>
         </c:if>
-    
+
 		<html:submit
 				property="methodToCall.refreshAccountSummary"
 				alt="refresh account summary"
@@ -45,13 +45,13 @@
 				<h4>No Accounts</h4>
 			</logic:empty>
 			<logic:notEmpty name="KualiForm" property="summaryAccounts">
-				<logic:iterate id="summaryAccount" name="KualiForm" property="summaryAccounts" indexId="ctr">		
+				<logic:iterate id="summaryAccount" name="KualiForm" property="summaryAccounts" indexId="ctr">
 				    <tr>
 					    <td colspan="9" class="tab-subhead" style="border-right: none;">
 					        <h3>Account Summary ${ctr+1}</h3>
 					    </td>
-				    </tr>		
-				
+				    </tr>
+
 				    <tr class="header">
                 		<kul:htmlAttributeHeaderCell attributeEntry="${documentAttributes.chartOfAccountsCode}" hideRequiredAsterisk="true" scope="col"/>
                 		<kul:htmlAttributeHeaderCell attributeEntry="${documentAttributes.accountNumber}" hideRequiredAsterisk="true" scope="col"/>
@@ -60,10 +60,10 @@
             	    	<kul:htmlAttributeHeaderCell attributeEntry="${documentAttributes.financialSubObjectCode}" hideRequiredAsterisk="true" scope="col"/>
             		    <kul:htmlAttributeHeaderCell attributeEntry="${documentAttributes.projectCode}" hideRequiredAsterisk="true" scope="col"/>
                 		<kul:htmlAttributeHeaderCell attributeEntry="${documentAttributes.organizationReferenceId}" hideRequiredAsterisk="true" scope="col"/>
- 	    				<kul:htmlAttributeHeaderCell attributeEntry="${DataDictionary.DocumentHeader.attributes.organizationDocumentNumber}" hideRequiredAsterisk="true" scope="col"/>           		
+ 	    				<kul:htmlAttributeHeaderCell attributeEntry="${DataDictionary.DocumentHeader.attributes.organizationDocumentNumber}" hideRequiredAsterisk="true" scope="col"/>
                 		<kul:htmlAttributeHeaderCell attributeEntry="${documentAttributes.amount}" hideRequiredAsterisk="true" scope="col" addClass="right"/>
 			    	</tr>
-								    		    
+
 					<tr>
 						<td class="datacell">
 							<kul:inquiry boClassName="org.kuali.kfs.coa.businessobject.Chart" keyValues="chartOfAccountsCode=${summaryAccount.account.chartOfAccountsCode}" render="true">
@@ -94,7 +94,7 @@
 						        <c:otherwise>
 						            <bean:write name="KualiForm" property="summaryAccounts[${ctr}].account.financialObjectCode"/>&nbsp;
 						        </c:otherwise>
-						    </c:choose>	
+						    </c:choose>
 						</td>
 						<td class="datacell">
 						    <c:choose>
@@ -123,9 +123,9 @@
 						</td>
 						<td class="datacell"><div align="right">
 							<bean:write name="KualiForm" property="summaryAccounts[${ctr}].account.amount"/>&nbsp;</div>
-						</td> 
+						</td>
 					</tr>
-					
+
                     <tr>
                         <td colspan="9" height=30 style="padding: 20px;">
                             <div align="center">

@@ -1,35 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ld.util;
 
-import static org.kuali.kfs.gl.businessobject.OriginEntrySource.LABOR_BACKUP;
-import static org.kuali.kfs.gl.businessobject.OriginEntrySource.LABOR_SCRUBBER_VALID;
-
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
-
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.businessobject.OriginEntryGroup;
+import org.kuali.kfs.krad.service.BusinessObjectService;
 import org.kuali.kfs.module.ld.businessobject.LaborGeneralLedgerEntry;
 import org.kuali.kfs.module.ld.businessobject.LaborLedgerPendingEntry;
 import org.kuali.kfs.module.ld.businessobject.LaborOriginEntry;
@@ -41,7 +33,15 @@ import org.kuali.kfs.sys.TestDataPreparator;
 import org.kuali.kfs.sys.context.Log4jConfigurer;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.context.SpringContextForBatchRunner;
-import org.kuali.kfs.krad.service.BusinessObjectService;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Properties;
+
+import static org.kuali.kfs.gl.businessobject.OriginEntrySource.LABOR_BACKUP;
+import static org.kuali.kfs.gl.businessobject.OriginEntrySource.LABOR_SCRUBBER_VALID;
 
 public class TestDataLoader {
     private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(TestDataLoader.class);
@@ -132,8 +132,7 @@ public class TestDataLoader {
                 ObjectUtil.populateBusinessObject(inputData, properties, propertyKey, fieldLength, keyFieldList);
 
                 inputDataList.add(inputData);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

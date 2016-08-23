@@ -1,18 +1,18 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -22,16 +22,20 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.gl.businessobject.Transaction;
 import org.kuali.kfs.gl.businessobject.lookup.BusinessObjectFieldConverter;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.TestUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 
 import java.beans.PropertyDescriptor;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * A class that reads fixtures as property files and then sets the fields of
@@ -59,9 +63,9 @@ public class TestDataGenerator {
 
     /**
      * Constructs a TestDataGenerator instance
-     * 
+     *
      * @param propertiesFileName the name of the properties file to load
-     * @param messageFileName the name of the message file to load
+     * @param messageFileName    the name of the message file to load
      */
     public TestDataGenerator(String propertiesFileName, String messageFileName) {
         this.propertiesFileName = propertiesFileName;
@@ -74,7 +78,7 @@ public class TestDataGenerator {
 
     /**
      * Generates transaction data for a business object from properties
-     * 
+     *
      * @param businessObject the transction business object
      * @return the transction business object with data
      * @throws Exception thrown if an exception is encountered for any reason
@@ -98,10 +102,11 @@ public class TestDataGenerator {
         setFiscalYear(businessObject);
         return businessObject;
     }
-    
+
     /**
-     * If the actual transaction implementation has a "setUniversityFiscalYear" method, use that to set the 
+     * If the actual transaction implementation has a "setUniversityFiscalYear" method, use that to set the
      * fiscal year to the value of TestUtils.getFiscalYearForTesting()
+     *
      * @param transaction transaction to try to set fiscal year on
      */
     protected void setFiscalYear(Transaction transaction) {
@@ -110,22 +115,19 @@ public class TestDataGenerator {
             if (propertyDescriptor.getReadMethod() != null) {
                 PropertyUtils.setProperty(transaction, KFSPropertyConstants.UNIVERSITY_FISCAL_YEAR, TestUtils.getFiscalYearForTesting());
             }
+        } catch (IllegalAccessException iae) {
+            LOG.info("Could test universityFiscalYear property on fixture of transaction type: " + transaction.getClass().getName(), iae);
+        } catch (InvocationTargetException ite) {
+            LOG.info("Could test universityFiscalYear property on fixture of transaction type: " + transaction.getClass().getName(), ite);
+        } catch (NoSuchMethodException nsme) {
+            LOG.info("Could test universityFiscalYear property on fixture of transaction type: " + transaction.getClass().getName(), nsme);
         }
-        catch (IllegalAccessException iae) {
-            LOG.info("Could test universityFiscalYear property on fixture of transaction type: "+transaction.getClass().getName(), iae);
-        }
-        catch (InvocationTargetException ite) {
-            LOG.info("Could test universityFiscalYear property on fixture of transaction type: "+transaction.getClass().getName(), ite);
-        }
-        catch (NoSuchMethodException nsme) {
-            LOG.info("Could test universityFiscalYear property on fixture of transaction type: "+transaction.getClass().getName(), nsme);
-        }
-        
+
     }
 
     /**
      * Generates lookup fields and values through reading properties
-     * 
+     *
      * @param businessObject the business object ot populate
      * @throws Exception thrown if an exception is encountered for any reason
      */
@@ -135,7 +137,7 @@ public class TestDataGenerator {
 
     /**
      * This method generates lookup fields and values through reading properties
-     * 
+     *
      * @param businessObject the business object to populate
      * @return the map of lookup fields and values
      * @throws Exception thrown if an exception is encountered for any reason
@@ -173,7 +175,7 @@ public class TestDataGenerator {
 
     /**
      * This method loads the properties from the property file
-     * 
+     *
      * @param propertiesFileName the name of file containing the properties
      * @return the properties that have been populated
      */
@@ -183,8 +185,7 @@ public class TestDataGenerator {
         try {
             InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propertiesFileName);
             properties.load(inputStream);
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             ioe.printStackTrace();
         }
         return properties;
@@ -192,10 +193,10 @@ public class TestDataGenerator {
 
     /**
      * This method gets the approperiate property value by examining the given parameters
-     * 
+     *
      * @param businessObject the given business object
-     * @param propertyName the given property name
-     * @param propertyValue the given property value
+     * @param propertyName   the given property name
+     * @param propertyValue  the given property value
      * @return the processed property value
      */
     private Object getPropertyValue(Object businessObject, String propertyName, String propertyValue) {
@@ -203,8 +204,7 @@ public class TestDataGenerator {
         Class propertyType = null;
         try {
             propertyType = PropertyUtils.getPropertyType(businessObject, propertyName);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -213,14 +213,11 @@ public class TestDataGenerator {
         Object finalPropertyValue = propertyValue;
         if (propertyType.isPrimitive()) {
             finalPropertyValue = null;
-        }
-        else if (propertyTypeName.indexOf("Integer") >= 0) {
+        } else if (propertyTypeName.indexOf("Integer") >= 0) {
             finalPropertyValue = new Integer(propertyValue.trim());
-        }
-        else if (propertyTypeName.indexOf("Boolean") >= 0) {
+        } else if (propertyTypeName.indexOf("Boolean") >= 0) {
             finalPropertyValue = new Boolean(propertyValue.trim());
-        }
-        else if (propertyTypeName.indexOf("KualiDecimal") >= 0) {
+        } else if (propertyTypeName.indexOf("KualiDecimal") >= 0) {
             finalPropertyValue = new KualiDecimal(propertyValue.trim());
         }
 
@@ -229,7 +226,7 @@ public class TestDataGenerator {
 
     /**
      * This method obtains the value of the message with the given name
-     * 
+     *
      * @param messageName the given message name
      * @return the value of the message
      */
@@ -242,7 +239,7 @@ public class TestDataGenerator {
 
     /**
      * This method obtains the value of the property with the given name
-     * 
+     *
      * @param propertyName the given property name
      * @return the value of the property
      */
@@ -255,7 +252,7 @@ public class TestDataGenerator {
 
     /**
      * Gets the properties attribute.
-     * 
+     *
      * @return Returns the properties.
      */
     public Properties getProperties() {
@@ -264,7 +261,7 @@ public class TestDataGenerator {
 
     /**
      * Sets the properties attribute value.
-     * 
+     *
      * @param properties The properties to set.
      */
     public void setProperties(Properties properties) {
@@ -273,7 +270,7 @@ public class TestDataGenerator {
 
     /**
      * Gets the message attribute.
-     * 
+     *
      * @return Returns the message.
      */
     public Properties getMessage() {
@@ -282,7 +279,7 @@ public class TestDataGenerator {
 
     /**
      * Sets the message attribute value.
-     * 
+     *
      * @param message The message to set.
      */
     public void setMessage(Properties message) {

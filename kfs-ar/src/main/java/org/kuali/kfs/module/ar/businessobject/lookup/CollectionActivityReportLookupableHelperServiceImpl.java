@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,19 +18,7 @@
  */
 package org.kuali.kfs.module.ar.businessobject.lookup;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.module.ar.ArPropertyConstants;
-import org.kuali.kfs.module.ar.businessobject.CollectionActivityReport;
-import org.kuali.kfs.module.ar.report.service.CollectionActivityReportService;
-import org.kuali.kfs.sys.KFSConstants;
-import org.kuali.rice.core.web.format.Formatter;
-import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.kfs.kns.document.authorization.BusinessObjectRestrictions;
 import org.kuali.kfs.kns.lookup.HtmlData;
 import org.kuali.kfs.kns.lookup.HtmlData.AnchorHtmlData;
@@ -38,12 +26,24 @@ import org.kuali.kfs.kns.web.comparator.CellComparatorHelper;
 import org.kuali.kfs.kns.web.struts.form.LookupForm;
 import org.kuali.kfs.kns.web.ui.Column;
 import org.kuali.kfs.kns.web.ui.ResultRow;
-import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.kfs.krad.bo.PersistableBusinessObject;
 import org.kuali.kfs.krad.lookup.CollectionIncomplete;
 import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.krad.util.KRADConstants;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.module.ar.ArPropertyConstants;
+import org.kuali.kfs.module.ar.businessobject.CollectionActivityReport;
+import org.kuali.kfs.module.ar.report.service.CollectionActivityReportService;
+import org.kuali.kfs.sys.KFSConstants;
+import org.kuali.rice.core.web.format.Formatter;
+import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.krad.bo.BusinessObject;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * LookupableHelperService class for Collection Activity Report.

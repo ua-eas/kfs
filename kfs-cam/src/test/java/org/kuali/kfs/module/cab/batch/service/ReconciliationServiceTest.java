@@ -1,26 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.cab.batch.service;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 import org.kuali.kfs.gl.businessobject.Entry;
 import org.kuali.kfs.module.cab.CabConstants;
@@ -32,6 +28,10 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.fixture.UserNameFixture;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * This class tests Cab Reconciliation service
@@ -49,7 +49,7 @@ public class ReconciliationServiceTest extends BatchTestBase {
 
     /**
      * Test to ensure that reconciliation service is not configured as singleton
-     * 
+     *
      * @throws Exception
      */
     public void testServiceNotSingleton() throws Exception {
@@ -84,8 +84,7 @@ public class ReconciliationServiceTest extends BatchTestBase {
             KualiDecimal targetAmount = targetEntry.getTransactionLedgerEntryAmount();
             if (CabConstants.CM.equals(targetEntry.getFinancialDocumentTypeCode())) {
                 assertTrue(glAccountLineGroup.getAmount().equals(purapAmount.negated()));
-            }
-            else {
+            } else {
                 assertTrue(glAccountLineGroup.getAmount().equals(purapAmount));
             }
 
@@ -94,8 +93,7 @@ public class ReconciliationServiceTest extends BatchTestBase {
             }
             if (CabConstants.CM.equals(targetEntry.getFinancialDocumentTypeCode())) {
                 assertTrue(targetAmount.equals(purapAmount.negated()));
-            }
-            else {
+            } else {
                 assertTrue(targetAmount.equals(purapAmount));
             }
             purapAmount = KualiDecimal.ZERO;

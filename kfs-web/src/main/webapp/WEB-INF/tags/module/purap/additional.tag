@@ -1,18 +1,18 @@
 <%--
    - The Kuali Financial System, a comprehensive financial management system for higher education.
-   - 
-   - Copyright 2005-2014 The Kuali Foundation
-   - 
+   -
+   - Copyright 2005-2016 The Kuali Foundation
+   -
    - This program is free software: you can redistribute it and/or modify
    - it under the terms of the GNU Affero General Public License as
    - published by the Free Software Foundation, either version 3 of the
    - License, or (at your option) any later version.
-   - 
+   -
    - This program is distributed in the hope that it will be useful,
    - but WITHOUT ANY WARRANTY; without even the implied warranty of
    - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    - GNU Affero General Public License for more details.
-   - 
+   -
    - You should have received a copy of the GNU Affero General Public License
    - along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --%>
@@ -39,7 +39,7 @@
                     <kul:htmlAttributeLabel attributeEntry="${documentAttributes.purchaseOrderTransmissionMethodCode}" />
                 </th>
                 <td class="datacell">
-                    <kul:htmlControlAttribute attributeEntry="${documentAttributes.purchaseOrderTransmissionMethodCode}" property="document.purchaseOrderTransmissionMethodCode" 
+                    <kul:htmlControlAttribute attributeEntry="${documentAttributes.purchaseOrderTransmissionMethodCode}" property="document.purchaseOrderTransmissionMethodCode"
                     extraReadOnlyProperty="document.purchaseOrderTransmissionMethod.purchaseOrderTransmissionMethodDescription" readOnly="${lockB2BEntry or (not (fullEntryMode or amendmentEntry))}" tabindexOverride="${tabindexOverrideBase + 0}" />
                 </td>
                 <th class="right">
@@ -58,7 +58,7 @@
                     <kul:htmlAttributeLabel attributeEntry="${documentAttributes.purchaseOrderCostSourceCode}" />
                 </th>
                 <td class="datacell">
-                    <kul:htmlControlAttribute attributeEntry="${documentAttributes.purchaseOrderCostSourceCode}" property="document.purchaseOrderCostSourceCode" 
+                    <kul:htmlControlAttribute attributeEntry="${documentAttributes.purchaseOrderCostSourceCode}" property="document.purchaseOrderCostSourceCode"
                     extraReadOnlyProperty="document.purchaseOrderCostSource.purchaseOrderCostSourceDescription" readOnly="${lockB2BEntry or (not (fullEntryMode or amendmentEntry)) or displayRequisitionFields}" tabindexOverride="${tabindexOverrideBase + 0}" />
                 </td>
                 <th class="right">
@@ -86,7 +86,7 @@
                     <kul:htmlControlAttribute attributeEntry="${documentAttributes.requestorPersonEmailAddress}" property="document.requestorPersonEmailAddress" readOnly="${not (fullEntryMode or amendmentEntry)}" tabindexOverride="${tabindexOverrideBase + 5}" />
                 </td>
             </tr>
-            
+
             <tr>
                 <th class="right">
                     <kul:htmlAttributeLabel attributeEntry="${documentAttributes.institutionContactPhoneNumber}" />
@@ -110,7 +110,7 @@
 		                <td class="datacell" rowspan=3>
 		                	<logic:iterate indexId="ctr" name="KualiForm" property="document.purchaseOrderSensitiveData" id="sd">
 		                		${sd.sensitiveData.sensitiveDataDescription}<br>
-		                	</logic:iterate>	
+		                	</logic:iterate>
 		                </td>
 	                </c:otherwise>
 				</c:choose>

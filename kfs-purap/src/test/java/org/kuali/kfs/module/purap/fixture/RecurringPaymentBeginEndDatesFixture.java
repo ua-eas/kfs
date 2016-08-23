@@ -1,34 +1,34 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.purap.fixture;
 
-import java.sql.Date;
-
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.purap.document.PurchasingDocument;
 import org.kuali.kfs.module.purap.fixture.PurapTestConstants.BeginEndDates;
 import org.kuali.kfs.module.purap.fixture.PurapTestConstants.RecurringPaymentTypes;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Date;
 
 public enum RecurringPaymentBeginEndDatesFixture {
 
     REQ_RIGHT_ORDER(BeginEndDates.REQ, BeginEndDates.FIRST_DATE, BeginEndDates.LAST_DATE, RecurringPaymentTypes.FIXD), REQ_WRONG_ORDER(BeginEndDates.REQ, BeginEndDates.LAST_DATE, BeginEndDates.FIRST_DATE, RecurringPaymentTypes.FIXD), REQ_SEQUENTIAL_NEXT_FY(BeginEndDates.REQ, BeginEndDates.FIRST_DATE, BeginEndDates.LAST_DATE, PurapTestConstants.FY_2007, RecurringPaymentTypes.FIXD), REQ_NON_SEQUENTIAL_NEXT_FY(BeginEndDates.REQ, BeginEndDates.LAST_DATE, BeginEndDates.FIRST_DATE, PurapTestConstants.FY_2007, RecurringPaymentTypes.FIXD), PO_RIGHT_ORDER(BeginEndDates.PO, BeginEndDates.FIRST_DATE, BeginEndDates.LAST_DATE, RecurringPaymentTypes.FIXD), PO_WRONG_ORDER(BeginEndDates.PO, BeginEndDates.LAST_DATE, BeginEndDates.FIRST_DATE, RecurringPaymentTypes.FIXD), PO_SEQUENTIAL_NEXT_FY(BeginEndDates.PO, BeginEndDates.FIRST_DATE, BeginEndDates.LAST_DATE, PurapTestConstants.FY_2007, RecurringPaymentTypes.FIXD), PO_NON_SEQUENTIAL_NEXT_FY(BeginEndDates.PO, BeginEndDates.LAST_DATE,
-            BeginEndDates.FIRST_DATE, PurapTestConstants.FY_2007, RecurringPaymentTypes.FIXD);
+        BeginEndDates.FIRST_DATE, PurapTestConstants.FY_2007, RecurringPaymentTypes.FIXD);
 
     PurchasingDocument document;
     Date beginDate;

@@ -1,31 +1,31 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sys.document.validation.impl;
 
-import static org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseConstants.ERROR_PATH.DOCUMENT_ERROR_PREFIX;
-
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSKeyConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.document.validation.GenericValidation;
 import org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import static org.kuali.kfs.sys.document.validation.impl.AccountingDocumentRuleBaseConstants.ERROR_PATH.DOCUMENT_ERROR_PREFIX;
 
 /**
  * Validation which checks a one-sided accounting document (ie, an accounting document which only uses source accounting lines, not target)
@@ -38,6 +38,7 @@ public class OneSidedRequiredAccountingLinesCountValidation extends GenericValid
     /**
      * Validates that the accountingDocumentForValidation has at least the requiredMinimumCount accounting lines
      * in its sourceAccountingLines (yep, it's assumed that one-sided accounting docs *always* use source...isn't that dumb?)
+     *
      * @see org.kuali.kfs.sys.document.validation.Validation#validate(org.kuali.kfs.sys.document.validation.event.AttributedDocumentEvent)
      */
     public boolean validate(AttributedDocumentEvent event) {
@@ -49,7 +50,8 @@ public class OneSidedRequiredAccountingLinesCountValidation extends GenericValid
     }
 
     /**
-     * Gets the accountingDocumentForValdation attribute. 
+     * Gets the accountingDocumentForValdation attribute.
+     *
      * @return Returns the accountingDocumentForValdation.
      */
     public AccountingDocument getAccountingDocumentForValidation() {
@@ -58,6 +60,7 @@ public class OneSidedRequiredAccountingLinesCountValidation extends GenericValid
 
     /**
      * Sets the accountingDocumentForValdation attribute value.
+     *
      * @param accountingDocumentForValdation The accountingDocumentForValdation to set.
      */
     public void setAccountingDocumentForValidation(AccountingDocument accountingDocumentForValidation) {
@@ -65,7 +68,8 @@ public class OneSidedRequiredAccountingLinesCountValidation extends GenericValid
     }
 
     /**
-     * Gets the requiredMinimumCount attribute. 
+     * Gets the requiredMinimumCount attribute.
+     *
      * @return Returns the requiredMinimumCount.
      */
     public int getRequiredMinimumCount() {
@@ -74,6 +78,7 @@ public class OneSidedRequiredAccountingLinesCountValidation extends GenericValid
 
     /**
      * Sets the requiredMinimumCount attribute value.
+     *
      * @param requiredMinimumCount The requiredMinimumCount to set.
      */
     public void setRequiredMinimumCount(int requiredCount) {

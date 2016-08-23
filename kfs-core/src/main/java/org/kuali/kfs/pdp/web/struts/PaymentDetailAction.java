@@ -1,36 +1,36 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.pdp.web.struts;
 
-import java.text.MessageFormat;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.kuali.kfs.kns.question.ConfirmationQuestion;
+import org.kuali.kfs.kns.web.struts.action.KualiAction;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.util.ErrorMessage;
+import org.kuali.kfs.krad.util.GlobalVariables;
+import org.kuali.kfs.krad.util.KRADConstants;
+import org.kuali.kfs.krad.util.MessageMap;
+import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.kfs.krad.util.UrlFactory;
 import org.kuali.kfs.pdp.PdpKeyConstants;
 import org.kuali.kfs.pdp.PdpParameterConstants;
 import org.kuali.kfs.pdp.PdpPropertyConstants;
@@ -43,15 +43,14 @@ import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.question.ConfirmationQuestion;
-import org.kuali.kfs.kns.web.struts.action.KualiAction;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.util.ErrorMessage;
-import org.kuali.kfs.krad.util.GlobalVariables;
-import org.kuali.kfs.krad.util.KRADConstants;
-import org.kuali.kfs.krad.util.MessageMap;
-import org.kuali.kfs.krad.util.ObjectUtils;
-import org.kuali.kfs.krad.util.UrlFactory;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * This class defines actions for Payment
@@ -72,6 +71,7 @@ public class PaymentDetailAction extends KualiAction {
 
     /**
      * This method confirms and cancels a payment.
+     *
      * @param mapping
      * @param form
      * @param request
@@ -92,9 +92,10 @@ public class PaymentDetailAction extends KualiAction {
 
     /**
      * This method cancels a payment.
+     *
      * @param paymentDetailId the payment detail id.
-     * @param changeText the text of the change
-     * @param user the user that perfomed the change
+     * @param changeText      the text of the change
+     * @param user            the user that perfomed the change
      * @return true if payment successfully canceled, false otherwise
      */
     private boolean performCancel(int paymentDetailId, String changeText, Person user) {
@@ -106,8 +107,7 @@ public class PaymentDetailAction extends KualiAction {
         if (ObjectUtils.isNotNull(paymentDetail)) {
             int paymentGroupId = paymentDetail.getPaymentGroupId().intValue();
             return paymentMaintenanceService.cancelPendingPayment(paymentGroupId, paymentDetailId, changeText, user);
-        }
-        else {
+        } else {
             GlobalVariables.getMessageMap().putError(PdpPropertyConstants.PaymentDetail.PAYMENT_ID, PdpKeyConstants.PaymentDetail.ErrorMessages.ERROR_PAYMENT_NOT_FOUND);
             return false;
         }
@@ -115,7 +115,7 @@ public class PaymentDetailAction extends KualiAction {
 
     /**
      * This method confirms and holds a payment
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -137,9 +137,10 @@ public class PaymentDetailAction extends KualiAction {
      */
     /**
      * This method performs a hold on a payment.
+     *
      * @param paymentDetailId the payment detail id
-     * @param changeText the text of the user change
-     * @param user the user that performed the change
+     * @param changeText      the text of the user change
+     * @param user            the user that performed the change
      * @return true if payment successfully held, false otherwise
      */
     private boolean performHold(int paymentDetailId, String changeText, Person user) {
@@ -151,8 +152,7 @@ public class PaymentDetailAction extends KualiAction {
         if (ObjectUtils.isNotNull(paymentDetail)) {
             int paymentGroupId = paymentDetail.getPaymentGroupId().intValue();
             return paymentMaintenanceService.holdPendingPayment(paymentGroupId, changeText, user);
-        }
-        else {
+        } else {
             GlobalVariables.getMessageMap().putError(PdpPropertyConstants.PaymentDetail.PAYMENT_ID, PdpKeyConstants.PaymentDetail.ErrorMessages.ERROR_PAYMENT_NOT_FOUND);
             return false;
         }
@@ -160,7 +160,7 @@ public class PaymentDetailAction extends KualiAction {
 
     /**
      * This method confirms and removes a hold on a payment.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -179,9 +179,10 @@ public class PaymentDetailAction extends KualiAction {
 
     /**
      * This method removes a hold on payment.
+     *
      * @param paymentDetailId the payment detail id
-     * @param changeText the text of the user change
-     * @param user the user that performs the change
+     * @param changeText      the text of the user change
+     * @param user            the user that performs the change
      * @return true if hold successfully removed from payment, false otherwise
      */
     private boolean performRemoveHold(int paymentDetailId, String changeText, Person user) {
@@ -193,8 +194,7 @@ public class PaymentDetailAction extends KualiAction {
         if (ObjectUtils.isNotNull(paymentDetail)) {
             int paymentGroupId = paymentDetail.getPaymentGroupId().intValue();
             return paymentMaintenanceService.removeHoldPendingPayment(paymentGroupId, changeText, user);
-        }
-        else {
+        } else {
             GlobalVariables.getMessageMap().putError(PdpPropertyConstants.PaymentDetail.PAYMENT_ID, PdpKeyConstants.PaymentDetail.ErrorMessages.ERROR_PAYMENT_NOT_FOUND);
             return false;
         }
@@ -202,6 +202,7 @@ public class PaymentDetailAction extends KualiAction {
 
     /**
      * This method confirms and sets the immediate flag.
+     *
      * @param mapping
      * @param form
      * @param request
@@ -222,9 +223,10 @@ public class PaymentDetailAction extends KualiAction {
 
     /**
      * This method sets the immediate flag
+     *
      * @param paymentDetailId the payment detail id
-     * @param changeText the text of the change
-     * @param user the user that performed the change
+     * @param changeText      the text of the change
+     * @param user            the user that performed the change
      * @return true if flag successfully set on payment, false otherwise
      */
     private boolean performSetImmediate(int paymentDetailId, String changeText, Person user) {
@@ -236,8 +238,7 @@ public class PaymentDetailAction extends KualiAction {
             int paymentGroupId = paymentDetail.getPaymentGroupId().intValue();
             paymentMaintenanceService.changeImmediateFlag(paymentGroupId, changeText, user);
             return true;
-        }
-        else {
+        } else {
             GlobalVariables.getMessageMap().putError(PdpPropertyConstants.PaymentDetail.PAYMENT_ID, PdpKeyConstants.PaymentDetail.ErrorMessages.ERROR_PAYMENT_NOT_FOUND);
             return false;
         }
@@ -246,6 +247,7 @@ public class PaymentDetailAction extends KualiAction {
 
     /**
      * This method confirms and removes the immediate flag.
+     *
      * @param mapping
      * @param form
      * @param request
@@ -265,7 +267,7 @@ public class PaymentDetailAction extends KualiAction {
 
     /**
      * This method confirms and cancels a disbursement.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -284,9 +286,10 @@ public class PaymentDetailAction extends KualiAction {
 
     /**
      * This method cancels a disbursement
+     *
      * @param paymentDetailId the payment detail id
-     * @param changeText the text entered by user
-     * @param user the user that canceled the disbursement
+     * @param changeText      the text entered by user
+     * @param user            the user that canceled the disbursement
      * @return true if disbursement successfully canceled, false otherwise
      */
     private boolean performCancelDisbursement(int paymentDetailId, String changeText, Person user) {
@@ -297,8 +300,7 @@ public class PaymentDetailAction extends KualiAction {
         if (ObjectUtils.isNotNull(paymentDetail)) {
             int paymentGroupId = paymentDetail.getPaymentGroupId().intValue();
             return paymentMaintenanceService.cancelDisbursement(paymentGroupId, paymentDetailId, changeText, user);
-        }
-        else {
+        } else {
             GlobalVariables.getMessageMap().putError(PdpPropertyConstants.PaymentDetail.PAYMENT_ID, PdpKeyConstants.PaymentDetail.ErrorMessages.ERROR_PAYMENT_NOT_FOUND);
             return false;
         }
@@ -306,6 +308,7 @@ public class PaymentDetailAction extends KualiAction {
 
     /**
      * This method confirms an reissues/cancels a disbursement.
+     *
      * @param mapping
      * @param form
      * @param request
@@ -324,9 +327,10 @@ public class PaymentDetailAction extends KualiAction {
 
     /**
      * This method reissue a disbursement
+     *
      * @param paymentDetailId the payment detail id
-     * @param changeText the text entered by the user
-     * @param user the user that canceled the disbursement
+     * @param changeText      the text entered by the user
+     * @param user            the user that canceled the disbursement
      * @return true if disbursement successfully reissued/canceled, false otherwise
      */
     private boolean performReIssueWithoutCancelDisbursement(int paymentDetailId, String changeText, Person user) {
@@ -337,8 +341,7 @@ public class PaymentDetailAction extends KualiAction {
         if (ObjectUtils.isNotNull(paymentDetail)) {
             int paymentGroupId = paymentDetail.getPaymentGroupId().intValue();
             return paymentMaintenanceService.reissueDisbursement(paymentGroupId, changeText, user);
-        }
-        else {
+        } else {
             GlobalVariables.getMessageMap().putError(PdpPropertyConstants.PaymentDetail.PAYMENT_ID, PdpKeyConstants.PaymentDetail.ErrorMessages.ERROR_PAYMENT_NOT_FOUND);
             return false;
         }
@@ -346,6 +349,7 @@ public class PaymentDetailAction extends KualiAction {
 
     /**
      * This method confirms an reissues/cancels a disbursement.
+     *
      * @param mapping
      * @param form
      * @param request
@@ -364,9 +368,10 @@ public class PaymentDetailAction extends KualiAction {
 
     /**
      * This method reissue/cancels a disbursement
+     *
      * @param paymentDetailId the payment detail id
-     * @param changeText the text entered by the user
-     * @param user the user that canceled the disbursement
+     * @param changeText      the text entered by the user
+     * @param user            the user that canceled the disbursement
      * @return true if disbursement successfully reissued/canceled, false otherwise
      */
     private boolean performReIssueDisbursement(int paymentDetailId, String changeText, Person user) {
@@ -377,8 +382,7 @@ public class PaymentDetailAction extends KualiAction {
         if (ObjectUtils.isNotNull(paymentDetail)) {
             int paymentGroupId = paymentDetail.getPaymentGroupId().intValue();
             return paymentMaintenanceService.cancelReissueDisbursement(paymentGroupId, changeText, user);
-        }
-        else {
+        } else {
             GlobalVariables.getMessageMap().putError(PdpPropertyConstants.PaymentDetail.PAYMENT_ID, PdpKeyConstants.PaymentDetail.ErrorMessages.ERROR_PAYMENT_NOT_FOUND);
             return false;
         }
@@ -386,7 +390,7 @@ public class PaymentDetailAction extends KualiAction {
 
     /**
      * This method prompts for a reason to perform an action on a payment detail.
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -425,16 +429,14 @@ public class PaymentDetailAction extends KualiAction {
                 int start = confirmationText.indexOf(".") + 2;
                 confirmationText = confirmationText.substring(start);
             }
-        }
-        else if (confirmationText.equals(PdpKeyConstants.PaymentDetail.Confirmation.CANCEL_DISBURSEMENT_MESSAGE)) {
+        } else if (confirmationText.equals(PdpKeyConstants.PaymentDetail.Confirmation.CANCEL_DISBURSEMENT_MESSAGE)) {
             confirmationText = MessageFormat.format(confirmationTextValue, paymentsInDisbursement, paymentGroup.getDisbursementNbr().toString());
             if (paymentsInDisbursement == 0) {
                 int start = confirmationText.indexOf(".") + 2;
                 confirmationText = confirmationText.substring(start);
             }
 
-        }
-        else {
+        } else {
             confirmationText = MessageFormat.format(confirmationTextValue, paymentDetailId);
         }
 
@@ -442,13 +444,11 @@ public class PaymentDetailAction extends KualiAction {
 
             // ask question if not already asked
             return this.performQuestionWithInput(mapping, form, request, response, confirmationQuestion, confirmationText, KRADConstants.CONFIRMATION_QUESTION, caller, paymentDetailId);
-        }
-        else {
+        } else {
             Object buttonClicked = request.getParameter(KRADConstants.QUESTION_CLICKED_BUTTON);
             if ((confirmationQuestion.equals(question)) && ConfirmationQuestion.NO.equals(buttonClicked)) {
                 actionStatus = false;
-            }
-            else {
+            } else {
                 noteText = reason;
                 int noteTextLength = (reason == null) ? 0 : noteText.length();
                 int noteTextMaxLength = PdpKeyConstants.BatchConstants.Confirmation.NOTE_TEXT_MAX_LENGTH;
@@ -460,8 +460,7 @@ public class PaymentDetailAction extends KualiAction {
                         reason = KFSConstants.EMPTY_STRING;
                     }
                     return this.performQuestionWithInputAgainBecauseOfErrors(mapping, form, request, response, confirmationQuestion, confirmationText, KRADConstants.CONFIRMATION_QUESTION, KFSConstants.MAPPING_BASIC, paymentDetailId, reason, PdpKeyConstants.BatchConstants.ErrorMessages.ERROR_NOTE_EMPTY, KRADConstants.QUESTION_REASON_ATTRIBUTE_NAME, "");
-                }
-                else if (noteTextLength > noteTextMaxLength) {
+                } else if (noteTextLength > noteTextMaxLength) {
                     return this.performQuestionWithInputAgainBecauseOfErrors(mapping, form, request, response, confirmationQuestion, confirmationText, KRADConstants.CONFIRMATION_QUESTION, KFSConstants.MAPPING_BASIC, paymentDetailId, reason, PdpKeyConstants.BatchConstants.ErrorMessages.ERROR_NOTE_TOO_LONG, KRADConstants.QUESTION_REASON_ATTRIBUTE_NAME, "");
                 }
 
@@ -479,10 +478,10 @@ public class PaymentDetailAction extends KualiAction {
 
     /**
      * This method builds the forward url.
-     * 
+     *
      * @param paymentDetailId the payment detail id
-     * @param success action status: true if success, false otherwise
-     * @param message the message for the user
+     * @param success         action status: true if success, false otherwise
+     * @param message         the message for the user
      * @return the build url
      */
     private String buildUrl(String paymentDetailId, boolean success, String message, String errorList) {
@@ -502,8 +501,7 @@ public class PaymentDetailAction extends KualiAction {
             }
 
             lookupUrl = lookupUrl + UrlFactory.parameterizeUrl("&", parameters);
-        }
-        else {
+        } else {
             // session expired -  resort to alternative plan
             String basePath = SpringContext.getBean(ConfigurationService.class).getPropertyValueAsString(KFSConstants.APPLICATION_URL_KEY);
 
@@ -531,7 +529,7 @@ public class PaymentDetailAction extends KualiAction {
 
     /**
      * This method build a string list of error message keys out of the error map in GlobalVariables
-     * 
+     *
      * @return a String representing the list of error message keys
      */
     private String buildErrorMesageKeyList() {
@@ -554,6 +552,7 @@ public class PaymentDetailAction extends KualiAction {
 
     /**
      * This method gets the payment maintenance service
+     *
      * @return the paymentMaintenanceService
      */
     public PaymentMaintenanceService getPaymentMaintenanceService() {
@@ -562,6 +561,7 @@ public class PaymentDetailAction extends KualiAction {
 
     /**
      * This method sets the payment maintenance service
+     *
      * @param paymentMaintenanceService
      */
     public void setPaymentMaintenanceService(PaymentMaintenanceService paymentMaintenanceService) {
@@ -570,6 +570,7 @@ public class PaymentDetailAction extends KualiAction {
 
     /**
      * This method gets the business object service
+     *
      * @return the businessObjectService
      */
     public BusinessObjectService getBusinessObjectService() {
@@ -578,6 +579,7 @@ public class PaymentDetailAction extends KualiAction {
 
     /**
      * This method sets the business object service.
+     *
      * @param businessObjectService
      */
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {

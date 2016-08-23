@@ -1,31 +1,29 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.sec.businessobject;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-
-import org.kuali.kfs.sys.KFSPropertyConstants;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.core.api.util.type.KualiInteger;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Defines a restriction that can be given to a model or principal. A restriction defines the attribute that is restricted on, and the action(s) that are being restricted. A KIM
@@ -68,7 +66,7 @@ public class SecurityDefinition extends PersistableBusinessObjectBase implements
 
     /**
      * Gets the id attribute.
-     * 
+     *
      * @return Returns the id.
      */
     public KualiInteger getId() {
@@ -78,7 +76,7 @@ public class SecurityDefinition extends PersistableBusinessObjectBase implements
 
     /**
      * Sets the id attribute value.
-     * 
+     *
      * @param id The id to set.
      */
     public void setId(KualiInteger id) {
@@ -88,7 +86,7 @@ public class SecurityDefinition extends PersistableBusinessObjectBase implements
 
     /**
      * Gets the name attribute.
-     * 
+     *
      * @return Returns the name.
      */
     public String getName() {
@@ -98,7 +96,7 @@ public class SecurityDefinition extends PersistableBusinessObjectBase implements
 
     /**
      * Sets the name attribute value.
-     * 
+     *
      * @param name The name to set.
      */
     public void setName(String name) {
@@ -108,7 +106,7 @@ public class SecurityDefinition extends PersistableBusinessObjectBase implements
 
     /**
      * Gets the description attribute.
-     * 
+     *
      * @return Returns the description.
      */
     public String getDescription() {
@@ -118,7 +116,7 @@ public class SecurityDefinition extends PersistableBusinessObjectBase implements
 
     /**
      * Sets the description attribute value.
-     * 
+     *
      * @param description The description to set.
      */
     public void setDescription(String description) {
@@ -128,7 +126,7 @@ public class SecurityDefinition extends PersistableBusinessObjectBase implements
 
     /**
      * Gets the roleId attribute.
-     * 
+     *
      * @return Returns the roleId.
      */
     public String getRoleId() {
@@ -137,7 +135,7 @@ public class SecurityDefinition extends PersistableBusinessObjectBase implements
 
     /**
      * Sets the roleId attribute value.
-     * 
+     *
      * @param roleId The roleId to set.
      */
     public void setRoleId(String roleId) {
@@ -146,7 +144,7 @@ public class SecurityDefinition extends PersistableBusinessObjectBase implements
 
     /**
      * Gets the attributeId attribute.
-     * 
+     *
      * @return Returns the attributeId.
      */
     public KualiInteger getAttributeId() {
@@ -156,7 +154,7 @@ public class SecurityDefinition extends PersistableBusinessObjectBase implements
 
     /**
      * Sets the attributeId attribute value.
-     * 
+     *
      * @param attributeId The attributeId to set.
      */
     public void setAttributeId(KualiInteger attributeId) {
@@ -166,7 +164,7 @@ public class SecurityDefinition extends PersistableBusinessObjectBase implements
 
     /**
      * Gets the restrictViewAccountingLine attribute.
-     * 
+     *
      * @return Returns the restrictViewAccountingLine.
      */
     public boolean isRestrictViewAccountingLine() {
@@ -176,7 +174,7 @@ public class SecurityDefinition extends PersistableBusinessObjectBase implements
 
     /**
      * Sets the restrictViewAccountingLine attribute value.
-     * 
+     *
      * @param restrictViewAccountingLine The restrictViewAccountingLine to set.
      */
     public void setRestrictViewAccountingLine(boolean restrictViewAccountingLine) {
@@ -186,7 +184,7 @@ public class SecurityDefinition extends PersistableBusinessObjectBase implements
 
     /**
      * Gets the restrictEditAccountingLine attribute.
-     * 
+     *
      * @return Returns the restrictEditAccountingLine.
      */
     public boolean isRestrictEditAccountingLine() {
@@ -196,7 +194,7 @@ public class SecurityDefinition extends PersistableBusinessObjectBase implements
 
     /**
      * Sets the restrictEditAccountingLine attribute value.
-     * 
+     *
      * @param restrictEditAccountingLine The restrictEditAccountingLine to set.
      */
     public void setRestrictEditAccountingLine(boolean restrictEditAccountingLine) {
@@ -206,7 +204,7 @@ public class SecurityDefinition extends PersistableBusinessObjectBase implements
 
     /**
      * Gets the restrictViewDocument attribute.
-     * 
+     *
      * @return Returns the restrictViewDocument.
      */
     public boolean isRestrictViewDocument() {
@@ -216,7 +214,7 @@ public class SecurityDefinition extends PersistableBusinessObjectBase implements
 
     /**
      * Sets the restrictViewDocument attribute value.
-     * 
+     *
      * @param restrictViewDocument The restrictViewDocument to set.
      */
     public void setRestrictViewDocument(boolean restrictViewDocument) {
@@ -226,7 +224,7 @@ public class SecurityDefinition extends PersistableBusinessObjectBase implements
 
     /**
      * Gets the restrictViewNotesAndAttachments attribute.
-     * 
+     *
      * @return Returns the restrictViewNotesAndAttachments.
      */
     public boolean isRestrictViewNotesAndAttachments() {
@@ -236,7 +234,7 @@ public class SecurityDefinition extends PersistableBusinessObjectBase implements
 
     /**
      * Sets the restrictViewNotesAndAttachments attribute value.
-     * 
+     *
      * @param restrictViewNotesAndAttachments The restrictViewNotesAndAttachments to set.
      */
     public void setRestrictViewNotesAndAttachments(boolean restrictViewNotesAndAttachments) {
@@ -246,7 +244,7 @@ public class SecurityDefinition extends PersistableBusinessObjectBase implements
 
     /**
      * Gets the restrictLookup attribute.
-     * 
+     *
      * @return Returns the restrictLookup.
      */
     public boolean isRestrictLookup() {
@@ -256,7 +254,7 @@ public class SecurityDefinition extends PersistableBusinessObjectBase implements
 
     /**
      * Sets the restrictLookup attribute value.
-     * 
+     *
      * @param restrictLookup The restrictLookup to set.
      */
     public void setRestrictLookup(boolean restrictLookup) {
@@ -266,7 +264,7 @@ public class SecurityDefinition extends PersistableBusinessObjectBase implements
 
     /**
      * Gets the restrictGLInquiry attribute.
-     * 
+     *
      * @return Returns the restrictGLInquiry.
      */
     public boolean isRestrictGLInquiry() {
@@ -276,7 +274,7 @@ public class SecurityDefinition extends PersistableBusinessObjectBase implements
 
     /**
      * Sets the restrictGLInquiry attribute value.
-     * 
+     *
      * @param restrictGLInquiry The restrictGLInquiry to set.
      */
     public void setRestrictGLInquiry(boolean restrictGLInquiry) {
@@ -286,7 +284,7 @@ public class SecurityDefinition extends PersistableBusinessObjectBase implements
 
     /**
      * Gets the restrictLaborInquiry attribute.
-     * 
+     *
      * @return Returns the restrictLaborInquiry.
      */
     public boolean isRestrictLaborInquiry() {
@@ -296,7 +294,7 @@ public class SecurityDefinition extends PersistableBusinessObjectBase implements
 
     /**
      * Sets the restrictLaborInquiry attribute value.
-     * 
+     *
      * @param restrictLaborInquiry The restrictLaborInquiry to set.
      */
     public void setRestrictLaborInquiry(boolean restrictLaborInquiry) {
@@ -306,7 +304,7 @@ public class SecurityDefinition extends PersistableBusinessObjectBase implements
 
     /**
      * Gets the active attribute.
-     * 
+     *
      * @return Returns the active.
      */
     public boolean isActive() {
@@ -316,7 +314,7 @@ public class SecurityDefinition extends PersistableBusinessObjectBase implements
 
     /**
      * Sets the active attribute value.
-     * 
+     *
      * @param active The active to set.
      */
     public void setActive(boolean active) {
@@ -326,7 +324,7 @@ public class SecurityDefinition extends PersistableBusinessObjectBase implements
 
     /**
      * Gets the securityAttribute attribute.
-     * 
+     *
      * @return Returns the securityAttribute.
      */
     public SecurityAttribute getSecurityAttribute() {
@@ -336,7 +334,7 @@ public class SecurityDefinition extends PersistableBusinessObjectBase implements
 
     /**
      * Sets the securityAttribute attribute value.
-     * 
+     *
      * @param securityAttribute The securityAttribute to set.
      */
     public void setSecurityAttribute(SecurityAttribute securityAttribute) {
@@ -346,7 +344,7 @@ public class SecurityDefinition extends PersistableBusinessObjectBase implements
 
     /**
      * Gets the restrictEditDocument attribute.
-     * 
+     *
      * @return Returns the restrictEditDocument.
      */
     public boolean isRestrictEditDocument() {
@@ -356,7 +354,7 @@ public class SecurityDefinition extends PersistableBusinessObjectBase implements
 
     /**
      * Sets the restrictEditDocument attribute value.
-     * 
+     *
      * @param restrictEditDocument The restrictEditDocument to set.
      */
     public void setRestrictEditDocument(boolean restrictEditDocument) {
@@ -366,7 +364,7 @@ public class SecurityDefinition extends PersistableBusinessObjectBase implements
 
     /**
      * Gets the definitionDocumentTypes attribute.
-     * 
+     *
      * @return Returns the definitionDocumentTypes.
      */
     public List<SecurityDefinitionDocumentType> getDefinitionDocumentTypes() {
@@ -376,7 +374,7 @@ public class SecurityDefinition extends PersistableBusinessObjectBase implements
 
     /**
      * Sets the definitionDocumentTypes attribute value.
-     * 
+     *
      * @param definitionDocumentTypes The definitionDocumentTypes to set.
      */
     public void setDefinitionDocumentTypes(List<SecurityDefinitionDocumentType> definitionDocumentTypes) {

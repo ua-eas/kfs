@@ -1,28 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.bc.document.service.impl;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
 
 import org.apache.ojb.broker.PersistenceBrokerException;
 import org.kuali.kfs.module.bc.BCConstants;
@@ -40,6 +34,12 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.util.type.KualiInteger;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Service implementation of BudgetConstructionAccountSummaryReportService.
@@ -76,14 +76,13 @@ public class BudgetConstructionAccountSummaryReportServiceImpl implements Budget
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetConstructionAccountSummaryReportService#updateReportsAccountSummaryTable(java.lang.String,
-     *      boolean)
+     * boolean)
      */
     @Override
     public void updateReportsAccountSummaryTable(String principalName, boolean consolidated) {
         if (consolidated) {
             updateReportsAccountSummaryTableWithConsolidation(principalName);
-        }
-        else {
+        } else {
             updateReportsAccountSummaryTable(principalName);
         }
     }
@@ -99,7 +98,7 @@ public class BudgetConstructionAccountSummaryReportServiceImpl implements Budget
 
     /**
      * @see org.kuali.kfs.module.bc.document.service.BudgetConstructionAccountSummaryReportService#buildReports(java.lang.Integer,
-     *      java.util.Collection)
+     * java.util.Collection)
      */
     @Override
     public Collection<BudgetConstructionOrgAccountSummaryReport> buildReports(Integer universityFiscalYear, String principalName, boolean consolidated) {
@@ -142,40 +141,35 @@ public class BudgetConstructionAccountSummaryReportServiceImpl implements Budget
 
         if (orgChartDesc == null) {
             orgAccountSummaryReportEntry.setOrgChartOfAccountDescription(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_CHART_DESCRIPTION));
-        }
-        else {
+        } else {
             orgAccountSummaryReportEntry.setOrgChartOfAccountDescription(orgChartDesc);
         }
 
         orgAccountSummaryReportEntry.setOrganizationCode(accountSummary.getOrganizationCode());
         if (orgName == null) {
             orgAccountSummaryReportEntry.setOrganizationName(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_ORGANIZATION_NAME));
-        }
-        else {
+        } else {
             orgAccountSummaryReportEntry.setOrganizationName(orgName);
         }
 
         orgAccountSummaryReportEntry.setChartOfAccountsCode(accountSummary.getChartOfAccountsCode());
         if (chartDesc == null) {
             orgAccountSummaryReportEntry.setChartOfAccountDescription(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_CHART_DESCRIPTION));
-        }
-        else {
+        } else {
             orgAccountSummaryReportEntry.setChartOfAccountDescription(chartDesc);
         }
 
         orgAccountSummaryReportEntry.setFundGroupCode(accountSummary.getFundGroupCode());
         if (subFundGroupName == null) {
             orgAccountSummaryReportEntry.setFundGroupName(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_FUNDGROUP_NAME));
-        }
-        else {
+        } else {
             orgAccountSummaryReportEntry.setFundGroupName(subFundGroupName);
         }
 
         orgAccountSummaryReportEntry.setSubFundGroupCode(accountSummary.getSubFundGroupCode());
         if (subFundGroupName == null) {
             orgAccountSummaryReportEntry.setSubFundGroupDescription(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_SUBFUNDGROUP_DESCRIPTION));
-        }
-        else {
+        } else {
             orgAccountSummaryReportEntry.setSubFundGroupDescription(subFundGroupDes);
         }
 
@@ -190,8 +184,7 @@ public class BudgetConstructionAccountSummaryReportServiceImpl implements Budget
         orgAccountSummaryReportEntry.setHeader6(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.MSG_REPORT_HEADER_CHANGE));
         if (consolidated) {
             orgAccountSummaryReportEntry.setConsHdr(BCConstants.Report.CONSOLIIDATED);
-        }
-        else {
+        } else {
             orgAccountSummaryReportEntry.setConsHdr(BCConstants.Report.BLANK);
         }
     }
@@ -208,21 +201,17 @@ public class BudgetConstructionAccountSummaryReportServiceImpl implements Budget
         if (accountSummary.getSubAccountNumber().equals(KFSConstants.getDashSubAccountNumber())) {
             if (accountSummary.getAccount().getAccountName() == null) {
                 orgAccountSummaryReportEntry.setAccountNameAndSubAccountName(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_ACCOUNT_DESCRIPTION));
-            }
-            else {
+            } else {
                 orgAccountSummaryReportEntry.setAccountNameAndSubAccountName(accountSummary.getAccount().getAccountName());
             }
-        }
-        else {
+        } else {
             try {
                 if (accountSummary.getSubAccount().getSubAccountName() == null) {
                     orgAccountSummaryReportEntry.setAccountNameAndSubAccountName(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_SUB_ACCOUNT_DESCRIPTION));
-                }
-                else {
+                } else {
                     orgAccountSummaryReportEntry.setAccountNameAndSubAccountName(accountSummary.getSubAccount().getSubAccountName());
                 }
-            }
-            catch (PersistenceBrokerException e) {
+            } catch (PersistenceBrokerException e) {
                 orgAccountSummaryReportEntry.setAccountNameAndSubAccountName(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.ERROR_REPORT_GETTING_SUB_ACCOUNT_DESCRIPTION));
             }
         }
@@ -230,20 +219,16 @@ public class BudgetConstructionAccountSummaryReportServiceImpl implements Budget
         // build income expense description
         if (accountSummary.getIncomeExpenseCode().equals(BCConstants.Report.INCOME_EXP_TYPE_A)) {
             orgAccountSummaryReportEntry.setIncExpDesc(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.MSG_REPORT_INCOME_EXP_DESC_REVENUE));
-        }
-        else if (accountSummary.getIncomeExpenseCode().equals(BCConstants.Report.INCOME_EXP_TYPE_E)) {
+        } else if (accountSummary.getIncomeExpenseCode().equals(BCConstants.Report.INCOME_EXP_TYPE_E)) {
             orgAccountSummaryReportEntry.setIncExpDesc(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.MSG_REPORT_INCOME_EXP_DESC_EXP_GROSS));
-        }
-        else if (accountSummary.getIncomeExpenseCode().equals(BCConstants.Report.INCOME_EXP_TYPE_T)) {
+        } else if (accountSummary.getIncomeExpenseCode().equals(BCConstants.Report.INCOME_EXP_TYPE_T)) {
             trExist = true;
             orgAccountSummaryReportEntry.setIncExpDesc(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.MSG_REPORT_INCOME_EXP_DESC_TRNFR_IN));
-        }
-        else {
+        } else {
             if (trExist) {
                 trExist = false;
                 orgAccountSummaryReportEntry.setIncExpDesc(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.MSG_REPORT_INCOME_EXP_DESC_EXP_NET_TRNFR));
-            }
-            else {
+            } else {
                 orgAccountSummaryReportEntry.setIncExpDesc(kualiConfigurationService.getPropertyValueAsString(BCKeyConstants.MSG_REPORT_INCOME_EXP_DESC_EXPENDITURE));
             }
         }
@@ -270,7 +255,7 @@ public class BudgetConstructionAccountSummaryReportServiceImpl implements Budget
      * builds report total
      *
      * @param BudgetConstructionAccountSummary bcas
-     * @param List reportTotalList
+     * @param List                             reportTotalList
      */
     protected void buildReportsTotal(BudgetConstructionOrgAccountSummaryReport orgAccountSummaryReportEntry, BudgetConstructionAccountSummary accountSummary, List reportTotalList) {
         Iterator totalListIter = reportTotalList.iterator();
@@ -343,19 +328,16 @@ public class BudgetConstructionAccountSummaryReportServiceImpl implements Budget
                         prev = false;
                         totalRevenueBaseAmount = totalRevenueBaseAmount.add(bcasListEntry.getFinancialBeginningBalanceLineAmount());
                         totalRevenueReqAmount = totalRevenueReqAmount.add(bcasListEntry.getAccountLineAnnualBalanceAmount());
-                    }
-                    else if (bcasListEntry.getIncomeExpenseCode().equals(BCConstants.Report.INCOME_EXP_TYPE_E)) {
+                    } else if (bcasListEntry.getIncomeExpenseCode().equals(BCConstants.Report.INCOME_EXP_TYPE_E)) {
                         prev = false;
                         totalGrossBaseAmount = totalGrossBaseAmount.add(bcasListEntry.getFinancialBeginningBalanceLineAmount());
                         totalGrossReqAmount = totalGrossReqAmount.add(bcasListEntry.getAccountLineAnnualBalanceAmount());
 
-                    }
-                    else if (bcasListEntry.getIncomeExpenseCode().equals(BCConstants.Report.INCOME_EXP_TYPE_T)) {
+                    } else if (bcasListEntry.getIncomeExpenseCode().equals(BCConstants.Report.INCOME_EXP_TYPE_T)) {
                         prev = true;
                         totalTransferInBaseAmount = totalTransferInBaseAmount.add(bcasListEntry.getFinancialBeginningBalanceLineAmount());
                         totalTransferInReqAmount = totalTransferInReqAmount.add(bcasListEntry.getAccountLineAnnualBalanceAmount());
-                    }
-                    else if (bcasListEntry.getIncomeExpenseCode().equals(BCConstants.Report.INCOME_EXP_TYPE_X)) {
+                    } else if (bcasListEntry.getIncomeExpenseCode().equals(BCConstants.Report.INCOME_EXP_TYPE_X)) {
                         totalNetTransferBaseAmount = totalNetTransferBaseAmount.add(bcasListEntry.getFinancialBeginningBalanceLineAmount());
                         totalNetTransferReqAmount = totalNetTransferReqAmount.add(bcasListEntry.getAccountLineAnnualBalanceAmount());
                         if (!prev) {

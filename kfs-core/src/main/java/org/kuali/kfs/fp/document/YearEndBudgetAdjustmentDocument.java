@@ -1,25 +1,23 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.fp.document;
-
-import static org.kuali.kfs.fp.document.validation.impl.TransferOfFundsDocumentRuleConstants.YEAR_END_TRANSFER_OF_FUNDS_DOC_TYPE_CODE;
 
 import org.kuali.kfs.coa.businessobject.AccountingPeriod;
 import org.kuali.kfs.fp.document.service.YearEndPendingEntryService;
@@ -29,6 +27,8 @@ import org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.kfs.sys.document.AccountingDocument;
 import org.kuali.kfs.sys.service.UniversityDateService;
+
+import static org.kuali.kfs.fp.document.validation.impl.TransferOfFundsDocumentRuleConstants.YEAR_END_TRANSFER_OF_FUNDS_DOC_TYPE_CODE;
 
 
 /**
@@ -57,23 +57,23 @@ public class YearEndBudgetAdjustmentDocument extends BudgetAdjustmentDocument im
      * YearEndDocumentUtil matching method to perform year end specific customization activities.
      *
      * @param accountingDocument The accounting document containing the general ledger pending entries being customized.
-     * @param accountingLine The accounting line the explicit general ledger pending entry was generated from.
-     * @param explicitEntry The explicit general ledger pending entry to be customized.
-     *
+     * @param accountingLine     The accounting line the explicit general ledger pending entry was generated from.
+     * @param explicitEntry      The explicit general ledger pending entry to be customized.
      * @see org.kuali.kfs.fp.document.validation.impl.BudgetAdjustmentDocumentRule#customizeExplicitGeneralLedgerPendingEntry(org.kuali.rice.krad.document.AccountingDocument,
-     *      org.kuali.rice.krad.bo.AccountingLine, org.kuali.module.gl.bo.GeneralLedgerPendingEntry)
+     * org.kuali.rice.krad.bo.AccountingLine, org.kuali.module.gl.bo.GeneralLedgerPendingEntry)
      * @see YearEndDocumentUtil#customizeExplicitGeneralLedgerPendingEntry(TransactionalDocument, AccountingLine,
-     *      GeneralLedgerPendingEntry)
+     * GeneralLedgerPendingEntry)
      */
     @Override
     public void customizeExplicitGeneralLedgerPendingEntry(GeneralLedgerPendingEntrySourceDetail postable, GeneralLedgerPendingEntry explicitEntry) {
         super.customizeExplicitGeneralLedgerPendingEntry(postable, explicitEntry);
-        AccountingLine accountingLine = (AccountingLine)postable;
+        AccountingLine accountingLine = (AccountingLine) postable;
         SpringContext.getBean(YearEndPendingEntryService.class).customizeExplicitGeneralLedgerPendingEntry(this, accountingLine, explicitEntry);
     }
 
     /**
      * Overridden to populate object code from last year's offset definition
+     *
      * @see org.kuali.kfs.sys.document.AccountingDocumentBase#customizeOffsetGeneralLedgerPendingEntry(org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntrySourceDetail, org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry, org.kuali.kfs.sys.businessobject.GeneralLedgerPendingEntry)
      */
     @Override
@@ -88,7 +88,6 @@ public class YearEndBudgetAdjustmentDocument extends BudgetAdjustmentDocument im
      * TransferOfFundsDocumentRuleConstants.
      *
      * @return The value defined in the constants class for year end transfer of funds document type code.
-     *
      * @see org.kuali.kfs.fp.document.validation.impl.BudgetAdjustmentDocumentRule#getTransferDocumentType()
      * @see org.kuali.kfs.fp.document.validation.impl.TransferOfFundsDocumentRuleConstants#YEAR_END_TRANSFER_OF_FUNDS_DOC_TYPE_CODE
      */

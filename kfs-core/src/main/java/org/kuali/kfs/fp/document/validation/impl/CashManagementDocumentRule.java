@@ -1,29 +1,22 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.fp.document.validation.impl;
-
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Iterator;
-import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.kuali.kfs.fp.businessobject.CashDrawer;
@@ -40,6 +33,9 @@ import org.kuali.kfs.fp.document.service.CashManagementService;
 import org.kuali.kfs.fp.document.service.CashReceiptService;
 import org.kuali.kfs.fp.document.validation.CashManagingRule;
 import org.kuali.kfs.fp.service.CashDrawerService;
+import org.kuali.kfs.kns.service.DictionaryValidationService;
+import org.kuali.kfs.krad.document.Document;
+import org.kuali.kfs.krad.util.GlobalVariables;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSConstants.DocumentStatusCodes.CashReceipt;
 import org.kuali.kfs.sys.KFSKeyConstants;
@@ -49,9 +45,13 @@ import org.kuali.kfs.sys.document.validation.impl.BankCodeValidation;
 import org.kuali.kfs.sys.document.validation.impl.GeneralLedgerPostingDocumentRuleBase;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.kfs.kns.service.DictionaryValidationService;
-import org.kuali.kfs.krad.document.Document;
-import org.kuali.kfs.krad.util.GlobalVariables;
+
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Business rule(s) applicable to Cash Management Document.
@@ -128,14 +128,13 @@ public class CashManagementDocumentRule extends GeneralLedgerPostingDocumentRule
                 CashDrawer cd = SpringContext.getBean(CashDrawerService.class).getByCampusCode(cmd.getCampusCode());
                 if (cd == null) {
                     // we got the rule without having a cash drawer?  freaky...
-                    throw new RuntimeException("No cash drawer exists for campus code "+cmd.getCampusCode()+"; please create on via the Cash Drawer Maintenance Document before attemping to create a CashManagementDocument for campus "+cmd.getCampusCode());
+                    throw new RuntimeException("No cash drawer exists for campus code " + cmd.getCampusCode() + "; please create on via the Cash Drawer Maintenance Document before attemping to create a CashManagementDocument for campus " + cmd.getCampusCode());
                 }
                 if (!cmd.hasFinalDeposit()) {
                     if (!cd.isOpen()) {
                         throw new IllegalStateException("The cash drawer for verification unit \"" + cd.getCampusCode() + "\" is closed.  It should be open when a cash management document for that verification unit is open and being saved.");
                     }
-                }
-                else {
+                } else {
                     if (!cd.isLocked()) {
                         throw new IllegalStateException("The cash drawer for verification unit \"" + cd.getCampusCode() + "\" is closed.  It should be open when a cash management document for that verification unit is open and being saved.");
                     }
@@ -175,7 +174,7 @@ public class CashManagementDocumentRule extends GeneralLedgerPostingDocumentRule
      * If documentIsInitiated, performs complete dataDictionary-driven validation of the given Deposit. Unconditionally validates
      * the CashReceipts associated with the given Deposit.
      *
-     * @param deposit individual deposit from cash management document
+     * @param deposit             individual deposit from cash management document
      * @param documentIsInitiated if document is initiated
      * @return true if deposit is valid
      */
@@ -192,26 +191,25 @@ public class CashManagementDocumentRule extends GeneralLedgerPostingDocumentRule
     }
 
 
-    private static final List INITIATED_STATES = Arrays.asList(new String[] { CashReceipt.VERIFIED });
-    private static final List UNINITIATED_STATES = Arrays.asList(new String[] { CashReceipt.INTERIM, CashReceipt.FINAL});
+    private static final List INITIATED_STATES = Arrays.asList(new String[]{CashReceipt.VERIFIED});
+    private static final List UNINITIATED_STATES = Arrays.asList(new String[]{CashReceipt.INTERIM, CashReceipt.FINAL});
 
     /**
      * Verifies that all CashReceipts associated with the given document are of an appropriate status for the given
      * CashManagementDocument state
      *
-     * @param deposit deposit from cash management document
+     * @param deposit             deposit from cash management document
      * @param documentIsInitiated if document is initiated
      */
     protected void verifyCashReceipts(Deposit deposit, boolean documentIsInitiated) {
         List desiredCRStates = null;
         if (documentIsInitiated) {
             desiredCRStates = INITIATED_STATES;
-        }
-        else {
+        } else {
             desiredCRStates = UNINITIATED_STATES;
         }
 
-        for (Iterator depositCashReceiptControls = deposit.getDepositCashReceiptControl().iterator(); depositCashReceiptControls.hasNext();) {
+        for (Iterator depositCashReceiptControls = deposit.getDepositCashReceiptControl().iterator(); depositCashReceiptControls.hasNext(); ) {
             DepositCashReceiptControl depositCashReceiptControl = (DepositCashReceiptControl) depositCashReceiptControls.next();
             CashReceiptDocument cashReceipt = depositCashReceiptControl.getCashReceiptDocument();
             String crState = cashReceipt.getFinancialSystemDocumentHeader().getFinancialDocumentStatusCode();
@@ -234,7 +232,7 @@ public class CashManagementDocumentRule extends GeneralLedgerPostingDocumentRule
         for (Object o : verifiedReceipts) {
             if (!cms.verifyCashReceiptIsDeposited(cmDoc, (CashReceiptDocument) o)) {
                 allCRsDeposited = false;
-                GlobalVariables.getMessageMap().putError(KFSConstants.CASH_MANAGEMENT_DEPOSIT_ERRORS, KFSKeyConstants.CashManagement.ERROR_NON_DEPOSITED_VERIFIED_CASH_RECEIPT, new String[] { ((CashReceiptDocument) o).getDocumentNumber() });
+                GlobalVariables.getMessageMap().putError(KFSConstants.CASH_MANAGEMENT_DEPOSIT_ERRORS, KFSKeyConstants.CashManagement.ERROR_NON_DEPOSITED_VERIFIED_CASH_RECEIPT, new String[]{((CashReceiptDocument) o).getDocumentNumber()});
             }
         }
         return allCRsDeposited;
@@ -264,6 +262,7 @@ public class CashManagementDocumentRule extends GeneralLedgerPostingDocumentRule
 
     /**
      * Processes the checks to validate that the application of the given cashiering transaction will be valid
+     *
      * @see org.kuali.kfs.fp.document.validation.CashManagingRule#processCashieringTransactionApplication(org.kuali.kfs.fp.businessobject.CashieringTransaction)
      */
     @Override
@@ -296,35 +295,35 @@ public class CashManagementDocumentRule extends GeneralLedgerPostingDocumentRule
         boolean success = true;
 
         if (currencyDetail.getFinancialDocumentHundredDollarAmount() != null && currencyDetail.getFinancialDocumentHundredDollarAmount().isNegative()) {
-            GlobalVariables.getMessageMap().putError(propertyPrefix + "hundredDollarCount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_NOT_NEGATIVE, new String[] { currencyDetail.getHundredDollarCount().toString(), "hundred dollar count" });
+            GlobalVariables.getMessageMap().putError(propertyPrefix + "hundredDollarCount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_NOT_NEGATIVE, new String[]{currencyDetail.getHundredDollarCount().toString(), "hundred dollar count"});
             success = false;
         }
         if (currencyDetail.getFinancialDocumentFiftyDollarAmount() != null && currencyDetail.getFinancialDocumentFiftyDollarAmount().isNegative()) {
-            GlobalVariables.getMessageMap().putError(propertyPrefix + "fiftyDollarCount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_NOT_NEGATIVE, new String[] { currencyDetail.getFiftyDollarCount().toString(), "fifty dollar count" });
+            GlobalVariables.getMessageMap().putError(propertyPrefix + "fiftyDollarCount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_NOT_NEGATIVE, new String[]{currencyDetail.getFiftyDollarCount().toString(), "fifty dollar count"});
             success = false;
         }
         if (currencyDetail.getFinancialDocumentTwentyDollarAmount() != null && currencyDetail.getFinancialDocumentTwentyDollarAmount().isNegative()) {
-            GlobalVariables.getMessageMap().putError(propertyPrefix + "twentyDollarCount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_NOT_NEGATIVE, new String[] { currencyDetail.getTwentyDollarCount().toString(), "twenty dollar count" });
+            GlobalVariables.getMessageMap().putError(propertyPrefix + "twentyDollarCount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_NOT_NEGATIVE, new String[]{currencyDetail.getTwentyDollarCount().toString(), "twenty dollar count"});
             success = false;
         }
         if (currencyDetail.getFinancialDocumentTenDollarAmount() != null && currencyDetail.getFinancialDocumentTenDollarAmount().isNegative()) {
-            GlobalVariables.getMessageMap().putError(propertyPrefix + "tenDollarCount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_NOT_NEGATIVE, new String[] { currencyDetail.getTenDollarCount().toString(), "ten dollar count" });
+            GlobalVariables.getMessageMap().putError(propertyPrefix + "tenDollarCount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_NOT_NEGATIVE, new String[]{currencyDetail.getTenDollarCount().toString(), "ten dollar count"});
             success = false;
         }
         if (currencyDetail.getFinancialDocumentFiveDollarAmount() != null && currencyDetail.getFinancialDocumentFiveDollarAmount().isNegative()) {
-            GlobalVariables.getMessageMap().putError(propertyPrefix + "fiveDollarCount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_NOT_NEGATIVE, new String[] { currencyDetail.getFiveDollarCount().toString(), "five dollar count" });
+            GlobalVariables.getMessageMap().putError(propertyPrefix + "fiveDollarCount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_NOT_NEGATIVE, new String[]{currencyDetail.getFiveDollarCount().toString(), "five dollar count"});
             success = false;
         }
         if (currencyDetail.getFinancialDocumentTwoDollarAmount() != null && currencyDetail.getFinancialDocumentTwoDollarAmount().isNegative()) {
-            GlobalVariables.getMessageMap().putError(propertyPrefix + "twoDollarCount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_NOT_NEGATIVE, new String[] { currencyDetail.getTwoDollarCount().toString(), "two dollar count" });
+            GlobalVariables.getMessageMap().putError(propertyPrefix + "twoDollarCount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_NOT_NEGATIVE, new String[]{currencyDetail.getTwoDollarCount().toString(), "two dollar count"});
             success = false;
         }
         if (currencyDetail.getFinancialDocumentOneDollarAmount() != null && currencyDetail.getFinancialDocumentOneDollarAmount().isNegative()) {
-            GlobalVariables.getMessageMap().putError(propertyPrefix + "oneDollarCount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_NOT_NEGATIVE, new String[] { currencyDetail.getOneDollarCount().toString(), "one dollar count" });
+            GlobalVariables.getMessageMap().putError(propertyPrefix + "oneDollarCount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_NOT_NEGATIVE, new String[]{currencyDetail.getOneDollarCount().toString(), "one dollar count"});
             success = false;
         }
         if (currencyDetail.getFinancialDocumentOtherDollarAmount() != null && currencyDetail.getFinancialDocumentOtherDollarAmount().isNegative()) {
-            GlobalVariables.getMessageMap().putError(propertyPrefix + "financialDocumentOtherDollarAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_NOT_NEGATIVE, new String[] { currencyDetail.getFinancialDocumentOtherDollarAmount().toString(), "other dollar amount" });
+            GlobalVariables.getMessageMap().putError(propertyPrefix + "financialDocumentOtherDollarAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_NOT_NEGATIVE, new String[]{currencyDetail.getFinancialDocumentOtherDollarAmount().toString(), "other dollar amount"});
             success = false;
         }
 
@@ -334,7 +333,7 @@ public class CashManagementDocumentRule extends GeneralLedgerPostingDocumentRule
     /**
      * Returns true if none of the denomination amounts in the given coinDetail is negative.
      *
-     * @param coinDetail the given coinDetail to be checked.
+     * @param coinDetail     the given coinDetail to be checked.
      * @param propertyPrefix prefix of each denomination amount property
      * @return true if none of the amounts is negative
      */
@@ -345,42 +344,42 @@ public class CashManagementDocumentRule extends GeneralLedgerPostingDocumentRule
 
         if (coinDetail.getFinancialDocumentHundredCentAmount() != null && coinDetail.getFinancialDocumentHundredCentAmount().isNegative()) {
             if ((coinCount = coinDetail.getHundredCentCount()) < 0) {
-                GlobalVariables.getMessageMap().putError(propertyPrefix + "hundredCentCount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_NOT_NEGATIVE, new String[] { coinCount.toString(), "hundred cent count" });
+                GlobalVariables.getMessageMap().putError(propertyPrefix + "hundredCentCount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_NOT_NEGATIVE, new String[]{coinCount.toString(), "hundred cent count"});
             }
             success = false;
         }
         if (coinDetail.getFinancialDocumentFiftyCentAmount() != null && coinDetail.getFinancialDocumentFiftyCentAmount().isNegative()) {
             if ((coinCount = coinDetail.getFiftyCentCount()) < 0) {
-                GlobalVariables.getMessageMap().putError(propertyPrefix + "fiftyCentCount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_NOT_NEGATIVE, new String[] { coinCount.toString(), "fifty cent count" });
+                GlobalVariables.getMessageMap().putError(propertyPrefix + "fiftyCentCount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_NOT_NEGATIVE, new String[]{coinCount.toString(), "fifty cent count"});
             }
             success = false;
         }
         if (coinDetail.getFinancialDocumentTwentyFiveCentAmount() != null && coinDetail.getFinancialDocumentTwentyFiveCentAmount().isNegative()) {
             if ((coinCount = coinDetail.getTwentyFiveCentCount()) < 0) {
-                GlobalVariables.getMessageMap().putError(propertyPrefix + "twentyFiveCentCount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_NOT_NEGATIVE, new String[] { coinCount.toString(), "twentyFive cent count" });
+                GlobalVariables.getMessageMap().putError(propertyPrefix + "twentyFiveCentCount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_NOT_NEGATIVE, new String[]{coinCount.toString(), "twentyFive cent count"});
             }
             success = false;
         }
         if (coinDetail.getFinancialDocumentTenCentAmount() != null && coinDetail.getFinancialDocumentTenCentAmount().isNegative()) {
             if ((coinCount = coinDetail.getTenCentCount()) < 0) {
-                GlobalVariables.getMessageMap().putError(propertyPrefix + "tenCentCount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_NOT_NEGATIVE, new String[] { coinCount.toString(), "ten cent count" });
+                GlobalVariables.getMessageMap().putError(propertyPrefix + "tenCentCount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_NOT_NEGATIVE, new String[]{coinCount.toString(), "ten cent count"});
             }
             success = false;
         }
         if (coinDetail.getFinancialDocumentFiveCentAmount() != null && coinDetail.getFinancialDocumentFiveCentAmount().isNegative()) {
             if ((coinCount = coinDetail.getFiveCentCount()) < 0) {
-                GlobalVariables.getMessageMap().putError(propertyPrefix + "fiveCentCount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_NOT_NEGATIVE, new String[] { coinCount.toString(), "five cent count" });
+                GlobalVariables.getMessageMap().putError(propertyPrefix + "fiveCentCount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_NOT_NEGATIVE, new String[]{coinCount.toString(), "five cent count"});
             }
             success = false;
         }
         if (coinDetail.getFinancialDocumentOneCentAmount() != null && coinDetail.getFinancialDocumentOneCentAmount().isNegative()) {
             if ((coinCount = coinDetail.getOneCentCount()) < 0) {
-                GlobalVariables.getMessageMap().putError(propertyPrefix + "oneCentCount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_NOT_NEGATIVE, new String[] { coinCount.toString(), "one cent count" });
+                GlobalVariables.getMessageMap().putError(propertyPrefix + "oneCentCount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_NOT_NEGATIVE, new String[]{coinCount.toString(), "one cent count"});
             }
             success = false;
         }
         if (coinDetail.getFinancialDocumentOtherCentAmount() != null && coinDetail.getFinancialDocumentOtherCentAmount().isNegative()) {
-            GlobalVariables.getMessageMap().putError(propertyPrefix + "financialDocumentOtherCentAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_NOT_NEGATIVE, new String[] { coinDetail.getFinancialDocumentOtherCentAmount().toString(), "other cent amount" });
+            GlobalVariables.getMessageMap().putError(propertyPrefix + "financialDocumentOtherCentAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_NOT_NEGATIVE, new String[]{coinDetail.getFinancialDocumentOtherCentAmount().toString(), "other cent amount"});
             success = false;
         }
 
@@ -414,7 +413,7 @@ public class CashManagementDocumentRule extends GeneralLedgerPostingDocumentRule
         int count = 0;
         for (Check check : trans.getMoneyInChecks()) {
             if (check.getAmount() != null && check.getAmount().isNegative()) {
-                GlobalVariables.getMessageMap().putError("document.currentTransaction.moneyInChecks[" + count + "].amount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CHECK_AMOUNT_NOT_NEGATIVE, new String[] { check.getAmount().toString(), check.getDescription() });
+                GlobalVariables.getMessageMap().putError("document.currentTransaction.moneyInChecks[" + count + "].amount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CHECK_AMOUNT_NOT_NEGATIVE, new String[]{check.getAmount().toString(), check.getDescription()});
                 success = false;
             }
             count += 1;
@@ -444,7 +443,7 @@ public class CashManagementDocumentRule extends GeneralLedgerPostingDocumentRule
         if (trans.getOpenItemsInProcess() != null) {
             for (CashieringItemInProcess itemInProc : trans.getOpenItemsInProcess()) {
                 if (itemInProc.getCurrentPayment() != null && itemInProc.getCurrentPayment().isNegative()) {
-                    GlobalVariables.getMessageMap().putError("document.currentTransaction.openItemsInProcess[" + count + "].currentPayment", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_REDUCED_ITEM_IN_PROCESS_NOT_NEGATIVE, new String[] { itemInProc.getItemIdentifier().toString() });
+                    GlobalVariables.getMessageMap().putError("document.currentTransaction.openItemsInProcess[" + count + "].currentPayment", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_REDUCED_ITEM_IN_PROCESS_NOT_NEGATIVE, new String[]{itemInProc.getItemIdentifier().toString()});
                     success = false;
                 }
                 count += 1;
@@ -492,7 +491,7 @@ public class CashManagementDocumentRule extends GeneralLedgerPostingDocumentRule
             existingHundredDollarAmount = existingHundredDollarAmount.add(moneyInCurrency.getFinancialDocumentHundredDollarAmount());
         }
         if (moneyOutCurrency.getFinancialDocumentHundredDollarAmount() != null && existingHundredDollarAmount.isLessThan(moneyOutCurrency.getFinancialDocumentHundredDollarAmount())) {
-            GlobalVariables.getMessageMap().putError("document.currentTransaction.moneyOutCurrency.financialDocumentHundredDollarAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_OUT_EXCEEDS_DRAWER, new String[] { "hundred dollar", moneyOutCurrency.getFinancialDocumentHundredDollarAmount().toString(), cashDrawer.getFinancialDocumentHundredDollarAmount().toString() });
+            GlobalVariables.getMessageMap().putError("document.currentTransaction.moneyOutCurrency.financialDocumentHundredDollarAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_OUT_EXCEEDS_DRAWER, new String[]{"hundred dollar", moneyOutCurrency.getFinancialDocumentHundredDollarAmount().toString(), cashDrawer.getFinancialDocumentHundredDollarAmount().toString()});
             success = false;
         }
 
@@ -504,7 +503,7 @@ public class CashManagementDocumentRule extends GeneralLedgerPostingDocumentRule
             existingFiftyDollarAmount = existingFiftyDollarAmount.add(moneyInCurrency.getFinancialDocumentFiftyDollarAmount());
         }
         if (moneyOutCurrency.getFinancialDocumentFiftyDollarAmount() != null && existingFiftyDollarAmount.isLessThan(moneyOutCurrency.getFinancialDocumentFiftyDollarAmount())) {
-            GlobalVariables.getMessageMap().putError("document.currentTransaction.moneyOutCurrency.financialDocumentFiftyDollarAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_OUT_EXCEEDS_DRAWER, new String[] { "fifty dollar", moneyOutCurrency.getFinancialDocumentFiftyDollarAmount().toString(), cashDrawer.getFinancialDocumentFiftyDollarAmount().toString() });
+            GlobalVariables.getMessageMap().putError("document.currentTransaction.moneyOutCurrency.financialDocumentFiftyDollarAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_OUT_EXCEEDS_DRAWER, new String[]{"fifty dollar", moneyOutCurrency.getFinancialDocumentFiftyDollarAmount().toString(), cashDrawer.getFinancialDocumentFiftyDollarAmount().toString()});
             success = false;
         }
 
@@ -516,7 +515,7 @@ public class CashManagementDocumentRule extends GeneralLedgerPostingDocumentRule
             existingTwentyDollarAmount = existingTwentyDollarAmount.add(moneyInCurrency.getFinancialDocumentTwentyDollarAmount());
         }
         if (moneyOutCurrency.getFinancialDocumentTwentyDollarAmount() != null && existingTwentyDollarAmount.isLessThan(moneyOutCurrency.getFinancialDocumentTwentyDollarAmount())) {
-            GlobalVariables.getMessageMap().putError("document.currentTransaction.moneyOutCurrency.financialDocumentTwentyDollarAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_OUT_EXCEEDS_DRAWER, new String[] { "twenty dollar", moneyOutCurrency.getFinancialDocumentTwentyDollarAmount().toString(), cashDrawer.getFinancialDocumentTwentyDollarAmount().toString() });
+            GlobalVariables.getMessageMap().putError("document.currentTransaction.moneyOutCurrency.financialDocumentTwentyDollarAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_OUT_EXCEEDS_DRAWER, new String[]{"twenty dollar", moneyOutCurrency.getFinancialDocumentTwentyDollarAmount().toString(), cashDrawer.getFinancialDocumentTwentyDollarAmount().toString()});
             success = false;
         }
 
@@ -528,7 +527,7 @@ public class CashManagementDocumentRule extends GeneralLedgerPostingDocumentRule
             existingTenDollarAmount = existingTenDollarAmount.add(moneyInCurrency.getFinancialDocumentTenDollarAmount());
         }
         if (moneyOutCurrency.getFinancialDocumentTenDollarAmount() != null && existingTenDollarAmount.isLessThan(moneyOutCurrency.getFinancialDocumentTenDollarAmount())) {
-            GlobalVariables.getMessageMap().putError("document.currentTransaction.moneyOutCurrency.financialDocumentTenDollarAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_OUT_EXCEEDS_DRAWER, new String[] { "ten dollar", moneyOutCurrency.getFinancialDocumentTenDollarAmount().toString(), cashDrawer.getFinancialDocumentTenDollarAmount().toString() });
+            GlobalVariables.getMessageMap().putError("document.currentTransaction.moneyOutCurrency.financialDocumentTenDollarAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_OUT_EXCEEDS_DRAWER, new String[]{"ten dollar", moneyOutCurrency.getFinancialDocumentTenDollarAmount().toString(), cashDrawer.getFinancialDocumentTenDollarAmount().toString()});
             success = false;
         }
 
@@ -540,7 +539,7 @@ public class CashManagementDocumentRule extends GeneralLedgerPostingDocumentRule
             existingFiveDollarAmount = existingFiveDollarAmount.add(moneyInCurrency.getFinancialDocumentFiveDollarAmount());
         }
         if (moneyOutCurrency.getFinancialDocumentFiveDollarAmount() != null && existingFiveDollarAmount.isLessThan(moneyOutCurrency.getFinancialDocumentFiveDollarAmount())) {
-            GlobalVariables.getMessageMap().putError("document.currentTransaction.moneyOutCurrency.financialDocumentFiveDollarAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_OUT_EXCEEDS_DRAWER, new String[] { "five dollar", moneyOutCurrency.getFinancialDocumentFiveDollarAmount().toString(), cashDrawer.getFinancialDocumentFiveDollarAmount().toString() });
+            GlobalVariables.getMessageMap().putError("document.currentTransaction.moneyOutCurrency.financialDocumentFiveDollarAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_OUT_EXCEEDS_DRAWER, new String[]{"five dollar", moneyOutCurrency.getFinancialDocumentFiveDollarAmount().toString(), cashDrawer.getFinancialDocumentFiveDollarAmount().toString()});
             success = false;
         }
 
@@ -552,7 +551,7 @@ public class CashManagementDocumentRule extends GeneralLedgerPostingDocumentRule
             existingTwoDollarAmount = existingTwoDollarAmount.add(moneyInCurrency.getFinancialDocumentTwoDollarAmount());
         }
         if (moneyOutCurrency.getFinancialDocumentTwoDollarAmount() != null && existingTwoDollarAmount.isLessThan(moneyOutCurrency.getFinancialDocumentTwoDollarAmount())) {
-            GlobalVariables.getMessageMap().putError("document.currentTransaction.moneyOutCurrency.financialDocumentTwoDollarAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_OUT_EXCEEDS_DRAWER, new String[] { "two dollar", moneyOutCurrency.getFinancialDocumentTwoDollarAmount().toString(), cashDrawer.getFinancialDocumentTwoDollarAmount().toString() });
+            GlobalVariables.getMessageMap().putError("document.currentTransaction.moneyOutCurrency.financialDocumentTwoDollarAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_OUT_EXCEEDS_DRAWER, new String[]{"two dollar", moneyOutCurrency.getFinancialDocumentTwoDollarAmount().toString(), cashDrawer.getFinancialDocumentTwoDollarAmount().toString()});
             success = false;
         }
 
@@ -564,7 +563,7 @@ public class CashManagementDocumentRule extends GeneralLedgerPostingDocumentRule
             existingOneDollarAmount = existingOneDollarAmount.add(moneyInCurrency.getFinancialDocumentOneDollarAmount());
         }
         if (moneyOutCurrency.getFinancialDocumentOneDollarAmount() != null && existingOneDollarAmount.isLessThan(moneyOutCurrency.getFinancialDocumentOneDollarAmount())) {
-            GlobalVariables.getMessageMap().putError("document.currentTransaction.moneyOutCurrency.financialDocumentOneDollarAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_OUT_EXCEEDS_DRAWER, new String[] { "one dollar", moneyOutCurrency.getFinancialDocumentOneDollarAmount().toString(), cashDrawer.getFinancialDocumentOneDollarAmount().toString() });
+            GlobalVariables.getMessageMap().putError("document.currentTransaction.moneyOutCurrency.financialDocumentOneDollarAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_OUT_EXCEEDS_DRAWER, new String[]{"one dollar", moneyOutCurrency.getFinancialDocumentOneDollarAmount().toString(), cashDrawer.getFinancialDocumentOneDollarAmount().toString()});
             success = false;
         }
 
@@ -576,7 +575,7 @@ public class CashManagementDocumentRule extends GeneralLedgerPostingDocumentRule
             existingOtherDollarAmount = existingOtherDollarAmount.add(moneyInCurrency.getFinancialDocumentOtherDollarAmount());
         }
         if (moneyOutCurrency.getFinancialDocumentOtherDollarAmount() != null && existingOtherDollarAmount.isLessThan(moneyOutCurrency.getFinancialDocumentOtherDollarAmount())) {
-            GlobalVariables.getMessageMap().putError("document.currentTransaction.moneyOutCurrency.financialDocumentOtherDollarAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_OUT_EXCEEDS_DRAWER, new String[] { "other dollar", moneyOutCurrency.getFinancialDocumentOtherDollarAmount().toString(), cashDrawer.getFinancialDocumentOtherDollarAmount().toString() });
+            GlobalVariables.getMessageMap().putError("document.currentTransaction.moneyOutCurrency.financialDocumentOtherDollarAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_OUT_EXCEEDS_DRAWER, new String[]{"other dollar", moneyOutCurrency.getFinancialDocumentOtherDollarAmount().toString(), cashDrawer.getFinancialDocumentOtherDollarAmount().toString()});
             success = false;
         }
 
@@ -591,7 +590,7 @@ public class CashManagementDocumentRule extends GeneralLedgerPostingDocumentRule
             existingHundredCentAmount = existingHundredCentAmount.add(moneyInCoin.getFinancialDocumentHundredCentAmount());
         }
         if (moneyOutCoin.getFinancialDocumentHundredCentAmount() != null && existingHundredCentAmount.isLessThan(moneyOutCoin.getFinancialDocumentHundredCentAmount())) {
-            GlobalVariables.getMessageMap().putError("document.currentTransaction.moneyOutCoin.financialDocumentHundredCentAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_OUT_EXCEEDS_DRAWER, new String[] { "hundred cent", moneyOutCoin.getFinancialDocumentHundredCentAmount().toString(), cashDrawer.getFinancialDocumentHundredCentAmount().toString() });
+            GlobalVariables.getMessageMap().putError("document.currentTransaction.moneyOutCoin.financialDocumentHundredCentAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_OUT_EXCEEDS_DRAWER, new String[]{"hundred cent", moneyOutCoin.getFinancialDocumentHundredCentAmount().toString(), cashDrawer.getFinancialDocumentHundredCentAmount().toString()});
             success = false;
         }
 
@@ -603,7 +602,7 @@ public class CashManagementDocumentRule extends GeneralLedgerPostingDocumentRule
             existingFiftyCentAmount = existingFiftyCentAmount.add(moneyInCoin.getFinancialDocumentFiftyCentAmount());
         }
         if (moneyOutCoin.getFinancialDocumentFiftyCentAmount() != null && existingFiftyCentAmount.isLessThan(moneyOutCoin.getFinancialDocumentFiftyCentAmount())) {
-            GlobalVariables.getMessageMap().putError("document.currentTransaction.moneyOutCoin.financialDocumentFiftyCentAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_OUT_EXCEEDS_DRAWER, new String[] { "fifty cent", moneyOutCoin.getFinancialDocumentFiftyCentAmount().toString(), cashDrawer.getFinancialDocumentFiftyCentAmount().toString() });
+            GlobalVariables.getMessageMap().putError("document.currentTransaction.moneyOutCoin.financialDocumentFiftyCentAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_OUT_EXCEEDS_DRAWER, new String[]{"fifty cent", moneyOutCoin.getFinancialDocumentFiftyCentAmount().toString(), cashDrawer.getFinancialDocumentFiftyCentAmount().toString()});
             success = false;
         }
 
@@ -615,7 +614,7 @@ public class CashManagementDocumentRule extends GeneralLedgerPostingDocumentRule
             existingTwentyFiveCentAmount = existingTwentyFiveCentAmount.add(moneyInCoin.getFinancialDocumentTwentyFiveCentAmount());
         }
         if (moneyOutCoin.getFinancialDocumentTwentyFiveCentAmount() != null && existingTwentyFiveCentAmount.isLessThan(moneyOutCoin.getFinancialDocumentTwentyFiveCentAmount())) {
-            GlobalVariables.getMessageMap().putError("document.currentTransaction.moneyOutCoin.financialDocumentTwentyFiveCentAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_OUT_EXCEEDS_DRAWER, new String[] { "twenty five cent", moneyOutCoin.getFinancialDocumentTwentyFiveCentAmount().toString(), cashDrawer.getFinancialDocumentTwentyFiveCentAmount().toString() });
+            GlobalVariables.getMessageMap().putError("document.currentTransaction.moneyOutCoin.financialDocumentTwentyFiveCentAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_OUT_EXCEEDS_DRAWER, new String[]{"twenty five cent", moneyOutCoin.getFinancialDocumentTwentyFiveCentAmount().toString(), cashDrawer.getFinancialDocumentTwentyFiveCentAmount().toString()});
             success = false;
         }
 
@@ -627,7 +626,7 @@ public class CashManagementDocumentRule extends GeneralLedgerPostingDocumentRule
             existingTenCentAmount = existingTenCentAmount.add(moneyInCoin.getFinancialDocumentTenCentAmount());
         }
         if (moneyOutCoin.getFinancialDocumentTenCentAmount() != null && existingTenCentAmount.isLessThan(moneyOutCoin.getFinancialDocumentTenCentAmount())) {
-            GlobalVariables.getMessageMap().putError("document.currentTransaction.moneyOutCoin.financialDocumentTenCentAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_OUT_EXCEEDS_DRAWER, new String[] { "ten cent", moneyOutCoin.getFinancialDocumentTenCentAmount().toString(), cashDrawer.getFinancialDocumentTenCentAmount().toString() });
+            GlobalVariables.getMessageMap().putError("document.currentTransaction.moneyOutCoin.financialDocumentTenCentAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_OUT_EXCEEDS_DRAWER, new String[]{"ten cent", moneyOutCoin.getFinancialDocumentTenCentAmount().toString(), cashDrawer.getFinancialDocumentTenCentAmount().toString()});
             success = false;
         }
 
@@ -639,7 +638,7 @@ public class CashManagementDocumentRule extends GeneralLedgerPostingDocumentRule
             existingFiveCentAmount = existingFiveCentAmount.add(moneyInCoin.getFinancialDocumentFiveCentAmount());
         }
         if (moneyOutCoin.getFinancialDocumentFiveCentAmount() != null && existingFiveCentAmount.isLessThan(moneyOutCoin.getFinancialDocumentFiveCentAmount())) {
-            GlobalVariables.getMessageMap().putError("document.currentTransaction.moneyOutCoin.financialDocumentFiveCentAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_OUT_EXCEEDS_DRAWER, new String[] { "five cent", moneyOutCoin.getFinancialDocumentFiveCentAmount().toString(), cashDrawer.getFinancialDocumentFiveCentAmount().toString() });
+            GlobalVariables.getMessageMap().putError("document.currentTransaction.moneyOutCoin.financialDocumentFiveCentAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_OUT_EXCEEDS_DRAWER, new String[]{"five cent", moneyOutCoin.getFinancialDocumentFiveCentAmount().toString(), cashDrawer.getFinancialDocumentFiveCentAmount().toString()});
             success = false;
         }
 
@@ -651,7 +650,7 @@ public class CashManagementDocumentRule extends GeneralLedgerPostingDocumentRule
             existingOneCentAmount = existingOneCentAmount.add(moneyInCoin.getFinancialDocumentOneCentAmount());
         }
         if (moneyOutCoin.getFinancialDocumentOneCentAmount() != null && existingOneCentAmount.isLessThan(moneyOutCoin.getFinancialDocumentOneCentAmount())) {
-            GlobalVariables.getMessageMap().putError("document.currentTransaction.moneyOutCoin.financialDocumentOneCentAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_OUT_EXCEEDS_DRAWER, new String[] { "one cent", moneyOutCoin.getFinancialDocumentOneCentAmount().toString(), cashDrawer.getFinancialDocumentOneCentAmount().toString() });
+            GlobalVariables.getMessageMap().putError("document.currentTransaction.moneyOutCoin.financialDocumentOneCentAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_OUT_EXCEEDS_DRAWER, new String[]{"one cent", moneyOutCoin.getFinancialDocumentOneCentAmount().toString(), cashDrawer.getFinancialDocumentOneCentAmount().toString()});
             success = false;
         }
 
@@ -663,7 +662,7 @@ public class CashManagementDocumentRule extends GeneralLedgerPostingDocumentRule
             existingOtherCentAmount = existingOtherCentAmount.add(moneyInCoin.getFinancialDocumentOtherCentAmount());
         }
         if (moneyOutCoin.getFinancialDocumentOtherCentAmount() != null && existingOtherCentAmount.isLessThan(moneyOutCoin.getFinancialDocumentOtherCentAmount())) {
-            GlobalVariables.getMessageMap().putError("document.currentTransaction.moneyOutCoin.financialDocumentOtherCentAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_OUT_EXCEEDS_DRAWER, new String[] { "other cent", moneyOutCoin.getFinancialDocumentOtherCentAmount().toString(), cashDrawer.getFinancialDocumentOtherCentAmount().toString() });
+            GlobalVariables.getMessageMap().putError("document.currentTransaction.moneyOutCoin.financialDocumentOtherCentAmount", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CASH_OUT_EXCEEDS_DRAWER, new String[]{"other cent", moneyOutCoin.getFinancialDocumentOtherCentAmount().toString(), cashDrawer.getFinancialDocumentOtherCentAmount().toString()});
             success = false;
         }
 
@@ -681,7 +680,7 @@ public class CashManagementDocumentRule extends GeneralLedgerPostingDocumentRule
         boolean success = true;
 
         if (trans.getNewItemInProcess().getItemAmount() != null && trans.getNewItemInProcess().getItemAmount().isGreaterThan(calculateTotalCashDrawerReserves(cashDrawer, trans))) {
-            GlobalVariables.getMessageMap().putError("document.currentTransaction.newItemInProcess", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_AMOUNT_EXCEEDS_DRAWER, new String[] { "new Item In Process", trans.getNewItemInProcess().getItemAmount().toString(), calculateTotalCashDrawerReserves(cashDrawer, trans).toString() });
+            GlobalVariables.getMessageMap().putError("document.currentTransaction.newItemInProcess", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_AMOUNT_EXCEEDS_DRAWER, new String[]{"new Item In Process", trans.getNewItemInProcess().getItemAmount().toString(), calculateTotalCashDrawerReserves(cashDrawer, trans).toString()});
             success = false;
         }
 
@@ -699,7 +698,7 @@ public class CashManagementDocumentRule extends GeneralLedgerPostingDocumentRule
         boolean success = true;
 
         if (trans.getTotalCheckAmount().isGreaterThan(calculateTotalCashDrawerReserves(cashDrawer, trans))) {
-            GlobalVariables.getMessageMap().putError("document.currentTransaction.newCheck", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_AMOUNT_EXCEEDS_DRAWER, new String[] { "given checks", trans.getTotalCheckAmount().toString(), calculateTotalCashDrawerReserves(cashDrawer, trans).toString() });
+            GlobalVariables.getMessageMap().putError("document.currentTransaction.newCheck", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_AMOUNT_EXCEEDS_DRAWER, new String[]{"given checks", trans.getTotalCheckAmount().toString(), calculateTotalCashDrawerReserves(cashDrawer, trans).toString()});
             success = false;
         }
 
@@ -710,15 +709,15 @@ public class CashManagementDocumentRule extends GeneralLedgerPostingDocumentRule
      * This method returns true if the current payment amount for the cashiering item in process does not exceed
      * the actual item amount for the item in process
      *
-     * @param itemInProc cashiering item in process
+     * @param itemInProc           cashiering item in process
      * @param cashieringItemNumber cashiering item number
      * @return true if the current payment amount for the cashiering item in process does not exceed
-     *          the actual item amount for the item in process
+     * the actual item amount for the item in process
      */
     public boolean checkPaidBackItemInProcessDoesNotExceedTotal(CashieringItemInProcess itemInProc, int cashieringItemNumber) {
         boolean success = true;
         if (itemInProc.getCurrentPayment() != null && itemInProc.getCurrentPayment().isGreaterThan(itemInProc.getItemAmount())) {
-            GlobalVariables.getMessageMap().putError(KFSConstants.CASHIERING_TRANSACTION_OPEN_ITEM_IN_PROCESS_PROPERTY + "[" + cashieringItemNumber + "]", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_AMOUNT_PAID_BACK_EXCEEDS_AMOUNT_LEFT, new String[] { itemInProc.getItemIdentifier().toString() });
+            GlobalVariables.getMessageMap().putError(KFSConstants.CASHIERING_TRANSACTION_OPEN_ITEM_IN_PROCESS_PROPERTY + "[" + cashieringItemNumber + "]", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_AMOUNT_PAID_BACK_EXCEEDS_AMOUNT_LEFT, new String[]{itemInProc.getItemIdentifier().toString()});
             success = false;
         }
         return success;
@@ -737,7 +736,7 @@ public class CashManagementDocumentRule extends GeneralLedgerPostingDocumentRule
             int count = 0;
             for (CashieringItemInProcess advance : trans.getOpenItemsInProcess()) {
                 if (advance.getCurrentPayment() != null && advance.getCurrentPayment().isGreaterThan(KualiDecimal.ZERO)) {
-                    GlobalVariables.getMessageMap().putError(KFSConstants.CASHIERING_TRANSACTION_OPEN_ITEM_IN_PROCESS_PROPERTY + "[" + count + "]", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CANNOT_PAY_OFF_ADVANCE_WITH_ADVANCE, new String[] { advance.getItemIdentifier().toString() });
+                    GlobalVariables.getMessageMap().putError(KFSConstants.CASHIERING_TRANSACTION_OPEN_ITEM_IN_PROCESS_PROPERTY + "[" + count + "]", KFSKeyConstants.CashManagement.ERROR_DOCUMENT_CASHIERING_TRANSACTION_CANNOT_PAY_OFF_ADVANCE_WITH_ADVANCE, new String[]{advance.getItemIdentifier().toString()});
                     success = false;
                 }
                 count += 1;
@@ -774,7 +773,7 @@ public class CashManagementDocumentRule extends GeneralLedgerPostingDocumentRule
         boolean success = true;
         if (trans.getNewItemInProcess().isPopulated()) {
             if (trans.getNewItemInProcess().getItemOpenDate() != null && convertDateToDayYear(trans.getNewItemInProcess().getItemOpenDate()) > convertDateToDayYear(new Date())) {
-                GlobalVariables.getMessageMap().putError("document.currentTransaction.newItemInProcess.itemOpenDate", KFSKeyConstants.CashManagement.ERROR_NEW_ITEM_IN_PROCESS_IN_FUTURE, new String[] {});
+                GlobalVariables.getMessageMap().putError("document.currentTransaction.newItemInProcess.itemOpenDate", KFSKeyConstants.CashManagement.ERROR_NEW_ITEM_IN_PROCESS_IN_FUTURE, new String[]{});
                 success = false;
             }
         }

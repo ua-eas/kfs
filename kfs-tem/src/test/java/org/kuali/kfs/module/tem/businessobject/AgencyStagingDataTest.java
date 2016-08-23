@@ -1,22 +1,32 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.tem.businessobject;
+
+import org.apache.commons.lang.StringUtils;
+import org.kuali.kfs.krad.service.BusinessObjectService;
+import org.kuali.kfs.krad.service.DataDictionaryService;
+import org.kuali.kfs.module.tem.businessobject.defaultvalue.NextAgencyStagingDataIdFinder;
+import org.kuali.kfs.sys.ConfigureContext;
+import org.kuali.kfs.sys.context.KualiTestBase;
+import org.kuali.kfs.sys.context.SpringContext;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -24,16 +34,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.kfs.module.tem.businessobject.defaultvalue.NextAgencyStagingDataIdFinder;
-import org.kuali.kfs.sys.ConfigureContext;
-import org.kuali.kfs.sys.context.KualiTestBase;
-import org.kuali.kfs.sys.context.SpringContext;
-import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.core.api.util.type.KualiDecimal;
-import org.kuali.kfs.krad.service.BusinessObjectService;
-import org.kuali.kfs.krad.service.DataDictionaryService;
 
 public class AgencyStagingDataTest extends KualiTestBase {
 
@@ -66,7 +66,7 @@ public class AgencyStagingDataTest extends KualiTestBase {
 
         // the spec has 3 accounting information objects
         ArrayList<TripAccountingInformation> tripAccountingInformation = new ArrayList<TripAccountingInformation>();
-        for (int i=0; i<3; i++) {
+        for (int i = 0; i < 3; i++) {
             TripAccountingInformation accountInfo = new TripAccountingInformation();
             accountInfo.setTripAccountNumber("1234567");
             accountInfo.setTripSubAccountNumber("12345");
@@ -180,7 +180,7 @@ public class AgencyStagingDataTest extends KualiTestBase {
             assertTrue(agency.getTripArrangerName().equals(data.getTripArrangerName()));
             ArrayList<TripAccountingInformation> accountingInfo = data.getTripAccountingInformation();
             assertTrue(agency.getTripAccountingInformation().equals(accountingInfo));
-            for(TripAccountingInformation account : accountingInfo) {
+            for (TripAccountingInformation account : accountingInfo) {
                 assertTrue(agency.getId().equals(account.getAgencyStagingDataId()));
             }
             assertTrue(agency.getGroupObjectCode().equals(data.getGroupObjectCode()));
@@ -233,11 +233,10 @@ public class AgencyStagingDataTest extends KualiTestBase {
             assertTrue(agency.getObjectVerNumber().equals(data.getObjectVerNumber()));
             assertTrue(agency.getCreationTimestamp().equals(data.getCreationTimestamp()));
             assertTrue(agency.getProcessingTimestamp().equals(data.getProcessingTimestamp()));
-            assertTrue(agency.getMoveToHistoryIndicator()&&data.getMoveToHistoryIndicator());
-        }
-        catch(Exception e){
+            assertTrue(agency.getMoveToHistoryIndicator() && data.getMoveToHistoryIndicator());
+        } catch (Exception e) {
             e.printStackTrace();
-            assert(false);
+            assert (false);
         }
     }
 }

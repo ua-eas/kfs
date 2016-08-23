@@ -1,7 +1,7 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
  *
- * Copyright 2005-2014 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -19,13 +19,6 @@
 
 package org.kuali.kfs.module.cg.businessobject;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.kfs.integration.ar.AccountsReceivableBillingFrequency;
 import org.kuali.kfs.integration.ar.AccountsReceivableMilestoneSchedule;
@@ -35,7 +28,12 @@ import org.kuali.kfs.integration.cg.CGIntegrationConstants;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAward;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsBillingAwardAccount;
 import org.kuali.kfs.integration.cg.ContractsAndGrantsLetterOfCreditFund;
+import org.kuali.kfs.krad.bo.Note;
+import org.kuali.kfs.krad.bo.PersistableBusinessObject;
+import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.krad.service.KualiModuleService;
+import org.kuali.kfs.krad.service.NoteService;
+import org.kuali.kfs.krad.util.ObjectUtils;
 import org.kuali.kfs.module.cg.CGPropertyConstants;
 import org.kuali.kfs.sys.KFSConstants;
 import org.kuali.kfs.sys.KFSPropertyConstants;
@@ -45,11 +43,13 @@ import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
-import org.kuali.kfs.krad.bo.Note;
-import org.kuali.kfs.krad.bo.PersistableBusinessObject;
-import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
-import org.kuali.kfs.krad.service.NoteService;
-import org.kuali.kfs.krad.util.ObjectUtils;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * Defines a financial award object.
@@ -142,7 +142,9 @@ public class Award extends PersistableBusinessObjectBase implements MutableInact
 
     private List<Note> boNotes;
 
-    /** Dummy value used to facilitate lookups */
+    /**
+     * Dummy value used to facilitate lookups
+     */
     private transient String lookupPersonUniversalIdentifier;
     private transient Person lookupPerson;
 
@@ -422,7 +424,8 @@ public class Award extends PersistableBusinessObjectBase implements MutableInact
      *
      * @see org.kuali.rice.krad.bo.PersistableBusinessObjectBase#beforeInsert(org.apache.ojb.broker.PersistenceBroker)
      */
-    @Override protected void prePersist() {
+    @Override
+    protected void prePersist() {
         super.prePersist();
         awardTotalAmount = getAwardTotalAmount();
     }
@@ -433,7 +436,8 @@ public class Award extends PersistableBusinessObjectBase implements MutableInact
      *
      * @see org.kuali.rice.krad.bo.PersistableBusinessObjectBase#beforeUpdate(org.apache.ojb.broker.PersistenceBroker)
      */
-    @Override protected void preUpdate() {
+    @Override
+    protected void preUpdate() {
         super.preUpdate();
         awardTotalAmount = getAwardTotalAmount();
     }
@@ -993,7 +997,7 @@ public class Award extends PersistableBusinessObjectBase implements MutableInact
      *
      * @param proposal The proposal to set.
      * @deprecated Setter is required by OJB, but should not be used to modify this attribute. This attribute is set on the initial
-     *             creation of the object and should not be changed.
+     * creation of the object and should not be changed.
      */
     @Deprecated
     public void setProposal(Proposal proposal) {
@@ -1014,7 +1018,7 @@ public class Award extends PersistableBusinessObjectBase implements MutableInact
      *
      * @param proposalAwardType The proposalAwardType to set.
      * @deprecated Setter is required by OJB, but should not be used to modify this attribute. This attribute is set on the initial
-     *             creation of the object and should not be changed.
+     * creation of the object and should not be changed.
      */
     @Deprecated
     public void setProposalAwardType(ProposalAwardType proposalAwardType) {
@@ -1035,7 +1039,7 @@ public class Award extends PersistableBusinessObjectBase implements MutableInact
      *
      * @param awardStatus The awardStatus to set.
      * @deprecated Setter is required by OJB, but should not be used to modify this attribute. This attribute is set on the initial
-     *             creation of the object and should not be changed.
+     * creation of the object and should not be changed.
      */
     @Deprecated
     public void setAwardStatus(AwardStatus awardStatus) {
@@ -1058,7 +1062,7 @@ public class Award extends PersistableBusinessObjectBase implements MutableInact
      *
      * @param letterOfCreditFund The letterOfCreditFund to set.
      * @deprecated Setter is required by OJB, but should not be used to modify this attribute. This attribute is set on the initial
-     *             creation of the object and should not be changed.
+     * creation of the object and should not be changed.
      */
     @Deprecated
     @Override
@@ -1080,7 +1084,7 @@ public class Award extends PersistableBusinessObjectBase implements MutableInact
      *
      * @param grantDescription The grantDescription to set.
      * @deprecated Setter is required by OJB, but should not be used to modify this attribute. This attribute is set on the initial
-     *             creation of the object and should not be changed.
+     * creation of the object and should not be changed.
      */
     @Deprecated
     public void setGrantDescription(GrantDescription grantDescription) {
@@ -1103,7 +1107,7 @@ public class Award extends PersistableBusinessObjectBase implements MutableInact
      *
      * @param agency The agency to set.
      * @deprecated Setter is required by OJB, but should not be used to modify this attribute. This attribute is set on the initial
-     *             creation of the object and should not be changed.
+     * creation of the object and should not be changed.
      */
     @Deprecated
     public void setAgency(Agency agency) {
@@ -1124,7 +1128,7 @@ public class Award extends PersistableBusinessObjectBase implements MutableInact
      *
      * @param federalPassThroughAgency The federalPassThroughAgency to set.
      * @deprecated Setter is required by OJB, but should not be used to modify this attribute. This attribute is set on the initial
-     *             creation of the object and should not be changed.
+     * creation of the object and should not be changed.
      */
     @Deprecated
     public void setFederalPassThroughAgency(Agency federalPassThroughAgency) {
@@ -1145,7 +1149,7 @@ public class Award extends PersistableBusinessObjectBase implements MutableInact
      *
      * @param awardPurpose The awardPurpose to set.
      * @deprecated Setter is required by OJB, but should not be used to modify this attribute. This attribute is set on the initial
-     *             creation of the object and should not be changed.
+     * creation of the object and should not be changed.
      */
     @Deprecated
     public void setAwardPurpose(ProposalPurpose awardPurpose) {
@@ -1509,7 +1513,7 @@ public class Award extends PersistableBusinessObjectBase implements MutableInact
         this.instrumentTypeCode = instrumentTypeCode;
     }
 
-     /**
+    /**
      * Gets the billingFrequency attribute.
      *
      * @return Returns the billingFrequency.
@@ -1785,7 +1789,6 @@ public class Award extends PersistableBusinessObjectBase implements MutableInact
     /**
      * This method maps the proposal number into a hash map with "proposalNumber" as the identifier.
      *
-     *
      * @see org.kuali.rice.krad.bo.BusinessObjectBase#toStringMapper()
      */
     @SuppressWarnings("unchecked")
@@ -1822,7 +1825,6 @@ public class Award extends PersistableBusinessObjectBase implements MutableInact
     public void setBoNotes(List boNotes) {
         this.boNotes = boNotes;
     }
-
 
 
 }

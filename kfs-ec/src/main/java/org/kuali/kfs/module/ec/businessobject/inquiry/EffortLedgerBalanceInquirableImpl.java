@@ -1,33 +1,27 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.kuali.kfs.module.ec.businessobject.inquiry;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 import org.apache.commons.lang.ObjectUtils;
 import org.kuali.kfs.gl.businessobject.inquiry.AbstractGeneralLedgerInquirableImpl;
-import org.kuali.kfs.integration.ld.LaborLedgerBalance;
 import org.kuali.kfs.integration.ld.LaborLedgerBalanceForEffortCertification;
+import org.kuali.kfs.krad.service.KualiModuleService;
 import org.kuali.kfs.module.ec.EffortConstants;
 import org.kuali.kfs.module.ec.EffortPropertyConstants;
 import org.kuali.kfs.module.ec.businessobject.EffortCertificationDetail;
@@ -38,7 +32,12 @@ import org.kuali.kfs.sys.KFSPropertyConstants;
 import org.kuali.kfs.sys.context.SpringContext;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.kfs.krad.service.KualiModuleService;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 public class EffortLedgerBalanceInquirableImpl extends AbstractGeneralLedgerInquirableImpl {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(EffortLedgerBalanceInquirableImpl.class);
@@ -56,8 +55,7 @@ public class EffortLedgerBalanceInquirableImpl extends AbstractGeneralLedgerInqu
         if (businessObject instanceof EffortCertificationDetailBuild) {
             EffortCertificationDetailBuild effortCertificationDetail = (EffortCertificationDetailBuild) businessObject;
             document = effortCertificationDetail.getEffortCertificationDocumentBuild();
-        }
-        else if (businessObject instanceof EffortCertificationDetail) {
+        } else if (businessObject instanceof EffortCertificationDetail) {
             EffortCertificationDetail effortCertificationDetail = (EffortCertificationDetail) businessObject;
             document = effortCertificationDetail.getEffortCertificationDocument();
         }
@@ -158,8 +156,7 @@ public class EffortLedgerBalanceInquirableImpl extends AbstractGeneralLedgerInqu
         if (keyName != null && keyValue != null) {
             if (keyName.equals(EffortPropertyConstants.SOURCE_ACCOUNT_NUMBER) && keyValue.equals(EffortConstants.DASH_ACCOUNT_NUMBER)) {
                 return true;
-            }
-            else if (keyName.equals(EffortPropertyConstants.SOURCE_CHART_OF_ACCOUNTS_CODE) && keyValue.equals(EffortConstants.DASH_CHART_OF_ACCOUNTS_CODE)) {
+            } else if (keyName.equals(EffortPropertyConstants.SOURCE_CHART_OF_ACCOUNTS_CODE) && keyValue.equals(EffortConstants.DASH_CHART_OF_ACCOUNTS_CODE)) {
                 return true;
             }
         }

@@ -19,78 +19,74 @@
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:p="http://www.springframework.org/schema/p"
-       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-		http://www.springframework.org/schema/data/mongo
-        http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd">
+        http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
     <bean id="documentStoreAddDocumentHandler" parent="documentStoreAddDocumentHandler-parentBean"/>
-	<bean id="documentStoreAddDocumentHandler-parentBean" abstract="true" class="org.kuali.kfs.sys.datatools.liquimongo.change.AddDocumentHandler">
-		<property name="mongoTemplate">
-			<ref bean="mongoTemplate"/>
-		</property>
-	</bean>
+    <bean id="documentStoreAddDocumentHandler-parentBean" abstract="true" class="org.kuali.kfs.sys.datatools.liquimongo.change.AddDocumentHandler">
+        <property name="mongoTemplate">
+            <ref bean="mongoTemplate"/>
+        </property>
+    </bean>
 
-	<bean id="documentStoreUpdateDocumentHandler" parent="documentStoreUpdateDocumentHandler-parentBean"/>
-	<bean id="documentStoreUpdateDocumentHandler-parentBean" abstract="true" class="org.kuali.kfs.sys.datatools.liquimongo.change.UpdateDocumentHandler">
-		<property name="mongoTemplate">
-			<ref bean="mongoTemplate"/>
-		</property>
-	</bean>
+    <bean id="documentStoreUpdateDocumentHandler" parent="documentStoreUpdateDocumentHandler-parentBean"/>
+    <bean id="documentStoreUpdateDocumentHandler-parentBean" abstract="true" class="org.kuali.kfs.sys.datatools.liquimongo.change.UpdateDocumentHandler">
+        <property name="mongoTemplate">
+            <ref bean="mongoTemplate"/>
+        </property>
+    </bean>
 
-	<bean id="documentStoreDeleteDocumentsHandler" parent="documentStoreDeleteDocumentsHandler-parentBean"/>
-	<bean id="documentStoreDeleteDocumentsHandler-parentBean" abstract="true" class="org.kuali.kfs.sys.datatools.liquimongo.change.DeleteDocumentsHandler">
-		<property name="mongoTemplate">
-			<ref bean="mongoTemplate"/>
-		</property>
-	</bean>
-	
-	<bean id="documentStoreAddNodeHandler" parent="documentStoreAddNodeHandler-parentBean"/>
-	<bean id="documentStoreAddNodeHandler-parentBean" abstract="true" class="org.kuali.kfs.sys.datatools.liquimongo.change.AddNodeHandler">
-		<property name="mongoTemplate">
-			<ref bean="mongoTemplate"/>
-		</property>
-	</bean>
-	
-	<bean id="documentStoreUpdateNodeHandler" parent="documentStoreUpdateNodeHandler-parentBean"/>
-	<bean id="documentStoreUpdateNodeHandler-parentBean" abstract="true" class="org.kuali.kfs.sys.datatools.liquimongo.change.UpdateNodeHandler">
-		<property name="mongoTemplate">
-			<ref bean="mongoTemplate"/>
-		</property>
-	</bean>
-	
-	<bean id="documentStoreDeleteNodeHandler" parent="documentStoreDeleteNodeHandler-parentBean"/>
-	<bean id="documentStoreDeleteNodeHandler-parentBean" abstract="true" class="org.kuali.kfs.sys.datatools.liquimongo.change.DeleteNodeHandler">
-		<property name="mongoTemplate">
-			<ref bean="mongoTemplate"/>
-		</property>
-	</bean>
+    <bean id="documentStoreDeleteDocumentsHandler" parent="documentStoreDeleteDocumentsHandler-parentBean"/>
+    <bean id="documentStoreDeleteDocumentsHandler-parentBean" abstract="true" class="org.kuali.kfs.sys.datatools.liquimongo.change.DeleteDocumentsHandler">
+        <property name="mongoTemplate">
+            <ref bean="mongoTemplate"/>
+        </property>
+    </bean>
 
-	<bean id="documentStoreUpdateProcessDao" parent="documentStoreUpdateProcessDao-parentBean"/>
-	<bean id="documentStoreUpdateProcessDao-parentBean" abstract="true" class="org.kuali.kfs.sys.datatools.liquimongo.dataaccess.impl.DocumentStoreUpdateProcessDaoMongo">
-		<property name="mongoTemplate">
-			<ref bean="mongoTemplate"/>
-		</property>
-	</bean>
+    <bean id="documentStoreAddNodeHandler" parent="documentStoreAddNodeHandler-parentBean"/>
+    <bean id="documentStoreAddNodeHandler-parentBean" abstract="true" class="org.kuali.kfs.sys.datatools.liquimongo.change.AddNodeHandler">
+        <property name="mongoTemplate">
+            <ref bean="mongoTemplate"/>
+        </property>
+    </bean>
 
-	<bean id="documentStoreSchemaUpdateService" parent="documentStoreSchemaUpdateService-parentBean"/>
-	<bean id="documentStoreSchemaUpdateService-parentBean" class="org.kuali.kfs.sys.datatools.liquimongo.service.impl.DocumentStoreSchemaUpdateServiceImpl" abstract="true">
-		<property name="updatesPath" value="/org/kuali/kfs/db/documentstore/"/>
-		<property name="updatesList" value="updates.json"/>
-		<property name="documentStoreUpdateProcessDao">
-			<ref bean="documentStoreUpdateProcessDao"/>
-		</property>
-		<property name="handlers">
-			<list>
-				<ref bean="documentStoreAddDocumentHandler"/>
-				<ref bean="documentStoreUpdateDocumentHandler"/>
-				<ref bean="documentStoreDeleteDocumentsHandler"/>
-				<ref bean="documentStoreAddNodeHandler"/>
-				<ref bean="documentStoreUpdateNodeHandler"/>
-				<ref bean="documentStoreDeleteNodeHandler"/>
-			</list>
-		</property>
-	</bean>
+    <bean id="documentStoreUpdateNodeHandler" parent="documentStoreUpdateNodeHandler-parentBean"/>
+    <bean id="documentStoreUpdateNodeHandler-parentBean" abstract="true" class="org.kuali.kfs.sys.datatools.liquimongo.change.UpdateNodeHandler">
+        <property name="mongoTemplate">
+            <ref bean="mongoTemplate"/>
+        </property>
+    </bean>
+
+    <bean id="documentStoreDeleteNodeHandler" parent="documentStoreDeleteNodeHandler-parentBean"/>
+    <bean id="documentStoreDeleteNodeHandler-parentBean" abstract="true" class="org.kuali.kfs.sys.datatools.liquimongo.change.DeleteNodeHandler">
+        <property name="mongoTemplate">
+            <ref bean="mongoTemplate"/>
+        </property>
+    </bean>
+
+    <bean id="documentStoreUpdateProcessDao" parent="documentStoreUpdateProcessDao-parentBean"/>
+    <bean id="documentStoreUpdateProcessDao-parentBean" abstract="true" class="org.kuali.kfs.sys.datatools.liquimongo.dataaccess.impl.DocumentStoreUpdateProcessDaoMongo">
+        <property name="mongoTemplate">
+            <ref bean="mongoTemplate"/>
+        </property>
+    </bean>
+
+    <bean id="documentStoreSchemaUpdateService" parent="documentStoreSchemaUpdateService-parentBean"/>
+    <bean id="documentStoreSchemaUpdateService-parentBean" class="org.kuali.kfs.sys.datatools.liquimongo.service.impl.DocumentStoreSchemaUpdateServiceImpl" abstract="true">
+        <property name="updatesPath" value="/org/kuali/kfs/db/documentstore/"/>
+        <property name="updatesList" value="updates.json"/>
+        <property name="documentStoreUpdateProcessDao">
+            <ref bean="documentStoreUpdateProcessDao"/>
+        </property>
+        <property name="handlers">
+            <list>
+                <ref bean="documentStoreAddDocumentHandler"/>
+                <ref bean="documentStoreUpdateDocumentHandler"/>
+                <ref bean="documentStoreDeleteDocumentsHandler"/>
+                <ref bean="documentStoreAddNodeHandler"/>
+                <ref bean="documentStoreUpdateNodeHandler"/>
+                <ref bean="documentStoreDeleteNodeHandler"/>
+            </list>
+        </property>
+    </bean>
 </beans>

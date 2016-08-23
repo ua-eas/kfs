@@ -1,35 +1,35 @@
 /*
  * The Kuali Financial System, a comprehensive financial management system for higher education.
- * 
- * Copyright 2005-2014 The Kuali Foundation
- * 
+ *
+ * Copyright 2005-2016 The Kuali Foundation
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.kuali.kfs.vnd.businessobject;
 
-import java.util.LinkedHashMap;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.log4j.Logger;
-import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
 import org.kuali.kfs.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.kfs.krad.util.ObjectUtils;
+import org.kuali.rice.core.api.mo.common.active.MutableInactivatable;
+
+import java.util.LinkedHashMap;
 
 /**
  * Relationship between a Vendor and a <code>SupplierDiversity</code>.
- * 
+ *
  * @see org.kuali.kfs.vnd.businessobject.SupplierDiversity
  */
 public class VendorSupplierDiversity extends PersistableBusinessObjectBase implements VendorRoutingComparable, MutableInactivatable {
@@ -84,7 +84,7 @@ public class VendorSupplierDiversity extends PersistableBusinessObjectBase imple
 
     /**
      * Sets the vendorHeader attribute value.
-     * 
+     *
      * @param vendorHeader The vendorHeader to set.
      * @deprecated
      */
@@ -99,7 +99,7 @@ public class VendorSupplierDiversity extends PersistableBusinessObjectBase imple
 
     /**
      * Sets the vendorSupplierDiversity attribute value.
-     * 
+     *
      * @param vendorSupplierDiversity The vendorSupplierDiversity to set.
      * @deprecated
      */
@@ -129,8 +129,7 @@ public class VendorSupplierDiversity extends PersistableBusinessObjectBase imple
         if ((ObjectUtils.isNull(toCompare)) || !(toCompare instanceof VendorSupplierDiversity)) {
 
             return false;
-        }
-        else {
+        } else {
             VendorSupplierDiversity vsd = (VendorSupplierDiversity) toCompare;
 
             return new EqualsBuilder().append(this.getVendorHeaderGeneratedIdentifier(), vsd.getVendorHeaderGeneratedIdentifier()).append(this.getVendorSupplierDiversityCode(), vsd.getVendorSupplierDiversityCode()).isEquals();
